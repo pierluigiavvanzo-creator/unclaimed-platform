@@ -12,12 +12,12 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
 - Historical operations-console candidate: `m3-operations-console`
-- Operations-console candidate base canonical SHA: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
-- Promoted operations-console implementation SHA: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`
-- Canonical documentation-closure SHA before Vercel gate: `c6e8a9e25676853f8eb91652e27d0584c35ae3bb`
+- Current backend-preview candidate: `m3-vercel-backend-preview`
+- Backend-preview candidate base canonical SHA: `d2ffb0ae161a7fc300c4688bf1880b2f44806c5d`
+- Backend-preview candidate verified head: `973e01c62d0722e8c8e4eaffd0b985919a0a8f1f`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
-At every restart, verify branch HEADs and CI directly from GitHub. Documentation-only closure commits may make the latest canonical SHA newer than the promoted implementation SHA recorded above.
+At every restart, verify branch HEADs and CI directly from GitHub.
 
 ## Mandatory files to read first
 
@@ -28,17 +28,8 @@ At every restart, verify branch HEADs and CI directly from GitHub. Documentation
 5. this handover
 6. `docs/architecture.md`
 7. `docs/contracts.md`
-8. `docs/decisions/ADR-0001-deterministic-core.md`
-9. `docs/decisions/ADR-0002-versioned-machine-contracts.md`
-10. `docs/decisions/ADR-0003-m2-governance-core.md`
-11. `docs/decisions/ADR-0004-reviewer-frontend-platform.md`
-12. `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
-13. `docs/audits/M3_ACQUISITION_CONTRACTS.md`
-14. `docs/audits/MAIN_DIVERGENCE_RECONCILIATION.md`
-15. `docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md`
-16. `docs/audits/M3_RAW_STORAGE_PRIVACY_GATES.md`
-17. `docs/audits/M3_OPERATIONS_CONSOLE_REUSE_FIRST.md`
-18. `docs/audits/M3_OPERATIONS_CONSOLE.md`
+8. relevant ADRs, especially `docs/decisions/ADR-0004-reviewer-frontend-platform.md`
+9. relevant audits, especially `docs/audits/M3_OPERATIONS_CONSOLE.md` and `docs/audits/M3_VERCEL_BACKEND_PREVIEW.md`
 
 ## Verified baseline
 
@@ -46,120 +37,73 @@ At every restart, verify branch HEADs and CI directly from GitHub. Documentation
 - M1 VERIFIED.
 - M2 VERIFIED.
 - M3 source/legal readiness COMPLETE.
-- M3 acquisition contracts/adapters IMPLEMENTED + CI VERIFIED + CANONICAL.
-- M3 immutable raw storage/provenance + privacy/data-minimization IMPLEMENTED + CI VERIFIED + CANONICAL.
-- M3 Operations Console IMPLEMENTED + CI VERIFIED + CANONICAL.
+- M3 acquisition contracts/adapters CANONICAL + CI VERIFIED.
+- M3 immutable raw storage/provenance + privacy/data-minimization CANONICAL + CI VERIFIED.
+- M3 Operations Console CANONICAL + CI VERIFIED.
+- Frontend Vercel preview VISUAL SMOKE PASS based on owner-provided screenshot.
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - `sources/registry.yaml` has no approved real source.
-- `main` remains unchanged.
-- Supabase project count remains zero.
+- Supabase untouched.
+- `main` unchanged.
 
-## Operations Console promotion closure
+## Frontend Vercel preview
 
-Historical candidate branch: `m3-operations-console`
+Deployment ID: `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL`.
+Preview URL: `https://unclaimed-reviewer-console-5vf7znh1f-pierluigiavvanzo-8728.vercel.app`.
 
-Owner approval: explicit on 2026-09-13.
+Owner screenshot on 2026-09-13 confirms:
 
-Promotion target: `m2-state-governance-core`.
+- page renders `M3 Operations Console`;
+- `SYNTHETIC READ ONLY`;
+- `Source: typed synthetic fallback`;
+- source registry `0`;
+- real acquisition `BLOCKED`;
+- beneficiary matching `BLOCKED`;
+- privacy `PASS SYNTHETIC ONLY`;
+- `NO REAL PII`;
+- no visible Next.js error overlay.
 
-Pre-promotion state:
+Visual smoke: PASS.
+Vercel deployment metadata/build-log inspection: still pending because the connector/tool is unavailable in the current session.
 
-- candidate head: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`;
-- canonical head: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`;
-- candidate 4 commits ahead, 0 behind;
-- candidate exact-head CI run `34772214241`: PASS.
+## Backend preview candidate
 
-Promotion method: history-preserving, non-forced fast-forward.
+Branch: `m3-vercel-backend-preview`.
+Base: canonical `d2ffb0ae161a7fc300c4688bf1880b2f44806c5d`.
+Verified head: `973e01c62d0722e8c8e4eaffd0b985919a0a8f1f`.
+GitHub Actions run: `34777855668` — PASS.
 
-Canonical post-promotion run: `34774600910` — PASS on `308a5f5f71d12378e190398b0e81fbabc28d6aa1`.
-Canonical documentation-closure run: `34774757492` — PASS on `c6e8a9e25676853f8eb91652e27d0584c35ae3bb`.
+Candidate changes:
 
-Verified:
+- root `app.py` is a deployment adapter that imports/re-exports the existing authoritative FastAPI app;
+- no reviewer/domain logic duplicated;
+- smoke test verifies `/health` and `/api/reviewer/m3/operations` safety invariants;
+- CI now has a Python 3.12 Vercel compatibility job in addition to the normal Python 3.11 quality job.
+
+Run `34777855668` verified:
 
 - Ruff PASS;
-- mypy PASS — 17 source files;
-- contract tests 18 passed;
-- smoke tests 3 passed;
-- full pytest 53 passed with 2 known dependency warnings;
-- frontend dependency install PASS;
-- frontend lint PASS;
-- frontend TypeScript PASS;
-- Next.js 16.3.4 production build PASS; `/` generated as a static route.
+- mypy PASS — 17 files;
+- 18 contract tests passed;
+- 4 smoke tests passed;
+- 54 full tests passed;
+- frontend lint/type/build PASS;
+- Python 3.12 Vercel entrypoint smoke PASS.
 
-`main` was not modified by this promotion.
+The candidate is NOT promoted and the backend is NOT remotely deployed yet.
 
-## Current product-visible capability
+## Vercel blocker
 
-Canonical includes:
-
-- `schemas/ui/m3_operations_console.schema.json` v1.0.0;
-- `GET /api/reviewer/m3/operations` in FastAPI;
-- `apps/reviewer-console` using Next.js App Router + TypeScript;
-- synthetic/read-only dashboard with milestone, source-registry, provenance, privacy, audit and platform status;
-- frontend lint/type/build CI gates;
-- PowerShell frontend validation;
-- ADR-0004 frontend/platform boundary;
-- Vercel configuration and Supabase publishable-key placeholders only.
-
-The UI cannot approve a source, enable acquisition, run matching or process real PII.
-
-## Vercel preview gate — current state
-
-Owner authorization: explicit on 2026-09-13 to configure/deploy a preview, without touching `main` and without creating Supabase resources.
-
-The Vercel connector initially returned no teams. A direct preview deployment using the canonical frontend bundle was nevertheless accepted by Vercel.
-
-Deployment evidence:
-
-- deployment ID: `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL`;
-- preview URL: `https://unclaimed-reviewer-console-5vf7znh1f-pierluigiavvanzo-8728.vercel.app`;
-- inspector URL: `https://vercel.com/pierluigiavvanzo-8728/unclaimed-reviewer-console/8YLYX5gUtUu67feZd9mgemWNmFtL`;
-- target: preview;
-- Vercel create response: `INITIALIZING`;
-- bundle contained only canonical `apps/reviewer-console` files; no backend secrets, real data or Supabase resources were included.
-
-Post-create verification is BLOCKED by the current Vercel OAuth/scope state. Reading the deployment through the connector returns HTTP 403:
-
-`Not authorized: Trying to access resource under scope "pierluigiavvanzo-8728".`
-
-The error identifies team ID `team_l4XAWc1rSwVdJWzlv5ZIirsJ`. This identifier came from Vercel's own error response and was not invented.
-
-Do not call the preview PASS or READY until the Vercel connection is re-authenticated/authorized for this scope and the following checks succeed:
-
-1. deployment status is `READY`;
-2. build logs show successful Next.js build;
-3. preview URL renders meaningful Operations Console content;
-4. no Next.js/framework error overlay is present;
-5. UI still shows synthetic/read-only state, source registry 0, real acquisition BLOCKED, beneficiary matching BLOCKED and no real PII.
-
-Do not create a second deployment unless the existing deployment failed or a code/config fix is required.
-
-## Supabase state
-
-Observed again after the Vercel deployment attempt:
-
-- Supabase projects: `[]`;
-- no project/database/Auth/Storage/Edge Function/resource was created;
-- no Supabase SDK was added;
-- no Supabase cost gate was entered.
-
-## Known limitations / debt
-
-- Vercel preview verification is blocked by scope authorization mismatch.
-- `package-lock.json` not committed; transitive npm resolution is not fully reproducible yet.
-- ESLint `9.39.5` is a temporary compatibility pin because current `eslint-plugin-react` used by Next config fails on ESLint 10; maintenance warning remains.
-- reviewer endpoint is a synthetic read model rather than a live projection from durable source/audit stores.
-- frontend synthetic fallback duplicates part of the contract shape; later generate TS bindings from JSON Schema/OpenAPI.
-- filesystem raw storage is not provider WORM/object lock.
-- audit writer is still in-memory.
-- retention lifecycle enforcement and PostgreSQL/Alembic application migration remain outstanding.
+The Vercel plugin is installed/enabled, but the Vercel tool became unavailable during the task. Do not invent identifiers or credentials and do not substitute a production deployment.
 
 ## SINGLE NEXT ACTION
 
-Re-authenticate or reconnect Vercel so the connected session has access to scope `pierluigiavvanzo-8728` / team `team_l4XAWc1rSwVdJWzlv5ZIirsJ`. Then inspect existing deployment `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL` rather than redeploying by default. Verify READY/build/page/error-overlay/synthetic-boundary checks listed above.
+When Vercel access is available, deploy `m3-vercel-backend-preview` from repository root as a PREVIEW backend. Verify `/health` and `/api/reviewer/m3/operations`. Then configure the existing reviewer-console PREVIEW environment variable `REVIEWER_API_BASE_URL` with the backend preview origin and redeploy the frontend preview. Acceptance requires the UI source to become `FastAPI contract` while remaining `SYNTHETIC READ ONLY` with source registry `0`, real acquisition `BLOCKED`, beneficiary matching `BLOCKED`, and `NO REAL PII`.
 
-Keep `main` untouched. Do not create Supabase resources. Real California acquisition and beneficiary matching remain blocked regardless of frontend deployment status.
+If Vercel preview protection blocks the frontend's server-side request to the backend preview, stop and add only the minimum server-only bypass mechanism after reviewing the protection model; do not disable safety/governance controls.
+
+After successful remote verification, present a separate human gate before promoting `m3-vercel-backend-preview` to canonical. Keep `main` untouched. Do not create Supabase resources.
 
 ## Handover status
 
@@ -169,12 +113,15 @@ M1: VERIFIED
 M2: VERIFIED
 M3 governance/raw persistence: CANONICAL + VERIFIED
 M3 Operations Console: CANONICAL + CI VERIFIED
+Frontend Vercel preview: VISUAL SMOKE PASS
+Frontend data source: TYPED SYNTHETIC FALLBACK
+Backend Vercel candidate: CI VERIFIED, NOT DEPLOYED
+Backend candidate head: 973e01c62d0722e8c8e4eaffd0b985919a0a8f1f
+Backend candidate CI: 34777855668 PASS
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
-Vercel preview: CREATED, NOT YET VERIFIED
-Vercel blocker: HTTP 403 SCOPE AUTHORIZATION
-Supabase project: NONE OBSERVED
-main: UNCHANGED; separate human gate required
-NEXT: re-authorize Vercel scope -> verify existing preview
+Supabase: UNTOUCHED
+main: UNCHANGED
+NEXT: backend PREVIEW deploy -> verify -> set REVIEWER_API_BASE_URL -> frontend redeploy
 CONTEXT HEALTH: coherent; repository is source of truth
 ```

@@ -8,7 +8,7 @@ Last updated: 2026-09-13
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
 | M3 — California Data Spike | GOVERNANCE/RAW STORAGE VERIFIED ON CANONICAL — REAL ACQUISITION BLOCKED | Source readiness, A01 acquisition contracts, raw persistence/privacy promoted and CI green |
-| M3 Product Visibility — Operations Console | CANONICAL + CI VERIFIED — VERCEL PREVIEW CREATED, VERIFICATION BLOCKED BY SCOPE AUTH | Next.js reviewer UI canonical; preview deployment accepted by Vercel; deployment inspection returns HTTP 403 until Vercel scope is re-authorized |
+| M3 Product Visibility — Operations Console | CANONICAL + CI VERIFIED + FRONTEND VISUAL SMOKE PASS — BACKEND PREVIEW DEPLOY PENDING | Vercel frontend renders safe synthetic UI; authoritative FastAPI Vercel entrypoint candidate passes Python 3.11/3.12 CI; remote backend deploy blocked by unavailable connector |
 
 ## M3 completed readiness work
 
@@ -18,47 +18,48 @@ Last updated: 2026-09-13
 - Immutable content-addressed raw storage/provenance and privacy/data-minimization gate implemented and promoted to canonical.
 - No real-source policy or real-source registry entry exists.
 
-## M3 product visibility — promoted canonical slice
+## M3 product visibility — canonical frontend
 
-The historical candidate `m3-operations-console` added and has now promoted to canonical:
+The canonical Operations Console provides:
 
 1. versioned read-only operations-console JSON Schema v1.0.0;
 2. FastAPI reviewer endpoint as authoritative backend boundary;
 3. Next.js App Router + TypeScript console;
-4. visible M0-M3 status, source registry `0`, raw/provenance synthetic metadata, privacy gates, audit health and platform status;
+4. visible M0-M3 status, source registry `0`, synthetic provenance metadata, privacy gates and audit health;
 5. explicit real-acquisition and beneficiary-matching blocked states;
 6. frontend lint/type/build in GitHub CI and PowerShell test harness;
 7. ADR-0004 for Next.js/Vercel/Supabase boundary;
-8. Vercel deploy readiness;
-9. Supabase readiness placeholders without SDK/database/project creation.
+8. Vercel preview configuration without Supabase integration.
 
-Promoted implementation head: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`.
-Canonical post-promotion CI run `34774600910`: PASS — Ruff, mypy, 18 contract tests, 3 smoke tests, 53 full tests, frontend lint/type/build.
-Canonical documentation-closure CI run `34774757492`: PASS on `c6e8a9e25676853f8eb91652e27d0584c35ae3bb`.
+The owner supplied a screenshot of the Vercel frontend preview on 2026-09-13. Visual smoke is PASS: meaningful UI renders with `SYNTHETIC READ ONLY`, source registry `0`, acquisition/matching blocked and no real PII. It currently reports `Source: typed synthetic fallback`.
 
-## Vercel preview gate
+## Backend preview candidate
 
-Owner authorization: explicit on 2026-09-13.
+Branch `m3-vercel-backend-preview` was created from canonical `d2ffb0ae161a7fc300c4688bf1880b2f44806c5d`.
 
-Deployment created:
+Candidate head: `973e01c62d0722e8c8e4eaffd0b985919a0a8f1f`.
+GitHub Actions run `34777855668`: PASS.
 
-- deployment ID: `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL`;
-- preview URL: `https://unclaimed-reviewer-console-5vf7znh1f-pierluigiavvanzo-8728.vercel.app`;
-- target: preview;
-- create response: `INITIALIZING`;
-- bundled content: canonical `apps/reviewer-console` frontend only;
-- Supabase: untouched, zero projects observed.
+Candidate scope:
 
-Verification is not complete. The connected Vercel session is not authorized to read scope `pierluigiavvanzo-8728` / team `team_l4XAWc1rSwVdJWzlv5ZIirsJ` and returns HTTP 403 when querying the deployment. The preview must not be marked verified until the Vercel connection is re-authorized and status/build/page checks pass.
+- root `app.py` deployment adapter that re-exports the existing authoritative FastAPI application;
+- smoke coverage for `/health` and `/api/reviewer/m3/operations` safety invariants;
+- dedicated Python 3.12 CI compatibility job for Vercel, while normal project CI remains Python 3.11;
+- no contract-version change;
+- no real source/data/PII;
+- no Supabase resource or SDK;
+- no `main` change.
 
 ## Next gate
 
 - Keep `main` unchanged unless separately approved under the stable-checkpoint policy.
-- Re-authorize/connect the Vercel session to scope `pierluigiavvanzo-8728`.
-- Verify deployment `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL`: READY status, successful build logs, rendered page, no framework error overlay.
-- Do not redeploy unless verification shows that the current deployment failed or a code/config fix is required.
-- Supabase project/database/Auth/Storage work requires a separate bounded architecture + organization/cost gate.
-- Frontend deployment does not authorize any real California acquisition.
+- Restore/use the Vercel connector, which became unavailable during this task.
+- Deploy `m3-vercel-backend-preview` from repository root as a PREVIEW backend only.
+- Verify backend `/health` and `/api/reviewer/m3/operations` return the expected synthetic governed payload.
+- Configure reviewer-console PREVIEW `REVIEWER_API_BASE_URL=<backend-preview-url>` and redeploy the frontend preview.
+- Verify the UI changes from `typed synthetic fallback` to `FastAPI contract` while all safety boundaries remain unchanged.
+- Promote the backend candidate to canonical only through the normal explicit human promotion gate after remote verification.
+- Supabase project/database/Auth/Storage remains a separate future organization/cost/architecture gate.
 
 ## Still required before any real California acquisition
 
