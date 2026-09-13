@@ -14,6 +14,7 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Historical operations-console candidate: `m3-operations-console`
 - Operations-console candidate base canonical SHA: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
 - Promoted operations-console implementation SHA: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`
+- Canonical documentation-closure SHA before Vercel gate: `c6e8a9e25676853f8eb91652e27d0584c35ae3bb`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
 At every restart, verify branch HEADs and CI directly from GitHub. Documentation-only closure commits may make the latest canonical SHA newer than the promoted implementation SHA recorded above.
@@ -51,6 +52,8 @@ At every restart, verify branch HEADs and CI directly from GitHub. Documentation
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - `sources/registry.yaml` has no approved real source.
+- `main` remains unchanged.
+- Supabase project count remains zero.
 
 ## Operations Console promotion closure
 
@@ -70,6 +73,7 @@ Pre-promotion state:
 Promotion method: history-preserving, non-forced fast-forward.
 
 Canonical post-promotion run: `34774600910` — PASS on `308a5f5f71d12378e190398b0e81fbabc28d6aa1`.
+Canonical documentation-closure run: `34774757492` — PASS on `c6e8a9e25676853f8eb91652e27d0584c35ae3bb`.
 
 Verified:
 
@@ -87,7 +91,7 @@ Verified:
 
 ## Current product-visible capability
 
-Canonical now includes:
+Canonical includes:
 
 - `schemas/ui/m3_operations_console.schema.json` v1.0.0;
 - `GET /api/reviewer/m3/operations` in FastAPI;
@@ -100,17 +104,49 @@ Canonical now includes:
 
 The UI cannot approve a source, enable acquisition, run matching or process real PII.
 
-## Vercel / Supabase state
+## Vercel preview gate — current state
 
-Observed 2026-09-13 through connected platform tools:
+Owner authorization: explicit on 2026-09-13 to configure/deploy a preview, without touching `main` and without creating Supabase resources.
 
-- Vercel: no teams/projects returned; no preview deployed.
-- Supabase: no projects returned; no project/database/Auth/Storage created.
+The Vercel connector initially returned no teams. A direct preview deployment using the canonical frontend bundle was nevertheless accepted by Vercel.
 
-Do not invent IDs, URLs or keys. Supabase project/branch creation may incur cost and requires explicit organization/cost confirmation. Vercel deployment requires an available/connected team/project and a separate deployment gate.
+Deployment evidence:
+
+- deployment ID: `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL`;
+- preview URL: `https://unclaimed-reviewer-console-5vf7znh1f-pierluigiavvanzo-8728.vercel.app`;
+- inspector URL: `https://vercel.com/pierluigiavvanzo-8728/unclaimed-reviewer-console/8YLYX5gUtUu67feZd9mgemWNmFtL`;
+- target: preview;
+- Vercel create response: `INITIALIZING`;
+- bundle contained only canonical `apps/reviewer-console` files; no backend secrets, real data or Supabase resources were included.
+
+Post-create verification is BLOCKED by the current Vercel OAuth/scope state. Reading the deployment through the connector returns HTTP 403:
+
+`Not authorized: Trying to access resource under scope "pierluigiavvanzo-8728".`
+
+The error identifies team ID `team_l4XAWc1rSwVdJWzlv5ZIirsJ`. This identifier came from Vercel's own error response and was not invented.
+
+Do not call the preview PASS or READY until the Vercel connection is re-authenticated/authorized for this scope and the following checks succeed:
+
+1. deployment status is `READY`;
+2. build logs show successful Next.js build;
+3. preview URL renders meaningful Operations Console content;
+4. no Next.js/framework error overlay is present;
+5. UI still shows synthetic/read-only state, source registry 0, real acquisition BLOCKED, beneficiary matching BLOCKED and no real PII.
+
+Do not create a second deployment unless the existing deployment failed or a code/config fix is required.
+
+## Supabase state
+
+Observed again after the Vercel deployment attempt:
+
+- Supabase projects: `[]`;
+- no project/database/Auth/Storage/Edge Function/resource was created;
+- no Supabase SDK was added;
+- no Supabase cost gate was entered.
 
 ## Known limitations / debt
 
+- Vercel preview verification is blocked by scope authorization mismatch.
 - `package-lock.json` not committed; transitive npm resolution is not fully reproducible yet.
 - ESLint `9.39.5` is a temporary compatibility pin because current `eslint-plugin-react` used by Next config fails on ESLint 10; maintenance warning remains.
 - reviewer endpoint is a synthetic read model rather than a live projection from durable source/audit stores.
@@ -121,9 +157,9 @@ Do not invent IDs, URLs or keys. Supabase project/branch creation may incur cost
 
 ## SINGLE NEXT ACTION
 
-Keep `main` untouched. Present and satisfy the separate Vercel preview/deployment gate: connect or expose an authorized Vercel team/project, verify that `apps/reviewer-console` is the project root or configured root directory, and deploy a preview only after explicit owner authorization. If no Vercel team/project is available, stop and request connection rather than inventing identifiers.
+Re-authenticate or reconnect Vercel so the connected session has access to scope `pierluigiavvanzo-8728` / team `team_l4XAWc1rSwVdJWzlv5ZIirsJ`. Then inspect existing deployment `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL` rather than redeploying by default. Verify READY/build/page/error-overlay/synthetic-boundary checks listed above.
 
-Supabase project creation/integration remains a separate future organization/cost/architecture gate. Real California acquisition and beneficiary matching remain blocked regardless of frontend deployment status.
+Keep `main` untouched. Do not create Supabase resources. Real California acquisition and beneficiary matching remain blocked regardless of frontend deployment status.
 
 ## Handover status
 
@@ -135,9 +171,10 @@ M3 governance/raw persistence: CANONICAL + VERIFIED
 M3 Operations Console: CANONICAL + CI VERIFIED
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
-Vercel project/team: NONE OBSERVED
+Vercel preview: CREATED, NOT YET VERIFIED
+Vercel blocker: HTTP 403 SCOPE AUTHORIZATION
 Supabase project: NONE OBSERVED
 main: UNCHANGED; separate human gate required
-NEXT: Vercel connection/deployment gate
+NEXT: re-authorize Vercel scope -> verify existing preview
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
