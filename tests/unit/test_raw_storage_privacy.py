@@ -21,6 +21,7 @@ from unclaimed_platform.core.policy_engine.privacy import (
 
 def governance(
     *,
+    synthetic: bool = True,
     approval_required: bool = False,
     approval_reference: str | None = None,
     provenance: ProvenanceContext | None = None,
@@ -49,6 +50,7 @@ def governance(
     )
     return RawDataGovernanceContext(
         source_id="synthetic.raw.source",
+        synthetic=synthetic,
         source_approval_required=approval_required,
         approval_reference=approval_reference,
         processing_purpose=processing_purpose,
@@ -188,19 +190,37 @@ def test_missing_provenance_fails_closed(tmp_path: Path) -> None:
     assert error.value.reason_code == "PROVENANCE_REQUIRED"
 
 
-def test_missing_source_approval_fails_closed(tmp_path: Path) -> None:
+def test_real_artifact_requires_source_approval_even_without_optional_flag(tmp_path: Path) -> None:
     raw_store = store(tmp_path)
-    context = governance(approval_required=True, approval_reference=None)
+    context = governance(
+        synthetic=False,
+        approval_required=False,
+        approval_reference=None,
+    )
+
+    with pytest.raises(RawStoragePolicyError) as error:
+        raw_store.persist(
+            content=b"synthetic-placeholder-no-real-data",
+            content_type="application/octet-stream",
+            governance=context,
+            synthetic=False,
+        )
+
+    assert error.value.reason_code == "SOURCE_APPROVAL_REQUIRED"
+
+
+def test_synthetic_marker_mismatch_fails_closed(tmp_path: Path) -> None:
+    raw_store = store(tmp_path)
 
     with pytest.raises(RawStoragePolicyError) as error:
         raw_store.persist(
             content=b"synthetic",
             content_type="application/octet-stream",
-            governance=context,
-            synthetic=True,
+            governance=governance(synthetic=True),
+            synthetic=False,
         )
 
-    assert error.value.reason_code == "SOURCE_APPROVAL_REQUIRED"
+    assert error.value.reason_code == "SYNTHETIC_MARKER_MISMATCH"
 
 
 def test_missing_retention_policy_fails_closed(tmp_path: Path) -> None:
