@@ -11,16 +11,14 @@ Authoritative restart point for the next project chat. Use repository evidence, 
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Active candidate branch: `m3-raw-storage-privacy-gates`
-- Candidate base commit: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
-- Verified implementation/test head: `f42d8aa2daadcc83ff799150c039117755d8717a`
+- Historical raw-storage/privacy candidate: `m3-raw-storage-privacy-gates`
 - Historical M3 acquisition candidate: `m3-acquisition-contracts`
 - Historical main-reconciliation branch: `integration-main-sync-m3`
 - Historical checkpoint branch: `checkpoint-main-m3`
 - Branch/integration policy is recorded in `DECISIONS.md` as D-005.
 - Do not develop directly on `main`; use bounded feature/candidate branches and promote verified milestone checkpoints only after owner approval.
 
-The exact active candidate HEAD will be newer than the verified implementation head because project-state/audit/handover documentation is committed after functional verification. At the start of a new chat or immediately before promotion, verify the remote HEAD and CI rather than assuming a SHA from this file is still current.
+At every restart, verify remote branch HEADs and CI directly from GitHub. Do not assume a SHA in this handover is still current if later documentation or feature commits exist.
 
 ## Mandatory files to read first
 
@@ -45,84 +43,64 @@ The exact active candidate HEAD will be newer than the verified implementation h
 - M0 — VERIFIED.
 - M1 — VERIFIED.
 - M2 — VERIFIED.
-- M3 source/legal readiness inventory — COMPLETE and documented.
-- M3 acquisition contracts/adapters — IMPLEMENTED and CI VERIFIED on the canonical/stable baseline.
-- M3 immutable raw-storage/provenance + privacy/data-minimization block — IMPLEMENTED and CI VERIFIED on candidate, pending human promotion gate.
+- M3 source/legal readiness inventory — COMPLETE.
+- M3 acquisition contracts/adapters — IMPLEMENTED + CI VERIFIED + PROMOTED TO CANONICAL.
+- M3 immutable raw-storage/provenance + privacy/data-minimization block — IMPLEMENTED + CI VERIFIED + PROMOTED TO CANONICAL.
 
-## Baseline before current candidate
+## Raw-storage/privacy promotion closure
 
-At task start, GitHub verification showed both `main` and `m2-state-governance-core` at:
+Candidate branch:
 
-`bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
+`m3-raw-storage-privacy-gates`
 
-Both branch CI baselines were successful. No newer repository change conflicted with the prior handover.
+Candidate final HEAD approved by owner and promoted by fast-forward:
 
-The current candidate was created from the canonical development branch at exactly that commit. `main` and the canonical branch were not modified during implementation.
+`1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d`
 
-## M3 raw-storage/privacy candidate
+Promotion target:
 
-Implemented:
+`m2-state-governance-core`
 
-- `RawDataGovernancePolicy` as trusted authorization configuration separated from caller-supplied acquisition context;
-- `RawDataGovernanceGate` with deterministic fail-closed reason codes;
-- `ImmutableRawStore` protocol;
-- bounded `FileSystemRawStore` implementation using standard-library primitives;
-- SHA-256 content-addressed immutable raw-byte references;
-- separate deterministic SHA-256 immutable provenance records;
-- append-only provenance behavior allowing the same raw bytes to retain multiple acquisition records;
-- immutable record fields for source, authority, acquisition method, retrieval time, source revision, approval reference, retention policy, purpose, governance policy version, data scope, field scope, synthetic/real marker and provenance metadata;
-- versioned `schemas/agents/a01_raw_artifact_record.schema.json` contract;
-- integration with the existing M2 `AuditEventWriter` through `RAW_ARTIFACT_PERSISTED` events;
-- idempotent duplicate persistence without duplicate audit events;
-- deterministic corruption/mutation detection;
-- contract, unit and synthetic smoke coverage;
-- CI and PowerShell test harnesses expanded so the new storage adapter is included in mypy and explicit contract/smoke gates.
+Post-promotion GitHub Actions run:
 
-The caller cannot self-authorize a processing purpose, data category, field scope, retention policy, PII or real-data access because authorization comes from the separately supplied trusted policy.
-
-A synthetic-only policy rejects a real artifact. Even a real-capable policy still requires explicit source approval before real raw persistence.
-
-## REUSE FIRST decision
-
-Evaluated before custom persistence work:
-
-- HashFS: not selected as a production dependency; maturity/current-maintenance fit was not strong enough for this security-sensitive boundary;
-- fsspec: mature and potentially useful later for backend abstraction, but it does not itself implement the project's immutability/provenance/privacy semantics;
-- pymerkle: rejected because it would duplicate the verified M2 audit model and introduce an unnecessary GPL dependency;
-- SQLAlchemy/Alembic: already available and retained for later durable database persistence, but the initial application migration is not ready and was deliberately kept out of this bounded task.
-
-No new third-party runtime dependency was added.
-
-## CI evidence
-
-Verified implementation/test head:
-
-`f42d8aa2daadcc83ff799150c039117755d8717a`
-
-GitHub Actions run:
-
-`34766966136`
+`34770452747`
 
 Result: **PASS**
 
-- Ruff: PASS — all checks passed;
-- mypy: PASS — 16 source files;
+- Ruff: PASS;
+- mypy: PASS on 16 source files;
 - contract tests: PASS — 17 passed;
 - smoke tests: PASS — 2 passed;
-- full pytest: PASS — 51 passed, 2 known dependency warnings.
+- full pytest: PASS — 51 passed with 2 known dependency warnings.
 
-Earlier candidate runs exposed lint-only issues (B904 exception chaining and one E501 line-length failure); both were repaired before the successful run. Do not represent the earlier failing runs as verified.
+The promotion was history-preserving and non-forced. `main` was not modified by this promotion.
 
-Documentation commits after the implementation/test head must have a final green CI result before promotion. The agent performing the human gate must verify that final result directly from GitHub.
+Subsequent documentation-only commits on `m2-state-governance-core` close the promotion gate in `PROJECT_STATE.md`, `ROADMAP.md`, and this handover. Verify their latest CI before treating the documentation closure as fully green.
 
-No real network acquisition occurred.
+## Current M3 capability
+
+Implemented and promoted:
+
+- trusted `RawDataGovernancePolicy` separated from caller-supplied acquisition context;
+- deterministic fail-closed `RawDataGovernanceGate`;
+- `ImmutableRawStore` protocol;
+- bounded `FileSystemRawStore` adapter;
+- SHA-256 content-addressed immutable raw-byte references;
+- deterministic immutable provenance records with separate SHA-256 record hashes;
+- append-only provenance history for repeated acquisitions of identical raw bytes;
+- versioned `schemas/agents/a01_raw_artifact_record.schema.json` contract;
+- integration with the existing M2 `AuditEventWriter` through `RAW_ARTIFACT_PERSISTED` events;
+- idempotent duplicate persistence without duplicate audit events;
+- corruption/mutation detection;
+- synthetic unit, contract and smoke coverage;
+- CI and PowerShell test harness coverage for storage, contracts and smoke paths.
 
 ## Privacy / safety state
 
 Still enforced:
 
 - `sources/registry.yaml` has no approved real source;
-- no real California SCO download;
+- no real California SCO download has occurred;
 - no California CSV row layout is assumed or encoded;
 - no real beneficiary, insured, decedent or family PII is introduced;
 - beneficiary matching remains blocked;
@@ -134,69 +112,88 @@ Still enforced:
 
 ## Known limitations / technical debt
 
-- Filesystem immutability is application-enforced through content addressing, exclusive create and integrity verification; it is not provider-level WORM/object-lock storage.
+- Filesystem immutability is application-enforced, not provider-level WORM/object lock.
 - `FileSystemRawStore` is a bounded adapter, not a production storage-backend selection.
-- The existing M2 audit writer is hash-chained but remains in-memory; durable production audit-event persistence is still outstanding.
-- Retention policy is required, authorized and recorded, but physical lifecycle enforcement is not part of this block.
-- Two known non-blocking FastAPI/Starlette/AnyIO deprecation warnings remain.
-- GitHub Actions emits upstream Node runtime deprecation warnings for current checkout/setup-python actions; workflow passes.
+- The M2 audit writer remains in-memory; durable production audit-event persistence is outstanding.
+- Retention is required/authorized/recorded but physical lifecycle enforcement is not implemented.
 - PostgreSQL/Alembic initial application migration is not yet implemented.
-- `main` currently has no enforced branch protection; rely on the explicit human gate until repository protection is configured.
-- `scripts/handover.ps1` should be reviewed later because its generated text may lag the current milestone model.
+- Two known non-blocking FastAPI/Starlette/AnyIO deprecation warnings remain.
+- GitHub Actions emits upstream Node runtime deprecation warnings for current checkout/setup-python actions; workflows pass.
+- `main` has no enforced branch protection; continue using explicit human gates.
 
-## Architecture decision status
+## Frontend/product-visibility directive
 
-No new ADR was created for this block because the implementation stays within already documented architecture boundaries:
+The owner explicitly requested that future development expose product progress through a frontend wherever practical, and asked to use Vercel and Supabase where they add value.
 
-- A01 owns raw acquisition/provenance;
-- `adapters/storage` already exists as the storage boundary;
-- the verified M2 audit hash-chain is reused rather than changed;
-- production storage technology remains undecided;
-- database migration remains a separate later concern.
+This does **not** authorize bypassing the existing architecture. The target remains:
 
-The bounded implementation decision and its limitations are documented in the M3 audit files rather than silently turning the local filesystem adapter into a production architecture decision.
+```text
+Reviewer UI
+   |
+FastAPI application layer
+   |
+A00 Orchestrator + State Machine + Gate Engine
+   |
+Domain agents / contracts / policy engine
+   |
+Repositories / adapters
+   |
+PostgreSQL + immutable raw storage + audit
+```
 
-## Context health / chat rotation protocol
+Frontend rules for the next slice:
 
-The assistant must monitor context quality during project work and warn the owner before context degradation becomes operationally risky.
+- backend deterministic contracts remain authoritative;
+- UI must be read-only/synthetic for the first M3 operations-console slice;
+- no real PII;
+- no real acquisition;
+- no source approval through a UI shortcut;
+- no frontend-side service-role/secret keys;
+- any material frontend/data-platform architecture decision must be recorded in an ADR before implementation;
+- frontend lint/type/build checks must be part of CI;
+- a Vercel preview is desirable after code verification, but deployment requires an available/connected Vercel account/project;
+- Supabase may be evaluated as managed PostgreSQL/Auth/Storage behind existing boundaries, not as a parallel authoritative data plane.
 
-Early warning signals include:
+## Vercel / Supabase account state observed on 2026-09-13
 
-- uncertainty or confusion about the active branch, baseline, commit or milestone;
-- repeated need to re-derive constraints already recorded in repository memory;
-- accidental mixing of historical and current project states;
-- repetition of previously rejected approaches;
-- scope drift across unrelated workstreams;
-- increasing dependence on conversational memory instead of repository evidence;
-- the owner having to correct the same rule/state more than once;
-- a long implementation sequence where the next step would benefit from a clean restart.
+Using the connected platform tools:
 
-When these signals appear, the assistant must:
+- Vercel: no teams/projects were returned for the current connection;
+- Supabase: no projects were returned for the current connection.
 
-1. warn the owner explicitly;
-2. finish or safely stop the current bounded task;
-3. update project memory and this handover;
-4. report exact branch/HEAD/test state;
-5. recommend a new chat;
-6. provide a ready-to-paste restart prompt.
+Therefore the next slice may prepare code/configuration for these platforms, but must not invent project IDs, URLs, keys or database resources. Creating a Supabase project/branch can incur cost and requires an explicit organization/cost confirmation gate. Cloud deployment is not a prerequisite for the first local/CI-verified frontend candidate.
+
+Current Supabase guidance also requires using publishable frontend keys rather than service-role/secret keys, enabling RLS on exposed tables, and using current SSR packages/patterns if Auth is later introduced.
 
 ## SINGLE NEXT ACTION
 
-**Human promotion gate only.**
+Create an isolated candidate from the latest green `m2-state-governance-core` and implement the first **M3 Operations Console** frontend slice.
 
-Before changing either canonical branch:
+Before code:
 
-1. verify the exact remote HEAD of `m3-raw-storage-privacy-gates`;
-2. verify final CI on that exact HEAD is green;
-3. compare the candidate against base `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e` and report changed files/diff-stat;
-4. verify `main` and `m2-state-governance-core` are still unchanged/coherent;
-5. verify `sources/registry.yaml` still contains no approved real source;
-6. present risks and rollback;
-7. stop and obtain explicit owner approval before promotion.
+1. verify latest canonical HEAD and CI after documentation closure;
+2. create an isolated feature/candidate branch;
+3. perform REUSE FIRST for Next.js/Vercel/Supabase and existing repository capabilities;
+4. define acceptance criteria and a versioned read-only reviewer-console/backend contract;
+5. create an ADR for the material frontend/platform choice.
 
-Do **not** implement or execute a real California SCO download during this gate.
+Bounded implementation target:
 
-After owner approval, promote the verified candidate to the canonical development branch using history-preserving Git operations and re-run CI there. Promotion to `main` remains separately governed by the stable-checkpoint policy and owner approval.
+- Next.js App Router + TypeScript frontend;
+- visible M3 Operations Console;
+- synthetic/read-only data only;
+- milestone/status cards;
+- source registry status (`0` approved real sources expected);
+- raw artifact/provenance metadata example from synthetic fixtures/contracts;
+- privacy/governance gate status;
+- audit-chain health/status;
+- clear blocked-state presentation for real acquisition and beneficiary matching;
+- frontend lint/type/build gates in CI;
+- no real network acquisition;
+- no California row interpretation;
+- no cloud-resource creation without separate authorization.
+
+After implementation and green CI, present branch, HEAD, diff/stat, tests, risks, rollback and preview/deployment readiness, then stop at the human promotion/deployment gate.
 
 ## Handover status
 
@@ -205,14 +202,14 @@ M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
 M3 source/legal inventory: COMPLETE
-M3 acquisition contracts/adapters: IMPLEMENTED + CI VERIFIED
-M3 immutable raw storage/provenance: IMPLEMENTED + CI VERIFIED ON CANDIDATE
-M3 privacy/data-minimization gates: IMPLEMENTED + CI VERIFIED ON CANDIDATE
-Candidate: m3-raw-storage-privacy-gates
-Verified implementation/test head: f42d8aa2daadcc83ff799150c039117755d8717a
-Human promotion gate: PENDING
+M3 acquisition contracts/adapters: IMPLEMENTED + CI VERIFIED + CANONICAL
+M3 immutable raw storage/provenance: IMPLEMENTED + CI VERIFIED + CANONICAL
+M3 privacy/data-minimization gates: IMPLEMENTED + CI VERIFIED + CANONICAL
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
-NEXT: verify final candidate HEAD/CI/diff and stop for owner promotion approval
+Frontend next: M3 Operations Console candidate
+Vercel connected projects/teams: NONE OBSERVED
+Supabase connected projects: NONE OBSERVED
+NEXT: isolated frontend candidate, contract/ADR first, synthetic/read-only console
 CONTEXT HEALTH: coherent; repository remains the source of truth
 ```
