@@ -8,7 +8,11 @@ M3 — California Data Spike Readiness Gate
 
 ## Current Status
 
-M0, M1 and M2 VERIFIED. M3 source/legal readiness inventory completed; real acquisition remains BLOCKED pending acquisition contracts, privacy constraints and explicit source approval.
+M0, M1 and M2 VERIFIED.
+
+M3 source/legal readiness inventory is complete. A01 raw-acquisition contracts, a fail-closed California SCO adapter boundary, and deferred-source mock adapters are IMPLEMENTED and GitHub-CI VERIFIED on isolated branch `m3-acquisition-contracts`.
+
+Real California acquisition remains BLOCKED. No real data has been downloaded and beneficiary matching remains disabled.
 
 ## Completed and Verified
 
@@ -23,52 +27,54 @@ M0, M1 and M2 VERIFIED. M3 source/legal readiness inventory completed; real acqu
 - M2 append-only audit SHA-256 hash-chain writer.
 - M2 GitHub Actions: Ruff PASS, mypy PASS on 13 source files, pytest 24 passed.
 - M2 Windows PowerShell validation: Ruff PASS, mypy PASS on 13 source files, pytest 24 passed, smoke 2 passed.
-- M3 California source/legal readiness inventory documented in `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md` using authoritative California government sources.
-- Preferred future real-data candidate identified as the California State Controller Unclaimed Property public bulk CSV, with approval still pending.
-- Deferred/mock treatment documented for Estates of Deceased Persons, CDI/NAIC locator, CDPH death records and California court records as applicable.
+- M3 California source/legal readiness inventory documented in `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`.
+- M3 acquisition contracts documented in `docs/audits/M3_ACQUISITION_CONTRACTS.md`.
+- A01 request/result JSON Schema contracts implemented at version `1.0.0`.
+- California SCO bulk adapter boundary implemented fail-closed with no network retrieval.
+- Deferred California sources represented by deterministic synthetic mocks only.
+- Candidate branch `m3-acquisition-contracts` GitHub CI: Ruff PASS; mypy PASS on 13 source files; pytest 30 passed, 2 known dependency warnings.
 
-## Implemented but Not Yet Verified
+## Implemented but Not Yet Promoted
 
-None.
+- Commit `b6030f2f1a5f9c7bdbe656e9eacba0a2e5107885` on branch `m3-acquisition-contracts` contains the M3 acquisition contracts/adapters implementation.
+- The candidate has not yet been promoted to the canonical development branch `m2-state-governance-core`.
 
 ## In Progress
 
-- M3 readiness gate: define acquisition contracts and adapter boundaries before any real California acquisition.
-- Define privacy/data-minimization constraints and explicit source approval for any future real-data spike.
+- Owner review/approval for promotion of the M3 acquisition-contract candidate.
+- Define immutable raw-storage handling and privacy/data-minimization controls before any real network retrieval.
 
 ## Blocked
 
-- Real M3 California acquisition remains blocked until acquisition contracts, provenance handling, privacy constraints and explicit source approval are complete.
+- Real M3 California acquisition remains blocked until immutable raw storage, provenance persistence, privacy/data-minimization controls and explicit source approval are complete.
+- `sources/registry.yaml` remains intentionally without approved real sources.
 - Beneficiary matching remains blocked.
 - Automated outreach, claimant verification, fee agreements and claim submission remain blocked.
 
 ## Known Issues
 
-- Two non-blocking deprecation warnings originate in FastAPI/Starlette test dependencies.
-- GitHub Actions reports upstream Node runtime deprecation warnings for actions/checkout@v4 and actions/setup-python@v5; current workflow still passes.
+- Two non-blocking FastAPI/Starlette/AnyIO test deprecation warnings remain.
+- GitHub Actions reports upstream Node runtime deprecation warnings for actions/checkout@v4 and actions/setup-python@v5; current workflow passes.
 - PostgreSQL/Alembic initial application migration is not yet implemented.
-- `sources/registry.yaml` remains intentionally empty pending source approval; readiness candidates are documented in the M3 audit rather than marked `approved_for_use` prematurely.
 
 ## Assumptions
 
-- No real claimant, beneficiary, insurer or PII data was acquired during the M3 source-readiness inventory.
+- No real claimant, beneficiary, insurer, decedent or other PII data is used in the M3 candidate tests.
 - Public availability of a source does not automatically authorize every downstream processing purpose.
+- A01 owns raw acquisition/provenance; California row parsing/normalization is deferred to A02 after an official layout or bounded sample is verified.
 - Outreach, legal determinations and claim submission remain disabled.
-- M2 state names are workflow-control states, not legal or claimant-status determinations.
 
 ## Test Status
 
-No application code or machine contract was changed by the M3 source-readiness inventory, so no new runtime test result is claimed for this documentation-only task.
+Candidate branch: `m3-acquisition-contracts`
 
-Last verified software baseline remains branch `m2-state-governance-core` before this documentation update:
-
-- GitHub Actions: PASS.
-- GitHub Ruff: PASS.
-- GitHub mypy: PASS — 13 source files.
-- GitHub pytest: 24 passed, 2 dependency warnings.
-- Windows `scripts/test.ps1`: PASS — Ruff PASS, mypy PASS, pytest 24 passed, 2 known warnings.
-- Windows `scripts/smoke.ps1`: PASS — 2 passed, 2 known warnings.
+- Local candidate-only tests: 6 passed; `compileall` PASS.
+- GitHub Actions run 34763952641: PASS.
+- Ruff: PASS.
+- mypy: PASS — 13 source files.
+- pytest: 30 passed, 2 known dependency warnings.
+- No network acquisition was executed.
 
 ## Next Recommended Action
 
-Define the M3 acquisition contract and adapter boundary for the California State Controller public bulk CSV source, plus mock contracts for deferred sources. Do not download real data or begin beneficiary matching until contracts, privacy constraints, provenance handling and explicit source approval are complete.
+Review and approve promotion of the verified `m3-acquisition-contracts` candidate into the canonical development branch. After promotion, define immutable raw-storage/provenance persistence and privacy/data-minimization gates before implementing any real SCO download.

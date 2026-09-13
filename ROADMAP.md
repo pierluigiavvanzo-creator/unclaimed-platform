@@ -7,51 +7,32 @@ Last updated: 2026-09-13
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Windows Ruff/mypy green, 12 tests passed, smoke green, GitHub CI green |
 | M2 — State & Governance Core | VERIFIED | GitHub CI green; Windows Ruff/mypy green; 24 tests passed; smoke 2 passed |
-| M3 — California Data Spike | READINESS GATE — SOURCE INVENTORY COMPLETE | California source/legal inventory documented; real acquisition still blocked pending contracts, privacy constraints and explicit approval |
+| M3 — California Data Spike | READINESS GATE — CONTRACTS CI VERIFIED ON CANDIDATE | Source inventory and A01 acquisition boundary complete; real acquisition still blocked |
 
-## M2 verified scope
+## M3 completed readiness work
 
-- versioned state transition whitelist;
-- A00 deterministic orchestrator skeleton;
-- policy engine skeleton with fail-closed missing policy behavior;
-- budget engine skeleton with explicit exhaustion behavior;
-- append-only audit event writer skeleton;
-- unit tests for allowed and forbidden transitions;
-- governance tests for missing policy, budget exhaustion and audit chaining.
+- California source/legal inventory completed using authoritative government sources;
+- California SCO public bulk CSV identified as the preferred future real-data candidate;
+- deferred sources classified as mock/reference/deferred;
+- A01 raw-acquisition request/result contracts defined at version `1.0.0`;
+- `REAL` requests require an explicit approval identifier;
+- acquisition scope constrained to `RAW_INGEST_ONLY`;
+- immutable raw artifact metadata includes SHA-256, byte count, content type and storage reference;
+- provenance includes source URI, authority, acquisition method, terms-review reference and retrieval time;
+- California SCO adapter boundary implemented fail-closed with no network retrieval;
+- deferred-source deterministic mock adapter and fixtures implemented;
+- candidate branch `m3-acquisition-contracts` GitHub CI green: Ruff PASS, mypy PASS, pytest 30 passed.
 
-## M2 exit evidence
+## M3 still required before any real California acquisition
 
-- GitHub Actions: PASS;
-- Ruff: PASS;
-- mypy: PASS on 13 source files;
-- pytest: 24 passed;
-- Windows PowerShell `scripts/test.ps1`: PASS;
-- Windows PowerShell `scripts/smoke.ps1`: 2 passed;
-- two known FastAPI/Starlette dependency deprecation warnings remain non-blocking.
-
-## M3 readiness gate
-
-Completed in the current readiness step:
-
-- candidate California sources inventoried;
-- source authority and published access methods verified against official California government sources;
-- provenance, access constraints and material legal/privacy constraints documented;
-- sources classified as candidate-real, reference/manual, mock or deferred;
-- `sources/registry.yaml` intentionally left without approved sources.
-
-Evidence:
-
-- `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
-
-Still required before any real California acquisition:
-
-1. define the acquisition contract for the California State Controller public bulk CSV source;
-2. define mock contracts for deferred sources;
-3. define adapter boundaries without adding unapproved automation;
-4. define raw immutable evidence and provenance handling;
-5. define privacy/data-minimization constraints for the bounded spike;
-6. explicitly approve the source for real use;
-7. only then execute a bounded read-only California data spike with no unnecessary PII.
+1. promote the verified candidate to the canonical development branch after owner approval;
+2. define immutable raw-storage persistence and retention behavior;
+3. define provenance persistence into the append-only audit trail;
+4. define privacy/data-minimization constraints for the bounded spike;
+5. explicitly approve the California SCO source for real use;
+6. implement bounded read-only retrieval with transport/size/content validation;
+7. only then execute a bounded California spike with no unnecessary PII;
+8. verify the actual CSV layout before implementing A02 row normalization.
 
 ## Still out of scope until later gates
 

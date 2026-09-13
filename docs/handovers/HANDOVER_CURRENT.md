@@ -4,14 +4,14 @@ Date: 2026-09-13
 
 ## Purpose
 
-This is the authoritative restart point for the next project chat. Do not restart from M0 and do not reconstruct state from memory. Read the governance files and this handover before making changes.
+Authoritative restart point for the next project chat. Use repository evidence, not conversational memory.
 
-## Repository
+## Repository and branches
 
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- Visibility: private
-- Current development branch: `m2-state-governance-core`
-- M2 is VERIFIED on both GitHub CI and the owner's Windows environment.
+- Canonical development branch: `m2-state-governance-core`
+- Current isolated M3 candidate branch: `m3-acquisition-contracts`
+- Candidate implementation commit: `b6030f2f1a5f9c7bdbe656e9eacba0a2e5107885`
 - Do not work directly on `main`.
 
 ## Mandatory files to read first
@@ -25,188 +25,70 @@ This is the authoritative restart point for the next project chat. Do not restar
 7. `docs/decisions/ADR-0001-deterministic-core.md`
 8. `docs/decisions/ADR-0002-versioned-machine-contracts.md`
 9. `docs/decisions/ADR-0003-m2-governance-core.md`
-10. `docs/audits/M2_REUSE_FIRST.md`
-11. this handover
+10. `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
+11. `docs/audits/M3_ACQUISITION_CONTRACTS.md`
+12. this handover
 
-## Product mission
+## Verified milestones
 
-Build a traceable, human-gated platform for identifying potential beneficiaries of unclaimed life-insurance policies using lawful public or authorized data sources.
+- M0 — VERIFIED.
+- M1 — VERIFIED.
+- M2 — VERIFIED.
 
-Governance boundaries must remain deterministic, provenance must be preserved, uncertain or missing policy must fail closed, and humans remain in control of legally or operationally sensitive decisions.
+## M3 status
 
-## Non-negotiable architecture
+Source/legal readiness inventory is complete.
 
-```text
-Reviewer UI
-   |
-FastAPI application layer
-   |
-A00 Orchestrator + State Machine + Governance Gates
-   |
-Domain agents A01-A23
-   |
-Contracts + Policy Engine + Budget Engine
-   |
-Repositories / Adapters / Source Clients
-   |
-PostgreSQL + immutable raw storage + append-only audit
-```
+The preferred future real-data source is the California State Controller public unclaimed-property bulk CSV. No real source is yet approved for use and `sources/registry.yaml` remains intentionally without approved real sources.
 
-Agents may propose actions but cannot bypass deterministic state, policy, budget or audit gates. External LLM/provider SDKs remain behind adapters.
+On isolated branch `m3-acquisition-contracts`, the following are implemented:
 
-## Completed milestones
+- `schemas/agents/a01_acquisition_request.schema.json`;
+- `schemas/agents/a01_acquisition_result.schema.json`;
+- contract examples;
+- fail-closed `CaliforniaSCOBulkAdapter` boundary;
+- deterministic `DeferredMockSourceAdapter`;
+- synthetic-only deferred-source fixture inventory;
+- contract and unit tests;
+- M3 acquisition-contract audit documentation.
 
-### M0 — Repository & Development Harness — VERIFIED
+A01 is intentionally limited to raw acquisition and provenance. It does not define California CSV row columns and does not perform normalization or beneficiary matching.
 
-Implemented Python 3.11 project skeleton, FastAPI `/health`, PostgreSQL dev service, PowerShell bootstrap/test/smoke scripts, Ruff, mypy, pytest, GitHub Actions, repository structure and ADR-0001.
+## Candidate CI evidence
 
-### M1 — Machine Contracts — VERIFIED
+GitHub Actions run: `34763952641`
 
-Implemented JSON Schema draft 2020-12 contracts for Case, Evidence, Hypothesis, AgentMessage, Decision, AuditEvent, Source, SourceRegistry and AgentRegistry; canonical A00-A23 registry; positive/negative fixtures; contract tests; ADR-0002.
+- Python: 3.11.16
+- Ruff: PASS — `All checks passed!`
+- mypy: PASS — 13 source files
+- pytest: 30 passed
+- warnings: 2 known non-blocking FastAPI/Starlette/AnyIO dependency deprecations
 
-Windows verification on Python 3.11.9:
+Local candidate-only verification before push:
 
-- Ruff: PASS
-- mypy: PASS
-- pytest: 12 passed
-- smoke: 2 passed
-- GitHub Actions: PASS
+- 6 new tests passed
+- `compileall`: PASS
 
-### M2 — State & Governance Core — VERIFIED
-
-Implemented:
-
-- versioned deterministic workflow state whitelist;
-- deterministic state-machine model;
-- A00 orchestrator skeleton;
-- fail-closed policy engine;
-- budget ledger with explicit exhaustion behavior;
-- append-only SHA-256 audit chain writer;
-- tests for allowed/forbidden transitions, missing policy, budget exhaustion and audit chaining;
-- REUSE-FIRST audit;
-- ADR-0003.
-
-Workflow states:
-
-```text
-NEW
- ├──> PROCESSING
- ├──> HUMAN_REVIEW
- └──> STOPPED
-
-PROCESSING
- ├──> HUMAN_REVIEW
- ├──> STOPPED
- └──> COMPLETED
-
-HUMAN_REVIEW
- ├──> PROCESSING
- ├──> STOPPED
- └──> COMPLETED
-
-STOPPED    [terminal]
-COMPLETED  [terminal]
-```
-
-Unknown or non-whitelisted transitions fail closed.
-
-## M2 verification evidence
-
-GitHub CI:
-
-- Ruff: PASS
-- mypy: PASS on 13 source files
-- pytest: 24 passed
-- workflow: SUCCESS
-
-Owner Windows PowerShell validation:
-
-- `scripts/test.ps1`: PASS
-- Ruff: `All checks passed!`
-- mypy: `Success: no issues found in 13 source files`
-- pytest: `24 passed, 2 warnings`
-- `scripts/smoke.ps1`: `2 passed, 2 warnings`
-
-The two warnings are known non-blocking dependency deprecations from FastAPI/Starlette/AnyIO test tooling.
-
-## Important M2 CI history
-
-The first M2 CI attempt failed only on two Ruff `UP037` annotation-style violations. The issue was corrected without changing architecture or functional behavior. Subsequent CI passed Ruff, mypy and the full test suite.
-
-Do not erase this history; failures and fixes are part of the project audit trail.
-
-## REUSE-FIRST result
-
-`pytransitions/transitions` and `fgmacedo/python-statemachine` were evaluated. Neither was adopted for M2 because the current need is a small deterministic/versioned whitelist and the external framework overhead was not justified.
-
-Re-evaluate if later workflow complexity requires hierarchical states, concurrency, richer callbacks or visualization.
-
-## Known technical debt
-
-- Two non-blocking FastAPI/Starlette/AnyIO test deprecation warnings.
-- PostgreSQL/Alembic initial application migration not yet implemented.
-- `scripts/handover.ps1` still embeds M0-specific text and is not authoritative; this file is authoritative.
-- No production authentication/deployment yet.
+No real network acquisition occurred.
 
 ## Safety boundaries still in force
 
-Do not enable without later explicit legal/compliance gates:
+Do not enable without later explicit gates:
 
+- real SCO download before source approval/privacy/storage controls;
+- beneficiary matching on real data;
 - autonomous outreach;
 - legal determinations;
 - autonomous claimant verification;
 - fee agreement execution;
 - claim submission;
-- unapproved scraping or access to restricted sources.
-
-No unnecessary real PII should be introduced during the next spike.
-
-## Owner environment
-
-- Local repository: `C:\Users\NITRO\source\unclaimed-platform`
-- Python: 3.11.9
-- Shell/orchestration: PowerShell
+- unapproved scraping or restricted-source access.
 
 ## SINGLE NEXT ACTION
 
-Begin the **M3 California Data Spike readiness gate**, not real scraping or beneficiary matching.
+Review the isolated `m3-acquisition-contracts` candidate and, only with owner approval, promote it to the canonical development branch `m2-state-governance-core`.
 
-The next chat must first:
-
-1. inventory candidate California sources;
-2. verify source authority and permitted access method;
-3. document provenance, terms and access constraints;
-4. determine which sources can be mocked and which can be accessed for real;
-5. define acquisition contracts/adapters;
-6. only then run a bounded California spike with no unnecessary PII;
-7. preserve raw immutable evidence and append-only audit records.
-
-M3 real acquisition remains blocked until this readiness gate is satisfied.
-
-## Files likely to be touched next
-
-- `PROJECT_STATE.md`
-- `ROADMAP.md`
-- potentially `DECISIONS.md`
-- `sources/registry.yaml`
-- `src/unclaimed_platform/adapters/sources/`
-- `mocks/`
-- `tests/integration/`
-- `tests/contract/`
-- `docs/audits/`
-- California source/policy documentation as approved
-
-## Git discipline
-
-- Do not modify `main` directly.
-- Keep milestone work isolated and reviewable.
-- Never claim tests passed without evidence.
-- Record failures and fixes.
-- Do not silently rewrite architectural decisions.
-
-## Restart prompt
-
-> Continue the Unclaimed Insurance Platform from `docs/handovers/HANDOVER_CURRENT.md` in `pierluigiavvanzo-creator/unclaimed-platform`. Read `AGENTS.md`, `PROJECT_STATE.md`, `ROADMAP.md`, `DECISIONS.md`, the ADRs and the handover before changing anything. M0, M1 and M2 are VERIFIED. Start only the M3 California source/legal readiness gate; do not begin real scraping or beneficiary matching until source authority and permitted access are documented.
+After promotion, the next technical gate is to define immutable raw-storage/provenance persistence and privacy/data-minimization controls before implementing any real California SCO retrieval.
 
 ## Handover status
 
@@ -214,9 +96,12 @@ M3 real acquisition remains blocked until this readiness gate is satisfied.
 M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
-M2 GitHub CI: PASS
-M2 Windows test.ps1: PASS — 24 passed
-M2 Windows smoke.ps1: PASS — 2 passed
-M3: READINESS GATE ONLY
-NEXT: California source/legal readiness inventory
+M3 source/legal inventory: COMPLETE
+M3 acquisition contracts/adapters: IMPLEMENTED + GITHUB CI VERIFIED ON CANDIDATE
+Candidate branch: m3-acquisition-contracts
+Candidate commit: b6030f2f1a5f9c7bdbe656e9eacba0a2e5107885
+GitHub CI: PASS — Ruff PASS / mypy PASS / pytest 30 passed
+Real acquisition: BLOCKED
+Beneficiary matching: BLOCKED
+NEXT: owner review/approval to promote candidate
 ```
