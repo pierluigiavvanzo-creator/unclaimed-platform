@@ -90,7 +90,11 @@ def store(
     governance_policy: RawDataGovernancePolicy | None = None,
 ) -> FileSystemRawStore:
     gate = RawDataGovernanceGate(governance_policy or policy())
-    return FileSystemRawStore(tmp_path, audit_writer=audit or AuditEventWriter(), governance_gate=gate)
+    return FileSystemRawStore(
+        tmp_path,
+        audit_writer=audit or AuditEventWriter(),
+        governance_gate=gate,
+    )
 
 
 def test_synthetic_artifact_happy_path_is_immutable_deterministic_and_audited(
@@ -136,21 +140,21 @@ def test_same_raw_bytes_accept_append_only_distinct_provenance(tmp_path: Path) -
     audit = AuditEventWriter()
     raw_store = store(tmp_path, audit)
     payload = b"same-synthetic-raw"
+    base_context = governance()
+    assert base_context.provenance is not None
     first = raw_store.persist(
         content=payload,
         content_type="application/octet-stream",
-        governance=governance(),
+        governance=base_context,
         synthetic=True,
     )
     second_context = replace(
-        governance(),
+        base_context,
         provenance=replace(
-            governance().provenance,
+            base_context.provenance,
             retrieved_at="2026-09-13T16:01:00Z",
             source_revision="synthetic-v2",
-        )
-        if governance().provenance is not None
-        else None,
+        ),
     )
     second = raw_store.persist(
         content=payload,
