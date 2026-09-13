@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:audit-event:1.0.0",
+  "title": "AuditEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "timestamp",
+    "event_type",
+    "actor_type",
+    "actor_id",
+    "payload",
+    "event_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "event_id": {"type": "string", "format": "uuid"},
+    "case_id": {"type": ["string", "null"], "format": "uuid"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "event_type": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,63}$"},
+    "actor_type": {"enum": ["SYSTEM", "AGENT", "HUMAN"]},
+    "actor_id": {"type": "string", "minLength": 1},
+    "payload": {"type": "object"},
+    "previous_event_hash": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "event_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

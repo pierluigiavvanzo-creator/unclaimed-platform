@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:evidence:1.0.0",
+  "title": "Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","evidence_id","case_id","source_id","evidence_type","collected_at","storage_ref","content_hash","provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "evidence_id": {"type": "string", "format": "uuid"},
+    "case_id": {"type": "string", "format": "uuid"},
+    "source_id": {"type": "string", "minLength": 1},
+    "evidence_type": {"type": "string", "minLength": 1, "maxLength": 128},
+    "collected_at": {"type": "string", "format": "date-time"},
+    "storage_ref": {"type": "string", "minLength": 1},
+    "content_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_uri","retrieved_at","acquisition_method"],
+      "properties": {
+        "source_uri": {"type": "string", "minLength": 1},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "acquisition_method": {"type": "string", "minLength": 1, "maxLength": 128}
+      }
+    },
+    "supports_hypothesis_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true},
+    "contradicts_hypothesis_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true}
+  }
+}

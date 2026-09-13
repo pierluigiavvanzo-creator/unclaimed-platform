@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "agents": [
+    {"agent_id":"A00","name":"Orchestrator","purpose":"Coordinates case flow, gates, budgets, and agent handoffs.","enabled":true,"decision_required":true},
+    {"agent_id":"A01","name":"State Data Acquisition","purpose":"Acquires authorized state or jurisdiction data.","enabled":false,"decision_required":true},
+    {"agent_id":"A02","name":"Data Normalization","purpose":"Normalizes source records without mutating raw evidence.","enabled":false,"decision_required":true},
+    {"agent_id":"A03","name":"Insurance Classification","purpose":"Screens records for insurance relevance.","enabled":false,"decision_required":true},
+    {"agent_id":"A04","name":"Death Evidence","purpose":"Builds death-evidence hypotheses.","enabled":false,"decision_required":true},
+    {"agent_id":"A05","name":"Identity Resolution","purpose":"Maintains competing identity hypotheses.","enabled":false,"decision_required":true},
+    {"agent_id":"A06","name":"Genealogical Research","purpose":"Researches family relationships when permitted.","enabled":false,"decision_required":true},
+    {"agent_id":"A07","name":"Candidate Generation","purpose":"Generates claimant candidates without verification.","enabled":false,"decision_required":true},
+    {"agent_id":"A08","name":"Evidence Validation","purpose":"Validates evidence quality and contradictions.","enabled":false,"decision_required":true},
+    {"agent_id":"A09","name":"Confidence Assessment","purpose":"Assesses confidence without hiding uncertainty.","enabled":false,"decision_required":true},
+    {"agent_id":"A10","name":"State Compliance Engine","purpose":"Applies deterministic state policy rules.","enabled":false,"decision_required":true},
+    {"agent_id":"A11","name":"Privacy & Data Governance","purpose":"Applies privacy and data-governance gates.","enabled":false,"decision_required":true},
+    {"agent_id":"A12","name":"Legal Escalation","purpose":"Prepares legal escalation for human review.","enabled":false,"decision_required":true},
+    {"agent_id":"A13","name":"Source Verification","purpose":"Verifies source authorization and provenance requirements.","enabled":false,"decision_required":true},
+    {"agent_id":"A14","name":"Market & Competitor Research","purpose":"Performs bounded market and competitor research.","enabled":false,"decision_required":true},
+    {"agent_id":"A15","name":"Case Economics","purpose":"Screens and scores case economics.","enabled":false,"decision_required":true},
+    {"agent_id":"A16","name":"Human Investigator Interface","purpose":"Presents evidence, contradictions, and next actions to reviewers.","enabled":false,"decision_required":true},
+    {"agent_id":"A17","name":"Outreach Preparation","purpose":"Prepares outreach material without autonomous sending.","enabled":false,"decision_required":true},
+    {"agent_id":"A18","name":"Claim Management","purpose":"Tracks claim workflow after legal readiness.","enabled":false,"decision_required":true},
+    {"agent_id":"A19","name":"Case Linking & Deduplication","purpose":"Links probable duplicates while preserving source records.","enabled":false,"decision_required":true},
+    {"agent_id":"A20","name":"Contracts & Fee Agreement","purpose":"Supports contract and fee-agreement workflow under human control.","enabled":false,"decision_required":true},
+    {"agent_id":"A21","name":"Anti-Fraud / Claimant Verification","purpose":"Supports claimant verification and fraud controls.","enabled":false,"decision_required":true},
+    {"agent_id":"A22","name":"Insurer Verification","purpose":"Verifies insurer-related facts and references.","enabled":false,"decision_required":true},
+    {"agent_id":"A23","name":"Regulatory & Terms Monitoring","purpose":"Monitors regulatory and source-terms changes.","enabled":false,"decision_required":true}
+  ]
+}

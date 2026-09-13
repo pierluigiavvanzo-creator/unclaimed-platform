@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:case:1.0.0",
+  "title": "Case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","case_id","jurisdiction","lifecycle_state","created_at","updated_at","source_ids","evidence_ids","hypothesis_ids","audit_event_ids"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "case_id": {"type": "string", "format": "uuid"},
+    "jurisdiction": {"type": "string", "pattern": "^[A-Z]{2}$"},
+    "lifecycle_state": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,63}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true},
+    "hypothesis_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true},
+    "audit_event_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true},
+    "external_reference": {"type": ["string", "null"], "maxLength": 256}
+  }
+}

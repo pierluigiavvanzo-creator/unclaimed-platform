@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:decision:1.0.0",
+  "title": "Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","status","reason_code","reason","blocking_issue","confidence_level","confidence_score","evidence_ids","contradiction_ids","assumptions","recommended_next_agent","required_human_role","budget_consumed","compliance_flags"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "status": {"enum": ["CONTINUE","STOP","HUMAN_REVIEW","RETRY","DEFER"]},
+    "reason_code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,63}$"},
+    "reason": {"type": "string", "minLength": 1},
+    "blocking_issue": {"type": ["string", "null"]},
+    "confidence_level": {"type": ["string", "null"], "maxLength": 64},
+    "confidence_score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true},
+    "contradiction_ids": {"type": "array", "items": {"type": "string", "format": "uuid"}, "uniqueItems": true},
+    "assumptions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "recommended_next_agent": {"type": ["string", "null"], "pattern": "^A(?:0[0-9]|1[0-9]|2[0-3])$"},
+    "required_human_role": {"type": ["string", "null"], "maxLength": 128},
+    "budget_consumed": {"type": "number", "minimum": 0},
+    "compliance_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}

@@ -26,6 +26,8 @@ dev = [
   "pytest-cov",
   "ruff",
   "mypy",
+  "jsonschema>=4,<5",
+  "PyYAML>=6,<7",
 ]
 
 [tool.hatch.build.targets.wheel]

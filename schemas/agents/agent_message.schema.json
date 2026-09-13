@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:agent-message:1.0.0",
+  "title": "AgentMessage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","message_id","case_id","from_agent","to_agent","message_type","created_at","payload"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "message_id": {"type": "string", "format": "uuid"},
+    "case_id": {"type": "string", "format": "uuid"},
+    "from_agent": {"type": "string", "pattern": "^A(?:0[0-9]|1[0-9]|2[0-3])$"},
+    "to_agent": {"type": "string", "pattern": "^A(?:0[0-9]|1[0-9]|2[0-3])$"},
+    "message_type": {"enum": ["INPUT","OUTPUT","EVENT","ERROR"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "correlation_id": {"type": ["string", "null"], "format": "uuid"},
+    "payload": {"type": "object"}
+  }
+}

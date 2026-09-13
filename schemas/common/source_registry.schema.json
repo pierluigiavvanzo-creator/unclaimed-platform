@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:source-registry:1.0.0",
+  "title": "SourceRegistry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version","sources"],
+  "properties": {
+    "version": {"const": 1},
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id","name","jurisdiction","source_type","enabled","approved_for_use","provenance_required","access_notes"],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"},
+          "name": {"type": "string", "minLength": 1},
+          "jurisdiction": {"type": "string", "pattern": "^[A-Z]{2}$"},
+          "source_type": {"type": "string", "minLength": 1, "maxLength": 128},
+          "enabled": {"type": "boolean"},
+          "approved_for_use": {"type": "boolean"},
+          "provenance_required": {"const": true},
+          "base_uri": {"type": ["string", "null"]},
+          "access_notes": {"type": "string"}
+        }
+      },
+      "uniqueItems": true
+    }
+  }
+}
