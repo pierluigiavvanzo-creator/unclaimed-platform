@@ -8,27 +8,27 @@ M2 — State & Governance Core
 
 ## Current Status
 
-M1 VERIFIED. M2 READY TO IMPLEMENT.
+M2 IMPLEMENTED. LOCAL CANDIDATE TESTED. GITHUB CI AND WINDOWS VALIDATION PENDING.
 
 ## Completed and Verified
 
 - M0 repository foundation and Windows development harness.
-- Python 3.11 environment and PowerShell bootstrap/test/smoke scripts.
-- FastAPI health endpoint.
-- GitHub Actions CI.
-- M1 versioned JSON Schema machine contracts.
-- Case, Evidence, Hypothesis, AgentMessage, Decision, AuditEvent, Source and Agent Registry schemas.
-- Positive/negative contract fixtures and A00-A23 registry.
-- Windows validation on Python 3.11.9: Ruff PASS, mypy PASS, pytest 12 passed, smoke 2 passed.
-- GitHub Actions for M1: PASS.
+- M1 machine contracts and A00-A23 registry.
+- M1 Windows validation on Python 3.11.9: Ruff PASS, mypy PASS, pytest 12 passed, smoke 2 passed.
+- M1 GitHub Actions: PASS.
 
 ## Implemented but Not Yet Verified
 
-None.
+- Versioned workflow state whitelist v1.
+- A00 deterministic orchestrator skeleton.
+- Fail-closed policy engine skeleton.
+- Budget ledger with exhaustion behavior.
+- Append-only audit hash-chain writer.
 
 ## In Progress
 
-- M2 deterministic state machine and governance core.
+- GitHub CI validation for M2.
+- Final Windows PowerShell validation for M2.
 
 ## Blocked
 
@@ -43,18 +43,16 @@ None.
 
 - No real claimant, beneficiary, insurer or PII data is used in M0-M2 tests.
 - Outreach, legal determinations and claim submission remain disabled.
+- M2 state names are workflow-control states, not legal or claimant-status determinations.
 
 ## Test Status
 
-Baseline commit: 8b9639cc12552083216a1cbadf138d4afb5d8d8a
-
-- Local Windows bootstrap: PASS
-- Ruff: PASS
-- mypy: PASS
-- pytest: 12 passed
-- smoke: 2 passed
-- GitHub Actions: PASS
+M2 candidate pre-publish:
+- Python compileall: PASS
+- M2 unit tests: 11 passed
+- Full Ruff/mypy/pytest: pending GitHub CI
+- Windows validation: pending
 
 ## Next Recommended Action
 
-Implement M2 on an isolated branch, then repeat CI and Windows PowerShell validation before starting M3.
+Complete GitHub CI, then validate the M2 branch on Windows using scripts/test.ps1 and scripts/smoke.ps1.

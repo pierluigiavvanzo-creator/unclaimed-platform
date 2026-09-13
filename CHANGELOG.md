@@ -5,6 +5,11 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- M2 deterministic workflow state whitelist and A00 orchestrator skeleton.
+- Fail-closed policy engine and budget ledger skeletons.
+- Append-only SHA-256 audit hash-chain writer.
+- Governance tests for allowed/forbidden transitions, missing policy, budget exhaustion and audit chaining.
+- M2 REUSE-FIRST audit and ADR-0003.
 - M1 machine contracts for Case, Evidence, Hypothesis, AgentMessage, Decision, AuditEvent, Source,
   SourceRegistry, and AgentRegistry.
 - Positive and negative JSON fixtures plus contract tests.
