@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unclaimed-platform.local/schemas/ui/m3_operations_console.schema.json",
+  "title": "M3 Operations Console Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "milestones",
+    "source_registry",
+    "raw_artifact",
+    "governance",
+    "audit",
+    "platform"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "mode": {"const": "SYNTHETIC_READ_ONLY"},
+    "milestones": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "label": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      }
+    },
+    "source_registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved_real_sources", "real_acquisition", "beneficiary_matching"],
+      "properties": {
+        "approved_real_sources": {"const": 0},
+        "real_acquisition": {"const": "BLOCKED"},
+        "beneficiary_matching": {"const": "BLOCKED"}
+      }
+    },
+    "raw_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id", "sha256", "byte_count", "content_type", "source_id", "source_uri",
+        "authority", "acquisition_method", "retrieved_at", "provenance_sha256", "synthetic", "immutable"
+      ],
+      "properties": {
+        "artifact_id": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "byte_count": {"type": "integer", "minimum": 0},
+        "content_type": {"type": "string"},
+        "source_id": {"type": "string"},
+        "source_uri": {"type": "string"},
+        "authority": {"type": "string"},
+        "acquisition_method": {"type": "string"},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "provenance_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "synthetic": {"const": true},
+        "immutable": {"const": true}
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy_gate", "source_approval_gate", "retention_policy", "pii_mode"],
+      "properties": {
+        "privacy_gate": {"const": "PASS_SYNTHETIC_ONLY"},
+        "source_approval_gate": {"const": "BLOCKED_NO_REAL_SOURCE"},
+        "retention_policy": {"const": "REQUIRED"},
+        "pii_mode": {"const": "NO_REAL_PII"}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chain", "algorithm", "durable_backend"],
+      "properties": {
+        "chain": {"const": "HEALTHY_SYNTHETIC"},
+        "algorithm": {"const": "SHA-256"},
+        "durable_backend": {"const": "PENDING"}
+      }
+    },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vercel", "supabase"],
+      "properties": {
+        "vercel": {"const": "NOT_CONNECTED"},
+        "supabase": {"const": "NOT_CONNECTED"}
+      }
+    }
+  }
+}

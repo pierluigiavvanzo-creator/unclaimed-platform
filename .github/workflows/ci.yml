@@ -19,3 +19,19 @@ jobs:
       - run: python -m pytest -q tests/contract
       - run: python -m pytest -q tests/smoke
       - run: python -m pytest -q
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.20.0"
+      - name: Install reviewer console dependencies
+        working-directory: apps/reviewer-console
+        run: npm install --no-audit --no-fund
+      - name: Frontend lint
+        working-directory: apps/reviewer-console
+        run: npm run lint
+      - name: Frontend typecheck
+        working-directory: apps/reviewer-console
+        run: npm run typecheck
+      - name: Frontend build
+        working-directory: apps/reviewer-console
+        run: npm run build
