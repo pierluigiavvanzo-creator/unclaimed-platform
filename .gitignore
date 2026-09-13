@@ -8,8 +8,16 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
 # Environment / secrets
 .env
+.env.local
+.env.*.local
 *.log
 
 # Editors / OS

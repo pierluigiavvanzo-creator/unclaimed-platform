@@ -115,3 +115,26 @@ production persistence for the audit writer remains a separate later persistence
 The bounded filesystem adapter validates the contract with synthetic data and preserves the
 `ImmutableRawStore` protocol boundary. It does not select the final production storage backend and it
 does not implement any California network download.
+
+## M3 reviewer operations summary boundary
+
+The first product-facing reviewer console consumes:
+
+- `schemas/common/reviewer_operations_summary.schema.json`
+- `GET /api/v1/reviewer/operations-summary`
+
+Version `1.0.0` is deliberately read-only and explicitly identifies its payload as
+`GOVERNED_SYNTHETIC_PREVIEW`. It reports milestone state, approved-real-source count, blocked
+capabilities, one deterministic synthetic immutable raw-artifact example, privacy/data-minimization
+status, and the already-verified M2 audit-model status.
+
+The payload is a governed project snapshot for reviewer visibility, not evidence that live California
+data has been acquired. The synthetic CSV-like fixture is only a deterministic test artifact and does
+not define or imply the California SCO row layout.
+
+The frontend may use an embedded copy of the same synthetic snapshot only when no FastAPI base URL is
+configured. Once a backend URL is configured, backend unavailability or an invalid top-level contract
+causes the console to fail closed; it must not silently substitute preview data.
+
+No mutation, source approval, outreach, claimant verification, fee agreement, beneficiary matching or
+claim submission operation is exposed by this contract.

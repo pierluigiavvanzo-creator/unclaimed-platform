@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:reviewer-operations-summary:1.0.0",
+  "title": "ReviewerOperationsSummary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "data_mode",
+    "read_only",
+    "snapshot_date",
+    "milestones",
+    "source_registry",
+    "blocked_capabilities",
+    "raw_artifact",
+    "governance",
+    "audit"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "data_mode": {"const": "GOVERNED_SYNTHETIC_PREVIEW"},
+    "read_only": {"const": true},
+    "snapshot_date": {"type": "string", "format": "date"},
+    "milestones": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "status"],
+        "properties": {
+          "id": {"enum": ["M0", "M1", "M2", "M3"]},
+          "label": {"type": "string", "minLength": 1},
+          "status": {
+            "enum": ["VERIFIED", "COMPLETE", "READINESS_GATES_VERIFIED", "IN_PROGRESS", "BLOCKED"]
+          }
+        }
+      }
+    },
+    "source_registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved_real_sources", "real_source_activation", "california_sco_candidate"],
+      "properties": {
+        "approved_real_sources": {"type": "integer", "minimum": 0},
+        "real_source_activation": {"enum": ["BLOCKED", "APPROVED"]},
+        "california_sco_candidate": {"enum": ["NOT_APPROVED", "APPROVED"]}
+      }
+    },
+    "blocked_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "REAL_ACQUISITION",
+          "BENEFICIARY_MATCHING",
+          "OUTREACH",
+          "CLAIMANT_VERIFICATION",
+          "FEE_AGREEMENT",
+          "CLAIM_SUBMISSION"
+        ]
+      }
+    },
+    "raw_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_uri",
+        "authority",
+        "acquisition_method",
+        "content_hash",
+        "byte_count",
+        "content_type",
+        "storage_reference",
+        "synthetic",
+        "immutable"
+      ],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "source_uri": {"type": "string", "format": "uri"},
+        "authority": {"type": "string", "minLength": 1},
+        "acquisition_method": {"type": "string", "minLength": 1},
+        "content_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "byte_count": {"type": "integer", "minimum": 0},
+        "content_type": {"type": "string", "minLength": 1},
+        "storage_reference": {"type": "string", "minLength": 1},
+        "synthetic": {"const": true},
+        "immutable": {"const": true}
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "privacy_policy",
+        "provenance",
+        "approval",
+        "retention",
+        "data_minimization",
+        "unnecessary_pii"
+      ],
+      "properties": {
+        "privacy_policy": {"const": "PASS_SYNTHETIC_SCOPE"},
+        "provenance": {"const": "PASS"},
+        "approval": {"const": "NOT_REQUIRED_SYNTHETIC"},
+        "retention": {"const": "PASS"},
+        "data_minimization": {"const": "PASS"},
+        "unnecessary_pii": {"const": "ABSENT"}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "algorithm", "chain_verification", "append_only", "durable_persistence"],
+      "properties": {
+        "model": {"const": "M2_AUDIT_HASH_CHAIN"},
+        "algorithm": {"const": "SHA-256"},
+        "chain_verification": {"const": "VERIFIED_BY_TEST_SUITE"},
+        "append_only": {"const": true},
+        "durable_persistence": {"const": "PENDING"}
+      }
+    }
+  }
+}
