@@ -7,7 +7,7 @@ Last updated: 2026-09-13
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Windows Ruff/mypy green, 12 tests passed, smoke green, GitHub CI green |
 | M2 — State & Governance Core | VERIFIED | GitHub CI green; Windows Ruff/mypy green; 24 tests passed; smoke 2 passed |
-| M3 — California Data Spike | RAW STORAGE / PRIVACY GATES CI VERIFIED ON CANDIDATE — HUMAN PROMOTION GATE | Source readiness, A01 acquisition contracts and raw persistence/governance boundary verified; real acquisition still blocked |
+| M3 — California Data Spike | RAW STORAGE / PRIVACY GATES VERIFIED ON CANONICAL — REAL ACQUISITION BLOCKED | Source readiness, A01 acquisition contracts and raw persistence/governance boundary promoted to `m2-state-governance-core`; canonical CI green |
 
 ## M3 completed readiness work
 
@@ -29,18 +29,34 @@ Last updated: 2026-09-13
 - trusted privacy/data-minimization policy is separated from acquisition context;
 - fail-closed gates cover source approval, required provenance, processing purpose, retention, data scope, field minimization, PII and synthetic/real scope;
 - no real-source policy or real-source registry entry was added;
-- candidate branch `m3-raw-storage-privacy-gates` GitHub CI run `34766966136` green: Ruff PASS, mypy PASS on 16 source files, contract 17 passed, smoke 2 passed, full pytest 51 passed with 2 known dependency warnings.
+- raw-storage/privacy candidate promoted by fast-forward to canonical commit `1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d` after owner approval;
+- post-promotion canonical CI run `34770452747` passed Ruff, mypy, contract tests, smoke tests and full pytest.
+
+## Product visibility / reviewer console — next bounded slice
+
+The platform now needs a visible reviewer surface in parallel with backend development.
+
+Next bounded frontend work should:
+
+1. define the reviewer-console/backend read contract before UI implementation;
+2. record the material frontend/platform decision in an ADR;
+3. add a Next.js App Router frontend in an isolated candidate branch;
+4. expose a read-only M3 Operations Console using synthetic/governed data only;
+5. show milestone state, source-registry state, raw-artifact/provenance metadata, privacy-gate status and audit-chain status without exposing real PII;
+6. add frontend lint/type/build tests to CI;
+7. keep FastAPI and deterministic backend contracts authoritative;
+8. evaluate Vercel as the frontend hosting/preview platform;
+9. evaluate Supabase as a managed PostgreSQL/Auth/Storage provider behind existing boundaries rather than creating a parallel data plane;
+10. do not create paid/external cloud resources without the required owner/cost gate.
 
 ## M3 still required before any real California acquisition
 
-1. complete final documentation CI and obtain owner approval to promote `m3-raw-storage-privacy-gates` to the canonical development branch;
-2. promote the verified candidate using history-preserving Git operations; do not force-push;
-3. explicitly approve a versioned real-source governance policy and California SCO source entry through a separate human gate;
-4. define production raw-storage/audit durability requirements as needed for the bounded real-data spike, without silently treating the local filesystem adapter as production WORM storage;
-5. implement bounded read-only retrieval with transport, redirect, size, timeout and content validation;
-6. only then execute a separately authorized bounded California spike with no unnecessary PII;
-7. verify the actual CSV layout from authorized evidence before implementing A02 row normalization;
-8. keep beneficiary matching blocked until the later matching/privacy/legal gates are satisfied.
+1. explicitly approve a versioned real-source governance policy and California SCO source entry through a separate human gate;
+2. define production raw-storage/audit durability requirements as needed for the bounded real-data spike, without silently treating the local filesystem adapter as production WORM storage;
+3. implement bounded read-only retrieval with transport, redirect, size, timeout and content validation;
+4. only then execute a separately authorized bounded California spike with no unnecessary PII;
+5. verify the actual CSV layout from authorized evidence before implementing A02 row normalization;
+6. keep beneficiary matching blocked until the later matching/privacy/legal gates are satisfied.
 
 ## Still out of scope until later gates
 
