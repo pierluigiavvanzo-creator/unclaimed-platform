@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import FrozenSet
 
 from .model import PolicyEffect, PolicyResult
 
@@ -22,11 +21,11 @@ class RawDataGovernanceContext:
     source_approval_required: bool
     approval_reference: str | None
     processing_purpose: str
-    authorized_processing_purposes: FrozenSet[str]
-    data_categories: FrozenSet[str]
-    authorized_data_categories: FrozenSet[str]
-    requested_fields: FrozenSet[str]
-    allowed_fields: FrozenSet[str]
+    authorized_processing_purposes: frozenset[str]
+    data_categories: frozenset[str]
+    authorized_data_categories: frozenset[str]
+    requested_fields: frozenset[str]
+    allowed_fields: frozenset[str]
     retention_policy_ref: str | None
     contains_pii: bool
     pii_required_for_purpose: bool
