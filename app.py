@@ -5,9 +5,9 @@ repository's ``src`` layout importable when Vercel loads the root ``app.py`` and
 then re-exports the existing FastAPI application instance.
 """
 
+import sys
 from importlib import import_module
 from pathlib import Path
-import sys
 
 _SRC_DIR = Path(__file__).resolve().parent / "src"
 _SRC_PATH = str(_SRC_DIR)
