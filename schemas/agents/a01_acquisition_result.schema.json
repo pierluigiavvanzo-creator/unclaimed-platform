@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:a01-acquisition-result:1.0.0",
+  "title": "A01AcquisitionResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "source_id", "jurisdiction", "status", "reason_code", "reason", "artifact", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "request_id": {"type": "string", "format": "uuid"},
+    "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"},
+    "jurisdiction": {"const": "CA"},
+    "status": {"type": "string", "enum": ["ACQUIRED", "MOCKED", "BLOCKED", "FAILED"]},
+    "reason_code": {"type": "string", "pattern": "^[A-Z0-9_]{3,128}$"},
+    "reason": {"type": "string", "minLength": 1},
+    "artifact": {"oneOf": [{"type": "null"}, {"type": "object", "additionalProperties": false, "required": ["storage_ref", "content_hash", "byte_count", "content_type", "immutable_raw", "synthetic"], "properties": {"storage_ref": {"type": "string", "minLength": 1}, "content_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "byte_count": {"type": "integer", "minimum": 0}, "content_type": {"type": "string", "minLength": 1}, "immutable_raw": {"const": true}, "synthetic": {"type": "boolean"}}}]},
+    "provenance": {"type": "object", "additionalProperties": false, "required": ["source_uri", "authority", "acquisition_method", "retrieved_at", "terms_review_ref", "source_revision", "access_notes"], "properties": {"source_uri": {"type": "string", "format": "uri"}, "authority": {"type": "string", "minLength": 1}, "acquisition_method": {"type": "string", "enum": ["OFFICIAL_BULK_DOWNLOAD", "MOCK", "MANUAL_REFERENCE", "CASE_SPECIFIC_REQUEST"]}, "retrieved_at": {"type": ["string", "null"], "format": "date-time"}, "terms_review_ref": {"type": "string", "minLength": 1}, "source_revision": {"type": ["string", "null"]}, "access_notes": {"type": "string", "minLength": 1}}}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "ACQUIRED"}}, "required": ["status"]}, "then": {"properties": {"artifact": {"type": "object", "properties": {"synthetic": {"const": false}}}, "provenance": {"properties": {"retrieved_at": {"type": "string", "format": "date-time"}}}}}},
+    {"if": {"properties": {"status": {"const": "MOCKED"}}, "required": ["status"]}, "then": {"properties": {"artifact": {"type": "object", "properties": {"synthetic": {"const": true}}}, "provenance": {"properties": {"retrieved_at": {"type": "string", "format": "date-time"}}}}}},
+    {"if": {"properties": {"status": {"enum": ["BLOCKED", "FAILED"]}}, "required": ["status"]}, "then": {"properties": {"artifact": {"type": "null"}}}}
+  ]
+}

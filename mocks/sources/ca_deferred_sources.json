@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "synthetic_only": true,
+  "cases": [
+    {"source_id":"ca.sco.estates","acquisition_method":"MOCK","reason":"Privacy/data-minimization review pending."},
+    {"source_id":"ca.cdi.company_profiles","acquisition_method":"MOCK","reason":"Automation access not approved."},
+    {"source_id":"ca.cdi.naic_policy_locator","acquisition_method":"MOCK","reason":"Human/legal gate required; not a bulk discovery endpoint."},
+    {"source_id":"ca.cdph.death_records","acquisition_method":"MOCK","reason":"Case-specific human-gated access only."},
+    {"source_id":"ca.courts.probate","acquisition_method":"MOCK","reason":"County-specific access review required."}
+  ]
+}
