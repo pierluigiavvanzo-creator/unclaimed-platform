@@ -7,23 +7,37 @@ from unclaimed_platform.core.audit import AuditEventWriter
 from unclaimed_platform.core.policy_engine.privacy import (
     ProvenanceContext,
     RawDataGovernanceContext,
+    RawDataGovernanceGate,
+    RawDataGovernancePolicy,
 )
 
 
 def test_synthetic_raw_storage_smoke(tmp_path: Path) -> None:
     audit = AuditEventWriter()
-    store = FileSystemRawStore(tmp_path, audit_writer=audit)
+    policy = RawDataGovernancePolicy(
+        policy_id="raw.synthetic.smoke",
+        policy_version="1.0.0",
+        source_id="synthetic.raw.smoke",
+        synthetic_only=True,
+        source_approval_required=False,
+        authorized_processing_purposes=frozenset({"SYNTHETIC_RAW_STORAGE_SMOKE"}),
+        authorized_data_categories=frozenset({"SYNTHETIC_RAW"}),
+        allowed_fields=frozenset(),
+        authorized_retention_policy_refs=frozenset({"retention://synthetic-smoke/v1"}),
+        allow_pii=False,
+    )
+    store = FileSystemRawStore(
+        tmp_path,
+        audit_writer=audit,
+        governance_gate=RawDataGovernanceGate(policy),
+    )
     governance = RawDataGovernanceContext(
         source_id="synthetic.raw.smoke",
         synthetic=True,
-        source_approval_required=False,
         approval_reference=None,
         processing_purpose="SYNTHETIC_RAW_STORAGE_SMOKE",
-        authorized_processing_purposes=frozenset({"SYNTHETIC_RAW_STORAGE_SMOKE"}),
         data_categories=frozenset({"SYNTHETIC_RAW"}),
-        authorized_data_categories=frozenset({"SYNTHETIC_RAW"}),
         requested_fields=frozenset(),
-        allowed_fields=frozenset(),
         retention_policy_ref="retention://synthetic-smoke/v1",
         contains_pii=False,
         pii_required_for_purpose=False,
@@ -49,6 +63,6 @@ def test_synthetic_raw_storage_smoke(tmp_path: Path) -> None:
     )
 
     assert store.read(record) == payload
-    assert store.load_record(record.content_hash) == record
+    assert store.load_record(record.content_hash, record.record_hash) == record
     assert audit.verify_chain()
     assert audit.events[-1].event_type == "RAW_ARTIFACT_PERSISTED"
