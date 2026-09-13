@@ -48,4 +48,8 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-packages = ["unclaimed_platform.core", "unclaimed_platform.api"]
+packages = [
+  "unclaimed_platform.core",
+  "unclaimed_platform.api",
+  "unclaimed_platform.adapters.storage",
+]
