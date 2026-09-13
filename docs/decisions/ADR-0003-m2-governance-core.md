@@ -11,7 +11,7 @@ writer. The platform requires fail-closed behavior and direct auditability of ma
 - Use a versioned JSON whitelist for lifecycle transitions.
 - Keep state validation custom and small rather than adding a general state-machine dependency.
 - Missing policy routes to `HUMAN_REVIEW`.
-- Budget exhaustion returns `STOP` without consuming additional budget.
+- Policy STOP and budget exhaustion move non-terminal cases to `STOPPED` without consuming extra budget.
 - Invalid transitions raise before budget consumption.
 - Audit events form an append-only SHA-256 hash chain in M2; persistent storage is deferred to the
   database/migration milestone.

@@ -49,7 +49,7 @@ M2 IMPLEMENTED. LOCAL CANDIDATE TESTED. GITHUB CI AND WINDOWS VALIDATION PENDING
 
 M2 candidate pre-publish:
 - Python compileall: PASS
-- M2 unit tests: 11 passed
+- M2 unit tests: 12 passed
 - Full Ruff/mypy/pytest: pending GitHub CI
 - Windows validation: pending
 

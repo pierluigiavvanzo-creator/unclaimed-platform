@@ -48,6 +48,7 @@ class Orchestrator:
         policy = self._policy_engine.evaluate(command.policy_id)
 
         if policy.effect is PolicyEffect.STOP:
+            stopped_state = self._state_machine.transition(command.current_state, "STOPPED")
             event = self._audit.append(
                 case_id=command.case_id,
                 event_type="TRANSITION_BLOCKED_POLICY",
@@ -61,7 +62,7 @@ class Orchestrator:
             )
             return OrchestrationResult(
                 status="STOP",
-                state=command.current_state,
+                state=stopped_state,
                 reason_code=policy.reason_code,
                 budget_consumed=self._budget.consumed,
                 audit_event_hash=event.event_hash,
@@ -78,6 +79,7 @@ class Orchestrator:
         if status == "CONTINUE":
             reservation = self._budget.reserve(command.budget_cost)
             if not reservation.authorized:
+                stopped_state = self._state_machine.transition(command.current_state, "STOPPED")
                 event = self._audit.append(
                     case_id=command.case_id,
                     event_type="TRANSITION_BLOCKED_BUDGET",
@@ -91,7 +93,7 @@ class Orchestrator:
                 )
                 return OrchestrationResult(
                     status="STOP",
-                    state=command.current_state,
+                    state=stopped_state,
                     reason_code=reservation.reason_code,
                     budget_consumed=self._budget.consumed,
                     audit_event_hash=event.event_hash,

@@ -6,7 +6,7 @@ Last updated: 2026-09-13
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | 12 local tests, Ruff/mypy green, smoke green, GitHub CI green |
-| M2 — State & Governance Core | IMPLEMENTED | 11 new unit tests pass; CI and Windows validation pending |
+| M2 — State & Governance Core | IMPLEMENTED | 12 new unit tests pass; CI and Windows validation pending |
 | M3 — California Data Spike | BLOCKED | Requires source/legal readiness minimum before real acquisition |
 
 ## M2 scope

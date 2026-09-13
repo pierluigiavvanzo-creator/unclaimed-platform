@@ -130,10 +130,44 @@ def test_budget_exhaustion_stops_without_mutating_consumed_amount() -> None:
     )
 
     assert result.status == "STOP"
-    assert result.state == "NEW"
+    assert result.state == "STOPPED"
     assert result.reason_code == "BUDGET_EXHAUSTED"
     assert budget.consumed == Decimal("0")
     assert audit.events[-1].event_type == "TRANSITION_BLOCKED_BUDGET"
+
+
+def test_stop_policy_moves_case_to_terminal_stopped_state() -> None:
+    budget = BudgetLedger(Decimal("10"))
+    audit = AuditEventWriter(clock=fixed_clock, id_factory=fixed_id)
+    rules = {
+        "case.block": PolicyRule(
+            rule_id="case.block",
+            effect=PolicyEffect.STOP,
+            reason_code="POLICY_STOP",
+            reason="Synthetic M2 stop policy.",
+        )
+    }
+    orchestrator = Orchestrator(
+        state_machine=load_machine(),
+        policy_engine=PolicyEngine(rules),
+        budget=budget,
+        audit=audit,
+    )
+
+    result = orchestrator.execute(
+        TransitionCommand(
+            case_id="case-1",
+            current_state="NEW",
+            requested_state="PROCESSING",
+            policy_id="case.block",
+            budget_cost=Decimal("3"),
+        )
+    )
+
+    assert result.status == "STOP"
+    assert result.state == "STOPPED"
+    assert budget.consumed == Decimal("0")
+    assert audit.events[-1].event_type == "TRANSITION_BLOCKED_POLICY"
 
 
 def test_successful_orchestration_consumes_budget_and_audits_transition() -> None:
