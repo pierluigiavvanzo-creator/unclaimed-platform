@@ -19,11 +19,14 @@ def load_schema() -> dict[str, object]:
 
 
 def valid_record() -> dict[str, object]:
-    digest = "a" * 64
+    content_hash = "a" * 64
+    record_hash = "b" * 64
     return {
         "schema_version": "1.0.0",
-        "storage_ref": f"raw/sha256/aa/aa/{digest}",
-        "content_hash": digest,
+        "storage_ref": f"raw/sha256/aa/aa/{content_hash}",
+        "record_ref": f"provenance/sha256/aa/aa/{content_hash}/{record_hash}.json",
+        "content_hash": content_hash,
+        "record_hash": record_hash,
         "byte_count": 21,
         "content_type": "application/json",
         "source_id": "synthetic.raw.source",
@@ -36,6 +39,8 @@ def valid_record() -> dict[str, object]:
         "terms_review_ref": "docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
         "retention_policy_ref": "retention://synthetic-test/v1",
         "processing_purpose": "SYNTHETIC_RAW_STORAGE_TEST",
+        "governance_policy_id": "raw.synthetic.test",
+        "governance_policy_version": "1.0.0",
         "data_categories": ["SYNTHETIC_RAW"],
         "requested_fields": ["synthetic_marker"],
         "provenance_metadata": {"fixture": "contract-test"},
@@ -67,6 +72,16 @@ def test_raw_artifact_record_schema_requires_retention_policy() -> None:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     payload = valid_record()
     del payload["retention_policy_ref"]
+
+    with pytest.raises(ValidationError):
+        validator.validate(payload)
+
+
+def test_raw_artifact_record_schema_requires_governance_policy_version() -> None:
+    schema = load_schema()
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    payload = valid_record()
+    del payload["governance_policy_version"]
 
     with pytest.raises(ValidationError):
         validator.validate(payload)
