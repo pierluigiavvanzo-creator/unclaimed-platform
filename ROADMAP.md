@@ -5,11 +5,11 @@ Last updated: 2026-09-13
 | Milestone | Status | Exit evidence |
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
-| M1 — Machine Contracts | VERIFIED | 12 local tests, Ruff/mypy green, smoke green, GitHub CI green |
-| M2 — State & Governance Core | TESTED | GitHub CI: Ruff/mypy green, 24 tests passed; Windows validation pending |
-| M3 — California Data Spike | BLOCKED | Requires source/legal readiness minimum before real acquisition |
+| M1 — Machine Contracts | VERIFIED | Windows Ruff/mypy green, 12 tests passed, smoke green, GitHub CI green |
+| M2 — State & Governance Core | VERIFIED | GitHub CI green; Windows Ruff/mypy green; 24 tests passed; smoke 2 passed |
+| M3 — California Data Spike | READINESS GATE | Real acquisition blocked pending source/legal readiness |
 
-## M2 scope
+## M2 verified scope
 
 - versioned state transition whitelist;
 - A00 deterministic orchestrator skeleton;
@@ -19,16 +19,32 @@ Last updated: 2026-09-13
 - unit tests for allowed and forbidden transitions;
 - governance tests for missing policy, budget exhaustion and audit chaining.
 
-## M2 exit gate remaining
+## M2 exit evidence
 
-- Windows PowerShell `scripts/test.ps1` green;
-- Windows PowerShell `scripts/smoke.ps1` green.
+- GitHub Actions: PASS;
+- Ruff: PASS;
+- mypy: PASS on 13 source files;
+- pytest: 24 passed;
+- Windows PowerShell `scripts/test.ps1`: PASS;
+- Windows PowerShell `scripts/smoke.ps1`: 2 passed;
+- two known FastAPI/Starlette dependency deprecation warnings remain non-blocking.
 
-## Out of scope for M2
+## M3 readiness gate
 
-- real external data acquisition;
-- claimant/beneficiary identification;
-- outreach;
+Before real California acquisition:
+
+- inventory candidate sources;
+- verify source authority and permitted access method;
+- document provenance and terms/constraints;
+- decide what is mocked versus accessed for real;
+- define acquisition contracts/adapters;
+- preserve raw immutable evidence and append-only audit.
+
+## Still out of scope until later gates
+
+- autonomous outreach;
 - legal determinations;
+- autonomous claimant verification;
+- fee agreement execution;
 - claim submission;
-- production authentication or production deployment.
+- unapproved scraping or restricted-source access.
