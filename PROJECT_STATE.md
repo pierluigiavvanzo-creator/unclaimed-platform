@@ -10,9 +10,11 @@ M3 — California Data Spike Readiness Gate
 
 M0, M1 and M2 are VERIFIED.
 
-M3 source/legal readiness and A01 acquisition contracts/adapters are complete and verified on the canonical baseline.
+M3 source/legal readiness, A01 acquisition contracts/adapters, immutable raw-storage/provenance persistence, and privacy/data-minimization gates are implemented and CI-verified on the canonical development branch `m2-state-governance-core`.
 
-The isolated candidate branch `m3-raw-storage-privacy-gates` now implements and CI-verifies immutable raw-byte persistence, append-only immutable provenance records, integration with the existing audit SHA-256 hash chain, and fail-closed privacy/data-minimization gates. This work is **pending the explicit human promotion gate** and has not been promoted to `m2-state-governance-core` or `main`.
+The raw-storage/privacy candidate `m3-raw-storage-privacy-gates` was promoted by fast-forward to the canonical development branch after explicit owner approval. The promoted implementation head is `1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d`. Canonical CI run `34770452747` completed successfully after promotion.
+
+`main` remains unchanged at the prior stable checkpoint. Promotion to `main` remains a separate human-gated action.
 
 Real California acquisition remains BLOCKED. No real source is approved in `sources/registry.yaml`, no real data was downloaded, and beneficiary matching remains disabled.
 
@@ -36,7 +38,7 @@ Real California acquisition remains BLOCKED. No real source is approved in `sour
 - Deferred California sources represented by deterministic synthetic mocks only.
 - M3 acquisition-contract candidate promoted to `m2-state-governance-core` at commit `757202bb079cfeb01d0e1c5648ab26c9095be89e`.
 - `main` divergence reconciled and branch/integration policy recorded as D-005.
-- Stable M0–M3 checkpoint aligned on `main` and `m2-state-governance-core` before the current candidate work.
+- Stable M0–M3 checkpoint aligned on `main` and `m2-state-governance-core` before the raw-storage/privacy block.
 - M3 raw-storage/privacy REUSE FIRST review documented in `docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md`.
 - Versioned A01 immutable raw/provenance record contract implemented.
 - SHA-256 content-addressed raw persistence implemented behind `ImmutableRawStore`.
@@ -44,15 +46,18 @@ Real California acquisition remains BLOCKED. No real source is approved in `sour
 - Existing M2 `AuditEventWriter` reused for `RAW_ARTIFACT_PERSISTED` hash-chain events; no parallel audit model introduced.
 - Trusted `RawDataGovernancePolicy` separated from caller acquisition context so requests cannot self-authorize.
 - Fail-closed gates implemented for privacy policy, provenance, real-source approval, processing purpose, retention policy, data categories, field minimization, PII authorization/necessity, and synthetic/real marker consistency.
-- M3 raw-storage/privacy candidate CI run `34766966136`: Ruff PASS; mypy PASS on 16 source files; contract tests 17 passed; smoke 2 passed; full pytest 51 passed with 2 known dependency warnings.
+- Candidate CI verified Ruff, mypy, contract tests, smoke tests and full pytest.
+- Owner approved promotion of `m3-raw-storage-privacy-gates` to `m2-state-governance-core`.
+- Promotion completed as a history-preserving fast-forward to `1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d`.
+- Canonical post-promotion CI run `34770452747`: PASS across Ruff, mypy, contract tests, smoke tests and full pytest.
 
 ## In Progress
 
-- Human review/promotion gate for `m3-raw-storage-privacy-gates`.
+- Product-facing reviewer/frontend visibility is the next cross-cutting development concern. It must remain downstream of deterministic backend contracts and must not bypass governance gates.
 
 ## Blocked
 
-- Real M3 California acquisition remains blocked until this candidate is promoted, a real source governance policy is explicitly approved, and a later bounded retrieval implementation is separately authorized and verified.
+- Real M3 California acquisition remains blocked until a real source governance policy is explicitly approved and a later bounded retrieval implementation is separately authorized and verified.
 - `sources/registry.yaml` remains intentionally without approved real sources.
 - Beneficiary matching remains blocked.
 - Automated outreach, claimant verification, fee agreements and claim submission remain blocked.
@@ -66,6 +71,7 @@ Real California acquisition remains BLOCKED. No real source is approved in `sour
 - The existing verified M2 audit writer remains in-memory; durable production audit-event persistence is still outstanding.
 - Retention policy is required/recorded but physical lifecycle enforcement is not implemented in this block.
 - Branch protection is not currently enabled on `main`; governance relies on the explicit human gate recorded in `AGENTS.md` and D-005.
+- No Vercel team/project or Supabase project is currently connected; cloud-resource creation remains a separate explicit gate because it may create external state or cost.
 
 ## Assumptions
 
@@ -74,25 +80,23 @@ Real California acquisition remains BLOCKED. No real source is approved in `sour
 - A01 owns raw acquisition/provenance; California row parsing/normalization remains deferred to A02 until an official layout or bounded authorized sample is verified.
 - The filesystem implementation is a replaceable adapter, not a production-backend decision.
 - Outreach, legal determinations and claim submission remain disabled.
+- Any frontend must consume governed backend contracts; it must not become an alternate authorization path.
 
 ## Test Status
 
-Current candidate evidence:
+Canonical post-promotion evidence:
 
-- branch: `m3-raw-storage-privacy-gates`;
-- base: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`;
-- verified implementation/test head: `f42d8aa2daadcc83ff799150c039117755d8717a`;
-- GitHub Actions run `34766966136`: PASS;
+- branch: `m2-state-governance-core`;
+- promoted implementation head: `1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d`;
+- GitHub Actions run `34770452747`: PASS;
 - Ruff: PASS;
 - mypy: PASS — 16 source files;
-- contract tests: 17 passed;
-- smoke tests: 2 passed;
-- full pytest: 51 passed, 2 known dependency warnings;
+- contract tests: PASS — 17 passed;
+- smoke tests: PASS — 2 passed;
+- full pytest: PASS — 51 passed with 2 known dependency warnings;
 - no network acquisition was executed;
 - no real source or real PII was introduced.
 
-Documentation-only commits after the verified implementation head must also pass CI before promotion.
-
 ## Next Recommended Action
 
-Complete the human promotion gate for `m3-raw-storage-privacy-gates`: verify final candidate HEAD/diff and final CI, then obtain owner approval before promoting to the canonical development branch. Do not implement or execute any real California SCO retrieval as part of this gate.
+Create an isolated frontend/reviewer-console candidate from the verified canonical branch. Define the UI/backend contract first, record the material frontend hosting/data-platform choice in an ADR, implement a synthetic/read-only M3 Operations Console, and add frontend build/type/lint tests. Vercel and Supabase may be integrated only through explicit, bounded interfaces; no cloud project creation, real-source activation, or real PII ingestion is authorized by this step.
