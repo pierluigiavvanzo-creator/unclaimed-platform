@@ -8,7 +8,7 @@ M2 — State & Governance Core
 
 ## Current Status
 
-M2 IMPLEMENTED AND CI-TESTED. WINDOWS VALIDATION PENDING.
+M2 VERIFIED. READY FOR M3 READINESS GATE.
 
 ## Completed and Verified
 
@@ -22,18 +22,19 @@ M2 IMPLEMENTED AND CI-TESTED. WINDOWS VALIDATION PENDING.
 - M2 budget ledger with explicit exhaustion behavior.
 - M2 append-only audit SHA-256 hash-chain writer.
 - M2 GitHub Actions: Ruff PASS, mypy PASS on 13 source files, pytest 24 passed.
+- M2 Windows PowerShell validation: Ruff PASS, mypy PASS on 13 source files, pytest 24 passed, smoke 2 passed.
 
 ## Implemented but Not Yet Verified
 
-- Final M2 validation on the Product Owner Windows environment.
+None for M2.
 
 ## In Progress
 
-- Windows PowerShell test and smoke validation for M2.
+- M3 readiness gate: California source/legal readiness before any real acquisition.
 
 ## Blocked
 
-- M3 California Data Spike remains blocked until source/legal readiness is minimally established.
+- Real M3 California acquisition remains blocked until source authority, access method, provenance and terms/constraints are documented and approved.
 
 ## Known Issues
 
@@ -49,15 +50,16 @@ M2 IMPLEMENTED AND CI-TESTED. WINDOWS VALIDATION PENDING.
 
 ## Test Status
 
-M2 latest code commit: ab5e1fff5ae5103b895ed0dc4a13c4aa398936ac
+M2 verified branch: `m2-state-governance-core`
 
 - Local M2 candidate: 12 unit tests PASS; compileall PASS.
 - GitHub Actions: PASS.
-- Ruff: PASS.
-- mypy: PASS — 13 source files.
-- pytest: 24 passed, 2 dependency warnings.
-- Windows validation: pending.
+- GitHub Ruff: PASS.
+- GitHub mypy: PASS — 13 source files.
+- GitHub pytest: 24 passed, 2 dependency warnings.
+- Windows `scripts/test.ps1`: PASS — Ruff PASS, mypy PASS, pytest 24 passed, 2 known warnings.
+- Windows `scripts/smoke.ps1`: PASS — 2 passed, 2 known warnings.
 
 ## Next Recommended Action
 
-Validate branch `m2-state-governance-core` on Windows with `scripts/test.ps1` and `scripts/smoke.ps1`. If green, mark M2 VERIFIED before any M3 work.
+Begin the M3 readiness gate only: inventory candidate California sources, verify authority and permitted access, document provenance/terms, and decide what may be mocked versus accessed for real. Do not begin scraping or beneficiary matching yet.
