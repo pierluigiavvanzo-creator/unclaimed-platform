@@ -5,63 +5,54 @@ Last updated: 2026-09-13
 | Milestone | Status | Exit evidence |
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
-| M1 — Machine Contracts | VERIFIED | Windows Ruff/mypy green, 12 tests passed, smoke green, GitHub CI green |
-| M2 — State & Governance Core | VERIFIED | GitHub CI green; Windows Ruff/mypy green; 24 tests passed; smoke 2 passed |
-| M3 — California Data Spike | RAW STORAGE / PRIVACY GATES VERIFIED ON CANONICAL — REAL ACQUISITION BLOCKED | Source readiness, A01 acquisition contracts and raw persistence/governance boundary promoted to `m2-state-governance-core`; canonical CI green |
+| M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
+| M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
+| M3 — California Data Spike | GOVERNANCE/RAW STORAGE VERIFIED ON CANONICAL — REAL ACQUISITION BLOCKED | Source readiness, A01 acquisition contracts, raw persistence/privacy promoted and CI green |
+| M3 Product Visibility — Operations Console | IMPLEMENTED + CI VERIFIED ON CANDIDATE — HUMAN GATE PENDING | Next.js reviewer UI, read-only FastAPI contract, frontend lint/type/build green |
 
 ## M3 completed readiness work
 
-- California source/legal inventory completed using authoritative government sources;
-- California SCO public bulk CSV identified as the preferred future real-data candidate;
-- deferred sources classified as mock/reference/deferred;
-- A01 raw-acquisition request/result contracts defined at version `1.0.0`;
-- `REAL` requests require an explicit approval identifier;
-- acquisition scope constrained to `RAW_INGEST_ONLY`;
-- immutable raw artifact metadata includes SHA-256, byte count, content type and storage reference;
-- provenance includes source URI, authority, acquisition method, terms-review reference and retrieval time;
-- California SCO adapter boundary implemented fail-closed with no network retrieval;
-- deferred-source deterministic mock adapter and fixtures implemented;
-- acquisition-contract candidate promoted to the canonical development branch and stable M0–M3 checkpoint reconciled to `main`;
-- M3 raw-storage/privacy REUSE FIRST evaluation completed;
-- content-addressed raw-byte persistence implemented behind `ImmutableRawStore`;
-- immutable provenance records use separate deterministic SHA-256 record hashes and support append-only acquisition history for identical raw bytes;
-- successful new persistence reuses the existing M2 audit SHA-256 hash-chain writer;
-- trusted privacy/data-minimization policy is separated from acquisition context;
-- fail-closed gates cover source approval, required provenance, processing purpose, retention, data scope, field minimization, PII and synthetic/real scope;
-- no real-source policy or real-source registry entry was added;
-- raw-storage/privacy candidate promoted by fast-forward to canonical commit `1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d` after owner approval;
-- post-promotion canonical CI run `34770452747` passed Ruff, mypy, contract tests, smoke tests and full pytest.
+- California source/legal inventory completed using authoritative government sources.
+- California SCO public bulk CSV identified only as a future bounded candidate; it is not approved for acquisition.
+- A01 acquisition request/result contracts and fail-closed adapter boundary implemented.
+- Immutable content-addressed raw storage/provenance and privacy/data-minimization gate implemented and promoted to canonical.
+- No real-source policy or real-source registry entry exists.
 
-## Product visibility / reviewer console — next bounded slice
+## M3 product visibility candidate
 
-The platform now needs a visible reviewer surface in parallel with backend development.
+Candidate `m3-operations-console` adds:
 
-Next bounded frontend work should:
+1. versioned read-only operations-console JSON Schema v1.0.0;
+2. FastAPI reviewer endpoint as authoritative backend boundary;
+3. Next.js App Router + TypeScript console;
+4. visible M0-M3 status, source registry `0`, raw/provenance synthetic metadata, privacy gates, audit health and platform status;
+5. explicit real-acquisition and beneficiary-matching blocked states;
+6. frontend lint/type/build in GitHub CI and PowerShell test harness;
+7. ADR-0004 for Next.js/Vercel/Supabase boundary;
+8. Vercel deploy readiness without creating a project;
+9. Supabase readiness placeholders without SDK/database/project creation.
 
-1. define the reviewer-console/backend read contract before UI implementation;
-2. record the material frontend/platform decision in an ADR;
-3. add a Next.js App Router frontend in an isolated candidate branch;
-4. expose a read-only M3 Operations Console using synthetic/governed data only;
-5. show milestone state, source-registry state, raw-artifact/provenance metadata, privacy-gate status and audit-chain status without exposing real PII;
-6. add frontend lint/type/build tests to CI;
-7. keep FastAPI and deterministic backend contracts authoritative;
-8. evaluate Vercel as the frontend hosting/preview platform;
-9. evaluate Supabase as a managed PostgreSQL/Auth/Storage provider behind existing boundaries rather than creating a parallel data plane;
-10. do not create paid/external cloud resources without the required owner/cost gate.
+Verified implementation/fix head `7c0ecc644363353250ed974816af2d0620a5998d`, CI run `34771881569` PASS: Ruff, mypy, 18 contract tests, 3 smoke tests, 53 full tests, frontend lint/type/build.
 
-## M3 still required before any real California acquisition
+## Next gate
+
+- Human review and explicit approval before candidate promotion to `m2-state-governance-core`.
+- After canonical promotion/CI, separately connect and authorize Vercel preview deployment.
+- Supabase project/database/Auth/Storage work requires a separate bounded architecture + organization/cost gate.
+
+## Still required before any real California acquisition
 
 1. explicitly approve a versioned real-source governance policy and California SCO source entry through a separate human gate;
-2. define production raw-storage/audit durability requirements as needed for the bounded real-data spike, without silently treating the local filesystem adapter as production WORM storage;
+2. define production raw-storage/audit durability requirements;
 3. implement bounded read-only retrieval with transport, redirect, size, timeout and content validation;
-4. only then execute a separately authorized bounded California spike with no unnecessary PII;
-5. verify the actual CSV layout from authorized evidence before implementing A02 row normalization;
-6. keep beneficiary matching blocked until the later matching/privacy/legal gates are satisfied.
+4. execute only a separately authorized bounded California spike with no unnecessary PII;
+5. verify actual CSV layout from authorized evidence before A02 row normalization;
+6. keep beneficiary matching blocked until later matching/privacy/legal gates are satisfied.
 
-## Still out of scope until later gates
+## Out of scope until later gates
 
-- real California acquisition before explicit source/policy approval and retrieval verification;
-- beneficiary matching on real data before M3 readiness approval;
+- real California acquisition before explicit source/policy approval;
+- real-data beneficiary matching;
 - autonomous outreach;
 - legal determinations;
 - autonomous claimant verification;

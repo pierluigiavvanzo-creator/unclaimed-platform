@@ -15,4 +15,25 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & $Python -m pytest -q tests/smoke
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & $Python -m pytest -q
-exit $LASTEXITCODE
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+$Frontend = Join-Path $Repo "apps\reviewer-console"
+if (Test-Path $Frontend) {
+    $Npm = Get-Command npm -ErrorAction SilentlyContinue
+    if (-not $Npm) { throw "Missing npm/Node.js required by apps/reviewer-console." }
+    Push-Location $Frontend
+    try {
+        & npm install --no-audit --no-fund
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        & npm run lint
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        & npm run typecheck
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        & npm run build
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    }
+    finally {
+        Pop-Location
+    }
+}
+exit 0

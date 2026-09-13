@@ -4,21 +4,18 @@ Date: 2026-09-13
 
 ## Purpose
 
-Authoritative restart point for the next project chat. Use repository evidence, not conversational memory.
+Authoritative restart point. Use repository evidence, not conversational memory.
 
 ## Repository and branches
 
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Historical raw-storage/privacy candidate: `m3-raw-storage-privacy-gates`
-- Historical M3 acquisition candidate: `m3-acquisition-contracts`
-- Historical main-reconciliation branch: `integration-main-sync-m3`
-- Historical checkpoint branch: `checkpoint-main-m3`
-- Branch/integration policy is recorded in `DECISIONS.md` as D-005.
-- Do not develop directly on `main`; use bounded feature/candidate branches and promote verified milestone checkpoints only after owner approval.
+- Active candidate: `m3-operations-console`
+- Candidate base canonical SHA: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
+- Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
-At every restart, verify remote branch HEADs and CI directly from GitHub. Do not assume a SHA in this handover is still current if later documentation or feature commits exist.
+At every restart, verify branch HEADs and CI directly from GitHub.
 
 ## Mandatory files to read first
 
@@ -32,168 +29,87 @@ At every restart, verify remote branch HEADs and CI directly from GitHub. Do not
 8. `docs/decisions/ADR-0001-deterministic-core.md`
 9. `docs/decisions/ADR-0002-versioned-machine-contracts.md`
 10. `docs/decisions/ADR-0003-m2-governance-core.md`
-11. `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
-12. `docs/audits/M3_ACQUISITION_CONTRACTS.md`
-13. `docs/audits/MAIN_DIVERGENCE_RECONCILIATION.md`
-14. `docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md`
-15. `docs/audits/M3_RAW_STORAGE_PRIVACY_GATES.md`
+11. `docs/decisions/ADR-0004-reviewer-frontend-platform.md`
+12. `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
+13. `docs/audits/M3_ACQUISITION_CONTRACTS.md`
+14. `docs/audits/MAIN_DIVERGENCE_RECONCILIATION.md`
+15. `docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md`
+16. `docs/audits/M3_RAW_STORAGE_PRIVACY_GATES.md`
+17. `docs/audits/M3_OPERATIONS_CONSOLE_REUSE_FIRST.md`
+18. `docs/audits/M3_OPERATIONS_CONSOLE.md`
 
-## Verified milestones
+## Verified baseline
 
-- M0 — VERIFIED.
-- M1 — VERIFIED.
-- M2 — VERIFIED.
-- M3 source/legal readiness inventory — COMPLETE.
-- M3 acquisition contracts/adapters — IMPLEMENTED + CI VERIFIED + PROMOTED TO CANONICAL.
-- M3 immutable raw-storage/provenance + privacy/data-minimization block — IMPLEMENTED + CI VERIFIED + PROMOTED TO CANONICAL.
+- M0 VERIFIED.
+- M1 VERIFIED.
+- M2 VERIFIED.
+- M3 source/legal readiness COMPLETE.
+- M3 acquisition contracts/adapters IMPLEMENTED + CI VERIFIED + CANONICAL.
+- M3 immutable raw storage/provenance + privacy/data-minimization IMPLEMENTED + CI VERIFIED + CANONICAL.
+- Real acquisition BLOCKED.
+- Beneficiary matching BLOCKED.
+- `sources/registry.yaml` has no approved real source.
 
-## Raw-storage/privacy promotion closure
+## Current candidate
 
-Candidate branch:
+Branch: `m3-operations-console`
 
-`m3-raw-storage-privacy-gates`
+Implemented:
 
-Candidate final HEAD approved by owner and promoted by fast-forward:
+- `schemas/ui/m3_operations_console.schema.json` v1.0.0;
+- `GET /api/reviewer/m3/operations` in FastAPI;
+- `apps/reviewer-console` using Next.js App Router + TypeScript;
+- synthetic/read-only dashboard with milestone, source-registry, provenance, privacy, audit and platform status;
+- frontend lint/type/build CI gates;
+- PowerShell frontend validation;
+- ADR-0004 frontend/platform boundary;
+- Vercel configuration and Supabase publishable-key placeholders only.
 
-`1fbc74853385b6c6f92fb2c7d9b5b1df4ab0a10d`
+The UI cannot approve a source, enable acquisition, run matching or process real PII.
 
-Promotion target:
+## Verification evidence
 
-`m2-state-governance-core`
+Implementation/fix head before documentation closure: `7c0ecc644363353250ed974816af2d0620a5998d`.
+GitHub Actions run `34771881569`: PASS.
 
-Post-promotion GitHub Actions run:
+- Ruff PASS.
+- mypy PASS — 17 source files.
+- contract tests 18 passed.
+- smoke tests 3 passed.
+- full pytest 53 passed with 2 known dependency warnings.
+- frontend dependency install PASS.
+- frontend lint PASS.
+- frontend TypeScript PASS.
+- Next.js production build PASS; `/` generated as static route.
 
-`34770452747`
+After this handover/documentation commit, verify CI again on the exact final candidate HEAD before calling the candidate ready for promotion.
 
-Result: **PASS**
+## Vercel / Supabase state
 
-- Ruff: PASS;
-- mypy: PASS on 16 source files;
-- contract tests: PASS — 17 passed;
-- smoke tests: PASS — 2 passed;
-- full pytest: PASS — 51 passed with 2 known dependency warnings.
+Observed 2026-09-13 through connected platform tools:
 
-The promotion was history-preserving and non-forced. `main` was not modified by this promotion.
+- Vercel: no teams/projects returned; no preview deployed.
+- Supabase: no projects returned; no project/database/Auth/Storage created.
 
-Subsequent documentation-only commits on `m2-state-governance-core` close the promotion gate in `PROJECT_STATE.md`, `ROADMAP.md`, and this handover. Verify their latest CI before treating the documentation closure as fully green.
+Do not invent IDs, URLs or keys. Supabase project/branch creation may incur cost and requires explicit organization/cost confirmation. Vercel deployment requires an available/connected team/project and a separate deployment gate.
 
-## Current M3 capability
+## Known limitations / debt
 
-Implemented and promoted:
-
-- trusted `RawDataGovernancePolicy` separated from caller-supplied acquisition context;
-- deterministic fail-closed `RawDataGovernanceGate`;
-- `ImmutableRawStore` protocol;
-- bounded `FileSystemRawStore` adapter;
-- SHA-256 content-addressed immutable raw-byte references;
-- deterministic immutable provenance records with separate SHA-256 record hashes;
-- append-only provenance history for repeated acquisitions of identical raw bytes;
-- versioned `schemas/agents/a01_raw_artifact_record.schema.json` contract;
-- integration with the existing M2 `AuditEventWriter` through `RAW_ARTIFACT_PERSISTED` events;
-- idempotent duplicate persistence without duplicate audit events;
-- corruption/mutation detection;
-- synthetic unit, contract and smoke coverage;
-- CI and PowerShell test harness coverage for storage, contracts and smoke paths.
-
-## Privacy / safety state
-
-Still enforced:
-
-- `sources/registry.yaml` has no approved real source;
-- no real California SCO download has occurred;
-- no California CSV row layout is assumed or encoded;
-- no real beneficiary, insured, decedent or family PII is introduced;
-- beneficiary matching remains blocked;
-- outreach remains blocked;
-- claimant verification remains blocked;
-- fee agreements remain blocked;
-- claim submission remains blocked;
-- unapproved scraping/restricted-source access remains blocked.
-
-## Known limitations / technical debt
-
-- Filesystem immutability is application-enforced, not provider-level WORM/object lock.
-- `FileSystemRawStore` is a bounded adapter, not a production storage-backend selection.
-- The M2 audit writer remains in-memory; durable production audit-event persistence is outstanding.
-- Retention is required/authorized/recorded but physical lifecycle enforcement is not implemented.
-- PostgreSQL/Alembic initial application migration is not yet implemented.
-- Two known non-blocking FastAPI/Starlette/AnyIO deprecation warnings remain.
-- GitHub Actions emits upstream Node runtime deprecation warnings for current checkout/setup-python actions; workflows pass.
-- `main` has no enforced branch protection; continue using explicit human gates.
-
-## Frontend/product-visibility directive
-
-The owner explicitly requested that future development expose product progress through a frontend wherever practical, and asked to use Vercel and Supabase where they add value.
-
-This does **not** authorize bypassing the existing architecture. The target remains:
-
-```text
-Reviewer UI
-   |
-FastAPI application layer
-   |
-A00 Orchestrator + State Machine + Gate Engine
-   |
-Domain agents / contracts / policy engine
-   |
-Repositories / adapters
-   |
-PostgreSQL + immutable raw storage + audit
-```
-
-Frontend rules for the next slice:
-
-- backend deterministic contracts remain authoritative;
-- UI must be read-only/synthetic for the first M3 operations-console slice;
-- no real PII;
-- no real acquisition;
-- no source approval through a UI shortcut;
-- no frontend-side service-role/secret keys;
-- any material frontend/data-platform architecture decision must be recorded in an ADR before implementation;
-- frontend lint/type/build checks must be part of CI;
-- a Vercel preview is desirable after code verification, but deployment requires an available/connected Vercel account/project;
-- Supabase may be evaluated as managed PostgreSQL/Auth/Storage behind existing boundaries, not as a parallel authoritative data plane.
-
-## Vercel / Supabase account state observed on 2026-09-13
-
-Using the connected platform tools:
-
-- Vercel: no teams/projects were returned for the current connection;
-- Supabase: no projects were returned for the current connection.
-
-Therefore the next slice may prepare code/configuration for these platforms, but must not invent project IDs, URLs, keys or database resources. Creating a Supabase project/branch can incur cost and requires an explicit organization/cost confirmation gate. Cloud deployment is not a prerequisite for the first local/CI-verified frontend candidate.
-
-Current Supabase guidance also requires using publishable frontend keys rather than service-role/secret keys, enabling RLS on exposed tables, and using current SSR packages/patterns if Auth is later introduced.
+- `package-lock.json` not committed; transitive npm resolution is not fully reproducible yet.
+- ESLint `9.39.5` is a temporary compatibility pin because current `eslint-plugin-react` used by Next config fails on ESLint 10; maintenance warning remains.
+- reviewer endpoint is a synthetic read model rather than a live projection from durable source/audit stores.
+- frontend synthetic fallback duplicates part of the contract shape; later generate TS bindings from JSON Schema/OpenAPI.
+- filesystem raw storage is not provider WORM/object lock.
+- audit writer is still in-memory.
+- retention lifecycle enforcement and PostgreSQL/Alembic application migration remain outstanding.
 
 ## SINGLE NEXT ACTION
 
-Create an isolated candidate from the latest green `m2-state-governance-core` and implement the first **M3 Operations Console** frontend slice.
+Verify the final candidate HEAD and final GitHub Actions run after documentation closure. Then present the human gate with branch, HEAD, diff/stat, tests, risks, rollback and deployment readiness. Do not promote automatically.
 
-Before code:
+If the owner explicitly approves promotion of `m3-operations-console` to `m2-state-governance-core`, first re-verify candidate/canonical/main refs and divergence, then perform only a history-preserving fast-forward if safe, verify canonical CI on the exact resulting HEAD, and leave `main` untouched unless separately authorized.
 
-1. verify latest canonical HEAD and CI after documentation closure;
-2. create an isolated feature/candidate branch;
-3. perform REUSE FIRST for Next.js/Vercel/Supabase and existing repository capabilities;
-4. define acceptance criteria and a versioned read-only reviewer-console/backend contract;
-5. create an ADR for the material frontend/platform choice.
-
-Bounded implementation target:
-
-- Next.js App Router + TypeScript frontend;
-- visible M3 Operations Console;
-- synthetic/read-only data only;
-- milestone/status cards;
-- source registry status (`0` approved real sources expected);
-- raw artifact/provenance metadata example from synthetic fixtures/contracts;
-- privacy/governance gate status;
-- audit-chain health/status;
-- clear blocked-state presentation for real acquisition and beneficiary matching;
-- frontend lint/type/build gates in CI;
-- no real network acquisition;
-- no California row interpretation;
-- no cloud-resource creation without separate authorization.
-
-After implementation and green CI, present branch, HEAD, diff/stat, tests, risks, rollback and preview/deployment readiness, then stop at the human promotion/deployment gate.
+Vercel preview deployment is a separate gate after canonical promotion/CI. Supabase project creation/integration is a separate future organization/cost/architecture gate.
 
 ## Handover status
 
@@ -201,15 +117,12 @@ After implementation and green CI, present branch, HEAD, diff/stat, tests, risks
 M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
-M3 source/legal inventory: COMPLETE
-M3 acquisition contracts/adapters: IMPLEMENTED + CI VERIFIED + CANONICAL
-M3 immutable raw storage/provenance: IMPLEMENTED + CI VERIFIED + CANONICAL
-M3 privacy/data-minimization gates: IMPLEMENTED + CI VERIFIED + CANONICAL
+M3 governance/raw persistence: CANONICAL + VERIFIED
+M3 Operations Console: CANDIDATE + VERIFIED IMPLEMENTATION, FINAL DOC CI PENDING
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
-Frontend next: M3 Operations Console candidate
-Vercel connected projects/teams: NONE OBSERVED
-Supabase connected projects: NONE OBSERVED
-NEXT: isolated frontend candidate, contract/ADR first, synthetic/read-only console
-CONTEXT HEALTH: coherent; repository remains the source of truth
+Vercel project/team: NONE OBSERVED
+Supabase project: NONE OBSERVED
+NEXT: final candidate CI -> human promotion gate
+CONTEXT HEALTH: coherent; repository is source of truth
 ```
