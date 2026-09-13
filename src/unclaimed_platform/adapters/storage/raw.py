@@ -120,6 +120,12 @@ class FileSystemRawStore:
                 "Raw content type is not included in the expected content types.",
             )
 
+        if synthetic is not governance.synthetic:
+            raise RawStoragePolicyError(
+                "SYNTHETIC_MARKER_MISMATCH",
+                "Raw artifact synthetic/real marker does not match the governance context.",
+            )
+
         policy = self._governance_gate.evaluate(governance)
         if policy.effect is not PolicyEffect.ALLOW:
             raise RawStoragePolicyError(policy.reason_code, policy.reason)
