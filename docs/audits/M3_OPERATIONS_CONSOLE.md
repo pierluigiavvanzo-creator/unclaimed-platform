@@ -1,7 +1,7 @@
 # M3 Operations Console — implementation and verification audit
 
 Date: 2026-09-13
-Branch: `m3-operations-console`
+Candidate branch: `m3-operations-console`
 Base canonical SHA: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
 
 ## Scope
@@ -31,7 +31,7 @@ Implemented the first product-visible reviewer surface without expanding the rea
 - The current connected Vercel account returned no teams/projects; the current Supabase connection returned no projects.
 - No cloud resource, database, deployment, key or paid service was created.
 
-## Verification
+## Candidate verification
 
 Implementation/fix head `7c0ecc644363353250ed974816af2d0620a5998d` was verified by GitHub Actions run `34771881569`:
 
@@ -47,6 +47,34 @@ Implementation/fix head `7c0ecc644363353250ed974816af2d0620a5998d` was verified 
 
 The first CI attempt failed only because ESLint 10 removed an API still used by `eslint-plugin-react` bundled through the current Next.js config. The candidate was corrected to ESLint `9.39.5`, after which the full pipeline passed. This compatibility pin is temporary technical debt: ESLint 9 now emits an upstream support warning and should be removed when the Next.js React-plugin chain is verified compatible with ESLint 10.
 
+## Promotion closure
+
+The owner explicitly approved promotion of `m3-operations-console` to `m2-state-governance-core` on 2026-09-13.
+
+Pre-promotion verification confirmed:
+
+- candidate head `308a5f5f71d12378e190398b0e81fbabc28d6aa1`;
+- canonical head `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`;
+- compare status: candidate 4 commits ahead, 0 behind;
+- candidate exact-head CI run `34772214241`: PASS;
+- `main` remained unchanged.
+
+Promotion used a history-preserving, non-forced fast-forward of `m2-state-governance-core` to `308a5f5f71d12378e190398b0e81fbabc28d6aa1`.
+
+Canonical post-promotion GitHub Actions run `34774600910` completed successfully on the exact promoted implementation head:
+
+- Ruff: PASS;
+- mypy: PASS — 17 source files;
+- contract tests: PASS — 18 passed;
+- smoke tests: PASS — 3 passed;
+- full pytest: PASS — 53 passed, 2 known dependency warnings;
+- frontend dependency install: PASS;
+- frontend lint: PASS;
+- frontend TypeScript check: PASS;
+- Next.js 16.3.4 production build: PASS; static `/` route generated successfully.
+
+No real source, acquisition, California row interpretation or real PII was introduced by the promotion. `main` was not modified.
+
 ## Known limitations
 
 - No Vercel preview is deployed yet because no Vercel team/project is available through the current connection.
@@ -58,4 +86,4 @@ The first CI attempt failed only because ESLint 10 removed an API still used by 
 
 ## Rollback
 
-Before promotion, abandon/delete `m3-operations-console`; canonical and `main` remain unchanged. After an approved promotion, use history-preserving revert commits; never force-push shared branches.
+The candidate is now promoted. Any rollback on canonical must use history-preserving revert commits; never force-push shared branches. `main` remains an independent stable checkpoint and was not changed by this promotion.

@@ -11,11 +11,12 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Active candidate: `m3-operations-console`
-- Candidate base canonical SHA: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
+- Historical operations-console candidate: `m3-operations-console`
+- Operations-console candidate base canonical SHA: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
+- Promoted operations-console implementation SHA: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
-At every restart, verify branch HEADs and CI directly from GitHub.
+At every restart, verify branch HEADs and CI directly from GitHub. Documentation-only closure commits may make the latest canonical SHA newer than the promoted implementation SHA recorded above.
 
 ## Mandatory files to read first
 
@@ -46,15 +47,47 @@ At every restart, verify branch HEADs and CI directly from GitHub.
 - M3 source/legal readiness COMPLETE.
 - M3 acquisition contracts/adapters IMPLEMENTED + CI VERIFIED + CANONICAL.
 - M3 immutable raw storage/provenance + privacy/data-minimization IMPLEMENTED + CI VERIFIED + CANONICAL.
+- M3 Operations Console IMPLEMENTED + CI VERIFIED + CANONICAL.
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - `sources/registry.yaml` has no approved real source.
 
-## Current candidate
+## Operations Console promotion closure
 
-Branch: `m3-operations-console`
+Historical candidate branch: `m3-operations-console`
 
-Implemented:
+Owner approval: explicit on 2026-09-13.
+
+Promotion target: `m2-state-governance-core`.
+
+Pre-promotion state:
+
+- candidate head: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`;
+- canonical head: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`;
+- candidate 4 commits ahead, 0 behind;
+- candidate exact-head CI run `34772214241`: PASS.
+
+Promotion method: history-preserving, non-forced fast-forward.
+
+Canonical post-promotion run: `34774600910` — PASS on `308a5f5f71d12378e190398b0e81fbabc28d6aa1`.
+
+Verified:
+
+- Ruff PASS;
+- mypy PASS — 17 source files;
+- contract tests 18 passed;
+- smoke tests 3 passed;
+- full pytest 53 passed with 2 known dependency warnings;
+- frontend dependency install PASS;
+- frontend lint PASS;
+- frontend TypeScript PASS;
+- Next.js 16.3.4 production build PASS; `/` generated as a static route.
+
+`main` was not modified by this promotion.
+
+## Current product-visible capability
+
+Canonical now includes:
 
 - `schemas/ui/m3_operations_console.schema.json` v1.0.0;
 - `GET /api/reviewer/m3/operations` in FastAPI;
@@ -66,23 +99,6 @@ Implemented:
 - Vercel configuration and Supabase publishable-key placeholders only.
 
 The UI cannot approve a source, enable acquisition, run matching or process real PII.
-
-## Verification evidence
-
-Implementation/fix head before documentation closure: `7c0ecc644363353250ed974816af2d0620a5998d`.
-GitHub Actions run `34771881569`: PASS.
-
-- Ruff PASS.
-- mypy PASS — 17 source files.
-- contract tests 18 passed.
-- smoke tests 3 passed.
-- full pytest 53 passed with 2 known dependency warnings.
-- frontend dependency install PASS.
-- frontend lint PASS.
-- frontend TypeScript PASS.
-- Next.js production build PASS; `/` generated as static route.
-
-After this handover/documentation commit, verify CI again on the exact final candidate HEAD before calling the candidate ready for promotion.
 
 ## Vercel / Supabase state
 
@@ -105,11 +121,9 @@ Do not invent IDs, URLs or keys. Supabase project/branch creation may incur cost
 
 ## SINGLE NEXT ACTION
 
-Verify the final candidate HEAD and final GitHub Actions run after documentation closure. Then present the human gate with branch, HEAD, diff/stat, tests, risks, rollback and deployment readiness. Do not promote automatically.
+Keep `main` untouched. Present and satisfy the separate Vercel preview/deployment gate: connect or expose an authorized Vercel team/project, verify that `apps/reviewer-console` is the project root or configured root directory, and deploy a preview only after explicit owner authorization. If no Vercel team/project is available, stop and request connection rather than inventing identifiers.
 
-If the owner explicitly approves promotion of `m3-operations-console` to `m2-state-governance-core`, first re-verify candidate/canonical/main refs and divergence, then perform only a history-preserving fast-forward if safe, verify canonical CI on the exact resulting HEAD, and leave `main` untouched unless separately authorized.
-
-Vercel preview deployment is a separate gate after canonical promotion/CI. Supabase project creation/integration is a separate future organization/cost/architecture gate.
+Supabase project creation/integration remains a separate future organization/cost/architecture gate. Real California acquisition and beneficiary matching remain blocked regardless of frontend deployment status.
 
 ## Handover status
 
@@ -118,11 +132,12 @@ M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
 M3 governance/raw persistence: CANONICAL + VERIFIED
-M3 Operations Console: CANDIDATE + VERIFIED IMPLEMENTATION, FINAL DOC CI PENDING
+M3 Operations Console: CANONICAL + CI VERIFIED
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
 Vercel project/team: NONE OBSERVED
 Supabase project: NONE OBSERVED
-NEXT: final candidate CI -> human promotion gate
+main: UNCHANGED; separate human gate required
+NEXT: Vercel connection/deployment gate
 CONTEXT HEALTH: coherent; repository is source of truth
 ```

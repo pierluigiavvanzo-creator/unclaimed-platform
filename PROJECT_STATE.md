@@ -8,9 +8,9 @@ M3 — California Data Spike Readiness + Product Visibility
 
 ## Current Status
 
-M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters, immutable raw-storage/provenance persistence, and privacy/data-minimization gates are implemented and CI-verified on canonical `m2-state-governance-core`.
+M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters, immutable raw-storage/provenance persistence, privacy/data-minimization gates, and the first reviewer operations console are implemented and CI-verified on canonical `m2-state-governance-core`.
 
-The first M3 reviewer frontend is implemented and CI-verified on candidate branch `m3-operations-console`, pending human promotion/deployment gate. It is synthetic/read-only and does not expand the permission boundary.
+The `m3-operations-console` candidate was promoted to canonical by a history-preserving, non-forced fast-forward after explicit owner approval. The promoted implementation head is `308a5f5f71d12378e190398b0e81fbabc28d6aa1`; canonical post-promotion GitHub Actions run `34774600910` completed successfully.
 
 `main` remains unchanged at the prior stable checkpoint. Real California acquisition and beneficiary matching remain BLOCKED. `sources/registry.yaml` has no approved real source.
 
@@ -29,13 +29,17 @@ The first M3 reviewer frontend is implemented and CI-verified on candidate branc
 - Frontend CI gates for lint, TypeScript and production build.
 - PowerShell `scripts/test.ps1` extended to run frontend validation when the app exists.
 - ADR-0004 records frontend/Vercel/Supabase architecture boundary.
+- `m3-operations-console` promoted to `m2-state-governance-core` after explicit owner approval.
+- Canonical post-promotion CI run `34774600910` PASS on the exact promoted implementation head.
 
-## Candidate Verification
+## Canonical Promotion Verification
 
 Candidate: `m3-operations-console`
-Base: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
-Verified implementation/fix head: `7c0ecc644363353250ed974816af2d0620a5998d`
-GitHub Actions run: `34771881569` — PASS.
+Promotion target: `m2-state-governance-core`
+Pre-promotion canonical head: `f518946c5e6fc4c816cfec54d4b5e1a7058c67d3`
+Promoted implementation head: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`
+Promotion method: non-forced fast-forward
+GitHub Actions run: `34774600910` — PASS.
 
 Evidence:
 
@@ -44,9 +48,11 @@ Evidence:
 - contract tests 18 passed.
 - smoke tests 3 passed.
 - full pytest 53 passed, 2 known dependency warnings.
+- frontend dependency install PASS.
 - frontend lint PASS.
 - frontend typecheck PASS.
-- Next.js 16.3.4 production build PASS.
+- Next.js 16.3.4 production build PASS; `/` generated as a static route.
+- no real source, real acquisition or real PII introduced.
 
 ## Blocked / Not Authorized
 
@@ -57,7 +63,7 @@ Evidence:
 - Real claimant/beneficiary/decedent/family PII.
 - Outreach, claimant verification, fee agreements and claim submission.
 - Unapproved scraping/restricted-source access.
-- Promotion of this candidate to canonical or `main` without the required human gate.
+- Promotion to `main` without a separate explicit human gate.
 - Vercel deployment or Supabase resource creation without the separate account/cost/deployment gate.
 
 ## Known Issues
@@ -75,4 +81,4 @@ Evidence:
 
 ## Next Recommended Action
 
-Human review of the `m3-operations-console` candidate. If approved, promote only to `m2-state-governance-core` with a history-preserving fast-forward, verify CI on the exact canonical HEAD, then separately connect/authorize Vercel for a preview. Supabase creation/integration remains a later explicit organization/cost and architecture gate.
+Keep `main` untouched. The next bounded product action is a separate Vercel preview/deployment gate: connect or expose an authorized Vercel team/project, verify the project/root configuration for `apps/reviewer-console`, and deploy only after explicit owner authorization. Supabase project/database/Auth/Storage creation remains a later explicit organization/cost and architecture gate. Real acquisition remains blocked independently of frontend deployment.

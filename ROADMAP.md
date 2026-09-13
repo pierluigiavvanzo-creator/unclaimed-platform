@@ -8,7 +8,7 @@ Last updated: 2026-09-13
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
 | M3 — California Data Spike | GOVERNANCE/RAW STORAGE VERIFIED ON CANONICAL — REAL ACQUISITION BLOCKED | Source readiness, A01 acquisition contracts, raw persistence/privacy promoted and CI green |
-| M3 Product Visibility — Operations Console | IMPLEMENTED + CI VERIFIED ON CANDIDATE — HUMAN GATE PENDING | Next.js reviewer UI, read-only FastAPI contract, frontend lint/type/build green |
+| M3 Product Visibility — Operations Console | IMPLEMENTED + CI VERIFIED + CANONICAL — DEPLOYMENT GATE PENDING | Next.js reviewer UI, read-only FastAPI contract, frontend lint/type/build green on canonical |
 
 ## M3 completed readiness work
 
@@ -18,9 +18,9 @@ Last updated: 2026-09-13
 - Immutable content-addressed raw storage/provenance and privacy/data-minimization gate implemented and promoted to canonical.
 - No real-source policy or real-source registry entry exists.
 
-## M3 product visibility candidate
+## M3 product visibility — promoted canonical slice
 
-Candidate `m3-operations-console` adds:
+The historical candidate `m3-operations-console` added and has now promoted to canonical:
 
 1. versioned read-only operations-console JSON Schema v1.0.0;
 2. FastAPI reviewer endpoint as authoritative backend boundary;
@@ -32,13 +32,15 @@ Candidate `m3-operations-console` adds:
 8. Vercel deploy readiness without creating a project;
 9. Supabase readiness placeholders without SDK/database/project creation.
 
-Verified implementation/fix head `7c0ecc644363353250ed974816af2d0620a5998d`, CI run `34771881569` PASS: Ruff, mypy, 18 contract tests, 3 smoke tests, 53 full tests, frontend lint/type/build.
+Promoted implementation head: `308a5f5f71d12378e190398b0e81fbabc28d6aa1`.
+Canonical post-promotion CI run `34774600910`: PASS — Ruff, mypy, 18 contract tests, 3 smoke tests, 53 full tests, frontend lint/type/build.
 
 ## Next gate
 
-- Human review and explicit approval before candidate promotion to `m2-state-governance-core`.
-- After canonical promotion/CI, separately connect and authorize Vercel preview deployment.
+- Keep `main` unchanged unless separately approved under the stable-checkpoint policy.
+- Separately connect/expose an authorized Vercel team/project and obtain explicit owner approval before preview deployment.
 - Supabase project/database/Auth/Storage work requires a separate bounded architecture + organization/cost gate.
+- Frontend deployment does not authorize any real California acquisition.
 
 ## Still required before any real California acquisition
 
