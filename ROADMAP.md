@@ -7,7 +7,7 @@ Last updated: 2026-09-13
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Windows Ruff/mypy green, 12 tests passed, smoke green, GitHub CI green |
 | M2 — State & Governance Core | VERIFIED | GitHub CI green; Windows Ruff/mypy green; 24 tests passed; smoke 2 passed |
-| M3 — California Data Spike | READINESS GATE | Real acquisition blocked pending source/legal readiness |
+| M3 — California Data Spike | READINESS GATE — SOURCE INVENTORY COMPLETE | California source/legal inventory documented; real acquisition still blocked pending contracts, privacy constraints and explicit approval |
 
 ## M2 verified scope
 
@@ -31,17 +31,31 @@ Last updated: 2026-09-13
 
 ## M3 readiness gate
 
-Before real California acquisition:
+Completed in the current readiness step:
 
-- inventory candidate sources;
-- verify source authority and permitted access method;
-- document provenance and terms/constraints;
-- decide what is mocked versus accessed for real;
-- define acquisition contracts/adapters;
-- preserve raw immutable evidence and append-only audit.
+- candidate California sources inventoried;
+- source authority and published access methods verified against official California government sources;
+- provenance, access constraints and material legal/privacy constraints documented;
+- sources classified as candidate-real, reference/manual, mock or deferred;
+- `sources/registry.yaml` intentionally left without approved sources.
+
+Evidence:
+
+- `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
+
+Still required before any real California acquisition:
+
+1. define the acquisition contract for the California State Controller public bulk CSV source;
+2. define mock contracts for deferred sources;
+3. define adapter boundaries without adding unapproved automation;
+4. define raw immutable evidence and provenance handling;
+5. define privacy/data-minimization constraints for the bounded spike;
+6. explicitly approve the source for real use;
+7. only then execute a bounded read-only California data spike with no unnecessary PII.
 
 ## Still out of scope until later gates
 
+- beneficiary matching on real data before M3 readiness approval;
 - autonomous outreach;
 - legal determinations;
 - autonomous claimant verification;

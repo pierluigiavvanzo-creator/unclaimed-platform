@@ -4,11 +4,11 @@ Last updated: 2026-09-13
 
 ## Current Milestone
 
-M2 — State & Governance Core
+M3 — California Data Spike Readiness Gate
 
 ## Current Status
 
-M2 VERIFIED. READY FOR M3 READINESS GATE.
+M0, M1 and M2 VERIFIED. M3 source/legal readiness inventory completed; real acquisition remains BLOCKED pending acquisition contracts, privacy constraints and explicit source approval.
 
 ## Completed and Verified
 
@@ -23,36 +23,45 @@ M2 VERIFIED. READY FOR M3 READINESS GATE.
 - M2 append-only audit SHA-256 hash-chain writer.
 - M2 GitHub Actions: Ruff PASS, mypy PASS on 13 source files, pytest 24 passed.
 - M2 Windows PowerShell validation: Ruff PASS, mypy PASS on 13 source files, pytest 24 passed, smoke 2 passed.
+- M3 California source/legal readiness inventory documented in `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md` using authoritative California government sources.
+- Preferred future real-data candidate identified as the California State Controller Unclaimed Property public bulk CSV, with approval still pending.
+- Deferred/mock treatment documented for Estates of Deceased Persons, CDI/NAIC locator, CDPH death records and California court records as applicable.
 
 ## Implemented but Not Yet Verified
 
-None for M2.
+None.
 
 ## In Progress
 
-- M3 readiness gate: California source/legal readiness before any real acquisition.
+- M3 readiness gate: define acquisition contracts and adapter boundaries before any real California acquisition.
+- Define privacy/data-minimization constraints and explicit source approval for any future real-data spike.
 
 ## Blocked
 
-- Real M3 California acquisition remains blocked until source authority, access method, provenance and terms/constraints are documented and approved.
+- Real M3 California acquisition remains blocked until acquisition contracts, provenance handling, privacy constraints and explicit source approval are complete.
+- Beneficiary matching remains blocked.
+- Automated outreach, claimant verification, fee agreements and claim submission remain blocked.
 
 ## Known Issues
 
 - Two non-blocking deprecation warnings originate in FastAPI/Starlette test dependencies.
 - GitHub Actions reports upstream Node runtime deprecation warnings for actions/checkout@v4 and actions/setup-python@v5; current workflow still passes.
 - PostgreSQL/Alembic initial application migration is not yet implemented.
+- `sources/registry.yaml` remains intentionally empty pending source approval; readiness candidates are documented in the M3 audit rather than marked `approved_for_use` prematurely.
 
 ## Assumptions
 
-- No real claimant, beneficiary, insurer or PII data is used in M0-M2 tests.
+- No real claimant, beneficiary, insurer or PII data was acquired during the M3 source-readiness inventory.
+- Public availability of a source does not automatically authorize every downstream processing purpose.
 - Outreach, legal determinations and claim submission remain disabled.
 - M2 state names are workflow-control states, not legal or claimant-status determinations.
 
 ## Test Status
 
-M2 verified branch: `m2-state-governance-core`
+No application code or machine contract was changed by the M3 source-readiness inventory, so no new runtime test result is claimed for this documentation-only task.
 
-- Local M2 candidate: 12 unit tests PASS; compileall PASS.
+Last verified software baseline remains branch `m2-state-governance-core` before this documentation update:
+
 - GitHub Actions: PASS.
 - GitHub Ruff: PASS.
 - GitHub mypy: PASS — 13 source files.
@@ -62,4 +71,4 @@ M2 verified branch: `m2-state-governance-core`
 
 ## Next Recommended Action
 
-Begin the M3 readiness gate only: inventory candidate California sources, verify authority and permitted access, document provenance/terms, and decide what may be mocked versus accessed for real. Do not begin scraping or beneficiary matching yet.
+Define the M3 acquisition contract and adapter boundary for the California State Controller public bulk CSV source, plus mock contracts for deferred sources. Do not download real data or begin beneficiary matching until contracts, privacy constraints, provenance handling and explicit source approval are complete.
