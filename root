@@ -1,50 +1,564 @@
 # AGENTS.md
 
-## Mission
+## Purpose
 
-Build and maintain the Unclaimed Insurance Platform.
+This file is the persistent operating reference for every human or AI agent working on this repository.
 
-The platform identifies potential beneficiaries of unclaimed
-life-insurance policies using lawful public and authorized data sources.
+Treat this repository as the canonical source of truth for the project.
 
-## Operating principles
+Do not rely on conversational memory when repository files can provide the answer.
 
-1. Never invent data.
-2. Never silently change architecture.
-3. Preserve backward compatibility unless explicitly authorized.
-4. Every implementation must include tests.
-5. Never commit secrets or credentials.
-6. Every material architectural decision must be recorded.
-7. Before modifying code, inspect PROJECT_STATE.md.
-8. Before modifying architecture, inspect DECISIONS.md.
-9. After completing a milestone, update PROJECT_STATE.md.
-10. Do not mark a task complete unless tests pass.
+---
 
-## Execution protocol
+## 1. Mission
 
-Before working:
+Build and maintain the **Unclaimed Insurance Platform**.
 
-1. Read AGENTS.md.
-2. Read PROJECT_STATE.md.
-3. Read ROADMAP.md.
-4. Read relevant ADRs.
-5. Inspect existing implementation.
+The platform is intended to identify potential beneficiaries of unclaimed life-insurance policies using lawful public, licensed, or otherwise authorized data sources and to support compliant recovery workflows.
 
-After working:
+The system must prioritize:
 
-1. Run tests.
-2. Record result.
-3. Update PROJECT_STATE.md.
-4. Update ROADMAP.md if necessary.
-5. Create an ADR if architecture changed.
-6. Commit changes with a descriptive message.
+1. legality and regulatory compliance;
+2. privacy and data protection;
+3. security;
+4. data provenance;
+5. auditability;
+6. reproducibility;
+7. testability;
+8. maintainability;
+9. modularity;
+10. operational reliability.
 
-## Priority order
+---
 
-1. Security
-2. Legal compliance
-3. Data integrity
-4. Reproducibility
-5. Testability
-6. Performance
-7. Convenience
+## 2. Source of Truth
+
+Use this priority order when determining the current project state:
+
+1. `AGENTS.md`
+2. `PROJECT_STATE.md`
+3. `ROADMAP.md`
+4. `DECISIONS.md`
+5. relevant ADR files
+6. specifications under `docs/`
+7. tests
+8. source code
+9. Git history
+10. conversational context
+
+If two sources conflict, do not guess.
+
+Identify the conflict explicitly and prefer the most recent verified repository evidence.
+
+---
+
+## 3. Persistent Memory Protocol
+
+At the beginning of every task:
+
+READ:
+
+- `AGENTS.md`
+- `PROJECT_STATE.md`
+- `ROADMAP.md`
+- `DECISIONS.md`
+- relevant ADR files
+- relevant source code
+- relevant tests
+
+When useful, also inspect recent Git history.
+
+At the end of every meaningful successful task:
+
+UPDATE:
+
+- `PROJECT_STATE.md`
+- `ROADMAP.md` when milestone status changed
+- `DECISIONS.md` when a relevant decision was made
+- ADR files when architecture changed
+- tests when behavior changed
+
+Record:
+
+- what changed;
+- what was tested;
+- what passed;
+- what failed;
+- what remains;
+- important assumptions;
+- unresolved risks;
+- next recommended action.
+
+Never delete historical architectural decisions.
+
+Never claim that untested work is verified.
+
+---
+
+## 4. Status Vocabulary
+
+Use these terms consistently:
+
+- `PLANNED`
+- `DESIGNED`
+- `IMPLEMENTED`
+- `TESTED`
+- `VERIFIED`
+- `BLOCKED`
+- `DEPRECATED`
+
+Use `COMPLETED` only when the required implementation and validation are finished.
+
+---
+
+## 5. Execution Protocol
+
+For every implementation task, follow this sequence:
+
+### 5.1 Precheck
+
+Determine:
+
+- objective;
+- current implementation state;
+- affected files;
+- dependencies;
+- constraints;
+- risks;
+- acceptance criteria.
+
+### 5.2 Backup / Isolation
+
+Before risky or broad changes:
+
+- inspect repository status;
+- preserve unrelated user work;
+- use a branch or other safe isolation mechanism when appropriate;
+- never overwrite uncommitted unrelated changes.
+
+### 5.3 Implementation
+
+Prefer the smallest safe change that advances the project.
+
+Preserve backward compatibility unless explicitly authorized otherwise.
+
+Avoid unnecessary rewrites.
+
+### 5.4 Test
+
+Run the relevant automated and/or manual tests.
+
+Never fabricate test results.
+
+If tests cannot be run, state that explicitly.
+
+### 5.5 Diagnostics
+
+When something fails:
+
+- form a hypothesis;
+- collect relevant evidence;
+- test the hypothesis;
+- avoid repeated blind changes;
+- record the root cause when found.
+
+### 5.6 Repair
+
+Apply the smallest corrective change consistent with the architecture.
+
+### 5.7 Smoke Test
+
+Confirm that the core workflow still works after the change.
+
+### 5.8 Report
+
+Summarize:
+
+- objective;
+- files changed;
+- implementation result;
+- tests executed;
+- results;
+- decisions;
+- remaining issues;
+- next recommended step.
+
+---
+
+## 6. Project State
+
+`PROJECT_STATE.md` must represent the current verified project state.
+
+Recommended structure:
+
+```markdown
+# PROJECT_STATE.md
+
+Last updated: YYYY-MM-DD
+
+## Current Milestone
+
+## Current Status
+
+## Completed and Verified
+
+## Implemented but Not Yet Verified
+
+## In Progress
+
+## Blocked
+
+## Known Issues
+
+## Assumptions
+
+## Test Status
+
+## Next Recommended Action
+```
+
+Keep it concise.
+
+Use Git history or `CHANGELOG.md` for detailed history.
+
+---
+
+## 7. Decisions
+
+Use `DECISIONS.md` for important technical, architectural, legal, operational, or strategic decisions.
+
+Recommended format:
+
+```markdown
+## D-XXX — Decision title
+
+Date:
+
+Status:
+
+Context:
+
+Decision:
+
+Reason:
+
+Alternatives considered:
+
+Consequences:
+```
+
+Never silently reverse an accepted decision.
+
+If a prior decision changes, record a new decision that supersedes it.
+
+---
+
+## 8. Roadmap
+
+`ROADMAP.md` should track the major milestones.
+
+Use stable milestone identifiers.
+
+Suggested structure:
+
+- M0 — Repository and development bootstrap
+- M1 — Core architecture
+- M2 — Data ingestion
+- M3 — Data normalization and entity resolution
+- M4 — Beneficiary discovery workflows
+- M5 — Case management
+- M6 — Compliance and audit
+- M7 — Production readiness
+
+Milestone names may evolve, but identifiers should remain stable once work begins.
+
+---
+
+## 9. Coding Principles
+
+Prioritize:
+
+1. correctness;
+2. clarity;
+3. security;
+4. testability;
+5. maintainability;
+6. explicit error handling;
+7. useful logging;
+8. deterministic behavior where practical.
+
+Avoid:
+
+- hidden side effects;
+- duplicated logic;
+- undocumented magic values;
+- hard-coded credentials;
+- undocumented dependencies;
+- silent error suppression;
+- unnecessary complexity.
+
+---
+
+## 10. Reuse Before Custom Development
+
+Before building a custom component, check whether an existing mature option is suitable.
+
+Evaluate:
+
+- repositories;
+- libraries;
+- APIs;
+- SaaS products;
+- commercial tools.
+
+Assess:
+
+- license;
+- maintenance activity;
+- security;
+- compatibility;
+- integration cost;
+- vendor lock-in;
+- commercial suitability;
+- long-term maintainability.
+
+Prefer mature reusable components over unnecessary custom development.
+
+---
+
+## 11. PowerShell Rules
+
+For PowerShell:
+
+- prefer PowerShell 7+;
+- use strict error handling;
+- validate inputs;
+- use meaningful exit codes;
+- make scripts idempotent whenever practical;
+- never hard-code secrets;
+- never store credentials in the repository;
+- log important operations;
+- fail clearly when prerequisites are missing;
+- avoid destructive operations unless explicitly authorized;
+- support dry-run or confirmation mechanisms for risky operations when practical.
+
+A script should be safe to execute repeatedly unless documented otherwise.
+
+---
+
+## 12. Git Rules
+
+Prefer small, logically coherent commits.
+
+Commit messages should describe the actual change.
+
+Do not commit:
+
+- passwords;
+- API keys;
+- private keys;
+- authentication tokens;
+- production secrets;
+- sensitive personal data;
+- unnecessary generated temporary files.
+
+Before large changes:
+
+- inspect branch;
+- inspect repository status;
+- inspect uncommitted changes.
+
+Never overwrite unrelated user work.
+
+---
+
+## 13. Testing Rules
+
+Every material feature should have automated tests when technically feasible.
+
+Tests should:
+
+- validate expected behavior;
+- cover important failure paths;
+- be reproducible;
+- avoid dependence on undocumented local state.
+
+Never change a test merely to make broken code appear correct.
+
+If the specification legitimately changes, document the reason before updating the test.
+
+---
+
+## 14. Security Rules
+
+Security takes precedence over convenience.
+
+Never:
+
+- expose secrets;
+- weaken authentication to bypass an error;
+- disable security controls without documenting the reason;
+- execute untrusted code without appropriate isolation;
+- log sensitive credentials;
+- commit production data unnecessarily.
+
+For high-risk operations, explain the risk before implementation.
+
+---
+
+## 15. Data and Privacy Rules
+
+The project may process information related to individuals, insurance policies, deceased persons, relatives, beneficiaries, or legal claims.
+
+Therefore:
+
+- minimize data collection;
+- preserve provenance;
+- distinguish fact from inference;
+- do not fabricate identities or relationships;
+- track source reliability;
+- preserve auditability;
+- respect applicable privacy and data-protection requirements;
+- prefer synthetic data for tests when possible.
+
+Any inferred relationship must remain clearly labeled as inference until independently verified.
+
+---
+
+## 16. No Fabrication Rule
+
+Never invent:
+
+- APIs;
+- endpoints;
+- credentials;
+- database contents;
+- legal requirements;
+- test results;
+- file contents;
+- repository state;
+- external service behavior;
+- implementation status.
+
+When information is missing, state the uncertainty.
+
+Prefer verification over assumption.
+
+---
+
+## 17. Architecture Changes
+
+Before making a material architecture change:
+
+1. inspect the current architecture;
+2. identify the problem;
+3. explain why the current design is insufficient;
+4. compare realistic alternatives;
+5. record the decision;
+6. implement only after the decision is clear.
+
+Avoid full rewrites unless incremental evolution is demonstrably inadequate.
+
+---
+
+## 18. Work Classification
+
+Classify meaningful work as:
+
+- `A — Product Critical`
+- `B — Material Upgrade`
+- `C — Optimization`
+- `D — Diagnostic / Technical`
+
+Prioritize work that materially improves:
+
+- economic value;
+- usable product value;
+- user outcomes;
+- risk reduction;
+- time-to-validation.
+
+Avoid low-value technical work that does not materially advance the product.
+
+---
+
+## 19. Agent Behavior
+
+Every AI agent working on this repository must:
+
+- inspect before editing;
+- reason from repository evidence;
+- preserve working code;
+- prefer minimal changes;
+- test its work;
+- report failures clearly;
+- update persistent project memory;
+- avoid pretending that unverified work is complete;
+- avoid requiring the user to perform unnecessary QA, debugging, or log transport.
+
+The user should act primarily as:
+
+- Product Owner;
+- decision maker;
+- approver;
+- final tester.
+
+Agents should perform bounded autonomous work where possible.
+
+---
+
+## 20. Memory Contract
+
+At the end of a meaningful task, leave enough durable information for the next agent to reconstruct the state.
+
+Use this structure where appropriate:
+
+```text
+TASK:
+CLASS:
+STATUS:
+FILES CHANGED:
+TESTS EXECUTED:
+TEST RESULTS:
+DECISIONS:
+NEW ISSUES:
+ASSUMPTIONS:
+PROJECT_STATE UPDATED:
+ROADMAP UPDATED:
+NEXT STEP:
+```
+
+The repository must remain usable even if the next agent has no access to previous chat context.
+
+---
+
+## 21. Definition of Done
+
+A task is done only when all applicable conditions are satisfied:
+
+- implementation exists;
+- relevant tests pass;
+- important failure modes were considered;
+- documentation is updated;
+- project memory is updated;
+- no known critical issue is hidden;
+- the next state is clear.
+
+---
+
+## 22. Core Principle
+
+**The repository is the project's durable memory.**
+
+Chats are temporary working context.
+
+Git history records evolution.
+
+Tests establish evidence.
+
+Documentation explains intent.
+
+`PROJECT_STATE.md` records where the project is now.
+
+`AGENTS.md` defines how every agent must work.
+
