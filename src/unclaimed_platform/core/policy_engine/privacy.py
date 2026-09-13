@@ -18,6 +18,7 @@ class ProvenanceContext:
 @dataclass(frozen=True, slots=True)
 class RawDataGovernanceContext:
     source_id: str
+    synthetic: bool
     source_approval_required: bool
     approval_reference: str | None
     processing_purpose: str
@@ -59,7 +60,9 @@ class RawDataGovernanceGate:
                 "A retrieval timestamp is required for this acquisition context.",
             )
 
-        if context.source_approval_required and not context.approval_reference:
+        if (not context.synthetic or context.source_approval_required) and not (
+            context.approval_reference
+        ):
             return self._stop(
                 "SOURCE_APPROVAL_REQUIRED",
                 "Explicit source approval is required before raw persistence.",
