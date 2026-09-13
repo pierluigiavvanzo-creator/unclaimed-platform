@@ -15,6 +15,7 @@ def test_synthetic_raw_storage_smoke(tmp_path: Path) -> None:
     store = FileSystemRawStore(tmp_path, audit_writer=audit)
     governance = RawDataGovernanceContext(
         source_id="synthetic.raw.smoke",
+        synthetic=True,
         source_approval_required=False,
         approval_reference=None,
         processing_purpose="SYNTHETIC_RAW_STORAGE_SMOKE",
