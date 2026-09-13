@@ -1,0 +1,50 @@
+# AGENTS.md
+
+## Mission
+
+Build and maintain the Unclaimed Insurance Platform.
+
+The platform identifies potential beneficiaries of unclaimed
+life-insurance policies using lawful public and authorized data sources.
+
+## Operating principles
+
+1. Never invent data.
+2. Never silently change architecture.
+3. Preserve backward compatibility unless explicitly authorized.
+4. Every implementation must include tests.
+5. Never commit secrets or credentials.
+6. Every material architectural decision must be recorded.
+7. Before modifying code, inspect PROJECT_STATE.md.
+8. Before modifying architecture, inspect DECISIONS.md.
+9. After completing a milestone, update PROJECT_STATE.md.
+10. Do not mark a task complete unless tests pass.
+
+## Execution protocol
+
+Before working:
+
+1. Read AGENTS.md.
+2. Read PROJECT_STATE.md.
+3. Read ROADMAP.md.
+4. Read relevant ADRs.
+5. Inspect existing implementation.
+
+After working:
+
+1. Run tests.
+2. Record result.
+3. Update PROJECT_STATE.md.
+4. Update ROADMAP.md if necessary.
+5. Create an ADR if architecture changed.
+6. Commit changes with a descriptive message.
+
+## Priority order
+
+1. Security
+2. Legal compliance
+3. Data integrity
+4. Reproducibility
+5. Testability
+6. Performance
+7. Convenience
