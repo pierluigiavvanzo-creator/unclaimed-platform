@@ -26,7 +26,7 @@ class WorkflowPolicy:
     transitions: Mapping[str, frozenset[str]]
 
     @classmethod
-    def from_mapping(cls, raw: Mapping[str, object]) -> "WorkflowPolicy":
+    def from_mapping(cls, raw: Mapping[str, object]) -> WorkflowPolicy:
         schema_version = raw.get("schema_version")
         initial_state = raw.get("initial_state")
         terminal_states = raw.get("terminal_states")
@@ -87,7 +87,7 @@ class WorkflowPolicy:
         )
 
     @classmethod
-    def from_json_file(cls, path: Path) -> "WorkflowPolicy":
+    def from_json_file(cls, path: Path) -> WorkflowPolicy:
         raw = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(raw, dict):
             raise StateMachineError("workflow policy root must be an object")
