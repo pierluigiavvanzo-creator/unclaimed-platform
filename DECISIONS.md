@@ -122,3 +122,35 @@ Alternatives considered:
 
 Consequences:
 The first reconciliation into `main` is a non-fast-forward merge by design. After reconciliation, milestone merges should remain simple provided direct development on `main` is avoided. The misnamed `root` file remains recoverable from Git history but is intentionally absent from the reconciled working tree.
+
+---
+
+## D-006 — Reviewer console platform boundary
+
+Date: 2026-09-13
+
+Status: Accepted on candidate branch; promotion remains human-gated.
+
+Context:
+The owner requires frontend visibility to progress alongside backend capabilities and asked to use Vercel and Supabase where they add value. The platform architecture already defines the reviewer UI as downstream of FastAPI and deterministic governance.
+
+Decision:
+- Use Next.js 16 App Router + TypeScript + React for the reviewer console.
+- Keep FastAPI and versioned backend contracts authoritative.
+- Prefer Vercel for preview/hosting when a connected project is available.
+- Treat Supabase as a candidate managed PostgreSQL/Auth/Storage provider behind existing boundaries, not as a parallel source of truth.
+- Do not add unused Supabase runtime dependencies or create cloud resources without a concrete product need and required owner/cost gate.
+- Keep the first M3 Operations Console synthetic and read-only.
+- Add frontend lint/type/build checks to CI.
+
+Reason:
+This creates immediate usable product visibility while preserving the verified deterministic core and minimizing unnecessary infrastructure/dependency work.
+
+Alternatives considered:
+- Python templates/HTMX
+- Vite/React SPA
+- Supabase-first direct browser data access
+- immediate adoption of a large dashboard/component framework
+
+Consequences:
+The repository becomes Python + TypeScript/Node. Browser code cannot bypass policy/source-approval gates. Any later direct-database/browser authorization design requires a superseding ADR. See `docs/decisions/ADR-0004-reviewer-console-platform.md`.
