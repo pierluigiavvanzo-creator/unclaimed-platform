@@ -1,0 +1,91 @@
+name: ca-sco-segmented-head-preflight-once
+
+on:
+  push:
+    branches:
+      - m3-ca-sco-segmented-head-preflight-execution
+    paths:
+      - .github/workflows/ca-sco-segmented-head-preflight-once.yml
+
+permissions:
+  contents: read
+
+jobs:
+  segmented-head-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install project
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Execute metadata-only segmented preflights
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p segmented-preflight
+          APPROVAL_REF='OWNER_CHAT_APPROVAL_2026-09-14T17:21+02:00_SEGMENTED_HEAD_PREFLIGHT'
+          SOURCE_PAGE='https://www.sco.ca.gov/upd_download_property_records.html'
+          COMMON=(--approval-ref "$APPROVAL_REF" --official-source-page "$SOURCE_PAGE" --allow-host claimit.ca.gov --timeout-seconds 10 --max-redirects 1)
+
+          python scripts/ca_sco_transport_preflight.py "${COMMON[@]}" \
+            --link-label 'Properties reported at $.00 to $9.99' \
+            --output segmented-preflight/01_From_0_To_Below_10.json
+
+          python scripts/ca_sco_transport_preflight.py "${COMMON[@]}" \
+            --link-label 'Properties reported at $10 to $99.99' \
+            --output segmented-preflight/02_From_10_To_Below_100.json
+
+          python scripts/ca_sco_transport_preflight.py "${COMMON[@]}" \
+            --link-label 'Properties reported at $100 to $499.99' \
+            --output segmented-preflight/03_From_100_To_Below_500.json
+
+          python scripts/ca_sco_transport_preflight.py "${COMMON[@]}" \
+            --link-label 'Properties reported at $500 and up' \
+            --output segmented-preflight/04_From_500_To_Beyond.json
+
+      - name: Validate evidence contracts and print summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          schema = json.loads(Path('schemas/common/source_transport_preflight_execution.schema.json').read_text())
+          validator = Draft202012Validator(schema, format_checker=FormatChecker())
+          for path in sorted(Path('segmented-preflight').glob('*.json')):
+              payload = json.loads(path.read_text())
+              validator.validate(payload)
+              assert payload['controls']['request_method'] == 'HEAD'
+              assert payload['controls']['response_body_bytes_allowed'] == 0
+              assert payload['transport']['response_body_bytes_read'] == 0
+              assert payload['safety_state']['acquisition_performed'] is False
+              summary = {
+                  'file': path.name,
+                  'label': payload['target_link_label'],
+                  'endpoint': payload['transport']['final_endpoint'],
+                  'status': payload['transport']['http_status'],
+                  'content_type': payload['transport']['content_type'],
+                  'content_length': payload['transport']['content_length'],
+                  'accept_ranges': payload['transport']['response_headers'].get('accept-ranges'),
+                  'etag': payload['transport']['response_headers'].get('etag'),
+                  'last_modified': payload['transport']['response_headers'].get('last-modified'),
+                  'body_bytes_read': payload['transport']['response_body_bytes_read'],
+                  'result_status': payload['result_status'],
+                  'observed_at': payload['transport']['observed_at'],
+                  'approval_ref': payload['execution_approval_ref'],
+              }
+              print('SEGMENT_PREFLIGHT_SUMMARY=' + json.dumps(summary, sort_keys=True, separators=(',', ':')))
+          PY
+      - name: Upload metadata-only evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ca-sco-segmented-head-preflight
+          path: segmented-preflight/*.json
+          retention-days: 1
