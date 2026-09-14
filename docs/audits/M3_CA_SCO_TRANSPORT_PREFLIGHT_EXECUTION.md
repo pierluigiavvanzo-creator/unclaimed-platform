@@ -4,29 +4,46 @@ Date: 2026-09-14
 
 Class: **A — Product Critical**
 
-Status: **CANDIDATE OBSERVATION CAPTURED — METADATA ONLY — NEW HUMAN GATE REQUIRED**
+Status: **CANONICAL + CI VERIFIED — METADATA ONLY — REAL ACQUISITION BLOCKED**
 
 ## Owner gate
 
-The owner explicitly authorized proceeding with one bounded California SCO transport-preflight task
-after confirming that the external Vercel account had been deleted.
+The owner explicitly authorized one bounded California SCO metadata-only transport preflight after
+confirming that the external Vercel account had been deleted.
 
 Execution approval reference:
-
 `OWNER_CHAT_APPROVAL_2026-09-14T13:26+02:00`
 
-This approval was limited to one transport metadata preflight. It did not approve the source, enable
+The approval was limited to one transport metadata preflight. It did not approve the source, enable
 the registry, authorize dataset acquisition, authorize response-body access, authorize PII processing,
 beneficiary matching, outreach, or any downstream legal/commercial action.
 
-## Starting point
+## Promotion result
 
-- Canonical development branch before this candidate: `m2-state-governance-core`.
-- Canonical parent SHA: `50887231d39eff793b1968b4a062292533205602`.
-- Candidate branch: `m3-ca-sco-transport-preflight-execution`.
-- Execution commit: `7d89ec664992a30b5270be8da4c2616254747e59`.
-- Canonical proposal: `sources/proposals/ca_sco_unclaimed_property_bulk.transport_preflight.v1.json`.
-- One-time workflow run: `34838890387`.
+Candidate branch:
+`m3-ca-sco-transport-preflight-execution`
+
+Canonical parent before candidate:
+`50887231d39eff793b1968b4a062292533205602`
+
+Execution commit:
+`7d89ec664992a30b5270be8da4c2616254747e59`
+
+Evidence commit:
+`2f762aa2673a52bfa211fb216a4cf06ccc3fbb1e`
+
+Promoted transport-evidence baseline:
+`60ec305d4f2fd7ec00ca0cfa3f53da9d7c9b595a`
+
+Canonical branch:
+`m2-state-governance-core`
+
+Promotion was a non-force fast-forward. Before promotion, candidate ancestry was verified as 4 commits
+ahead, 0 behind, with merge base exactly equal to canonical parent
+`50887231d39eff793b1968b4a062292533205602`.
+
+Canonical post-promotion CI:
+`34840001821` — PASS for both `quality` and `streamlit-candidate`.
 
 ## Controls fixed before network access
 
@@ -46,20 +63,20 @@ beneficiary matching, outreach, or any downstream legal/commercial action.
 
 ## Test-first gate result
 
-The one-time workflow ran targeted contract tests before the network job. The `validate` job completed
-successfully. Only after that success did the `preflight` job start.
+The one-time workflow ran targeted contract tests before the network job. Validation passed before the
+preflight job started.
 
 The first workflow attempt on commit `3c3dfe3fd15a65b96b9e4e55e6c518932bbba80d` created no jobs and
-therefore performed no SCO download-endpoint request. The regular CI for that commit also stopped at
-Ruff before tests. The corrected execution commit fixed only workflow/lint defects; the network safety
-constraints were not relaxed.
+performed no SCO download-endpoint request. The corrected execution commit fixed workflow/lint defects
+without relaxing network safety constraints.
+
+One-shot workflow run:
+`34838890387` — PASS.
 
 ## Observed transport evidence
 
 At `2026-09-14T11:34:58.210154Z`, the runner extracted the `All properties` link from the official SCO
-page and issued one `HEAD` request to the discovered HTTPS endpoint.
-
-Observed endpoint:
+page and issued one `HEAD` request to:
 
 `https://claimit.ca.gov/upd-property-records/00_All_Records.zip`
 
@@ -76,18 +93,17 @@ Observed metadata:
 - Last-Modified: `Wed, 09 Sep 2026 16:32:37 GMT`;
 - response-body bytes read: `0`.
 
-The SCO public page describes the public records as downloadable CSV data, while the currently
-observed `All properties` transport endpoint is a ZIP resource and advertises `application/zip`.
-Because the archive body was not downloaded or opened, this task does not assert what files or row
-layout are inside that ZIP.
+The SCO public page describes public records as downloadable CSV data, while the observed
+`All properties` transport object is currently a ZIP resource advertising `application/zip`. Because
+the archive body was not downloaded or opened, this audit makes no assertion about files, columns,
+row layout or schema inside the ZIP.
 
-Machine-readable candidate evidence:
-
+Machine-readable evidence:
 `sources/evidence/ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json`
 
 ## Safety result
 
-The observation explicitly records:
+Canonical evidence requires:
 
 - `acquisition_performed = false`;
 - `source_approved = false`;
@@ -99,15 +115,15 @@ The observation explicitly records:
 - no beneficiary matching;
 - no outreach.
 
-`sources/registry.yaml` remains `enabled: false` and `approved_for_use: false` for the SCO source.
+`sources/registry.yaml` remains `enabled: false` and `approved_for_use: false`.
 The source-access policy remains `PROPOSED`, with real acquisition, matching, outreach and PII still
 unauthorized.
 
 ## One-time execution closure
 
-The temporary workflow `.github/workflows/ca-sco-transport-preflight-once.yml` is removed immediately
-after capturing this observation. Contract tests require it to remain absent, preventing later pushes
-from repeating the network call accidentally.
+The temporary workflow `.github/workflows/ca-sco-transport-preflight-once.yml` was removed before
+promotion. Contract tests require it to remain absent, preventing later pushes from repeating the
+network call automatically.
 
 ## What this establishes
 
@@ -115,27 +131,27 @@ The preflight resolves transport evidence only:
 
 - exact current `All properties` endpoint identity;
 - host and HTTPS scheme;
-- direct 200 response with no redirect observed;
+- direct HTTP 200 with no redirect observed;
 - actual advertised media type at the transport boundary;
-- actual advertised content length at the observation time;
-- selected cache/object metadata;
+- actual advertised content length at observation time;
+- selected object metadata;
 - bounded timeout/method/allowlist controls proven executable.
 
 It does **not** establish or authorize:
 
 - source approval or registry activation;
-- a safe maximum acquisition size;
-- a production retention/privacy/data-minimization policy;
+- safe maximum bytes for a future real acquisition;
+- production retention/privacy/data-minimization policy;
 - download or persistence of the ZIP;
-- ZIP contents, CSV layout, column names, or row schema;
+- ZIP contents, CSV layout, column names or row schema;
 - real-data normalization;
 - PII necessity or processing;
 - beneficiary matching;
 - outreach or claims activity.
 
-## Stop condition
+## Next gate
 
-Stop at a new human gate after candidate CI verification. No further request to the observed download
-endpoint is authorized by this execution approval. Any source approval, registry activation, bounded
-real retrieval, archive inspection, row-layout verification, or downstream processing requires a new
-explicit owner decision and the corresponding governance update.
+The next repository task may only prepare a non-authorizing California SCO source-approval readiness
+package. It may reuse this canonical transport evidence but must perform no new network request and no
+data retrieval. Any transition to `APPROVED`, registry activation, bounded real retrieval, archive
+inspection, PII processing, matching or outreach requires a separate explicit owner gate.
