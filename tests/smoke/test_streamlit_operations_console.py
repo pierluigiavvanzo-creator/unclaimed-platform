@@ -51,3 +51,7 @@ def test_streamlit_console_reuses_vercel_visual_language() -> None:
     assert "#f3c67d" in theme
     assert ".uip-mode-card" in theme
     assert ".uip-pill-warn" in theme
+    assert "white-space: nowrap" in theme
+    assert 'data-testid="stToolbar"' in theme
+    assert 'data-testid="stStatusWidget"' in theme
+    assert 'data-testid="stAppDeployButton"' in theme
