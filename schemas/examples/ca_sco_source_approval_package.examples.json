@@ -1,0 +1,188 @@
+{
+  "package.valid": {
+    "schema_version": "1.0.0",
+    "package_id": "ca.sco.unclaimed_property.bulk.source_approval_package",
+    "package_version": "1.0.0",
+    "source_id": "ca.sco.unclaimed_property.bulk",
+    "jurisdiction": "CA",
+    "package_status": "READINESS_PROPOSAL_NOT_AUTHORIZED",
+    "prepared_on": "2026-09-14",
+    "source_approved": false,
+    "source_enabled": false,
+    "real_acquisition_authorized": false,
+    "network_request_performed": false,
+    "body_access_performed": false,
+    "canonical_refs": {
+      "source_access_policy_ref": "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json",
+      "approval_readiness_ref": "sources/evidence/ca_sco_unclaimed_property_bulk.approval_readiness.v1.json",
+      "transport_evidence_ref": "sources/evidence/ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json",
+      "registry_ref": "sources/registry.yaml"
+    },
+    "proposed_processing": {
+      "purpose_id": "SOURCE_STRUCTURE_VERIFICATION_ONLY",
+      "purpose_description": "Validate archive integrity and establish the internal CSV schema before any record-level use, identity resolution, beneficiary matching, outreach, or claim activity.",
+      "proposed_data_categories": [
+        "PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE"
+      ],
+      "field_scope": {
+        "mode": "BLOCK_UNTIL_ROW_SCHEMA_VERIFIED",
+        "proposed_allowed_fields": [],
+        "selection_rule": "No record-level field may be authorized until an independently reviewed row/field schema is available from separately authorized evidence."
+      },
+      "pii_necessity": {
+        "status": "UNDETERMINED_BLOCKING",
+        "allow_pii": false,
+        "reason": "The archive body, row schema, and actual record contents have not been inspected, so PII presence and necessity cannot be determined without inventing facts."
+      }
+    },
+    "proposed_privacy_retention": {
+      "quarantine_required": true,
+      "encryption_at_rest_required": true,
+      "least_privilege_required": true,
+      "access_logging_required": true,
+      "record_level_processing_allowed": false,
+      "export_allowed": false,
+      "matching_allowed": false,
+      "outreach_allowed": false,
+      "delete_on_validation_failure": true,
+      "retention_policy_status": "REQUIRED_BEFORE_APPROVAL",
+      "retention_policy_ref": null,
+      "retention_duration_days": null,
+      "trusted_project_privacy_policy_status": "REQUIRED_BEFORE_APPROVAL",
+      "trusted_project_privacy_policy_ref": null
+    },
+    "proposed_transport": {
+      "observed_endpoint": "https://claimit.ca.gov/upd-property-records/00_All_Records.zip",
+      "https_only": true,
+      "allowed_download_hosts": [
+        "claimit.ca.gov"
+      ],
+      "redirect_policy": "SAME_HOST_ONLY",
+      "timeout_seconds": 10,
+      "timeout_semantics": "PER_REQUEST_NETWORK_INACTIVITY",
+      "max_bytes": 3203972130,
+      "max_bytes_basis": "OBSERVED_CONTENT_LENGTH_NO_GROWTH_TOLERANCE",
+      "expected_media_types": [
+        "application/zip"
+      ],
+      "content_length_required": true,
+      "endpoint_change_policy": "REQUIRE_NEW_PREFLIGHT",
+      "media_type_change_policy": "BLOCK_AND_REVIEW",
+      "content_length_growth_policy": "BLOCK_AND_REVIEW",
+      "streaming_required": true,
+      "partial_artifact_persistence_allowed": false
+    },
+    "approval_requirements": {
+      "human_approval_required": true,
+      "approval_ref": null,
+      "required_before_approval": [
+        "ROW_LAYOUT_VERIFIED",
+        "FIELD_WHITELIST_SELECTED",
+        "PII_NECESSITY_DETERMINED",
+        "RETENTION_POLICY_SELECTED",
+        "TRUSTED_PROJECT_PRIVACY_POLICY_SELECTED",
+        "REAL_ACQUISITION_CLIENT_REVIEWED",
+        "APPROVAL_REFERENCE_ASSIGNED"
+      ]
+    },
+    "readiness_decision": {
+      "status": "BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION",
+      "reason_code": "ROW_SCHEMA_AND_PII_SCOPE_UNVERIFIED",
+      "reason": "Transport evidence is sufficient to propose fail-closed bounds, but row layout, field minimization, PII necessity, retention policy, and trusted project privacy policy remain unresolved.",
+      "next_gate": "HUMAN_SOURCE_APPROVAL_REVIEW"
+    }
+  },
+  "package.invalid_authorizes_source": {
+    "schema_version": "1.0.0",
+    "package_id": "ca.sco.unclaimed_property.bulk.source_approval_package",
+    "package_version": "1.0.0",
+    "source_id": "ca.sco.unclaimed_property.bulk",
+    "jurisdiction": "CA",
+    "package_status": "READINESS_PROPOSAL_NOT_AUTHORIZED",
+    "prepared_on": "2026-09-14",
+    "source_approved": true,
+    "source_enabled": false,
+    "real_acquisition_authorized": false,
+    "network_request_performed": false,
+    "body_access_performed": false,
+    "canonical_refs": {
+      "source_access_policy_ref": "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json",
+      "approval_readiness_ref": "sources/evidence/ca_sco_unclaimed_property_bulk.approval_readiness.v1.json",
+      "transport_evidence_ref": "sources/evidence/ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json",
+      "registry_ref": "sources/registry.yaml"
+    },
+    "proposed_processing": {
+      "purpose_id": "SOURCE_STRUCTURE_VERIFICATION_ONLY",
+      "purpose_description": "Validate archive integrity and establish the internal CSV schema before any record-level use, identity resolution, beneficiary matching, outreach, or claim activity.",
+      "proposed_data_categories": [
+        "PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE"
+      ],
+      "field_scope": {
+        "mode": "BLOCK_UNTIL_ROW_SCHEMA_VERIFIED",
+        "proposed_allowed_fields": [],
+        "selection_rule": "No record-level field may be authorized until an independently reviewed row/field schema is available from separately authorized evidence."
+      },
+      "pii_necessity": {
+        "status": "UNDETERMINED_BLOCKING",
+        "allow_pii": false,
+        "reason": "The archive body, row schema, and actual record contents have not been inspected, so PII presence and necessity cannot be determined without inventing facts."
+      }
+    },
+    "proposed_privacy_retention": {
+      "quarantine_required": true,
+      "encryption_at_rest_required": true,
+      "least_privilege_required": true,
+      "access_logging_required": true,
+      "record_level_processing_allowed": false,
+      "export_allowed": false,
+      "matching_allowed": false,
+      "outreach_allowed": false,
+      "delete_on_validation_failure": true,
+      "retention_policy_status": "REQUIRED_BEFORE_APPROVAL",
+      "retention_policy_ref": null,
+      "retention_duration_days": null,
+      "trusted_project_privacy_policy_status": "REQUIRED_BEFORE_APPROVAL",
+      "trusted_project_privacy_policy_ref": null
+    },
+    "proposed_transport": {
+      "observed_endpoint": "https://claimit.ca.gov/upd-property-records/00_All_Records.zip",
+      "https_only": true,
+      "allowed_download_hosts": [
+        "claimit.ca.gov"
+      ],
+      "redirect_policy": "SAME_HOST_ONLY",
+      "timeout_seconds": 10,
+      "timeout_semantics": "PER_REQUEST_NETWORK_INACTIVITY",
+      "max_bytes": 3203972130,
+      "max_bytes_basis": "OBSERVED_CONTENT_LENGTH_NO_GROWTH_TOLERANCE",
+      "expected_media_types": [
+        "application/zip"
+      ],
+      "content_length_required": true,
+      "endpoint_change_policy": "REQUIRE_NEW_PREFLIGHT",
+      "media_type_change_policy": "BLOCK_AND_REVIEW",
+      "content_length_growth_policy": "BLOCK_AND_REVIEW",
+      "streaming_required": true,
+      "partial_artifact_persistence_allowed": false
+    },
+    "approval_requirements": {
+      "human_approval_required": true,
+      "approval_ref": null,
+      "required_before_approval": [
+        "ROW_LAYOUT_VERIFIED",
+        "FIELD_WHITELIST_SELECTED",
+        "PII_NECESSITY_DETERMINED",
+        "RETENTION_POLICY_SELECTED",
+        "TRUSTED_PROJECT_PRIVACY_POLICY_SELECTED",
+        "REAL_ACQUISITION_CLIENT_REVIEWED",
+        "APPROVAL_REFERENCE_ASSIGNED"
+      ]
+    },
+    "readiness_decision": {
+      "status": "BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION",
+      "reason_code": "ROW_SCHEMA_AND_PII_SCOPE_UNVERIFIED",
+      "reason": "Transport evidence is sufficient to propose fail-closed bounds, but row layout, field minimization, PII necessity, retention policy, and trusted project privacy policy remain unresolved.",
+      "next_gate": "HUMAN_SOURCE_APPROVAL_REVIEW"
+    }
+  }
+}

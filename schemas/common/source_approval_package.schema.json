@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:source-approval-package:1.0.0",
+  "title": "SourceApprovalPackage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "package_id",
+    "package_version",
+    "source_id",
+    "jurisdiction",
+    "package_status",
+    "prepared_on",
+    "source_approved",
+    "source_enabled",
+    "real_acquisition_authorized",
+    "network_request_performed",
+    "body_access_performed",
+    "canonical_refs",
+    "proposed_processing",
+    "proposed_privacy_retention",
+    "proposed_transport",
+    "approval_requirements",
+    "readiness_decision"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"
+    },
+    "package_version": {
+      "const": "1.0.0"
+    },
+    "source_id": {
+      "const": "ca.sco.unclaimed_property.bulk"
+    },
+    "jurisdiction": {
+      "const": "CA"
+    },
+    "package_status": {
+      "const": "READINESS_PROPOSAL_NOT_AUTHORIZED"
+    },
+    "prepared_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_approved": {
+      "const": false
+    },
+    "source_enabled": {
+      "const": false
+    },
+    "real_acquisition_authorized": {
+      "const": false
+    },
+    "network_request_performed": {
+      "const": false
+    },
+    "body_access_performed": {
+      "const": false
+    },
+    "canonical_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_access_policy_ref",
+        "approval_readiness_ref",
+        "transport_evidence_ref",
+        "registry_ref"
+      ],
+      "properties": {
+        "source_access_policy_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approval_readiness_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transport_evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registry_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "proposed_processing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "purpose_id",
+        "purpose_description",
+        "proposed_data_categories",
+        "field_scope",
+        "pii_necessity"
+      ],
+      "properties": {
+        "purpose_id": {
+          "const": "SOURCE_STRUCTURE_VERIFICATION_ONLY"
+        },
+        "purpose_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proposed_data_categories": {
+          "type": "array",
+          "const": [
+            "PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE"
+          ]
+        },
+        "field_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "proposed_allowed_fields",
+            "selection_rule"
+          ],
+          "properties": {
+            "mode": {
+              "const": "BLOCK_UNTIL_ROW_SCHEMA_VERIFIED"
+            },
+            "proposed_allowed_fields": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "selection_rule": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "pii_necessity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "allow_pii",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNDETERMINED_BLOCKING"
+            },
+            "allow_pii": {
+              "const": false
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "proposed_privacy_retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quarantine_required",
+        "encryption_at_rest_required",
+        "least_privilege_required",
+        "access_logging_required",
+        "record_level_processing_allowed",
+        "export_allowed",
+        "matching_allowed",
+        "outreach_allowed",
+        "delete_on_validation_failure",
+        "retention_policy_status",
+        "retention_policy_ref",
+        "retention_duration_days",
+        "trusted_project_privacy_policy_status",
+        "trusted_project_privacy_policy_ref"
+      ],
+      "properties": {
+        "quarantine_required": {
+          "const": true
+        },
+        "encryption_at_rest_required": {
+          "const": true
+        },
+        "least_privilege_required": {
+          "const": true
+        },
+        "access_logging_required": {
+          "const": true
+        },
+        "record_level_processing_allowed": {
+          "const": false
+        },
+        "export_allowed": {
+          "const": false
+        },
+        "matching_allowed": {
+          "const": false
+        },
+        "outreach_allowed": {
+          "const": false
+        },
+        "delete_on_validation_failure": {
+          "const": true
+        },
+        "retention_policy_status": {
+          "const": "REQUIRED_BEFORE_APPROVAL"
+        },
+        "retention_policy_ref": {
+          "const": null
+        },
+        "retention_duration_days": {
+          "const": null
+        },
+        "trusted_project_privacy_policy_status": {
+          "const": "REQUIRED_BEFORE_APPROVAL"
+        },
+        "trusted_project_privacy_policy_ref": {
+          "const": null
+        }
+      }
+    },
+    "proposed_transport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed_endpoint",
+        "https_only",
+        "allowed_download_hosts",
+        "redirect_policy",
+        "timeout_seconds",
+        "timeout_semantics",
+        "max_bytes",
+        "max_bytes_basis",
+        "expected_media_types",
+        "content_length_required",
+        "endpoint_change_policy",
+        "media_type_change_policy",
+        "content_length_growth_policy",
+        "streaming_required",
+        "partial_artifact_persistence_allowed"
+      ],
+      "properties": {
+        "observed_endpoint": {
+          "const": "https://claimit.ca.gov/upd-property-records/00_All_Records.zip"
+        },
+        "https_only": {
+          "const": true
+        },
+        "allowed_download_hosts": {
+          "type": "array",
+          "const": [
+            "claimit.ca.gov"
+          ]
+        },
+        "redirect_policy": {
+          "const": "SAME_HOST_ONLY"
+        },
+        "timeout_seconds": {
+          "const": 10
+        },
+        "timeout_semantics": {
+          "const": "PER_REQUEST_NETWORK_INACTIVITY"
+        },
+        "max_bytes": {
+          "const": 3203972130
+        },
+        "max_bytes_basis": {
+          "const": "OBSERVED_CONTENT_LENGTH_NO_GROWTH_TOLERANCE"
+        },
+        "expected_media_types": {
+          "type": "array",
+          "const": [
+            "application/zip"
+          ]
+        },
+        "content_length_required": {
+          "const": true
+        },
+        "endpoint_change_policy": {
+          "const": "REQUIRE_NEW_PREFLIGHT"
+        },
+        "media_type_change_policy": {
+          "const": "BLOCK_AND_REVIEW"
+        },
+        "content_length_growth_policy": {
+          "const": "BLOCK_AND_REVIEW"
+        },
+        "streaming_required": {
+          "const": true
+        },
+        "partial_artifact_persistence_allowed": {
+          "const": false
+        }
+      }
+    },
+    "approval_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_approval_required",
+        "approval_ref",
+        "required_before_approval"
+      ],
+      "properties": {
+        "human_approval_required": {
+          "const": true
+        },
+        "approval_ref": {
+          "const": null
+        },
+        "required_before_approval": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ROW_LAYOUT_VERIFIED",
+              "FIELD_WHITELIST_SELECTED",
+              "PII_NECESSITY_DETERMINED",
+              "RETENTION_POLICY_SELECTED",
+              "TRUSTED_PROJECT_PRIVACY_POLICY_SELECTED",
+              "REAL_ACQUISITION_CLIENT_REVIEWED",
+              "APPROVAL_REFERENCE_ASSIGNED"
+            ]
+          }
+        }
+      }
+    },
+    "readiness_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason_code",
+        "reason",
+        "next_gate"
+      ],
+      "properties": {
+        "status": {
+          "const": "BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION"
+        },
+        "reason_code": {
+          "const": "ROW_SCHEMA_AND_PII_SCOPE_UNVERIFIED"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_gate": {
+          "const": "HUMAN_SOURCE_APPROVAL_REVIEW"
+        }
+      }
+    }
+  }
+}
