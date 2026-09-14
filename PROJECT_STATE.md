@@ -10,147 +10,193 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters,
 immutable raw-storage/provenance persistence, privacy/data-minimization gates, California SCO source
-governance, approval-readiness evidence, transport-preflight proposal/execution evidence, and the
-non-authorizing source-approval readiness package are canonical and CI verified on
-`m2-state-governance-core`.
+governance, transport-preflight evidence, source-approval readiness, and the non-authorizing data-scope
+inspection proposal are canonical and CI verified on `m2-state-governance-core`.
 
-Canonical HEAD before the current candidate:
-`c832b447cbe37482fdc4273eb1b163ce9299edf3`.
+Canonical development branch before the current candidate:
+`m2-state-governance-core` @ `f6bfa0dd4cc0bba0ad48d2bacc6ef5bb7bbbb311`.
 
-A new isolated candidate branch, `m3-ca-sco-data-scope-inspection-proposal`, contains a strictly
-non-authorizing California SCO data-scope inspection proposal. Functional candidate commit:
-`2df97f9dbab16ba0e30ec07a590657b381eb8c8b`.
+Current isolated candidate branch:
+`m3-ca-sco-500-plus-range-inspection`.
 
-Candidate CI run `34855459255` passed both `quality` and `streamlit-candidate`.
+The candidate has now completed an owner-authorized, structure-only inspection of the official
+California SCO `$500 and up` ZIP. The inspection used HTTP Range GET only, read 393,216 source-body
+bytes in total, parsed zero CSV data rows, persisted no raw body bytes, and did not perform identity
+resolution, beneficiary matching, outreach, or source approval.
 
-No SCO network request or archive/body access occurred. The source remains `enabled: false` and
-`approved_for_use: false`; the source-access policy remains `PROPOSED`; real acquisition, real PII
-processing, beneficiary matching and outreach remain unauthorized.
+Evidence closure commit:
+`54f2e90b43cf98afb0c607f02c65fa510f71df2d`.
+
+Evidence closure CI:
+`34886584110` — SUCCESS for both `quality` and `streamlit-candidate`.
+
+Stable `main` remains unchanged at:
+`bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
 
 Streamlit Community Cloud remains the active reviewer deployment target. Repository-side Vercel
-runtime/deployment integration remains decommissioned and CI guarded. `main` remains unchanged at
-`bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`. Supabase remains untouched.
+integration remains decommissioned. Supabase remains untouched.
 
-## Canonical California SCO Transport Evidence
+## California SCO Segmented Strategy
 
-Canonical transport observation remains:
+Metadata-only preflight established four official value-segment ZIPs. The `$500 and up` object was
+selected as the pilot target because it is the smallest observed segment and is aligned with an
+initial high-value pilot strategy. This is a product prioritization decision, not a claim that every
+record is commercially viable or insurance-related.
 
-- endpoint: `https://claimit.ca.gov/upd-property-records/00_All_Records.zip`;
-- method used for preflight: `HEAD`;
-- final host: `claimit.ca.gov`;
+Observed `$500+` transport evidence:
+
+- endpoint: `https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`;
 - HTTP status: `200`;
-- redirects: `0`;
-- TLS: `https`;
 - content type: `application/zip`;
-- content length: `3,203,972,130` bytes;
-- `Accept-Ranges: bytes` observed;
-- response-body bytes read: `0`.
+- content length: `162,416,884` bytes;
+- `Accept-Ranges: bytes`;
+- ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
+- Last-Modified: `Wed, 09 Sep 2026 16:32:34 GMT`.
 
-No ZIP/CSV body has been downloaded or opened. Archive contents, CSV fields, row layout and record
-schema remain unverified.
+The full `All properties` archive remains reference-only for the pilot and was not downloaded.
 
-## Current Candidate — Data-Scope Inspection Proposal
+## Executed $500+ Structure Inspection
 
-New artifacts:
+Owner-authorized one-shot execution:
 
-- `schemas/common/source_data_scope_inspection_proposal.schema.json`;
-- `schemas/examples/ca_sco_data_scope_inspection_proposal.examples.json`;
-- `sources/proposals/ca_sco_unclaimed_property_bulk.data_scope_inspection.v1.json`;
-- `tests/contract/test_ca_sco_data_scope_inspection_proposal.py`;
-- `docs/audits/M3_CA_SCO_DATA_SCOPE_INSPECTION_PROPOSAL.md`.
+- execution workflow commit: `40c5ff8c78cdf03f60dcce73ad1c12c5f4466994`;
+- workflow run: `34864433849` — SUCCESS;
+- approval ref:
+  `OWNER_CHAT_APPROVAL_2026-09-14T17:21+02:00_BOUNDED_DATA_SCOPE_INSPECTION`;
+- result: `SUCCEEDED_STRUCTURE_ONLY`;
+- stop reason: `null`;
+- range requests: `5`, all HTTP `206`;
+- total response-body bytes read: `393,216`;
+- full archive downloaded: `false`;
+- CSV data rows parsed: `0`;
+- record values persisted: `false`.
 
-The proposal is fixed to `PROPOSAL_ONLY_NOT_AUTHORIZED` with:
+Exact evidence is persisted at:
+`sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`.
 
-- source approved: `false`;
-- source enabled: `false`;
+Audit:
+`docs/audits/M3_CA_SCO_500_PLUS_DATA_SCOPE_EXECUTION.md`.
+
+The temporary network workflow was removed immediately after evidence capture and its absence is
+contract-tested.
+
+## Verified Archive Structure
+
+The `$500+` ZIP contains four non-encrypted, DEFLATED CSV members:
+
+1. `From_500_To_Beyond_1_of_4.csv`
+2. `From_500_To_Beyond_2_of_4.csv`
+3. `From_500_To_Beyond_3_of_4.csv`
+4. `From_500_To_Beyond_4_of_4.csv`
+
+ZIP64 was not required. No unsafe-path, encryption, unsupported-compression, range-behavior, or budget
+stop condition fired.
+
+## Verified Header Candidate Structure
+
+All four CSV members produced the same high-confidence, comma-delimited UTF-8 header candidate with
+25 labels:
+
+- `PROPERTY_ID`
+- `PROPERTY_TYPE`
+- `CASH_REPORTED`
+- `SHARES_REPORTED`
+- `NAME_OF_SECURITIES_REPORTED`
+- `NO_OF_OWNERS`
+- `OWNER_NAME`
+- `OWNER_STREET_1`
+- `OWNER_STREET_2`
+- `OWNER_STREET_3`
+- `OWNER_CITY`
+- `OWNER_STATE`
+- `OWNER_ZIP`
+- `OWNER_COUNTRY_CODE`
+- `CURRENT_CASH_BALANCE`
+- `NUMBER_OF_PENDING_CLAIMS`
+- `NUMBER_OF_PAID_CLAIMS`
+- `HOLDER_NAME`
+- `HOLDER_STREET_1`
+- `HOLDER_STREET_2`
+- `HOLDER_STREET_3`
+- `HOLDER_CITY`
+- `HOLDER_STATE`
+- `HOLDER_ZIP`
+- `CUSIP`
+
+This verifies archive/header structure only. No data row was sampled, so actual record values,
+population rates, row-level consistency, and semantic/legal necessity of individual fields remain
+unverified.
+
+## Privacy / PII Interpretation
+
+The deterministic header heuristic marked owner/holder/name/address-related labels as potential PII
+indicators. This is a structure-level classification hint only. It is not a legal determination and
+does not authorize processing of any record value.
+
+Current authorization state remains:
+
+- source-access policy: `PROPOSED`;
 - real acquisition authorized: `false`;
-- network execution authorized: `false`;
-- network request performed: `false`;
-- body access performed: `false`;
-- body bytes read: `0`;
-- execution approval reference: `null`;
-- next gate: `HUMAN_DATA_SCOPE_INSPECTION_EXECUTION`.
-
-## Proposed Bounded Inspection
-
-The proposal permits a later separately authorized execution to derive only archive/member structure
-and CSV header-candidate evidence. CSV data rows and record values remain prohibited.
-
-Project safety caps, explicitly not source facts:
-
-- archive tail suffix: `131,072` bytes;
-- central directory: max `4,194,304` bytes;
-- maximum archive members: `10,000`;
-- maximum CSV candidates: `10`;
-- member response prefix: max `1,048,576` bytes each;
-- decompressed prefix: max `65,536` bytes each;
-- logical CSV records parsed: max `1` per member;
-- data rows parsed: `0`;
-- max range requests: `12`;
-- max total source response-body bytes: `14,811,136`.
-
-Transport proposal requires HTTPS, `claimit.ca.gov`, same-host redirects, 10-second per-request
-network-inactivity timeout, `application/zip`, exact current content length, `Accept-Ranges: bytes`,
-and HTTP range GET only. Full-body requests are prohibited.
-
-Privacy controls require quarantine, in-memory-only source-byte handling, no temporary source files,
-no raw ZIP/member/header persistence, no body/record values in logs, least privilege, access logging,
-encryption at rest for any derived evidence, deletion of transient buffers, no export, no matching and
-no outreach.
-
-PII indicators, if a later execution is approved, may be derived from header labels only and are not a
-legal determination. If a data row would be required, the inspection must stop.
+- source registry `enabled`: `false`;
+- source registry `approved_for_use`: `false`;
+- approved real sources: `0`;
+- real PII processing authorized: `false`;
+- identity resolution: BLOCKED;
+- beneficiary matching: BLOCKED;
+- outreach: BLOCKED.
 
 ## Verification Evidence
 
-- Canonical source-approval package baseline: `41dfc61cd96d7573cdd67c37631567ef5343fcdd`.
-- Canonical source-approval package CI `34853561664`: PASS.
-- Canonical package promotion closure: `c832b447cbe37482fdc4273eb1b163ce9299edf3`.
-- Data-scope proposal functional commit: `2df97f9dbab16ba0e30ec07a590657b381eb8c8b`.
-- Data-scope proposal candidate CI `34855459255`: PASS.
-- Pre-closure candidate compare: 1 commit ahead / 0 behind canonical with exact canonical merge-base.
-- Exactly five proposal/test/audit files added before closure; no runtime/policy/registry changes.
-- Ruff, mypy, contract tests, smoke tests, full pytest: PASS.
-- Legacy frontend lint/typecheck/build: PASS.
+- data-scope proposal canonical baseline: `f6bfa0dd4cc0bba0ad48d2bacc6ef5bb7bbbb311`;
+- segmented metadata preflight run: `34862117709` — SUCCESS;
+- segmented evidence CI after formatting fix: `34862892612` — SUCCESS;
+- `$500+` contract CI: `34863903807` — SUCCESS;
+- bounded range-inspector implementation CI: `34864249090` — SUCCESS;
+- one-shot structure execution run: `34864433849` — SUCCESS;
+- evidence closure commit: `54f2e90b43cf98afb0c607f02c65fa510f71df2d`;
+- evidence closure CI: `34886584110` — SUCCESS;
+- Ruff, mypy, contract tests, smoke tests, full pytest: PASS;
+- legacy frontend lint/typecheck/build: PASS;
 - Streamlit safety/startup smoke: PASS.
-- Approved real sources: `0`.
-- Network requests in this proposal task: `0`.
-- Source body bytes read in this proposal task: `0`.
-- No real PII processed.
 
-## Blocked / Not Authorized
+## Resolved Readiness Gap
 
-- Execution of the data-scope inspection without a separate explicit owner gate.
-- Any SCO range GET, ZIP/CSV body access or archive opening under the current proposal task.
-- Source policy transition from `PROPOSED` to `APPROVED`.
-- SCO registry activation for real use.
-- CSV data-row or record-value access.
-- Record-level field authorization before verified structure evidence exists.
-- PII authorization before PII presence/necessity is determined.
-- Beneficiary matching, identity resolution, outreach, claimant verification, fee agreements or claim submission.
-- Promotion to `main` without a separate stable-checkpoint gate.
-- Supabase resource creation without a separate organization/cost/architecture gate.
+Resolved by this execution:
+
+- actual `$500+` archive member count and member names;
+- compression/encryption structure;
+- consistent 25-column header candidate across all four CSV files;
+- structure-level potential PII indicators;
+- proof that structure inspection can be completed using ~384 KiB rather than downloading the full
+  162 MB segment or 3.2 GB complete archive.
 
 ## Remaining Readiness Gaps
 
-- promotion of this non-authorizing proposal if owner approves;
-- separately authorized bounded structure inspection;
-- verified archive member names and CSV header/row-layout evidence;
-- minimized record-level field whitelist;
-- PII presence and necessity determination;
-- selected production retention duration/policy;
-- selected trusted project privacy policy;
-- reviewed real-acquisition client implementation;
+Still required before source approval or row-level acquisition:
+
+- minimized field whitelist selected from the verified 25 labels;
+- explicit purpose/necessity assessment for potential PII fields;
+- production retention duration/policy;
+- trusted project privacy policy;
+- reviewed real-acquisition client against the final field/privacy/transport controls;
 - explicit human source-approval reference;
-- artifact hash/revision from a later separately authorized real acquisition;
-- durable production audit persistence;
-- physical retention enforcement and first PostgreSQL/Alembic application migration.
+- policy transition to `APPROVED` under a separate gate;
+- registry activation under a separate gate;
+- separately authorized real row-level acquisition;
+- durable production audit persistence and physical retention enforcement;
+- first PostgreSQL/Alembic application migration for production data.
+
+No additional source-body access is needed to prepare the next readiness proposal.
 
 ## Next Recommended Action
 
-**Human promotion gate only:** decide whether to promote candidate branch
-`m3-ca-sco-data-scope-inspection-proposal` into canonical `m2-state-governance-core`.
+**Human promotion gate only:** decide whether to promote verified candidate branch
+`m3-ca-sco-500-plus-range-inspection` into canonical `m2-state-governance-core`.
 
-Promotion records only the non-authorizing inspection proposal. It must not run any request or body
-inspection. After promotion, a separate human execution gate is still required before any bounded
-range access can occur.
+Promotion records the verified structure evidence and does not authorize source approval, registry
+activation, record-value access, real PII processing, identity resolution, beneficiary matching or
+outreach.
+
+After promotion, create an isolated, non-authorizing **field-minimization + PII-necessity +
+retention/privacy readiness proposal** based only on the verified 25-label structure. That next task
+requires no California SCO body/network access.
