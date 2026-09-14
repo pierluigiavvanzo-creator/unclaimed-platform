@@ -7,113 +7,134 @@ Last updated: 2026-09-14
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `$500+` STRUCTURE INSPECTION CANONICAL + CI VERIFIED — SOURCE APPROVAL BLOCKED | Canonical `89a5e626...`; post-promotion CI `34887416658` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
-| M3 Product Visibility — Operations Console | STREAMLIT ACTIVE + REPOSITORY-SIDE VERCEL INTEGRATION DECOMMISSIONED | Reviewer contract v2.0.0; Streamlit active; no Vercel runtime integration in repository |
+| M3 — California Data Spike | FIELD/PRIVACY READINESS CANDIDATE + CI VERIFIED — SOURCE APPROVAL BLOCKED | Candidate `8e303caa...`; CI `34889037049` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
+| M3 Product Visibility — Operations Console | STREAMLIT ACTIVE + VERCEL REPOSITORY INTEGRATION DECOMMISSIONED | Reviewer contract v2.0.0; Streamlit active |
 
-## Completed M3 readiness work
+## Completed M3 Readiness Work
 
-- California source/legal inventory completed using authoritative government sources.
+- California source/legal inventory completed.
 - A01 acquisition request/result contracts and fail-closed adapter boundary implemented.
 - Immutable raw storage/provenance and privacy/data-minimization gate implemented.
-- California SCO source registered as disabled and not approved.
-- Source-governance, approval-readiness, transport-preflight, source-approval-package and data-scope contracts versioned and CI verified.
+- California SCO source registered disabled and not approved.
+- Source governance, approval-readiness, transport-preflight, source-approval-package and data-scope contracts versioned and CI verified.
 - Four official SCO value-segment ZIPs observed via metadata-only preflight.
-- `$500 and up` selected as the initial high-value pilot target.
+- `$500 and up` selected as initial high-value pilot target.
 - Bounded Range inspector implemented and contract-tested.
-- Owner-authorized structure-only `$500+` inspection executed successfully.
-- Exact structure evidence persisted and contract-tested.
-- Temporary one-shot network workflow removed immediately after evidence capture.
-- Candidate promoted by non-force fast-forward to canonical `m2-state-governance-core`.
-- Canonical post-promotion CI is green.
+- Owner-authorized `$500+` structure-only inspection executed using `393,216` bytes and zero data rows.
+- Exact 4-member / 25-header structure evidence persisted and promoted to canonical.
+- One-shot network workflow removed after evidence capture.
+- Field-minimization / PII / retention-privacy readiness proposal now implemented on an isolated candidate with no new SCO access.
 
-## Canonical `$500+` Evidence
+## Current Candidate
 
-Target:
-`https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`
+Branch:
+`m3-ca-sco-field-privacy-readiness`
 
-Observed:
-- `162,416,884` bytes;
-- `application/zip`;
-- `Accept-Ranges: bytes`;
-- ETag `"b25b315b6cd8007624387c3a00d4b1fe"`.
+Functional candidate HEAD:
+`8e303caa6fcb10f943382861842297f405786a5b`
 
-Execution:
-- one-shot run `34864433849` SUCCESS;
-- machine result `SUCCEEDED_STRUCTURE_ONLY`;
-- 5 HTTP `206` Range responses;
-- `393,216` total response-body bytes;
-- full archive downloaded `false`;
-- CSV data rows parsed `0`;
-- record values persisted `false`.
+CI:
+`34889037049` — SUCCESS.
 
-Evidence:
-`sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`
+Purpose:
+`INSURANCE_RELEVANCE_TRIAGE_ONLY`.
 
-Four CSV members were found, all non-encrypted and DEFLATED. All four expose the same 25-label header candidate. This verifies structure only, not row values or field necessity.
+Proposed future row allowlist:
 
-## Verification Chain
+1. `PROPERTY_ID`
+2. `PROPERTY_TYPE`
+3. `HOLDER_NAME`
 
-- data-scope proposal canonical baseline `f6bfa0dd...`;
-- segmented HEAD preflight `34862117709` SUCCESS;
-- segmented evidence CI `34862892612` SUCCESS;
-- `$500+` contract CI `34863903807` SUCCESS;
-- bounded inspector CI `34864249090` SUCCESS;
-- structure-only one-shot `34864433849` SUCCESS;
-- evidence closure `54f2e90b43cf98afb0c607f02c65fa510f71df2d`;
-- evidence closure CI `34886584110` SUCCESS;
-- promotion target `89a5e626c2aa6bf98147522b83973ba62b6d0ccc`;
-- canonical post-promotion CI `34887416658` SUCCESS.
+All owner identity/address fields and holder address/geography fields are prohibited for this purpose.
+Eight amount/claims/securities fields remain unresolved and therefore outside the allowlist.
+
+Actual PII presence is still `UNVERIFIED_NO_ROWS_SAMPLED`. `HOLDER_NAME` is a potential-PII field whose
+necessity remains subject to human/legal approval. Real PII processing remains blocked.
+
+## Draft Retention / Privacy Controls
+
+Retention candidate:
+
+- `DRAFT_NOT_APPROVED`;
+- 7-day projected triage-record maximum;
+- explicitly `PROJECT_SAFETY_CANDIDATE_NOT_LEGAL_REQUIREMENT`;
+- no full ZIP persistence;
+- no full-row persistence;
+- approved ref null.
+
+Privacy candidate:
+
+- `DRAFT_NOT_TRUSTED`;
+- only purpose `INSURANCE_RELEVANCE_TRIAGE_ONLY`;
+- only candidate fields `PROPERTY_ID`, `PROPERTY_TYPE`, `HOLDER_NAME`;
+- encryption at rest, least privilege and access logging required;
+- no record values in logs, export, identity resolution, matching or outreach;
+- trusted ref null.
+
+No approved production retention policy or trusted project privacy-policy artifact exists yet; the
+candidate does not invent either.
 
 ## Current Safety State
 
-- source-access policy `PROPOSED`;
-- real acquisition authorized `false`;
+- source policy `PROPOSED`;
+- `real_acquisition_authorized: false`;
 - registry `enabled: false`;
 - registry `approved_for_use: false`;
 - approved real sources `0`;
-- CSV data-row access BLOCKED;
+- row access BLOCKED;
 - record-value processing BLOCKED;
-- real PII processing BLOCKED;
+- real PII BLOCKED;
 - identity resolution BLOCKED;
 - beneficiary matching BLOCKED;
 - outreach BLOCKED.
 
-## Next Product Work
+## Verification Chain
 
-Create an isolated, non-authorizing **field-minimization + PII-necessity + retention/privacy readiness proposal** using only the verified 25 header labels.
+- canonical `$500+` structure promotion closure: `74af507796f8bcc4ab45baba6abffe6714f9f6c6`;
+- field/privacy candidate functional HEAD: `8e303caa6fcb10f943382861842297f405786a5b`;
+- candidate CI `34889037049` SUCCESS;
+- Ruff PASS;
+- mypy PASS;
+- contract tests PASS;
+- smoke tests PASS;
+- full pytest PASS;
+- frontend lint/typecheck/build PASS;
+- Streamlit safety/startup smoke PASS.
 
-The proposal must:
-1. define the exact product purpose for the `$500+` pilot;
-2. classify each label as required, optional, prohibited or unresolved;
-3. minimize owner/holder/address fields before any row access;
-4. document PII necessity/proportionality blockers without inventing legal authority;
-5. select or propose production retention controls under human/legal review;
-6. select a trusted project privacy-policy reference;
-7. define the smallest future row-level acquisition contract compatible with the approved whitelist;
-8. remain non-authorizing until an explicit later source-approval gate.
+## Next Gate
 
-No additional SCO network/body access is required for this next task.
+**Human/legal/privacy/retention review** of the candidate proposal.
 
-## Still Required Before Source Approval / Real Acquisition
+Review must explicitly address:
 
-1. `$500+` structure inspection — DONE + CANONICAL;
-2. minimized field whitelist;
-3. PII necessity/proportionality determination;
-4. production retention policy;
-5. trusted privacy policy;
-6. real-acquisition client review against finalized controls;
-7. explicit source-approval reference;
-8. separate policy `APPROVED` + registry activation gate;
-9. separate real row-level acquisition authorization;
-10. A02 normalization against approved fields only;
-11. later identity/matching/outreach gates as independently authorized.
+1. whether `INSURANCE_RELEVANCE_TRIAGE_ONLY` is the correct first row-level purpose;
+2. whether the 3-field scope is sufficiently minimized;
+3. whether `HOLDER_NAME` is necessary/proportionate for that purpose;
+4. whether the proposed 7-day project safety retention window should be accepted, shortened, changed or rejected;
+5. what canonical privacy policy should become trusted configuration;
+6. what canonical retention policy should be approved.
+
+This review is not, by itself, source approval or PII authorization.
+
+## Still Required Before Real Acquisition
+
+1. field/privacy readiness candidate review and optional promotion;
+2. approved retention policy;
+3. trusted project privacy policy;
+4. explicit `HOLDER_NAME` necessity/proportionality decision;
+5. real-acquisition client review against final controls;
+6. explicit source-approval reference;
+7. separate source-policy `APPROVED` transition;
+8. separate registry activation;
+9. separately authorized minimized row-level acquisition;
+10. A02 normalization on approved fields only;
+11. later identity/matching/outreach gates independently authorized.
 
 ## Out of Scope Until Later Gates
 
-- reading real data rows merely to refine the header evidence;
-- source approval before privacy/retention/field minimization is resolved;
-- full California acquisition;
-- autonomous identity resolution or beneficiary matching;
-- autonomous outreach;
+- reading real rows to refine this proposal;
+- full California archive acquisition;
+- processing owner identity/address data for triage;
+- autonomous identity resolution, beneficiary matching or outreach;
 - claimant verification, fee agreements or claim submission;
 - promotion to `main` without a separate stable-checkpoint gate.
