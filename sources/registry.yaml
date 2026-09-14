@@ -1,2 +1,13 @@
 version: 1
-sources: []
+sources:
+  - source_id: ca.sco.unclaimed_property.bulk
+    name: California State Controller Unclaimed Property Bulk CSV
+    jurisdiction: CA
+    source_type: OFFICIAL_PUBLIC_BULK_CSV
+    enabled: false
+    approved_for_use: false
+    provenance_required: true
+    base_uri: https://www.sco.ca.gov/upd_download_property_records.html
+    access_notes: >-
+      Candidate source only; official public bulk CSV. Registration does not authorize real
+      acquisition, beneficiary matching, outreach, or real PII processing.
