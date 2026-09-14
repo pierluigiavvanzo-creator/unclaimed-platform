@@ -147,3 +147,33 @@ Alternatives considered:
 
 Consequences:
 ADR-0005 supersedes the Vercel deployment-target portion of ADR-0004. No real acquisition, beneficiary matching, source approval, real PII or Supabase integration is enabled by this decision.
+
+---
+
+## D-007 — Decommission repository-side Vercel runtime integration
+
+Date: 2026-09-14
+
+Status: Accepted
+
+Context:
+Streamlit is the verified reviewer deployment target, while the owner continues to receive failed-deployment notifications from the historical Vercel path. Repository-side provider configuration is no longer required and creates avoidable ambiguity.
+
+Decision:
+- Remove all active Vercel deployment configuration from the canonical repository tree.
+- Remove provider-specific deployment instructions from active application documentation.
+- Keep the legacy Next.js reviewer only as a provider-neutral local/regression artifact.
+- Add a contract test that rejects reintroduction of Vercel-named files or textual Vercel references in active runtime surfaces (`.github`, `apps`, `scripts`, `src`, and root runtime configuration files).
+- Preserve historical ADRs/audits as inert records; history is not executable configuration.
+- Treat any external Vercel Git/project connection as a provider-side integration that must be disconnected separately from the repository contents.
+
+Reason:
+This prevents repository changes from intentionally invoking or configuring Vercel and makes Streamlit the only active reviewer deployment path represented by runtime configuration.
+
+Alternatives considered:
+- Keep `vercel.json` as dormant rollback configuration.
+- Delete the entire legacy Next.js reviewer.
+- Leave the repository unchanged and rely only on provider-side settings.
+
+Consequences:
+Vercel deployment is unsupported from the active repository tree. Reintroducing a Vercel runtime integration requires a new explicit owner decision and corresponding test/governance update. An already-installed external Git integration may still receive repository events until it is disconnected at the provider/GitHub integration layer.
