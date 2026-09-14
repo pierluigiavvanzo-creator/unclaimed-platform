@@ -52,4 +52,5 @@ packages = [
   "unclaimed_platform.core",
   "unclaimed_platform.api",
   "unclaimed_platform.adapters.storage",
+  "unclaimed_platform.ui",
 ]

@@ -122,3 +122,28 @@ Alternatives considered:
 
 Consequences:
 The first reconciliation into `main` is a non-fast-forward merge by design. After reconciliation, milestone merges should remain simple provided direct development on `main` is avoided. The misnamed `root` file remains recoverable from Git history but is intentionally absent from the reconciled working tree.
+
+---
+
+## D-006 — Streamlit replaces Vercel on the M3 reviewer critical path
+
+Date: 2026-09-14
+
+Status: Accepted
+
+Context:
+The owner explicitly directed the project to abandon Vercel after repeated project/deployment visibility inconsistencies and move the reviewer surface to Streamlit.
+
+Decision:
+Use Streamlit Community Cloud as the active M3 reviewer deployment target. Preserve deterministic governance and the existing versioned/typed read model as authority. Keep the existing Next.js/Vercel implementation only as rollback/history until Streamlit is remotely verified.
+
+Reason:
+This materially reduces deployment complexity and removes the need for a separate preview backend plus `REVIEWER_API_BASE_URL` wiring while preserving the current synthetic/read-only scope.
+
+Alternatives considered:
+- Continue Vercel diagnostics
+- FastAPI templates
+- Gradio
+
+Consequences:
+ADR-0005 supersedes the Vercel deployment-target portion of ADR-0004. No real acquisition, beneficiary matching, source approval, real PII or Supabase integration is enabled by this decision.

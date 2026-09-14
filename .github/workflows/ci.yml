@@ -15,7 +15,7 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[dev]"
       - run: python -m ruff check .
-      - run: python -m mypy src/unclaimed_platform/core src/unclaimed_platform/api src/unclaimed_platform/adapters/storage
+      - run: python -m mypy src/unclaimed_platform/core src/unclaimed_platform/api src/unclaimed_platform/adapters/storage src/unclaimed_platform/ui
       - run: python -m pytest -q tests/contract
       - run: python -m pytest -q tests/smoke
       - run: python -m pytest -q
@@ -35,3 +35,31 @@ jobs:
       - name: Frontend build
         working-directory: apps/reviewer-console
         run: npm run build
+
+  streamlit-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m pip install -r apps/reviewer-streamlit/requirements.txt
+      - name: Streamlit safety smoke
+        run: python -m pytest -q tests/smoke/test_streamlit_operations_console.py
+      - name: Streamlit startup smoke
+        shell: bash
+        run: |
+          python -m streamlit run apps/reviewer-streamlit/streamlit_app.py \
+            --server.headless true --server.port 8501 > /tmp/streamlit.log 2>&1 &
+          STREAMLIT_PID=$!
+          trap 'kill $STREAMLIT_PID || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8501/_stcore/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/streamlit.log
+          exit 1

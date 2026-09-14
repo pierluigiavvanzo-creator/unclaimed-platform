@@ -1,6 +1,6 @@
 # HANDOVER — Unclaimed Insurance Platform
 
-Date: 2026-09-13
+Date: 2026-09-14
 
 ## Purpose
 
@@ -11,25 +11,10 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Historical operations-console candidate: `m3-operations-console`
-- Current backend-preview candidate: `m3-vercel-backend-preview`
-- Backend-preview candidate base canonical SHA: `d2ffb0ae161a7fc300c4688bf1880b2f44806c5d`
-- Backend-preview candidate verified head: `973e01c62d0722e8c8e4eaffd0b985919a0a8f1f`
+- Historical Vercel backend candidate: `m3-vercel-backend-preview`
+- Current Streamlit candidate: `m3-streamlit-operations-console`
+- Streamlit candidate base canonical SHA: `a0ee1583187248c3deab52b7944a7c4f961bc8e8`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
-
-At every restart, verify branch HEADs and CI directly from GitHub.
-
-## Mandatory files to read first
-
-1. `AGENTS.md`
-2. `PROJECT_STATE.md`
-3. `ROADMAP.md`
-4. `DECISIONS.md`
-5. this handover
-6. `docs/architecture.md`
-7. `docs/contracts.md`
-8. relevant ADRs, especially `docs/decisions/ADR-0004-reviewer-frontend-platform.md`
-9. relevant audits, especially `docs/audits/M3_OPERATIONS_CONSOLE.md` and `docs/audits/M3_VERCEL_BACKEND_PREVIEW.md`
 
 ## Verified baseline
 
@@ -39,71 +24,63 @@ At every restart, verify branch HEADs and CI directly from GitHub.
 - M3 source/legal readiness COMPLETE.
 - M3 acquisition contracts/adapters CANONICAL + CI VERIFIED.
 - M3 immutable raw storage/provenance + privacy/data-minimization CANONICAL + CI VERIFIED.
-- M3 Operations Console CANONICAL + CI VERIFIED.
-- Frontend Vercel preview VISUAL SMOKE PASS based on owner-provided screenshot.
+- Historical M3 Operations Console CANONICAL + CI VERIFIED.
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - `sources/registry.yaml` has no approved real source.
 - Supabase untouched.
 - `main` unchanged.
 
-## Frontend Vercel preview
+## Deployment decision change
 
-Deployment ID: `dpl_8YLYX5gUtUu67feZd9mgemWNmFtL`.
-Preview URL: `https://unclaimed-reviewer-console-5vf7znh1f-pierluigiavvanzo-8728.vercel.app`.
+On 2026-09-14 the owner explicitly directed the project to abandon Vercel and move to Streamlit. D-006 and ADR-0005 record the decision.
 
-Owner screenshot on 2026-09-13 confirms:
+Reason: repeated Vercel connector/project/deployment visibility inconsistencies made the two-deployment preview path operationally expensive without improving product value.
 
-- page renders `M3 Operations Console`;
-- `SYNTHETIC READ ONLY`;
-- `Source: typed synthetic fallback`;
-- source registry `0`;
-- real acquisition `BLOCKED`;
-- beneficiary matching `BLOCKED`;
-- privacy `PASS SYNTHETIC ONLY`;
-- `NO REAL PII`;
-- no visible Next.js error overlay.
+The existing Next.js/Vercel implementation is retained as rollback/history until the Streamlit candidate passes CI and remote smoke. It is no longer on the critical path.
 
-Visual smoke: PASS.
-Vercel deployment metadata/build-log inspection: still pending because the connector/tool is unavailable in the current session.
+## Streamlit candidate
 
-## Backend preview candidate
+Branch: `m3-streamlit-operations-console`.
+Base: canonical `a0ee1583187248c3deab52b7944a7c4f961bc8e8`.
 
-Branch: `m3-vercel-backend-preview`.
-Base: canonical `d2ffb0ae161a7fc300c4688bf1880b2f44806c5d`.
-Verified head: `973e01c62d0722e8c8e4eaffd0b985919a0a8f1f`.
-GitHub Actions run: `34777855668` — PASS.
+Candidate scope:
 
-Candidate changes:
+- `apps/reviewer-streamlit/streamlit_app.py` — Streamlit Community Cloud entrypoint;
+- `apps/reviewer-streamlit/requirements.txt` — deployment dependencies with Streamlit 1.63.0 pinned;
+- `src/unclaimed_platform/ui/streamlit_console.py` — typed fail-closed adapter over the existing M3 reviewer snapshot;
+- smoke tests for safe state and unsafe real-source rejection;
+- GitHub Actions Streamlit startup smoke;
+- ADR-0005 and REUSE FIRST audit.
 
-- root `app.py` is a deployment adapter that imports/re-exports the existing authoritative FastAPI app;
-- no reviewer/domain logic duplicated;
-- smoke test verifies `/health` and `/api/reviewer/m3/operations` safety invariants;
-- CI now has a Python 3.12 Vercel compatibility job in addition to the normal Python 3.11 quality job.
+No snapshot payload is duplicated in Streamlit. The app loads the existing typed Python reviewer read model and refuses to render if safety invariants are violated.
 
-Run `34777855668` verified:
+## Safety boundaries still in force
 
-- Ruff PASS;
-- mypy PASS — 17 files;
-- 18 contract tests passed;
-- 4 smoke tests passed;
-- 54 full tests passed;
-- frontend lint/type/build PASS;
-- Python 3.12 Vercel entrypoint smoke PASS.
+Do not enable without later explicit gates:
 
-The candidate is NOT promoted and the backend is NOT remotely deployed yet.
-
-## Vercel blocker
-
-The Vercel plugin is installed/enabled, but the Vercel tool became unavailable during the task. Do not invent identifiers or credentials and do not substitute a production deployment.
+- real California acquisition;
+- beneficiary matching on real data;
+- real claimant/beneficiary/decedent/family PII;
+- autonomous outreach;
+- legal determinations;
+- claimant verification;
+- fee agreement execution;
+- claim submission;
+- unapproved scraping or restricted-source access.
 
 ## SINGLE NEXT ACTION
 
-When Vercel access is available, deploy `m3-vercel-backend-preview` from repository root as a PREVIEW backend. Verify `/health` and `/api/reviewer/m3/operations`. Then configure the existing reviewer-console PREVIEW environment variable `REVIEWER_API_BASE_URL` with the backend preview origin and redeploy the frontend preview. Acceptance requires the UI source to become `FastAPI contract` while remaining `SYNTHETIC READ ONLY` with source registry `0`, real acquisition `BLOCKED`, beneficiary matching `BLOCKED`, and `NO REAL PII`.
+Wait for GitHub Actions on `m3-streamlit-operations-console`. If quality, Streamlit safety smoke and startup smoke pass, deploy that branch to Streamlit Community Cloud using:
 
-If Vercel preview protection blocks the frontend's server-side request to the backend preview, stop and add only the minimum server-only bypass mechanism after reviewing the protection model; do not disable safety/governance controls.
+- repository: `pierluigiavvanzo-creator/unclaimed-platform`
+- branch: `m3-streamlit-operations-console`
+- entrypoint: `apps/reviewer-streamlit/streamlit_app.py`
+- Python: `3.11`
 
-After successful remote verification, present a separate human gate before promoting `m3-vercel-backend-preview` to canonical. Keep `main` untouched. Do not create Supabase resources.
+Then perform remote smoke and verify `SYNTHETIC_READ_ONLY`, approved real sources `0`, acquisition/matching `BLOCKED`, `NO_REAL_PII`, and no framework/runtime error.
+
+Keep `main` untouched. Promotion to canonical requires the normal explicit owner gate after verification.
 
 ## Handover status
 
@@ -112,16 +89,13 @@ M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
 M3 governance/raw persistence: CANONICAL + VERIFIED
-M3 Operations Console: CANONICAL + CI VERIFIED
-Frontend Vercel preview: VISUAL SMOKE PASS
-Frontend data source: TYPED SYNTHETIC FALLBACK
-Backend Vercel candidate: CI VERIFIED, NOT DEPLOYED
-Backend candidate head: 973e01c62d0722e8c8e4eaffd0b985919a0a8f1f
-Backend candidate CI: 34777855668 PASS
+Historical Next.js Operations Console: CANONICAL + CI VERIFIED
+Vercel active path: ABANDONED BY OWNER
+Streamlit candidate: IMPLEMENTED, CI PENDING
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
 Supabase: UNTOUCHED
 main: UNCHANGED
-NEXT: backend PREVIEW deploy -> verify -> set REVIEWER_API_BASE_URL -> frontend redeploy
+NEXT: CI -> Streamlit Community Cloud deploy -> remote smoke -> promotion gate
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
