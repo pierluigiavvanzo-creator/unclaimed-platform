@@ -1,0 +1,66 @@
+{
+  "valid_synthetic_observation": {
+    "schema_version": "1.0.0",
+    "execution_id": "synthetic.transport_preflight.execution",
+    "source_id": "synthetic.source",
+    "jurisdiction": "ZZ",
+    "execution_approval_ref": "SYNTHETIC_TEST_APPROVAL",
+    "official_source_page": "https://example.invalid/source-page",
+    "target_link_label": "All properties",
+    "controls": {
+      "https_only": true,
+      "request_method": "HEAD",
+      "timeout_seconds": 10,
+      "max_redirects": 3,
+      "allowlisted_hosts": ["example.invalid"],
+      "response_body_bytes_allowed": 0,
+      "persist_response_body": false,
+      "parse_response_body": false,
+      "persist_dataset_artifact": false,
+      "pii_processing_allowed": false,
+      "beneficiary_matching_allowed": false,
+      "outreach_allowed": false
+    },
+    "endpoint_discovery": {
+      "source_page_request_performed": true,
+      "extraction_method": "OFFICIAL_SOURCE_PAGE_HTML_ANCHOR",
+      "extracted_endpoint": "https://example.invalid/all.csv",
+      "extracted_host": "example.invalid"
+    },
+    "transport": {
+      "download_endpoint_request_performed": true,
+      "observed_at": "2026-09-14T11:30:00Z",
+      "redirect_hops": [
+        {
+          "requested_endpoint": "https://example.invalid/all.csv",
+          "http_status": 200,
+          "location": null
+        }
+      ],
+      "final_endpoint": "https://example.invalid/all.csv",
+      "final_host": "example.invalid",
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "text/csv",
+        "content-length": "12345"
+      },
+      "content_type": "text/csv",
+      "content_length": 12345,
+      "tls_scheme": "https",
+      "response_body_bytes_read": 0
+    },
+    "safety_state": {
+      "acquisition_performed": false,
+      "source_approved": false,
+      "source_enabled": false,
+      "persist_response_body": false,
+      "parse_response_body": false,
+      "persist_dataset_artifact": false,
+      "real_pii_processed": false,
+      "beneficiary_matching_performed": false,
+      "outreach_performed": false
+    },
+    "result_status": "SUCCEEDED",
+    "result_reason": "synthetic metadata-only observation"
+  }
+}

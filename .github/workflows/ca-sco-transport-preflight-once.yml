@@ -1,0 +1,45 @@
+name: ca-sco-transport-preflight-once
+
+on:
+  push:
+    branches:
+      - m3-ca-sco-transport-preflight-execution
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    if: github.event.head_commit.message == 'chore: authorize one-time SCO metadata preflight'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Targeted preflight contract tests
+        run: python -m pytest -q tests/contract/test_ca_sco_transport_preflight_execution.py tests/contract/test_ca_sco_transport_preflight_proposal.py
+
+  preflight:
+    if: github.event.head_commit.message == 'chore: authorize one-time SCO metadata preflight'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Execute one metadata-only HEAD preflight
+        run: |
+          python scripts/ca_sco_transport_preflight.py \
+            --approval-ref 'OWNER_CHAT_APPROVAL_2026-09-14T13:26+02:00' \
+            --official-source-page 'https://www.sco.ca.gov/upd_download_property_records.html' \
+            --link-label 'All properties' \
+            --allow-host 'claimit.ca.gov' \
+            --timeout-seconds 10 \
+            --max-redirects 3 \
+            --output "$RUNNER_TEMP/ca_sco_transport_preflight.json"
+      - name: Emit bounded observation
+        run: cat "$RUNNER_TEMP/ca_sco_transport_preflight.json"
