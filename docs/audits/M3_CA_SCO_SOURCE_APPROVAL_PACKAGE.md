@@ -4,38 +4,34 @@ Date: 2026-09-14
 
 Class: **A — Product Critical**
 
-Status: **CANDIDATE + CI VERIFIED — NON-AUTHORIZING — SOURCE APPROVAL BLOCKED**
+Status: **CANONICAL + CI VERIFIED — NON-AUTHORIZING — SOURCE APPROVAL BLOCKED**
 
 ## Objective
 
 Prepare a machine-readable California SCO source-approval readiness package from canonical repository
 evidence without changing the authorization state.
 
-This candidate performs no network request, downloads no ZIP/CSV body, processes no real PII, performs
+The package performs no network request, downloads no ZIP/CSV body, processes no real PII, performs
 no beneficiary matching, and performs no outreach.
 
 ## REUSE FIRST result
 
-The repository already contains the relevant authority boundaries:
+The repository already contained the required authority boundaries:
 
 - `SourceAccessGovernance` v1;
 - canonical SCO approval-readiness evidence;
 - canonical SCO transport-preflight execution/evidence;
-- the deterministic `RawDataGovernanceGate`;
-- the disabled/not-approved SCO source registry entry;
-- the canonical `PROPOSED` SCO source-access policy.
+- deterministic `RawDataGovernanceGate`;
+- disabled/not-approved SCO source registry entry;
+- canonical `PROPOSED` SCO source-access policy.
 
-`SourceAccessGovernance` deliberately forces purpose, categories, fields and production transport
-controls to remain empty while status is `PROPOSED`. Mutating that policy to carry proposed values
-would blur evidence/proposal from authorization and violate fail-closed separation.
-
-Therefore this task adds a separate `SourceApprovalPackage` v1 proposal contract. It does not alter
-the canonical source-access policy or registry.
+`SourceAccessGovernance` intentionally forces purpose, categories, fields and production transport
+controls to remain empty while status is `PROPOSED`. A separate `SourceApprovalPackage` v1 contract
+therefore carries proposed readiness values without blurring proposal/evidence with authorization.
 
 ## Canonical evidence reused
 
 Transport evidence:
-
 `sources/evidence/ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json`
 
 Observed facts reused without another network request:
@@ -54,25 +50,22 @@ registry.
 
 ## Proposed processing scope
 
-The candidate proposes only the narrow purpose:
-
+Narrow purpose:
 `SOURCE_STRUCTURE_VERIFICATION_ONLY`
 
 Meaning: validate archive integrity and establish the internal CSV schema before any record-level use,
 identity resolution, beneficiary matching, outreach or claim activity.
 
-The proposed high-level data category is:
-
+High-level proposed data category:
 `PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE`
 
 No record-level field names are proposed. The archive body has not been inspected and the CSV row
 schema is unknown, so inventing a field whitelist would violate the repository no-fabrication rule.
 
-The field-scope mode is therefore:
-
+Field-scope mode:
 `BLOCK_UNTIL_ROW_SCHEMA_VERIFIED`
 
-and `proposed_allowed_fields` remains empty.
+`proposed_allowed_fields` remains empty.
 
 ## PII necessity decision
 
@@ -87,7 +80,7 @@ knowledge.
 
 ## Proposed privacy and retention controls
 
-The package proposes these prerequisites for any later real-data gate:
+Prerequisites proposed for any later real-data gate:
 
 - quarantine required;
 - encryption at rest required;
@@ -108,7 +101,7 @@ A trusted project privacy policy is also still required:
 
 - `trusted_project_privacy_policy_ref = null`.
 
-These nulls are intentional blockers, not omissions.
+These nulls are intentional blockers.
 
 ## Proposed production transport bounds
 
@@ -117,7 +110,7 @@ The package derives transport values only from canonical observation:
 - HTTPS only;
 - allowed host: `claimit.ca.gov`;
 - redirect policy: same host only;
-- timeout: `10` seconds, explicitly described by the proposal as per-request network inactivity;
+- timeout: `10` seconds per-request network inactivity;
 - expected media type: `application/zip`;
 - content length required;
 - maximum bytes: `3,203,972,130`.
@@ -135,8 +128,7 @@ The package is intentionally marked:
 
 `BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION`
 
-with reason code:
-
+Reason code:
 `ROW_SCHEMA_AND_PII_SCOPE_UNVERIFIED`
 
 Before source approval, all of the following remain required:
@@ -161,7 +153,7 @@ real acquisition authorization, network execution, body access or unverified rec
 
 ## Canonical state preserved
 
-This candidate does not change:
+This package does not change:
 
 - `policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json`;
 - `sources/registry.yaml`.
@@ -183,22 +175,38 @@ Candidate branch:
 Functional commit:
 `4250291d24286be2e0d4cb1a12de0960cc3faa90`
 
-Candidate CI run:
+Candidate closure commit:
+`41dfc61cd96d7573cdd67c37631567ef5343fcdd`
+
+Candidate CI:
 `34843714665` — SUCCESS.
 
-Verified gates:
+Candidate closure CI:
+`34843990986` — SUCCESS.
 
-- Ruff PASS;
-- mypy PASS;
-- contract tests PASS;
-- smoke tests PASS;
-- full pytest PASS;
-- legacy frontend lint/typecheck/build PASS;
-- Streamlit safety smoke PASS;
-- Streamlit startup smoke PASS.
+Verified gates included Ruff, mypy, contract tests, smoke tests, full pytest, legacy frontend
+lint/typecheck/build, and Streamlit safety/startup smoke.
 
-Pre-closure compare against canonical showed 1 commit ahead, 0 behind, exact merge-base on canonical,
-and exactly five added files.
+## Promotion evidence
+
+The owner explicitly approved promotion of:
+
+`m3-ca-sco-source-approval-package` → `m2-state-governance-core`.
+
+Immediately before promotion:
+
+- candidate was 2 commits ahead;
+- candidate was 0 commits behind;
+- merge-base was exactly `5b23d63faceb94112a907bff4af1a287141756d0`.
+
+Canonical was advanced by non-force fast-forward to:
+`41dfc61cd96d7573cdd67c37631567ef5343fcdd`.
+
+Canonical post-promotion CI:
+`34853561664` — SUCCESS.
+
+Both `quality` and `streamlit-candidate` passed. No SCO request or body access occurred during
+promotion.
 
 ## Acceptance criteria
 
@@ -211,21 +219,22 @@ Verified:
 5. proposed transport values cross-check canonical transport evidence;
 6. current source policy and registry remain fail-closed;
 7. data-scope, PII, privacy and retention blockers remain explicit;
-8. repository CI passes;
+8. candidate and canonical CI pass;
 9. no network request or real data acquisition occurs.
 
-## Rollback
+## Next bounded prerequisite
 
-The candidate is additive. Rollback is deletion of the four machine-readable/test artifacts and this
-audit before promotion. No runtime migration, database change, source policy change or registry change
-is required.
+The next product step is a separate **data-scope inspection proposal only**. It must define the
+minimum body-access evidence required to verify archive member names, CSV headers/row layout and
+PII-presence indicators, together with strict byte/range limits, streaming/no-partial-persistence,
+quarantine, stop conditions and machine-readable outputs.
+
+That proposal itself must perform no network request or archive access. Any later structure inspection
+requires another explicit owner execution gate.
 
 ## Stop condition
 
-Stop at a human promotion gate.
-
-Because the package still has row-schema, PII, retention and trusted-project-privacy blockers, this
-candidate must not be interpreted as evidence that the source is ready for `APPROVED` status.
-Promotion, if separately approved, records the readiness proposal only and still permits no network
-or real-data action. After any promotion, the next bounded data-scope prerequisite requires another
-explicit owner decision.
+The promoted package must not be interpreted as evidence that the source is ready for `APPROVED`
+status. Source approval, registry activation, archive/body access, real acquisition, PII processing,
+matching and outreach remain blocked until the documented prerequisites and later human gates are
+satisfied.

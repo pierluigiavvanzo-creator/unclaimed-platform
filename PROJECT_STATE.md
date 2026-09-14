@@ -10,21 +10,19 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters,
 immutable raw-storage/provenance persistence, privacy/data-minimization gates, California SCO source
-governance, approval-readiness evidence, transport-preflight proposal, and bounded transport
-preflight execution/evidence are canonical and CI verified on `m2-state-governance-core`.
+governance, approval-readiness evidence, transport-preflight proposal, bounded transport evidence, and
+the non-authorizing California SCO source-approval readiness package are canonical and CI verified on
+`m2-state-governance-core`.
 
-Canonical HEAD before the current candidate:
-`5b23d63faceb94112a907bff4af1a287141756d0`.
+The promoted source-approval package baseline is:
+`41dfc61cd96d7573cdd67c37631567ef5343fcdd`.
 
-A new isolated candidate branch, `m3-ca-sco-source-approval-package`, now contains a non-authorizing
-California SCO source-approval readiness package. Functional candidate commit:
-`4250291d24286be2e0d4cb1a12de0960cc3faa90`.
-Candidate CI run `34843714665` passed `quality` and `streamlit-candidate`.
+Canonical post-promotion CI:
+`34853561664` — PASS for both `quality` and `streamlit-candidate`.
 
-The candidate performs no network request and does not change the source-access policy or source
-registry. The California SCO source remains `enabled: false` and `approved_for_use: false`; the
-source-access policy remains `PROPOSED`; real acquisition, real PII processing, beneficiary matching
-and outreach remain unauthorized.
+The California SCO source remains `enabled: false` and `approved_for_use: false`. The source-access
+policy remains `PROPOSED`; real acquisition, real PII processing, beneficiary matching and outreach
+remain unauthorized.
 
 Streamlit Community Cloud remains the active reviewer deployment target. Repository-side Vercel
 runtime/deployment integration remains decommissioned and CI guarded. `main` remains unchanged at
@@ -47,9 +45,9 @@ Canonical transport observation remains:
 No ZIP/CSV body has been downloaded or opened. Archive contents, CSV fields, row layout and record
 schema remain unverified.
 
-## Current Candidate — Source-Approval Readiness Package
+## Canonical Source-Approval Readiness Package
 
-New machine-readable artifacts:
+Canonical artifacts:
 
 - `schemas/common/source_approval_package.schema.json`;
 - `schemas/examples/ca_sco_source_approval_package.examples.json`;
@@ -57,12 +55,12 @@ New machine-readable artifacts:
 - `tests/contract/test_ca_sco_source_approval_package.py`;
 - `docs/audits/M3_CA_SCO_SOURCE_APPROVAL_PACKAGE.md`.
 
-The package status is fixed to `READINESS_PROPOSAL_NOT_AUTHORIZED` and the readiness decision is
+The package remains fixed to `READINESS_PROPOSAL_NOT_AUTHORIZED` with readiness decision
 `BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION`.
 
 It proposes only `SOURCE_STRUCTURE_VERIFICATION_ONLY` as the narrow processing purpose and the
-high-level source category `PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE`. It does not invent record-level
-field names: `proposed_allowed_fields` is empty and field scope is
+high-level category `PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE`. It does not invent record-level field
+names: `proposed_allowed_fields` remains empty and field scope remains
 `BLOCK_UNTIL_ROW_SCHEMA_VERIFIED`.
 
 PII necessity remains `UNDETERMINED_BLOCKING` with `allow_pii = false`.
@@ -87,15 +85,17 @@ Proposed transport bounds reuse canonical evidence only:
 
 - Canonical transport-evidence baseline: `60ec305d4f2fd7ec00ca0cfa3f53da9d7c9b595a`.
 - Canonical transport post-promotion CI `34840001821`: PASS.
-- Canonical documentation closure CI `34840291103`: PASS.
-- Source-approval package functional commit `4250291d24286be2e0d4cb1a12de0960cc3faa90`.
-- Source-approval package candidate CI `34843714665`: PASS.
-- Candidate is 1 commit ahead / 0 behind canonical before documentation closure.
+- Canonical transport closure CI `34840291103`: PASS.
+- Source-approval package functional commit: `4250291d24286be2e0d4cb1a12de0960cc3faa90`.
+- Source-approval package candidate closure: `41dfc61cd96d7573cdd67c37631567ef5343fcdd`.
+- Candidate CI `34843714665`: PASS.
+- Candidate closure CI `34843990986`: PASS.
+- Canonical post-promotion CI `34853561664`: PASS.
 - Ruff, mypy, contract tests, smoke tests, full pytest: PASS.
 - Legacy frontend lint/typecheck/build: PASS.
 - Streamlit safety/startup smoke: PASS.
 - Approved real sources: `0`.
-- Network requests in this source-approval package task: `0`.
+- Network requests in the source-approval package task: `0`.
 - No real dataset body downloaded, persisted or parsed.
 - No real PII processed.
 
@@ -103,7 +103,7 @@ Proposed transport bounds reuse canonical evidence only:
 
 - Source policy transition from `PROPOSED` to `APPROVED`.
 - SCO registry activation for real use.
-- Any new SCO network request or ZIP/CSV download.
+- Any new SCO network request or ZIP/CSV download without a separate explicit owner gate.
 - Record-level field authorization before verified row schema exists.
 - PII authorization before PII presence/necessity is determined.
 - Real acquisition before a production retention policy and trusted project privacy policy exist.
@@ -127,10 +127,9 @@ Proposed transport bounds reuse canonical evidence only:
 
 ## Next Recommended Action
 
-**Human promotion gate only:** decide whether to promote candidate branch
-`m3-ca-sco-source-approval-package` into canonical `m2-state-governance-core`.
-
-Promotion would record the non-authorizing readiness package only. It must not approve the source,
-enable the registry, authorize network access or download data. Because the package itself remains
-blocked on row-schema/PII/privacy/retention evidence, a later separate human decision is required for
-the next bounded prerequisite before any source approval can be considered.
+Create an isolated **California SCO data-scope inspection proposal only**. The proposal should define a
+bounded archive/CSV-structure inspection sufficient to verify internal file names, CSV headers/row
+layout and PII presence indicators while remaining non-authorizing and performing no network request.
+It must specify byte/range limits, streaming/no-partial-persistence rules, privacy quarantine, outputs,
+stop conditions and a separate explicit owner execution gate. Do not retrieve or open the archive
+until that later human gate is satisfied.

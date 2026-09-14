@@ -11,12 +11,8 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Current canonical HEAD before this candidate:
-  `5b23d63faceb94112a907bff4af1a287141756d0`
-- Current candidate branch:
-  `m3-ca-sco-source-approval-package`
-- Candidate functional commit:
-  `4250291d24286be2e0d4cb1a12de0960cc3faa90`
+- Promoted SCO source-approval package baseline:
+  `41dfc61cd96d7573cdd67c37631567ef5343fcdd`
 - Stable `main` HEAD:
   `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
 - Never develop directly on `main`; promote verified checkpoints only after the applicable owner gate.
@@ -34,6 +30,7 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - California SCO approval-readiness evidence CANONICAL + CI VERIFIED.
 - California SCO transport-preflight proposal CANONICAL + CI VERIFIED.
 - California SCO bounded transport-preflight execution/evidence CANONICAL + CI VERIFIED.
+- California SCO source-approval readiness package CANONICAL + CI VERIFIED.
 - Repository-side Vercel runtime/deployment integration DECOMMISSIONED + CI VERIFIED.
 - Reviewer read contract v2.0.0 and provider-neutral.
 - SCO registry `enabled: false` and `approved_for_use: false`.
@@ -44,6 +41,37 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Real PII BLOCKED.
 - Supabase untouched.
 - `main` unchanged.
+
+## Promotion just completed
+
+Owner explicitly approved:
+
+`m3-ca-sco-source-approval-package` → `m2-state-governance-core`
+
+Pre-promotion compare:
+
+- candidate 2 commits ahead;
+- 0 behind;
+- merge-base exactly `5b23d63faceb94112a907bff4af1a287141756d0`;
+- clean fast-forward available.
+
+Canonical was advanced without force to:
+`41dfc61cd96d7573cdd67c37631567ef5343fcdd`.
+
+Canonical post-promotion CI:
+`34853561664` — PASS for both `quality` and `streamlit-candidate`.
+
+Verified in that run:
+
+- Ruff PASS;
+- mypy PASS;
+- contract tests PASS;
+- smoke tests PASS;
+- full pytest PASS;
+- legacy frontend lint/typecheck/build PASS;
+- Streamlit safety/startup smoke PASS.
+
+No SCO network request occurred during promotion.
 
 ## Canonical transport evidence
 
@@ -62,31 +90,9 @@ Canonical observation:
 The ZIP body has never been downloaded or opened. Do not claim internal files, CSV row layout, columns
 or PII contents are known.
 
-Canonical transport post-promotion CI:
-`34840001821` — PASS.
+## Canonical source-approval readiness package
 
-Canonical documentation closure CI:
-`34840291103` — PASS.
-
-## Current candidate — SCO source-approval readiness package
-
-Branch:
-`m3-ca-sco-source-approval-package`
-
-Functional commit:
-`4250291d24286be2e0d4cb1a12de0960cc3faa90`
-
-Candidate CI:
-`34843714665` — PASS for both `quality` and `streamlit-candidate`.
-
-Pre-closure compare against canonical:
-- 1 commit ahead;
-- 0 behind;
-- exact merge-base `5b23d63faceb94112a907bff4af1a287141756d0`;
-- exactly 5 new files;
-- no existing policy, registry or runtime files modified.
-
-New files:
+Canonical artifacts:
 
 1. `schemas/common/source_approval_package.schema.json`
 2. `schemas/examples/ca_sco_source_approval_package.examples.json`
@@ -94,15 +100,11 @@ New files:
 4. `tests/contract/test_ca_sco_source_approval_package.py`
 5. `docs/audits/M3_CA_SCO_SOURCE_APPROVAL_PACKAGE.md`
 
-## Why this is a separate contract
+The separate contract exists because `SourceAccessGovernance` v1 intentionally forces proposed
+purpose/categories/fields/transport to stay empty while policy status is `PROPOSED`. The readiness
+package can therefore carry proposed values without silently authorizing them.
 
-`SourceAccessGovernance` v1 intentionally forces processing purpose, categories, fields and production
-transport controls to remain empty while policy status is `PROPOSED`.
-
-Therefore the candidate does not mutate the authorization policy. `SourceApprovalPackage` v1 carries
-proposed readiness values while remaining machine-enforced as non-authorizing.
-
-## Candidate package invariants
+## Canonical package invariants
 
 The schema fixes:
 
@@ -113,15 +115,16 @@ The schema fixes:
 - `network_request_performed = false`;
 - `body_access_performed = false`.
 
-The package cannot be mutated under v1 to claim approval or real acquisition authorization.
+Readiness decision:
+`BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION`.
+
+Reason code:
+`ROW_SCHEMA_AND_PII_SCOPE_UNVERIFIED`.
 
 ## Proposed processing scope
 
 Narrow purpose:
 `SOURCE_STRUCTURE_VERIFICATION_ONLY`
-
-Meaning: validate archive integrity and establish internal CSV schema before any record-level use,
-identity resolution, matching, outreach or claim activity.
 
 High-level proposed category:
 `PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE`
@@ -138,7 +141,7 @@ PII necessity:
 
 ## Proposed privacy / retention prerequisites
 
-The package proposes these prerequisites for any later real-data path:
+The canonical package proposes these prerequisites for any later real-data path:
 
 - quarantine required;
 - encryption at rest required;
@@ -156,7 +159,7 @@ Still unresolved and explicitly null:
 - retention duration;
 - trusted project privacy policy reference.
 
-Those are intentional blockers.
+Those remain approval blockers.
 
 ## Proposed transport bounds
 
@@ -165,38 +168,16 @@ Derived only from canonical transport evidence:
 - HTTPS only;
 - allowed host: `claimit.ca.gov`;
 - redirect policy: same-host only;
-- timeout: 10 seconds, proposal semantics = per-request network inactivity;
+- timeout: 10 seconds per-request network inactivity;
 - expected media type: `application/zip`;
 - content length required;
 - max bytes: `3,203,972,130`;
-- max-byte basis: exact observed content length, no growth tolerance;
-- endpoint change → new preflight required;
+- exact observed content-length basis; no invented growth tolerance;
+- endpoint change → new preflight/review;
 - media-type change → block/review;
 - content-length growth → block/review;
 - future real client must stream;
-- partial artifact persistence after failure is disallowed.
-
-No network request was made while creating this package.
-
-## Readiness decision
-
-The package is explicitly:
-
-`BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION`
-
-Reason code:
-
-`ROW_SCHEMA_AND_PII_SCOPE_UNVERIFIED`
-
-Still required before source approval:
-
-- verified row layout;
-- minimized field whitelist;
-- PII necessity determination;
-- production retention policy;
-- trusted project privacy policy;
-- reviewed real-acquisition client;
-- explicit human approval reference.
+- no partial artifact persistence after failure.
 
 ## Canonical authorization state remains unchanged
 
@@ -214,41 +195,35 @@ Still required before source approval:
 - `enabled: false`;
 - `approved_for_use: false`.
 
-## Verification
+## Remaining blockers before source approval
 
-Candidate CI `34843714665` passed:
-
-- Ruff;
-- mypy;
-- contract tests;
-- smoke tests;
-- full pytest;
-- legacy frontend lint/typecheck/build;
-- Streamlit safety/startup smoke.
-
-No network request, real data acquisition, PII processing, beneficiary matching or outreach occurred.
+- verified archive contents and CSV row layout;
+- minimized record-level field whitelist;
+- PII presence/necessity determination;
+- production retention policy;
+- trusted project privacy policy;
+- reviewed real-acquisition client;
+- explicit human source-approval reference.
 
 ## SINGLE NEXT ACTION
 
-**HUMAN PROMOTION GATE ONLY:** decide whether to promote verified candidate branch
-`m3-ca-sco-source-approval-package` into canonical `m2-state-governance-core`.
+Create a new isolated candidate for a **California SCO data-scope inspection proposal only**.
 
-If the owner explicitly approves promotion:
+The proposal must:
 
-1. verify canonical HEAD has not diverged from candidate base;
-2. compare candidate vs canonical and require clean ancestry;
-3. fast-forward canonical without force;
-4. verify canonical CI on the promoted SHA;
-5. update persistent project state/handover after canonical CI passes;
-6. stop again before any source approval or network/data action.
+1. perform no network request and no archive/body access;
+2. define the minimum evidence required to verify archive member names and CSV header/row layout;
+3. define byte/range/read limits and stop conditions before execution;
+4. require streaming and prohibit partial artifact persistence;
+5. require quarantine, encryption, least privilege and access logging;
+6. define machine-readable outputs for structure evidence and PII-presence indicators only;
+7. prohibit identity resolution, beneficiary matching, outreach and downstream record use;
+8. require a separate explicit owner execution approval reference before any body access;
+9. add schema/examples/tests/audit and run CI;
+10. stop at a human execution gate.
 
-Promotion records a non-authorizing readiness proposal only. It does **not** permit policy `APPROVED`,
-registry activation, network access, ZIP/CSV download, record-level processing, PII, matching or
-outreach.
-
-Because the package still has row-schema/PII/privacy/retention blockers, even after promotion the
-next product action must be a separately authorized bounded prerequisite for data-scope evidence,
-not a silent source approval.
+Do not approve the source, enable the registry or retrieve any ZIP/CSV data as part of that proposal
+task.
 
 ## Handover status
 
@@ -261,10 +236,9 @@ M3 acquisition/raw persistence/privacy: CANONICAL + VERIFIED
 M3 SCO source governance: CANONICAL + CI VERIFIED
 M3 SCO approval readiness: CANONICAL + CI VERIFIED
 M3 SCO transport-preflight execution/evidence: CANONICAL + CI VERIFIED
-M3 SCO source-approval readiness package: CANDIDATE + CI VERIFIED
-Candidate branch: m3-ca-sco-source-approval-package
-Candidate functional SHA: 4250291d24286be2e0d4cb1a12de0960cc3faa90
-Candidate CI: 34843714665 PASS
+M3 SCO source-approval readiness package: CANONICAL + CI VERIFIED
+Promoted package baseline: 41dfc61cd96d7573cdd67c37631567ef5343fcdd
+Canonical package CI: 34853561664 PASS
 SCO policy: PROPOSED + NON-AUTHORIZING
 SCO registry: DISABLED + NOT APPROVED
 Approved real sources: 0
@@ -273,13 +247,12 @@ Field whitelist: BLOCKED
 PII necessity: UNDETERMINED_BLOCKING
 Retention policy: REQUIRED / UNSELECTED
 Trusted project privacy policy: REQUIRED / UNSELECTED
-Network actions in package task: 0
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
 Real PII: BLOCKED
 Vercel repository integration: DECOMMISSIONED
 Supabase: UNTOUCHED
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e UNCHANGED
-NEXT: owner decision on candidate -> canonical promotion
+NEXT: isolated non-authorizing CA SCO data-scope inspection proposal only
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
