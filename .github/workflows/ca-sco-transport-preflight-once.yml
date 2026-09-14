@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   validate:
-    if: github.event.head_commit.message == 'chore: authorize one-time SCO metadata preflight'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +22,6 @@ jobs:
         run: python -m pytest -q tests/contract/test_ca_sco_transport_preflight_execution.py tests/contract/test_ca_sco_transport_preflight_proposal.py
 
   preflight:
-    if: github.event.head_commit.message == 'chore: authorize one-time SCO metadata preflight'
     needs: validate
     runs-on: ubuntu-latest
     steps:

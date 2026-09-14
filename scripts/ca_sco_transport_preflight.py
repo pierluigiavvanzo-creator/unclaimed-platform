@@ -13,7 +13,7 @@ import http.client
 import json
 import ssl
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
@@ -61,7 +61,7 @@ class _AnchorCollector(HTMLParser):
 
 
 def _utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    return datetime.now(UTC).isoformat().replace("+00:00", "Z")
 
 
 def _validate_https_allowlisted(url: str, allowlisted_hosts: set[str]) -> tuple[str, str]:
@@ -91,14 +91,20 @@ def discover_endpoint(
     parser.feed(html)
     matches = [href for text, href in parser.anchors if text.strip() == link_label]
     if len(matches) != 1:
-        raise RuntimeError(f"expected exactly one anchor labelled {link_label!r}; found {len(matches)}")
+        raise RuntimeError(
+            f"expected exactly one anchor labelled {link_label!r}; found {len(matches)}"
+        )
 
     endpoint = urljoin(official_source_page, matches[0])
     host, _ = _validate_https_allowlisted(endpoint, allowlisted_hosts)
     return endpoint, host
 
 
-def _head_once(url: str, timeout_seconds: int, allowlisted_hosts: set[str]) -> tuple[int, dict[str, str]]:
+def _head_once(
+    url: str,
+    timeout_seconds: int,
+    allowlisted_hosts: set[str],
+) -> tuple[int, dict[str, str]]:
     host, path = _validate_https_allowlisted(url, allowlisted_hosts)
     context = ssl.create_default_context()
     connection = http.client.HTTPSConnection(host, timeout=timeout_seconds, context=context)
@@ -202,8 +208,7 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
         return result
 
     current = endpoint
-    observed_at = _utc_now()
-    result["transport"]["observed_at"] = observed_at
+    result["transport"]["observed_at"] = _utc_now()
 
     try:
         for redirect_index in range(args.max_redirects + 1):
@@ -221,14 +226,18 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
             if 300 <= status < 400 and location:
                 if redirect_index >= args.max_redirects:
                     result["result_status"] = "BLOCKED_REDIRECT_LIMIT"
-                    result["result_reason"] = "redirect limit reached before a terminal response"
+                    result["result_reason"] = (
+                        "redirect limit reached before a terminal response"
+                    )
                     return result
                 next_endpoint = urljoin(current, location)
                 next_host = (urlparse(next_endpoint).hostname or "").lower()
-                if urlparse(next_endpoint).scheme.lower() != "https" or next_host not in allowlisted_hosts:
+                next_scheme = urlparse(next_endpoint).scheme.lower()
+                if next_scheme != "https" or next_host not in allowlisted_hosts:
                     result["result_status"] = "BLOCKED_REDIRECT_HOST"
                     result["result_reason"] = (
-                        f"redirect target blocked because it is not HTTPS on an allowlisted host: {next_endpoint}"
+                        "redirect target blocked because it is not HTTPS on an "
+                        f"allowlisted host: {next_endpoint}"
                     )
                     return result
                 current = next_endpoint
@@ -253,7 +262,9 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
                 }
             )
             result["result_status"] = "SUCCEEDED"
-            result["result_reason"] = "metadata-only HEAD preflight completed without reading response body bytes"
+            result["result_reason"] = (
+                "metadata-only HEAD preflight completed without reading response body bytes"
+            )
             return result
 
         result["result_status"] = "BLOCKED_REDIRECT_LIMIT"
@@ -286,10 +297,18 @@ def main(argv: list[str] | None = None) -> int:
     args = _parse_args(sys.argv[1:] if argv is None else argv)
     result = execute(args)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    args.output.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     compact = json.dumps(result, sort_keys=True, separators=(",", ":"))
     print(f"PREFLIGHT_RESULT_JSON={compact}")
-    return 0 if result["result_status"] in {"SUCCEEDED", "BLOCKED_REDIRECT_HOST", "BLOCKED_REDIRECT_LIMIT"} else 1
+    acceptable_results = {
+        "SUCCEEDED",
+        "BLOCKED_REDIRECT_HOST",
+        "BLOCKED_REDIRECT_LIMIT",
+    }
+    return 0 if result["result_status"] in acceptable_results else 1
 
 
 if __name__ == "__main__":

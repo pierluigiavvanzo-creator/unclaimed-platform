@@ -10,7 +10,9 @@ from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 
 ROOT = Path(__file__).parents[2]
 SCHEMA_PATH = ROOT / "schemas" / "common" / "source_transport_preflight_execution.schema.json"
-EXAMPLE_PATH = ROOT / "schemas" / "examples" / "ca_sco_transport_preflight_execution.examples.json"
+EXAMPLE_PATH = (
+    ROOT / "schemas" / "examples" / "ca_sco_transport_preflight_execution.examples.json"
+)
 SCRIPT_PATH = ROOT / "scripts" / "ca_sco_transport_preflight.py"
 
 
@@ -41,7 +43,9 @@ def _validator() -> Draft202012Validator:
 
 
 def test_execution_schema_and_synthetic_example_are_valid() -> None:
-    payload = json.loads(EXAMPLE_PATH.read_text(encoding="utf-8"))["valid_synthetic_observation"]
+    payload = json.loads(EXAMPLE_PATH.read_text(encoding="utf-8"))[
+        "valid_synthetic_observation"
+    ]
     _validator().validate(payload)
 
 
@@ -63,22 +67,36 @@ def test_execution_schema_and_synthetic_example_are_valid() -> None:
         (("safety_state", "outreach_performed"), True),
     ],
 )
-def test_execution_schema_rejects_unsafe_state(path: tuple[str, str], unsafe_value: object) -> None:
-    payload = json.loads(EXAMPLE_PATH.read_text(encoding="utf-8"))["valid_synthetic_observation"]
+def test_execution_schema_rejects_unsafe_state(
+    path: tuple[str, str],
+    unsafe_value: object,
+) -> None:
+    payload = json.loads(EXAMPLE_PATH.read_text(encoding="utf-8"))[
+        "valid_synthetic_observation"
+    ]
     mutated = deepcopy(payload)
     mutated[path[0]][path[1]] = unsafe_value
     with pytest.raises(ValidationError):
         _validator().validate(mutated)
 
 
-def test_runner_completes_metadata_only_head_without_body(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_runner_completes_metadata_only_head_without_body(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     runner = _load_runner()
     endpoint = "https://claimit.ca.gov/example/all.csv"
-    monkeypatch.setattr(runner, "discover_endpoint", lambda *_args, **_kwargs: (endpoint, "claimit.ca.gov"))
+    monkeypatch.setattr(
+        runner,
+        "discover_endpoint",
+        lambda *_args, **_kwargs: (endpoint, "claimit.ca.gov"),
+    )
     monkeypatch.setattr(
         runner,
         "_head_once",
-        lambda *_args, **_kwargs: (200, {"content-type": "text/csv", "content-length": "321"}),
+        lambda *_args, **_kwargs: (
+            200,
+            {"content-type": "text/csv", "content-length": "321"},
+        ),
     )
 
     result = runner.execute(_args())
@@ -93,14 +111,24 @@ def test_runner_completes_metadata_only_head_without_body(monkeypatch: pytest.Mo
     _validator().validate(result)
 
 
-def test_runner_blocks_redirect_to_non_allowlisted_host_without_following(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_runner_blocks_redirect_to_non_allowlisted_host_without_following(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     runner = _load_runner()
     endpoint = "https://claimit.ca.gov/example/all.csv"
     calls: list[str] = []
 
-    monkeypatch.setattr(runner, "discover_endpoint", lambda *_args, **_kwargs: (endpoint, "claimit.ca.gov"))
+    monkeypatch.setattr(
+        runner,
+        "discover_endpoint",
+        lambda *_args, **_kwargs: (endpoint, "claimit.ca.gov"),
+    )
 
-    def fake_head(url: str, *_args: object, **_kwargs: object) -> tuple[int, dict[str, str]]:
+    def fake_head(
+        url: str,
+        *_args: object,
+        **_kwargs: object,
+    ) -> tuple[int, dict[str, str]]:
         calls.append(url)
         return 302, {"location": "https://outside.example/file.csv"}
 
@@ -114,14 +142,19 @@ def test_runner_blocks_redirect_to_non_allowlisted_host_without_following(monkey
     _validator().validate(result)
 
 
-def test_runner_fails_closed_before_head_when_endpoint_discovery_fails(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_runner_fails_closed_before_head_when_endpoint_discovery_fails(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     runner = _load_runner()
     head_called = False
 
     def fail_discovery(*_args: object, **_kwargs: object) -> tuple[str, str]:
         raise RuntimeError("missing target anchor")
 
-    def fake_head(*_args: object, **_kwargs: object) -> tuple[int, dict[str, str]]:
+    def fake_head(
+        *_args: object,
+        **_kwargs: object,
+    ) -> tuple[int, dict[str, str]]:
         nonlocal head_called
         head_called = True
         return 200, {}
