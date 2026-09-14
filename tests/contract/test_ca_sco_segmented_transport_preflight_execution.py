@@ -4,27 +4,32 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).parents[2]
-SCHEMA = ROOT / "schemas" / "common" / "source_transport_preflight_execution.schema.json"
-FULL = ROOT / "sources" / "evidence" / "ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json"
+EVIDENCE_DIR = ROOT / "sources" / "evidence"
+SCHEMA = (
+    ROOT / "schemas" / "common" / "source_transport_preflight_execution.schema.json"
+)
+FULL = EVIDENCE_DIR / (
+    "ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json"
+)
 WORKFLOW = ROOT / ".github" / "workflows" / "ca-sco-segmented-head-preflight-once.yml"
 EVIDENCE = {
     "Properties reported at $.00 to $9.99": (
-        ROOT / "sources" / "evidence" / "ca_sco_segment_00_to_9_99.transport_preflight.execution.v1.json",
+        EVIDENCE_DIR / "ca_sco_segment_00_to_9_99.transport_preflight.execution.v1.json",
         "https://claimit.ca.gov/upd-property-records/01_From_0_To_Below_10.zip",
         1_321_027_390,
     ),
     "Properties reported at $10 to $99.99": (
-        ROOT / "sources" / "evidence" / "ca_sco_segment_10_to_99_99.transport_preflight.execution.v1.json",
+        EVIDENCE_DIR / "ca_sco_segment_10_to_99_99.transport_preflight.execution.v1.json",
         "https://claimit.ca.gov/upd-property-records/02_From_10_To_Below_100.zip",
         1_261_492_445,
     ),
     "Properties reported at $100 to $499.99": (
-        ROOT / "sources" / "evidence" / "ca_sco_segment_100_to_499_99.transport_preflight.execution.v1.json",
+        EVIDENCE_DIR / "ca_sco_segment_100_to_499_99.transport_preflight.execution.v1.json",
         "https://claimit.ca.gov/upd-property-records/03_From_100_To_Below_500.zip",
         459_105_796,
     ),
     "Properties reported at $500 and up": (
-        ROOT / "sources" / "evidence" / "ca_sco_segment_500_plus.transport_preflight.execution.v1.json",
+        EVIDENCE_DIR / "ca_sco_segment_500_plus.transport_preflight.execution.v1.json",
         "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
         162_416_884,
     ),
