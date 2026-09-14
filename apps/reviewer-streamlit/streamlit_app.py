@@ -48,7 +48,7 @@ except RuntimeError as exc:
     st.stop()
 
 _theme_css = (Path(__file__).with_name("theme.css")).read_text(encoding="utf-8")
-st.markdown(f"<style>{_theme_css}</style>", unsafe_allow_html=True)
+st.html(f"<style>{_theme_css}</style>")
 
 milestones_html = "".join(
     (
@@ -158,4 +158,4 @@ page_html = f"""
 </div>
 """
 
-st.markdown(page_html, unsafe_allow_html=True)
+st.html(page_html)
