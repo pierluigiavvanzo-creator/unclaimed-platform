@@ -9,29 +9,24 @@ M3 — California Data Spike Readiness + Product Visibility
 ## Current Status
 
 M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters,
-immutable raw-storage/provenance persistence, privacy/data-minimization gates, reviewer read contract,
-California SCO source governance, California SCO approval-readiness evidence, and the California SCO
-transport-preflight proposal are canonical and CI verified on `m2-state-governance-core`.
+immutable raw-storage/provenance persistence, privacy/data-minimization gates, California SCO source
+governance, approval-readiness evidence, and the transport-preflight proposal are canonical and CI
+verified on `m2-state-governance-core`.
 
-Streamlit Community Cloud is the active M3 reviewer deployment target under D-006 / ADR-0005.
-The owner confirmed on 2026-09-14 that the deployed Streamlit app is configured on canonical
-`m2-state-governance-core`; the previously verified functional/visual state remains the accepted
-reviewer baseline.
+Streamlit Community Cloud is the only active reviewer deployment target represented by repository
+runtime configuration. Repository-side Vercel deployment integration has been decommissioned under
+D-007: `apps/reviewer-console/vercel.json` is removed, active application/runtime/configuration
+surfaces contain no Vercel references, and a contract guardrail rejects reintroduction. The legacy
+Next.js reviewer remains provider-neutral for local/regression use only.
 
-The California SCO public bulk source is represented in `sources/registry.yaml` as
-`ca.sco.unclaimed_property.bulk`, but it remains `enabled: false` and `approved_for_use: false`.
-The source-access policy remains `PROPOSED` and explicitly non-authorizing. The approval-readiness
-evidence enforces `acquisition_performed: false`, `source_approved: false`, and
-`source_enabled: false`. The transport-preflight proposal additionally enforces
-`network_execution_authorized: false`, `network_request_performed: false`,
+The M3 reviewer read contract is now version `2.0.0`. The major-version bump explicitly removes the
+historical provider-specific platform field while preserving the synthetic/read-only safety model.
+
+The California SCO public bulk source remains `enabled: false` and `approved_for_use: false`.
+The source-access policy remains `PROPOSED` and non-authorizing. The canonical transport proposal
+enforces `network_execution_authorized: false`, `network_request_performed: false`,
 `response_body_bytes_allowed: 0`, no response-body persistence/parsing, no dataset persistence,
 no real PII processing, no beneficiary matching, and no outreach.
-
-Candidate `m3-ca-sco-transport-preflight-proposal` commit
-`171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3` passed GitHub Actions run `34832293876` and was
-promoted by explicit owner approval through a clean fast-forward into canonical
-`m2-state-governance-core`. Canonical post-promotion run `34835032368` passed both `quality` and
-`streamlit-candidate` on the same SHA.
 
 `main` remains unchanged at `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
 Supabase remains untouched.
@@ -44,15 +39,15 @@ Supabase remains untouched.
 - M3 California source/legal readiness and fail-closed A01 acquisition boundary.
 - M3 immutable SHA-256 raw persistence and deterministic provenance records.
 - M3 privacy/data-minimization gate with trusted policy separated from caller context.
-- Reviewer read contract and Streamlit reviewer surface canonical and verified.
-- California SCO registry entry canonical, disabled and not approved.
-- `SourceAccessGovernance` v1 contract canonical.
-- California SCO policy canonical in `PROPOSED` / non-authorizing state.
-- `SourceApprovalReadiness` v1 contract and SCO readiness evidence canonical.
-- `SourceTransportPreflightProposal` v1 contract and SCO transport-preflight proposal canonical.
-- Contract tests prove proposal creation cannot authorize network execution, claim a request or
-  acquisition occurred, permit response-body bytes, approve/enable the source, process real PII,
-  perform matching, or enable outreach.
+- Streamlit reviewer canonical, CI verified and remotely validated.
+- California SCO source registry canonical, disabled and not approved.
+- `SourceAccessGovernance` v1, `SourceApprovalReadiness` v1 and
+  `SourceTransportPreflightProposal` v1 canonical.
+- California SCO policy remains `PROPOSED` / non-authorizing.
+- Repository-side Vercel runtime/deploy configuration decommissioned.
+- Reviewer contract upgraded to v2.0.0 to remove the provider-specific platform field.
+- Guardrail `tests/contract/test_no_vercel_runtime_integration.py` scans `.github`, `apps`,
+  `scripts`, `src`, `schemas/ui` and root runtime configuration for forbidden Vercel paths/references.
 
 ## Verification Evidence
 
@@ -61,12 +56,12 @@ Supabase remains untouched.
 - SCO transport-preflight proposal SHA: `171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3`.
 - Transport-preflight proposal candidate CI `34832293876`: PASS.
 - Transport-preflight proposal canonical CI `34835032368`: PASS.
-- Ruff: PASS.
-- mypy: PASS.
-- contract tests: PASS.
-- smoke tests: PASS.
-- full pytest: PASS.
-- frontend lint/typecheck/build regression gates: PASS.
+- Vercel-decommission candidate exploratory run `34836335576`: FAIL as designed; guardrail found
+  four residual active references, which were then removed rather than allowlisted.
+- Vercel-decommission corrected candidate CI `34836721955`: PASS.
+- Vercel-decommission canonical CI `34836845879`: PASS.
+- Ruff, mypy, contract tests, smoke tests, full pytest: PASS.
+- Legacy frontend lint/typecheck/build regression gates: PASS.
 - Streamlit safety/startup smoke: PASS.
 - Source registry approved real sources: `0`.
 - No real dataset retrieval or row parsing performed.
@@ -84,7 +79,7 @@ Supabase remains untouched.
 - Beneficiary matching on real data.
 - Real claimant/beneficiary/decedent/family PII.
 - Outreach, claimant verification, fee agreements and claim submission.
-- Unapproved scraping/restricted-source access.
+- Reintroducing a Vercel repository/runtime integration without a new explicit owner decision.
 - Promotion to `main` without a separate explicit stable-checkpoint gate.
 - Supabase resource creation without a separate organization/cost/architecture gate.
 
@@ -100,17 +95,17 @@ Supabase remains untouched.
 - Filesystem raw immutability is application-level, not provider WORM/object lock.
 - M2 audit writer remains in-memory; durable production audit persistence is outstanding.
 - Retention physical enforcement and PostgreSQL/Alembic initial application migration are outstanding.
+- An external Vercel Git/project integration, if still connected outside repository contents, can
+  continue receiving GitHub push events until disconnected provider-side; repository cleanup alone
+  cannot revoke that external account connection.
 - Known non-blocking dependency/runtime deprecation warnings remain in CI.
 
 ## Next Recommended Action
 
-**Human gate only:** decide whether to authorize one bounded California SCO transport-preflight
-execution limited to metadata observation under the canonical proposal.
+**Do not execute the SCO transport preflight yet.** First confirm that any external Vercel project/Git
+integration associated with this repository is disconnected if failed-deployment notifications
+continue. Repository-side Vercel integration is now removed and CI-guarded.
 
-If the owner approves that execution, create a new isolated execution task/branch that must keep
-`response_body_bytes_allowed = 0`, perform no body persistence or parsing, acquire no dataset artifact,
-process no real PII, perform no beneficiary matching/outreach, and stop after recording only the
-transport metadata/provenance explicitly allowed by the proposal.
-
-Source approval, registry activation, real retrieval and California data processing remain separate
-later gates even if the metadata-only preflight is authorized and succeeds.
+After the external-notification issue is resolved or confirmed absent, the next product gate returns
+to the existing human decision: whether to authorize one bounded California SCO metadata-only
+transport-preflight execution under the canonical proposal.

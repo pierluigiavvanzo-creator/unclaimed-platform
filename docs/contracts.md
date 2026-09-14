@@ -5,7 +5,7 @@ M1 establishes machine-readable boundaries before domain-agent implementation.
 ## Rules
 
 - JSON Schema draft: 2020-12.
-- Contract version: `1.0.0`.
+- Contract version: `1.0.0` for the original M1 contract family unless a later contract explicitly declares another version.
 - Objects reject undeclared fields with `additionalProperties: false` at the contract boundary.
 - Decision status is limited to `CONTINUE`, `STOP`, `HUMAN_REVIEW`, `RETRY`, `DEFER`.
 - Agent identifiers are limited to `A00` through `A23`.
@@ -118,16 +118,22 @@ does not implement any California network download.
 
 ## M3 reviewer-console read contract
 
-The frontend slice adds version `1.0.0` contract:
+The reviewer slice currently uses contract version `2.0.0`:
 
 - `schemas/ui/m3_operations_console.schema.json`
 - FastAPI endpoint `GET /api/reviewer/m3/operations`
 
-The contract is intentionally `SYNTHETIC_READ_ONLY`. It exposes milestone state, source-registry state,
-one synthetic raw/provenance example, privacy/governance gate state, audit-chain status, and platform
-readiness. It fixes approved real sources to `0`, real acquisition to `BLOCKED`, beneficiary matching
-to `BLOCKED`, and real-PII mode to disabled.
+Version `2.0.0` supersedes the original reviewer contract `1.0.0`. D-007 decommissioned the historical
+repository-side deployment-provider integration and removed the provider-specific platform field from
+the reviewer payload. Because that field was required in v1, removing it is a breaking shape change
+and therefore correctly advances the major contract version rather than silently changing v1.
+
+The v2 contract remains intentionally `SYNTHETIC_READ_ONLY`. It exposes milestone state,
+source-registry state, one synthetic raw/provenance example, privacy/governance gate state,
+audit-chain status, and provider-neutral platform readiness. It fixes approved real sources to `0`,
+real acquisition to `BLOCKED`, beneficiary matching to `BLOCKED`, and real-PII mode to disabled.
 
 The reviewer UI consumes this contract; it is not an authorization surface and cannot approve a
 source, enable real acquisition, perform matching, or write claimant data. FastAPI/domain governance
-remains authoritative.
+remains authoritative. Repository-side deployment-provider configuration is separately protected by
+`tests/contract/test_no_vercel_runtime_integration.py`.
