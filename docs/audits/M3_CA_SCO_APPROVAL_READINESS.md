@@ -4,7 +4,7 @@ Date: 2026-09-14
 
 Class: **A — Product Critical**
 
-Status: **CANDIDATE EVIDENCE ONLY — SOURCE NOT APPROVED**
+Status: **CANONICAL EVIDENCE — SOURCE NOT APPROVED**
 
 ## Objective
 
@@ -54,7 +54,7 @@ No CSV link was followed and no dataset artifact was acquired while preparing th
 
 ## Machine-readable evidence
 
-The candidate introduces:
+Canonical artifacts:
 
 - `schemas/common/source_approval_readiness.schema.json`;
 - `schemas/examples/ca_sco_approval_readiness.examples.json`;
@@ -72,6 +72,23 @@ The schema forces these fail-closed invariants:
 
 The evidence artifact records only the advertised CSV format, Thursday update cadence, official
 source page, advertised download-host relationship and authoritative references.
+
+## Promotion evidence
+
+Candidate branch: `m3-ca-sco-approval-readiness`.
+
+Promoted SHA:
+`73c6ffc130fdeffad7fb5cdaf86fa2185b8853a6`
+
+Candidate GitHub Actions run `34827272138`: PASS.
+
+After explicit owner approval, the candidate was promoted by clean fast-forward into canonical
+`m2-state-governance-core` with no force update.
+
+Canonical post-promotion GitHub Actions run `34828513676`: PASS, including `quality` and
+`streamlit-candidate`.
+
+Promotion of this evidence package does not constitute source approval.
 
 ## Intentionally unresolved
 
@@ -115,7 +132,7 @@ They also assert that:
 
 ## Acceptance criteria
 
-The candidate is acceptable only if:
+Verified:
 
 1. the readiness schema is valid JSON Schema draft 2020-12;
 2. the evidence artifact validates;
@@ -128,8 +145,9 @@ The candidate is acceptable only if:
 
 ## Safety boundary
 
-This task does not authorize or perform:
+This canonical evidence package does not authorize or perform:
 
+- transport-preflight execution;
 - real California acquisition;
 - source approval or activation;
 - CSV row parsing;
@@ -142,8 +160,9 @@ This task does not authorize or perform:
 
 ## Next gate
 
-After CI passes, the owner may review this evidence candidate for promotion into canonical.
+Prepare a separate transport-preflight **proposal only** that defines the metadata checks and
+fail-closed boundaries for a later authorized network preflight.
 
-Promotion of the evidence package would still not approve the source. A later separately authorized
-transport preflight would be required to establish exact download endpoint/redirect/content-type/size
-controls before any source-approval decision.
+The proposal itself must execute no request to a download endpoint and acquire no real dataset.
+Actual transport-preflight execution requires a separate explicit owner gate before any network
+interaction with the download endpoint.

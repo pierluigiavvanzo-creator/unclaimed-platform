@@ -7,7 +7,7 @@ Last updated: 2026-09-14
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | SOURCE GOVERNANCE CANONICAL + CI VERIFIED — REAL ACQUISITION BLOCKED | SCO candidate registered disabled/unapproved; source-access policy `PROPOSED`; candidate run `34825751270` and canonical run `34826353694` PASS |
+| M3 — California Data Spike | SOURCE GOVERNANCE + APPROVAL READINESS CANONICAL + CI VERIFIED — REAL ACQUISITION BLOCKED | SCO registry disabled/unapproved; policy `PROPOSED`; readiness evidence non-authorizing; canonical CI `34828513676` PASS |
 | M3 Product Visibility — Operations Console | CANONICAL + CI VERIFIED + REMOTE/VISUAL SMOKE PASS + DEPLOY BRANCH ALIGNED | Streamlit Community Cloud confirmed by owner on `m2-state-governance-core`; prior remote functional/visual smoke PASS |
 
 ## M3 completed readiness work
@@ -18,8 +18,11 @@ Last updated: 2026-09-14
 - California SCO public bulk source represented in the registry as a disabled, not-approved candidate.
 - Versioned `SourceAccessGovernance` contract implemented.
 - SCO source-access policy is canonical in `PROPOSED`, explicitly non-authorizing state.
-- Contract tests prove that a proposed policy cannot authorize real acquisition and approved real
-  source count remains zero.
+- Versioned `SourceApprovalReadiness` contract implemented.
+- SCO approval-readiness evidence package is canonical and records only verified public facts plus
+  explicitly unresolved controls.
+- Contract tests prove that readiness evidence cannot claim completed acquisition, source approval or
+  source enablement.
 - No real source data has been downloaded, parsed or normalized.
 
 ## Product visibility state
@@ -28,13 +31,18 @@ Streamlit Community Cloud is the active M3 reviewer host. The owner confirmed th
 configured on canonical `m2-state-governance-core`. The reviewer remains synthetic/read-only and
 fails closed on unsafe state. Vercel/Next.js remains rollback/history only.
 
-## Governance verification
+## Verification
 
 California SCO governance SHA:
 `463c6d6c972fa955a8aa0d3c97208c3029e202a8`
 
-- Candidate GitHub Actions run `34825751270`: PASS.
-- Canonical post-promotion run `34826353694`: PASS.
+Approval-readiness SHA:
+`73c6ffc130fdeffad7fb5cdaf86fa2185b8853a6`
+
+- Governance candidate CI `34825751270`: PASS.
+- Governance canonical CI `34826353694`: PASS.
+- Approval-readiness candidate CI `34827272138`: PASS.
+- Approval-readiness canonical post-promotion CI `34828513676`: PASS.
 - Ruff PASS.
 - mypy PASS.
 - contract tests PASS.
@@ -46,35 +54,36 @@ California SCO governance SHA:
 - real acquisition: BLOCKED.
 - beneficiary matching: BLOCKED.
 
-## Next gate — approval-readiness evidence only
+## Next gate — transport-preflight proposal only
 
-Build a bounded, machine-readable approval-readiness evidence package for
-`ca.sco.unclaimed_property.bulk`.
+Prepare a bounded, isolated proposal describing the later California SCO transport preflight.
 
-It may record facts verified from official public pages, including:
+The proposal may define the checks that would be required to establish:
 
-- the official SCO bulk-download page;
-- advertised `.CSV` format;
-- advertised Thursday update cadence;
-- the fact that the download links shown on the official SCO page point to `claimit.ca.gov`;
-- public-records and SCO privacy-policy references;
-- applicable downstream legal-review references.
+- exact download endpoint identity;
+- redirect behavior;
+- response/content-type metadata;
+- size-bound evidence;
+- timeout and maximum-byte controls;
+- allowlisted host requirements;
+- provenance fields for the transport observation.
 
-It must explicitly record unresolved items and must not:
+The proposal itself must not:
 
-- follow or download a real CSV;
+- execute a request to a download endpoint;
+- follow/download a real CSV;
+- persist a real dataset artifact;
 - mark the source approved or enabled;
-- set an approval reference;
-- authorize a processing purpose;
-- authorize data categories/fields or real PII;
+- authorize a processing purpose, data categories/fields or real PII;
 - infer CSV row layout;
 - enable beneficiary matching or outreach.
 
+Actual execution of the transport preflight requires a separate explicit owner gate.
+
 ## Still required before any real California acquisition
 
-1. approval-readiness evidence package completed and CI verified;
-2. exact transport behavior, content type, size bounds and redirect policy established through a
-   separately authorized preflight;
+1. bounded transport-preflight proposal completed and CI verified;
+2. separately authorized transport preflight establishing endpoint/redirect/content-type/size evidence;
 3. production retention/privacy/data-minimization controls defined;
 4. explicit human approval of a versioned real-source governance policy and registry activation;
 5. bounded read-only retrieval implementation with transport/size/timeout/content validation;
@@ -84,6 +93,7 @@ It must explicitly record unresolved items and must not:
 
 ## Out of scope until later gates
 
+- transport preflight network execution without explicit owner approval;
 - real California acquisition before explicit source/policy approval;
 - real-data beneficiary matching;
 - autonomous outreach;
