@@ -12,12 +12,13 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
 - Historical Vercel backend candidate: `m3-vercel-backend-preview`
-- Current Streamlit candidate: `m3-streamlit-operations-console`
+- Historical Streamlit candidate branch: `m3-streamlit-operations-console`
 - Streamlit candidate base canonical SHA: `a0ee1583187248c3deab52b7944a7c4f961bc8e8`
 - Verified Streamlit implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`
+- Documentation closure SHA: `c75adff971da6132cbcc54fab185b2ff6470e047`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
-Documentation-only commits may make the branch HEAD newer than the verified implementation SHA above. Always verify current remote HEAD before editing.
+The Streamlit candidate was promoted by fast-forward into `m2-state-governance-core` after explicit owner approval. The candidate was 2 commits ahead and 0 behind canonical before promotion.
 
 ## Verified baseline
 
@@ -27,30 +28,32 @@ Documentation-only commits may make the branch HEAD newer than the verified impl
 - M3 source/legal readiness COMPLETE.
 - M3 acquisition contracts/adapters CANONICAL + CI VERIFIED.
 - M3 immutable raw storage/provenance + privacy/data-minimization CANONICAL + CI VERIFIED.
-- Historical M3 Operations Console CANONICAL + CI VERIFIED.
-- Streamlit reviewer implementation CI VERIFIED on `f9042839296cca256c1c886f4b1667caa3f2a532`.
+- Streamlit M3 Operations Console CANONICAL + CI VERIFIED + REMOTE SMOKE PASS.
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - `sources/registry.yaml` has no approved real source.
 - Supabase untouched.
 - `main` unchanged.
 
-## Deployment decision change
+## Deployment decision
 
 On 2026-09-14 the owner explicitly directed the project to abandon Vercel and move to Streamlit. D-006 and ADR-0005 record the decision.
 
 Reason: repeated Vercel connector/project/deployment visibility inconsistencies made the two-deployment preview path operationally expensive without improving product value.
 
-The existing Next.js/Vercel implementation is retained as rollback/history until the Streamlit candidate passes remote smoke. It is no longer on the critical path.
+The existing Next.js/Vercel implementation is retained as rollback/history. It is no longer on the critical path.
 
-## Streamlit candidate
+## Canonical Streamlit reviewer
 
-Branch: `m3-streamlit-operations-console`.
-Base: canonical `a0ee1583187248c3deab52b7944a7c4f961bc8e8`.
+Canonical branch: `m2-state-governance-core`.
 Verified implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`.
-GitHub Actions run: `34812099385` — PASS.
+Documentation closure SHA: `c75adff971da6132cbcc54fab185b2ff6470e047`.
+GitHub Actions implementation run: `34812099385` — PASS.
+GitHub Actions documentation run: `34812289869` — PASS.
+Remote URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`.
+Remote visual/content smoke: PASS based on owner-provided screenshot on 2026-09-14.
 
-Candidate scope:
+Canonical scope:
 
 - `apps/reviewer-streamlit/streamlit_app.py` — Streamlit Community Cloud entrypoint;
 - `apps/reviewer-streamlit/requirements.txt` — deployment dependencies with Streamlit 1.63.0 pinned;
@@ -78,6 +81,26 @@ GitHub Actions run `34812099385` on exact implementation SHA `f9042839296cca256c
 - Streamlit startup smoke: PASS using `/_stcore/health`;
 - existing Next.js lint/type/build regression gates: PASS.
 
+GitHub Actions run `34812289869` on documentation closure SHA `c75adff971da6132cbcc54fab185b2ff6470e047`: PASS for both `quality` and `streamlit-candidate`.
+
+## Remote smoke evidence
+
+Owner screenshot from the deployed Streamlit page confirms:
+
+- page renders `M3 Operations Console`;
+- `SYNTHETIC READ ONLY`;
+- source text `authoritative typed Python read model`;
+- approved real sources `0`;
+- real acquisition `BLOCKED`;
+- beneficiary matching `BLOCKED`;
+- privacy gate `PASS SYNTHETIC ONLY`;
+- source approval `BLOCKED NO REAL SOURCE`;
+- retention `REQUIRED`;
+- PII mode `NO REAL PII`;
+- no visible Streamlit/framework runtime error.
+
+Remote smoke: PASS.
+
 ## Safety boundaries still in force
 
 Do not enable without later explicit gates:
@@ -94,17 +117,9 @@ Do not enable without later explicit gates:
 
 ## SINGLE NEXT ACTION
 
-Deploy the verified candidate to Streamlit Community Cloud using:
+Prepare the next bounded M3 source-governance proposal for the California SCO public bulk candidate. This is preparation only: do not approve a real source, do not acquire real data, and do not enable beneficiary matching or real PII.
 
-- repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-streamlit-operations-console`
-- entrypoint: `apps/reviewer-streamlit/streamlit_app.py`
-- Python: `3.11`
-- secrets: none for this synthetic-only candidate
-
-Then perform remote smoke and verify `SYNTHETIC_READ_ONLY`, approved real sources `0`, acquisition/matching `BLOCKED`, `NO_REAL_PII`, and no framework/runtime error.
-
-Keep `main` untouched. Promotion to canonical requires the normal explicit owner gate after remote verification.
+Keep `main` untouched. A promotion to `main` remains a separate explicit stable-checkpoint gate.
 
 ## Handover status
 
@@ -113,16 +128,16 @@ M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
 M3 governance/raw persistence: CANONICAL + VERIFIED
-Historical Next.js Operations Console: CANONICAL + CI VERIFIED
+Streamlit Operations Console: CANONICAL + CI VERIFIED + REMOTE SMOKE PASS
 Vercel active path: ABANDONED BY OWNER
-Streamlit implementation: CI VERIFIED
 Streamlit implementation SHA: f9042839296cca256c1c886f4b1667caa3f2a532
-Streamlit CI: 34812099385 PASS
-Streamlit remote deploy: PENDING
+Streamlit implementation CI: 34812099385 PASS
+Streamlit documentation CI: 34812289869 PASS
+Streamlit remote deploy: VERIFIED
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
 Supabase: UNTOUCHED
 main: UNCHANGED
-NEXT: Streamlit Community Cloud deploy -> remote smoke -> promotion gate
+NEXT: prepare California SCO source-governance proposal only; no approval/acquisition
 CONTEXT HEALTH: coherent; repository is source of truth
 ```

@@ -8,7 +8,7 @@ Last updated: 2026-09-14
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
 | M3 — California Data Spike | GOVERNANCE/RAW STORAGE VERIFIED ON CANONICAL — REAL ACQUISITION BLOCKED | Source readiness, A01 acquisition contracts, raw persistence/privacy promoted and CI green |
-| M3 Product Visibility — Operations Console | STREAMLIT CANDIDATE CI VERIFIED — REMOTE SMOKE PENDING | Run `34812099385` PASS on implementation SHA `f9042839`; Streamlit safety and startup smoke green |
+| M3 Product Visibility — Operations Console | CANONICAL + CI VERIFIED + STREAMLIT REMOTE SMOKE PASS | Runs `34812099385` and `34812289869` PASS; owner screenshot confirms live Streamlit safety state |
 
 ## M3 completed readiness work
 
@@ -22,19 +22,23 @@ Last updated: 2026-09-14
 
 The historical Next.js Operations Console remains in the repository as rollback/history. The owner explicitly ended Vercel as the active deployment path on 2026-09-14.
 
-The Streamlit candidate:
+Streamlit is now canonical for the M3 reviewer surface. It:
 
 1. reuses the existing typed M3 reviewer snapshot instead of duplicating payload data;
 2. validates `SYNTHETIC_READ_ONLY`, source registry `0`, acquisition/matching `BLOCKED`, `NO_REAL_PII`, synthetic and immutable raw artifact before rendering;
 3. fails closed on an unsafe snapshot;
-4. uses Streamlit Community Cloud as the target host;
+4. uses Streamlit Community Cloud as the active host;
 5. removes the separate backend-preview and `REVIEWER_API_BASE_URL` wiring from the critical path;
 6. introduces no Supabase resource, real source, real acquisition or real PII.
 
-## Candidate verification
+## Verification
 
 Implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`
-GitHub Actions run: `34812099385` — PASS.
+Documentation closure SHA: `c75adff971da6132cbcc54fab185b2ff6470e047`
+GitHub Actions run `34812099385`: PASS.
+GitHub Actions run `34812289869`: PASS.
+Remote URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`
+Remote smoke: PASS based on owner-provided screenshot on 2026-09-14.
 
 - Ruff PASS.
 - mypy PASS — 19 source files.
@@ -44,13 +48,15 @@ GitHub Actions run: `34812099385` — PASS.
 - Streamlit-specific safety tests: 2 passed.
 - Streamlit startup smoke: PASS on `/_stcore/health`.
 - Existing Next.js lint/type/build regression gates: PASS.
+- Remote page confirms `SYNTHETIC READ ONLY`, real sources `0`, acquisition/matching `BLOCKED`, `NO REAL PII`.
+- Streamlit branch promoted to canonical after explicit owner approval.
 
 ## Next gate
 
-- Deploy branch `m3-streamlit-operations-console` to Streamlit Community Cloud with entrypoint `apps/reviewer-streamlit/streamlit_app.py` and Python 3.11.
-- Perform a remote visual/content smoke confirming all M3 safety boundaries.
-- Promote to canonical only after the normal explicit human promotion gate.
-- Keep `main` unchanged until a separate stable-checkpoint decision.
+- Prepare the next bounded M3 source-governance proposal for the California SCO public bulk candidate.
+- Do not approve the source or acquire real data as part of that preparation.
+- Keep beneficiary matching and real PII blocked.
+- Keep `main` unchanged until a separate explicit stable-checkpoint decision.
 
 ## Still required before any real California acquisition
 
