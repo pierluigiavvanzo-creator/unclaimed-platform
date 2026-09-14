@@ -1,0 +1,139 @@
+{
+  "readiness.valid": {
+    "schema_version": "1.0.0",
+    "evidence_id": "ca.sco.unclaimed_property.bulk.approval_readiness",
+    "evidence_version": "1.0.0",
+    "source_id": "ca.sco.unclaimed_property.bulk",
+    "jurisdiction": "CA",
+    "authority": "California State Controller's Office, Unclaimed Property Division",
+    "review_status": "EVIDENCE_ONLY_NOT_APPROVED",
+    "reviewed_at": "2026-09-14T09:15:00Z",
+    "acquisition_performed": false,
+    "source_approved": false,
+    "source_enabled": false,
+    "official_source_page": "https://www.sco.ca.gov/upd_download_property_records.html",
+    "advertised_format": "CSV",
+    "advertised_update_cadence": "EVERY_THURSDAY",
+    "advertised_download_hosts": ["claimit.ca.gov"],
+    "authoritative_references": [
+      {"kind": "OFFICIAL_DOWNLOAD_PAGE", "uri": "https://www.sco.ca.gov/upd_download_property_records.html"},
+      {"kind": "PUBLIC_RECORDS_GUIDANCE", "uri": "https://www.sco.ca.gov/eo_about_records.html"},
+      {"kind": "PRIVACY_POLICY", "uri": "https://www.sco.ca.gov/eo_privacy.html"}
+    ],
+    "downstream_legal_review_refs": [
+      {
+        "kind": "DOWNSTREAM_LEGAL_REVIEW",
+        "uri": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CCP&sectionNum=1582.",
+        "scope_note": "Downstream locator/recovery agreement review only; this reference does not authorize source acquisition."
+      }
+    ],
+    "transport_verification": {
+      "exact_download_urls_verified": false,
+      "redirect_chain_verified": false,
+      "actual_media_type_verified": false,
+      "current_file_size_verified": false,
+      "max_bytes_selected": false,
+      "timeout_selected": false
+    },
+    "data_scope_verification": {
+      "row_layout_verified": false,
+      "processing_purpose_authorized": false,
+      "data_categories_authorized": false,
+      "allowed_fields_authorized": false,
+      "pii_necessity_determined": false,
+      "retention_policy_selected": false,
+      "trusted_privacy_policy_selected": false
+    },
+    "unresolved_controls": [
+      "EXACT_DOWNLOAD_URLS", "REDIRECT_CHAIN", "ACTUAL_MEDIA_TYPE", "CURRENT_FILE_SIZE",
+      "MAX_BYTES", "TIMEOUT_SECONDS", "SOURCE_REVISION", "CONTENT_HASH", "ROW_LAYOUT",
+      "PROCESSING_PURPOSE", "DATA_CATEGORIES", "ALLOWED_FIELDS", "PII_NECESSITY",
+      "RETENTION_POLICY", "TRUSTED_PROJECT_PRIVACY_POLICY", "APPROVAL_REFERENCE"
+    ],
+    "notes": "Evidence-only preflight. No direct file link was followed and no California data artifact was acquired."
+  },
+  "readiness.invalid_claims_acquisition": {
+    "schema_version": "1.0.0",
+    "evidence_id": "ca.sco.unclaimed_property.bulk.approval_readiness",
+    "evidence_version": "1.0.0",
+    "source_id": "ca.sco.unclaimed_property.bulk",
+    "jurisdiction": "CA",
+    "authority": "California State Controller's Office, Unclaimed Property Division",
+    "review_status": "EVIDENCE_ONLY_NOT_APPROVED",
+    "reviewed_at": "2026-09-14T09:15:00Z",
+    "acquisition_performed": true,
+    "source_approved": false,
+    "source_enabled": false,
+    "official_source_page": "https://www.sco.ca.gov/upd_download_property_records.html",
+    "advertised_format": "CSV",
+    "advertised_update_cadence": "EVERY_THURSDAY",
+    "advertised_download_hosts": ["claimit.ca.gov"],
+    "authoritative_references": [
+      {"kind": "OFFICIAL_DOWNLOAD_PAGE", "uri": "https://www.sco.ca.gov/upd_download_property_records.html"},
+      {"kind": "PUBLIC_RECORDS_GUIDANCE", "uri": "https://www.sco.ca.gov/eo_about_records.html"},
+      {"kind": "PRIVACY_POLICY", "uri": "https://www.sco.ca.gov/eo_privacy.html"}
+    ],
+    "downstream_legal_review_refs": [],
+    "transport_verification": {
+      "exact_download_urls_verified": false,
+      "redirect_chain_verified": false,
+      "actual_media_type_verified": false,
+      "current_file_size_verified": false,
+      "max_bytes_selected": false,
+      "timeout_selected": false
+    },
+    "data_scope_verification": {
+      "row_layout_verified": false,
+      "processing_purpose_authorized": false,
+      "data_categories_authorized": false,
+      "allowed_fields_authorized": false,
+      "pii_necessity_determined": false,
+      "retention_policy_selected": false,
+      "trusted_privacy_policy_selected": false
+    },
+    "unresolved_controls": ["APPROVAL_REFERENCE"],
+    "notes": "Invalid fixture: claims acquisition."
+  },
+  "readiness.invalid_claims_approval": {
+    "schema_version": "1.0.0",
+    "evidence_id": "ca.sco.unclaimed_property.bulk.approval_readiness",
+    "evidence_version": "1.0.0",
+    "source_id": "ca.sco.unclaimed_property.bulk",
+    "jurisdiction": "CA",
+    "authority": "California State Controller's Office, Unclaimed Property Division",
+    "review_status": "EVIDENCE_ONLY_NOT_APPROVED",
+    "reviewed_at": "2026-09-14T09:15:00Z",
+    "acquisition_performed": false,
+    "source_approved": true,
+    "source_enabled": false,
+    "official_source_page": "https://www.sco.ca.gov/upd_download_property_records.html",
+    "advertised_format": "CSV",
+    "advertised_update_cadence": "EVERY_THURSDAY",
+    "advertised_download_hosts": ["claimit.ca.gov"],
+    "authoritative_references": [
+      {"kind": "OFFICIAL_DOWNLOAD_PAGE", "uri": "https://www.sco.ca.gov/upd_download_property_records.html"},
+      {"kind": "PUBLIC_RECORDS_GUIDANCE", "uri": "https://www.sco.ca.gov/eo_about_records.html"},
+      {"kind": "PRIVACY_POLICY", "uri": "https://www.sco.ca.gov/eo_privacy.html"}
+    ],
+    "downstream_legal_review_refs": [],
+    "transport_verification": {
+      "exact_download_urls_verified": false,
+      "redirect_chain_verified": false,
+      "actual_media_type_verified": false,
+      "current_file_size_verified": false,
+      "max_bytes_selected": false,
+      "timeout_selected": false
+    },
+    "data_scope_verification": {
+      "row_layout_verified": false,
+      "processing_purpose_authorized": false,
+      "data_categories_authorized": false,
+      "allowed_fields_authorized": false,
+      "pii_necessity_determined": false,
+      "retention_policy_selected": false,
+      "trusted_privacy_policy_selected": false
+    },
+    "unresolved_controls": ["APPROVAL_REFERENCE"],
+    "notes": "Invalid fixture: claims approval."
+  }
+}
