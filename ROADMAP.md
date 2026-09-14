@@ -7,7 +7,7 @@ Last updated: 2026-09-14
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | SOURCE-APPROVAL READINESS PACKAGE CANONICAL + CI VERIFIED — SOURCE APPROVAL BLOCKED | Package baseline `41dfc61c...`; canonical CI `34853561664` PASS; policy `PROPOSED`; registry disabled/unapproved |
+| M3 — California Data Spike | DATA-SCOPE INSPECTION PROPOSAL CANDIDATE + CI VERIFIED — EXECUTION BLOCKED | Candidate `2df97f9d...`; CI `34855459255` PASS; policy `PROPOSED`; registry disabled/unapproved |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE + REPOSITORY-SIDE VERCEL INTEGRATION DECOMMISSIONED | Reviewer contract v2.0.0; Streamlit active; no Vercel runtime integration in repository |
 
 ## M3 completed readiness work
@@ -21,36 +21,55 @@ Last updated: 2026-09-14
 - Owner-authorized metadata-only transport preflight executed and promoted.
 - Exact transport observation is canonical.
 - Non-authorizing source-approval readiness package is canonical and CI verified.
-- No response body, ZIP, CSV or dataset artifact has been downloaded/persisted/parsed.
-- No real PII, beneficiary matching or outreach has occurred.
+- No ZIP/CSV body, record values, PII, beneficiary matching or outreach has occurred.
 
-## Canonical source-approval readiness package
+## Current candidate — non-authorizing data-scope inspection proposal
 
-Promoted package baseline:
-`41dfc61cd96d7573cdd67c37631567ef5343fcdd`
+Candidate branch:
+`m3-ca-sco-data-scope-inspection-proposal`
 
-Canonical post-promotion CI:
-`34853561664` — PASS for `quality` and `streamlit-candidate`.
+Functional commit:
+`2df97f9dbab16ba0e30ec07a590657b381eb8c8b`
 
-The package remains explicitly non-authorizing and proposes:
+Candidate CI:
+`34855459255` — PASS for `quality` and `streamlit-candidate`.
 
-- processing purpose `SOURCE_STRUCTURE_VERIFICATION_ONLY`;
-- high-level category `PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE`;
-- no record-level fields until row schema is verified;
-- PII necessity `UNDETERMINED_BLOCKING`, with `allow_pii = false`;
-- quarantine, encryption-at-rest, least-privilege and access-logging prerequisites;
-- no record-level processing, export, matching or outreach;
-- retention policy and trusted project privacy policy required before approval;
-- HTTPS-only transport to `claimit.ca.gov`;
-- same-host redirects only;
-- 10-second per-request network-inactivity timeout;
-- expected media type `application/zip`;
-- max bytes `3,203,972,130`, exactly the observed content length with no growth tolerance;
-- endpoint/media-type/content-length drift requires new review.
+Pre-closure compare against canonical:
 
-The package decision remains `BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION` because ZIP/CSV row layout
-is still unknown and the project cannot truthfully select a record-level field whitelist or determine
-PII necessity yet.
+- 1 commit ahead;
+- 0 behind;
+- exact merge-base `c832b447cbe37482fdc4273eb1b163ce9299edf3`;
+- exactly five added proposal/test/audit files;
+- no policy, registry, runtime adapter, script or network workflow modified/added.
+
+The proposal defines a future separately authorized structure-only inspection with:
+
+- purpose `SOURCE_STRUCTURE_VERIFICATION_ONLY`;
+- archive member names/metadata allowed as derived structure evidence;
+- CSV first logical record only as a header candidate;
+- data rows allowed: `0`;
+- record values allowed: `false`;
+- PII indicators based on header labels only;
+- identity resolution, matching, outreach and downstream record use prohibited;
+- HTTP Range GET only; full-body request prohibited;
+- quarantine and in-memory-only source-byte processing;
+- no raw ZIP/member/header persistence;
+- separate execution approval reference required before any body access.
+
+Project safety caps, not source facts:
+
+- tail suffix `131,072` bytes;
+- central directory max `4,194,304` bytes;
+- archive members max `10,000`;
+- CSV candidates max `10`;
+- member response prefix max `1,048,576` bytes each;
+- decompressed prefix max `65,536` bytes each;
+- max range requests `12`;
+- max total source response-body bytes `14,811,136`.
+
+The proposal is fail-closed on transport drift, unsupported ranges, unexpected full-body behavior,
+structure exceeding caps, unsafe paths, encryption, unsupported compression, ambiguous/incomplete
+header candidates, any need to read a data row, or byte/request-budget exhaustion.
 
 ## Current safety state
 
@@ -59,18 +78,20 @@ PII necessity yet.
 - registry `enabled`: `false`;
 - registry `approved_for_use`: `false`;
 - approved real sources: `0`;
-- ZIP/CSV download: BLOCKED;
+- data-scope proposal execution authorized: `false`;
+- execution approval reference: `null`;
+- source body bytes read during proposal task: `0`;
+- ZIP/CSV range access: BLOCKED;
+- CSV data rows: BLOCKED;
 - real PII: BLOCKED;
 - beneficiary matching: BLOCKED;
 - outreach: BLOCKED.
 
 ## Verification
 
-- canonical transport preflight CI `34840001821`: PASS;
-- canonical transport closure CI `34840291103`: PASS;
-- source-approval package candidate CI `34843714665`: PASS;
-- source-approval package candidate closure CI `34843990986`: PASS;
-- source-approval package canonical CI `34853561664`: PASS;
+- canonical source-approval package CI `34853561664`: PASS;
+- canonical package closure commit `c832b447cbe37482fdc4273eb1b163ce9299edf3`;
+- data-scope proposal candidate CI `34855459255`: PASS;
 - Ruff PASS;
 - mypy PASS;
 - contract tests PASS;
@@ -79,44 +100,47 @@ PII necessity yet.
 - legacy frontend lint/typecheck/build PASS;
 - Streamlit safety/startup smoke PASS.
 
-## Next product action — data-scope inspection proposal only
+## Next gate — candidate promotion only
 
-Create a new isolated candidate for a **non-authorizing California SCO data-scope inspection proposal**.
-The proposal should define, without executing a request:
+The next action is a human promotion decision for:
 
-- the minimum archive/CSV structure evidence required to resolve row-layout uncertainty;
-- exact byte/range/read limits and stop conditions;
-- streaming/no-partial-artifact rules;
-- quarantine/privacy controls;
-- machine-readable outputs for internal file names, CSV headers/row layout and PII-presence indicators;
-- explicit prohibition on matching, identity resolution, outreach and downstream use;
-- a separate owner execution approval reference required before any body access.
+`m3-ca-sco-data-scope-inspection-proposal` → `m2-state-governance-core`.
 
-After proposal tests and CI pass, stop at a human execution gate. Do not perform archive retrieval or
-inspection as part of the proposal task.
+Promotion would make the proposal canonical. It does **not** authorize:
+
+- an SCO request;
+- a range GET;
+- ZIP/CSV body access;
+- archive/header inspection;
+- source policy `APPROVED` status;
+- registry activation;
+- data-row or record-value processing;
+- PII processing;
+- identity resolution, beneficiary matching or outreach.
 
 ## Still required before source approval or real California acquisition
 
 1. source-approval readiness package — DONE + CANONICAL;
-2. non-authorizing data-scope inspection proposal — NEXT;
-3. separately authorized bounded structure inspection;
-4. verified ZIP/CSV row layout;
-5. minimized field whitelist selected from verified schema;
-6. PII presence/necessity determination;
-7. production retention policy selected;
-8. trusted project privacy policy selected;
-9. real-acquisition client reviewed against final transport/privacy controls;
-10. explicit human source-approval reference;
-11. only then consider policy `APPROVED` + registry activation under a separate gate;
-12. any real retrieval remains a separate authorization after approval.
+2. non-authorizing data-scope inspection proposal — CANDIDATE + CI VERIFIED;
+3. promotion of the proposal if owner approves;
+4. separate owner authorization for bounded structure inspection;
+5. verified archive member and CSV header/row-layout evidence;
+6. minimized field whitelist selected from verified evidence;
+7. PII presence/necessity determination;
+8. production retention policy selected;
+9. trusted project privacy policy selected;
+10. real-acquisition client reviewed against final transport/privacy controls;
+11. explicit human source-approval reference;
+12. only then consider policy `APPROVED` + registry activation under a separate gate;
+13. any real retrieval remains a separate authorization after approval.
 
 ## Out of scope until later gates
 
+- executing the current proposal before a separate human gate;
 - source approval before blockers are resolved;
-- real California acquisition;
-- ZIP/CSV body access without a separate explicit gate;
+- full California acquisition;
+- CSV data-row access;
 - real-data normalization/matching;
 - autonomous outreach;
 - claimant verification, fee agreements or claim submission;
-- reintroduction of Vercel repository/runtime support without a new owner decision;
 - promotion to `main` without a separate stable-checkpoint gate.
