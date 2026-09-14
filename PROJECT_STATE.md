@@ -10,121 +10,127 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters,
 immutable raw-storage/provenance persistence, privacy/data-minimization gates, California SCO source
-governance, approval-readiness evidence, transport-preflight proposal, and the bounded transport
-preflight execution/evidence are now canonical and CI verified on `m2-state-governance-core`.
+governance, approval-readiness evidence, transport-preflight proposal, and bounded transport
+preflight execution/evidence are canonical and CI verified on `m2-state-governance-core`.
 
-The verified transport-evidence baseline SHA is
-`60ec305d4f2fd7ec00ca0cfa3f53da9d7c9b595a`.
-Canonical post-promotion CI run `34840001821` passed both `quality` and `streamlit-candidate`.
+Canonical HEAD before the current candidate:
+`5b23d63faceb94112a907bff4af1a287141756d0`.
+
+A new isolated candidate branch, `m3-ca-sco-source-approval-package`, now contains a non-authorizing
+California SCO source-approval readiness package. Functional candidate commit:
+`4250291d24286be2e0d4cb1a12de0960cc3faa90`.
+Candidate CI run `34843714665` passed `quality` and `streamlit-candidate`.
+
+The candidate performs no network request and does not change the source-access policy or source
+registry. The California SCO source remains `enabled: false` and `approved_for_use: false`; the
+source-access policy remains `PROPOSED`; real acquisition, real PII processing, beneficiary matching
+and outreach remain unauthorized.
 
 Streamlit Community Cloud remains the active reviewer deployment target. Repository-side Vercel
-runtime/deployment integration remains decommissioned and CI guarded. The reviewer read contract is
-provider-neutral version `2.0.0`.
-
-The California SCO source remains `enabled: false` and `approved_for_use: false`. The source-access
-policy remains `PROPOSED`; real acquisition, PII processing, beneficiary matching and outreach remain
-unauthorized.
-
-`main` remains unchanged at `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
-Supabase remains untouched.
+runtime/deployment integration remains decommissioned and CI guarded. `main` remains unchanged at
+`bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`. Supabase remains untouched.
 
 ## Canonical California SCO Transport Evidence
 
-Owner execution approval reference:
-`OWNER_CHAT_APPROVAL_2026-09-14T13:26+02:00`
+Canonical transport observation remains:
 
-One-shot execution workflow run:
-`34838890387` — targeted validation PASS, bounded metadata preflight PASS.
-
-Observed at `2026-09-14T11:34:58.210154Z`:
-
-- official source page: `https://www.sco.ca.gov/upd_download_property_records.html`;
-- selected link label: `All properties`;
-- discovered endpoint: `https://claimit.ca.gov/upd-property-records/00_All_Records.zip`;
-- method: `HEAD`;
+- endpoint: `https://claimit.ca.gov/upd-property-records/00_All_Records.zip`;
+- method used for preflight: `HEAD`;
 - final host: `claimit.ca.gov`;
 - HTTP status: `200`;
 - redirects: `0`;
 - TLS: `https`;
 - content type: `application/zip`;
 - content length: `3,203,972,130` bytes;
-- `Accept-Ranges: bytes`;
-- ETag: `"0ce16eb75bbbe7018639c7a71e802008"`;
-- Last-Modified: `Wed, 09 Sep 2026 16:32:37 GMT`;
 - response-body bytes read: `0`.
 
-The public SCO page describes downloadable records as CSV data, but the observed `All properties`
-transport object is currently a ZIP resource advertising `application/zip`. The archive body was not
-downloaded or opened, so archive contents, CSV files, fields, row layout and schema remain unverified.
+No ZIP/CSV body has been downloaded or opened. Archive contents, CSV fields, row layout and record
+schema remain unverified.
 
-## Completed and Verified
+## Current Candidate — Source-Approval Readiness Package
 
-- M0 repository foundation and Windows development harness.
-- M1 versioned machine contracts and A00-A23 registry.
-- M2 deterministic state/governance core, budget ledger and SHA-256 audit chain.
-- M3 California source/legal readiness and fail-closed A01 acquisition boundary.
-- M3 immutable SHA-256 raw persistence and deterministic provenance records.
-- M3 privacy/data-minimization gate with trusted policy separated from caller context.
-- Streamlit reviewer canonical, CI verified and remotely validated.
-- California SCO source registry canonical, disabled and not approved.
-- `SourceAccessGovernance` v1, `SourceApprovalReadiness` v1,
-  `SourceTransportPreflightProposal` v1 and `SourceTransportPreflightExecution` v1 canonical.
-- One bounded SCO metadata-only `HEAD` preflight completed with `0` response-body bytes.
-- Machine-readable transport observation canonical.
-- Temporary one-shot network workflow removed and guarded against reintroduction.
-- Repository-side Vercel runtime/deploy configuration decommissioned and CI guarded.
+New machine-readable artifacts:
+
+- `schemas/common/source_approval_package.schema.json`;
+- `schemas/examples/ca_sco_source_approval_package.examples.json`;
+- `sources/proposals/ca_sco_unclaimed_property_bulk.source_approval_package.v1.json`;
+- `tests/contract/test_ca_sco_source_approval_package.py`;
+- `docs/audits/M3_CA_SCO_SOURCE_APPROVAL_PACKAGE.md`.
+
+The package status is fixed to `READINESS_PROPOSAL_NOT_AUTHORIZED` and the readiness decision is
+`BLOCKED_PENDING_DATA_SCOPE_PRIVACY_RETENTION`.
+
+It proposes only `SOURCE_STRUCTURE_VERIFICATION_ONLY` as the narrow processing purpose and the
+high-level source category `PUBLIC_UNCLAIMED_PROPERTY_BULK_ARCHIVE`. It does not invent record-level
+field names: `proposed_allowed_fields` is empty and field scope is
+`BLOCK_UNTIL_ROW_SCHEMA_VERIFIED`.
+
+PII necessity remains `UNDETERMINED_BLOCKING` with `allow_pii = false`.
+
+Proposed privacy prerequisites include quarantine, encryption at rest, least privilege, access
+logging, no record-level processing, no export, no matching, no outreach, and delete-on-validation
+failure. Production retention duration and trusted project privacy-policy references remain null and
+blocking.
+
+Proposed transport bounds reuse canonical evidence only:
+
+- HTTPS only;
+- host `claimit.ca.gov`;
+- same-host redirects only;
+- 10-second per-request network-inactivity timeout;
+- expected media type `application/zip`;
+- content length required;
+- max bytes `3,203,972,130`, equal to the observed content length with no invented growth tolerance;
+- endpoint/media-type/content-length drift blocks and requires new review.
 
 ## Verification Evidence
 
-- SCO governance SHA: `463c6d6c972fa955a8aa0d3c97208c3029e202a8`.
-- SCO approval-readiness SHA: `73c6ffc130fdeffad7fb5cdaf86fa2185b8853a6`.
-- SCO transport-preflight proposal SHA: `171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3`.
-- SCO execution commit: `7d89ec664992a30b5270be8da4c2616254747e59`.
-- SCO evidence commit: `2f762aa2673a52bfa211fb216a4cf06ccc3fbb1e`.
-- Promoted transport-evidence baseline: `60ec305d4f2fd7ec00ca0cfa3f53da9d7c9b595a`.
-- One-shot preflight run `34838890387`: PASS.
-- Candidate evidence CI `34839100497`: PASS.
-- Candidate closure CI `34839373665`: PASS.
-- Canonical post-promotion CI `34840001821`: PASS.
+- Canonical transport-evidence baseline: `60ec305d4f2fd7ec00ca0cfa3f53da9d7c9b595a`.
+- Canonical transport post-promotion CI `34840001821`: PASS.
+- Canonical documentation closure CI `34840291103`: PASS.
+- Source-approval package functional commit `4250291d24286be2e0d4cb1a12de0960cc3faa90`.
+- Source-approval package candidate CI `34843714665`: PASS.
+- Candidate is 1 commit ahead / 0 behind canonical before documentation closure.
 - Ruff, mypy, contract tests, smoke tests, full pytest: PASS.
 - Legacy frontend lint/typecheck/build: PASS.
 - Streamlit safety/startup smoke: PASS.
 - Approved real sources: `0`.
-- No dataset body downloaded, persisted or parsed.
+- Network requests in this source-approval package task: `0`.
+- No real dataset body downloaded, persisted or parsed.
 - No real PII processed.
-- No beneficiary matching or outreach performed.
 
 ## Blocked / Not Authorized
 
-- Any additional request to the SCO download endpoint under the consumed preflight approval.
-- Real California acquisition or ZIP download.
-- Source policy transition from `PROPOSED` to `APPROVED` without a separate owner gate.
+- Source policy transition from `PROPOSED` to `APPROVED`.
 - SCO registry activation for real use.
-- ZIP/CSV inspection or parsing before a separately authorized retrieval gate.
-- Invented California CSV field/row assumptions.
-- Real PII processing, beneficiary matching or outreach.
-- Claimant verification, fee agreements or claim submission.
+- Any new SCO network request or ZIP/CSV download.
+- Record-level field authorization before verified row schema exists.
+- PII authorization before PII presence/necessity is determined.
+- Real acquisition before a production retention policy and trusted project privacy policy exist.
+- Beneficiary matching, outreach, claimant verification, fee agreements or claim submission.
 - Reintroduction of Vercel repository/runtime deployment integration without a new owner decision.
 - Promotion to `main` without a separate stable-checkpoint gate.
 - Supabase resource creation without a separate organization/cost/architecture gate.
 
 ## Remaining Readiness Gaps
 
-- safe maximum bytes for any future real acquisition;
-- production retention/privacy/data-minimization controls;
-- authorized processing purpose;
-- authorized data categories and minimized fields;
-- PII necessity determination;
-- explicit source-policy approval and registry activation;
-- ZIP contents and actual CSV row/field layout;
+- verified ZIP contents and CSV row layout;
+- minimized record-level field whitelist;
+- PII presence and necessity determination;
+- selected production retention duration/policy;
+- selected trusted project privacy policy;
+- reviewed real-acquisition client implementation;
+- explicit human source-approval reference;
 - artifact hash/revision from a separately authorized real download;
 - durable production audit persistence;
 - physical retention enforcement and first PostgreSQL/Alembic application migration.
 
 ## Next Recommended Action
 
-Create an isolated candidate for a **California SCO source-approval readiness package only**. Use the
-canonical transport evidence to propose explicit purpose, data categories, minimized fields,
-retention/privacy controls, maximum-size policy and transport controls. The candidate must remain
-non-authorizing: no source approval, no registry enablement, no network request, no ZIP/CSV download,
-no PII processing, no beneficiary matching and no outreach. Stop again at a human approval gate.
+**Human promotion gate only:** decide whether to promote candidate branch
+`m3-ca-sco-source-approval-package` into canonical `m2-state-governance-core`.
+
+Promotion would record the non-authorizing readiness package only. It must not approve the source,
+enable the registry, authorize network access or download data. Because the package itself remains
+blocked on row-schema/PII/privacy/retention evidence, a later separate human decision is required for
+the next bounded prerequisite before any source approval can be considered.

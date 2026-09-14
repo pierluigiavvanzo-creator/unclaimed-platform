@@ -4,7 +4,7 @@ Date: 2026-09-14
 
 Class: **A — Product Critical**
 
-Status: **CANDIDATE READINESS PROPOSAL — NON-AUTHORIZING — SOURCE APPROVAL BLOCKED**
+Status: **CANDIDATE + CI VERIFIED — NON-AUTHORIZING — SOURCE APPROVAL BLOCKED**
 
 ## Objective
 
@@ -175,9 +175,34 @@ Those remain:
 - registry `enabled = false`;
 - registry `approved_for_use = false`.
 
+## Candidate verification
+
+Candidate branch:
+`m3-ca-sco-source-approval-package`
+
+Functional commit:
+`4250291d24286be2e0d4cb1a12de0960cc3faa90`
+
+Candidate CI run:
+`34843714665` — SUCCESS.
+
+Verified gates:
+
+- Ruff PASS;
+- mypy PASS;
+- contract tests PASS;
+- smoke tests PASS;
+- full pytest PASS;
+- legacy frontend lint/typecheck/build PASS;
+- Streamlit safety smoke PASS;
+- Streamlit startup smoke PASS.
+
+Pre-closure compare against canonical showed 1 commit ahead, 0 behind, exact merge-base on canonical,
+and exactly five added files.
+
 ## Acceptance criteria
 
-Candidate acceptance requires:
+Verified:
 
 1. JSON Schema draft 2020-12 validation succeeds;
 2. valid proposal example and real package validate;
@@ -197,9 +222,10 @@ is required.
 
 ## Stop condition
 
-After candidate tests and CI pass, stop at a human review gate.
+Stop at a human promotion gate.
 
 Because the package still has row-schema, PII, retention and trusted-project-privacy blockers, this
-candidate must not be interpreted as evidence that the source is ready for `APPROVED` status. A later
-human decision must choose the next bounded prerequisite; source approval, registry activation and
-real retrieval remain prohibited until all required controls are actually resolved.
+candidate must not be interpreted as evidence that the source is ready for `APPROVED` status.
+Promotion, if separately approved, records the readiness proposal only and still permits no network
+or real-data action. After any promotion, the next bounded data-scope prerequisite requires another
+explicit owner decision.
