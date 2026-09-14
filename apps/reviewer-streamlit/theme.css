@@ -11,8 +11,13 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
   background: radial-gradient(circle at 20% 0%, #123148 0, #071018 38rem);
 }
 
-[data-testid="stHeader"] {
-  background: transparent;
+[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stStatusWidget"],
+[data-testid="stDecoration"],
+[data-testid="stAppDeployButton"],
+#MainMenu {
+  display: none !important;
 }
 
 [data-testid="stMainBlockContainer"] {
@@ -34,6 +39,11 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
   margin-bottom: 26px;
 }
 
+.uip-hero > div:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .uip-eyebrow {
   color: #7ed7c4;
   font-size: 12px;
@@ -43,11 +53,12 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
 }
 
 .uip-title {
-  font-size: clamp(42px, 7vw, 76px);
-  line-height: .96;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: .98;
   margin: 0;
-  letter-spacing: -.05em;
+  letter-spacing: -.045em;
   color: #edf4f7;
+  white-space: nowrap;
 }
 
 .uip-lede {
@@ -58,6 +69,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
 }
 
 .uip-mode-card {
+  flex: 0 0 320px;
   min-width: 270px;
   padding: 18px;
   border: 1px solid #284657;
@@ -202,6 +214,12 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
   font-size: 12px;
 }
 
+@media (max-width: 1100px) {
+  .uip-title {
+    white-space: normal;
+  }
+}
+
 @media (max-width: 900px) {
   [data-testid="stMainBlockContainer"] {
     padding-top: 2rem;
@@ -215,6 +233,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
     grid-template-columns: 1fr;
   }
   .uip-mode-card {
+    flex-basis: auto;
     min-width: 0;
   }
   .uip-title {
