@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from html import escape
 import sys
+from html import escape
 from pathlib import Path
 
 import streamlit as st
@@ -152,7 +152,8 @@ page_html = f"""
   </section>
 
   <footer class="uip-footer">
-    Contract v{escape(snapshot.contract_version)} · Synthetic reviewer surface · deterministic governance remains authoritative
+    Contract v{escape(snapshot.contract_version)} · Synthetic reviewer surface ·
+    deterministic governance remains authoritative
   </footer>
 </div>
 """
