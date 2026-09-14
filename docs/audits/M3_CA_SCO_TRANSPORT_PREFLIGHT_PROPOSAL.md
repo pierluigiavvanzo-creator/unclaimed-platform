@@ -4,14 +4,14 @@ Date: 2026-09-14
 
 Class: **A — Product Critical**
 
-Status: **CANDIDATE PROPOSAL ONLY — NETWORK EXECUTION NOT AUTHORIZED**
+Status: **CANONICAL PROPOSAL + CI VERIFIED — NETWORK EXECUTION NOT AUTHORIZED**
 
 ## Objective
 
 Define the smallest versioned, machine-readable proposal for a later California State Controller
 (SCO) transport metadata preflight without executing any request to a download endpoint.
 
-This task does not approve the source, enable the registry entry, acquire a dataset, parse a CSV,
+This proposal does not approve the source, enable the registry entry, acquire a dataset, parse a CSV,
 process real PII, perform beneficiary matching, or enable outreach.
 
 ## REUSE FIRST result
@@ -80,9 +80,36 @@ This proposal does not select or infer:
 
 Those values belong to the later execution gate and must not be filled by general knowledge.
 
+## Verification and promotion
+
+Candidate branch: `m3-ca-sco-transport-preflight-proposal`.
+
+Candidate SHA:
+`171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3`
+
+Candidate GitHub Actions run `34832293876`: PASS.
+
+Immediately before promotion, the candidate was 1 commit ahead and 0 behind canonical with merge-base
+at `f34d2123b8d5664dc3260a942c454085c48d3308`.
+
+The owner explicitly approved promotion. The canonical branch was advanced by clean fast-forward,
+without force, to the candidate SHA.
+
+Canonical post-promotion GitHub Actions run `34835032368`: PASS.
+
+Verified gates include:
+
+- Ruff PASS;
+- mypy PASS;
+- contract tests PASS;
+- smoke tests PASS;
+- full pytest PASS;
+- frontend lint/typecheck/build PASS;
+- Streamlit safety/startup smoke PASS.
+
 ## Acceptance criteria
 
-The candidate is acceptable only if tests prove that:
+The canonical proposal satisfies tests proving that:
 
 1. the proposal schema is valid JSON Schema draft 2020-12;
 2. the California SCO proposal validates;
@@ -92,22 +119,23 @@ The candidate is acceptable only if tests prove that:
 6. proposal, readiness evidence, registry and policy use the same source identity and source page;
 7. the registry remains disabled/not approved and the policy remains `PROPOSED`;
 8. execution controls remain unresolved and body/PII/matching/outreach access remains blocked;
-9. existing repository quality/contract/smoke/full-test gates remain green;
-10. no request is sent to any California SCO download endpoint.
+9. repository quality/contract/smoke/full-test gates remain green;
+10. no request was sent to any California SCO download endpoint while preparing or promoting the proposal.
 
 ## Safety boundary
 
-No network request to a download endpoint is part of this candidate. Promotion of this proposal
-would not authorize execution. The actual transport preflight requires a separate explicit owner
-approval and a new bounded execution task.
+Promotion of this proposal does not authorize execution. The actual transport preflight requires a
+separate explicit owner approval and a new bounded execution task.
+
+A later execution must remain metadata-only, allow zero response-body bytes, persist/parse no body,
+acquire no dataset artifact, process no real PII, perform no beneficiary matching/outreach, and must
+not approve or enable the source.
 
 ## Rollback
 
-Before promotion, abandon the candidate branch. After any later promotion, use a normal
-history-preserving revert. Do not force-push.
+Use a normal history-preserving revert if the proposal must be withdrawn. Do not force-push.
 
 ## Next gate
 
-After candidate tests and CI pass, stop for explicit owner review/promotion. If promoted, the next
-step is still a separate human gate deciding whether to authorize one bounded metadata-only transport
-preflight. No source approval or real acquisition is implied.
+Explicit owner decision: authorize or reject one bounded metadata-only transport-preflight execution.
+No network execution is implied by this canonical proposal or by its successful promotion.

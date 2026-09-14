@@ -11,13 +11,12 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Canonical HEAD before this documentation closure:
-  `73c6ffc130fdeffad7fb5cdaf86fa2185b8853a6`
+- Canonical promoted transport-proposal SHA:
+  `171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3`
 - Stable `main` HEAD: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
-- Historical Streamlit deployment candidate: `m3-streamlit-operations-console`
-- Historical Streamlit visual-restyle candidate: `m3-streamlit-vercel-style-restyle`
 - Promoted SCO governance candidate: `m3-ca-sco-source-governance`
 - Promoted SCO approval-readiness candidate: `m3-ca-sco-approval-readiness`
+- Promoted SCO transport-preflight proposal candidate: `m3-ca-sco-transport-preflight-proposal`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
 ## Verified baseline
@@ -29,45 +28,35 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - M3 acquisition contracts/adapters CANONICAL + CI VERIFIED.
 - M3 immutable raw storage/provenance + privacy/data-minimization CANONICAL + CI VERIFIED.
 - Streamlit M3 reviewer CANONICAL + CI VERIFIED + REMOTE FUNCTIONAL/VISUAL SMOKE PASS.
-- Streamlit Community Cloud branch confirmed by owner as canonical `m2-state-governance-core`.
 - California SCO source governance CANONICAL + CI VERIFIED.
 - California SCO approval-readiness evidence CANONICAL + CI VERIFIED.
-- SCO source registry entry exists but is `enabled: false` and `approved_for_use: false`.
-- SCO source-access policy status is `PROPOSED`; real acquisition authorization is `false`.
-- Approval-readiness evidence enforces `acquisition_performed: false`, `source_approved: false`, and
-  `source_enabled: false`.
+- California SCO transport-preflight proposal CANONICAL + CI VERIFIED.
+- SCO registry remains `enabled: false` and `approved_for_use: false`.
+- SCO source-access policy remains `PROPOSED`; real acquisition authorization remains `false`.
 - Approved real source count remains `0`.
+- No California dataset has been downloaded or parsed.
+- No transport-preflight request has been executed against a download endpoint.
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - Real PII BLOCKED.
 - Supabase untouched.
 - `main` unchanged.
 
-## California SCO source-governance promotion
+## California SCO transport-preflight proposal promotion
 
-Candidate branch: `m3-ca-sco-source-governance`.
-
-Promoted SHA:
-`463c6d6c972fa955a8aa0d3c97208c3029e202a8`
-
-Candidate CI run `34825751270`: PASS.
-Canonical post-promotion CI run `34826353694`: PASS.
-
-## California SCO approval-readiness promotion
-
-Candidate branch: `m3-ca-sco-approval-readiness`.
+Candidate branch: `m3-ca-sco-transport-preflight-proposal`.
 
 Promoted SHA:
-`73c6ffc130fdeffad7fb5cdaf86fa2185b8853a6`
+`171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3`
 
-Immediately before promotion the candidate was 1 commit ahead and 0 behind canonical with merge-base
-at `f4f03dc6340b169bfb2f7fc62f81a2177bf9898d`.
+Immediately before promotion, the candidate was 1 commit ahead and 0 behind canonical with merge-base
+at `f34d2123b8d5664dc3260a942c454085c48d3308`.
 
 Owner explicitly approved promotion. The canonical branch was advanced without force to the candidate
 SHA.
 
-Candidate CI run `34827272138`: PASS.
-Canonical post-promotion CI run `34828513676`: PASS.
+Candidate CI run `34832293876`: PASS.
+Canonical post-promotion CI run `34835032368`: PASS.
 
 Verified gates on the promoted SHA include:
 
@@ -76,65 +65,62 @@ Verified gates on the promoted SHA include:
 - contract tests PASS;
 - smoke tests PASS;
 - full pytest PASS;
-- historical Next.js lint/typecheck/build regression gates PASS;
+- frontend lint/typecheck/build regression gates PASS;
 - Streamlit safety smoke PASS;
 - Streamlit startup smoke PASS.
 
-## Canonical SCO approval-readiness artifacts
+## Canonical transport-preflight proposal artifacts
 
-- `schemas/common/source_approval_readiness.schema.json`
-- `schemas/examples/ca_sco_approval_readiness.examples.json`
-- `sources/evidence/ca_sco_unclaimed_property_bulk.approval_readiness.v1.json`
-- `tests/contract/test_ca_sco_approval_readiness.py`
-- `docs/audits/M3_CA_SCO_APPROVAL_READINESS.md`
+- `schemas/common/source_transport_preflight_proposal.schema.json`
+- `schemas/examples/ca_sco_transport_preflight_proposal.examples.json`
+- `sources/proposals/ca_sco_unclaimed_property_bulk.transport_preflight.v1.json`
+- `tests/contract/test_ca_sco_transport_preflight_proposal.py`
+- `docs/audits/M3_CA_SCO_TRANSPORT_PREFLIGHT_PROPOSAL.md`
 
-The evidence contract deliberately separates verified facts from authorization. It cannot claim that
-an acquisition occurred, that the source was approved, or that the source was enabled.
+The proposal is deliberately non-executable. It requires fail-closed state including:
 
-## Current authoritative public-source facts
+- `network_execution_authorized = false`;
+- `network_request_performed = false`;
+- `acquisition_performed = false`;
+- `source_approved = false`;
+- `source_enabled = false`;
+- `response_body_bytes_allowed = 0`;
+- no response-body persistence/parsing;
+- no dataset persistence;
+- no real PII;
+- no beneficiary matching;
+- no outreach.
 
-Verified from official California State Controller pages on 2026-09-14 and recorded in the canonical
-evidence package:
-
-- the Controller publishes all records in its public unclaimed-property database in `.CSV` format;
-- the official download page says the files are updated every Thursday;
-- the download links displayed on the official SCO page point to `claimit.ca.gov`;
-- SCO public-record access is subject to the California Public Records Act and applicable conditions;
-- SCO privacy guidance states that personal-information use is constrained by stated purposes/law,
-  while website information is public domain and may be copied/used as permitted by law;
-- CCP §1582 is retained only as a downstream legal-review reference for locator/recovery agreements,
-  not as source-acquisition authority.
-
-These facts do not themselves approve source acquisition or downstream processing.
-
-## Intentionally unresolved
+## Current unresolved transport controls
 
 Do not invent or silently fill:
 
-- exact download URLs or redirect chain;
-- actual HTTP content type;
-- current file size or byte budget;
-- timeout policy;
-- downloaded artifact hash/revision;
-- CSV row layout/field names;
-- authorized processing purpose;
-- data categories or minimized field scope;
-- PII necessity;
-- retention policy;
-- source approval reference.
+- exact download endpoint;
+- request method;
+- timeout;
+- redirect limit;
+- approved host allowlist;
+- execution approval reference;
+- observed HTTP status;
+- observed final host;
+- observed content type;
+- observed content length.
+
+The advertised host `claimit.ca.gov` remains evidence only and is not automatically an approved
+allowlist entry.
 
 ## Safety boundaries still in force
 
 Do not enable without later explicit gates:
 
-- execution of a transport preflight against download endpoints;
+- any transport-preflight network execution;
 - real California acquisition;
 - source policy `APPROVED` state;
 - source registry `enabled` / `approved_for_use`;
+- response-body persistence/parsing during a metadata preflight;
 - beneficiary matching on real data;
 - real claimant/beneficiary/decedent/family PII;
 - autonomous outreach;
-- legal determinations;
 - claimant verification;
 - fee agreement execution;
 - claim submission;
@@ -142,24 +128,27 @@ Do not enable without later explicit gates:
 
 ## SINGLE NEXT ACTION
 
-Create an isolated candidate branch for a **California SCO transport-preflight proposal only**.
+**HUMAN GATE ONLY:** the owner must decide whether to authorize one bounded California SCO
+transport-preflight execution limited to metadata observation under the canonical proposal.
 
-The bounded task must:
+If the owner explicitly approves execution, the next implementation task must:
 
-1. define a versioned machine-readable transport-preflight contract/proposal;
-2. specify the metadata that a later authorized preflight may inspect: endpoint identity, redirect
-   behavior, response/content-type metadata, size evidence, timeout/max-byte controls and provenance;
-3. define fail-closed invariants proving that proposal creation performs no acquisition and grants no
-   approval;
-4. keep the existing SCO registry disabled/not approved and source-access policy `PROPOSED`;
-5. add contract tests for the proposal;
-6. perform no request to a download endpoint, no CSV download, no row parsing and no real PII
-   processing;
-7. keep beneficiary matching and outreach blocked;
-8. keep `main` untouched.
+1. create a new isolated execution branch/task;
+2. bind an explicit execution approval reference;
+3. establish the exact endpoint, request method, timeout, redirect limit and approved host allowlist
+   before sending the request;
+4. keep `response_body_bytes_allowed = 0`;
+5. persist and parse no response body;
+6. acquire no dataset artifact;
+7. record only allowed transport metadata/provenance such as endpoint identity, redirect chain, HTTP
+   status, final host, headers/content type/content length, TLS scheme and observation time;
+8. process no real PII;
+9. perform no beneficiary matching or outreach;
+10. leave source approval, registry activation and real retrieval blocked;
+11. stop after the metadata observation and require a new human gate.
 
-After proposal tests/CI pass, stop at a human gate. Actual network execution of the transport preflight
-requires separate explicit owner approval.
+If the owner does not explicitly approve this network execution, do not send any request to a SCO
+download endpoint.
 
 ## Handover status
 
@@ -171,22 +160,21 @@ M3 source/legal readiness: COMPLETE
 M3 acquisition/raw persistence/privacy: CANONICAL + VERIFIED
 M3 SCO source governance: CANONICAL + CI VERIFIED
 M3 SCO approval readiness: CANONICAL + CI VERIFIED
+M3 SCO transport-preflight proposal: CANONICAL + CI VERIFIED
 SCO governance SHA: 463c6d6c972fa955a8aa0d3c97208c3029e202a8
 SCO approval-readiness SHA: 73c6ffc130fdeffad7fb5cdaf86fa2185b8853a6
-SCO governance candidate CI: 34825751270 PASS
-SCO governance canonical CI: 34826353694 PASS
-SCO readiness candidate CI: 34827272138 PASS
-SCO readiness canonical CI: 34828513676 PASS
+SCO transport proposal SHA: 171dc2e55f85b89f1bba81b1cc676d0ed2b7f3d3
+SCO transport proposal candidate CI: 34832293876 PASS
+SCO transport proposal canonical CI: 34835032368 PASS
 SCO registry: DISABLED + NOT APPROVED
 SCO policy: PROPOSED + NON-AUTHORIZING
 Approved real sources: 0
-Streamlit deployment branch: m2-state-governance-core (owner confirmed)
+Transport preflight execution: BLOCKED PENDING EXPLICIT OWNER APPROVAL
 Real acquisition: BLOCKED
-Transport preflight execution: BLOCKED PENDING EXPLICIT OWNER GATE
 Beneficiary matching: BLOCKED
 Real PII: BLOCKED
 Supabase: UNTOUCHED
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e UNCHANGED
-NEXT: isolated M3 California SCO transport-preflight proposal only; no network execution
+NEXT: owner decision on one bounded metadata-only transport-preflight execution
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
