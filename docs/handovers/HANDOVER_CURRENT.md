@@ -12,13 +12,13 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
 - Historical Vercel backend candidate: `m3-vercel-backend-preview`
-- Historical Streamlit candidate branch: `m3-streamlit-operations-console`
-- Streamlit candidate base canonical SHA: `a0ee1583187248c3deab52b7944a7c4f961bc8e8`
-- Verified Streamlit implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`
-- Documentation closure SHA: `c75adff971da6132cbcc54fab185b2ff6470e047`
+- Historical Streamlit deployment candidate: `m3-streamlit-operations-console`
+- Historical Streamlit visual-restyle candidate: `m3-streamlit-vercel-style-restyle`
+- Base verified Streamlit implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`
+- Final visual-restyle candidate SHA: `563128e3f37c14ec2715132ee14cf5813b057cba`
 - Never develop directly on `main`; promote verified checkpoints only after explicit owner approval.
 
-The Streamlit candidate was promoted by fast-forward into `m2-state-governance-core` after explicit owner approval. The candidate was 2 commits ahead and 0 behind canonical before promotion.
+The visual-restyle candidate was promoted by fast-forward into `m2-state-governance-core` after explicit owner approval. Immediately before promotion it was 6 commits ahead and 0 behind canonical, with merge-base at canonical SHA `85bb7a71720c9cc3c3145762da8b6eb33e85283a`.
 
 ## Verified baseline
 
@@ -28,7 +28,7 @@ The Streamlit candidate was promoted by fast-forward into `m2-state-governance-c
 - M3 source/legal readiness COMPLETE.
 - M3 acquisition contracts/adapters CANONICAL + CI VERIFIED.
 - M3 immutable raw storage/provenance + privacy/data-minimization CANONICAL + CI VERIFIED.
-- Streamlit M3 Operations Console CANONICAL + CI VERIFIED + REMOTE SMOKE PASS.
+- Streamlit M3 Operations Console CANONICAL + CI VERIFIED + REMOTE FUNCTIONAL SMOKE PASS + VISUAL SMOKE PASS.
 - Real acquisition BLOCKED.
 - Beneficiary matching BLOCKED.
 - `sources/registry.yaml` has no approved real source.
@@ -41,65 +41,72 @@ On 2026-09-14 the owner explicitly directed the project to abandon Vercel and mo
 
 Reason: repeated Vercel connector/project/deployment visibility inconsistencies made the two-deployment preview path operationally expensive without improving product value.
 
-The existing Next.js/Vercel implementation is retained as rollback/history. It is no longer on the critical path.
+The existing Next.js/Vercel implementation is retained as rollback/history and as the visual reference that informed the Streamlit restyle. It is no longer on the critical path.
 
 ## Canonical Streamlit reviewer
 
 Canonical branch: `m2-state-governance-core`.
-Verified implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`.
-Documentation closure SHA: `c75adff971da6132cbcc54fab185b2ff6470e047`.
-GitHub Actions implementation run: `34812099385` — PASS.
-GitHub Actions documentation run: `34812289869` — PASS.
+Base verified implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`.
+Final visual-restyle SHA: `563128e3f37c14ec2715132ee14cf5813b057cba`.
+Base GitHub Actions implementation run: `34812099385` — PASS.
+Base GitHub Actions documentation run: `34812289869` — PASS.
+Final restyle GitHub Actions run: `34817694129` — PASS.
 Remote URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`.
-Remote visual/content smoke: PASS based on owner-provided screenshot on 2026-09-14.
+Remote functional/content smoke: PASS.
+Final remote visual smoke: PASS based on owner-provided screenshot on 2026-09-14.
 
 Canonical scope:
 
-- `apps/reviewer-streamlit/streamlit_app.py` — Streamlit Community Cloud entrypoint;
+- `apps/reviewer-streamlit/streamlit_app.py` — Streamlit Community Cloud entrypoint and custom reviewer rendering;
+- `apps/reviewer-streamlit/theme.css` — Vercel-style navy/turquoise/green/amber visual language;
 - `apps/reviewer-streamlit/requirements.txt` — deployment dependencies with Streamlit 1.63.0 pinned;
 - `src/unclaimed_platform/ui/streamlit_console.py` — typed fail-closed adapter over the existing M3 reviewer snapshot;
-- smoke tests for safe state and unsafe real-source rejection;
+- smoke tests for safe state, unsafe real-source rejection, custom theme markers, `st.html()` renderer regression, compact title and hidden Streamlit chrome;
 - GitHub Actions Streamlit startup smoke;
 - ADR-0005 and REUSE FIRST audit.
 
 No snapshot payload is duplicated in Streamlit. The app loads the existing typed Python reviewer read model and refuses to render if safety invariants are violated.
 
+## Visual-restyle evidence
+
+The owner requested that the Streamlit app adopt the look and colors of the earlier Vercel/Next.js console. The restyle intentionally reuses that visual language while retaining Streamlit as the runtime.
+
+Verified final state from owner screenshot:
+
+- navy/near-black background and radial navy gradient;
+- turquoise product eyebrow/accent;
+- dark bordered cards;
+- green `VERIFIED`/positive pills;
+- amber governance/blocking pills;
+- compact single-line desktop title `M3 Operations Console`;
+- `Data mode` card positioned in the hero;
+- Governance renders as styled content, not raw HTML;
+- Streamlit toolbar/status/deploy chrome hidden from the reviewer surface;
+- `SYNTHETIC READ ONLY`, approved real sources `0`, and blocking safety state remain visible;
+- no visible runtime error.
+
+A previous intermediate screenshot exposed Governance markup as raw code. Root cause: the page HTML was sent through the Markdown parser. The fix switched page rendering to `st.html(page_html)` and added a regression smoke asserting the Markdown renderer is not used for the page HTML.
+
 ## CI evidence
 
-GitHub Actions run `34812099385` on exact implementation SHA `f9042839296cca256c1c886f4b1667caa3f2a532`:
+GitHub Actions run `34817694129` on exact final visual-restyle SHA `563128e3f37c14ec2715132ee14cf5813b057cba`:
 
 - job `quality`: PASS;
 - job `streamlit-candidate`: PASS;
 - Ruff: PASS;
-- mypy: PASS — 19 source files;
-- contract tests: 18 passed;
-- smoke tests: 5 passed;
-- full pytest: 55 passed;
-- known dependency warnings: 2 non-blocking FastAPI/Starlette/AnyIO deprecations;
-- Streamlit 1.63.0 install: PASS on Python 3.11.16;
-- Streamlit safety smoke: 2 passed;
+- mypy: PASS;
+- contract tests: PASS;
+- smoke tests: PASS;
+- full pytest: PASS;
+- Streamlit safety smoke: PASS;
 - Streamlit startup smoke: PASS using `/_stcore/health`;
 - existing Next.js lint/type/build regression gates: PASS.
 
-GitHub Actions run `34812289869` on documentation closure SHA `c75adff971da6132cbcc54fab185b2ff6470e047`: PASS for both `quality` and `streamlit-candidate`.
+## Deployment-branch alignment still required
 
-## Remote smoke evidence
+For visual testing, the existing Streamlit Community Cloud app was manually repointed from canonical to `m3-streamlit-vercel-style-restyle`. The exact visual-restyle code is now present on canonical `m2-state-governance-core`, but the remote app configuration is not yet known to have been switched back.
 
-Owner screenshot from the deployed Streamlit page confirms:
-
-- page renders `M3 Operations Console`;
-- `SYNTHETIC READ ONLY`;
-- source text `authoritative typed Python read model`;
-- approved real sources `0`;
-- real acquisition `BLOCKED`;
-- beneficiary matching `BLOCKED`;
-- privacy gate `PASS SYNTHETIC ONLY`;
-- source approval `BLOCKED NO REAL SOURCE`;
-- retention `REQUIRED`;
-- PII mode `NO REAL PII`;
-- no visible Streamlit/framework runtime error.
-
-Remote smoke: PASS.
+Therefore do not state that the live deployment branch is canonical-aligned until the owner repoints the Streamlit app to `m2-state-governance-core` and confirms the same page still renders correctly.
 
 ## Safety boundaries still in force
 
@@ -117,7 +124,9 @@ Do not enable without later explicit gates:
 
 ## SINGLE NEXT ACTION
 
-Prepare the next bounded M3 source-governance proposal for the California SCO public bulk candidate. This is preparation only: do not approve a real source, do not acquire real data, and do not enable beneficiary matching or real PII.
+Repoint the existing Streamlit Community Cloud app from `m3-streamlit-vercel-style-restyle` to canonical `m2-state-governance-core` and verify the same final page with one remote visual/content smoke.
+
+After that deployment-alignment check, prepare the next bounded M3 source-governance proposal for the California SCO public bulk candidate. This later step is preparation only: do not approve a real source, do not acquire real data, and do not enable beneficiary matching or real PII.
 
 Keep `main` untouched. A promotion to `main` remains a separate explicit stable-checkpoint gate.
 
@@ -128,16 +137,16 @@ M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
 M3 governance/raw persistence: CANONICAL + VERIFIED
-Streamlit Operations Console: CANONICAL + CI VERIFIED + REMOTE SMOKE PASS
+Streamlit Operations Console: CANONICAL + CI VERIFIED + REMOTE FUNCTIONAL/VISUAL SMOKE PASS
+Vercel-style Streamlit restyle SHA: 563128e3f37c14ec2715132ee14cf5813b057cba
+Vercel-style Streamlit restyle CI: 34817694129 PASS
+Visual-restyle promotion: COMPLETE
+Live Streamlit deployment branch: CANDIDATE UNTIL OWNER REPOINTS TO CANONICAL
 Vercel active path: ABANDONED BY OWNER
-Streamlit implementation SHA: f9042839296cca256c1c886f4b1667caa3f2a532
-Streamlit implementation CI: 34812099385 PASS
-Streamlit documentation CI: 34812289869 PASS
-Streamlit remote deploy: VERIFIED
 Real acquisition: BLOCKED
 Beneficiary matching: BLOCKED
 Supabase: UNTOUCHED
 main: UNCHANGED
-NEXT: prepare California SCO source-governance proposal only; no approval/acquisition
+NEXT: repoint Streamlit app to m2-state-governance-core and verify same visual; then California SCO governance proposal only
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
