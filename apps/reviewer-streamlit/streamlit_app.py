@@ -1,5 +1,8 @@
 """Streamlit entrypoint for the governed M3 Operations Console."""
 
+from __future__ import annotations
+
+from html import escape
 import sys
 from pathlib import Path
 
@@ -13,6 +16,28 @@ if _SRC_PATH not in sys.path:
 
 from unclaimed_platform.ui.streamlit_console import load_safe_snapshot  # noqa: E402
 
+
+def _display(value: str) -> str:
+    return escape(value.replace("_", " "))
+
+
+def _pill(value: str) -> str:
+    normalized = value.replace("_", " ")
+    warn = "BLOCKED" in value or value in {"PENDING", "NOT_CONNECTED"}
+    tone = "warn" if warn else "ok"
+    return f'<span class="uip-pill uip-pill-{tone}">{escape(normalized)}</span>'
+
+
+def _row(label: str, value: str, *, mono: bool = False) -> str:
+    value_class = "uip-row-value uip-mono" if mono else "uip-row-value"
+    return (
+        '<div class="uip-row">'
+        f'<span class="uip-row-label">{escape(label)}</span>'
+        f'<span class="{value_class}">{escape(value)}</span>'
+        "</div>"
+    )
+
+
 st.set_page_config(page_title="M3 Operations Console", layout="wide")
 
 try:
@@ -22,57 +47,114 @@ except RuntimeError as exc:
     st.code(str(exc))
     st.stop()
 
-st.caption("UNCLAIMED INSURANCE PLATFORM")
-st.title("M3 Operations Console")
-st.write("Read-only view of provenance, governance and deployment readiness.")
-st.info("Safety boundary active: no real acquisition, no beneficiary matching, no real PII.")
+_theme_css = (Path(__file__).with_name("theme.css")).read_text(encoding="utf-8")
+st.markdown(f"<style>{_theme_css}</style>", unsafe_allow_html=True)
 
-left, right = st.columns([2, 1])
-with left:
-    st.subheader("Milestones")
-    milestone_columns = st.columns(len(snapshot.milestones))
-    for column, milestone in zip(milestone_columns, snapshot.milestones, strict=True):
-        with column:
-            st.metric(milestone.id, milestone.status.replace("_", " "))
-            st.caption(milestone.label)
-with right:
-    st.subheader("Data mode")
-    st.success(snapshot.mode.replace("_", " "))
-    st.caption("Source: authoritative typed Python read model")
-
-source_col, governance_col = st.columns(2)
-with source_col:
-    st.subheader("Source registry")
-    st.metric("Approved real sources", snapshot.source_registry.approved_real_sources)
-    st.write(f"Real acquisition: **{snapshot.source_registry.real_acquisition}**")
-    st.write(f"Beneficiary matching: **{snapshot.source_registry.beneficiary_matching}**")
-
-with governance_col:
-    st.subheader("Governance")
-    st.write(f"Privacy gate: **{snapshot.governance.privacy_gate.replace('_', ' ')}**")
-    st.write(f"Source approval: **{snapshot.governance.source_approval_gate.replace('_', ' ')}**")
-    st.write(f"Retention: **{snapshot.governance.retention_policy}**")
-    st.write(f"PII mode: **{snapshot.governance.pii_mode.replace('_', ' ')}**")
-
-artifact_col, audit_col = st.columns(2)
-with artifact_col:
-    st.subheader("Synthetic raw artifact")
-    st.code(snapshot.raw_artifact.artifact_id)
-    st.write(f"SHA-256: `{snapshot.raw_artifact.sha256}`")
-    st.write(f"Provenance SHA-256: `{snapshot.raw_artifact.provenance_sha256}`")
-    st.write(f"Bytes: **{snapshot.raw_artifact.byte_count}**")
-    st.write(f"Source: `{snapshot.raw_artifact.source_uri}`")
-
-with audit_col:
-    st.subheader("Audit & platform")
-    st.write(f"Audit chain: **{snapshot.audit.chain.replace('_', ' ')}**")
-    st.write(f"Algorithm: **{snapshot.audit.algorithm}**")
-    st.write(f"Durable audit backend: **{snapshot.audit.durable_backend}**")
-    st.write("Deployment target: **STREAMLIT COMMUNITY CLOUD CANDIDATE**")
-    st.write(f"Supabase: **{snapshot.platform.supabase.replace('_', ' ')}**")
-
-st.divider()
-st.caption(
-    f"Contract v{snapshot.contract_version} · Synthetic reviewer surface · "
-    "deterministic governance remains authoritative"
+milestones_html = "".join(
+    (
+        '<article class="uip-card">'
+        '<div class="uip-card-top">'
+        f"<span>{escape(milestone.id)}</span>"
+        f"{_pill(milestone.status)}"
+        "</div>"
+        f"<h2>{escape(milestone.label)}</h2>"
+        "</article>"
+    )
+    for milestone in snapshot.milestones
 )
+
+governance_rows = "".join(
+    [
+        _row("Privacy gate", snapshot.governance.privacy_gate.replace("_", " ")),
+        _row("Source approval", snapshot.governance.source_approval_gate.replace("_", " ")),
+        _row("Retention", snapshot.governance.retention_policy),
+        _row("PII mode", snapshot.governance.pii_mode.replace("_", " ")),
+    ]
+)
+
+artifact_rows = "".join(
+    [
+        _row("SHA-256", snapshot.raw_artifact.sha256, mono=True),
+        _row("Provenance SHA-256", snapshot.raw_artifact.provenance_sha256, mono=True),
+        _row("Bytes", str(snapshot.raw_artifact.byte_count)),
+        _row("Source", snapshot.raw_artifact.source_uri, mono=True),
+    ]
+)
+
+audit_rows = "".join(
+    [
+        _row("Audit chain", snapshot.audit.chain.replace("_", " ")),
+        _row("Algorithm", snapshot.audit.algorithm),
+        _row("Durable audit backend", snapshot.audit.durable_backend),
+        _row("Deployment target", "STREAMLIT COMMUNITY CLOUD"),
+        _row("Supabase", snapshot.platform.supabase.replace("_", " ")),
+    ]
+)
+
+page_html = f"""
+<div class="uip-shell">
+  <header class="uip-hero">
+    <div>
+      <p class="uip-eyebrow">UNCLAIMED INSURANCE PLATFORM</p>
+      <h1 class="uip-title">M3 Operations Console</h1>
+      <p class="uip-lede">A read-only view of provenance, governance and deployment readiness.</p>
+    </div>
+    <div class="uip-mode-card">
+      <span>Data mode</span>
+      <strong>{_display(snapshot.mode)}</strong>
+      <small>Source: authoritative typed Python read model</small>
+    </div>
+  </header>
+
+  <section class="uip-alert">
+    <strong>Safety boundary active.</strong>
+    <span>No real acquisition, no beneficiary matching, no real PII.</span>
+  </section>
+
+  <section class="uip-grid uip-milestones">
+    {milestones_html}
+  </section>
+
+  <section class="uip-grid uip-two-col">
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">SOURCE REGISTRY</p>
+      <div class="uip-metric">{snapshot.source_registry.approved_real_sources}</div>
+      <p>Approved real sources</p>
+      <div class="uip-list">
+        <div class="uip-row">
+          <span class="uip-row-label">Real acquisition</span>
+          <span class="uip-row-value">{_pill(snapshot.source_registry.real_acquisition)}</span>
+        </div>
+        <div class="uip-row">
+          <span class="uip-row-label">Beneficiary matching</span>
+          <span class="uip-row-value">{_pill(snapshot.source_registry.beneficiary_matching)}</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">GOVERNANCE</p>
+      <div class="uip-list">{governance_rows}</div>
+    </article>
+  </section>
+
+  <section class="uip-grid uip-two-col">
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">SYNTHETIC RAW ARTIFACT</p>
+      <h2>{escape(snapshot.raw_artifact.artifact_id)}</h2>
+      <div class="uip-list">{artifact_rows}</div>
+    </article>
+
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">AUDIT &amp; PLATFORM</p>
+      <div class="uip-list">{audit_rows}</div>
+    </article>
+  </section>
+
+  <footer class="uip-footer">
+    Contract v{escape(snapshot.contract_version)} · Synthetic reviewer surface · deterministic governance remains authoritative
+  </footer>
+</div>
+"""
+
+st.markdown(page_html, unsafe_allow_html=True)
