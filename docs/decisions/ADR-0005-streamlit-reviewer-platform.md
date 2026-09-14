@@ -1,7 +1,7 @@
 # ADR-0005 — Streamlit reviewer deployment target
 
 Date: 2026-09-14
-Status: Accepted by owner; implementation candidate pending CI and remote smoke
+Status: Accepted by owner; implementation candidate CI verified, remote smoke pending
 
 ## Context
 
@@ -12,9 +12,24 @@ ADR-0004 selected Next.js + Vercel as the preferred reviewer preview stack while
 1. Use Streamlit Community Cloud as the current deployment target for the M3 reviewer Operations Console.
 2. Keep deterministic governance, versioned contracts and the existing typed Python reviewer snapshot authoritative. Streamlit is a server-side presentation adapter only.
 3. The Streamlit candidate may consume the typed Python read model in-process, avoiding a second preview backend and eliminating `REVIEWER_API_BASE_URL` from the deployment path.
-4. Preserve the existing Next.js/Vercel implementation as rollback/history until the Streamlit candidate passes CI and remote smoke; do not delete it in this task.
+4. Preserve the existing Next.js/Vercel implementation as rollback/history until the Streamlit candidate passes remote smoke; do not delete it in this task.
 5. Keep the Streamlit candidate synthetic/read-only and fail closed if real sources, real acquisition, beneficiary matching or real PII appear.
 6. Do not introduce Supabase or any new data plane as part of this migration.
+
+## Verification
+
+Implementation SHA `f9042839296cca256c1c886f4b1667caa3f2a532` passed GitHub Actions run `34812099385`:
+
+- Ruff PASS;
+- mypy PASS on 19 source files;
+- 18 contract tests passed;
+- 5 smoke tests passed;
+- 55 full tests passed;
+- Streamlit safety smoke 2 passed;
+- Streamlit server startup and `/_stcore/health` PASS;
+- existing Next.js regression lint/type/build PASS.
+
+Remote Streamlit Community Cloud deployment is not yet verified.
 
 ## Reason
 
