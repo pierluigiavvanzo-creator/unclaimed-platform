@@ -59,14 +59,13 @@ class AuditStatus(BaseModel):
 class PlatformReadiness(BaseModel):
     model_config = ConfigDict(frozen=True)
 
-    vercel: Literal["NOT_CONNECTED"]
     supabase: Literal["NOT_CONNECTED"]
 
 
 class OperationsSnapshot(BaseModel):
     model_config = ConfigDict(frozen=True)
 
-    contract_version: Literal["1.0.0"]
+    contract_version: Literal["2.0.0"]
     mode: Literal["SYNTHETIC_READ_ONLY"]
     milestones: list[MilestoneStatus]
     source_registry: SourceRegistryStatus
@@ -78,7 +77,7 @@ class OperationsSnapshot(BaseModel):
 
 def synthetic_operations_snapshot() -> OperationsSnapshot:
     return OperationsSnapshot(
-        contract_version="1.0.0",
+        contract_version="2.0.0",
         mode="SYNTHETIC_READ_ONLY",
         milestones=[
             MilestoneStatus(id="M0", label="Repository & Development Harness", status="VERIFIED"),
@@ -121,7 +120,6 @@ def synthetic_operations_snapshot() -> OperationsSnapshot:
             durable_backend="PENDING",
         ),
         platform=PlatformReadiness(
-            vercel="NOT_CONNECTED",
             supabase="NOT_CONNECTED",
         ),
     )

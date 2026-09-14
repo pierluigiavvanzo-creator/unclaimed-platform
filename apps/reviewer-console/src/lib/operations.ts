@@ -1,5 +1,5 @@
 export type OperationsSnapshot = {
-  contract_version: "1.0.0";
+  contract_version: "2.0.0";
   mode: "SYNTHETIC_READ_ONLY";
   milestones: Array<{ id: string; label: string; status: string }>;
   source_registry: {
@@ -33,13 +33,12 @@ export type OperationsSnapshot = {
     durable_backend: "PENDING";
   };
   platform: {
-    vercel: "NOT_CONNECTED";
     supabase: "NOT_CONNECTED";
   };
 };
 
 export const syntheticFallback: OperationsSnapshot = {
-  contract_version: "1.0.0",
+  contract_version: "2.0.0",
   mode: "SYNTHETIC_READ_ONLY",
   milestones: [
     { id: "M0", label: "Repository & Development Harness", status: "VERIFIED" },
@@ -77,13 +76,13 @@ export const syntheticFallback: OperationsSnapshot = {
     pii_mode: "NO_REAL_PII",
   },
   audit: { chain: "HEALTHY_SYNTHETIC", algorithm: "SHA-256", durable_backend: "PENDING" },
-  platform: { vercel: "NOT_CONNECTED", supabase: "NOT_CONNECTED" },
+  platform: { supabase: "NOT_CONNECTED" },
 };
 
 function isSnapshot(value: unknown): value is OperationsSnapshot {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as Partial<OperationsSnapshot>;
-  return candidate.contract_version === "1.0.0" && candidate.mode === "SYNTHETIC_READ_ONLY";
+  return candidate.contract_version === "2.0.0" && candidate.mode === "SYNTHETIC_READ_ONLY";
 }
 
 export async function getOperationsSnapshot(): Promise<{

@@ -11,7 +11,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 def test_streamlit_snapshot_preserves_m3_safety_boundaries() -> None:
     snapshot = load_safe_snapshot()
 
-    assert snapshot.contract_version == "1.0.0"
+    assert snapshot.contract_version == "2.0.0"
     assert snapshot.mode == "SYNTHETIC_READ_ONLY"
     assert snapshot.source_registry.approved_real_sources == 0
     assert snapshot.source_registry.real_acquisition == "BLOCKED"
@@ -32,7 +32,7 @@ def test_streamlit_snapshot_fails_closed_if_real_source_is_approved() -> None:
         validate_safe_snapshot(unsafe_snapshot)
 
 
-def test_streamlit_console_reuses_vercel_visual_language() -> None:
+def test_streamlit_console_preserves_verified_visual_language() -> None:
     app_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "streamlit_app.py"
     theme_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "theme.css"
 

@@ -1,6 +1,6 @@
 # Streamlit M3 Operations Console
 
-Candidate replacement for the Vercel-hosted reviewer surface.
+Active Streamlit reviewer surface for the M3 governance/provenance slice.
 
 ## Safety scope
 
@@ -16,16 +16,16 @@ pip install -r apps/reviewer-streamlit/requirements.txt
 streamlit run apps/reviewer-streamlit/streamlit_app.py
 ```
 
-## Streamlit Community Cloud candidate deploy
+## Streamlit Community Cloud deploy
 
 Use:
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-streamlit-operations-console`
+- branch: `m2-state-governance-core`
 - entrypoint: `apps/reviewer-streamlit/streamlit_app.py`
 - Python: `3.11`
 
-Do not add secrets for this synthetic-only candidate.
+Do not add secrets for this synthetic-only reviewer.
 
 Community Cloud supports entrypoints in subdirectories and requirements files beside the entrypoint. Official documentation:
 

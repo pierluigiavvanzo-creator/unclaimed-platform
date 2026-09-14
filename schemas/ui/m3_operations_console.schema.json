@@ -15,7 +15,7 @@
     "platform"
   ],
   "properties": {
-    "contract_version": {"const": "1.0.0"},
+    "contract_version": {"const": "2.0.0"},
     "mode": {"const": "SYNTHETIC_READ_ONLY"},
     "milestones": {
       "type": "array",
@@ -87,9 +87,8 @@
     "platform": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["vercel", "supabase"],
+      "required": ["supabase"],
       "properties": {
-        "vercel": {"const": "NOT_CONNECTED"},
         "supabase": {"const": "NOT_CONNECTED"}
       }
     }

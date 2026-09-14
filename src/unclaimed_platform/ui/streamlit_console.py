@@ -7,7 +7,7 @@ def validate_safe_snapshot(snapshot: OperationsSnapshot) -> OperationsSnapshot:
     """Fail closed if the reviewer snapshot violates M3 safety invariants."""
     violations: list[str] = []
 
-    if snapshot.contract_version != "1.0.0":
+    if snapshot.contract_version != "2.0.0":
         violations.append("unexpected contract version")
     if snapshot.mode != "SYNTHETIC_READ_ONLY":
         violations.append("reviewer mode is not synthetic read-only")

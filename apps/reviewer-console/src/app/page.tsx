@@ -76,7 +76,6 @@ export default async function Home() {
           <dl>
             <div><dt>Audit chain</dt><dd><StatusPill value={data.audit.chain} /></dd></div>
             <div><dt>Durable audit backend</dt><dd><StatusPill value={data.audit.durable_backend} /></dd></div>
-            <div><dt>Vercel</dt><dd><StatusPill value={data.platform.vercel} /></dd></div>
             <div><dt>Supabase</dt><dd><StatusPill value={data.platform.supabase} /></dd></div>
           </dl>
         </article>

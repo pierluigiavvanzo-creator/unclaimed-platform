@@ -9,6 +9,7 @@ ACTIVE_ROOTS = (
     ROOT / "apps",
     ROOT / "scripts",
     ROOT / "src",
+    ROOT / "schemas" / "ui",
 )
 ACTIVE_FILES = (
     ROOT / ".env.example",
