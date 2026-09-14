@@ -43,6 +43,8 @@ def test_streamlit_console_reuses_vercel_visual_language() -> None:
     assert "authoritative typed Python read model" in app_source
     assert "st.metric" not in app_source
     assert "st.info" not in app_source
+    assert "st.html(page_html)" in app_source
+    assert "st.markdown(page_html" not in app_source
     assert "#071018" in theme
     assert "#123148" in theme
     assert "#7ed7c4" in theme
