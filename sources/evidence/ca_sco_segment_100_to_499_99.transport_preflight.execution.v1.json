@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "execution_id": "ca.sco.unclaimed_property.bulk.transport_preflight.execution.2026-09-14",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "jurisdiction": "CA",
+  "execution_approval_ref": "OWNER_CHAT_APPROVAL_2026-09-14T17:21+02:00_SEGMENTED_HEAD_PREFLIGHT",
+  "official_source_page": "https://www.sco.ca.gov/upd_download_property_records.html",
+  "target_link_label": "Properties reported at $100 to $499.99",
+  "controls": {
+    "https_only": true,
+    "request_method": "HEAD",
+    "timeout_seconds": 10,
+    "max_redirects": 1,
+    "allowlisted_hosts": ["claimit.ca.gov"],
+    "response_body_bytes_allowed": 0,
+    "persist_response_body": false,
+    "parse_response_body": false,
+    "persist_dataset_artifact": false,
+    "pii_processing_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false
+  },
+  "endpoint_discovery": {
+    "source_page_request_performed": true,
+    "extraction_method": "OFFICIAL_SOURCE_PAGE_HTML_ANCHOR",
+    "extracted_endpoint": "https://claimit.ca.gov/upd-property-records/03_From_100_To_Below_500.zip",
+    "extracted_host": "claimit.ca.gov"
+  },
+  "transport": {
+    "download_endpoint_request_performed": true,
+    "observed_at": "2026-09-14T15:26:34.237090Z",
+    "redirect_hops": [{"requested_endpoint": "https://claimit.ca.gov/upd-property-records/03_From_100_To_Below_500.zip", "http_status": 200, "location": null}],
+    "final_endpoint": "https://claimit.ca.gov/upd-property-records/03_From_100_To_Below_500.zip",
+    "final_host": "claimit.ca.gov",
+    "http_status": 200,
+    "response_headers": {
+      "accept-ranges": "bytes",
+      "content-length": "459105796",
+      "content-type": "application/zip",
+      "etag": "\"7cc88d094cf5c2682b9b8413fe03bde9\"",
+      "last-modified": "Wed, 09 Sep 2026 16:32:25 GMT"
+    },
+    "content_type": "application/zip",
+    "content_length": 459105796,
+    "tls_scheme": "https",
+    "response_body_bytes_read": 0
+  },
+  "safety_state": {
+    "acquisition_performed": false,
+    "source_approved": false,
+    "source_enabled": false,
+    "persist_response_body": false,
+    "parse_response_body": false,
+    "persist_dataset_artifact": false,
+    "real_pii_processed": false,
+    "beneficiary_matching_performed": false,
+    "outreach_performed": false
+  },
+  "result_status": "SUCCEEDED",
+  "result_reason": "metadata-only HEAD preflight completed without reading response body bytes"
+}
