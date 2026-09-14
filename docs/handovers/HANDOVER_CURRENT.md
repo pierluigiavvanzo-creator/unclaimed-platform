@@ -6,17 +6,19 @@ Date: 2026-09-14
 
 Authoritative restart point. Use repository evidence, not conversational memory.
 
-## Repository and branches
+## Repository / Branches
 
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Canonical promoted baseline: `89a5e626c2aa6bf98147522b83973ba62b6d0ccc`
-- Canonical post-promotion CI: `34887416658` — SUCCESS
+- Canonical development HEAD before current candidate: `74af507796f8bcc4ab45baba6abffe6714f9f6c6`
+- Current candidate: `m3-ca-sco-field-privacy-readiness`
+- Functional candidate HEAD before persistent-doc closure: `8e303caa6fcb10f943382861842297f405786a5b`
+- Functional candidate CI: `34889037049` — SUCCESS
 - Stable `main`: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e` — unchanged
-- Do not develop directly on `main`.
+- Never develop directly on `main`.
 
-## Verified baseline
+## Verified Baseline
 
 - M0 VERIFIED.
 - M1 VERIFIED.
@@ -25,224 +27,268 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - M3 acquisition/raw persistence/privacy CANONICAL + VERIFIED.
 - Streamlit reviewer CANONICAL + CI VERIFIED.
 - California SCO source governance CANONICAL + CI VERIFIED.
-- SCO transport-preflight evidence CANONICAL + CI VERIFIED.
-- SCO source-approval readiness package CANONICAL + CI VERIFIED.
-- SCO data-scope inspection proposal CANONICAL + CI VERIFIED.
+- SCO transport evidence CANONICAL + CI VERIFIED.
+- SCO source-approval readiness CANONICAL + CI VERIFIED.
+- SCO data-scope proposal CANONICAL + CI VERIFIED.
 - SCO segmented transport evidence CANONICAL + CI VERIFIED.
-- SCO `$500+` bounded structure inspection EXECUTED + EVIDENCE PERSISTED + CANONICAL + CI VERIFIED.
+- SCO `$500+` structure inspection EXECUTED + CANONICAL + CI VERIFIED.
 - Repository-side Vercel integration DECOMMISSIONED.
 - Supabase untouched.
 
-## Product strategy — segmented California pilot
+## Canonical `$500+` Structure Evidence
 
-Metadata-only preflight observed official SCO value segments:
-- `$0–9.99`: `1,321,027,390` bytes;
-- `$10–99.99`: `1,261,492,445` bytes;
-- `$100–499.99`: `459,105,796` bytes;
-- `$500 and up`: `162,416,884` bytes;
-- full `All properties`: `3,203,972,130` bytes.
+Target:
+`https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`
 
-The `$500+` segment is the initial pilot target because it is the smallest observed segment and fits the high-value-first product strategy. This is product prioritization, not proof that each record is commercially viable or insurance-related.
+Owner-authorized structure-only run:
+`34864433849` — SUCCESS.
 
-## Canonical `$500+` transport target
+Execution facts:
 
-- endpoint: `https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`;
-- host: `claimit.ca.gov`;
-- content type: `application/zip`;
-- content length: `162,416,884` bytes;
-- `Accept-Ranges: bytes`;
-- ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
-- Last-Modified: `Wed, 09 Sep 2026 16:32:34 GMT`.
-
-## Owner-authorized structure inspection
-
-One-shot workflow commit:
-`40c5ff8c78cdf03f60dcce73ad1c12c5f4466994`
-
-Workflow run:
-`34864433849` — SUCCESS
-
-Approval reference:
-`OWNER_CHAT_APPROVAL_2026-09-14T17:21+02:00_BOUNDED_DATA_SCOPE_INSPECTION`
-
-Machine result:
-`SUCCEEDED_STRUCTURE_ONLY`
-
-Observed execution:
-- 5 Range requests, all HTTP `206`;
-- one archive-tail response of `131,072` bytes;
-- four member-prefix responses of `65,536` bytes each;
-- total source response-body bytes `393,216`;
+- 5 HTTP Range requests, all `206`;
+- total source-body bytes read `393,216`;
 - full archive downloaded `false`;
 - CSV data rows parsed `0`;
-- record values persisted `false`;
-- stop reason `null`.
+- record values persisted `false`.
 
 Exact evidence:
-`sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`
+`sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`.
 
-Audit:
-`docs/audits/M3_CA_SCO_500_PLUS_DATA_SCOPE_EXECUTION.md`
+Four non-encrypted DEFLATED CSV members were found. All four yielded the same high-confidence,
+comma-delimited UTF-8 header candidate with 25 labels:
 
-Evidence closure commit:
-`54f2e90b43cf98afb0c607f02c65fa510f71df2d`
+`PROPERTY_ID`, `PROPERTY_TYPE`, `CASH_REPORTED`, `SHARES_REPORTED`,
+`NAME_OF_SECURITIES_REPORTED`, `NO_OF_OWNERS`, `OWNER_NAME`, `OWNER_STREET_1`,
+`OWNER_STREET_2`, `OWNER_STREET_3`, `OWNER_CITY`, `OWNER_STATE`, `OWNER_ZIP`,
+`OWNER_COUNTRY_CODE`, `CURRENT_CASH_BALANCE`, `NUMBER_OF_PENDING_CLAIMS`,
+`NUMBER_OF_PAID_CLAIMS`, `HOLDER_NAME`, `HOLDER_STREET_1`, `HOLDER_STREET_2`,
+`HOLDER_STREET_3`, `HOLDER_CITY`, `HOLDER_STATE`, `HOLDER_ZIP`, `CUSIP`.
 
-Evidence closure CI:
-`34886584110` — SUCCESS
+Exactly zero data rows have been sampled, so actual row values, field population rates, actual PII
+presence and row-level semantic consistency remain unverified.
 
-The network-capable one-shot workflow was removed immediately after evidence capture and its absence is contract-tested.
+## Current Candidate — Field / PII / Retention / Privacy Readiness
 
-## Verified archive/header structure
+Branch:
+`m3-ca-sco-field-privacy-readiness`
 
-Exactly four non-encrypted DEFLATED CSV members were found:
-1. `From_500_To_Beyond_1_of_4.csv`
-2. `From_500_To_Beyond_2_of_4.csv`
-3. `From_500_To_Beyond_3_of_4.csv`
-4. `From_500_To_Beyond_4_of_4.csv`
+New artifacts:
 
-All four yielded the same high-confidence comma-delimited UTF-8 header candidate with 25 labels:
+- `schemas/common/source_field_privacy_readiness.schema.json`
+- `schemas/examples/ca_sco_500_plus_field_privacy_readiness.examples.json`
+- `sources/proposals/ca_sco_segment_500_plus.field_privacy_readiness.v1.json`
+- `tests/contract/test_ca_sco_field_privacy_readiness.py`
+- `docs/audits/M3_CA_SCO_FIELD_PRIVACY_READINESS.md`
+
+No California SCO network request or source-body access occurred in this task.
+
+Machine state:
+
+- package status `READINESS_PROPOSAL_NOT_AUTHORIZED`;
+- readiness status `BLOCKED_PENDING_POLICY_AND_PII_APPROVAL`;
+- source approved false;
+- source enabled false;
+- real acquisition authorized false;
+- row access authorized false;
+- PII processing authorized false.
+
+## Product Purpose
+
+Proposed first row-level purpose:
+`INSURANCE_RELEVANCE_TRIAGE_ONLY`.
+
+Permitted future decision only:
+classify a record as potentially insurance-related or not, for later human-gated review.
+
+Explicitly excluded:
+
+- identity resolution;
+- beneficiary matching;
+- genealogical research;
+- outreach;
+- claim submission;
+- fee agreements;
+- claimant verification.
+
+## Field Minimization
+
+All 25 verified labels are partitioned exactly once.
+
+Required / proposed future row allowlist:
+
 1. `PROPERTY_ID`
 2. `PROPERTY_TYPE`
-3. `CASH_REPORTED`
-4. `SHARES_REPORTED`
-5. `NAME_OF_SECURITIES_REPORTED`
-6. `NO_OF_OWNERS`
-7. `OWNER_NAME`
-8. `OWNER_STREET_1`
-9. `OWNER_STREET_2`
-10. `OWNER_STREET_3`
-11. `OWNER_CITY`
-12. `OWNER_STATE`
-13. `OWNER_ZIP`
-14. `OWNER_COUNTRY_CODE`
-15. `CURRENT_CASH_BALANCE`
-16. `NUMBER_OF_PENDING_CLAIMS`
-17. `NUMBER_OF_PAID_CLAIMS`
-18. `HOLDER_NAME`
-19. `HOLDER_STREET_1`
-20. `HOLDER_STREET_2`
-21. `HOLDER_STREET_3`
-22. `HOLDER_CITY`
-23. `HOLDER_STATE`
-24. `HOLDER_ZIP`
-25. `CUSIP`
+3. `HOLDER_NAME`
 
-Header confidence:
-`HIGH_DETERMINISTIC_LABEL_HEURISTIC`
+Optional fields: none.
 
-This is structure verification only. No data row was sampled, so row values, population rates, actual PII values and field necessity remain unknown.
+Prohibited for this purpose:
 
-## Potential PII indicators
+- `OWNER_NAME`;
+- `OWNER_STREET_1`, `OWNER_STREET_2`, `OWNER_STREET_3`;
+- `OWNER_CITY`, `OWNER_STATE`, `OWNER_ZIP`, `OWNER_COUNTRY_CODE`;
+- `HOLDER_STREET_1`, `HOLDER_STREET_2`, `HOLDER_STREET_3`;
+- `HOLDER_CITY`, `HOLDER_STATE`, `HOLDER_ZIP`.
 
-Structure-level heuristic flagged:
-`NAME_OF_SECURITIES_REPORTED`, `NO_OF_OWNERS`, `OWNER_NAME`, `OWNER_STREET_1`, `OWNER_STREET_2`, `OWNER_STREET_3`, `OWNER_CITY`, `OWNER_STATE`, `OWNER_ZIP`, `OWNER_COUNTRY_CODE`, `HOLDER_NAME`, `HOLDER_CITY`, `HOLDER_STATE`, `HOLDER_ZIP`.
+The holder street-line prohibition is a conservative project-minimization inference; the prior header
+heuristic did not list those three street labels among its potential-PII indicators.
 
-This is not a legal determination and grants no processing authority.
+Unresolved / not allowlisted:
 
-## Canonical authorization state
+- `CASH_REPORTED`;
+- `SHARES_REPORTED`;
+- `NAME_OF_SECURITIES_REPORTED`;
+- `NO_OF_OWNERS`;
+- `CURRENT_CASH_BALANCE`;
+- `NUMBER_OF_PENDING_CLAIMS`;
+- `NUMBER_OF_PAID_CLAIMS`;
+- `CUSIP`.
 
-Unchanged:
-- policy `policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json` remains `PROPOSED`;
+These fields may be relevant to later economic/claims/securities purposes, but their necessity is not
+established for insurance-relevance triage.
+
+## PII Boundary
+
+Actual PII presence remains:
+`UNVERIFIED_NO_ROWS_SAMPLED`.
+
+`HOLDER_NAME` is the only required field currently also identified as a structure-level potential-PII
+candidate. The proposal does not authorize processing it. Human/legal review must explicitly approve
+necessity/proportionality before any row access.
+
+Owner identity/address and holder address/geography fields are proposed unnecessary for the triage
+purpose.
+
+## Retention Candidate
+
+- status `DRAFT_NOT_APPROVED`;
+- policy candidate `ca.sco.500_plus.triage.retention`;
+- projected triage-record maximum `7` days;
+- basis `PROJECT_SAFETY_CANDIDATE_NOT_LEGAL_REQUIREMENT`;
+- full archive persistence false;
+- full row persistence false;
+- delete on stop true;
+- approved policy ref null;
+- human/legal activation required.
+
+The 7-day period is a project safety proposal, not a statement of California law.
+
+## Privacy Candidate
+
+- status `DRAFT_NOT_TRUSTED`;
+- candidate policy `project.privacy.ca_sco_500_plus.triage`;
+- purpose limited to `INSURANCE_RELEVANCE_TRIAGE_ONLY`;
+- candidate allowed fields exactly `PROPERTY_ID`, `PROPERTY_TYPE`, `HOLDER_NAME`;
+- encryption at rest required;
+- least privilege required;
+- access logging required;
+- record values in logs false;
+- export false;
+- identity resolution false;
+- beneficiary matching false;
+- outreach false;
+- trusted policy ref null;
+- human/legal activation required.
+
+No trusted project privacy-policy artifact or approved production retention policy currently exists in
+the canonical repository. Do not invent or auto-approve either.
+
+## Functional Candidate Verification
+
+Functional HEAD:
+`8e303caa6fcb10f943382861842297f405786a5b`.
+
+CI:
+`34889037049` — SUCCESS.
+
+Passed:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- frontend install/lint/typecheck/build;
+- Streamlit safety/startup smoke.
+
+Tests verify:
+
+- package remains non-authorizing;
+- all 25 canonical labels are classified exactly once;
+- future scope is exactly 3 fields;
+- source policy remains `PROPOSED` and empty-authority/fail-closed;
+- registry remains disabled/unapproved;
+- PII, retention and privacy candidates remain unapproved/untrusted;
+- attempts to authorize acquisition, widen fields or invent a trusted privacy ref are schema-invalid.
+
+## Canonical Authorization State — UNCHANGED
+
+`policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json` remains:
+
+- `status: PROPOSED`;
 - `real_acquisition_authorized: false`;
-- `approval_ref: null`;
-- `allow_pii: false`;
-- registry `enabled: false`;
-- registry `approved_for_use: false`;
-- approved real sources `0`;
-- identity resolution BLOCKED;
-- beneficiary matching BLOCKED;
-- outreach BLOCKED.
+- `privacy_policy_ref: null`;
+- `retention_policy_ref: null`;
+- `authorized_processing_purposes: []`;
+- `allowed_fields: []`;
+- `allow_pii: false`.
 
-## Promotion evidence
+`sources/registry.yaml` remains:
 
-Before promotion:
-- canonical `f6bfa0dd4cc0bba0ad48d2bacc6ef5bb7bbbb311`;
-- candidate `89a5e626c2aa6bf98147522b83973ba62b6d0ccc`;
-- ahead `8`;
-- behind `0`;
-- merge-base exactly `f6bfa0dd4cc0bba0ad48d2bacc6ef5bb7bbbb311`.
+- `enabled: false`;
+- `approved_for_use: false`.
 
-Owner explicitly authorized:
-`m3-ca-sco-500-plus-range-inspection -> m2-state-governance-core`
+Approved real sources remain `0`.
 
-Promotion was a non-force fast-forward to:
-`89a5e626c2aa6bf98147522b83973ba62b6d0ccc`.
+## Blocking Items
 
-Canonical post-promotion CI:
-`34887416658` — SUCCESS for both `quality` and `streamlit-candidate`.
+Before any real acquisition:
 
-Verified in canonical CI:
-- Ruff PASS;
-- mypy PASS;
-- contract tests PASS;
-- smoke tests PASS;
-- full pytest PASS;
-- frontend dependency install/lint/typecheck/build PASS;
-- Streamlit safety/startup smoke PASS.
-
-No source approval, registry activation, row-level acquisition, PII processing, identity resolution, matching or outreach was authorized by promotion.
-
-## What remains unresolved / blocked
-
-- field-by-field necessity/proportionality for the intended product purpose;
-- minimized production field whitelist;
-- production retention duration/policy;
-- trusted project privacy-policy reference;
-- reviewed real-acquisition client under final field/privacy controls;
-- explicit source-approval reference;
-- policy `APPROVED` transition;
-- registry activation;
-- real row-level acquisition;
-- A02 real normalization;
-- identity resolution, beneficiary matching and outreach.
-
-No additional source-body access is required for the next step.
+1. retention policy approved;
+2. trusted project privacy policy approved;
+3. `HOLDER_NAME` PII necessity approved;
+4. actual PII presence still unverified until a separately authorized minimized row operation;
+5. real-acquisition client reviewed;
+6. source approval reference assigned;
+7. source policy approved under a separate gate;
+8. registry enabled under a separate gate.
 
 ## SINGLE NEXT ACTION
 
-Create an isolated, non-authorizing **field-minimization + PII-necessity + retention/privacy readiness proposal** based only on the verified 25 labels.
+**Human/legal/privacy/retention review gate** for the current candidate.
 
-Requirements:
-1. no SCO network/body access;
-2. define exact product purpose for the `$500+` pilot;
-3. classify all 25 labels as required, optional, prohibited or unresolved;
-4. minimize owner/holder/address fields before any row access;
-5. document PII necessity/proportionality blockers without inventing legal authority;
-6. select/propose retention controls under human/legal review;
-7. select a trusted privacy-policy reference;
-8. define the smallest future row-level acquisition contract compatible with the whitelist;
-9. remain non-authorizing and stop at a later explicit source-approval gate.
+Review the 3-field minimization, `HOLDER_NAME` necessity rationale, draft 7-day retention candidate and
+privacy controls. Candidate promotion, if later authorized, must still remain non-authorizing and must
+not change the canonical policy or registry.
 
-## Handover status
+No SCO body/network access is needed for that review.
+
+## Handover Status
 
 ```text
 M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
-M3 source/legal readiness: COMPLETE
-M3 acquisition/raw persistence/privacy: CANONICAL + VERIFIED
-M3 SCO source governance: CANONICAL + CI VERIFIED
-M3 SCO data-scope proposal: CANONICAL + CI VERIFIED
-M3 SCO segmented transport evidence: CANONICAL + CI VERIFIED
-M3 SCO $500+ structure inspection: CANONICAL + CI VERIFIED
-Canonical promoted SHA: 89a5e626c2aa6bf98147522b83973ba62b6d0ccc
-Canonical promotion CI: 34887416658 SUCCESS
-One-shot execution: 34864433849 SUCCESS
-Source body bytes read: 393216
-Archive members: 4 CSV
-Verified header candidate: 25 labels, identical across all 4 CSVs
-CSV data rows parsed: 0
-Record values persisted: false
-SCO policy: PROPOSED + NON-AUTHORIZING
-SCO registry: DISABLED + NOT APPROVED
-Approved real sources: 0
+M3 SCO $500+ structure: CANONICAL + CI VERIFIED
+Canonical baseline before candidate: 74af507796f8bcc4ab45baba6abffe6714f9f6c6
+Current candidate: m3-ca-sco-field-privacy-readiness
+Functional candidate: 8e303caa6fcb10f943382861842297f405786a5b
+Functional candidate CI: 34889037049 SUCCESS
+Purpose: INSURANCE_RELEVANCE_TRIAGE_ONLY
+Proposed future row fields: PROPERTY_ID, PROPERTY_TYPE, HOLDER_NAME
+Retention candidate: 7 days, DRAFT_NOT_APPROVED, not a legal requirement
+Privacy candidate: DRAFT_NOT_TRUSTED
+Actual PII presence: UNVERIFIED_NO_ROWS_SAMPLED
+Real acquisition: BLOCKED
 Real PII: BLOCKED
 Identity resolution: BLOCKED
 Beneficiary matching: BLOCKED
 Outreach: BLOCKED
-Vercel repository integration: DECOMMISSIONED
-Supabase: UNTOUCHED
+SCO policy: PROPOSED
+SCO registry: DISABLED + NOT APPROVED
+Approved real sources: 0
+SCO network/body access in this task: 0
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e UNCHANGED
-NEXT: offline field-minimization + PII/retention/privacy readiness proposal
+NEXT: human/legal/privacy/retention review gate
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
