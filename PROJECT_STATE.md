@@ -8,25 +8,29 @@ M3 — California Data Spike Readiness + Product Visibility
 
 ## Current Status
 
-M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters, immutable raw-storage/provenance persistence, privacy/data-minimization gates, and the reviewer read contract are implemented and verified on canonical `m2-state-governance-core`.
+M0, M1 and M2 are VERIFIED. M3 source/legal readiness, A01 acquisition contracts/adapters,
+immutable raw-storage/provenance persistence, privacy/data-minimization gates, reviewer read contract,
+and the California SCO source-governance proposal are canonical and CI verified on
+`m2-state-governance-core`.
 
-The owner explicitly abandoned Vercel as the active reviewer deployment path on 2026-09-14 after repeated project/deployment visibility inconsistencies. Streamlit Community Cloud is now the approved M3 reviewer deployment target under D-006 / ADR-0005.
+Streamlit Community Cloud is the active M3 reviewer deployment target under D-006 / ADR-0005.
+The owner confirmed on 2026-09-14 that the deployed Streamlit app is configured on canonical
+`m2-state-governance-core`; the previously verified functional/visual state remains the accepted
+reviewer baseline.
 
-The Streamlit reviewer implementation was verified on commit `f9042839296cca256c1c886f4b1667caa3f2a532`; GitHub Actions run `34812099385` passed both `quality` and `streamlit-candidate`. Documentation closure commit `c75adff971da6132cbcc54fab185b2ff6470e047` also passed GitHub Actions run `34812289869`.
+The California SCO public bulk source is now represented in `sources/registry.yaml` as
+`ca.sco.unclaimed_property.bulk`, but it remains `enabled: false` and `approved_for_use: false`.
+The versioned source-access policy is `PROPOSED` and explicitly non-authorizing:
+real acquisition, beneficiary matching, outreach and real PII remain blocked.
 
-On 2026-09-14 the owner supplied a screenshot from the deployed Streamlit Community Cloud app at `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`. Remote visual/content smoke is PASS: the page renders `M3 Operations Console`, `SYNTHETIC READ ONLY`, approved real sources `0`, real acquisition `BLOCKED`, beneficiary matching `BLOCKED`, privacy `PASS SYNTHETIC ONLY`, source approval `BLOCKED NO REAL SOURCE`, and `NO REAL PII`, with no visible runtime error.
+Candidate `m3-ca-sco-source-governance` commit
+`463c6d6c972fa955a8aa0d3c97208c3029e202a8` passed GitHub Actions run `34825751270`.
+After explicit owner approval, the candidate was promoted by clean fast-forward into canonical
+`m2-state-governance-core`. Canonical post-promotion run `34826353694` passed both `quality` and
+`streamlit-candidate` on the same SHA.
 
-After explicit owner approval, branch `m3-streamlit-operations-console` was promoted by fast-forward into canonical `m2-state-governance-core`.
-
-A Vercel-style Streamlit visual restyle was then implemented on `m3-streamlit-vercel-style-restyle`. The restyle reuses the historical Next.js visual language: navy background, turquoise accents, dark cards, green/amber status pills, compact hero, and custom HTML/CSS rendering while preserving the existing typed reviewer snapshot and fail-closed safety adapter. A rendering regression where Governance HTML appeared as raw code was fixed by switching the page renderer to `st.html()` and adding a regression smoke test.
-
-Final restyle candidate SHA `563128e3f37c14ec2715132ee14cf5813b057cba` passed GitHub Actions run `34817694129` with both `quality` and `streamlit-candidate` successful. The owner-provided final screenshot confirms the title is compact on one line, Governance renders correctly, Streamlit toolbar/status chrome is hidden, and the Vercel-style palette/layout is visible with no runtime error. Visual smoke: PASS.
-
-After explicit owner approval, `m3-streamlit-vercel-style-restyle` was promoted by clean fast-forward into canonical `m2-state-governance-core`; immediately before promotion it was 6 commits ahead and 0 behind canonical with merge-base at `85bb7a71720c9cc3c3145762da8b6eb33e85283a`.
-
-The deployed Streamlit app was manually pointed to `m3-streamlit-vercel-style-restyle` for visual validation. The same code is now canonical, but the Streamlit Community Cloud app should be repointed to `m2-state-governance-core` before treating the live deployment branch as canonical-aligned.
-
-`main` remains unchanged. Real California acquisition and beneficiary matching remain BLOCKED. `sources/registry.yaml` has no approved real source. Supabase remains untouched.
+`main` remains unchanged at `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
+Supabase remains untouched.
 
 ## Completed and Verified
 
@@ -38,59 +42,63 @@ The deployed Streamlit app was manually pointed to `m3-streamlit-vercel-style-re
 - M3 privacy/data-minimization gate with trusted policy separated from caller context.
 - Reviewer read contract `schemas/ui/m3_operations_console.schema.json` v1.0.0.
 - FastAPI `GET /api/reviewer/m3/operations` synthetic/read-only endpoint.
-- Historical Next.js Operations Console retained as rollback/history; Vercel no longer on the critical path.
-- Streamlit reviewer reuses the existing typed reviewer snapshot; no snapshot payload duplication.
-- Streamlit fail-closed adapter rejects unsafe state before rendering.
-- Streamlit 1.63.0 dependency installation verified on Python 3.11.16.
-- Streamlit Community Cloud remote functional/content smoke: PASS.
-- Vercel-style Streamlit restyle: CANONICAL + CI VERIFIED + VISUAL SMOKE PASS.
-- Final restyle CI run `34817694129`: PASS.
+- Streamlit reviewer canonical, CI verified and remotely validated.
+- Vercel-style Streamlit restyle canonical, CI verified and visually validated.
+- California SCO source registry candidate canonical, disabled and not approved.
+- `SourceAccessGovernance` v1 contract canonical.
+- California SCO policy canonical in `PROPOSED` / non-authorizing state.
+- Governance regression tests prove a proposed policy cannot authorize real acquisition and the
+  registry still contains zero approved real sources.
 
 ## Verification Evidence
 
-Base Streamlit implementation SHA: `f9042839296cca256c1c886f4b1667caa3f2a532`
-Base documentation closure SHA: `c75adff971da6132cbcc54fab185b2ff6470e047`
-Base CI runs: `34812099385`, `34812289869`
-Final visual restyle SHA: `563128e3f37c14ec2715132ee14cf5813b057cba`
-Final visual restyle CI run: `34817694129`
-Remote URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`
-
-Evidence:
-
+- California SCO governance candidate SHA:
+  `463c6d6c972fa955a8aa0d3c97208c3029e202a8`.
+- Candidate CI run `34825751270`: PASS.
+- Canonical post-promotion CI run `34826353694`: PASS.
 - Ruff: PASS.
 - mypy: PASS.
 - contract tests: PASS.
-- smoke tests: PASS, including Streamlit safety and visual regression checks.
+- smoke tests: PASS.
 - full pytest: PASS.
-- historical Next.js frontend lint/typecheck/build regression gates: PASS.
-- Streamlit startup smoke: PASS via `/_stcore/health`.
-- remote Streamlit functional/content smoke: PASS.
-- final owner screenshot confirms Vercel-style layout, correct Governance rendering and hidden Streamlit toolbar/status chrome.
-- no real source, real acquisition, beneficiary matching or real PII introduced.
+- frontend lint/typecheck/build regression gates: PASS.
+- Streamlit safety/startup smoke: PASS.
+- Source registry approved real sources: `0`.
+- No real dataset retrieval or row parsing performed.
 
 ## Blocked / Not Authorized
 
 - Real California acquisition.
-- Approval of a real source through the reviewer UI.
+- Moving the California SCO source-access policy from `PROPOSED` to `APPROVED` without a separate
+  human gate.
+- Enabling the SCO registry entry for real use.
 - California CSV row assumptions or parsing based on invented layout.
 - Beneficiary matching on real data.
 - Real claimant/beneficiary/decedent/family PII.
 - Outreach, claimant verification, fee agreements and claim submission.
 - Unapproved scraping/restricted-source access.
-- Promotion to `main` without a separate explicit human gate.
+- Promotion to `main` without a separate explicit stable-checkpoint gate.
 - Supabase resource creation without a separate organization/cost/architecture gate.
 
-## Known Issues
+## Known Issues / Unresolved Readiness Items
 
-- Two known non-blocking FastAPI/Starlette/AnyIO dependency deprecation warnings remain.
-- GitHub Actions reports upstream Node runtime deprecation warnings for current actions; workflows pass.
-- Historical Next.js dependency install warns that ESLint 9.39.5 is no longer supported; that frontend is no longer on the critical path.
-- The M3 reviewer read model is still synthetic rather than backed by live durable stores.
+- Exact SCO download URLs/redirect chain have not been acquired or followed.
+- The official download page advertises CSV files and links them on `claimit.ca.gov`, but exact
+  transport content types, response sizes and redirect behavior remain unverified.
+- A production timeout and maximum-byte policy have not been selected.
+- Processing purpose, data categories, minimized row fields, PII necessity and retention policy are
+  intentionally unresolved.
 - Filesystem raw immutability is application-level, not provider WORM/object lock.
 - M2 audit writer remains in-memory; durable production audit persistence is outstanding.
 - Retention physical enforcement and PostgreSQL/Alembic initial application migration are outstanding.
-- Streamlit Community Cloud is currently pointed at the visual-restyle candidate branch used for remote validation; repoint it to canonical `m2-state-governance-core` to eliminate deploy-branch drift.
+- Known non-blocking dependency/runtime deprecation warnings remain in CI.
 
 ## Next Recommended Action
 
-Repoint the existing Streamlit Community Cloud app from `m3-streamlit-vercel-style-restyle` to canonical `m2-state-governance-core`, verify one final remote smoke with the same visual state, then prepare the next bounded M3 source-governance proposal for the California SCO public bulk candidate without approving or acquiring real data. Keep real acquisition, beneficiary matching and real PII blocked. Keep `main` unchanged until a separate explicit stable-checkpoint gate.
+Prepare a bounded M3 California SCO **approval-readiness evidence package** that records only
+currently verified public facts and explicitly unresolved controls in a versioned machine-readable
+contract. Do not follow/download the CSV links, do not approve or enable the source, do not infer row
+layout, and do not authorize processing purposes, real PII, beneficiary matching or outreach.
+
+The evidence package should keep evidence separate from authorization and should fail closed if any
+readiness artifact claims that acquisition occurred or that the source was approved.

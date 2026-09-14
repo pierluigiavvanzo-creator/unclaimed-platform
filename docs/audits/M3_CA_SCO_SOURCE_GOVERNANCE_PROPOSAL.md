@@ -4,14 +4,13 @@ Date: 2026-09-14
 
 Class: **A — Product Critical**
 
-Status: **CANDIDATE PROPOSAL ONLY — REAL ACQUISITION NOT AUTHORIZED**
+Status: **CANONICAL GOVERNANCE PROPOSAL — REAL ACQUISITION NOT AUTHORIZED**
 
 ## Objective
 
-Prepare the smallest versioned governance package required to represent the California State
-Controller (SCO) public unclaimed-property bulk dataset as a known candidate source without
-approving it, downloading it, parsing California rows, enabling beneficiary matching, or processing
-real PII.
+Represent the California State Controller (SCO) public unclaimed-property bulk dataset as a known
+candidate source without approving it, downloading it, parsing California rows, enabling beneficiary
+matching, or processing real PII.
 
 ## Authoritative source evidence
 
@@ -25,7 +24,11 @@ California Public Records Act:
 
 - https://www.sco.ca.gov/eo_about_records.html
 
-Existing repository readiness evidence remains authoritative for this candidate:
+The SCO privacy policy is also relevant to later purpose/privacy review:
+
+- https://www.sco.ca.gov/eo_privacy.html
+
+Existing repository readiness evidence remains authoritative:
 
 - `docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md`
 - `docs/audits/M3_ACQUISITION_CONTRACTS.md`
@@ -35,13 +38,11 @@ Existing repository readiness evidence remains authoritative for this candidate:
 
 Registration and approval are separate states.
 
-This candidate adds `ca.sco.unclaimed_property.bulk` to `sources/registry.yaml` only as a disabled,
-not-approved source. The registry entry therefore does not grant network access or processing
-permission.
+`ca.sco.unclaimed_property.bulk` is present in `sources/registry.yaml` only as a disabled,
+not-approved source. The registry entry does not grant network access or processing permission.
 
-A new versioned `SourceAccessGovernance` contract records the controls that must exist before a real
-source can ever be authorized. The California SCO policy instance is deliberately `PROPOSED` and
-non-authorizing.
+`SourceAccessGovernance` records controls that must exist before a real source can ever be
+authorized. The California SCO policy instance remains deliberately `PROPOSED` and non-authorizing.
 
 For `PROPOSED` status the schema requires:
 
@@ -56,41 +57,53 @@ For `PROPOSED` status the schema requires:
 - no network timeout or byte budget selected;
 - no expected media types selected.
 
-The contract also requires beneficiary matching and outreach to remain false in every status.
+Beneficiary matching and outreach remain false in every policy status.
+
+## Promotion evidence
+
+Candidate branch: `m3-ca-sco-source-governance`.
+
+Promoted SHA:
+`463c6d6c972fa955a8aa0d3c97208c3029e202a8`
+
+Candidate GitHub Actions run `34825751270`: PASS.
+
+After explicit owner approval, the candidate was promoted by clean fast-forward into
+`m2-state-governance-core`. Canonical post-promotion GitHub Actions run `34826353694` passed both
+`quality` and `streamlit-candidate`.
+
+Promotion made the governance proposal canonical; it did **not** approve real acquisition.
 
 ## Intentionally unresolved before any real retrieval
 
-This proposal does not invent values that have not yet been verified. A later bounded retrieval
-design must separately establish and test:
+Do not invent values not yet verified. Later gates must establish:
 
-- direct download host allowlist and redirect behavior;
-- exact transport content types;
+- exact direct download URLs and redirect behavior;
+- actual transport content types;
 - maximum byte budget;
 - timeout policy;
-- actual downloaded artifact characteristics;
+- downloaded artifact characteristics;
 - California CSV row layout and field names;
 - necessary data categories and minimized field scope;
-- whether any PII is necessary for the specifically approved purpose;
-- a retention policy reference;
-- a trusted privacy/data-minimization policy;
-- the explicit human approval reference.
+- whether any PII is necessary for a specifically approved purpose;
+- retention policy reference;
+- trusted privacy/data-minimization policy;
+- explicit human approval reference.
 
-Until those items are resolved through later gates, the current A01 adapter must continue to block
-real network acquisition.
+Until those items are resolved through later gates, the A01 adapter must continue to block real
+network acquisition.
 
 ## Runtime boundary retained
 
-This candidate does not change the A01 runtime adapter. The existing
-`CaliforniaSCOBulkAdapter` already fails closed when the source is not approved and still returns
-`REAL_NETWORK_ACQUISITION_NOT_IMPLEMENTED` even when its local approval flag is supplied. Existing
-regression tests remain responsible for that runtime boundary.
+This proposal does not change the A01 runtime adapter. `CaliforniaSCOBulkAdapter` fails closed when
+the source is not approved and still returns `REAL_NETWORK_ACQUISITION_NOT_IMPLEMENTED` even when
+its local approval flag is supplied.
 
-No source-access policy in this candidate is wired into runtime acquisition because doing so would
-expand the task from governance preparation into real-retrieval implementation.
+No source-access policy is wired into real retrieval.
 
-## Acceptance criteria
+## Verified acceptance criteria
 
-The candidate is acceptable only if tests prove that:
+Tests prove that:
 
 1. the governance schema is valid JSON Schema draft 2020-12;
 2. the proposed California SCO policy validates;
@@ -99,13 +112,13 @@ The candidate is acceptable only if tests prove that:
 5. the SCO candidate is disabled and not approved;
 6. the number of approved real sources remains zero;
 7. policy and registry use the same source identity and official source page;
-8. the existing full repository test/quality gates remain green in CI.
+8. full repository quality/regression gates pass in CI.
 
-No network retrieval is part of these tests.
+No network retrieval was part of these tests.
 
 ## Safety boundary
 
-This candidate does not authorize or perform:
+This canonical proposal does not authorize or perform:
 
 - real California acquisition;
 - beneficiary matching;
@@ -119,16 +132,17 @@ This candidate does not authorize or perform:
 
 ## Rollback
 
-Before promotion, rollback is to abandon/delete branch `m3-ca-sco-source-governance`.
-
-After any later approved promotion, use a normal history-preserving revert. Do not force-push or
-rewrite historical decisions.
+Use a normal history-preserving revert if this governance proposal ever needs to be removed from
+canonical. Do not force-push or rewrite history.
 
 ## Next gate
 
-After candidate tests and CI pass, the owner may review this governance proposal for promotion to the
-canonical development branch. Promotion does not constitute approval of real acquisition.
+Prepare a separate versioned **approval-readiness evidence package** that records verified official
+facts without granting authority.
 
-Any future move from `PROPOSED` to an authorizing policy is a separate human gate and must define the
-previously unresolved transport, privacy, retention, data-minimization, provenance and approval
-controls before network code can be enabled.
+The next candidate may record the advertised CSV format, Thursday update cadence, official source
+page, the advertised `claimit.ca.gov` download-host relationship, public-record/privacy references and
+explicit unresolved controls.
+
+It must not follow/download a CSV, approve/enable the source, infer row fields, authorize PII or
+processing purposes, or enable beneficiary matching/outreach.
