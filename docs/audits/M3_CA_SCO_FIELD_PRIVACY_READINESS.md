@@ -1,75 +1,81 @@
-# M3 California SCO $500+ Field Minimization / PII / Retention-Privacy Readiness
+# M3 California SCO $500+ — Field / Privacy / Retention Readiness Review
 
-Date: 2026-09-14
+Date: 2026-09-15
 
-Status: **CANDIDATE PROPOSAL — NON-AUTHORIZING — NO SCO NETWORK/BODY ACCESS**
+Status: **CANDIDATE — NON-AUTHORIZING — NO NEW SCO NETWORK/BODY ACCESS**
 
 ## Purpose
 
-Use only the already-canonical 25-label structure evidence from the `$500+` California SCO segment to
-define the smallest proposed field scope for the first real-data product purpose, while keeping source
-approval, row access, real PII processing, identity resolution, beneficiary matching and outreach blocked.
+Refine the first real-data triage boundary using the canonical 25-label `$500+` structure evidence and current official California references. This review does not approve the source, PII, row access, registry activation, matching or outreach.
 
-The proposed purpose is:
+Product purpose remains:
 
 `INSURANCE_RELEVANCE_TRIAGE_ONLY`
 
-It allows only a future determination that a source record is plausibly insurance-related and merits
-later separately gated review. It does not authorize identifying a beneficiary, resolving a person's
-identity, genealogical research, contact, claim submission, fee agreements or claimant verification.
+## Canonical evidence reused
 
-## Evidence basis
+- `sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`
+- four CSV members;
+- identical 25-label header candidate;
+- zero CSV data rows sampled.
 
-No new California request is required or performed by this task.
+No California SCO request or source-body access was performed by this review.
 
-Canonical structure evidence:
-`sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`
+## Official external references used for review
 
-The evidence established four CSV members with the same 25-label header candidate and exactly zero CSV
-data rows parsed.
+California SCO publishes standard property type codes used by California, including insurance codes `IN01` through `IN08` and `IN99`:
 
-## REUSE FIRST
+- `https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf`
 
-This task reuses rather than replaces:
+Examples include individual/group policy benefits, proceeds due beneficiaries, matured policies/endowments/annuities, premium refunds and other insurance amounts.
 
-- JSON Schema draft 2020-12, already canonical under D-003;
-- the existing `RawDataGovernanceGate` and its purpose / retention / field-scope / PII fail-closed checks;
-- the existing SCO source-access policy and registry as the authority that remains non-authorizing;
-- the canonical `$500+` structure evidence instead of performing another source inspection.
+Privacy references consulted:
 
-No new runtime dependency or privacy framework library is introduced. NIST's public privacy glossary
-describes minimization as limiting PII handling to activities directly relevant and necessary to an
-authorized purpose and retaining it only as long as necessary. This is used only as design inspiration,
-not as legal authority for this project.
+- CCPA statute: `https://cppa.ca.gov/regulations/pdf/20260101_ccpa_statute.pdf`
+- CPPA data-broker guidance: `https://cppa.ca.gov/data_brokers/`
 
-## Field-minimization decision
+These references are evidence for review only. The package explicitly records `HUMAN_COUNSEL_REQUIRED`; it does not claim a final legal interpretation or project applicability determination.
 
-For `INSURANCE_RELEVANCE_TRIAGE_ONLY`, the proposal classifies all 25 verified labels exactly once.
+## Key review change — HOLDER_NAME removed
 
-Proposed required / future-row allowlist:
+The earlier draft proposed three future fields:
 
 - `PROPERTY_ID`
 - `PROPERTY_TYPE`
 - `HOLDER_NAME`
 
-Rationale:
+That scope was too broad for the first purpose. Official SCO/NAUPA property-type documentation already defines insurance-specific property codes. Therefore holder identity is not justified merely to decide whether a record is insurance-related.
 
-- `PROPERTY_ID` preserves source linkage;
-- `PROPERTY_TYPE` is the direct property-category triage signal;
-- `HOLDER_NAME` is needed to assess whether the holder appears insurance-related.
+Revised proposed persisted/allowed scope:
 
-No optional fields are proposed for the first row-level scope.
+1. `PROPERTY_ID`
+2. `PROPERTY_TYPE`
 
-Prohibited for this purpose:
+`HOLDER_NAME` is now **PROHIBITED** for `INSURANCE_RELEVANCE_TRIAGE_ONLY`.
 
-- owner name and all owner address/geography fields;
-- holder street/city/state/ZIP fields.
+The bulk CSV's actual `PROPERTY_TYPE` row values have not yet been sampled. The proposal therefore does not assume that the bulk field is already proven to use the published code domain. A later separately authorized bounded semantic verification must confirm compatibility before production classification relies on `IN01-IN08/IN99`.
 
-These fields are not required to determine insurance relevance. Holder street lines are prohibited as
-a conservative project minimization inference even though the earlier deterministic header heuristic
-did not list those three labels among its potential-PII indicators.
+## Field partition
 
-Unresolved and therefore not allowlisted:
+All 25 verified labels remain classified exactly once.
+
+Required:
+
+- `PROPERTY_ID`
+- `PROPERTY_TYPE`
+
+Optional:
+
+- none
+
+Prohibited for the first triage purpose:
+
+- `OWNER_NAME`
+- all owner address/geography fields
+- `HOLDER_NAME`
+- all holder address/geography fields
+
+Unresolved/not allowlisted:
 
 - `CASH_REPORTED`
 - `SHARES_REPORTED`
@@ -80,112 +86,102 @@ Unresolved and therefore not allowlisted:
 - `NUMBER_OF_PAID_CLAIMS`
 - `CUSIP`
 
-Those fields may become relevant to later economic, claims-status, or securities-specific purposes, but
-their necessity is not established for insurance-relevance triage.
+## Critical transport/privacy finding
 
-## PII necessity boundary
+Field minimization at persistence time does **not** mean the source can deliver only those two columns.
 
-Actual PII presence remains unverified because no data row has been sampled.
+The verified members are CSV files. No server-side column-projection capability has been established. Reading a real CSV row may therefore transiently expose bytes belonging to prohibited owner/holder columns before the parser discards them.
 
-The canonical structure heuristic marked `HOLDER_NAME` as a potential PII indicator. The proposal
-therefore records field-level necessity for triage but does **not** authorize PII processing. Human/legal
-review must explicitly approve the necessity/proportionality of processing `HOLDER_NAME` before any
-row-level access.
+The machine contract now distinguishes:
 
-Owner identity/address fields are explicitly unnecessary for this purpose.
+- persisted/allowed field scope: two fields;
+- transient source-row processing risk: unresolved and separately gated.
 
-## Retention candidate
+Controls fixed by schema:
 
-The package proposes, but does not approve, a seven-day maximum retention candidate for projected
-triage records only.
+- no full-row persistence;
+- no raw archive persistence;
+- no use of nonallowlisted values;
+- no persistence of nonallowlisted values;
+- row access remains false;
+- separate transient-row privacy approval required before any real row access.
 
-Important: `7 days` is a conservative **project safety candidate**, not a legal requirement and not a
-claim about California law.
+## PII conclusion at this gate
 
-The draft forbids persistence of:
+The prior header heuristic did not classify `PROPERTY_ID` or `PROPERTY_TYPE` as potential PII labels. The two-field persisted scope therefore contains no field previously flagged by that heuristic.
 
-- the full ZIP archive;
-- a full unminimized source row.
+This does **not** prove that real row processing is PII-free. The source row contains prohibited identity/address columns and any actual row access can transiently process their bytes.
 
-Delete-on-stop is required. Activation requires separate human/legal review and an approved retention
-policy reference. Until then the canonical source-access policy keeps `retention_policy_ref: null`.
+Accordingly:
 
-## Privacy-policy candidate
+- real PII authorization remains false;
+- actual row PII presence remains unverified;
+- no identity resolution, matching or outreach is authorized.
 
-The package proposes a non-trusted internal privacy candidate limited to:
+The current CCPA statute excludes information lawfully made available from government records from its definition of personal information, but project applicability, other laws, downstream enrichment, data-broker status and use restrictions require human counsel review. This audit does not decide those issues.
 
-- purpose `INSURANCE_RELEVANCE_TRIAGE_ONLY`;
-- fields `PROPERTY_ID`, `PROPERTY_TYPE`, `HOLDER_NAME`;
-- encryption at rest;
-- least privilege;
-- access logging;
-- no record values in logs;
-- no export;
-- no identity resolution;
-- no beneficiary matching;
-- no outreach.
+## Retention refinement
 
-There is currently no trusted project privacy-policy artifact in the canonical repository. The proposal
-therefore keeps `trusted_policy_ref: null`. It must not be wired into `RawDataGovernanceGate` as trusted
-configuration until a separate human/legal approval converts an approved policy artifact into canonical
-trusted configuration.
+The prior seven-day retention candidate was removed because there was no source/legal/product evidence establishing seven days as the correct production duration.
 
-## Future row-level contract
+Revised candidate:
 
-A future row-level contract is included only as `DRAFT_NOT_EXECUTABLE`.
+- raw ZIP persistence: false;
+- full-row persistence: false;
+- transient source-row buffer retention: `0 days`;
+- transient buffer disposal: immediate after projection or stop;
+- projected two-field triage-record retention: unresolved;
+- approved retention-policy ref: null.
 
-It requests exactly:
+No production duration is invented.
 
-`PROPERTY_ID`, `PROPERTY_TYPE`, `HOLDER_NAME`
+## Privacy candidate
 
-and machine-fixes to `false`:
+Status remains `DRAFT_NOT_TRUSTED`.
 
-- row access authorization;
-- network execution authorization;
-- source-body access authorization;
-- raw archive persistence;
-- full-row persistence;
-- PII authorization;
+Candidate allowed fields are exactly:
+
+- `PROPERTY_ID`
+- `PROPERTY_TYPE`
+
+Required controls remain encryption at rest, least privilege and access logging. Record values in logs, export, identity resolution, beneficiary matching and outreach remain prohibited. A trusted policy reference remains null.
+
+## Future semantic verification stage
+
+A future stage is defined but intentionally non-executable:
+
+- field: `PROPERTY_TYPE`;
+- goal: verify that bulk row values are compatible with official SCO/NAUPA property-type code semantics;
+- row limit: not yet selected;
+- row access: false;
+- network execution: false.
+
+A row/sample limit must be chosen as part of a separate execution proposal; it is not invented here.
+
+## Remaining blockers
+
+- production retention policy not approved;
+- project privacy policy not trusted;
+- actual row PII presence unverified;
+- transient full-row privacy review required;
+- bulk `PROPERTY_TYPE` value semantics unverified;
+- real-acquisition client not reviewed;
+- source approval reference missing;
+- source policy remains `PROPOSED`;
+- registry remains disabled/unapproved.
+
+## Safety state
+
+This review authorizes none of the following:
+
+- source approval;
+- network/body access;
+- row access;
+- PII processing;
 - identity resolution;
 - beneficiary matching;
 - outreach.
 
-## Machine-enforced blockers
+Next gate:
 
-The readiness result remains:
-
-`BLOCKED_PENDING_POLICY_AND_PII_APPROVAL`
-
-Blocking items:
-
-- retention policy not approved;
-- project privacy policy not trusted;
-- actual PII presence unverified;
-- `HOLDER_NAME` PII necessity not approved;
-- real-acquisition client not reviewed;
-- source-approval reference missing.
-
-The schema rejects attempts to change this package into source approval, real acquisition authority,
-a wider row field request, or an invented trusted privacy-policy reference.
-
-## Files
-
-- `schemas/common/source_field_privacy_readiness.schema.json`
-- `schemas/examples/ca_sco_500_plus_field_privacy_readiness.examples.json`
-- `sources/proposals/ca_sco_segment_500_plus.field_privacy_readiness.v1.json`
-- `tests/contract/test_ca_sco_field_privacy_readiness.py`
-- `docs/audits/M3_CA_SCO_FIELD_PRIVACY_READINESS.md`
-
-## Stop condition / next gate
-
-This candidate must stop before:
-
-- updating the source policy to `APPROVED`;
-- filling `privacy_policy_ref` or `retention_policy_ref`;
-- enabling the registry;
-- reading a real row;
-- authorizing real PII.
-
-Next gate after candidate CI:
-
-**human review of the field-minimization proposal and the draft retention/privacy controls.**
+**human/legal transient-row privacy review**, followed—only if approved—by a separately designed bounded semantic-verification proposal for `PROPERTY_TYPE`.
