@@ -6,85 +6,104 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Archive Checkpoint
+## Current Branch / Provenance Review Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-authority-archival-execution-one-shot`
-- verified authorization-artifact package SHA: `d20bc80f50af56c10085eec7123aa0691e26ea1a`
-- one-shot authority archival run: `35012019831` — SUCCESS
-- execution audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION.md`
+- branch: `m3-ca-sco-property-type-authority-archive-provenance-review`
+- archive checkpoint base: `cb4b3a3975794e10cadcbf96a6e22a13cc324dbf`
+- authority archival run: `35012019831` — SUCCESS
+- authority archive SHA-256: `7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5`
+- provenance review package checkpoint SHA: `0b08163c624165fed4394e74265363fab53b2f5a`
+- provenance review CI: `35013841037` — SUCCESS
+- review audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md`
+- review evidence: `sources/evidence/ca_sco_segment_500_plus.property_type_authority_archive_provenance.review.v1.json`
 
 ## Verified Baseline
 
 - M0: VERIFIED
 - M1: VERIFIED
 - M2: VERIFIED
-- M3 semantic compatibility: UNRESOLVED
+- M3 authority target provenance: RESOLVED WITH BOUNDED AA99 INTERPRETATION
+- M3 live PROPERTY_TYPE semantic compatibility: UNRESOLVED
 - second bounded semantic run: `34995672539` -> `STOPPED_FAIL_CLOSED`
 - second stop: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
 - previous semantic execution/privacy approvals: CONSUMED + NON-REUSABLE
-- repository-only provenance decision: `NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
-- authority provenance acquisition proposal human review: `PASS`
+- authority archival approval: CONSUMED + NON-REUSABLE
 - source policy: `PROPOSED`
 - registry: disabled / not approved
 - approved real sources: `0`
 - production classification: inactive
 - identity/genealogy/beneficiary matching/outreach/claim submission: BLOCKED
 
-## One-Shot Authority Archival Result
+## Authority Archive Provenance Review Result
 
-Fresh approval:
-`APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
+Review gate completed:
+`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
 
-Approval state:
-`CONSUMED` + NON-REUSABLE
+Machine decision:
+`ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS`
 
-Approval evidence:
-`sources/evidence/ca_sco_property_type_authority_archival_execution_approval.v1.json`
-
-Execution result:
-`SUCCESS_ONE_SHOT_ARCHIVED`
-
-Actual bounded retrieval:
-
-- method: `GET`
-- requested URL: `https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf`
-- final URL: identical
-- HTTP status: `200`
-- redirects: `0`
-- retries: `0`
-- content type: `application/pdf`
-- body bytes: `329585`
-- PDF validation: passed
-
-Archive SHA-256:
-`7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5`
-
-Archive path:
+Reviewed immutable authority:
 `sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf`
 
-Provenance metadata:
-`sources/evidence/ca_sco_property_type_authority_archive.v1.json`
+Review method:
 
-No semantic extraction was performed during retrieval or archival. The existence of the archive does not itself prove any PROPERTY_TYPE semantic claim.
+- existing repository archive only;
+- archive SHA-256 and byte count verified before interpretation;
+- text extraction used only as a helper;
+- all 4 pages rendered and visually reviewed;
+- offline extractor run `35013189623` — SUCCESS;
+- temporary extractor workflow removed after review;
+- no authority network retrieval during review;
+- no SCO dataset, `claimit.ca.gov`, source-row or offending-value access during review.
 
-The one-shot approval is consumed. No further authority retrieval is authorized by it.
+Classifications:
+
+1. `GENERAL_CODE_SHAPE_AA99`
+   - `SUPPORTED_BY_ARCHIVED_AUTHORITY_WITH_SCOPE_BOUNDARY`
+   - every authority-enumerated Property Type Code other than `ZZZZ` consists of two uppercase Latin letters followed by two digits;
+   - this does not state an abstract encoding regex and does not make arbitrary `AA99` tokens semantically valid.
+
+2. `SPECIAL_CODE_ZZZZ`
+   - `SUPPORTED_BY_ARCHIVED_AUTHORITY`
+   - page 3 lists `ZZZZ` under `All Others` as `Properties Not Identified Above`.
+
+3. `CALIFORNIA_INSURANCE_CODE_SET`
+   - `SUPPORTED_BY_ARCHIVED_AUTHORITY`
+   - page 1 directly enumerates `IN01` through `IN08` plus `IN99` in the Insurance section.
+
+The current shape regex is not contradicted by the authority. The review does not authorize regex relaxation, trimming, uppercasing, normalization or parser changes.
+
+## Why Semantic Compatibility Is Still Unresolved
+
+The second real bounded run already established that the projected PROPERTY_TYPE decoded successfully, was non-empty, and failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+
+The exact offending value was intentionally not retained and must not be reconstructed or inferred.
+
+The archived authority confirms the target provenance but does not explain why the live source produced a nonconforming value. A separate bounded diagnostic/remediation evidence design is required before further characterization.
 
 ## Current Safety Boundary
 
 Do not:
 
-- reuse the consumed authority archival approval;
-- perform another authority retrieval without a new bounded proposal/gate;
-- access SCO datasets or `claimit.ca.gov` for this authority task;
-- change parser, regex, trimming, casing or normalization before provenance review;
+- reuse any consumed approval;
+- retrieve the authority again without a new bounded proposal/gate;
+- access SCO datasets or `claimit.ca.gov` without a newly authorized bounded scope;
+- reconstruct or infer the unretained offending PROPERTY_TYPE value;
+- change parser, regex, trimming, casing or normalization;
+- classify/remediate the source value under authority of this review;
 - run a third PROPERTY_TYPE semantic execution without a new proposal and fresh execution/privacy approvals;
 - activate source policy, registry or production classification;
 - perform identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
 ## SINGLE NEXT ACTION
 
-Perform exclusively:
-`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
+Human decision only:
 
-Review the archived authority and its retained provenance evidence against the unresolved PROPERTY_TYPE claims. Do not make semantic/runtime changes merely because the authority is now archived.
+`DECIDE_WHETHER_TO_PREPARE_BOUNDED_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL`
+
+Choose whether to authorize preparation of a separate bounded diagnostic/remediation evidence proposal, or stop this M3 semantic line of work.
+
+No canonical approval token for that proposal-preparation decision is defined by the completed provenance review. Do not invent one silently.
+
+If proposal preparation is authorized, proposal preparation alone must not access SCO, reconstruct the offending value, modify runtime semantics or perform another real execution. Any later diagnostic execution or remediation must pass its own explicit human gate with fresh approvals where required.
