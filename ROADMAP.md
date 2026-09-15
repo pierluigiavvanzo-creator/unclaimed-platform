@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | SECOND v1.1 REAL ATTEMPT EXECUTED ONCE; STOPPED FAIL-CLOSED ON DECODED SHAPE MISMATCH | run `34995672539`; schema `1.1.0`; stop `PROPERTY_TYPE_FORMAT_UNEXPECTED`; one-shot workflow removed |
+| M3 — California Data Spike | SECOND v1.1 REAL ATTEMPT EXECUTED ONCE; STOPPED FAIL-CLOSED ON DECODED SHAPE MISMATCH | run `34995672539`; schema `1.1.0`; stop `PROPERTY_TYPE_FORMAT_UNEXPECTED`; closure CI `34996427337` SUCCESS; one-shot workflow removed |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; Vercel runtime integration decommissioned |
 
 ## Completed M3 Work

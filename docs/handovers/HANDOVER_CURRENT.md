@@ -20,6 +20,8 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Authorization staging CI: `34995492373` — SUCCESS
 - Temporary execution workflow commit: `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`
 - Workflow-removal commit: `d6e83a44b2069a2fa746c09d1ae33622654e5d43`
+- Evidence-closure commit: `3d5f4c062c6b403d22ee8a3961d0a452f6ec1e34`
+- Evidence-closure CI: `34996427337` — SUCCESS
 - Never develop directly on `main`.
 
 ## Verified Baseline
@@ -43,15 +45,11 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 
 ## Historical First Real One-Shot Execution
 
-Run `34965097988`; schema `1.0.0`; result `STOPPED_FAIL_CLOSED`; stop reason
-`PROPERTY_TYPE_FORMAT_UNEXPECTED`.
+Run `34965097988`; schema `1.0.0`; result `STOPPED_FAIL_CLOSED`; stop reason `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
-Exact counters: HEAD `1`; Range GET `1`; HTTP total `2`; source body bytes
-`131072`; accepted/examined rows `0`; no retry; no widening.
+Exact counters: HEAD `1`; Range GET `1`; HTTP total `2`; source body bytes `131072`; accepted/examined rows `0`; no retry; no widening.
 
-Because v1.0 conflated invalid UTF-8 and decoded shape mismatch, the historical
-root cause remains unresolved. Historical execution/privacy approvals are
-CONSUMED and non-reusable.
+Because v1.0 conflated invalid UTF-8 and decoded shape mismatch, the historical root cause remains unresolved. Historical execution/privacy approvals are CONSUMED and non-reusable.
 
 Historical evidence:
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
@@ -201,6 +199,8 @@ second counters: HEAD=1 RANGE=1 HTTP=2 BODY=131072 ROWS=0
 second execution approval: CONSUMED
 second transient-row privacy approval: CONSUMED
 workflow removal SHA: d6e83a44b2069a2fa746c09d1ae33622654e5d43
+evidence closure SHA: 3d5f4c062c6b403d22ee8a3961d0a452f6ec1e34
+evidence closure CI: 34996427337 SUCCESS
 network workflow steady state: ABSENT
 source policy: PROPOSED
 registry: DISABLED + NOT APPROVED
