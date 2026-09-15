@@ -4,232 +4,179 @@ Date: 2026-09-15
 
 ## Purpose
 
-Authoritative restart point. Use repository evidence, not conversational memory.
+Authoritative restart point. Use repository evidence, not conversational memory. Verify current remote branch heads at every restart.
 
 ## Repository / Branches
 
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- Stable branch: `main`
 - Stable `main`: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
 - Canonical development branch: `m2-state-governance-core`
-- Canonical remediation lineage promotion target: `36954b89e57d056801a10a302de568d853b46e0d`
-- Canonical promotion CI: `34980324993` — SUCCESS
-- Pre-promotion rollback checkpoint: `checkpoint-pre-property-type-remediation-promotion` -> `c3f0dc7e374d21283358e4e1e8d403f078f08acb`
-- Historical execution evidence branch: `m3-ca-sco-property-type-semantic-execution`
-- Historical execution evidence closure SHA: `3ca12f17c0a16ca49205b4d17117f3b41b6efd58`
-- Offline diagnosis branch: `m3-ca-sco-property-type-offline-diagnosis`
-- Historical remediation candidate: `m3-ca-sco-property-type-diagnostic-remediation`
+- Canonical dev HEAD before second proposal: `e97c1f62959f603bdd3df79538d4b70255594c70`
+- Second-execution proposal branch: `m3-ca-sco-property-type-second-execution-proposal`
+- Reviewed proposal SHA: `ac6d234dda19b1eb8c8f8ceb0206730bcc419bcb`
+- Proposal CI: `34993467536` — SUCCESS
+- Second-execution branch: `m3-ca-sco-property-type-second-semantic-execution`
+- Fresh authorization commit: `acd627f841650541e7dd2441c2c83e20aaf108b5`
+- Authorization staging CI: `34995492373` — SUCCESS
+- Temporary execution workflow commit: `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`
+- Workflow-removal commit: `d6e83a44b2069a2fa746c09d1ae33622654e5d43`
 - Never develop directly on `main`.
-
-At every restart, verify the current remote branch heads instead of assuming a documentation SHA is the current HEAD.
 
 ## Verified Baseline
 
 - M0 VERIFIED.
 - M1 VERIFIED.
 - M2 VERIFIED.
-- M3 California source/legal readiness COMPLETE.
-- M3 acquisition/raw persistence/privacy CANONICAL + VERIFIED.
-- Streamlit reviewer CANONICAL + CI VERIFIED.
-- SCO `$500+` bounded structure inspection CANONICAL + CI VERIFIED.
-- SCO two-field privacy boundary CANONICAL + CI VERIFIED.
-- SCO `PROPERTY_TYPE` semantic proposal CANONICAL + CI VERIFIED.
-- SCO bounded runner design CANONICAL + CI VERIFIED.
-- SCO bounded runner implementation CANONICAL + SYNTHETIC/MOCK CI VERIFIED.
-- One bounded owner-authorized real `PROPERTY_TYPE` semantic attempt EXECUTED ONCE and STOPPED FAIL-CLOSED.
-- Offline evidence review + diagnosis COMPLETED + CI VERIFIED.
-- Diagnostic remediation v1.1 IMPLEMENTED + CI VERIFIED.
-- Human remediation evidence review APPROVED on 2026-09-15.
-- Remediation lineage PROMOTED to canonical development by fast-forward.
-- Canonical post-promotion CI `34980324993` SUCCESS.
-- Historical execution machine contract remains frozen as v1.0.0; future remediated execution contract is v1.1.0.
-- Repository-side Vercel integration DECOMMISSIONED.
-- Supabase untouched.
+- M3 California source/legal readiness complete.
+- M3 acquisition/raw persistence/privacy canonical and verified.
+- Streamlit reviewer canonical and verified.
+- SCO `$500+` bounded structure inspection canonicalized.
+- Canonical `PROPERTY_TYPE` runner uses future execution schema v1.1.0.
+- Historical v1.0 evidence remains frozen.
+- v1.1 distinguishes encoding failure from decoded shape failure.
+- Second bounded execution proposal passed human review.
+- Fresh second execution/privacy approvals were granted and then consumed.
+- Second bounded real execution was performed exactly once.
+- Second one-shot workflow was removed immediately after execution.
+- Repository-side Vercel integration remains decommissioned.
+- Supabase remains untouched.
 
-## Historical Real One-Shot Execution
+## Historical First Real One-Shot Execution
 
-Workflow run:
-`34965097988`
+Run `34965097988`; schema `1.0.0`; result `STOPPED_FAIL_CLOSED`; stop reason
+`PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
-Semantic result:
-`STOPPED_FAIL_CLOSED`
+Exact counters: HEAD `1`; Range GET `1`; HTTP total `2`; source body bytes
+`131072`; accepted/examined rows `0`; no retry; no widening.
 
-Historical persisted schema version:
-`1.0.0`
+Because v1.0 conflated invalid UTF-8 and decoded shape mismatch, the historical
+root cause remains unresolved. Historical execution/privacy approvals are
+CONSUMED and non-reusable.
 
-Historical persisted stop reason:
-`PROPERTY_TYPE_FORMAT_UNEXPECTED`
-
-Exact observed counters:
-- HEAD `1`;
-- Range GET `1`;
-- HTTP requests total `2`;
-- source response-body bytes `131072`;
-- accepted/examined rows `0`;
-- retry none;
-- cap widening none.
-
-Execution evidence:
+Historical evidence:
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
 
+## Canonical v1.1 Diagnostic Remediation
+
+Historical/frozen schema:
+`schemas/common/property_type_semantic_verification_execution.schema.json` -> `1.0.0`
+
+Remediated schema:
+`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json` -> `1.1.0`
+
+Exact v1.1 distinction:
+- invalid UTF-8 projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`
+- successfully decoded, non-empty value failing `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`
+
+No trimming, case folding, uppercasing, normalization, code-domain relaxation or raw value logging is canonical.
+
+## Second Bounded Real Semantic Execution
+
+Human approvals granted:
+- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
+- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
+
+Both are now **CONSUMED** by the single execution below and cannot be reused.
+
+Authorization evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_second_semantic_execution_approval.v1.json`
+
+Authorization audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_AUTHORIZATION.md`
+
+One-shot GitHub Actions run: `34995672539`  
+Execution commit: `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`  
+Workflow result: SUCCESS  
+Semantic result: `STOPPED_FAIL_CLOSED`  
+Execution schema: `1.1.0`  
+Stop reason: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
+
+Workflow SUCCESS means the bounded runner, validation and evidence upload completed. It does **not** mean semantic compatibility passed.
+
+Exact observed counters:
+- HEAD `1`
+- Range GET `1`
+- HTTP total `2`
+- source body bytes `131072`
+- sample rows accepted/examined `0`
+- no retry
+- no cap widening
+
+Transport metadata matched the fixed expected target metadata before the Range GET.
+
+### Safe interpretation
+
+Because this run used v1.1.0, its stop reason means the projected `PROPERTY_TYPE` decoded successfully, was non-empty, and failed the unchanged token-shape regex. This rules out `PROPERTY_TYPE_ENCODING_UNEXPECTED` as the stop class for this run.
+
+It does **not** reveal the offending value, prove why the shape differs, or justify trimming, normalization, uppercasing or regex relaxation. Do not infer the offending source value.
+
+`sample_rows_examined: 0` is the persisted accepted/examined counter. Do not interpret it as proof that no transient record bytes were parsed before the fail-closed stop.
+
+### Derived artifact
+
+- artifact ID: `10408035386`
+- artifact name: `ca-sco-property-type-second-semantic-execution-2026-09-15`
+- artifact ZIP digest: `sha256:c0189177dcca91696e85b3b9fd67c1c896c3af30b13c79b0aa3670998f621732`
+
+Persisted repository evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_1.second.json`
+
 Execution audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_EXECUTION.md`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION.md`
 
-The offending real source value/bytes were intentionally not persisted or logged and must not be inferred.
+## Privacy / Logs
 
-The human execution approval and transient-row privacy approval were consumed by run `34965097988`; they are not reusable.
+During the live execution, runner stdout was redirected to `/dev/null`. Workflow logs contain no source rows and no `PROPERTY_TYPE` values.
 
-The temporary one-shot workflow was removed after execution and remains ABSENT.
+No raw body, full row, `PROPERTY_ID`, owner/holder value, per-row `PROPERTY_TYPE`, offending bytes, offending-value hash or offending-value length was persisted. All execution safety flags are false.
 
-## Offline Diagnosis
+## Workflow Lifecycle
 
-Functional diagnostic SHA:
-`1405d33b7c09373f738dc87f6c93b05a0c342461`
+Temporary workflow path:
+`.github/workflows/ca-sco-property-type-semantic-verification-once.yml`
 
-Diagnostic CI:
-`34968418681` — SUCCESS.
+It was created only for the authorized single execution and then removed.
 
-Audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md`
+Workflow-removal commit:
+`d6e83a44b2069a2fa746c09d1ae33622654e5d43`
 
-The diagnosis established a failure-taxonomy collision in the pre-remediation runner:
-
-1. UTF-8 decoding failure inside `_project_property_type()` emitted `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
-2. A successfully decoded, non-empty value failing `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` emitted the same reason.
-
-Therefore the historical real evidence cannot distinguish encoding failure from decoded-value shape failure. The historical root cause remains unresolved.
-
-The committed synthetic differential matrix found no standard-CSV projector mismatch against Python `csv.reader(..., strict=True)` for the tested privacy-safe cases. This does not prove the parser universally correct.
-
-No evidence justified trimming, normalization, uppercasing or regex relaxation.
-
-## Canonical Diagnostic Remediation
-
-Remediation audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
-
-Final functional remediation SHA:
-`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
-
-Candidate functional CI:
-`34971353630` — SUCCESS for `quality` and `streamlit-candidate`.
-
-Human evidence review decision:
-`APPROVE_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION` on 2026-09-15.
-
-Canonical fast-forward promotion target:
-`36954b89e57d056801a10a302de568d853b46e0d`
-
-Canonical post-promotion CI:
-`34980324993` — SUCCESS.
-
-Exact future behavior now canonical:
-- invalid UTF-8 in projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
-- successfully decoded, non-empty value failing the unchanged token-shape rule -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
-
-Unchanged regex:
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
-
-No `.strip()`, case folding, uppercasing, source-value normalization or code-domain relaxation was introduced.
-
-### Machine contracts
-
-Historical/frozen v1.0.0 schema:
-`schemas/common/property_type_semantic_verification_execution.schema.json`
-
-- `$id` remains v1.0.0;
-- `schema_version` remains `1.0.0`;
-- it does not recognize `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
-- historical persisted evidence continues to validate against it unchanged.
-
-Future/remediated v1.1.0 schema:
-`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
-
-- `$id` is v1.1.0;
-- `schema_version` is `1.1.0`;
-- it recognizes `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
-- it preserves `PROPERTY_TYPE_FORMAT_UNEXPECTED` for decoded shape mismatch.
-
-The canonical runner emits `schema_version: 1.1.0` for future executions.
-
-The historical real evidence is NOT migrated or reinterpreted. Its persisted `schema_version: 1.0.0` and `PROPERTY_TYPE_FORMAT_UNEXPECTED` remain historical facts with unresolved root cause.
-
-## Network / Privacy State
-
-No SCO request was made during diagnosis, remediation, evidence review or promotion.
-No source body was read during those stages.
-No network workflow was recreated.
-No raw row/value/byte/hash/length diagnostic was persisted or logged.
-No prior execution authorization was reused.
-
-One-shot workflow steady state:
-ABSENT.
-
-## Governance State
-
-SCO source policy remains:
-- `status: PROPOSED`;
-- `real_acquisition_authorized: false`;
-- `authorized_processing_purposes: []`;
-- `allowed_fields: []`;
-- `allow_pii: false`.
-
-Registry remains:
-- `enabled: false`;
-- `approved_for_use: false`.
-
-Approved real sources: `0`.
-
-Semantic compatibility remains unresolved. Production classification remains inactive. Identity resolution, beneficiary matching and outreach remain BLOCKED.
+Steady-state workflow: **ABSENT**. No retry was performed or authorized.
 
 ## Fixed Safety Caps
 
-Unchanged:
-- max 4 members;
-- max 4 rows/member;
-- max 16 rows total;
-- max 1 HEAD;
-- max 4 Range GET;
-- max 5 HTTP requests;
-- max 131072 body bytes/Range;
-- max 524288 source-body bytes total;
-- max 262144 uncompressed transient bytes/member;
-- max 1048576 uncompressed transient bytes total;
-- max 32768 bytes/logical record;
-- no extra Range;
-- no full-body fallback;
-- no automatic widening.
+Unchanged: max 4 members; max 4 rows/member; max 16 rows total; max 1 HEAD; max 4 Range GET; max 5 HTTP requests; max 131072 body bytes/Range; max 524288 source-body bytes total; max 262144 uncompressed transient bytes/member; max 1048576 uncompressed transient bytes total; max 32768 bytes/logical record; no extra Range; no full-body fallback; no automatic widening.
+
+## Governance State
+
+SCO source policy remains `PROPOSED`; `real_acquisition_authorized: false`; `authorized_processing_purposes: []`; `allowed_fields: []`; `allow_pii: false`.
+
+Registry remains disabled/unapproved. Approved real sources remain `0`. Semantic compatibility remains unresolved. Production classification remains inactive. Identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
+
+## Product Alignment Note
+
+The target product remains a proactive unclaimed-life-insurance scouting and beneficiary-matching platform. Current M3 work is primarily the **benefit-first** entry path. The architecture already contains death evidence, identity resolution, genealogy and candidate-generation modules needed for downstream matching. A complementary **death-first** entry path should be made explicit in a later product/architecture task, not folded into this semantic-evidence gate.
 
 ## Context Health / Chat Rotation
 
-The owner explicitly requested proactive warning **before** chat length/context degradation becomes operationally risky.
-
-Do not wait for mistakes or branch confusion. Warn early when the conversation becomes long enough that state reconstruction or instruction retention may degrade. Before recommending a new chat:
-
-1. safely finish or stop the current bounded task;
-2. update `PROJECT_STATE.md`, `ROADMAP.md` when applicable, `DECISIONS.md` when applicable, and this handover;
-3. record branch/test/network/governance state;
-4. provide a compact ready-to-paste restart prompt.
-
-Repository memory remains the source of truth.
+The owner explicitly requested proactive warning before chat/context degradation becomes operationally risky. This conversation has reached the point where a fresh chat is recommended after the current evidence-closure task is CI-verified. Repository memory is the source of truth.
 
 ## SINGLE NEXT ACTION
 
-Prepare an **isolated, evidence-backed proposal for a possible second bounded `PROPERTY_TYPE` semantic execution** using the canonical v1.1.0 runner.
+Perform:
 
-Constraints for that proposal:
+`HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_EVIDENCE_REVIEW`
 
-1. create/use a bounded feature/candidate branch from the current canonical development head;
-2. do not perform an SCO request;
-3. do not recreate the one-shot network workflow during proposal preparation;
-4. preserve current byte/request/row caps unless a separate evidence-backed change is explicitly approved;
-5. preserve the current privacy boundary and do not persist source rows, per-row values, offending bytes, hashes or lengths;
-6. explicitly show that the previous execution and privacy approvals were consumed and cannot be reused;
-7. define fresh semantic-execution and transient-row privacy approval requirements;
-8. stop at a human review/authorization gate before any second real execution;
-9. do not approve the source, activate the registry, enable production classification, identity resolution, matching or outreach as part of this task.
+Scope:
+1. review the persisted second-run v1.1 evidence and execution audit;
+2. confirm exact counters, privacy boundary and workflow removal;
+3. confirm the narrowed interpretation is only a decoded non-empty shape mismatch under the unchanged regex;
+4. decide what **offline** diagnostic action, if any, is justified;
+5. do not make another SCO request;
+6. do not reuse either consumed second-run approval;
+7. do not approve the source, activate the registry, enable production classification, identity resolution, genealogy, beneficiary matching, outreach or claim submission;
+8. stop at the next explicit human gate before any new network execution.
 
-A second real SCO execution is a later, separate gate and requires fresh explicit semantic-execution approval plus fresh transient-row privacy approval.
+Any third real execution requires a new proposal plus fresh explicit semantic execution and transient-row privacy approvals.
 
 ## Handover Status
 
@@ -237,31 +184,30 @@ A second real SCO execution is a later, separate gate and requires fresh explici
 M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
-Canonical remediation promotion target: 36954b89e57d056801a10a302de568d853b46e0d
-Canonical promotion CI: 34980324993 SUCCESS
-Pre-promotion rollback checkpoint: checkpoint-pre-property-type-remediation-promotion -> c3f0dc7e374d21283358e4e1e8d403f078f08acb
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e
-Historical real run: 34965097988
-Historical schema: 1.0.0
-Historical result: STOPPED_FAIL_CLOSED
-Historical stop: PROPERTY_TYPE_FORMAT_UNEXPECTED
-Historical root cause: UNRESOLVED
-Historical execution approval: CONSUMED
-Historical transient-row privacy approval: CONSUMED
-Network workflow: ABSENT
-Diagnosis SHA: 1405d33b7c09373f738dc87f6c93b05a0c342461
-Diagnosis CI: 34968418681 SUCCESS
-Remediation functional SHA: f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef
-Remediation candidate CI: 34971353630 SUCCESS
-Human remediation review: APPROVED
-Future execution schema: 1.1.0
-Future encoding failure: PROPERTY_TYPE_ENCODING_UNEXPECTED
-Future decoded shape failure: PROPERTY_TYPE_FORMAT_UNEXPECTED
-Regex: UNCHANGED
-Source policy: PROPOSED
-Registry: DISABLED + NOT APPROVED
-Approved real sources: 0
-Identity/matching/outreach: BLOCKED
-NEXT: prepare isolated second bounded PROPERTY_TYPE execution proposal; NO NETWORK; stop at fresh human authorization gate
-CONTEXT HEALTH: warn owner proactively before chat length/context degradation becomes risky
+canonical dev before second proposal: e97c1f62959f603bdd3df79538d4b70255594c70
+proposal SHA: ac6d234dda19b1eb8c8f8ceb0206730bcc419bcb
+proposal CI: 34993467536 SUCCESS
+execution branch: m3-ca-sco-property-type-second-semantic-execution
+authorization SHA: acd627f841650541e7dd2441c2c83e20aaf108b5
+authorization CI: 34995492373 SUCCESS
+second execution SHA: e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc
+second real run: 34995672539
+second schema: 1.1.0
+second result: STOPPED_FAIL_CLOSED
+second stop: PROPERTY_TYPE_FORMAT_UNEXPECTED
+second interpretation: DECODED NON-EMPTY SHAPE MISMATCH
+second counters: HEAD=1 RANGE=1 HTTP=2 BODY=131072 ROWS=0
+second execution approval: CONSUMED
+second transient-row privacy approval: CONSUMED
+workflow removal SHA: d6e83a44b2069a2fa746c09d1ae33622654e5d43
+network workflow steady state: ABSENT
+source policy: PROPOSED
+registry: DISABLED + NOT APPROVED
+approved real sources: 0
+production classification: INACTIVE
+identity/genealogy/matching/outreach: BLOCKED
+NEXT: HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_EVIDENCE_REVIEW
+NO THIRD NETWORK EXECUTION WITHOUT NEW PROPOSAL + FRESH APPROVALS
+CONTEXT HEALTH: start a fresh chat after this closure is CI-verified
 ```
