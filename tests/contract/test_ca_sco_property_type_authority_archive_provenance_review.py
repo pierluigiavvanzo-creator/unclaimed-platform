@@ -115,7 +115,7 @@ def test_review_is_pinned_to_verified_immutable_archive() -> None:
 
     archive_meta = _load(ARCHIVE_META_PATH)
     assert archive_meta["sha256"] == EXPECTED_ARCHIVE_SHA256
-    assert archive_meta["body_bytes"] == 329585
+    assert archive_meta["response_body_bytes"] == 329585
     assert archive_meta["semantic_extraction_performed"] is False
 
 
