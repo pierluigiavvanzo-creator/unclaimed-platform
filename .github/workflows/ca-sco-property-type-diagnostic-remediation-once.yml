@@ -1,0 +1,326 @@
+name: ca-sco-property-type-diagnostic-remediation-once
+
+on:
+  push:
+    branches:
+      - m3-ca-sco-property-type-diagnostic-execution-one-shot
+    paths:
+      - .github/workflows/ca-sco-property-type-diagnostic-remediation-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  diagnostic-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-ca-sco-property-type-diagnostic-execution-one-shot
+          fetch-depth: 1
+
+      - name: Preflight both fresh approvals
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          package = 'daeaa7bfb7f7d73a61f011d394cc88393625866c'
+          expected = {
+              Path('sources/evidence/ca_sco_property_type_diagnostic_execution_approval.v1.json'):
+                  'APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED',
+              Path('sources/evidence/ca_sco_property_type_diagnostic_transient_row_privacy_approval.v1.json'):
+                  'APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED',
+          }
+          for path, approval_ref in expected.items():
+              data = json.loads(path.read_text(encoding='utf-8'))
+              assert data['approval_ref'] == approval_ref
+              assert data['authorization_artifact_package_sha'] == package
+              assert data['single_use'] is True
+              assert data['reusable'] is False
+              assert data['status'] == 'GRANTED_NOT_YET_CONSUMED'
+          PY
+
+      - name: Consume both approvals before network
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          paths = [
+              Path('sources/evidence/ca_sco_property_type_diagnostic_execution_approval.v1.json'),
+              Path('sources/evidence/ca_sco_property_type_diagnostic_transient_row_privacy_approval.v1.json'),
+          ]
+          consumed_at = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+          for path in paths:
+              data = json.loads(path.read_text(encoding='utf-8'))
+              assert data['status'] == 'GRANTED_NOT_YET_CONSUMED'
+              data['status'] = 'CONSUMED'
+              data['consumed_at_utc'] = consumed_at
+              data['execution_run_id'] = os.environ['GITHUB_RUN_ID']
+              data['execution_branch'] = os.environ['GITHUB_REF_NAME']
+              path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add sources/evidence/ca_sco_property_type_diagnostic_execution_approval.v1.json \
+                  sources/evidence/ca_sco_property_type_diagnostic_transient_row_privacy_approval.v1.json
+          git commit -m 'governance: consume one-shot PROPERTY_TYPE diagnostic approvals'
+          git push origin HEAD:m3-ca-sco-property-type-diagnostic-execution-one-shot
+
+      - name: Execute bounded diagnostic and persist coarse evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          import scripts.ca_sco_property_type_semantic_verification as sem
+
+          ENDPOINT = 'https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip'
+          EXPECTED_LENGTH = 162416884
+          EXPECTED_ETAG = '"b25b315b6cd8007624387c3a00d4b1fe"'
+          EXPECTED_MEDIA_TYPE = 'application/zip'
+          EXPECTED_ACCEPT_RANGES = 'bytes'
+          RANGE_BYTES = 131072
+          EXPECTED_CONTENT_RANGE = f'bytes 0-{RANGE_BYTES - 1}/{EXPECTED_LENGTH}'
+          REGEX = re.compile(r'^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$')
+          CLASSES = {
+              'SURROUNDING_ASCII_WHITESPACE_ONLY',
+              'ASCII_CASE_ONLY',
+              'SURROUNDING_ASCII_WHITESPACE_AND_CASE',
+              'NON_ASCII_OR_CONTROL_CONTENT',
+              'ASCII_STRUCTURAL_MISMATCH',
+          }
+          FAIL_REASONS = {
+              'APPROVAL_EVIDENCE_INVALID_OR_INCOMPLETE',
+              'SOURCE_IDENTITY_DRIFT',
+              'HEAD_REQUEST_FAILED',
+              'HEAD_RESPONSE_UNEXPECTED',
+              'RANGE_REQUEST_FAILED',
+              'RANGE_RESPONSE_UNEXPECTED',
+              'SOURCE_RESPONSE_BYTE_BUDGET_EXCEEDED',
+              'UNCOMPRESSED_TRANSIENT_BYTE_BUDGET_EXCEEDED',
+              'LOGICAL_RECORD_BYTE_BUDGET_EXCEEDED',
+              'CANONICAL_MEMBER_UNEXPECTED',
+              'CSV_PROJECTION_FAILED',
+              'PROPERTY_TYPE_ENCODING_UNEXPECTED',
+              'PROPERTY_TYPE_EMPTY_UNEXPECTED',
+              'FORMAT_MISMATCH_NOT_REPRODUCED_WITHIN_BOUND',
+              'CLASSIFIER_INVARIANT_VIOLATION',
+              'PERSISTENCE_BOUNDARY_VIOLATION',
+              'NETWORK_BOUNDARY_VIOLATION',
+          }
+          evidence_path = Path('sources/evidence/ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json')
+          result = {
+              'diagnostic_result_status': 'STOPPED_FAIL_CLOSED',
+              'diagnostic_class': None,
+              'fail_closed_reason_code': 'CLASSIFIER_INVARIANT_VIOLATION',
+              'source_identity_verified': False,
+              'head_requests': 0,
+              'range_requests': 0,
+              'http_requests_total': 0,
+              'source_response_body_bytes_read': 0,
+              'transient_rows_examined': 0,
+              'safety_flags': {
+                  'full_archive_downloaded': False,
+                  'raw_body_persisted': False,
+                  'exact_property_type_persisted': False,
+                  'property_type_derivative_persisted': False,
+                  'full_row_persisted': False,
+                  'property_id_persisted': False,
+                  'owner_holder_values_persisted': False,
+                  'remediation_performed': False,
+              },
+          }
+
+          def stop(reason):
+              if reason not in FAIL_REASONS:
+                  reason = 'CLASSIFIER_INVARIANT_VIOLATION'
+              result['diagnostic_result_status'] = 'STOPPED_FAIL_CLOSED'
+              result['diagnostic_class'] = None
+              result['fail_closed_reason_code'] = reason
+
+          def ascii_upper(value):
+              out = []
+              for ch in value:
+                  code = ord(ch)
+                  out.append(chr(code - 32) if 0x61 <= code <= 0x7A else ch)
+              return ''.join(out)
+
+          def classify(value):
+              stripped = value.strip(' \t')
+              if stripped != value and REGEX.fullmatch(stripped):
+                  return 'SURROUNDING_ASCII_WHITESPACE_ONLY'
+              upper = ascii_upper(value)
+              if upper != value and REGEX.fullmatch(upper):
+                  return 'ASCII_CASE_ONLY'
+              combined = ascii_upper(stripped)
+              if combined != value and REGEX.fullmatch(combined):
+                  return 'SURROUNDING_ASCII_WHITESPACE_AND_CASE'
+              if any(ord(ch) > 0x7F or ord(ch) < 0x20 or ord(ch) == 0x7F for ch in value):
+                  return 'NON_ASCII_OR_CONTROL_CONTENT'
+              return 'ASCII_STRUCTURAL_MISMATCH'
+
+          # Tighten reused parser helpers to the reviewed one-shot boundary.
+          sem.CANONICAL_MEMBERS = (sem.CANONICAL_MEMBERS[0],)
+          sem.MAX_RANGE_REQUESTS = 1
+          sem.MAX_HTTP_REQUESTS = 2
+          sem.MAX_TOTAL_RESPONSE_BYTES = RANGE_BYTES
+          sem.MAX_ROWS_TOTAL = 4
+          sem.MAX_UNCOMPRESSED_BYTES_TOTAL = 262144
+          sem.MAX_UNCOMPRESSED_BYTES_PER_MEMBER = 262144
+          sem.MAX_LOGICAL_RECORD_BYTES = 32768
+
+          try:
+              transport = sem.HttpTransport()
+              result['head_requests'] = 1
+              result['http_requests_total'] = 1
+              try:
+                  head = transport.head(10)
+              except Exception:
+                  stop('HEAD_REQUEST_FAILED')
+              else:
+                  if head.status != 200:
+                      stop('HEAD_RESPONSE_UNEXPECTED')
+                  else:
+                      h = head.headers
+                      length_raw = sem._header_value(h, 'content-length')
+                      content_type = (sem._header_value(h, 'content-type') or '').split(';', 1)[0].strip().lower()
+                      accept_ranges = (sem._header_value(h, 'accept-ranges') or '').lower()
+                      etag = sem._header_value(h, 'etag')
+                      length = int(length_raw) if length_raw and length_raw.isdigit() else None
+                      if (length != EXPECTED_LENGTH or content_type != EXPECTED_MEDIA_TYPE or
+                              accept_ranges != EXPECTED_ACCEPT_RANGES or etag != EXPECTED_ETAG):
+                          stop('SOURCE_IDENTITY_DRIFT')
+                      else:
+                          result['source_identity_verified'] = True
+
+              if result['source_identity_verified']:
+                  result['range_requests'] = 1
+                  result['http_requests_total'] = 2
+                  try:
+                      handle = transport.open_range(0, RANGE_BYTES - 1, 10)
+                  except Exception:
+                      stop('RANGE_REQUEST_FAILED')
+                  else:
+                      try:
+                          content_range = sem._header_value(handle.headers, 'content-range')
+                          content_length_raw = sem._header_value(handle.headers, 'content-length')
+                          if handle.status != 206 or content_range != EXPECTED_CONTENT_RANGE:
+                              stop('RANGE_RESPONSE_UNEXPECTED')
+                          elif content_length_raw and (not content_length_raw.isdigit() or int(content_length_raw) != RANGE_BYTES):
+                              stop('RANGE_RESPONSE_UNEXPECTED')
+                          else:
+                              body = handle.read(RANGE_BYTES)
+                              result['source_response_body_bytes_read'] = len(body)
+                              if len(body) > RANGE_BYTES:
+                                  stop('SOURCE_RESPONSE_BYTE_BUDGET_EXCEEDED')
+                              elif len(body) != RANGE_BYTES:
+                                  stop('RANGE_RESPONSE_UNEXPECTED')
+                              else:
+                                  member = sem.CANONICAL_MEMBERS[0]
+                                  try:
+                                      compressed = sem._parse_local_member_prefix(body, member)
+                                  except sem.RunnerStop:
+                                      stop('CANONICAL_MEMBER_UNEXPECTED')
+                                  else:
+                                      try:
+                                          records, _ = sem._collect_first_records(compressed)
+                                      except sem.RunnerStop as exc:
+                                          mapped = {
+                                              'UNCOMPRESSED_TRANSIENT_LIMIT_EXCEEDED': 'UNCOMPRESSED_TRANSIENT_BYTE_BUDGET_EXCEEDED',
+                                              'LOGICAL_RECORD_LIMIT_EXCEEDED': 'LOGICAL_RECORD_BYTE_BUDGET_EXCEEDED',
+                                          }.get(exc.reason, 'CSV_PROJECTION_FAILED')
+                                          stop(mapped)
+                                      else:
+                                          try:
+                                              sem._parse_header(records[0])
+                                          except sem.RunnerStop:
+                                              stop('CSV_PROJECTION_FAILED')
+                                          else:
+                                              found = False
+                                              for record in records[1:5]:
+                                                  result['transient_rows_examined'] += 1
+                                                  try:
+                                                      property_type, column_count = sem._project_property_type(record)
+                                                  except sem.RunnerStop as exc:
+                                                      if exc.reason == 'PROPERTY_TYPE_ENCODING_UNEXPECTED':
+                                                          stop('PROPERTY_TYPE_ENCODING_UNEXPECTED')
+                                                      else:
+                                                          stop('CSV_PROJECTION_FAILED')
+                                                      break
+                                                  if column_count != len(sem.CANONICAL_HEADER):
+                                                      stop('CSV_PROJECTION_FAILED')
+                                                      break
+                                                  if property_type == '':
+                                                      stop('PROPERTY_TYPE_EMPTY_UNEXPECTED')
+                                                      break
+                                                  if REGEX.fullmatch(property_type) is None:
+                                                      diagnostic_class = classify(property_type)
+                                                      if diagnostic_class not in CLASSES:
+                                                          stop('CLASSIFIER_INVARIANT_VIOLATION')
+                                                      else:
+                                                          result['diagnostic_result_status'] = 'DIAGNOSTIC_CLASSIFIED'
+                                                          result['diagnostic_class'] = diagnostic_class
+                                                          result['fail_closed_reason_code'] = None
+                                                      found = True
+                                                      break
+                                              if not found and result['fail_closed_reason_code'] == 'CLASSIFIER_INVARIANT_VIOLATION':
+                                                  stop('FORMAT_MISMATCH_NOT_REPRODUCED_WITHIN_BOUND')
+                      finally:
+                          handle.close()
+          except Exception:
+              stop('CLASSIFIER_INVARIANT_VIOLATION')
+
+          allowed_keys = {
+              'diagnostic_result_status', 'diagnostic_class', 'fail_closed_reason_code',
+              'source_identity_verified', 'head_requests', 'range_requests',
+              'http_requests_total', 'source_response_body_bytes_read',
+              'transient_rows_examined', 'safety_flags',
+          }
+          if set(result) != allowed_keys:
+              raise SystemExit('persistence contract violation')
+          if result['head_requests'] > 1 or result['range_requests'] > 1 or result['http_requests_total'] > 2:
+              raise SystemExit('network counter boundary violation')
+          if result['source_response_body_bytes_read'] > RANGE_BYTES or result['transient_rows_examined'] > 4:
+              raise SystemExit('data boundary violation')
+          if result['diagnostic_result_status'] == 'DIAGNOSTIC_CLASSIFIED':
+              assert result['diagnostic_class'] in CLASSES
+              assert result['fail_closed_reason_code'] is None
+          else:
+              assert result['diagnostic_class'] is None
+              assert result['fail_closed_reason_code'] in FAIL_REASONS
+
+          evidence_path.parent.mkdir(parents=True, exist_ok=True)
+          evidence_path.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+          print('PROPERTY_TYPE_DIAGNOSTIC_RESULT=' + json.dumps(result, sort_keys=True, separators=(',', ':')))
+          PY
+
+      - name: Close one-shot workflow and commit evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tests/contract/test_ca_sco_property_type_diagnostic_execution_authorization.py')
+          text = path.read_text(encoding='utf-8')
+          old = '''    assert not EXECUTION_APPROVAL_PATH.exists()\n    assert not PRIVACY_APPROVAL_PATH.exists()\n    assert not FUTURE_WORKFLOW_PATH.exists()\n'''
+          new = '''    expected_evidence = (\n        (EXECUTION_APPROVAL_PATH, "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED"),\n        (PRIVACY_APPROVAL_PATH, "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED"),\n    )\n    for path, approval_ref in expected_evidence:\n        assert path.exists()\n        evidence = _load(path)\n        assert evidence["approval_ref"] == approval_ref\n        assert evidence["authorization_artifact_package_sha"] == (\n            "daeaa7bfb7f7d73a61f011d394cc88393625866c"\n        )\n        assert evidence["single_use"] is True\n        assert evidence["reusable"] is False\n        assert evidence["status"] == "CONSUMED"\n    assert not FUTURE_WORKFLOW_PATH.exists()\n'''
+          if old not in text:
+              raise SystemExit('expected pre-approval assertion block not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          rm .github/workflows/ca-sco-property-type-diagnostic-remediation-once.yml
+          git add -A
+          git commit -m 'evidence: close one-shot PROPERTY_TYPE diagnostic execution'
+          git push origin HEAD:m3-ca-sco-property-type-diagnostic-execution-one-shot
