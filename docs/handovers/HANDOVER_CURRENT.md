@@ -6,49 +6,56 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Diagnostic Approvals Granted Checkpoint
+## Current Branch / One-Shot Diagnostic Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - branch: `m3-ca-sco-property-type-diagnostic-execution-one-shot`
-- authorization package checkpoint SHA: `daeaa7bfb7f7d73a61f011d394cc88393625866c`
+- authorization package SHA: `daeaa7bfb7f7d73a61f011d394cc88393625866c`
 - authorization review: `PASS`
-- execution approval evidence: PRESENT / `GRANTED_NOT_YET_CONSUMED`
-- transient-row privacy approval evidence: PRESENT / `GRANTED_NOT_YET_CONSUMED`
-- both approvals: single-use, non-reusable, pinned to package SHA above
+- one-shot execution run: `35019840276` — SUCCESS
+- execution evidence: `sources/evidence/ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json`
+- execution audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION.md`
+- temporary diagnostic workflow: ABSENT after successful self-cleanup
 
-## Exact One-Shot Boundary
+## Diagnostic Result
 
-The current gate is:
+- result status: `DIAGNOSTIC_CLASSIFIED`
+- diagnostic class: `ASCII_STRUCTURAL_MISMATCH`
+- fail-closed reason: `null`
+- source identity verified: `true`
+- HEAD requests: `1`
+- Range GET requests: `1`
+- HTTP requests total: `2`
+- source response-body bytes read: `131072`
+- transient data rows examined: `1`
 
-`ONE_SHOT_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION`
+Safety flags persisted by the run are all fail-closed:
 
-Before network the one-shot execution must verify and consume both fresh approvals. Only then may it use:
+- full archive downloaded: `false`;
+- raw body persisted: `false`;
+- exact PROPERTY_TYPE persisted: `false`;
+- PROPERTY_TYPE derivative persisted: `false`;
+- full row persisted: `false`;
+- PROPERTY_ID persisted: `false`;
+- owner/holder values persisted: `false`;
+- remediation performed: `false`.
 
-- exact endpoint `https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`;
-- pinned content length `162416884`;
-- pinned ETag `"b25b315b6cd8007624387c3a00d4b1fe"`;
-- media type `application/zip`;
-- byte-range support `bytes`;
-- canonical member `From_500_To_Beyond_1_of_4.csv` only;
-- max 4 transient data rows;
-- stop at first reproduced format mismatch;
-- max 1 HEAD + 1 Range GET;
-- max 2 HTTP requests total;
-- max 131072 source response-body bytes;
-- max 262144 uncompressed transient bytes;
-- max 32768 bytes per logical record;
-- retries `0`;
-- redirects forbidden;
-- additional range/full-body fallback/automatic widening forbidden;
-- authority and any other source/endpoint access forbidden.
+The exact observed PROPERTY_TYPE value, bytes, hash, exact length, fragments, codepoints and transformed form were not persisted and must not be reconstructed or inferred.
 
-## Deterministic Diagnostic Contract
+## Approval State
 
-Current validation regex remains unchanged:
+Both fresh diagnostic approvals were consumed before the first source request and are permanently non-reusable:
 
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
+- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED` — `CONSUMED`;
+- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED` — `CONSUMED`.
 
-Classification precedence:
+Both evidence files pin package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c` and execution run `35019840276`.
+
+Historical semantic/privacy/authority approvals also remain consumed and non-reusable.
+
+## Bounded Interpretation
+
+The deterministic classifier precedence was:
 
 1. `SURROUNDING_ASCII_WHITESPACE_ONLY`
 2. `ASCII_CASE_ONLY`
@@ -56,41 +63,40 @@ Classification precedence:
 4. `NON_ASCII_OR_CONTROL_CONTENT`
 5. `ASCII_STRUCTURAL_MISMATCH`
 
-Whitespace probe is only boundary `U+0020` SPACE / `U+0009` TAB. Case probe is ASCII-only `a-z -> A-Z`. Non-ASCII is `> U+007F`; disallowed ASCII controls are `U+0000-U+001F` plus `U+007F`, subject to fixed precedence for boundary TAB.
+Therefore the persisted coarse class indicates that the observed mismatch was not explained solely by boundary ASCII SPACE/TAB, ASCII case, their combination, or non-ASCII/disallowed-control content.
 
-These are in-memory diagnostic predicates only. They do not authorize runtime trimming/casing/normalization or any remediation.
+This does not reveal the actual source value and does not authorize any remediation or semantic/runtime change.
 
-## Output / Privacy Boundary
+## Governance State
 
-Persist only:
+Unchanged and fail-closed:
 
-- `diagnostic_result_status`;
-- coarse `diagnostic_class` or null;
-- enumerated `fail_closed_reason_code` or null;
-- `source_identity_verified`;
-- bounded HEAD/range/HTTP/body/row counters;
-- fixed safety flags.
+- current regex remains `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- parser/regex/trimming/casing/normalization unchanged;
+- source policy `PROPOSED`;
+- registry disabled / not approved;
+- approved real sources `0`;
+- production classification inactive;
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission BLOCKED.
 
-Never persist/log exact PROPERTY_TYPE, bytes, hash, exact length, fragments, codepoints, transformed value, full row, raw response body, PROPERTY_ID, owner/holder values, distinct source code lists, or source-derived free text.
-
-## Consumed Approvals — Never Reuse
-
-Historical approvals remain consumed/non-reusable:
-
-- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
-- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
-
-The two current diagnostic approvals are granted but not yet consumed. They must become `CONSUMED` before the first source request.
+Do not reuse either diagnostic approval. Do not perform another source request under them.
 
 ## SINGLE NEXT ACTION
 
-Execute only:
-
-`ONE_SHOT_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION`
-
-After any result — `DIAGNOSTIC_CLASSIFIED` or `STOPPED_FAIL_CLOSED` — stop at:
+Perform exclusively:
 
 `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW`
 
-Do not modify parser/regex/runtime semantics, apply remediation, activate source policy/registry/production classification, or enter identity/genealogy/matching/outreach/claim work.
+Review the persisted coarse diagnostic evidence and decide what it justifies.
+
+During review do **not**:
+
+- reconstruct or infer the exact PROPERTY_TYPE;
+- perform another source request;
+- change parser or regex;
+- introduce trimming/casing/normalization runtime behavior;
+- apply remediation;
+- activate source policy, registry or production classification;
+- enter downstream identity/genealogy/matching/outreach/claim work.
+
+Any later remediation proposal must be a separate explicit gate justified only by the reviewed coarse evidence.
