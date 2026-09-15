@@ -12,33 +12,34 @@ M0, M1 and M2 are VERIFIED.
 
 PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary, but semantic compatibility with the live source remains unresolved.
 
-A separate bounded diagnostic/remediation evidence proposal has now been prepared and CI-verified on branch:
+The bounded diagnostic/remediation evidence proposal has been prepared, CI-verified and human-reviewed **PASS**.
 
+Proposal branch:
 `m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal`
 
 Proposal package checkpoint SHA:
-
 `020044d3013449fabe566c5164b8f99f9d8cc9ab`
 
-Proposal CI:
-
+Proposal package CI:
 `35015429439` — SUCCESS
 
-Proposal status:
+Final proposal branch HEAD reviewed:
+`847cdf5daaa1834c3ce11fc3d6f29e2bbc36b4b4`
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+Final proposal branch CI:
+`35015731733` — SUCCESS
 
-Proposal:
+Review branch:
+`m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal-review`
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_diagnostic_remediation_evidence.v1.json`
+Review gate:
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
 
-Schema:
+Review decision:
+`PASS`
 
-`schemas/common/property_type_diagnostic_remediation_evidence_proposal.schema.json`
-
-Audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL.md`
+Review audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW.md`
 
 ### Verified basis
 
@@ -48,17 +49,16 @@ The second bounded semantic execution remains the latest real PROPERTY_TYPE sour
 - schema `1.1.0`;
 - result `STOPPED_FAIL_CLOSED`;
 - stop `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- the v1.1 runner distinguishes UTF-8 encoding failure from decoded format mismatch;
-- therefore the observed mismatch was a decoded, non-empty PROPERTY_TYPE that failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- the exact offending value, bytes, hash, length and fragments were not retained and must not be reconstructed or inferred.
+- the observed mismatch was a decoded, non-empty PROPERTY_TYPE that failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- exact offending value, bytes, hash, length, fragments and codepoints were not retained and must not be reconstructed or inferred from historical evidence.
 
 The completed authority provenance review established that the current regex is not contradicted by the archived authority and did not authorize trimming, casing, normalization, parser change or regex relaxation.
 
-### Proposed future diagnostic boundary — not yet authorized
+### Accepted proposal boundary — still not authorized for execution
 
-If a later human gate and fresh execution/privacy approvals authorize diagnostic source access, the proposal limits it to:
+If a later separate execution/authorization artifact is approved with fresh execution/privacy approvals, the diagnostic may be bounded to:
 
-- the exact existing `claimit.ca.gov` endpoint and pinned source identity;
+- exact existing endpoint and pinned source identity;
 - first canonical member only;
 - at most 4 transient data rows;
 - stop at the first reproduced format mismatch;
@@ -68,34 +68,45 @@ If a later human gate and fresh execution/privacy approvals authorize diagnostic
 - 131072 source response-body bytes maximum total;
 - no retry, redirect, extra range, full-body fallback or automatic widening.
 
-The only proposed persisted semantic evidence is a coarse categorical diagnostic class plus bounded counters and safety flags. Exact PROPERTY_TYPE values, bytes, hashes, lengths, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID and owner/holder values remain forbidden from persistence/logging.
+Only a fixed coarse diagnostic class plus bounded counters/safety flags may be persisted. Exact source values, bytes, hashes, lengths, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID and owner/holder values remain forbidden from persistence/logging.
 
-No diagnostic class authorizes remediation automatically.
+No diagnostic class automatically authorizes remediation.
+
+### Mandatory execution-stage tightening
+
+Before any real diagnostic request, the separate execution/authorization artifact must contract-test:
+
+- fixed classification precedence;
+- exact ASCII-only `a-z` -> `A-Z` case-probe semantics;
+- exact disallowed ASCII control-code set;
+- bounded enumerated fail-closed reason codes and explicit null/absent semantics for diagnostic class on failure;
+- synthetic classifier tests for all classes, precedence collisions, boundary cases and non-persistence/non-logging.
+
+These tightenings may not widen members, rows, requests, byte budgets, endpoints, privacy scope or persistence fields.
 
 ### Governance remains fail-closed
 
-- proposal preparation performed no SCO/`claimit.ca.gov` source request;
-- no diagnostic execution was performed;
-- no network workflow was created;
-- runner/parser/regex/normalization/logging/persistence were not modified;
+- proposal review PASS does not authorize source access;
+- diagnostic execution authorized: `false`;
+- transient-row privacy exposure authorized: `false`;
+- network workflow authorized: `false`;
+- runtime change authorized: `false`;
+- remediation authorized: `false`;
+- no approval token was created by the review;
 - previous semantic execution/privacy approvals remain CONSUMED + NON-REUSABLE;
 - authority archival approval remains CONSUMED + NON-REUSABLE;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
 - approved real sources remain `0`;
 - production classification remains inactive;
-- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED;
-- no third real semantic execution is authorized;
-- no approval token is defined by this proposal.
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
 
 ## Next Recommended Action
 
-Perform only:
+Prepare only a **separate diagnostic execution/authorization artifact offline**.
 
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
+It must pin the proposal review PASS, preserve or tighten all boundaries, define fresh execution and transient-row privacy approval placeholders, and remain NOT AUTHORIZED until the owner explicitly grants those approvals.
 
-Review the proposal, schema, audit and contract-test package. Do not access the source or implement remediation during this review.
-
-A PASS would still require a separate explicit diagnostic execution/authorization artifact and fresh execution/privacy approvals before any source access.
+Do not access SCO/`claimit.ca.gov` and do not perform the diagnostic while preparing that artifact.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
