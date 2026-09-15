@@ -11,96 +11,103 @@ M3 — California Data Spike Readiness + Product Visibility
 Canonical development branch:
 `m2-state-governance-core`
 
-Canonical HEAD before the current semantic-execution candidate:
+Canonical HEAD before the semantic-execution candidate:
 `c3f0dc7e374d21283358e4e1e8d403f078f08acb`.
 
-The bounded `PROPERTY_TYPE` runner implementation is canonical and synthetic/mock CI verified.
-
-Promoted runner functional SHA:
+Canonical bounded `PROPERTY_TYPE` runner functional SHA:
 `3f612837e4dbb86839942555c34b9384ff4e99a1`.
 
-Canonical post-promotion CI:
+Canonical runner post-promotion CI:
 `34961511401` — SUCCESS.
-
-Canonical docs-closure CI:
-`34961870512` — SUCCESS.
 
 Stable `main` remains unchanged at:
 `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
 
-## Current Candidate — Bounded PROPERTY_TYPE Semantic Execution
+## Real Bounded Semantic Attempt
 
-Branch:
+Execution candidate branch:
 `m3-ca-sco-property-type-semantic-execution`
 
-Owner authorized at `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`:
-- bounded semantic execution;
-- bounded transient-row privacy exposure.
+Evidence-closure HEAD:
+`3ca12f17c0a16ca49205b4d17117f3b41b6efd58`.
 
-Approval refs:
-- `OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`;
-- `OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`.
+Owner-authorized one-shot run:
+`34965097988`.
 
-Authorization package commit:
-`6ba8d62824f0f0e8eaaa0eefbb8dc1bfdb58898e`.
-
-Authorization CI:
-`34964924686` — SUCCESS.
-
-## Real Bounded Execution
-
-One-shot workflow commit:
-`dd5dc80a22307586c341b703de8fe03d6861df29`.
-
-Execution run:
-`34965097988` — SUCCESS at workflow level.
-
-Execution result:
+Result:
 `STOPPED_FAIL_CLOSED`.
 
-Stop reason:
+Persisted stop reason:
 `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
 Observed counters:
 - HEAD requests: `1`;
 - Range GET requests: `1`;
-- total HTTP requests: `2`;
+- HTTP requests total: `2`;
 - source body bytes read: `131072`;
-- accepted/examined data rows: `0`;
-- distinct accepted `PROPERTY_TYPE` codes: `[]`;
-- distinct accepted insurance codes: `[]`.
+- accepted/examined rows: `0`;
+- retry: none;
+- cap widening: none.
 
-The runner processed transient bytes far enough to evaluate a candidate `PROPERTY_TYPE` in the first member and stopped before accepting a sample row. The offending value was not persisted or logged and must not be inferred.
-
-No retry occurred. No additional Range was issued. No cap was widened.
-
-## Persisted Evidence
+The offending source value was intentionally not persisted or logged and must not be inferred.
 
 Execution evidence:
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
 
-Audit:
+Execution audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_EXECUTION.md`
 
-Artifact:
-- ID `10394467215`;
-- name `ca-sco-property-type-semantic-execution-2026-09-15`;
-- ZIP SHA-256 `24a39a739872b0d9b3f0bff9a17c22f8ab1a443ddbcf82b7f9126d546ed1a66d`;
-- JSON SHA-256 before persistence `790dabcf1c04946ad930de467f204cb0af6fe78c25bae86b1ca541e4fc07b96a`.
+Execution steady-state CI:
+`34965713695` — SUCCESS.
 
-All persisted safety flags are false. No raw Range body, full row, `PROPERTY_ID`, owner/holder value, or per-row `PROPERTY_TYPE` value is persisted.
-
-## Workflow Steady State
-
-The one-shot network workflow was temporary and was removed immediately after the single execution.
-
-Removal commit:
+The one-shot workflow was removed at:
 `bc1b0a955037d35dfa1a37b0c29497c219a04609`.
 
 Current network workflow state:
 ABSENT.
 
-Repository CI `34965098018` on the temporary workflow commit failed only because three historical contract tests correctly require the one-shot workflow to be absent in steady state. Those tests were not weakened.
+The prior execution authorization is consumed by run `34965097988` and is not reusable for a retry.
+
+## Current Candidate — Offline Diagnosis
+
+Branch:
+`m3-ca-sco-property-type-offline-diagnosis`
+
+Base:
+`3ca12f17c0a16ca49205b4d17117f3b41b6efd58`.
+
+Diagnostic implementation/audit SHA:
+`1405d33b7c09373f738dc87f6c93b05a0c342461`.
+
+Diagnostic CI:
+`34968418681` — SUCCESS for `quality` and `streamlit-candidate`.
+
+Files added:
+- `tests/unit/test_ca_sco_property_type_offline_diagnosis.py`;
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md`.
+
+No SCO network/body access occurred during this diagnosis. No runner, regex, execution schema, source policy, registry or network workflow was changed.
+
+## Offline Diagnosis Findings
+
+The existing runner uses the same stop code, `PROPERTY_TYPE_FORMAT_UNEXPECTED`, for two different branches:
+
+1. UTF-8 decoding failure inside `_project_property_type()`;
+2. successfully decoded, non-empty `PROPERTY_TYPE` that later fails the regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+
+Therefore the historical real-run evidence cannot distinguish **encoding failure** from **decoded-value shape failure**.
+
+This corrects the earlier provisional interpretation that the stop necessarily proved a decoded value reached the regex check. It does not.
+
+The committed offline regression matrix compares the custom projector with Python `csv.reader(..., strict=True)` on synthetic 25-column records covering commas, escaped quotes, embedded LF/CRLF and fully quoted CSV. The projector matches the standard-library parser for all committed cases and reports 25 columns.
+
+A separate synthetic test reproduces the diagnostic collision: both a decoded shape mismatch and an invalid UTF-8 projected field result in `PROPERTY_TYPE_FORMAT_UNEXPECTED` under the current runner.
+
+Supported conclusion:
+- no standard-CSV projector defect was reproduced by the committed matrix;
+- the failure taxonomy is diagnostically ambiguous;
+- the real root cause remains unresolved because raw/offending bytes were intentionally not retained;
+- there is no evidence basis to relax, trim or normalize the regex.
 
 ## Fixed Safety Boundary
 
@@ -122,11 +129,9 @@ Unchanged hard caps:
 
 ## Governance State
 
-The real semantic attempt does not approve the SCO source or activate production use.
-
 Still fail-closed:
 - source policy `PROPOSED`;
-- real acquisition authorized by source policy `false`;
+- source real-acquisition authorization `false`;
 - registry `enabled: false`;
 - registry `approved_for_use: false`;
 - approved real sources `0`;
@@ -134,14 +139,21 @@ Still fail-closed:
 - production classification inactive;
 - identity resolution BLOCKED;
 - beneficiary matching BLOCKED;
-- outreach BLOCKED.
-
-The execution approval is treated as consumed by run `34965097988`; it is not reusable for a retry.
+- outreach BLOCKED;
+- one-shot network workflow ABSENT.
 
 ## Next Recommended Action
 
-Human evidence-review gate only:
+Human review gate:
 
-`HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_EVIDENCE_REVIEW`
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_REVIEW`
 
-Review the fail-closed evidence and decide the smallest diagnostic next step. Prefer repository/offline/synthetic diagnosis before any further real network access. A second real execution requires a new explicit human authorization.
+Smallest proposed remediation, still offline only:
+- add a distinct future stop reason such as `PROPERTY_TYPE_ENCODING_UNEXPECTED` for UTF-8 decode failures;
+- retain `PROPERTY_TYPE_FORMAT_UNEXPECTED` for decoded values that fail the existing regex;
+- preserve historical execution evidence unchanged and schema-valid;
+- add regression coverage for both branches;
+- do not add raw values, bytes, hashes, lengths or value fragments to logs/evidence;
+- keep the network workflow absent.
+
+A second real SCO execution remains a separate later gate requiring fresh explicit execution and transient-row privacy authorization.
