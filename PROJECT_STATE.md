@@ -10,36 +10,30 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-Repository-only PROPERTY_TYPE provenance remains closed with:
-`NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`.
+PROPERTY_TYPE semantic compatibility remains unresolved.
 
-The bounded authority provenance acquisition proposal was human-reviewed `PASS`. A separate one-shot authority archival execution/authorization artifact has now been prepared offline and CI verified.
+Authority archival execution completed successfully on branch:
+`m3-ca-sco-property-type-authority-archival-execution-one-shot`
 
-Authorization-artifact branch:
-`m3-ca-sco-property-type-authority-archival-execution-authorization`
+Execution run:
+`35012019831` — SUCCESS
 
-Verified artifact package SHA:
+Authorization package:
 `d20bc80f50af56c10085eec7123aa0691e26ea1a`
 
-CI:
-`35007468140` — SUCCESS
+Approval:
+`APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT` — CONSUMED + NON-REUSABLE
 
-Artifact status:
-`PENDING_HUMAN_AUTHORIZATION`
+Archived authority SHA-256:
+`7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5`
 
-Required fresh approval ref:
-`APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
+Execution audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION.md`
 
-The approval must be single-use, non-reusable, and pin the verified authorization-artifact SHA. No approval evidence or network workflow currently exists. Authority retrieval remains unauthorized.
-
-Prior semantic execution/privacy approvals remain consumed and non-reusable. Semantic compatibility remains unresolved. Source policy and registry remain inactive for real use.
+No semantic extraction was performed during archival. Source policy remains `PROPOSED`; registry and production classification remain inactive.
 
 ## Next Recommended Action
 
-Perform only:
-`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION_REVIEW`
+`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
 
-Review the verified schema, authorization artifact, audit and contract test. Do not retrieve the authority document during this review.
-
-For the complete restart state, use:
-`docs/handovers/HANDOVER_CURRENT.md`
+Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
