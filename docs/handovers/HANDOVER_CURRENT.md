@@ -4,24 +4,22 @@ Date: 2026-09-15
 
 ## Purpose
 
-Authoritative restart point. Use repository evidence, not conversational memory. Verify current remote branch heads at every restart.
+Authoritative restart point. Use repository evidence, not conversational memory. Verify current remote branch heads before acting.
 
 ## Repository / Branches
 
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable `main`: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
 - Canonical development branch: `m2-state-governance-core`
-- Canonical dev HEAD before second proposal: `e97c1f62959f603bdd3df79538d4b70255594c70`
-- Second-execution proposal branch: `m3-ca-sco-property-type-second-execution-proposal`
-- Reviewed proposal SHA: `ac6d234dda19b1eb8c8f8ceb0206730bcc419bcb`
-- Proposal CI: `34993467536` — SUCCESS
-- Second-execution branch: `m3-ca-sco-property-type-second-semantic-execution`
-- Fresh authorization commit: `acd627f841650541e7dd2441c2c83e20aaf108b5`
-- Authorization staging CI: `34995492373` — SUCCESS
-- Temporary execution workflow commit: `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`
-- Workflow-removal commit: `d6e83a44b2069a2fa746c09d1ae33622654e5d43`
-- Evidence-closure commit: `3d5f4c062c6b403d22ee8a3961d0a452f6ec1e34`
-- Evidence-closure CI: `34996427337` — SUCCESS
+- Canonical development HEAD: `e97c1f62959f603bdd3df79538d4b70255594c70`
+- Second-execution closure branch: `m3-ca-sco-property-type-second-semantic-execution`
+- Second-execution closure HEAD: `9d0243987c843172fe46c971ead0bf3947098336`
+- Code-shape provenance proposal branch: `m3-ca-sco-property-type-code-shape-provenance-offline-proposal`
+- Provenance proposal SHA: `defed0c211230aad8f8cec6ff80b216223069844`
+- Provenance proposal CI: `35002920469` — SUCCESS
+- Code-shape provenance review branch: `m3-ca-sco-property-type-code-shape-provenance-offline-review`
+- Provenance review result SHA: `b274e9db0a28dae1c9f6a1a25c657978dd27d7b4`
+- Provenance review CI: `35003900554` — SUCCESS
 - Never develop directly on `main`.
 
 ## Verified Baseline
@@ -30,151 +28,165 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - M1 VERIFIED.
 - M2 VERIFIED.
 - M3 California source/legal readiness complete.
-- M3 acquisition/raw persistence/privacy canonical and verified.
+- M3 acquisition/raw persistence/privacy controls verified.
 - Streamlit reviewer canonical and verified.
 - SCO `$500+` bounded structure inspection canonicalized.
-- Canonical `PROPERTY_TYPE` runner uses future execution schema v1.1.0.
+- Canonical `PROPERTY_TYPE` runner uses execution schema v1.1.0.
 - Historical v1.0 evidence remains frozen.
-- v1.1 distinguishes encoding failure from decoded shape failure.
-- Second bounded execution proposal passed human review.
-- Fresh second execution/privacy approvals were granted and then consumed.
-- Second bounded real execution was performed exactly once.
-- Second one-shot workflow was removed immediately after execution.
+- v1.1 distinguishes UTF-8 encoding failure from decoded shape failure.
+- Second bounded real execution was performed exactly once and stopped fail-closed.
+- Second execution/privacy approvals are CONSUMED and non-reusable.
+- One-shot network workflow was removed and remains ABSENT.
+- Offline code-shape provenance proposal passed human review.
+- Repository-only provenance classification has been completed and CI verified.
+- No semantic/runtime change is justified by retained provenance.
 - Repository-side Vercel integration remains decommissioned.
 - Supabase remains untouched.
 
-## Historical First Real One-Shot Execution
-
-Run `34965097988`; schema `1.0.0`; result `STOPPED_FAIL_CLOSED`; stop reason `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
-
-Exact counters: HEAD `1`; Range GET `1`; HTTP total `2`; source body bytes `131072`; accepted/examined rows `0`; no retry; no widening.
-
-Because v1.0 conflated invalid UTF-8 and decoded shape mismatch, the historical root cause remains unresolved. Historical execution/privacy approvals are CONSUMED and non-reusable.
-
-Historical evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
-
-## Canonical v1.1 Diagnostic Remediation
-
-Historical/frozen schema:
-`schemas/common/property_type_semantic_verification_execution.schema.json` -> `1.0.0`
-
-Remediated schema:
-`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json` -> `1.1.0`
-
-Exact v1.1 distinction:
-- invalid UTF-8 projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`
-- successfully decoded, non-empty value failing `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`
-
-No trimming, case folding, uppercasing, normalization, code-domain relaxation or raw value logging is canonical.
-
 ## Second Bounded Real Semantic Execution
 
-Human approvals granted:
-- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
-- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
-
-Both are now **CONSUMED** by the single execution below and cannot be reused.
-
-Authorization evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_second_semantic_execution_approval.v1.json`
-
-Authorization audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_AUTHORIZATION.md`
-
-One-shot GitHub Actions run: `34995672539`  
+Run: `34995672539`  
 Execution commit: `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`  
-Workflow result: SUCCESS  
-Semantic result: `STOPPED_FAIL_CLOSED`  
 Execution schema: `1.1.0`  
+Semantic result: `STOPPED_FAIL_CLOSED`  
 Stop reason: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
 
-Workflow SUCCESS means the bounded runner, validation and evidence upload completed. It does **not** mean semantic compatibility passed.
-
-Exact observed counters:
+Exact persisted counters:
 - HEAD `1`
 - Range GET `1`
 - HTTP total `2`
-- source body bytes `131072`
-- sample rows accepted/examined `0`
+- source response-body bytes `131072`
+- accepted/examined rows `0`
 - no retry
 - no cap widening
 
-Transport metadata matched the fixed expected target metadata before the Range GET.
+Safe interpretation under v1.1.0:
+- projected `PROPERTY_TYPE` decoded successfully as UTF-8;
+- value was non-empty;
+- row followed the path that failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
 
-### Safe interpretation
+This does not reveal the offending value or explain why its shape differs. Do not infer it.
 
-Because this run used v1.1.0, its stop reason means the projected `PROPERTY_TYPE` decoded successfully, was non-empty, and failed the unchanged token-shape regex. This rules out `PROPERTY_TYPE_ENCODING_UNEXPECTED` as the stop class for this run.
+Consumed single-use approvals:
+- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
+- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
 
-It does **not** reveal the offending value, prove why the shape differs, or justify trimming, normalization, uppercasing or regex relaxation. Do not infer the offending source value.
+They cannot authorize any retry or later execution.
 
-`sample_rows_examined: 0` is the persisted accepted/examined counter. Do not interpret it as proof that no transient record bytes were parsed before the fail-closed stop.
-
-### Derived artifact
-
-- artifact ID: `10408035386`
-- artifact name: `ca-sco-property-type-second-semantic-execution-2026-09-15`
-- artifact ZIP digest: `sha256:c0189177dcca91696e85b3b9fd67c1c896c3af30b13c79b0aa3670998f621732`
-
-Persisted repository evidence:
+Persisted execution evidence:
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_1.second.json`
 
 Execution audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION.md`
 
-## Privacy / Logs
+## Offline Code-Shape Provenance Review
 
-During the live execution, runner stdout was redirected to `/dev/null`. Workflow logs contain no source rows and no `PROPERTY_TYPE` values.
+Human review of proposal `defed0c211230aad8f8cec6ff80b216223069844`: **PASS**.
 
-No raw body, full row, `PROPERTY_ID`, owner/holder value, per-row `PROPERTY_TYPE`, offending bytes, offending-value hash or offending-value length was persisted. All execution safety flags are false.
+Review scope was repository-only. No California SCO request, SCO source-body access, external authority lookup/download, source-value reconstruction, parser change, regex change, normalization change, privacy expansion or workflow creation was performed.
 
-## Workflow Lifecycle
+Machine evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_code_shape_provenance_offline.review.v1.json`
 
-Temporary workflow path:
-`.github/workflows/ca-sco-property-type-semantic-verification-once.yml`
+Schema:
+`schemas/common/property_type_code_shape_provenance_offline_review.schema.json`
 
-It was created only for the authorized single execution and then removed.
+Audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_CODE_SHAPE_PROVENANCE_OFFLINE_REVIEW.md`
 
-Workflow-removal commit:
-`d6e83a44b2069a2fa746c09d1ae33622654e5d43`
+Contract test:
+`tests/contract/test_ca_sco_property_type_code_shape_provenance_offline_review.py`
 
-Steady-state workflow: **ABSENT**. No retry was performed or authorized.
+Review result SHA:
+`b274e9db0a28dae1c9f6a1a25c657978dd27d7b4`
 
-## Fixed Safety Caps
+Review CI:
+`35003900554` — SUCCESS
 
-Unchanged: max 4 members; max 4 rows/member; max 16 rows total; max 1 HEAD; max 4 Range GET; max 5 HTTP requests; max 131072 body bytes/Range; max 524288 source-body bytes total; max 262144 uncompressed transient bytes/member; max 1048576 uncompressed transient bytes total; max 32768 bytes/logical record; no extra Range; no full-body fallback; no automatic widening.
+### Classification
 
-## Governance State
+1. `PROPERTY_TYPE_FIELD_IS_COLUMN_INDEX_1`
+   - `SUPPORTED_BY_REPOSITORY_EVIDENCE`
+   - retained data-scope evidence has `PROPERTY_TYPE` as the second field in all four canonical 25-column headers; runner uses zero-based index `1`.
 
-SCO source policy remains `PROPOSED`; `real_acquisition_authorized: false`; `authorized_processing_purposes: []`; `allowed_fields: []`; `allow_pii: false`.
+2. `GENERAL_CODE_SHAPE_AA99`
+   - `PROVENANCE_INSUFFICIENT`
+   - repository records/enforces the regex, but retained authority content does not prove that every non-`ZZZZ` source value must be exactly two uppercase ASCII letters plus two digits.
 
-Registry remains disabled/unapproved. Approved real sources remain `0`. Semantic compatibility remains unresolved. Production classification remains inactive. Identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
+3. `SPECIAL_CODE_ZZZZ`
+   - `PROVENANCE_INSUFFICIENT`
+   - `ZZZZ` is permitted by current implementation, but no retained authority content proves it is a valid California SCO special token.
 
-## Product Alignment Note
+4. `CALIFORNIA_INSURANCE_CODE_SET`
+   - `REPOSITORY_ASSERTION_WITH_EXTERNAL_REFERENCE_NOT_ARCHIVED`
+   - repository records `IN01-IN08` and `IN99` and attributes them to an external SCO NAUPA document; that authority document is not archived in the approved offline evidence set.
 
-The target product remains a proactive unclaimed-life-insurance scouting and beneficiary-matching platform. Current M3 work is primarily the **benefit-first** entry path. The architecture already contains death evidence, identity resolution, genealogy and candidate-generation modules needed for downstream matching. A complementary **death-first** entry path should be made explicit in a later product/architecture task, not folded into this semantic-evidence gate.
+5. `CUSTOM_PROJECTOR_STANDARD_CSV_COMPATIBILITY`
+   - `SUPPORTED_BY_REPOSITORY_EVIDENCE`
+   - custom projector matches Python `csv.reader(..., strict=True)` on the committed deterministic synthetic matrix only; no universal CSV compatibility claim is allowed.
 
-## Context Health / Chat Rotation
+Aggregate:
+- supported by repository evidence: `2`
+- external-reference assertion not archived: `1`
+- provenance insufficient: `2`
 
-The owner explicitly requested proactive warning before chat/context degradation becomes operationally risky. This conversation has reached the point where a fresh chat is recommended after the current evidence-closure task is CI-verified. Repository memory is the source of truth.
+Decision:
+`NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
+
+## Governance / Safety State
+
+Still fail-closed:
+
+- source policy: `PROPOSED`
+- source-level real acquisition authorization: `false`
+- registry: disabled/unapproved
+- approved real sources: `0`
+- semantic compatibility: unresolved
+- production classification: inactive
+- one-shot workflow: ABSENT
+- identity resolution: BLOCKED
+- genealogy: BLOCKED
+- beneficiary matching: BLOCKED
+- outreach: BLOCKED
+- claim submission: BLOCKED
+
+Not authorized:
+- SCO access or retry;
+- external authority retrieval/download;
+- reuse of consumed execution/privacy approvals;
+- trimming, uppercasing or normalization;
+- parser changes;
+- regex modification or relaxation;
+- logging/privacy expansion;
+- source approval or registry activation;
+- production classification;
+- third real execution.
+
+Any future real execution requires a new proposal plus fresh explicit semantic-execution and transient-row privacy approvals.
 
 ## SINGLE NEXT ACTION
 
-Perform:
+A human decision is required before any further provenance acquisition:
 
-`HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_EVIDENCE_REVIEW`
+**Decide whether to authorize preparation of a separate bounded authority archival / provenance acquisition proposal, or stop this M3 semantic line of work.**
 
-Scope:
-1. review the persisted second-run v1.1 evidence and execution audit;
-2. confirm exact counters, privacy boundary and workflow removal;
-3. confirm the narrowed interpretation is only a decoded non-empty shape mismatch under the unchanged regex;
-4. decide what **offline** diagnostic action, if any, is justified;
-5. do not make another SCO request;
-6. do not reuse either consumed second-run approval;
-7. do not approve the source, activate the registry, enable production classification, identity resolution, genealogy, beneficiary matching, outreach or claim submission;
-8. stop at the next explicit human gate before any new network execution.
+No canonical authorization token for that proposal-preparation decision exists yet; do not invent one silently.
 
-Any third real execution requires a new proposal plus fresh explicit semantic execution and transient-row privacy approvals.
+If proposal preparation is authorized, the proposal must remain separate from runtime changes and must define, before any authority access:
+
+- exact authority documents/pages to retrieve;
+- permitted network scope;
+- archival/provenance format and hashes;
+- legal/terms/privacy boundary;
+- what claims each authority artifact is intended to prove;
+- explicit prohibition on SCO data access and third semantic execution;
+- a new human review gate before retrieval or runtime modification.
+
+Do **not** access or download authority content merely to prepare the proposal.
+
+## Context Health / Chat Rotation
+
+The provenance review is complete and CI verified. This is a safe rotation point. If continuing with a new authority-provenance proposal, prefer a fresh chat using this handover as the restart source.
 
 ## Handover Status
 
@@ -183,31 +195,29 @@ M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e
-canonical dev before second proposal: e97c1f62959f603bdd3df79538d4b70255594c70
-proposal SHA: ac6d234dda19b1eb8c8f8ceb0206730bcc419bcb
-proposal CI: 34993467536 SUCCESS
-execution branch: m3-ca-sco-property-type-second-semantic-execution
-authorization SHA: acd627f841650541e7dd2441c2c83e20aaf108b5
-authorization CI: 34995492373 SUCCESS
-second execution SHA: e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc
-second real run: 34995672539
+canonical dev: e97c1f62959f603bdd3df79538d4b70255594c70
+second execution run: 34995672539
 second schema: 1.1.0
 second result: STOPPED_FAIL_CLOSED
 second stop: PROPERTY_TYPE_FORMAT_UNEXPECTED
 second interpretation: DECODED NON-EMPTY SHAPE MISMATCH
-second counters: HEAD=1 RANGE=1 HTTP=2 BODY=131072 ROWS=0
-second execution approval: CONSUMED
-second transient-row privacy approval: CONSUMED
-workflow removal SHA: d6e83a44b2069a2fa746c09d1ae33622654e5d43
-evidence closure SHA: 3d5f4c062c6b403d22ee8a3961d0a452f6ec1e34
-evidence closure CI: 34996427337 SUCCESS
+second execution/privacy approvals: CONSUMED + NON-REUSABLE
 network workflow steady state: ABSENT
+provenance proposal SHA: defed0c211230aad8f8cec6ff80b216223069844
+provenance proposal CI: 35002920469 SUCCESS
+provenance proposal human review: PASS
+provenance review result SHA: b274e9db0a28dae1c9f6a1a25c657978dd27d7b4
+provenance review CI: 35003900554 SUCCESS
+provenance classifications: SUPPORTED=2 / EXTERNAL_REF_NOT_ARCHIVED=1 / INSUFFICIENT=2
+semantic change justified: NO
+semantic compatibility: UNRESOLVED
 source policy: PROPOSED
 registry: DISABLED + NOT APPROVED
 approved real sources: 0
 production classification: INACTIVE
-identity/genealogy/matching/outreach: BLOCKED
-NEXT: HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_EVIDENCE_REVIEW
-NO THIRD NETWORK EXECUTION WITHOUT NEW PROPOSAL + FRESH APPROVALS
-CONTEXT HEALTH: start a fresh chat after this closure is CI-verified
+identity/genealogy/matching/outreach/claim: BLOCKED
+NEXT: HUMAN DECISION — PREPARE SEPARATE AUTHORITY ARCHIVAL/PROVENANCE ACQUISITION PROPOSAL OR STOP
+NO AUTHORITY ACCESS/DOWNLOAD BEFORE SEPARATE PROPOSAL + HUMAN GATE
+NO THIRD SCO EXECUTION WITHOUT NEW PROPOSAL + FRESH EXECUTION/PRIVACY APPROVALS
+CONTEXT HEALTH: SAFE ROTATION POINT
 ```
