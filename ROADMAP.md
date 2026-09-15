@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `$500+` STRUCTURE CANONICAL; TWO-FIELD PRIVACY READINESS CANDIDATE VERIFIED — SOURCE APPROVAL BLOCKED | Candidate `648b81b9...`; CI `34939909880` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
+| M3 — California Data Spike | `$500+` STRUCTURE + TWO-FIELD PRIVACY READINESS CANONICAL — SOURCE APPROVAL BLOCKED | Canonical `9c2f5b6c...`; post-promotion CI `34940817455` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; repository-side Vercel integration decommissioned |
 
 ## Completed M3 readiness work
@@ -20,19 +20,27 @@ Last updated: 2026-09-15
 - `$500+` selected as initial value-segment pilot.
 - Bounded structure inspection executed and canonicalized with zero CSV data rows sampled.
 - 25 source labels verified across all four CSV members.
-- Current field/privacy candidate reviewed against official SCO property-type codes and current CPPA references.
+- Field/privacy readiness reviewed against official SCO property-type codes and current privacy references.
+- First-purpose persisted scope reduced to `PROPERTY_ID` + `PROPERTY_TYPE`.
+- `HOLDER_NAME` removed from the first triage allowlist.
+- Transient CSV prohibited-field exposure recorded as a separate privacy boundary.
+- Unjustified 7-day projected-record retention candidate removed; projected retention remains unresolved.
+- Candidate promoted by non-force fast-forward to canonical `m2-state-governance-core`.
+- Canonical post-promotion CI is green.
 
-## Current Candidate — Key Result
+## Canonical Two-Field Boundary
 
 Purpose:
 `INSURANCE_RELEVANCE_TRIAGE_ONLY`.
 
-Proposed persisted/allowed scope reduced from three fields to two:
+Canonical proposed persisted/allowed scope:
 
 1. `PROPERTY_ID`
 2. `PROPERTY_TYPE`
 
-`HOLDER_NAME` is prohibited for this first purpose.
+Optional fields: none.
+
+`HOLDER_NAME` and owner/holder identity/address fields are prohibited for this first purpose.
 
 Official SCO/NAUPA documentation defines insurance property codes `IN01-IN08` and `IN99`. The bulk CSV field is not yet assumed to use those values until a separately authorized bounded semantic check verifies row-level compatibility.
 
@@ -55,16 +63,13 @@ Retention:
 
 Privacy policy remains draft/not trusted.
 
-## Functional Verification
+## Canonical Verification
 
-Candidate branch:
-`m3-ca-sco-field-privacy-readiness`
+Promoted HEAD:
+`9c2f5b6c82ed787bf0820bdd850e475775fc097c`.
 
-Functional HEAD:
-`648b81b973a4b169c14bcdfd76ac4fa71e76f2e9`
-
-CI:
-`34939909880` — SUCCESS.
+Canonical CI:
+`34940817455` — SUCCESS.
 
 Passed:
 - Ruff;
@@ -89,10 +94,19 @@ Passed:
 
 ## Next Product Work
 
-1. Human/legal review of the transient CSV processing boundary and the revised two-field minimization.
-2. If accepted, promote the candidate to `m2-state-governance-core` as **non-authorizing**.
-3. After a separate explicit gate, design a bounded `PROPERTY_TYPE` semantic-verification proposal; do not execute it automatically.
-4. Only after privacy/retention/source approval gates are resolved, implement reviewed real acquisition and A02 normalization against approved fields.
+Create an isolated, non-authorizing **`PROPERTY_TYPE` semantic-verification proposal**.
+
+The proposal must:
+1. define the exact semantic question to verify;
+2. use the existing `$500+` transport and structure evidence only as input;
+3. define explicit row, request and byte caps before any execution;
+4. define transient-buffer handling and immediate disposal;
+5. prohibit raw ZIP/full-row persistence;
+6. prohibit use/persistence of nonallowlisted values;
+7. define deterministic stop conditions for malformed/unexpected rows, transport drift or privacy ambiguity;
+8. remain non-executable and non-authorizing until a separate human gate.
+
+No real row should be read merely to prepare this proposal.
 
 ## Still Required Before Real Acquisition
 
@@ -104,7 +118,8 @@ Passed:
 - explicit source-approval reference;
 - source policy `APPROVED` under separate gate;
 - registry activation under separate gate;
-- separately authorized row-level acquisition.
+- separately authorized row-level acquisition;
+- A02 normalization against approved fields only.
 
 ## Out of Scope Until Later Gates
 
