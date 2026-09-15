@@ -17,32 +17,55 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       - name: Verify immutable archive
         shell: bash
         run: |
           set -euo pipefail
           printf '%s  %s\n' "$EXPECTED_SHA256" "$PDF_PATH" | sha256sum -c -
           test "$(stat -c%s "$PDF_PATH")" -eq 329585
-      - name: Inspect PDF structure
+      - name: Install offline review PDF tooling
+        run: python -m pip install --disable-pip-version-check PyMuPDF
+      - name: Extract text, inspect structure and render all pages
         shell: bash
         run: |
           set -euo pipefail
-          which pdfinfo
-          pdfinfo "$PDF_PATH" | tee /tmp/authority-pdfinfo.txt
-      - name: Extract layout-aware text
-        shell: bash
-        run: |
-          set -euo pipefail
-          which pdftotext
-          pdftotext -layout "$PDF_PATH" /tmp/authority.txt
-          test -s /tmp/authority.txt
-      - name: Render all pages
-        shell: bash
-        run: |
-          set -euo pipefail
-          which pdftoppm
           mkdir -p /tmp/authority-pages
-          pdftoppm -png -r 160 "$PDF_PATH" /tmp/authority-pages/page
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import fitz
+
+          pdf_path = Path(os.environ['PDF_PATH'])
+          doc = fitz.open(pdf_path)
+          if doc.page_count != 4:
+              raise SystemExit(f'unexpected page count: {doc.page_count}')
+
+          info_lines = [
+              f'pages: {doc.page_count}',
+              f'is_pdf: {doc.is_pdf}',
+              f'is_encrypted: {doc.is_encrypted}',
+              f'needs_pass: {doc.needs_pass}',
+          ]
+          for key, value in sorted((doc.metadata or {}).items()):
+              info_lines.append(f'metadata.{key}: {value or ""}')
+          Path('/tmp/authority-pdfinfo.txt').write_text('\n'.join(info_lines) + '\n', encoding='utf-8')
+
+          text_parts = []
+          matrix = fitz.Matrix(160 / 72, 160 / 72)
+          for index, page in enumerate(doc, start=1):
+              text_parts.append(f'===== PAGE {index} =====\n')
+              text_parts.append(page.get_text('text', sort=True))
+              text_parts.append('\n')
+              pix = page.get_pixmap(matrix=matrix, alpha=False)
+              pix.save(f'/tmp/authority-pages/page-{index}.png')
+
+          Path('/tmp/authority.txt').write_text(''.join(text_parts), encoding='utf-8')
+          if not Path('/tmp/authority.txt').stat().st_size:
+              raise SystemExit('empty text extraction')
+          PY
           test "$(find /tmp/authority-pages -type f -name 'page-*.png' | wc -l)" -eq 4
       - name: Upload review-only artifact
         uses: actions/upload-artifact@v4
