@@ -160,8 +160,20 @@ def test_fresh_approvals_are_distinct_single_use_non_reusable_and_not_granted() 
     consumed = set(artifact["consumed_prior_approvals"])
     assert execution["approval_ref"] not in consumed
     assert privacy["approval_ref"] not in consumed
-    assert not EXECUTION_APPROVAL_PATH.exists()
-    assert not PRIVACY_APPROVAL_PATH.exists()
+    expected_evidence = (
+        (EXECUTION_APPROVAL_PATH, "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED"),
+        (PRIVACY_APPROVAL_PATH, "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED"),
+    )
+    for path, approval_ref in expected_evidence:
+        assert path.exists()
+        evidence = _load(path)
+        assert evidence["approval_ref"] == approval_ref
+        assert evidence["authorization_artifact_package_sha"] == (
+            "daeaa7bfb7f7d73a61f011d394cc88393625866c"
+        )
+        assert evidence["single_use"] is True
+        assert evidence["reusable"] is False
+        assert evidence["status"] == "CONSUMED"
     assert not FUTURE_WORKFLOW_PATH.exists()
 
 
