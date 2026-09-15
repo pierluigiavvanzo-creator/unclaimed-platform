@@ -37,6 +37,9 @@ Owner-authorized one-shot run:
 Result:
 `STOPPED_FAIL_CLOSED`.
 
+Historical persisted schema version:
+`1.0.0`.
+
 Historical persisted stop reason:
 `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
@@ -83,28 +86,43 @@ Base diagnosis HEAD:
 Owner authorization:
 `autorizzo remediation diagnostica offline`
 
-Functional remediation SHA:
-`ec688df61c56276c36facf2f598a1ad90b97fe5d`.
+Final functional remediation SHA:
+`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`.
 
 Functional CI:
-`34969967725` — SUCCESS for `quality` and `streamlit-candidate`.
+`34971353630` — SUCCESS for `quality` and `streamlit-candidate`.
+
+The earlier intermediate remediation SHA `ec688df61c56276c36facf2f598a1ad90b97fe5d` was superseded before promotion by explicit machine-contract versioning.
 
 Remediation audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
 
-Exact behavior after remediation:
+Exact future behavior after remediation:
 - invalid UTF-8 in projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
 - decoded non-empty value failing the unchanged regex -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
 The regex remains unchanged. No trimming, case conversion, normalization, source-value logging, raw-byte persistence or budget widening was introduced.
 
-The execution schema stop-reason enum now includes `PROPERTY_TYPE_ENCODING_UNEXPECTED`. This is an additive backward-compatible extension under schema version `1.0.0`; historical execution evidence remains unchanged and contract-valid.
+## Machine Contract Versioning
 
-Functional diff from the diagnosis base is exactly four files:
-- `scripts/ca_sco_property_type_semantic_verification.py`;
-- `schemas/common/property_type_semantic_verification_execution.schema.json`;
-- `tests/unit/test_ca_sco_property_type_offline_diagnosis.py`;
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`.
+Historical schema v1.0.0 remains frozen at:
+`schemas/common/property_type_semantic_verification_execution.schema.json`
+
+It continues to validate historical execution evidence and does not accept the new encoding-specific reason.
+
+Future remediated runner outputs use:
+`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
+
+with:
+`schema_version: 1.1.0`.
+
+This prevents silent enum-domain drift for consumers pinned to v1.0.0. Historical evidence is not migrated or reinterpreted.
+
+## Functional Candidate Diff Boundary
+
+Compared with diagnosis base `8aa6c615...`, final functional SHA `f7a9bf9...` is ahead-only with merge base exactly the diagnosis base.
+
+The candidate changes only remediation/test/audit/docs files plus the new versioned v1.1 schema. The historical v1.0 schema content is restored unchanged.
 
 No SCO network/body access occurred during remediation. No network workflow was created.
 

@@ -18,7 +18,7 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Offline diagnosis branch: `m3-ca-sco-property-type-offline-diagnosis`
 - Diagnosis closure/base for remediation: `8aa6c61594232b54b351d0a2063d9de2031a28f7`
 - Current remediation candidate: `m3-ca-sco-property-type-diagnostic-remediation`
-- Current remediation functional SHA: `ec688df61c56276c36facf2f598a1ad90b97fe5d`
+- Current final functional remediation SHA: `f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
 - Never develop directly on `main`.
 
 ## Verified Baseline
@@ -37,10 +37,11 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - One bounded owner-authorized real `PROPERTY_TYPE` semantic attempt EXECUTED ONCE and STOPPED FAIL-CLOSED.
 - Offline evidence review + diagnosis COMPLETED + CI VERIFIED.
 - Offline diagnostic remediation IMPLEMENTED ON ISOLATED CANDIDATE + CI VERIFIED.
+- Historical execution machine contract preserved as v1.0.0; remediated future contract versioned as v1.1.0.
 - Repository-side Vercel integration DECOMMISSIONED.
 - Supabase untouched.
 
-## Canonical Runner Before Remediation Promotion
+## Canonical Runner Before Remediation Integration
 
 Runner:
 `scripts/ca_sco_property_type_semantic_verification.py`
@@ -51,7 +52,7 @@ Canonical runner functional SHA:
 Canonical runner CI:
 `34961511401` — SUCCESS.
 
-The remediation candidate is not yet promoted to the canonical development branch.
+The remediation candidate is not yet integrated/promoted into the canonical development branch.
 
 ## Historical Real One-Shot Execution
 
@@ -60,6 +61,9 @@ Workflow run:
 
 Semantic result:
 `STOPPED_FAIL_CLOSED`
+
+Historical persisted schema version:
+`1.0.0`
 
 Historical persisted stop reason:
 `PROPERTY_TYPE_FORMAT_UNEXPECTED`
@@ -121,18 +125,26 @@ Candidate branch:
 Base:
 `8aa6c61594232b54b351d0a2063d9de2031a28f7`
 
-Functional remediation commit:
+Initial remediation functional SHA:
 `ec688df61c56276c36facf2f598a1ad90b97fe5d`
 
-Functional remediation CI:
-`34969967725` — SUCCESS for both `quality` and `streamlit-candidate`.
+Initial remediation CI:
+`34969967725` — SUCCESS.
+
+That intermediate candidate was superseded before promotion because a final governance review determined that adding a new producer enum value while keeping `schema_version: 1.0.0` could cause silent contract-domain drift for consumers pinned to the historical schema.
+
+Final versioned remediation functional SHA:
+`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
+
+Final functional CI:
+`34971353630` — SUCCESS for both `quality` and `streamlit-candidate`.
 
 Audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
 
-### Exact behavior now implemented on the candidate
+### Exact future behavior now implemented on candidate
 
-- invalid UTF-8 in the projected `PROPERTY_TYPE` field -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
+- invalid UTF-8 in projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
 - successfully decoded, non-empty value failing the unchanged token-shape rule -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
 Unchanged regex:
@@ -140,41 +152,45 @@ Unchanged regex:
 
 No `.strip()`, case folding, uppercasing, source-value normalization or code-domain relaxation was introduced.
 
-### Machine contract
+### Machine contracts
 
-Schema:
+Historical/frozen v1.0.0 schema:
 `schemas/common/property_type_semantic_verification_execution.schema.json`
 
-The stop-reason enum was extended with:
-`PROPERTY_TYPE_ENCODING_UNEXPECTED`.
+- `$id` remains v1.0.0;
+- `schema_version` remains `1.0.0`;
+- it does not recognize `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
+- historical persisted evidence continues to validate against it unchanged.
 
-`schema_version` remains `1.0.0` because the change is additive/backward-compatible: existing valid payloads remain valid and no field or previously accepted reason is removed or reinterpreted.
+Future/remediated v1.1.0 schema:
+`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
 
-The historical persisted execution evidence remains unchanged and continues to validate. Its historical reason remains `PROPERTY_TYPE_FORMAT_UNEXPECTED`; do not retroactively reinterpret it using the new code.
+- `$id` is v1.1.0;
+- `schema_version` is `1.1.0`;
+- it recognizes `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
+- it preserves `PROPERTY_TYPE_FORMAT_UNEXPECTED` for decoded shape mismatch.
+
+The remediated runner now emits `schema_version: 1.1.0` for any future execution output.
+
+The historical real evidence is NOT migrated or reinterpreted. Its persisted `schema_version: 1.0.0` and `PROPERTY_TYPE_FORMAT_UNEXPECTED` remain historical facts with unresolved root cause.
 
 ### Regression tests
 
 Updated:
-`tests/unit/test_ca_sco_property_type_offline_diagnosis.py`
+- `tests/unit/test_ca_sco_property_type_offline_diagnosis.py`
+- `tests/unit/test_ca_sco_property_type_semantic_verification_runner.py`
 
-The suite now verifies:
-- decoded shape mismatch still -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+The suite verifies:
+- future runner output declares v1.1.0 and validates against the v1.1.0 schema;
+- decoded shape mismatch -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 - invalid UTF-8 -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
-- both reasons are present in the schema enum;
+- frozen v1.0.0 schema excludes the new reason;
+- historical v1.0.0 evidence remains valid against the frozen historical schema;
 - regex behavior is unchanged;
 - standard-CSV projector differential cases still pass;
 - network one-shot workflow remains absent.
 
-Full repository CI `34969967725` passed Ruff, mypy, contract, smoke, full pytest, frontend lint/typecheck/build and Streamlit safety/startup smoke.
-
-### Functional diff boundary
-
-Compared with remediation base `8aa6c615...`, functional commit `ec688df6...` is ahead by 1, behind by 0, merge-base exactly the base, and changes only:
-
-1. `scripts/ca_sco_property_type_semantic_verification.py`
-2. `schemas/common/property_type_semantic_verification_execution.schema.json`
-3. `tests/unit/test_ca_sco_property_type_offline_diagnosis.py`
-4. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
+Full repository CI `34971353630` passed Ruff, mypy, contract, smoke, full pytest, frontend lint/typecheck/build and Streamlit safety/startup smoke.
 
 ## Network / Privacy State During Remediation
 
@@ -226,15 +242,9 @@ Unchanged:
 
 `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_REVIEW`
 
-Review the CI-verified candidate. Do not automatically promote it and do not perform another SCO request.
+Review the CI-verified versioned remediation. Do not automatically integrate/promote it and do not perform another SCO request.
 
-If later explicitly authorized for promotion, first recheck:
-- remediation candidate CI still SUCCESS;
-- canonical `m2-state-governance-core` has not drifted unexpectedly;
-- compare/merge-base is safe;
-- changed-file set is bounded and understood.
-
-Then promotion, if authorized, must use a non-force history-preserving update and must be followed by canonical post-promotion CI verification before declaring success.
+Important integration note: this candidate descends from the historical semantic-execution/evidence/diagnosis lineage, while canonical `m2-state-governance-core` remains at `c3f0dc7e...`. Therefore a future integration must first inspect the full compare/ancestry and must not assume a blind fast-forward is appropriate.
 
 Any second real SCO execution is a different later gate and requires fresh explicit semantic-execution approval plus transient-row privacy approval.
 
@@ -247,6 +257,7 @@ M2: VERIFIED
 Canonical dev: c3f0dc7e374d21283358e4e1e8d403f078f08acb
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e
 Historical real run: 34965097988
+Historical schema: 1.0.0
 Historical result: STOPPED_FAIL_CLOSED
 Historical stop: PROPERTY_TYPE_FORMAT_UNEXPECTED
 Historical root cause: UNRESOLVED
@@ -255,8 +266,9 @@ Network workflow: ABSENT
 Diagnosis SHA: 1405d33b7c09373f738dc87f6c93b05a0c342461
 Diagnosis CI: 34968418681 SUCCESS
 Remediation branch: m3-ca-sco-property-type-diagnostic-remediation
-Remediation functional SHA: ec688df61c56276c36facf2f598a1ad90b97fe5d
-Remediation CI: 34969967725 SUCCESS
+Final remediation functional SHA: f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef
+Final remediation functional CI: 34971353630 SUCCESS
+Future execution schema: 1.1.0
 Future encoding failure: PROPERTY_TYPE_ENCODING_UNEXPECTED
 Future decoded shape failure: PROPERTY_TYPE_FORMAT_UNEXPECTED
 Regex: UNCHANGED

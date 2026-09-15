@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `PROPERTY_TYPE` REAL ATTEMPT STOPPED FAIL-CLOSED + OFFLINE DIAGNOSTIC REMEDIATION CI VERIFIED — HUMAN EVIDENCE REVIEW REQUIRED | Historical run `34965097988`; remediation SHA `ec688df6...`; CI `34969967725` SUCCESS; network workflow absent |
+| M3 — California Data Spike | `PROPERTY_TYPE` REAL ATTEMPT STOPPED FAIL-CLOSED + OFFLINE DIAGNOSTIC REMEDIATION v1.1 CI VERIFIED — HUMAN EVIDENCE REVIEW REQUIRED | Historical run `34965097988`; remediation SHA `f7a9bf9a...`; CI `34971353630` SUCCESS; network workflow absent |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; Vercel runtime integration decommissioned |
 
 ## Completed M3 Readiness Work
@@ -26,6 +26,7 @@ Last updated: 2026-09-15
 - One-shot network workflow removed immediately after the run.
 - Offline evidence review and synthetic diagnosis completed + CI verified.
 - Offline diagnostic remediation implemented on isolated candidate + CI verified.
+- Historical execution contract frozen as v1.0.0; remediated future execution contract versioned separately as v1.1.0.
 
 ## Historical Real Semantic Attempt
 
@@ -34,6 +35,9 @@ Run:
 
 Result:
 `STOPPED_FAIL_CLOSED`
+
+Historical schema version:
+`1.0.0`
 
 Historical stop reason:
 `PROPERTY_TYPE_FORMAT_UNEXPECTED`
@@ -75,11 +79,11 @@ Base diagnosis HEAD:
 Owner authorization:
 `autorizzo remediation diagnostica offline`
 
-Functional remediation SHA:
-`ec688df61c56276c36facf2f598a1ad90b97fe5d`
+Final functional remediation SHA:
+`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
 
-CI:
-`34969967725` — SUCCESS.
+Functional CI:
+`34971353630` — SUCCESS.
 
 Remediation:
 - UTF-8 decode failure -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
@@ -87,9 +91,13 @@ Remediation:
 - existing regex unchanged;
 - no source-value normalization;
 - no raw values/bytes/hashes/lengths persisted or logged;
-- execution schema enum extended backward-compatibly;
-- historical execution evidence remains unchanged and valid;
 - one-shot network workflow remains absent.
+
+Machine contract:
+- historical/frozen schema `1.0.0`: `schemas/common/property_type_semantic_verification_execution.schema.json`;
+- future/remediated schema `1.1.0`: `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`;
+- runner now emits `schema_version: 1.1.0` for future executions;
+- historical v1.0.0 evidence remains unchanged and continues to validate against the frozen historical schema.
 
 Audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
@@ -112,8 +120,8 @@ Audit:
 ## Next Product Work
 
 1. Human review at `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_REVIEW`.
-2. If approved, promote the offline remediation through the normal candidate-to-canonical gate only; do not infer anything new about the historical real value.
-3. Do not recreate a network workflow as part of promotion.
+2. If approved, determine the correct bounded integration path into `m2-state-governance-core`; do not assume a blind fast-forward because the candidate lineage includes prior execution/evidence/diagnosis commits not yet canonical.
+3. Do not recreate a network workflow as part of promotion/integration.
 4. Any second bounded real execution requires new explicit semantic-execution + transient-row privacy authorization.
 5. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
 
