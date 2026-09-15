@@ -10,65 +10,92 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance review is complete and CI-verified. PROPERTY_TYPE semantic compatibility with the live source remains unresolved.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary, but semantic compatibility with the live source remains unresolved.
 
-Authority archive provenance review branch:
-`m3-ca-sco-property-type-authority-archive-provenance-review`
+A separate bounded diagnostic/remediation evidence proposal has now been prepared and CI-verified on branch:
 
-Review decision:
-`ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS`
+`m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal`
 
-Review evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_authority_archive_provenance.review.v1.json`
+Proposal package checkpoint SHA:
 
-Review audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md`
+`020044d3013449fabe566c5164b8f99f9d8cc9ab`
 
-Review package checkpoint SHA:
-`0b08163c624165fed4394e74265363fab53b2f5a`
+Proposal CI:
 
-Review CI:
-`35013841037` — SUCCESS
+`35015429439` — SUCCESS
 
-### Authority findings
+Proposal status:
 
-- `SPECIAL_CODE_ZZZZ`: `SUPPORTED_BY_ARCHIVED_AUTHORITY`.
-- `CALIFORNIA_INSURANCE_CODE_SET`: `SUPPORTED_BY_ARCHIVED_AUTHORITY` for `IN01`-`IN08` and `IN99`.
-- `GENERAL_CODE_SHAPE_AA99`: `SUPPORTED_BY_ARCHIVED_AUTHORITY_WITH_SCOPE_BOUNDARY`; every property type code enumerated by the authority other than `ZZZZ` uses the two-uppercase-Latin-letter plus two-digit shape, but the authority does not make every arbitrary `AA99` token semantically valid and does not independently state an abstract ASCII regex grammar.
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
 
-The existing shape regex is not contradicted by the archived authority. No regex, parser, trimming, casing or normalization change is authorized.
+Proposal:
 
-### Unresolved live-source issue
+`sources/proposals/ca_sco_segment_500_plus.property_type_diagnostic_remediation_evidence.v1.json`
+
+Schema:
+
+`schemas/common/property_type_diagnostic_remediation_evidence_proposal.schema.json`
+
+Audit:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL.md`
+
+### Verified basis
 
 The second bounded semantic execution remains the latest real PROPERTY_TYPE source execution:
 
 - run `34995672539`;
+- schema `1.1.0`;
 - result `STOPPED_FAIL_CLOSED`;
 - stop `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- projected PROPERTY_TYPE decoded successfully and was non-empty but did not match the unchanged shape regex;
-- exact offending value was not retained and must not be reconstructed or inferred.
+- the v1.1 runner distinguishes UTF-8 encoding failure from decoded format mismatch;
+- therefore the observed mismatch was a decoded, non-empty PROPERTY_TYPE that failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- the exact offending value, bytes, hash, length and fragments were not retained and must not be reconstructed or inferred.
 
-The authority review does not explain the source mismatch. Semantic compatibility therefore remains `UNRESOLVED`.
+The completed authority provenance review established that the current regex is not contradicted by the archived authority and did not authorize trimming, casing, normalization, parser change or regex relaxation.
+
+### Proposed future diagnostic boundary — not yet authorized
+
+If a later human gate and fresh execution/privacy approvals authorize diagnostic source access, the proposal limits it to:
+
+- the exact existing `claimit.ca.gov` endpoint and pinned source identity;
+- first canonical member only;
+- at most 4 transient data rows;
+- stop at the first reproduced format mismatch;
+- 1 HEAD maximum;
+- 1 Range GET maximum;
+- 2 HTTP requests maximum total;
+- 131072 source response-body bytes maximum total;
+- no retry, redirect, extra range, full-body fallback or automatic widening.
+
+The only proposed persisted semantic evidence is a coarse categorical diagnostic class plus bounded counters and safety flags. Exact PROPERTY_TYPE values, bytes, hashes, lengths, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID and owner/holder values remain forbidden from persistence/logging.
+
+No diagnostic class authorizes remediation automatically.
 
 ### Governance remains fail-closed
 
-- authority archival approval: CONSUMED + NON-REUSABLE;
-- previous semantic execution/privacy approvals: CONSUMED + NON-REUSABLE;
-- source policy: `PROPOSED`;
-- registry: disabled / not approved;
-- approved real sources: `0`;
-- production classification: inactive;
-- identity resolution, genealogy, beneficiary matching, outreach and claim submission: BLOCKED;
+- proposal preparation performed no SCO/`claimit.ca.gov` source request;
+- no diagnostic execution was performed;
+- no network workflow was created;
+- runner/parser/regex/normalization/logging/persistence were not modified;
+- previous semantic execution/privacy approvals remain CONSUMED + NON-REUSABLE;
+- authority archival approval remains CONSUMED + NON-REUSABLE;
+- source policy remains `PROPOSED`;
+- registry remains disabled / not approved;
+- approved real sources remain `0`;
+- production classification remains inactive;
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED;
 - no third real semantic execution is authorized;
-- no additional authority retrieval is authorized;
-- no diagnostic/remediation execution or runtime modification is authorized by the provenance review.
+- no approval token is defined by this proposal.
 
 ## Next Recommended Action
 
-Human decision only:
+Perform only:
 
-`DECIDE_WHETHER_TO_PREPARE_BOUNDED_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
 
-This is a proposal-preparation decision only. The completed provenance review defines no approval token and creates no authorization to inspect/reconstruct the unretained source value, access SCO again, modify runtime semantics, or perform another real execution.
+Review the proposal, schema, audit and contract-test package. Do not access the source or implement remediation during this review.
+
+A PASS would still require a separate explicit diagnostic execution/authorization artifact and fresh execution/privacy approvals before any source access.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.

@@ -6,17 +6,17 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Provenance Review Checkpoint
+## Current Branch / Diagnostic Proposal Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-authority-archive-provenance-review`
-- archive checkpoint base: `cb4b3a3975794e10cadcbf96a6e22a13cc324dbf`
-- authority archival run: `35012019831` — SUCCESS
-- authority archive SHA-256: `7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5`
-- provenance review package checkpoint SHA: `0b08163c624165fed4394e74265363fab53b2f5a`
-- provenance review CI: `35013841037` — SUCCESS
-- review audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md`
-- review evidence: `sources/evidence/ca_sco_segment_500_plus.property_type_authority_archive_provenance.review.v1.json`
+- branch: `m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal`
+- base review HEAD: `961d6a908dd9656f5ce19823be074011010833bf`
+- proposal package checkpoint SHA: `020044d3013449fabe566c5164b8f99f9d8cc9ab`
+- proposal package CI: `35015429439` — SUCCESS
+- proposal: `sources/proposals/ca_sco_segment_500_plus.property_type_diagnostic_remediation_evidence.v1.json`
+- schema: `schemas/common/property_type_diagnostic_remediation_evidence_proposal.schema.json`
+- audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL.md`
+- contract test: `tests/contract/test_ca_sco_property_type_diagnostic_remediation_evidence_proposal.py`
 
 ## Verified Baseline
 
@@ -27,6 +27,7 @@ Authoritative restart point. Verify remote heads before acting and use repositor
 - M3 live PROPERTY_TYPE semantic compatibility: UNRESOLVED
 - second bounded semantic run: `34995672539` -> `STOPPED_FAIL_CLOSED`
 - second stop: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
+- current runner/schema: v1.1 separates encoding failure from decoded format mismatch
 - previous semantic execution/privacy approvals: CONSUMED + NON-REUSABLE
 - authority archival approval: CONSUMED + NON-REUSABLE
 - source policy: `PROPOSED`
@@ -35,75 +36,153 @@ Authoritative restart point. Verify remote heads before acting and use repositor
 - production classification: inactive
 - identity/genealogy/beneficiary matching/outreach/claim submission: BLOCKED
 
-## Authority Archive Provenance Review Result
+## What Is Already Proven
 
-Review gate completed:
-`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
+The second real run used the remediated v1.1 runner. Under that runner:
 
-Machine decision:
-`ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS`
+- invalid UTF-8 projection -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
+- decoded, non-empty shape mismatch -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
-Reviewed immutable authority:
-`sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf`
+Because run `34995672539` stopped with `PROPERTY_TYPE_FORMAT_UNEXPECTED`, the observed live mismatch is narrowed to a decoded, non-empty projected PROPERTY_TYPE that failed the unchanged regex:
 
-Review method:
+`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-- existing repository archive only;
-- archive SHA-256 and byte count verified before interpretation;
-- text extraction used only as a helper;
-- all 4 pages rendered and visually reviewed;
-- offline extractor run `35013189623` — SUCCESS;
-- temporary extractor workflow removed after review;
-- no authority network retrieval during review;
-- no SCO dataset, `claimit.ca.gov`, source-row or offending-value access during review.
+The exact offending value, bytes, hash, exact length, fragments and codepoints were intentionally not retained and must not be reconstructed or inferred.
 
-Classifications:
+The archived authority review separately established:
 
-1. `GENERAL_CODE_SHAPE_AA99`
-   - `SUPPORTED_BY_ARCHIVED_AUTHORITY_WITH_SCOPE_BOUNDARY`
-   - every authority-enumerated Property Type Code other than `ZZZZ` consists of two uppercase Latin letters followed by two digits;
-   - this does not state an abstract encoding regex and does not make arbitrary `AA99` tokens semantically valid.
+- `ZZZZ` is supported;
+- `IN01` through `IN08` and `IN99` are supported;
+- authority-enumerated non-`ZZZZ` property type codes use the observed two-uppercase-letter plus two-digit shape;
+- arbitrary `AA99` membership is not established;
+- the current regex is not contradicted by the authority;
+- trimming, uppercasing, normalization, parser change and regex relaxation are not authorized.
 
-2. `SPECIAL_CODE_ZZZZ`
-   - `SUPPORTED_BY_ARCHIVED_AUTHORITY`
-   - page 3 lists `ZZZZ` under `All Others` as `Properties Not Identified Above`.
+## Prepared Diagnostic / Remediation Evidence Proposal
 
-3. `CALIFORNIA_INSURANCE_CODE_SET`
-   - `SUPPORTED_BY_ARCHIVED_AUTHORITY`
-   - page 1 directly enumerates `IN01` through `IN08` plus `IN99` in the Insurance section.
+Proposal status:
 
-The current shape regex is not contradicted by the authority. The review does not authorize regex relaxation, trimming, uppercasing, normalization or parser changes.
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
 
-## Why Semantic Compatibility Is Still Unresolved
+The proposal asks only whether a future **separately authorized** bounded diagnostic can classify the first reproduced format mismatch into one of five non-value-bearing categories:
 
-The second real bounded run already established that the projected PROPERTY_TYPE decoded successfully, was non-empty, and failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+1. `SURROUNDING_ASCII_WHITESPACE_ONLY`
+2. `ASCII_CASE_ONLY`
+3. `SURROUNDING_ASCII_WHITESPACE_AND_CASE`
+4. `NON_ASCII_OR_CONTROL_CONTENT`
+5. `ASCII_STRUCTURAL_MISMATCH`
 
-The exact offending value was intentionally not retained and must not be reconstructed or inferred.
+No class is an accepted source value and no class automatically authorizes remediation.
 
-The archived authority confirms the target provenance but does not explain why the live source produced a nonconforming value. A separate bounded diagnostic/remediation evidence design is required before further characterization.
+### Future diagnostic scope if separately approved
+
+The proposal defines, but does not authorize:
+
+- exact endpoint: `https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`;
+- pinned source content length / ETag / media type / byte-range support;
+- first canonical member only: `From_500_To_Beyond_1_of_4.csv`;
+- maximum 4 transient data rows;
+- stop at first reproduced format mismatch;
+- maximum 1 HEAD;
+- maximum 1 Range GET;
+- maximum 2 HTTP requests total;
+- maximum 131072 source response-body bytes total;
+- maximum 262144 uncompressed transient bytes;
+- maximum 32768 bytes per logical record;
+- zero retries;
+- redirects forbidden;
+- additional range forbidden;
+- full-body fallback forbidden;
+- automatic widening forbidden;
+- source identity drift -> fail closed;
+- mismatch not reproduced inside boundary -> fail closed.
+
+### Diagnostic derivation boundary
+
+If separately authorized later, only fixed in-memory predicates may be used to derive the coarse class:
+
+- surrounding ASCII space/tab removal match predicate;
+- ASCII-only uppercase match predicate;
+- combined surrounding ASCII space/tab removal + ASCII uppercase match predicate;
+- non-ASCII/disallowed-control presence predicate.
+
+Not included:
+
+- Unicode normalization probe;
+- real-row full `csv.reader` crosscheck;
+- parser change;
+- regex change/relaxation;
+- treating a diagnostic transform as a runtime transform or accepted source value.
+
+### Persistence / logging boundary
+
+Even a future separately approved diagnostic must not persist or log:
+
+- exact PROPERTY_TYPE;
+- PROPERTY_TYPE bytes;
+- hash;
+- exact length;
+- fragments/prefixes/suffixes;
+- codepoints;
+- transformed value;
+- full row;
+- raw response body;
+- PROPERTY_ID;
+- owner/holder values;
+- source-derived free text;
+- per-row values or distinct code lists.
+
+Allowed future evidence is limited to a fixed categorical diagnostic result, source-identity verification state, bounded request/body/row counters and safety flags.
+
+## Current Authorization Boundary
+
+The user authorized **proposal preparation only**.
+
+Current machine state:
+
+- proposal preparation authorized: `true`
+- diagnostic execution authorized: `false`
+- transient-row privacy exposure authorized: `false`
+- network workflow authorized: `false`
+- runtime change authorized: `false`
+- remediation authorized: `false`
+- third semantic execution authorized: `false`
+- approval token defined by proposal: `false`
+
+Proposal preparation performed no source network access, no diagnostic execution and no runtime/parser/regex/normalization/logging/persistence change.
+
+## Consumed Approvals — Do Not Reuse
+
+- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
+- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
+- `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
+
+All remain consumed and non-reusable.
 
 ## Current Safety Boundary
 
 Do not:
 
 - reuse any consumed approval;
-- retrieve the authority again without a new bounded proposal/gate;
-- access SCO datasets or `claimit.ca.gov` without a newly authorized bounded scope;
-- reconstruct or infer the unretained offending PROPERTY_TYPE value;
+- access SCO or `claimit.ca.gov` during proposal review;
+- reconstruct or infer the unretained offending PROPERTY_TYPE;
+- persist/hash/measure exact source value content;
+- create a diagnostic network workflow before a separate explicit authorization artifact and fresh approvals;
 - change parser, regex, trimming, casing or normalization;
-- classify/remediate the source value under authority of this review;
-- run a third PROPERTY_TYPE semantic execution without a new proposal and fresh execution/privacy approvals;
+- apply remediation from any proposed diagnostic class;
+- perform a real-row full-parser crosscheck under this proposal;
+- run another real PROPERTY_TYPE semantic execution;
 - activate source policy, registry or production classification;
 - perform identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
 ## SINGLE NEXT ACTION
 
-Human decision only:
+Perform exclusively:
 
-`DECIDE_WHETHER_TO_PREPARE_BOUNDED_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
 
-Choose whether to authorize preparation of a separate bounded diagnostic/remediation evidence proposal, or stop this M3 semantic line of work.
+Review the proposal, schema, audit and contract test against the verified base evidence and decide `PASS`, `FAIL`, or `NEEDS_REMEDIATION`.
 
-No canonical approval token for that proposal-preparation decision is defined by the completed provenance review. Do not invent one silently.
+During this review do **not** access the source, retrieve the authority again, reconstruct the offending value, create a network workflow, modify runtime semantics or perform a diagnostic execution.
 
-If proposal preparation is authorized, proposal preparation alone must not access SCO, reconstruct the offending value, modify runtime semantics or perform another real execution. Any later diagnostic execution or remediation must pass its own explicit human gate with fresh approvals where required.
+If the proposal review is `PASS` and the owner later wants the real bounded diagnostic, the next step is to prepare a **separate explicit diagnostic execution/authorization artifact**. That later artifact must define fresh execution and transient-row privacy approvals before any source request. This proposal intentionally defines no canonical approval token.
