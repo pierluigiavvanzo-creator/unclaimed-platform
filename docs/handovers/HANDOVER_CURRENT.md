@@ -6,17 +6,18 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Diagnostic Proposal Checkpoint
+## Current Branch / Diagnostic Proposal Review Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal`
-- base review HEAD: `961d6a908dd9656f5ce19823be074011010833bf`
+- branch: `m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal-review`
+- reviewed proposal branch: `m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal`
+- reviewed proposal HEAD: `847cdf5daaa1834c3ce11fc3d6f29e2bbc36b4b4`
 - proposal package checkpoint SHA: `020044d3013449fabe566c5164b8f99f9d8cc9ab`
 - proposal package CI: `35015429439` — SUCCESS
-- proposal: `sources/proposals/ca_sco_segment_500_plus.property_type_diagnostic_remediation_evidence.v1.json`
-- schema: `schemas/common/property_type_diagnostic_remediation_evidence_proposal.schema.json`
-- audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL.md`
-- contract test: `tests/contract/test_ca_sco_property_type_diagnostic_remediation_evidence_proposal.py`
+- final reviewed proposal CI: `35015731733` — SUCCESS
+- review gate: `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
+- review decision: `PASS`
+- review audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW.md`
 
 ## Verified Baseline
 
@@ -38,7 +39,7 @@ Authoritative restart point. Verify remote heads before acting and use repositor
 
 ## What Is Already Proven
 
-The second real run used the remediated v1.1 runner. Under that runner:
+The second real run used the v1.1 runner. Under that runner:
 
 - invalid UTF-8 projection -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
 - decoded, non-empty shape mismatch -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
@@ -47,7 +48,7 @@ Because run `34995672539` stopped with `PROPERTY_TYPE_FORMAT_UNEXPECTED`, the ob
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-The exact offending value, bytes, hash, exact length, fragments and codepoints were intentionally not retained and must not be reconstructed or inferred.
+The exact offending value, bytes, hash, exact length, fragments and codepoints were intentionally not retained and must not be reconstructed or inferred from historical evidence.
 
 The archived authority review separately established:
 
@@ -58,31 +59,24 @@ The archived authority review separately established:
 - the current regex is not contradicted by the authority;
 - trimming, uppercasing, normalization, parser change and regex relaxation are not authorized.
 
-## Prepared Diagnostic / Remediation Evidence Proposal
+## Proposal Review Result
 
-Proposal status:
+Completed gate:
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
 
-The proposal asks only whether a future **separately authorized** bounded diagnostic can classify the first reproduced format mismatch into one of five non-value-bearing categories:
+Decision:
 
-1. `SURROUNDING_ASCII_WHITESPACE_ONLY`
-2. `ASCII_CASE_ONLY`
-3. `SURROUNDING_ASCII_WHITESPACE_AND_CASE`
-4. `NON_ASCII_OR_CONTROL_CONTENT`
-5. `ASCII_STRUCTURAL_MISMATCH`
+`PASS`
 
-No class is an accepted source value and no class automatically authorizes remediation.
+The PASS accepts only the bounded proposal design. It does **not** authorize network access, transient real-row exposure, diagnostic execution, runtime changes or remediation.
 
-### Future diagnostic scope if separately approved
+The accepted future diagnostic design remains limited to:
 
-The proposal defines, but does not authorize:
-
-- exact endpoint: `https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`;
-- pinned source content length / ETag / media type / byte-range support;
-- first canonical member only: `From_500_To_Beyond_1_of_4.csv`;
+- exact existing endpoint and pinned source identity;
+- first canonical member only;
 - maximum 4 transient data rows;
-- stop at first reproduced format mismatch;
+- stop at the first reproduced format mismatch;
 - maximum 1 HEAD;
 - maximum 1 Range GET;
 - maximum 2 HTTP requests total;
@@ -97,59 +91,45 @@ The proposal defines, but does not authorize:
 - source identity drift -> fail closed;
 - mismatch not reproduced inside boundary -> fail closed.
 
-### Diagnostic derivation boundary
+Persisted evidence may contain only a fixed coarse diagnostic class, source-identity state, bounded counters and safety flags. Exact values, bytes, hashes, lengths, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID and owner/holder values remain forbidden from persistence/logging.
 
-If separately authorized later, only fixed in-memory predicates may be used to derive the coarse class:
+No diagnostic class automatically authorizes remediation.
 
-- surrounding ASCII space/tab removal match predicate;
-- ASCII-only uppercase match predicate;
-- combined surrounding ASCII space/tab removal + ASCII uppercase match predicate;
-- non-ASCII/disallowed-control presence predicate.
+## Mandatory Tightening Before Any Diagnostic Execution
 
-Not included:
+The separate execution/authorization artifact must make classifier semantics deterministic before any network request.
 
-- Unicode normalization probe;
-- real-row full `csv.reader` crosscheck;
-- parser change;
-- regex change/relaxation;
-- treating a diagnostic transform as a runtime transform or accepted source value.
+It must contract-test:
 
-### Persistence / logging boundary
+1. fixed classification precedence:
+   - `SURROUNDING_ASCII_WHITESPACE_ONLY`
+   - `ASCII_CASE_ONLY`
+   - `SURROUNDING_ASCII_WHITESPACE_AND_CASE`
+   - `NON_ASCII_OR_CONTROL_CONTENT`
+   - `ASCII_STRUCTURAL_MISMATCH`
 
-Even a future separately approved diagnostic must not persist or log:
+2. ASCII-only case mapping: `a-z` -> `A-Z`, all other code points unchanged;
+3. exact enumeration of ASCII control code points considered disallowed;
+4. explicit fail-closed reason-code enum;
+5. explicit null/absent semantics for `diagnostic_class` when stopped fail-closed;
+6. synthetic tests for all classes, precedence collisions, boundary cases and non-persistence/non-logging.
 
-- exact PROPERTY_TYPE;
-- PROPERTY_TYPE bytes;
-- hash;
-- exact length;
-- fragments/prefixes/suffixes;
-- codepoints;
-- transformed value;
-- full row;
-- raw response body;
-- PROPERTY_ID;
-- owner/holder values;
-- source-derived free text;
-- per-row values or distinct code lists.
-
-Allowed future evidence is limited to a fixed categorical diagnostic result, source-identity verification state, bounded request/body/row counters and safety flags.
+These tightenings may not widen network, row, byte, persistence or privacy scope.
 
 ## Current Authorization Boundary
 
-The user authorized **proposal preparation only**.
+After review:
 
-Current machine state:
-
-- proposal preparation authorized: `true`
+- proposal review decision: `PASS`
 - diagnostic execution authorized: `false`
 - transient-row privacy exposure authorized: `false`
 - network workflow authorized: `false`
 - runtime change authorized: `false`
 - remediation authorized: `false`
-- third semantic execution authorized: `false`
-- approval token defined by proposal: `false`
+- third real execution authorized: `false`
+- approval token created by review: `false`
 
-Proposal preparation performed no source network access, no diagnostic execution and no runtime/parser/regex/normalization/logging/persistence change.
+The review performed no source network access, no diagnostic execution, no authority retrieval and no runtime/parser/regex/normalization/logging/persistence change.
 
 ## Consumed Approvals — Do Not Reuse
 
@@ -164,25 +144,28 @@ All remain consumed and non-reusable.
 Do not:
 
 - reuse any consumed approval;
-- access SCO or `claimit.ca.gov` during proposal review;
-- reconstruct or infer the unretained offending PROPERTY_TYPE;
+- access SCO or `claimit.ca.gov` while preparing the next authorization artifact;
+- reconstruct or infer the historical unretained offending PROPERTY_TYPE value;
 - persist/hash/measure exact source value content;
-- create a diagnostic network workflow before a separate explicit authorization artifact and fresh approvals;
+- create or execute a diagnostic network workflow before fresh explicit approvals;
 - change parser, regex, trimming, casing or normalization;
-- apply remediation from any proposed diagnostic class;
-- perform a real-row full-parser crosscheck under this proposal;
-- run another real PROPERTY_TYPE semantic execution;
+- apply remediation from any diagnostic class;
+- perform a real-row full-parser crosscheck under the accepted proposal;
+- run another real PROPERTY_TYPE semantic/diagnostic execution;
 - activate source policy, registry or production classification;
 - perform identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
 ## SINGLE NEXT ACTION
 
-Perform exclusively:
+Prepare exclusively a **separate diagnostic execution/authorization artifact offline**.
 
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
+That artifact must:
 
-Review the proposal, schema, audit and contract test against the verified base evidence and decide `PASS`, `FAIL`, or `NEEDS_REMEDIATION`.
+- pin this review PASS and the reviewed proposal checkpoint;
+- preserve or tighten every accepted request/row/byte/privacy boundary;
+- encode the mandatory deterministic-classifier tightening above;
+- define fresh execution and transient-row privacy approval placeholders;
+- remain NOT AUTHORIZED until the owner explicitly grants those fresh approvals;
+- perform no source request during preparation.
 
-During this review do **not** access the source, retrieve the authority again, reconstruct the offending value, create a network workflow, modify runtime semantics or perform a diagnostic execution.
-
-If the proposal review is `PASS` and the owner later wants the real bounded diagnostic, the next step is to prepare a **separate explicit diagnostic execution/authorization artifact**. That later artifact must define fresh execution and transient-row privacy approvals before any source request. This proposal intentionally defines no canonical approval token.
+Do **not** run the diagnostic while preparing the artifact. A later real diagnostic requires a separate human authorization decision after that artifact is reviewed.
