@@ -10,169 +10,109 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-The canonical `PROPERTY_TYPE` runner is versioned at execution schema v1.1.0.
-A second owner-authorized bounded real California SCO semantic execution was
-performed exactly once on 2026-09-15 and stopped fail-closed.
+The canonical `PROPERTY_TYPE` runner remains at execution schema v1.1.0. The second owner-authorized bounded real California SCO semantic execution was performed exactly once and stopped fail-closed with `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
 Second real run: `34995672539`  
-Second persisted schema: `1.1.0`  
-Second semantic result: `STOPPED_FAIL_CLOSED`  
-Second stop reason: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
+Execution schema: `1.1.0`  
+Result: `STOPPED_FAIL_CLOSED`  
+Safe interpretation: decoded, non-empty projected `PROPERTY_TYPE` value failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
 
-Under v1.1.0 this stop reason is distinct from
-`PROPERTY_TYPE_ENCODING_UNEXPECTED`. The second run therefore narrows the
-observed failure class to a successfully decoded, non-empty projected
-`PROPERTY_TYPE` value that failed the unchanged token-shape rule
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+The offending value/bytes were intentionally not retained and must not be inferred.
 
-The offending value/bytes were not persisted or logged and must not be
-inferred. Semantic compatibility remains unresolved and production
-classification remains inactive.
+A repository-only code-shape provenance review has now been completed and CI verified. It found that the retained repository evidence does **not** justify changing the semantic rule.
 
-## Branches / Baseline
+Review decision:
+`NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
+
+Semantic compatibility remains unresolved and production classification remains inactive.
+
+## Branches / Verified Checkpoints
 
 - stable `main`: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
 - canonical development branch: `m2-state-governance-core`
-- canonical development HEAD before second-execution proposal:
-  `e97c1f62959f603bdd3df79538d4b70255594c70`
-- second-execution proposal branch:
-  `m3-ca-sco-property-type-second-execution-proposal`
-- reviewed proposal SHA: `ac6d234dda19b1eb8c8f8ceb0206730bcc419bcb`
-- proposal CI: `34993467536` — SUCCESS
-- second-execution branch:
-  `m3-ca-sco-property-type-second-semantic-execution`
-- fresh authorization commit: `acd627f841650541e7dd2441c2c83e20aaf108b5`
-- authorization staging CI: `34995492373` — SUCCESS
-- temporary execution workflow commit:
-  `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`
-- workflow-removal commit: `d6e83a44b2069a2fa746c09d1ae33622654e5d43`
-- evidence-closure commit: `3d5f4c062c6b403d22ee8a3961d0a452f6ec1e34`
-- evidence-closure CI: `34996427337` — SUCCESS
+- canonical development HEAD: `e97c1f62959f603bdd3df79538d4b70255594c70`
+- second execution closure branch: `m3-ca-sco-property-type-second-semantic-execution`
+- second execution closure HEAD: `9d0243987c843172fe46c971ead0bf3947098336`
+- code-shape provenance proposal branch: `m3-ca-sco-property-type-code-shape-provenance-offline-proposal`
+- provenance proposal SHA: `defed0c211230aad8f8cec6ff80b216223069844`
+- provenance proposal CI: `35002920469` — SUCCESS
+- code-shape provenance review branch: `m3-ca-sco-property-type-code-shape-provenance-offline-review`
+- provenance review result SHA: `b274e9db0a28dae1c9f6a1a25c657978dd27d7b4`
+- provenance review CI: `35003900554` — SUCCESS
 
 ## Completed and Verified
 
 - M3 California source/legal readiness baseline.
 - Immutable raw storage/provenance and privacy/data-minimization controls.
-- Streamlit reviewer canonical and CI verified.
+- Streamlit reviewer canonical and verified.
 - California SCO `$500+` bounded structure inspection.
-- Two-field first-purpose privacy boundary.
-- Historical first bounded real semantic attempt executed once and stopped
-  fail-closed under schema v1.0.0.
-- Offline diagnosis identified the v1.0 failure-taxonomy collision.
-- Diagnostic remediation versioned as execution contract v1.1.0 and promoted
-  to canonical development.
-- Second execution proposal prepared on isolated branch and CI verified.
-- Human review of second execution proposal: PASS.
-- Fresh second execution and transient-row privacy approvals granted.
-- Fresh authorization package staged and CI verified.
-- Second bounded real semantic execution performed exactly once.
-- Second execution evidence validated against schema v1.1.0 and hard caps.
-- Second one-shot workflow removed immediately after execution.
-- Workflow logs verified to contain no source row or `PROPERTY_TYPE` values.
+- Four canonical CSV members and identical 25-label headers retained.
+- Historical first bounded semantic execution frozen under schema v1.0.0.
+- v1.1 diagnostic taxonomy remediation implemented and promoted to canonical development.
+- Second bounded real semantic execution performed exactly once under v1.1.0.
+- Second one-shot workflow removed after execution; steady state remains ABSENT.
+- Second execution/privacy approvals are CONSUMED and non-reusable.
+- Human review of the offline code-shape provenance proposal: PASS.
+- Repository-only provenance classification completed without SCO or authority network access.
+- Provenance review schema, machine evidence, audit and contract tests added and CI verified.
 
-## Historical First Real Bounded Semantic Attempt
+## Code-Shape Provenance Offline Review
 
-Run `34965097988`; schema `1.0.0`; result `STOPPED_FAIL_CLOSED`; stop reason
-`PROPERTY_TYPE_FORMAT_UNEXPECTED`.
+Machine evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_code_shape_provenance_offline.review.v1.json`
 
-Observed counters:
-- HEAD `1`
-- Range GET `1`
-- HTTP total `2`
-- source body bytes `131072`
-- accepted/examined rows `0`
-- retry none
-- cap widening none
+Audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_CODE_SHAPE_PROVENANCE_OFFLINE_REVIEW.md`
 
-Because v1.0.0 used the same stop reason for UTF-8 decoding failure and
-decoded-value shape failure, the first run's root cause remains unresolved.
-Its evidence remains frozen and is not reinterpreted. Its execution/privacy
-approvals were consumed and are not reusable.
+Classification result:
 
-## Second Real Bounded Semantic Attempt
+- `PROPERTY_TYPE_FIELD_IS_COLUMN_INDEX_1` -> `SUPPORTED_BY_REPOSITORY_EVIDENCE`
+- `GENERAL_CODE_SHAPE_AA99` -> `PROVENANCE_INSUFFICIENT`
+- `SPECIAL_CODE_ZZZZ` -> `PROVENANCE_INSUFFICIENT`
+- `CALIFORNIA_INSURANCE_CODE_SET` -> `REPOSITORY_ASSERTION_WITH_EXTERNAL_REFERENCE_NOT_ARCHIVED`
+- `CUSTOM_PROJECTOR_STANDARD_CSV_COMPATIBILITY` -> `SUPPORTED_BY_REPOSITORY_EVIDENCE`
 
-Run: `34995672539`  
-Execution commit: `e27c0b72e39d63f0ae8fc6e9dd1fb92c234dcbcc`  
-Schema: `1.1.0`  
-Result: `STOPPED_FAIL_CLOSED`  
-Stop reason: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
+Aggregate:
+- supported by retained repository evidence: `2`
+- repository assertion with external reference not archived: `1`
+- provenance insufficient: `2`
 
-Observed counters:
-- HEAD `1`
-- Range GET `1`
-- HTTP total `2`
-- source body bytes `131072`
-- accepted/examined rows `0`
-- retry none
-- cap widening none
+Important boundary:
+- the second-column position is directly supported by the retained four-member headers;
+- projector compatibility is supported only for the committed deterministic synthetic CSV matrix;
+- the repository records and enforces `AA99|ZZZZ`, but retained evidence does not prove it is the complete authoritative source grammar;
+- `IN01-IN08` and `IN99` are retained as a repository assertion attributed to an external SCO authority document whose content is not archived in the approved offline evidence set.
 
-Transport metadata matched the pinned target metadata before the Range GET.
-Safe interpretation: the projected value decoded successfully as UTF-8, was
-non-empty, and failed the unchanged token-shape regex. Invalid UTF-8 is not the
-stop class for this second run.
+## Fixed Safety / Governance State
 
-Not established: the exact source value; why its shape differs; whether
-trimming, normalization or case folding would be correct; whether the regex or
-domain should change; or semantic compatibility of the source as a whole.
+Unchanged and fail-closed:
 
-Fresh second-run approvals are CONSUMED and non-reusable:
+- source policy: `PROPOSED`
+- source real-acquisition authorization: `false`
+- registry: disabled/unapproved
+- approved real sources: `0`
+- semantic compatibility: unresolved
+- production classification: inactive
+- one-shot network workflow: ABSENT
+- identity resolution: BLOCKED
+- genealogy: BLOCKED
+- beneficiary matching: BLOCKED
+- outreach: BLOCKED
+- claim submission: BLOCKED
+
+No trimming, uppercasing, normalization, parser change, regex change/relaxation, logging expansion, privacy expansion or third real execution is authorized.
+
+## Consumed Approvals
+
+The following approvals were consumed by the second execution and remain non-reusable:
+
 - `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
 - `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
 
-No retry is authorized.
-
-Derived artifact:
-- artifact ID `10408035386`
-- ZIP digest `sha256:c0189177dcca91696e85b3b9fd67c1c896c3af30b13c79b0aa3670998f621732`
-
-Persisted repository evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_1.second.json`
-
-## Canonical Diagnostic Contract
-
-Historical/frozen schema:
-`schemas/common/property_type_semantic_verification_execution.schema.json` -> `1.0.0`
-
-Remediated schema:
-`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json` -> `1.1.0`
-
-v1.1 behavior:
-- invalid UTF-8 -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`
-- decoded non-empty shape failure -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`
-
-No trimming, uppercasing, normalization, code-domain relaxation, source-value
-logging or budget widening has been introduced.
-
-## Fixed Safety Boundary
-
-Unchanged: max 4 members; max 4 rows/member; max 16 rows total; max 1 HEAD;
-max 4 Range GET; max 5 HTTP requests; max 131072 source-body bytes/Range; max
-524288 source-body bytes total; max 262144 uncompressed transient bytes/member;
-max 1048576 uncompressed transient bytes total; max 32768 bytes/logical
-record; no extra Range; no full-body fallback; no automatic widening.
-
-## Privacy / Workflow State
-
-Second live runner stdout was redirected to `/dev/null`. No raw response body,
-full row, `PROPERTY_ID`, owner/holder value, per-row `PROPERTY_TYPE`, offending
-bytes, offending-value hash or offending-value length was persisted.
-
-One-shot network workflow steady state: **ABSENT**.
-
-## Governance State
-
-Still fail-closed: source policy `PROPOSED`; source real-acquisition
-authorization `false`; registry disabled/unapproved; approved real sources `0`;
-semantic compatibility unresolved; production classification inactive;
-identity resolution BLOCKED; genealogy BLOCKED; beneficiary matching BLOCKED;
-outreach BLOCKED; claim submission BLOCKED.
+Any future real execution requires a new proposal plus fresh explicit execution and transient-row privacy approvals.
 
 ## Next Recommended Action
 
-Perform `HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_EVIDENCE_REVIEW`.
-Review only the persisted derived v1.1 evidence and audit and decide what
-offline diagnostic work, if any, is justified by the narrowed decoded-shape
-failure.
+Decide whether to prepare a **separate bounded authority archival / provenance acquisition proposal** to resolve the two `PROVENANCE_INSUFFICIENT` assumptions and independently verify the externally referenced California insurance-code assertion.
 
-Do not perform a third network execution. Any later real execution requires a
-new proposal plus fresh explicit execution and transient-row privacy approvals.
+This state creates no authorization to access SCO, retrieve/download external authority documents, modify the runner/parser/regex, or perform another real execution. A separate human gate is required before any such action.
