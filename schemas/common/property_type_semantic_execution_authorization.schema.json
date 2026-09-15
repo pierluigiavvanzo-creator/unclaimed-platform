@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unclaimed-platform.local/schemas/common/property_type_semantic_execution_authorization.schema.json",
+  "title": "PROPERTY_TYPE bounded semantic execution authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "authorization_version",
+    "approved_on",
+    "owner_instruction",
+    "gate",
+    "canonical_base_sha",
+    "execution_approval_ref",
+    "privacy_approval_ref",
+    "authorized_scope",
+    "privacy_controls",
+    "execution_caps",
+    "workflow_path",
+    "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "authorization_id": {"const": "ca.sco.segment.500_plus.property_type_semantic_execution"},
+    "authorization_version": {"const": "1.0.0"},
+    "approved_on": {"type": "string", "format": "date"},
+    "owner_instruction": {"const": "autorizzo"},
+    "gate": {"const": "HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW"},
+    "canonical_base_sha": {"const": "c3f0dc7e374d21283358e4e1e8d403f078f08acb"},
+    "execution_approval_ref": {"const": "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED"},
+    "privacy_approval_ref": {"const": "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED"},
+    "authorized_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bounded_semantic_execution",
+        "transient_row_privacy_exposure",
+        "network_one_shot_workflow",
+        "source_approval",
+        "registry_activation",
+        "identity_resolution",
+        "beneficiary_matching",
+        "outreach"
+      ],
+      "properties": {
+        "bounded_semantic_execution": {"const": true},
+        "transient_row_privacy_exposure": {"const": true},
+        "network_one_shot_workflow": {"const": true},
+        "source_approval": {"const": false},
+        "registry_activation": {"const": false},
+        "identity_resolution": {"const": false},
+        "beneficiary_matching": {"const": false},
+        "outreach": {"const": false}
+      }
+    },
+    "privacy_controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_only",
+        "transient_buffer_retention_days",
+        "immediate_disposal",
+        "raw_body_persistence",
+        "full_row_persistence",
+        "property_id_persistence",
+        "owner_holder_persistence",
+        "per_row_property_type_persistence",
+        "record_values_in_logs"
+      ],
+      "properties": {
+        "memory_only": {"const": true},
+        "transient_buffer_retention_days": {"const": 0},
+        "immediate_disposal": {"const": true},
+        "raw_body_persistence": {"const": false},
+        "full_row_persistence": {"const": false},
+        "property_id_persistence": {"const": false},
+        "owner_holder_persistence": {"const": false},
+        "per_row_property_type_persistence": {"const": false},
+        "record_values_in_logs": {"const": false}
+      }
+    },
+    "execution_caps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "members",
+        "rows_max_per_member",
+        "rows_max_total",
+        "head_requests_max",
+        "range_requests_max",
+        "http_requests_max_total",
+        "range_response_bytes_max_each",
+        "source_response_body_bytes_max_total",
+        "uncompressed_transient_bytes_max_each",
+        "uncompressed_transient_bytes_max_total",
+        "logical_record_bytes_max",
+        "additional_range_allowed",
+        "full_body_fallback_allowed"
+      ],
+      "properties": {
+        "members": {"const": 4},
+        "rows_max_per_member": {"const": 4},
+        "rows_max_total": {"const": 16},
+        "head_requests_max": {"const": 1},
+        "range_requests_max": {"const": 4},
+        "http_requests_max_total": {"const": 5},
+        "range_response_bytes_max_each": {"const": 131072},
+        "source_response_body_bytes_max_total": {"const": 524288},
+        "uncompressed_transient_bytes_max_each": {"const": 262144},
+        "uncompressed_transient_bytes_max_total": {"const": 1048576},
+        "logical_record_bytes_max": {"const": 32768},
+        "additional_range_allowed": {"const": false},
+        "full_body_fallback_allowed": {"const": false}
+      }
+    },
+    "workflow_path": {"const": ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"},
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_EVIDENCE_REVIEW"}
+  }
+}
