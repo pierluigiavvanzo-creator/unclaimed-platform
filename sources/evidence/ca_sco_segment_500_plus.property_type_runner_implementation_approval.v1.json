@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_id": "ca.sco.segment.500_plus.property_type_runner_implementation",
+  "authorization_version": "1.0.0",
+  "approved_on": "2026-09-15",
+  "approval_ref": "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_RUNNER_IMPLEMENTATION_SYNTHETIC_MOCK_ONLY",
+  "owner_instruction": "approvo implementazione bounded runner PROPERTY_TYPE con soli test synthetic/mock",
+  "canonical_base_sha": "6105c22a7d31df7afca00282eff7e9798e98b868",
+  "canonical_design_ref": "sources/proposals/ca_sco_segment_500_plus.property_type_semantic_runner_design.v1.json",
+  "authorized_scope": {
+    "runner_implementation": true,
+    "synthetic_mock_testing": true,
+    "real_network_execution": false,
+    "network_workflow": false,
+    "real_row_access": false,
+    "transient_row_privacy": false,
+    "source_approval": false,
+    "registry_activation": false
+  },
+  "runner_path": "scripts/ca_sco_property_type_semantic_verification.py",
+  "forbidden_workflow_path": ".github/workflows/ca-sco-property-type-semantic-verification-once.yml",
+  "next_gate": "HUMAN_PROPERTY_TYPE_RUNNER_CANDIDATE_PROMOTION"
+}

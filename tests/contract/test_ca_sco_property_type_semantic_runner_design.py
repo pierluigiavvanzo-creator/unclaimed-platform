@@ -33,7 +33,6 @@ SEMANTIC_PROPOSAL_PATH = (
 STRUCTURE_EVIDENCE_PATH = (
     ROOT / "sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json"
 )
-RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 WORKFLOW_PATH = (
     ROOT / ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"
 )
@@ -56,7 +55,7 @@ def validator(path: Path) -> Draft202012Validator:
     return Draft202012Validator(schema, format_checker=FormatChecker())
 
 
-def test_runner_design_is_valid_and_still_non_implementing() -> None:
+def test_runner_design_remains_valid_historical_non_authorizing_record() -> None:
     design = load_json(DESIGN_PATH)
     validator(DESIGN_SCHEMA_PATH).validate(design)
 
@@ -69,7 +68,6 @@ def test_runner_design_is_valid_and_still_non_implementing() -> None:
     assert boundary["execution_authorized"] is False
     assert boundary["real_row_access_authorized"] is False
     assert boundary["transient_row_privacy_approved"] is False
-    assert not RUNNER_PATH.exists()
     assert not WORKFLOW_PATH.exists()
     assert design["next_gate"] == "HUMAN_PROPERTY_TYPE_RUNNER_IMPLEMENTATION_APPROVAL"
 
