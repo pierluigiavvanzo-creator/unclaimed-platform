@@ -6,140 +6,142 @@ Last updated: 2026-09-15
 
 M3 — California Data Spike Readiness + Product Visibility
 
-## Canonical Status
+## Canonical Baseline
 
-M0, M1 and M2 are VERIFIED. M3 California source/legal readiness, acquisition/raw persistence/privacy gates, SCO governance/transport evidence, the `$500+` bounded structure inspection, the two-field privacy boundary, the `PROPERTY_TYPE` semantic-verification proposal, the bounded runner design, and the bounded `PROPERTY_TYPE` runner implementation are canonical on `m2-state-governance-core`.
+Canonical development branch:
+`m2-state-governance-core`
 
-Promoted runner-implementation functional SHA:
+Canonical HEAD before the current semantic-execution candidate:
+`c3f0dc7e374d21283358e4e1e8d403f078f08acb`.
+
+The bounded `PROPERTY_TYPE` runner implementation is canonical and synthetic/mock CI verified.
+
+Promoted runner functional SHA:
 `3f612837e4dbb86839942555c34b9384ff4e99a1`.
 
 Canonical post-promotion CI:
-`34961511401` — SUCCESS for both `quality` and `streamlit-candidate`.
+`34961511401` — SUCCESS.
+
+Canonical docs-closure CI:
+`34961870512` — SUCCESS.
 
 Stable `main` remains unchanged at:
 `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
 
-## Promotion Evidence
+## Current Candidate — Bounded PROPERTY_TYPE Semantic Execution
 
-Before promotion:
-- canonical `6105c22a7d31df7afca00282eff7e9798e98b868`;
-- candidate `3f612837e4dbb86839942555c34b9384ff4e99a1`;
-- ahead `4`;
-- behind `0`;
-- merge-base exactly `6105c22a7d31df7afca00282eff7e9798e98b868`.
+Branch:
+`m3-ca-sco-property-type-semantic-execution`
 
-Owner explicitly approved:
-`m3-ca-sco-property-type-runner-implementation -> m2-state-governance-core`.
+Owner authorized at `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`:
+- bounded semantic execution;
+- bounded transient-row privacy exposure.
 
-Promotion was a non-force fast-forward to:
-`3f612837e4dbb86839942555c34b9384ff4e99a1`.
+Approval refs:
+- `OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`;
+- `OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`.
 
-Canonical post-promotion CI:
-`34961511401` — SUCCESS.
+Authorization package commit:
+`6ba8d62824f0f0e8eaaa0eefbb8dc1bfdb58898e`.
 
-## Canonical Runner Implementation
+Authorization CI:
+`34964924686` — SUCCESS.
 
-Runner:
-`scripts/ca_sco_property_type_semantic_verification.py`
+## Real Bounded Execution
 
-Implementation authorization evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_runner_implementation_approval.v1.json`
+One-shot workflow commit:
+`dd5dc80a22307586c341b703de8fe03d6861df29`.
 
-Implementation audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_RUNNER_IMPLEMENTATION.md`
+Execution run:
+`34965097988` — SUCCESS at workflow level.
 
-Network one-shot workflow:
-`.github/workflows/ca-sco-property-type-semantic-verification-once.yml`
+Execution result:
+`STOPPED_FAIL_CLOSED`.
 
-Current state:
+Stop reason:
+`PROPERTY_TYPE_FORMAT_UNEXPECTED`.
+
+Observed counters:
+- HEAD requests: `1`;
+- Range GET requests: `1`;
+- total HTTP requests: `2`;
+- source body bytes read: `131072`;
+- accepted/examined data rows: `0`;
+- distinct accepted `PROPERTY_TYPE` codes: `[]`;
+- distinct accepted insurance codes: `[]`.
+
+The runner processed transient bytes far enough to evaluate a candidate `PROPERTY_TYPE` in the first member and stopped before accepting a sample row. The offending value was not persisted or logged and must not be inferred.
+
+No retry occurred. No additional Range was issued. No cap was widened.
+
+## Persisted Evidence
+
+Execution evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
+
+Audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_EXECUTION.md`
+
+Artifact:
+- ID `10394467215`;
+- name `ca-sco-property-type-semantic-execution-2026-09-15`;
+- ZIP SHA-256 `24a39a739872b0d9b3f0bff9a17c22f8ab1a443ddbcf82b7f9126d546ed1a66d`;
+- JSON SHA-256 before persistence `790dabcf1c04946ad930de467f204cb0af6fe78c25bae86b1ca541e4fc07b96a`.
+
+All persisted safety flags are false. No raw Range body, full row, `PROPERTY_ID`, owner/holder value, or per-row `PROPERTY_TYPE` value is persisted.
+
+## Workflow Steady State
+
+The one-shot network workflow was temporary and was removed immediately after the single execution.
+
+Removal commit:
+`bc1b0a955037d35dfa1a37b0c29497c219a04609`.
+
+Current network workflow state:
 ABSENT.
 
-The runner is transport-injectable and was validated only with synthetic/mock transport. A fixed real HTTP transport exists for a later separately authorized execution gate, but no real SCO request was made during implementation or promotion.
+Repository CI `34965098018` on the temporary workflow commit failed only because three historical contract tests correctly require the one-shot workflow to be absent in steady state. Those tests were not weakened.
 
 ## Fixed Safety Boundary
 
-Hard caps remain unchanged:
+Unchanged hard caps:
 - 4 canonical CSV members;
-- maximum 4 complete data rows/member;
-- maximum 16 rows total;
-- maximum 1 HEAD;
-- maximum 4 Range GET;
-- maximum 5 HTTP requests total;
-- maximum 131,072 source-body bytes/Range;
-- maximum 524,288 source-body bytes total;
-- maximum 262,144 uncompressed transient bytes/member;
-- maximum 1,048,576 uncompressed transient bytes total;
-- maximum 32,768 bytes/logical CSV record;
+- 4 rows/member maximum;
+- 16 rows total maximum;
+- 1 HEAD maximum;
+- 4 Range GET maximum;
+- 5 HTTP requests maximum total;
+- 131,072 source-body bytes/Range maximum;
+- 524,288 source-body bytes total maximum;
+- 262,144 uncompressed transient bytes/member maximum;
+- 1,048,576 uncompressed transient bytes total maximum;
+- 32,768 bytes/logical CSV record maximum;
 - no extra Range;
 - no full-body fallback;
 - no automatic cap widening.
 
-Ignored Range/non-206 causes STOP before the unexpected response body is consumed.
+## Governance State
 
-## Privacy / Persistence Boundary
+The real semantic attempt does not approve the SCO source or activate production use.
 
-The runner verifies the exact canonical 25-column header and projects only `PROPERTY_TYPE` for semantic verification. `PROPERTY_ID` is not used or persisted during semantic verification.
-
-Never persist/log as execution evidence:
-- raw Range bodies;
-- full rows;
-- `PROPERTY_ID` values;
-- owner/holder values;
-- per-row `PROPERTY_TYPE` values.
-
-Allowed evidence remains derived summary only: aggregate row counts, rows/member, distinct `PROPERTY_TYPE` codes, distinct official insurance codes, request/byte counters, semantic status and stop reason.
-
-Real CSV parsing may transiently expose prohibited owner/holder bytes. Therefore real execution remains blocked until separate transient-row privacy approval.
-
-## Verification History
-
-Implementation functional CI:
-`34951460475` — SUCCESS for Ruff, mypy, contract, smoke, full pytest including runner unit tests, frontend lint/typecheck/build, and Streamlit smoke.
-
-Candidate docs-closure CI:
-`34951888095` — SUCCESS.
-
-Canonical post-promotion CI:
-`34961511401` — SUCCESS.
-
-Intermediate failed runs are retained in history:
-- `34950942449`: Ruff import rule only;
-- `34951326633`: historical proposal contract still asserted permanent runner absence.
-
-Both were corrected narrowly without force-push or history rewrite.
-
-## Network / Real Data State
-
-Across implementation and promotion:
-- new SCO network requests: `0`;
-- new SCO response-body bytes: `0`;
-- real CSV rows read: `0`;
-- real PII processed: `0`;
-- network one-shot workflow created: `false`.
-
-## Authorization State
-
-Fail-closed state remains:
+Still fail-closed:
 - source policy `PROPOSED`;
-- real acquisition authorized `false`;
+- real acquisition authorized by source policy `false`;
 - registry `enabled: false`;
 - registry `approved_for_use: false`;
 - approved real sources `0`;
-- runner implementation canonical but authorized only for synthetic/mock validation;
-- real semantic execution authorized `false`;
-- transient-row privacy approval absent;
-- real row access BLOCKED;
-- real PII processing BLOCKED;
+- semantic compatibility unresolved;
+- production classification inactive;
 - identity resolution BLOCKED;
 - beneficiary matching BLOCKED;
 - outreach BLOCKED.
 
-Promotion did not authorize or execute real data access.
+The execution approval is treated as consumed by run `34965097988`; it is not reusable for a retry.
 
 ## Next Recommended Action
 
-Human semantic-execution review gate only:
+Human evidence-review gate only:
 
-`HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`
+`HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_EVIDENCE_REVIEW`
 
-Any later real one-shot semantic sampling requires explicit owner execution approval **and** transient-row privacy approval before any real row can be read. Source approval/registry activation remain separate later gates.
+Review the fail-closed evidence and decide the smallest diagnostic next step. Prefer repository/offline/synthetic diagnosis before any further real network access. A second real execution requires a new explicit human authorization.
