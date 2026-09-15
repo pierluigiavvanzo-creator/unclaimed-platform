@@ -11,24 +11,24 @@ M3 — California Data Spike Readiness + Product Visibility
 Canonical development branch:
 `m2-state-governance-core`
 
-Canonical HEAD before the semantic-execution candidate:
+Canonical HEAD:
 `c3f0dc7e374d21283358e4e1e8d403f078f08acb`.
 
 Canonical bounded `PROPERTY_TYPE` runner functional SHA:
 `3f612837e4dbb86839942555c34b9384ff4e99a1`.
 
-Canonical runner post-promotion CI:
+Canonical runner CI:
 `34961511401` — SUCCESS.
 
-Stable `main` remains unchanged at:
-`bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
+Stable `main`:
+`bfddf8ee3ef32eedb91af888c998ef72f5cdd15e` — unchanged.
 
-## Real Bounded Semantic Attempt
+## Historical Real Bounded Semantic Attempt
 
-Execution candidate branch:
+Execution evidence branch:
 `m3-ca-sco-property-type-semantic-execution`
 
-Evidence-closure HEAD:
+Evidence closure SHA:
 `3ca12f17c0a16ca49205b4d17117f3b41b6efd58`.
 
 Owner-authorized one-shot run:
@@ -37,7 +37,7 @@ Owner-authorized one-shot run:
 Result:
 `STOPPED_FAIL_CLOSED`.
 
-Persisted stop reason:
+Historical persisted stop reason:
 `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
 Observed counters:
@@ -49,83 +49,82 @@ Observed counters:
 - retry: none;
 - cap widening: none.
 
-The offending source value was intentionally not persisted or logged and must not be inferred.
+The offending source value/bytes were intentionally not persisted or logged and must not be inferred.
 
-Execution evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
+The prior execution and transient-row privacy approvals were consumed by run `34965097988` and are not reusable.
 
-Execution audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_EXECUTION.md`
+The one-shot network workflow remains ABSENT.
 
-Execution steady-state CI:
-`34965713695` — SUCCESS.
+## Offline Diagnosis
 
-The one-shot workflow was removed at:
-`bc1b0a955037d35dfa1a37b0c29497c219a04609`.
-
-Current network workflow state:
-ABSENT.
-
-The prior execution authorization is consumed by run `34965097988` and is not reusable for a retry.
-
-## Current Candidate — Offline Diagnosis
-
-Branch:
+Diagnosis branch:
 `m3-ca-sco-property-type-offline-diagnosis`
 
-Base:
-`3ca12f17c0a16ca49205b4d17117f3b41b6efd58`.
-
-Diagnostic implementation/audit SHA:
+Diagnosis functional SHA:
 `1405d33b7c09373f738dc87f6c93b05a0c342461`.
 
-Diagnostic CI:
-`34968418681` — SUCCESS for `quality` and `streamlit-candidate`.
+Diagnosis CI:
+`34968418681` — SUCCESS.
 
-Files added:
+Diagnosis established that the historical reason `PROPERTY_TYPE_FORMAT_UNEXPECTED` conflated:
+1. UTF-8 decode failure while projecting `PROPERTY_TYPE`;
+2. decoded non-empty value failing `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+
+No standard-CSV projector defect was reproduced by the committed synthetic differential matrix. The real historical root cause remains unresolved.
+
+## Current Candidate — Offline Diagnostic Remediation
+
+Branch:
+`m3-ca-sco-property-type-diagnostic-remediation`
+
+Base diagnosis HEAD:
+`8aa6c61594232b54b351d0a2063d9de2031a28f7`.
+
+Owner authorization:
+`autorizzo remediation diagnostica offline`
+
+Functional remediation SHA:
+`ec688df61c56276c36facf2f598a1ad90b97fe5d`.
+
+Functional CI:
+`34969967725` — SUCCESS for `quality` and `streamlit-candidate`.
+
+Remediation audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
+
+Exact behavior after remediation:
+- invalid UTF-8 in projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
+- decoded non-empty value failing the unchanged regex -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
+
+The regex remains unchanged. No trimming, case conversion, normalization, source-value logging, raw-byte persistence or budget widening was introduced.
+
+The execution schema stop-reason enum now includes `PROPERTY_TYPE_ENCODING_UNEXPECTED`. This is an additive backward-compatible extension under schema version `1.0.0`; historical execution evidence remains unchanged and contract-valid.
+
+Functional diff from the diagnosis base is exactly four files:
+- `scripts/ca_sco_property_type_semantic_verification.py`;
+- `schemas/common/property_type_semantic_verification_execution.schema.json`;
 - `tests/unit/test_ca_sco_property_type_offline_diagnosis.py`;
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md`.
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`.
 
-No SCO network/body access occurred during this diagnosis. No runner, regex, execution schema, source policy, registry or network workflow was changed.
-
-## Offline Diagnosis Findings
-
-The existing runner uses the same stop code, `PROPERTY_TYPE_FORMAT_UNEXPECTED`, for two different branches:
-
-1. UTF-8 decoding failure inside `_project_property_type()`;
-2. successfully decoded, non-empty `PROPERTY_TYPE` that later fails the regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
-
-Therefore the historical real-run evidence cannot distinguish **encoding failure** from **decoded-value shape failure**.
-
-This corrects the earlier provisional interpretation that the stop necessarily proved a decoded value reached the regex check. It does not.
-
-The committed offline regression matrix compares the custom projector with Python `csv.reader(..., strict=True)` on synthetic 25-column records covering commas, escaped quotes, embedded LF/CRLF and fully quoted CSV. The projector matches the standard-library parser for all committed cases and reports 25 columns.
-
-A separate synthetic test reproduces the diagnostic collision: both a decoded shape mismatch and an invalid UTF-8 projected field result in `PROPERTY_TYPE_FORMAT_UNEXPECTED` under the current runner.
-
-Supported conclusion:
-- no standard-CSV projector defect was reproduced by the committed matrix;
-- the failure taxonomy is diagnostically ambiguous;
-- the real root cause remains unresolved because raw/offending bytes were intentionally not retained;
-- there is no evidence basis to relax, trim or normalize the regex.
+No SCO network/body access occurred during remediation. No network workflow was created.
 
 ## Fixed Safety Boundary
 
-Unchanged hard caps:
-- 4 canonical CSV members;
-- 4 rows/member maximum;
-- 16 rows total maximum;
-- 1 HEAD maximum;
-- 4 Range GET maximum;
-- 5 HTTP requests maximum total;
-- 131,072 source-body bytes/Range maximum;
-- 524,288 source-body bytes total maximum;
-- 262,144 uncompressed transient bytes/member maximum;
-- 1,048,576 uncompressed transient bytes total maximum;
-- 32,768 bytes/logical CSV record maximum;
+Unchanged:
+- max 4 members;
+- max 4 rows/member;
+- max 16 rows total;
+- max 1 HEAD;
+- max 4 Range GET;
+- max 5 HTTP requests;
+- max 131072 source-body bytes/Range;
+- max 524288 source-body bytes total;
+- max 262144 uncompressed transient bytes/member;
+- max 1048576 uncompressed transient bytes total;
+- max 32768 bytes/logical record;
 - no extra Range;
 - no full-body fallback;
-- no automatic cap widening.
+- no automatic widening.
 
 ## Governance State
 
@@ -144,16 +143,8 @@ Still fail-closed:
 
 ## Next Recommended Action
 
-Human review gate:
+Human evidence/promotion review gate:
 
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_REVIEW`
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_REVIEW`
 
-Smallest proposed remediation, still offline only:
-- add a distinct future stop reason such as `PROPERTY_TYPE_ENCODING_UNEXPECTED` for UTF-8 decode failures;
-- retain `PROPERTY_TYPE_FORMAT_UNEXPECTED` for decoded values that fail the existing regex;
-- preserve historical execution evidence unchanged and schema-valid;
-- add regression coverage for both branches;
-- do not add raw values, bytes, hashes, lengths or value fragments to logs/evidence;
-- keep the network workflow absent.
-
-A second real SCO execution remains a separate later gate requiring fresh explicit execution and transient-row privacy authorization.
+Review the CI-verified offline remediation. Do not retry SCO access or promote the candidate automatically. Any second real execution requires fresh explicit semantic-execution and transient-row privacy authorization.
