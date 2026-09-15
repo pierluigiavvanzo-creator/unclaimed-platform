@@ -6,63 +6,51 @@ Last updated: 2026-09-15
 
 M3 — California Data Spike Readiness + Product Visibility
 
-## Canonical Baseline
+## Canonical Status
 
-M0, M1 and M2 are VERIFIED. M3 California source/legal readiness, acquisition/raw persistence/privacy
-gates, SCO source governance, transport evidence, source-approval readiness, data-scope proposals,
-segmented transport evidence, the `$500+` bounded structure inspection, and the revised two-field
-field/privacy readiness boundary are canonical on `m2-state-governance-core`.
+M0, M1 and M2 are VERIFIED. M3 California source/legal readiness, acquisition/raw persistence/privacy gates, SCO source governance, transport evidence, source-approval readiness, segmented transport evidence, the `$500+` bounded structure inspection, the two-field privacy boundary, and the `PROPERTY_TYPE` semantic-verification proposal are canonical on `m2-state-governance-core`.
 
-Canonical content-equivalent housekeeping HEAD before the current candidate:
-`830aaaed68bd4d2f9298eaede80b5e67918e935b`.
+Promoted semantic-proposal SHA:
+`06004c9cb61b39692d153d9172c37cebf168ddc5`.
 
-The housekeeping commits only created and immediately removed temporary empty/placeholder setup files;
-the resulting tree is the same canonical content tree as the prior verified closure. No policy, registry,
-runtime, source evidence, or product contract changed in those housekeeping commits.
+Canonical post-promotion CI:
+`34943657157` — SUCCESS for both `quality` and `streamlit-candidate`.
 
 Stable `main` remains unchanged at:
 `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
 
-## Current Candidate
+Streamlit remains the active reviewer target. Repository-side Vercel integration remains decommissioned. Supabase remains untouched.
 
-Branch:
-`m3-ca-sco-property-type-semantic-verification-proposal`
+## Canonical `$500+` Structure Evidence
 
-Functional candidate HEAD:
-`6a39502a19f2127b154b95bf0014a8c76c5ae752`.
-
-Functional CI:
-`34942475352` — SUCCESS for both `quality` and `streamlit-candidate`.
-
-Candidate diff from canonical before persistent-doc closure:
-- ahead `1`;
-- behind `0`;
-- merge-base exactly `830aaaed68bd4d2f9298eaede80b5e67918e935b`;
-- exactly five added proposal/contract/audit files;
-- no policy, registry, runtime adapter, execution runner, or network workflow changes.
-
-## Canonical `$500+` Evidence Reused
-
-Exact structure evidence:
+Exact evidence:
 `sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json`.
 
 Verified prior facts:
 - four non-encrypted DEFLATED CSV members;
-- identical 25-label header candidate;
-- local member offsets already evidenced;
-- no real data row has yet been sampled;
-- prior structure-only run downloaded no full archive and parsed zero CSV data rows.
+- identical 25-label header candidate across all four members;
+- prior bounded structure run used HTTP Range only;
+- total source-body bytes read `393,216`;
+- full archive downloaded `false`;
+- CSV data rows parsed `0`;
+- record values persisted `false`.
 
-Canonical field/privacy readiness:
-`sources/proposals/ca_sco_segment_500_plus.field_privacy_readiness.v1.json`.
+No real CSV data row has yet been sampled.
 
-Persisted/allowed first-purpose scope remains:
+## Canonical Product Purpose / Field Boundary
+
+Purpose:
+`INSURANCE_RELEVANCE_TRIAGE_ONLY`.
+
+Canonical proposed persisted/allowed first-purpose scope:
 1. `PROPERTY_ID`
 2. `PROPERTY_TYPE`
 
 `HOLDER_NAME` and owner/holder identity/address fields remain prohibited for first triage.
 
-## PROPERTY_TYPE Semantic Verification Candidate
+The actual bulk CSV `PROPERTY_TYPE` row-value semantics remain unverified because zero data rows have been sampled.
+
+## Canonical PROPERTY_TYPE Semantic-Verification Proposal
 
 Proposal:
 `sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json`.
@@ -73,18 +61,18 @@ Schema:
 Audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL.md`.
 
+Verification audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL_VERIFICATION.md`.
+
 The exact future semantic question is intentionally narrow:
 
-In a deterministic bounded prefix sample across all four canonical CSV members, are `PROPERTY_TYPE`
-values NAUPA-style code tokens, and is every observed `IN`-prefixed value one of the official California
-SCO insurance codes `IN01-IN08` or `IN99`?
+In a deterministic bounded prefix sample across all four canonical CSV members, are observed `PROPERTY_TYPE` values NAUPA-style code tokens, and is every observed `IN`-prefixed value one of the official California SCO insurance codes `IN01-IN08` or `IN99`?
 
-Even a successful sample is explicitly not proof of the complete dataset domain or code frequencies and
-does not activate production classification.
+A successful sample would remain sample-only evidence. It would not prove the complete dataset domain, global frequencies, or activate production classification.
 
-## Proposed Future Execution Caps
+## Canonical Future Execution Caps
 
-Project safety caps, not source facts:
+These are project safety caps, not source facts:
 - first 4 complete data rows after the verified header per canonical CSV member;
 - maximum 4 data rows/member;
 - maximum 16 data rows total;
@@ -92,38 +80,29 @@ Project safety caps, not source facts:
 - maximum 4 Range GET requests;
 - maximum 5 HTTP requests total;
 - maximum `131,072` response-body bytes per member Range;
-- maximum `524,288` total source response-body bytes;
+- maximum `524,288` source response-body bytes total;
 - maximum `262,144` uncompressed transient bytes/member;
 - maximum `1,048,576` uncompressed transient bytes total;
 - maximum `32,768` bytes per logical CSV record;
 - no full-body request;
+- no automatic cap widening;
 - no extra Range request if the sample is incomplete inside the fixed prefix cap.
 
 ## Privacy / Persistence Boundary
 
-The canonical transient-row privacy blocker remains in force. CSV row parsing may transiently expose
-prohibited columns before projection.
+The transient-row privacy blocker remains in force. CSV parsing may transiently expose prohibited owner/holder columns before projection.
 
-The proposal requires:
+The canonical proposal therefore requires:
 - separate transient-row privacy approval before any execution;
 - in-memory transient processing only;
 - no temporary source files;
 - no raw ZIP, Range body, full-row, owner/holder, or `PROPERTY_ID` persistence;
-- no nonallowlisted value use or persistence;
+- no use or persistence of nonallowlisted values;
 - transient buffer retention `0 days`;
 - immediate disposal after projection or STOP;
 - no raw bytes or record values in logs;
-- no per-row `PROPERTY_TYPE` persistence.
-
-Only a derived `PROPERTY_TYPE` summary may eventually be persisted.
-
-## Proposal Outcomes
-
-- `SAMPLE_COMPATIBLE_INSURANCE_CODE_OBSERVED` — bounded sample is code-shaped and at least one official
-  insurance code is observed; still does not activate production.
-- `SAMPLE_CODE_SHAPE_COMPATIBLE_NO_INSURANCE_CODE_OBSERVED` — explicitly inconclusive for insurance
-  mapping.
-- `STOPPED_FAIL_CLOSED` — any transport, CSV, privacy, semantic, row, request, or byte condition fails.
+- no per-row `PROPERTY_TYPE` persistence;
+- only a derived `PROPERTY_TYPE` summary may eventually be persisted.
 
 ## Authorization State
 
@@ -140,14 +119,44 @@ Unchanged and fail-closed:
 - beneficiary matching BLOCKED;
 - outreach BLOCKED.
 
-No new SCO network/body access occurred while preparing or testing this proposal.
+Promotion did not implement a runner, create a network workflow, read any real row, or authorize source access.
+
+## Promotion Evidence
+
+Before promotion:
+- canonical `830aaaed68bd4d2f9298eaede80b5e67918e935b`;
+- candidate `06004c9cb61b39692d153d9172c37cebf168ddc5`;
+- ahead `2`;
+- behind `0`;
+- merge-base exactly `830aaaed68bd4d2f9298eaede80b5e67918e935b`.
+
+Owner explicitly approved:
+`m3-ca-sco-property-type-semantic-verification-proposal -> m2-state-governance-core`.
+
+Promotion was a non-force fast-forward to:
+`06004c9cb61b39692d153d9172c37cebf168ddc5`.
+
+Canonical post-promotion CI:
+`34943657157` — SUCCESS.
+
+## Remaining Blocking Items
+
+Before any semantic row execution or real acquisition:
+- `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`;
+- transient full-row privacy approval;
+- trusted project privacy policy;
+- approved production retention policy;
+- reviewed bounded execution runner;
+- separate execution approval;
+- real-acquisition client review;
+- source approval reference;
+- source policy approval;
+- registry activation.
 
 ## Next Recommended Action
 
-Human promotion gate only:
+Human execution-design review only:
 
-`m3-ca-sco-property-type-semantic-verification-proposal -> m2-state-governance-core`
+`HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`
 
-Promotion, if approved, remains non-authorizing. After canonical CI, a separate
-`HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW` is required before implementation/execution may read even
-one real CSV data row.
+The next task may design/review a bounded runner against the canonical proposal, but implementation and actual one-shot execution must remain separately gated. Do not read a real row without an explicit later owner approval.
