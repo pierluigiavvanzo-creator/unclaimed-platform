@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `$500+` STRUCTURE + TWO-FIELD PRIVACY READINESS CANONICAL — SOURCE APPROVAL BLOCKED | Canonical `9c2f5b6c...`; post-promotion CI `34940817455` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
+| M3 — California Data Spike | `PROPERTY_TYPE` SEMANTIC-VERIFICATION PROPOSAL CANDIDATE + CI VERIFIED — EXECUTION BLOCKED | Candidate `6a39502a...`; CI `34942475352` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; repository-side Vercel integration decommissioned |
 
 ## Completed M3 readiness work
@@ -16,69 +16,67 @@ Last updated: 2026-09-15
 - A01 contracts/adapters and fail-closed real-source boundary implemented.
 - Immutable raw storage/provenance and privacy/data-minimization gate implemented.
 - SCO source registered disabled and not approved.
-- Transport, approval-readiness, data-scope and segmented evidence contracts CI verified.
-- `$500+` selected as initial value-segment pilot.
-- Bounded structure inspection executed and canonicalized with zero CSV data rows sampled.
-- 25 source labels verified across all four CSV members.
-- Field/privacy readiness reviewed against official SCO property-type codes and current privacy references.
+- `$500+` transport and bounded structure evidence canonicalized.
+- Four CSV members and identical 25-label header verified with zero data rows sampled.
 - First-purpose persisted scope reduced to `PROPERTY_ID` + `PROPERTY_TYPE`.
-- `HOLDER_NAME` removed from the first triage allowlist.
-- Transient CSV prohibited-field exposure recorded as a separate privacy boundary.
-- Unjustified 7-day projected-record retention candidate removed; projected retention remains unresolved.
-- Candidate promoted by non-force fast-forward to canonical `m2-state-governance-core`.
-- Canonical post-promotion CI is green.
+- `HOLDER_NAME` and identity/address fields prohibited for first triage.
+- Transient CSV prohibited-field exposure isolated as a separate privacy boundary.
+- `PROPERTY_TYPE` semantic-verification proposal created and CI verified without network/body access.
 
-## Canonical Two-Field Boundary
+## Current Candidate
 
-Purpose:
-`INSURANCE_RELEVANCE_TRIAGE_ONLY`.
+Branch:
+`m3-ca-sco-property-type-semantic-verification-proposal`
 
-Canonical proposed persisted/allowed scope:
+Functional HEAD:
+`6a39502a19f2127b154b95bf0014a8c76c5ae752`
 
-1. `PROPERTY_ID`
-2. `PROPERTY_TYPE`
+CI:
+`34942475352` — SUCCESS.
 
-Optional fields: none.
+Functional diff before persistent-doc closure:
+- five added files only;
+- no policy update;
+- no registry update;
+- no execution runner;
+- no network workflow;
+- no SCO request.
 
-`HOLDER_NAME` and owner/holder identity/address fields are prohibited for this first purpose.
+## Semantic Question
 
-Official SCO/NAUPA documentation defines insurance property codes `IN01-IN08` and `IN99`. The bulk CSV field is not yet assumed to use those values until a separately authorized bounded semantic check verifies row-level compatibility.
+Future bounded check only:
 
-## Privacy / Retention Boundary
+> Are bounded sampled `PROPERTY_TYPE` values NAUPA-style code tokens, and is every observed
+> `IN`-prefixed token one of the official SCO insurance codes `IN01-IN08` or `IN99`?
 
-The source is CSV. There is no established server-side column projection, so any future row read may transiently expose prohibited owner/holder bytes before projection.
+A successful sample does not prove the full dataset domain and does not enable production classification.
 
-Therefore:
-- row access remains BLOCKED;
-- raw ZIP persistence prohibited;
-- full-row persistence prohibited;
-- nonallowlisted values may not be used or persisted;
-- separate transient-row privacy review is required.
+## Fixed Proposal Caps
 
-Retention:
-- transient row buffers: `0 days`, immediate disposal;
-- projected two-field triage retention: unresolved;
-- no production duration is invented;
-- retention policy remains unapproved.
+- 4 canonical CSV members;
+- first 4 complete data rows/member;
+- 16 data rows maximum total;
+- 1 HEAD maximum;
+- 4 Range GET maximum;
+- 5 HTTP requests maximum total;
+- `131,072` response-body bytes maximum per Range;
+- `524,288` response-body bytes maximum total;
+- `1,048,576` uncompressed transient bytes maximum total;
+- `32,768` bytes maximum per logical CSV record;
+- no full-body request;
+- no automatic cap widening.
 
-Privacy policy remains draft/not trusted.
+## Privacy / Persistence Controls
 
-## Canonical Verification
-
-Promoted HEAD:
-`9c2f5b6c82ed787bf0820bdd850e475775fc097c`.
-
-Canonical CI:
-`34940817455` — SUCCESS.
-
-Passed:
-- Ruff;
-- mypy;
-- contract tests;
-- smoke tests;
-- full pytest;
-- frontend lint/typecheck/build;
-- Streamlit safety/startup smoke.
+- transient full-row exposure remains possible and separately gated;
+- no temporary source files;
+- raw ZIP/Range/full-row persistence prohibited;
+- `PROPERTY_ID` persistence prohibited during semantic verification;
+- nonallowlisted value use/persistence prohibited;
+- per-row `PROPERTY_TYPE` persistence prohibited;
+- derived `PROPERTY_TYPE` summary only;
+- transient buffers retained `0 days` and disposed immediately;
+- raw bytes and record values prohibited from logs.
 
 ## Current Safety State
 
@@ -86,6 +84,7 @@ Passed:
 - real acquisition false;
 - registry disabled/unapproved;
 - approved real sources `0`;
+- semantic execution false;
 - CSV row access BLOCKED;
 - PII processing BLOCKED;
 - identity resolution BLOCKED;
@@ -94,39 +93,21 @@ Passed:
 
 ## Next Product Work
 
-Create an isolated, non-authorizing **`PROPERTY_TYPE` semantic-verification proposal**.
-
-The proposal must:
-1. define the exact semantic question to verify;
-2. use the existing `$500+` transport and structure evidence only as input;
-3. define explicit row, request and byte caps before any execution;
-4. define transient-buffer handling and immediate disposal;
-5. prohibit raw ZIP/full-row persistence;
-6. prohibit use/persistence of nonallowlisted values;
-7. define deterministic stop conditions for malformed/unexpected rows, transport drift or privacy ambiguity;
-8. remain non-executable and non-authorizing until a separate human gate.
-
-No real row should be read merely to prepare this proposal.
-
-## Still Required Before Real Acquisition
-
-- trusted privacy policy;
-- approved production retention policy;
-- transient full-row privacy review;
-- approved `PROPERTY_TYPE` semantic-verification plan;
-- real-acquisition client review;
-- explicit source-approval reference;
-- source policy `APPROVED` under separate gate;
-- registry activation under separate gate;
-- separately authorized row-level acquisition;
-- A02 normalization against approved fields only.
+1. Human promotion decision for
+   `m3-ca-sco-property-type-semantic-verification-proposal -> m2-state-governance-core`.
+2. If promoted and canonical CI is green, stop at
+   `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`.
+3. Only after a separate owner approval may an execution runner be implemented/reviewed.
+4. Reading real rows remains a separate execution gate from runner implementation.
+5. Source approval, registry activation, A02 normalization, identity, matching and outreach remain later
+   independent gates.
 
 ## Out of Scope Until Later Gates
 
-- reading a real row now;
-- using owner or holder identity/address data for first triage;
-- beneficiary matching;
-- genealogy;
-- outreach;
-- claim submission;
+- executing the semantic sample now;
+- reading any real row now;
+- increasing row/request/byte caps automatically;
+- persisting owner/holder values or full rows;
+- source approval or registry activation;
+- beneficiary matching, genealogy, outreach or claim submission;
 - promotion to `main` without a separate stable-checkpoint gate.
