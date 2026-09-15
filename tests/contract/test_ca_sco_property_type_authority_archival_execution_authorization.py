@@ -32,11 +32,15 @@ APPROVAL_PATH = (
     ROOT
     / "sources/evidence/ca_sco_property_type_authority_archival_execution_approval.v1.json"
 )
+ARCHIVE_METADATA_PATH = (
+    ROOT / "sources/evidence/ca_sco_property_type_authority_archive.v1.json"
+)
 WORKFLOW_PATH = (
     ROOT / ".github/workflows/ca-sco-property-type-authority-archival-once.yml"
 )
 SOURCE_ID = "ca.sco.unclaimed_property.bulk"
 FRESH_APPROVAL = "APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT"
+VERIFIED_AUTHORIZATION_SHA = "d20bc80f50af56c10085eec7123aa0691e26ea1a"
 OLD_EXECUTION_APPROVAL = "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED"
 OLD_PRIVACY_APPROVAL = "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED"
 
@@ -61,8 +65,54 @@ def test_artifact_is_valid_pending_and_offline() -> None:
     assert artifact["single_use"] is True
     assert artifact["reusable"] is False
     assert artifact["approval_must_pin_artifact_sha"] is True
-    assert not APPROVAL_PATH.exists()
-    assert not WORKFLOW_PATH.exists()
+
+
+def test_progressed_authorization_state_is_bounded_when_present() -> None:
+    if not APPROVAL_PATH.exists():
+        assert not WORKFLOW_PATH.exists()
+        return
+
+    approval = _load(APPROVAL_PATH)
+    assert approval["approval_ref"] == FRESH_APPROVAL
+    assert approval["authorization_artifact_package_sha"] == VERIFIED_AUTHORIZATION_SHA
+    assert approval["single_use"] is True
+    assert approval["reusable"] is False
+    assert approval["status"] in {"GRANTED_NOT_YET_CONSUMED", "CONSUMED"}
+
+    if approval["status"] == "CONSUMED":
+        assert approval.get("execution_run_id")
+        assert approval.get("consumed_at_utc")
+
+    if WORKFLOW_PATH.exists():
+        assert APPROVAL_PATH.exists()
+
+
+def test_post_execution_archive_evidence_is_bounded_when_present() -> None:
+    if not ARCHIVE_METADATA_PATH.exists():
+        return
+
+    assert APPROVAL_PATH.exists()
+    approval = _load(APPROVAL_PATH)
+    evidence = _load(ARCHIVE_METADATA_PATH)
+
+    assert approval["status"] == "CONSUMED"
+    assert evidence["approval_ref"] == FRESH_APPROVAL
+    assert evidence["authorization_artifact_package_sha"] == VERIFIED_AUTHORIZATION_SHA
+    assert evidence["requested_url"] == (
+        "https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf"
+    )
+    assert evidence["final_url"] == evidence["requested_url"]
+    assert evidence["retrieval_method"] == "GET"
+    assert evidence["redirect_count"] == 0
+    assert evidence["http_status"] == 200
+    assert evidence["content_type"] == "application/pdf"
+    assert 0 < int(evidence["response_body_bytes"]) <= 16777216
+    assert len(str(evidence["sha256"])) == 64
+    assert evidence["semantic_extraction_performed"] is False
+    assert evidence["post_archive_human_review_required"] is True
+
+    archive_path = ROOT / str(evidence["archive_path"])
+    assert archive_path.exists()
 
 
 def test_fresh_approval_is_distinct_from_consumed_execution_approvals() -> None:
