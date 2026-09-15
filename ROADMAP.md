@@ -7,73 +7,57 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | DIAGNOSTIC EXECUTION AUTHORIZATION REVIEW PASS; TWO FRESH OWNER APPROVALS REQUIRED | package `daeaa7bf...866c`; final authorization CI `35018090207`; review audit recorded |
+| M3 — California Data Spike | ONE-SHOT PROPERTY_TYPE DIAGNOSTIC COMPLETED; HUMAN EVIDENCE REVIEW REQUIRED | run `35019840276`; class `ASCII_STRUCTURAL_MISMATCH` |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
 
-- second bounded semantic execution `34995672539` stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- exact offending source content was intentionally not retained and must not be reconstructed or inferred from historical evidence;
-- archived authority does not contradict the current shape regex;
-- live source semantic compatibility remains unresolved;
-- diagnostic/remediation evidence proposal human review: `PASS`;
-- diagnostic execution/authorization package checkpoint: `daeaa7bfb7f7d73a61f011d394cc88393625866c`;
-- package CI `35017854034`: SUCCESS;
-- final authorization branch HEAD `de73b2d4d0fdcc236cbcfa3a0ad253c617919b28` passed CI `35018090207`;
-- human gate `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`: `PASS`;
-- review PASS does not itself grant source access or transient-row privacy exposure;
-- source policy remains `PROPOSED` and production classification remains inactive.
+- second semantic execution `34995672539` previously stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- archived authority does not contradict the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- diagnostic/remediation evidence proposal review: `PASS`;
+- diagnostic execution/authorization review: `PASS`;
+- both fresh execution/privacy approvals were explicitly granted, pinned to package `daeaa7bfb7f7d73a61f011d394cc88393625866c`, then consumed before source access;
+- one-shot diagnostic run `35019840276`: SUCCESS;
+- source identity verified;
+- exactly 1 HEAD + 1 Range GET, 2 HTTP requests total;
+- exactly 131072 source response-body bytes read;
+- 1 transient data row examined;
+- result `DIAGNOSTIC_CLASSIFIED`;
+- diagnostic class `ASCII_STRUCTURAL_MISMATCH`;
+- one-shot workflow removed after execution;
+- no exact source value or protected derivative persisted;
+- no remediation performed;
+- source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Fresh Owner Approvals — Required Before Network
+## Bounded Interpretation — Pending Human Review
 
-Both exact approvals must be granted explicitly and durably pin package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c`:
+Within the fixed deterministic classifier, `ASCII_STRUCTURAL_MISMATCH` is reached only after the mismatch is not explained solely by:
 
-- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`
+- surrounding ASCII SPACE/TAB;
+- ASCII case;
+- surrounding ASCII SPACE/TAB plus ASCII case;
+- non-ASCII or disallowed ASCII control content.
 
-Both are single-use and non-reusable. Neither is granted by the review PASS. No source request or diagnostic network workflow is authorized until both evidences are valid.
-
-## Bounded Diagnostic Contract
-
-After both approvals only:
-
-- exact known endpoint and pinned source identity;
-- first canonical ZIP member only;
-- maximum 4 transient data rows;
-- stop at first reproduced format mismatch;
-- maximum 1 HEAD + 1 Range GET;
-- maximum 2 HTTP requests total;
-- maximum 131072 source response-body bytes total;
-- maximum 262144 uncompressed transient bytes;
-- maximum 32768 bytes per logical record;
-- zero retries, redirects, additional ranges, full-body fallback or automatic widening;
-- identity drift or mismatch not reproduced within the bound -> fail closed;
-- deterministic five-class classifier with unchanged regex;
-- only coarse categorical/counter/safety evidence may persist;
-- no diagnostic class automatically authorizes remediation.
+This classification does not reveal the actual PROPERTY_TYPE value and does not itself authorize any regex/parser/runtime change.
 
 ## Next Product Work
 
-Obtain explicit owner authorization for **both** fresh approval references above.
-
-Do not infer approval from generic wording. After both durable evidences exist and pin the reviewed package SHA, the project may enter:
-
-`ONE_SHOT_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION`
-
-After any later diagnostic result, stop at:
+Perform only:
 
 `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW`
 
+The review must determine what the coarse evidence justifies while preserving privacy and fail-closed governance. No remediation is automatic.
+
 ## Still Out of Scope
 
-- reuse of any consumed approval;
-- source access before both fresh approvals are valid;
-- approval inference from review PASS or generic wording;
-- source-value reconstruction from historical evidence;
+- reuse of either diagnostic approval or any historical consumed approval;
+- reconstruction/inference of the unretained PROPERTY_TYPE value;
 - exact source-value hashing, exact-length capture, fragments or codepoints;
-- parser, regex, casing, trimming or normalization runtime changes;
+- parser or regex changes;
+- trimming, casing or normalization runtime changes;
 - Unicode normalization probes;
 - automatic remediation;
-- source or registry activation;
+- additional source requests without a separate gate;
+- source/registry activation;
 - production classification activation;
 - identity resolution, genealogy, beneficiary matching, outreach or claim submission.
