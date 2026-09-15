@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "authority_id": "CA_SCO_NAUPA_II_CODES_DORMANCY_PERIODS",
+  "requested_url": "https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf",
+  "final_url": "https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf",
+  "retrieved_at_utc": "2026-09-15T19:10:35.373019Z",
+  "http_status": 200,
+  "content_type": "application/pdf",
+  "response_body_bytes": 329585,
+  "sha256": "7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5",
+  "archive_path": "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf",
+  "retrieval_method": "GET",
+  "redirect_count": 0,
+  "retained_response_headers": {
+    "content-type": "application/pdf",
+    "content-length": "329585",
+    "last-modified": "Fri, 11 Sep 2026 22:21:00 GMT",
+    "etag": "\"f8fe1d33b42dd1:0\""
+  },
+  "approval_ref": "APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT",
+  "authorization_artifact_package_sha": "d20bc80f50af56c10085eec7123aa0691e26ea1a",
+  "execution_run_id": "35012019831",
+  "semantic_extraction_performed": false,
+  "post_archive_human_review_required": true
+}
