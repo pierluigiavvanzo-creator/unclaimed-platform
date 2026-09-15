@@ -6,21 +6,13 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Package
+## Current Branch / Archive Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-authority-archival-execution-authorization`
-- review base HEAD: `27e82e1358dd2589e3356b2cd4528915c13b26d9`
+- branch: `m3-ca-sco-property-type-authority-archival-execution-one-shot`
 - verified authorization-artifact package SHA: `d20bc80f50af56c10085eec7123aa0691e26ea1a`
-- package CI: `35007468140` — SUCCESS
-- package status: `PENDING_HUMAN_AUTHORIZATION`
-
-Package artifacts:
-
-- `schemas/common/property_type_authority_archival_execution_authorization.schema.json`
-- `sources/proposals/ca_sco_segment_500_plus.property_type_authority_archival_execution_authorization.v1.json`
-- `tests/contract/test_ca_sco_property_type_authority_archival_execution_authorization.py`
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION.md`
+- one-shot authority archival run: `35012019831` — SUCCESS
+- execution audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION.md`
 
 ## Verified Baseline
 
@@ -30,51 +22,69 @@ Package artifacts:
 - M3 semantic compatibility: UNRESOLVED
 - second bounded semantic run: `34995672539` -> `STOPPED_FAIL_CLOSED`
 - second stop: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
-- prior execution/privacy approvals: CONSUMED + NON-REUSABLE
+- previous semantic execution/privacy approvals: CONSUMED + NON-REUSABLE
 - repository-only provenance decision: `NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
 - authority provenance acquisition proposal human review: `PASS`
 - source policy: `PROPOSED`
 - registry: disabled / not approved
 - approved real sources: `0`
 - production classification: inactive
+- identity/genealogy/beneficiary matching/outreach/claim submission: BLOCKED
 
-## One-Shot Authority Archival Authorization Artifact
+## One-Shot Authority Archival Result
 
-Human review gate:
-`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION_REVIEW`
-
-Fresh approval ref required if that review passes:
+Fresh approval:
 `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
 
-Approval requirements:
+Approval state:
+`CONSUMED` + NON-REUSABLE
 
-- fresh;
-- single-use;
-- non-reusable;
-- must pin the verified authorization-artifact package SHA;
-- cannot reuse the previous semantic execution/privacy approvals.
+Approval evidence:
+`sources/evidence/ca_sco_property_type_authority_archival_execution_approval.v1.json`
 
-Current state:
+Execution result:
+`SUCCESS_ONE_SHOT_ARCHIVED`
 
-- network execution authorized: `false`
-- workflow creation authorized: `false`
-- approval evidence present: `false`
-- authority request performed: `false`
-- authority downloaded: `false`
-- archive created: `false`
+Actual bounded retrieval:
 
-The requested later execution scope remains exactly the reviewed proposal boundary: one exact HTTPS GET to the single SCO authority PDF already referenced in the repository, no redirect, no retry, 16 MiB project safety cap, HTTP 200, PDF validation, immutable SHA-256 raw archive and versioned provenance metadata.
+- method: `GET`
+- requested URL: `https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf`
+- final URL: identical
+- HTTP status: `200`
+- redirects: `0`
+- retries: `0`
+- content type: `application/pdf`
+- body bytes: `329585`
+- PDF validation: passed
 
-No additional authority discovery, SCO dataset access, `claimit.ca.gov` access, source-row access, semantic extraction, parser/regex/normalization change, source approval, registry activation, production classification or third semantic execution is included.
+Archive SHA-256:
+`7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5`
 
-After any later successful archive, the next gate is:
-`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
+Archive path:
+`sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf`
+
+Provenance metadata:
+`sources/evidence/ca_sco_property_type_authority_archive.v1.json`
+
+No semantic extraction was performed during retrieval or archival. The existence of the archive does not itself prove any PROPERTY_TYPE semantic claim.
+
+The one-shot approval is consumed. No further authority retrieval is authorized by it.
+
+## Current Safety Boundary
+
+Do not:
+
+- reuse the consumed authority archival approval;
+- perform another authority retrieval without a new bounded proposal/gate;
+- access SCO datasets or `claimit.ca.gov` for this authority task;
+- change parser, regex, trimming, casing or normalization before provenance review;
+- run a third PROPERTY_TYPE semantic execution without a new proposal and fresh execution/privacy approvals;
+- activate source policy, registry or production classification;
+- perform identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
 ## SINGLE NEXT ACTION
 
 Perform exclusively:
-`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION_REVIEW`
+`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
 
-Review only the verified authorization-artifact package. **Do not retrieve or download the authority document during this review.**
-
-If the review passes, create fresh approval evidence pinned to package SHA `d20bc80f50af56c10085eec7123aa0691e26ea1a` before any network request.
+Review the archived authority and its retained provenance evidence against the unresolved PROPERTY_TYPE claims. Do not make semantic/runtime changes merely because the authority is now archived.
