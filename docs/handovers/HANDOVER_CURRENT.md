@@ -6,19 +6,21 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Review
+## Current Branch / Package
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- review branch: `m3-ca-sco-property-type-authority-provenance-acquisition-proposal-review`
-- review base HEAD: `509bcae9789f06cb1ce56fd3936f550c98b2b238`
-- reviewed proposal package SHA: `963c205b662cf56260ca7af14d71c65a6916c30f`
-- reviewed proposal CI: `35005451605` — SUCCESS
-- review decision commit: `59be169a46da8ccbbe922071903547fac0d2f933`
-- review gate: `HUMAN_PROPERTY_TYPE_AUTHORITY_PROVENANCE_ACQUISITION_PROPOSAL_REVIEW`
-- review decision: `PASS`
+- branch: `m3-ca-sco-property-type-authority-archival-execution-authorization`
+- review base HEAD: `27e82e1358dd2589e3356b2cd4528915c13b26d9`
+- verified authorization-artifact package SHA: `d20bc80f50af56c10085eec7123aa0691e26ea1a`
+- package CI: `35007468140` — SUCCESS
+- package status: `PENDING_HUMAN_AUTHORIZATION`
 
-Review audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_PROVENANCE_ACQUISITION_PROPOSAL_REVIEW.md`
+Package artifacts:
+
+- `schemas/common/property_type_authority_archival_execution_authorization.schema.json`
+- `sources/proposals/ca_sco_segment_500_plus.property_type_authority_archival_execution_authorization.v1.json`
+- `tests/contract/test_ca_sco_property_type_authority_archival_execution_authorization.py`
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION.md`
 
 ## Verified Baseline
 
@@ -26,68 +28,53 @@ Review audit:
 - M1: VERIFIED
 - M2: VERIFIED
 - M3 semantic compatibility: UNRESOLVED
-- canonical development branch: `m2-state-governance-core`
-- canonical development HEAD: `e97c1f62959f603bdd3df79538d4b70255594c70`
-- second bounded semantic run: `34995672539`
-- second run result: `STOPPED_FAIL_CLOSED`
+- second bounded semantic run: `34995672539` -> `STOPPED_FAIL_CLOSED`
 - second stop: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
-- second execution/privacy approvals: CONSUMED + NON-REUSABLE
-- one-shot semantic network workflow: ABSENT
+- prior execution/privacy approvals: CONSUMED + NON-REUSABLE
+- repository-only provenance decision: `NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
+- authority provenance acquisition proposal human review: `PASS`
 - source policy: `PROPOSED`
 - registry: disabled / not approved
 - approved real sources: `0`
 - production classification: inactive
 
-## Offline Provenance Result
+## One-Shot Authority Archival Authorization Artifact
 
-Decision:
-`NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
+Human review gate:
+`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION_REVIEW`
 
-Classifications:
+Fresh approval ref required if that review passes:
+`APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
 
-- `PROPERTY_TYPE_FIELD_IS_COLUMN_INDEX_1` -> `SUPPORTED_BY_REPOSITORY_EVIDENCE`
-- `GENERAL_CODE_SHAPE_AA99` -> `PROVENANCE_INSUFFICIENT`
-- `SPECIAL_CODE_ZZZZ` -> `PROVENANCE_INSUFFICIENT`
-- `CALIFORNIA_INSURANCE_CODE_SET` -> `REPOSITORY_ASSERTION_WITH_EXTERNAL_REFERENCE_NOT_ARCHIVED`
-- `CUSTOM_PROJECTOR_STANDARD_CSV_COMPATIBILITY` -> `SUPPORTED_BY_REPOSITORY_EVIDENCE`
+Approval requirements:
 
-## Authority Provenance Proposal
+- fresh;
+- single-use;
+- non-reusable;
+- must pin the verified authorization-artifact package SHA;
+- cannot reuse the previous semantic execution/privacy approvals.
 
-Proposal:
-`sources/proposals/ca_sco_segment_500_plus.property_type_authority_provenance_acquisition.v1.json`
+Current state:
 
-Schema:
-`schemas/common/property_type_authority_provenance_acquisition_proposal.schema.json`
+- network execution authorized: `false`
+- workflow creation authorized: `false`
+- approval evidence present: `false`
+- authority request performed: `false`
+- authority downloaded: `false`
+- archive created: `false`
 
-Contract test:
-`tests/contract/test_ca_sco_property_type_authority_provenance_acquisition_proposal.py`
+The requested later execution scope remains exactly the reviewed proposal boundary: one exact HTTPS GET to the single SCO authority PDF already referenced in the repository, no redirect, no retry, 16 MiB project safety cap, HTTP 200, PDF validation, immutable SHA-256 raw archive and versioned provenance metadata.
 
-Proposal status:
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+No additional authority discovery, SCO dataset access, `claimit.ca.gov` access, source-row access, semantic extraction, parser/regex/normalization change, source approval, registry activation, production classification or third semantic execution is included.
 
-Exact authority target already referenced by repository evidence:
-`https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf`
-
-The proposal defines a future bounded archival design only: one exact HTTPS GET, one host, no redirect, no retry, one PDF/all pages, 16 MiB project safety cap, immutable SHA-256 raw archive, provenance metadata, and mandatory post-archive human provenance review.
-
-## Human Review Decision
-
-`PASS`
-
-Meaning:
-
-- the bounded proposal design is accepted;
-- the PASS does not authorize authority network retrieval or download;
-- no network workflow is authorized;
-- no authority execution approval token exists yet;
-- no parser, regex, normalization, logging, privacy, source-policy or runtime semantic change is authorized;
-- prior consumed semantic execution/privacy approvals remain non-reusable;
-- no additional authority discovery is authorized.
+After any later successful archive, the next gate is:
+`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW`
 
 ## SINGLE NEXT ACTION
 
-Prepare a **separate one-shot authority archival execution/authorization artifact**.
+Perform exclusively:
+`HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION_REVIEW`
 
-Preparation must remain offline. It must define the exact fresh human authorization required before any network request. Do not retrieve the authority document while preparing that artifact.
+Review only the verified authorization-artifact package. **Do not retrieve or download the authority document during this review.**
 
-Do not treat the proposal review PASS as execution authorization.
+If the review passes, create fresh approval evidence pinned to package SHA `d20bc80f50af56c10085eec7123aa0691e26ea1a` before any network request.
