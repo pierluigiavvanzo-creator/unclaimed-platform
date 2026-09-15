@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "approval_ref": "APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT",
+  "authorization_artifact_package_sha": "d20bc80f50af56c10085eec7123aa0691e26ea1a",
+  "granted_on": "2026-09-15",
+  "single_use": true,
+  "reusable": false,
+  "status": "GRANTED_NOT_YET_CONSUMED"
+}
