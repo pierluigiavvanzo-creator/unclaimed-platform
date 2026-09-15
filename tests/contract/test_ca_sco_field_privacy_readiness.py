@@ -96,33 +96,30 @@ def test_all_25_verified_fields_are_partitioned_exactly_once() -> None:
     assert set(flattened) == set(verified)
 
 
-def test_minimized_triage_scope_contains_only_three_fields() -> None:
+def test_minimized_triage_scope_contains_only_two_fields() -> None:
     proposal = load_json(PROPOSAL_PATH)
     field_scope = proposal["field_minimization"]
     assert isinstance(field_scope, dict)
 
-    expected = ["PROPERTY_ID", "PROPERTY_TYPE", "HOLDER_NAME"]
+    expected = ["PROPERTY_ID", "PROPERTY_TYPE"]
     assert field_scope["required_fields"] == expected
     assert field_scope["future_row_allowed_fields"] == expected
     assert field_scope["optional_fields"] == []
+    assert "HOLDER_NAME" in field_scope["prohibited_fields"]
 
-    prohibited = set(field_scope["prohibited_fields"])
-    assert {
-        "OWNER_NAME",
-        "OWNER_STREET_1",
-        "OWNER_STREET_2",
-        "OWNER_STREET_3",
-        "OWNER_CITY",
-        "OWNER_STATE",
-        "OWNER_ZIP",
-        "OWNER_COUNTRY_CODE",
-        "HOLDER_STREET_1",
-        "HOLDER_STREET_2",
-        "HOLDER_STREET_3",
-        "HOLDER_CITY",
-        "HOLDER_STATE",
-        "HOLDER_ZIP",
-    }.issubset(prohibited)
+
+def test_transient_csv_privacy_risk_is_explicit_and_fail_closed() -> None:
+    proposal = load_json(PROPOSAL_PATH)
+    boundary = proposal["transport_privacy_boundary"]
+    assert isinstance(boundary, dict)
+
+    assert boundary["source_member_format"] == "CSV"
+    assert boundary["server_side_column_projection_available"] == "NOT_ESTABLISHED"
+    assert boundary["transient_nonallowlisted_row_bytes_may_be_observed"] is True
+    assert boundary["nonallowlisted_value_use_allowed"] is False
+    assert boundary["nonallowlisted_value_persistence_allowed"] is False
+    assert boundary["full_row_persistence_allowed"] is False
+    assert boundary["row_access_authorized"] is False
 
 
 def test_pii_retention_and_privacy_candidates_remain_unapproved() -> None:
@@ -132,23 +129,36 @@ def test_pii_retention_and_privacy_candidates_remain_unapproved() -> None:
     assert isinstance(pii, dict)
     assert pii["actual_pii_presence_status"] == "UNVERIFIED_NO_ROWS_SAMPLED"
     assert pii["pii_processing_authorized"] is False
-    assert pii["required_field_with_potential_pii"] == ["HOLDER_NAME"]
+    assert pii["required_field_with_potential_pii"] == []
+    assert pii["holder_name_needed_for_purpose"] is False
 
     retention = proposal["retention_candidate"]
     assert isinstance(retention, dict)
     assert retention["candidate_status"] == "DRAFT_NOT_APPROVED"
-    assert retention["projected_triage_record_retention_days"] == 7
-    assert retention["duration_basis"] == "PROJECT_SAFETY_CANDIDATE_NOT_LEGAL_REQUIREMENT"
+    assert retention["transient_source_row_buffer_retention_days"] == 0
+    assert retention["projected_triage_record_retention_days"] is None
+    assert retention["duration_basis"] == "NO_PRODUCTION_DURATION_INVENTED"
     assert retention["approved_policy_ref"] is None
 
     privacy = proposal["privacy_policy_candidate"]
     assert isinstance(privacy, dict)
     assert privacy["candidate_status"] == "DRAFT_NOT_TRUSTED"
+    assert privacy["candidate_allowed_fields"] == ["PROPERTY_ID", "PROPERTY_TYPE"]
     assert privacy["trusted_policy_ref"] is None
-    assert privacy["record_values_in_logs_allowed"] is False
+    assert privacy["transient_prohibited_field_use_allowed"] is False
     assert privacy["identity_resolution_allowed"] is False
     assert privacy["beneficiary_matching_allowed"] is False
     assert privacy["outreach_allowed"] is False
+
+
+def test_external_authority_refs_do_not_claim_legal_approval() -> None:
+    proposal = load_json(PROPOSAL_PATH)
+    refs = proposal["external_authority_refs"]
+    assert isinstance(refs, dict)
+    assert refs["legal_interpretation_status"] == "HUMAN_COUNSEL_REQUIRED"
+    assert str(refs["sco_property_type_codes_ref"]).startswith("https://www.sco.ca.gov/")
+    assert str(refs["ccpa_statute_ref"]).startswith("https://cppa.ca.gov/")
+    assert str(refs["cppa_data_broker_guidance_ref"]).startswith("https://cppa.ca.gov/")
 
 
 def test_source_policy_and_registry_are_unchanged_and_fail_closed() -> None:
@@ -179,9 +189,14 @@ def test_schema_blocks_authorization_and_field_scope_widening() -> None:
         validator().validate(approved)
 
     widened = copy.deepcopy(proposal)
-    widened["future_row_contract"]["requested_fields"].append("OWNER_NAME")
+    widened["future_row_contract"]["requested_persisted_fields"].append("HOLDER_NAME")
     with pytest.raises(ValidationError):
         validator().validate(widened)
+
+    transient = copy.deepcopy(proposal)
+    transient["transport_privacy_boundary"]["row_access_authorized"] = True
+    with pytest.raises(ValidationError):
+        validator().validate(transient)
 
     trusted = copy.deepcopy(proposal)
     trusted["privacy_policy_candidate"]["trusted_policy_ref"] = "invented-policy"
