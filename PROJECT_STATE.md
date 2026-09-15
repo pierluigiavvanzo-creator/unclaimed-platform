@@ -6,85 +6,59 @@ Last updated: 2026-09-15
 
 M3 — California Data Spike Readiness + Product Visibility
 
-## Canonical Baseline
+## Canonical Status
 
-M0, M1 and M2 are VERIFIED. M3 California source/legal readiness, acquisition/raw persistence/privacy gates, SCO governance/transport evidence, the `$500+` bounded structure inspection, the two-field privacy boundary, the `PROPERTY_TYPE` semantic-verification proposal, and the bounded `PROPERTY_TYPE` runner design are canonical on `m2-state-governance-core`.
+M0, M1 and M2 are VERIFIED. M3 California source/legal readiness, acquisition/raw persistence/privacy gates, SCO governance/transport evidence, the `$500+` bounded structure inspection, the two-field privacy boundary, the `PROPERTY_TYPE` semantic-verification proposal, the bounded runner design, and the bounded `PROPERTY_TYPE` runner implementation are canonical on `m2-state-governance-core`.
 
-Canonical development HEAD before the current implementation candidate:
-`6105c22a7d31df7afca00282eff7e9798e98b868`.
+Promoted runner-implementation functional SHA:
+`3f612837e4dbb86839942555c34b9384ff4e99a1`.
 
-Runner-design canonical CI:
-`34947637509` — SUCCESS for both `quality` and `streamlit-candidate`.
+Canonical post-promotion CI:
+`34961511401` — SUCCESS for both `quality` and `streamlit-candidate`.
 
 Stable `main` remains unchanged at:
 `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`.
 
-## Current Candidate — PROPERTY_TYPE Runner Implementation
+## Promotion Evidence
 
-Branch:
-`m3-ca-sco-property-type-runner-implementation`
-
-Functional candidate HEAD before audit/docs closure:
-`d2b8977a0fd34474ecb545c6ecfefc354b551b30`.
-
-Functional CI:
-`34951460475` — SUCCESS for both `quality` and `streamlit-candidate`.
-
-Compare against canonical at functional closure:
-- ahead `3`;
+Before promotion:
+- canonical `6105c22a7d31df7afca00282eff7e9798e98b868`;
+- candidate `3f612837e4dbb86839942555c34b9384ff4e99a1`;
+- ahead `4`;
 - behind `0`;
 - merge-base exactly `6105c22a7d31df7afca00282eff7e9798e98b868`.
 
-No source policy or registry change occurred.
-
-## Owner Implementation Gate
-
 Owner explicitly approved:
-`approvo implementazione bounded runner PROPERTY_TYPE con soli test synthetic/mock`
+`m3-ca-sco-property-type-runner-implementation -> m2-state-governance-core`.
 
-Machine approval reference:
-`OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_RUNNER_IMPLEMENTATION_SYNTHETIC_MOCK_ONLY`.
+Promotion was a non-force fast-forward to:
+`3f612837e4dbb86839942555c34b9384ff4e99a1`.
 
-Authorized:
-- bounded runner implementation;
-- synthetic/mock testing.
+Canonical post-promotion CI:
+`34961511401` — SUCCESS.
 
-Not authorized:
-- real network execution;
-- network workflow;
-- real row access;
-- transient-row privacy exposure;
-- source approval;
-- registry activation.
+## Canonical Runner Implementation
 
-Authorization evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_runner_implementation_approval.v1.json`.
-
-Authorization schema:
-`schemas/common/property_type_semantic_runner_implementation_authorization.schema.json`.
-
-## Implemented Runner
-
-Runner path:
+Runner:
 `scripts/ca_sco_property_type_semantic_verification.py`
 
-Candidate state:
-PRESENT + SYNTHETIC/MOCK TESTED.
+Implementation authorization evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_runner_implementation_approval.v1.json`
+
+Implementation audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_RUNNER_IMPLEMENTATION.md`
 
 Network one-shot workflow:
 `.github/workflows/ca-sco-property-type-semantic-verification-once.yml`
 
-Candidate state:
+Current state:
 ABSENT.
 
-Audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_RUNNER_IMPLEMENTATION.md`.
-
-The runner uses an injected transport for synthetic/mock testing. A fixed real HTTP transport implementation exists for a later separately authorized gate, but it was not invoked during this task and is not wired into GitHub Actions.
+The runner is transport-injectable and was validated only with synthetic/mock transport. A fixed real HTTP transport exists for a later separately authorized execution gate, but no real SCO request was made during implementation or promotion.
 
 ## Fixed Safety Boundary
 
-Hard caps remain canonical and unchanged:
+Hard caps remain unchanged:
 - 4 canonical CSV members;
 - maximum 4 complete data rows/member;
 - maximum 16 rows total;
@@ -100,13 +74,11 @@ Hard caps remain canonical and unchanged:
 - no full-body fallback;
 - no automatic cap widening.
 
-If Range is ignored/non-206, the runner stops before reading the unexpected body.
+Ignored Range/non-206 causes STOP before the unexpected response body is consumed.
 
-## Parsing / Persistence Boundary
+## Privacy / Persistence Boundary
 
-Before accepting sampled data rows, the runner verifies the exact canonical 25-column header.
-
-For each bounded data record it projects only zero-based column `1`, `PROPERTY_TYPE`, while counting columns. `PROPERTY_ID` is not used for semantic verification.
+The runner verifies the exact canonical 25-column header and projects only `PROPERTY_TYPE` for semantic verification. `PROPERTY_ID` is not used or persisted during semantic verification.
 
 Never persist/log as execution evidence:
 - raw Range bodies;
@@ -115,25 +87,22 @@ Never persist/log as execution evidence:
 - owner/holder values;
 - per-row `PROPERTY_TYPE` values.
 
-Allowed execution evidence remains derived summary only: aggregate row counts, rows/member, distinct `PROPERTY_TYPE` codes, distinct official insurance codes, request/byte counters, semantic status, and stop reason.
+Allowed evidence remains derived summary only: aggregate row counts, rows/member, distinct `PROPERTY_TYPE` codes, distinct official insurance codes, request/byte counters, semantic status and stop reason.
 
-## Synthetic / Mock Verification
+Real CSV parsing may transiently expose prohibited owner/holder bytes. Therefore real execution remains blocked until separate transient-row privacy approval.
 
-Synthetic tests cover:
-- successful bounded sample with official insurance codes;
-- no-insurance sample -> inconclusive;
-- unknown `IN` code -> fail closed;
-- ignored Range/non-206 -> STOP with zero unexpected-body reads;
-- exact-header mismatch;
-- row column-count mismatch;
-- missing privacy approval before transport;
-- missing execution approval before transport;
-- explicit live-CLI opt-in;
-- absence of the network one-shot workflow.
+## Verification History
 
-Final functional CI `34951460475` passed Ruff, mypy, contract tests, smoke tests, full pytest including the new unit tests, frontend lint/typecheck/build, and Streamlit safety/startup smoke.
+Implementation functional CI:
+`34951460475` — SUCCESS for Ruff, mypy, contract, smoke, full pytest including runner unit tests, frontend lint/typecheck/build, and Streamlit smoke.
 
-Intermediate failed CI is retained in history:
+Candidate docs-closure CI:
+`34951888095` — SUCCESS.
+
+Canonical post-promotion CI:
+`34961511401` — SUCCESS.
+
+Intermediate failed runs are retained in history:
 - `34950942449`: Ruff import rule only;
 - `34951326633`: historical proposal contract still asserted permanent runner absence.
 
@@ -141,9 +110,9 @@ Both were corrected narrowly without force-push or history rewrite.
 
 ## Network / Real Data State
 
-During the entire implementation task:
+Across implementation and promotion:
 - new SCO network requests: `0`;
-- source response-body bytes read: `0`;
+- new SCO response-body bytes: `0`;
 - real CSV rows read: `0`;
 - real PII processed: `0`;
 - network one-shot workflow created: `false`.
@@ -156,7 +125,7 @@ Fail-closed state remains:
 - registry `enabled: false`;
 - registry `approved_for_use: false`;
 - approved real sources `0`;
-- runner implementation authorized only for synthetic/mock: `true`;
+- runner implementation canonical but authorized only for synthetic/mock validation;
 - real semantic execution authorized `false`;
 - transient-row privacy approval absent;
 - real row access BLOCKED;
@@ -165,13 +134,12 @@ Fail-closed state remains:
 - beneficiary matching BLOCKED;
 - outreach BLOCKED.
 
+Promotion did not authorize or execute real data access.
+
 ## Next Recommended Action
 
-Human promotion gate only:
+Human semantic-execution review gate only:
 
-`HUMAN_PROPERTY_TYPE_RUNNER_CANDIDATE_PROMOTION`
+`HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`
 
-If approved, promote:
-`m3-ca-sco-property-type-runner-implementation -> m2-state-governance-core`.
-
-Promotion itself must remain non-executing and non-authorizing for real data. Actual one-shot semantic execution remains a later separate gate requiring explicit execution approval plus transient-row privacy approval.
+Any later real one-shot semantic sampling requires explicit owner execution approval **and** transient-row privacy approval before any real row can be read. Source approval/registry activation remain separate later gates.
