@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `PROPERTY_TYPE` SEMANTIC-VERIFICATION PROPOSAL CANDIDATE + CI VERIFIED — EXECUTION BLOCKED | Candidate `6a39502a...`; CI `34942475352` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
+| M3 — California Data Spike | `PROPERTY_TYPE` SEMANTIC-VERIFICATION PROPOSAL CANONICAL + CI VERIFIED — EXECUTION BLOCKED | Promoted `06004c9c...`; canonical CI `34943657157` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; repository-side Vercel integration decommissioned |
 
 ## Completed M3 readiness work
@@ -21,26 +21,25 @@ Last updated: 2026-09-15
 - First-purpose persisted scope reduced to `PROPERTY_ID` + `PROPERTY_TYPE`.
 - `HOLDER_NAME` and identity/address fields prohibited for first triage.
 - Transient CSV prohibited-field exposure isolated as a separate privacy boundary.
-- `PROPERTY_TYPE` semantic-verification proposal created and CI verified without network/body access.
+- `PROPERTY_TYPE` semantic-verification proposal created, contract-tested, promoted, and canonical CI verified without network/body access.
 
-## Current Candidate
+## Canonical Semantic Proposal
 
-Branch:
-`m3-ca-sco-property-type-semantic-verification-proposal`
+Promoted SHA:
+`06004c9cb61b39692d153d9172c37cebf168ddc5`
 
-Functional HEAD:
-`6a39502a19f2127b154b95bf0014a8c76c5ae752`
+Canonical CI:
+`34943657157` — SUCCESS.
 
-CI:
-`34942475352` — SUCCESS.
+Canonical proposal files:
+- `schemas/common/property_type_semantic_verification_proposal.schema.json`;
+- `schemas/examples/ca_sco_500_plus_property_type_semantic_verification.examples.json`;
+- `sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json`;
+- `tests/contract/test_ca_sco_property_type_semantic_verification_proposal.py`;
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL.md`;
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL_VERIFICATION.md`.
 
-Functional diff before persistent-doc closure:
-- five added files only;
-- no policy update;
-- no registry update;
-- no execution runner;
-- no network workflow;
-- no SCO request.
+No execution runner or network workflow is present.
 
 ## Semantic Question
 
@@ -93,14 +92,11 @@ A successful sample does not prove the full dataset domain and does not enable p
 
 ## Next Product Work
 
-1. Human promotion decision for
-   `m3-ca-sco-property-type-semantic-verification-proposal -> m2-state-governance-core`.
-2. If promoted and canonical CI is green, stop at
-   `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`.
-3. Only after a separate owner approval may an execution runner be implemented/reviewed.
-4. Reading real rows remains a separate execution gate from runner implementation.
-5. Source approval, registry activation, A02 normalization, identity, matching and outreach remain later
-   independent gates.
+1. `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`.
+2. Review/design a bounded runner against the canonical caps; do not read real rows during design.
+3. Runner implementation, if accepted, must remain non-executing until a separate owner gate.
+4. Actual one-shot row access requires separate explicit execution approval and transient-row privacy approval.
+5. Source approval, registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
 
 ## Out of Scope Until Later Gates
 
