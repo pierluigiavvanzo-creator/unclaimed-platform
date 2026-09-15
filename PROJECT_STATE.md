@@ -19,10 +19,10 @@ Safe interpretation: decoded, non-empty projected `PROPERTY_TYPE` value failed t
 
 The offending value/bytes were intentionally not retained and must not be inferred.
 
-A repository-only code-shape provenance review has now been completed and CI verified. It found that the retained repository evidence does **not** justify changing the semantic rule.
+The repository-only code-shape provenance review concluded:
+`NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`.
 
-Review decision:
-`NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE`
+A separate bounded authority archival / provenance acquisition proposal has now been prepared and CI verified. It is proposal-only and creates **no authority retrieval authorization**.
 
 Semantic compatibility remains unresolved and production classification remains inactive.
 
@@ -39,6 +39,10 @@ Semantic compatibility remains unresolved and production classification remains 
 - code-shape provenance review branch: `m3-ca-sco-property-type-code-shape-provenance-offline-review`
 - provenance review result SHA: `b274e9db0a28dae1c9f6a1a25c657978dd27d7b4`
 - provenance review CI: `35003900554` — SUCCESS
+- provenance review documentation closure HEAD: `dba496d254e94a68f7f74e0b53090cfef972a969`
+- authority provenance acquisition proposal branch: `m3-ca-sco-property-type-authority-provenance-acquisition-proposal`
+- authority proposal package SHA: `963c205b662cf56260ca7af14d71c65a6916c30f`
+- authority proposal CI: `35005451605` — SUCCESS
 
 ## Completed and Verified
 
@@ -54,15 +58,14 @@ Semantic compatibility remains unresolved and production classification remains 
 - Second execution/privacy approvals are CONSUMED and non-reusable.
 - Human review of the offline code-shape provenance proposal: PASS.
 - Repository-only provenance classification completed without SCO or authority network access.
-- Provenance review schema, machine evidence, audit and contract tests added and CI verified.
+- Offline provenance review CI verified.
+- Separate bounded authority archival/provenance acquisition proposal prepared.
+- Authority proposal schema and contract tests CI verified.
 
 ## Code-Shape Provenance Offline Review
 
 Machine evidence:
 `sources/evidence/ca_sco_segment_500_plus.property_type_code_shape_provenance_offline.review.v1.json`
-
-Audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_CODE_SHAPE_PROVENANCE_OFFLINE_REVIEW.md`
 
 Classification result:
 
@@ -72,35 +75,58 @@ Classification result:
 - `CALIFORNIA_INSURANCE_CODE_SET` -> `REPOSITORY_ASSERTION_WITH_EXTERNAL_REFERENCE_NOT_ARCHIVED`
 - `CUSTOM_PROJECTOR_STANDARD_CSV_COMPATIBILITY` -> `SUPPORTED_BY_REPOSITORY_EVIDENCE`
 
-Aggregate:
-- supported by retained repository evidence: `2`
-- repository assertion with external reference not archived: `1`
-- provenance insufficient: `2`
+Aggregate: supported `2`; external-reference assertion not archived `1`; provenance insufficient `2`.
 
-Important boundary:
-- the second-column position is directly supported by the retained four-member headers;
-- projector compatibility is supported only for the committed deterministic synthetic CSV matrix;
-- the repository records and enforces `AA99|ZZZZ`, but retained evidence does not prove it is the complete authoritative source grammar;
-- `IN01-IN08` and `IN99` are retained as a repository assertion attributed to an external SCO authority document whose content is not archived in the approved offline evidence set.
+## Authority Provenance Acquisition Proposal
+
+Proposal:
+`sources/proposals/ca_sco_segment_500_plus.property_type_authority_provenance_acquisition.v1.json`
+
+Schema:
+`schemas/common/property_type_authority_provenance_acquisition_proposal.schema.json`
+
+Contract test:
+`tests/contract/test_ca_sco_property_type_authority_provenance_acquisition_proposal.py`
+
+Proposal status:
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
+
+Exactly one pre-existing repository-referenced authority is proposed:
+`https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf`
+
+If a later separate human authorization permits retrieval, the machine contract limits it to:
+
+- exact HTTPS URL on `www.sco.ca.gov`;
+- exactly one `GET`;
+- one single PDF, all pages;
+- no redirects;
+- no retries;
+- no query parameters;
+- no authentication or cookies;
+- max response body `16777216` bytes, explicitly a project safety cap;
+- immutable raw PDF archival with SHA-256 and versioned provenance metadata.
+
+The authority archive itself would not prove any semantic claim. A separate post-archive human provenance review is mandatory before any semantic use.
 
 ## Fixed Safety / Governance State
 
 Unchanged and fail-closed:
 
+- authority network access authorized by current proposal: `false`
 - source policy: `PROPOSED`
 - source real-acquisition authorization: `false`
 - registry: disabled/unapproved
 - approved real sources: `0`
 - semantic compatibility: unresolved
 - production classification: inactive
-- one-shot network workflow: ABSENT
+- one-shot semantic network workflow: ABSENT
 - identity resolution: BLOCKED
 - genealogy: BLOCKED
 - beneficiary matching: BLOCKED
 - outreach: BLOCKED
 - claim submission: BLOCKED
 
-No trimming, uppercasing, normalization, parser change, regex change/relaxation, logging expansion, privacy expansion or third real execution is authorized.
+No SCO dataset access, `claimit.ca.gov` access, authority retrieval/download, crawling, source-value reconstruction, trimming, uppercasing, normalization, parser change, regex change/relaxation, logging/privacy expansion or third real execution is authorized by the proposal.
 
 ## Consumed Approvals
 
@@ -109,10 +135,12 @@ The following approvals were consumed by the second execution and remain non-reu
 - `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
 - `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
 
-Any future real execution requires a new proposal plus fresh explicit execution and transient-row privacy approvals.
+They do not authorize authority-document acquisition.
 
 ## Next Recommended Action
 
-Decide whether to prepare a **separate bounded authority archival / provenance acquisition proposal** to resolve the two `PROVENANCE_INSUFFICIENT` assumptions and independently verify the externally referenced California insurance-code assertion.
+Perform only:
 
-This state creates no authorization to access SCO, retrieve/download external authority documents, modify the runner/parser/regex, or perform another real execution. A separate human gate is required before any such action.
+`HUMAN_PROPERTY_TYPE_AUTHORITY_PROVENANCE_ACQUISITION_PROPOSAL_REVIEW`
+
+Review the bounded proposal, schema and contract tests. Do not retrieve the authority document as part of the review. A later authority retrieval requires a separate explicit authorization artifact/gate; no execution approval token is invented by this proposal.
