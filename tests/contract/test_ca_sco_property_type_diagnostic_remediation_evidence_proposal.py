@@ -73,7 +73,10 @@ def test_proposal_is_schema_valid_and_not_authorized_for_execution() -> None:
     assert authorization["remediation_authorized"] is False
     assert authorization["third_semantic_execution_authorized"] is False
     assert authorization["approval_token_defined_by_this_proposal"] is False
-    assert authorization["fresh_execution_and_privacy_approvals_required_after_human_review"] is True
+    assert (
+        authorization["fresh_execution_and_privacy_approvals_required_after_human_review"]
+        is True
+    )
 
 
 def test_base_is_pinned_to_verified_review_and_second_execution() -> None:
@@ -274,7 +277,7 @@ def test_next_gate_is_review_only_and_schema_rejects_silent_widening() -> None:
         validator.validate(widened)
 
     value_persistence = copy.deepcopy(proposal)
-    value_persistence["diagnostic_derivation_boundary_if_later_authorized"] [
+    value_persistence["diagnostic_derivation_boundary_if_later_authorized"][
         "persist_property_type_hash"
     ] = True
     with pytest.raises(ValidationError):
