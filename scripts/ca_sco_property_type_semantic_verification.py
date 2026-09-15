@@ -591,7 +591,7 @@ def _project_property_type(record: bytes) -> tuple[str, int]:
     try:
         property_type = bytes(capture).decode("utf-8", errors="strict")
     except UnicodeDecodeError as exc:
-        raise RunnerStop("PROPERTY_TYPE_FORMAT_UNEXPECTED") from exc
+        raise RunnerStop("PROPERTY_TYPE_ENCODING_UNEXPECTED") from exc
     return property_type, column_count
 
 

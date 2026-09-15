@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import importlib.util
 import io
+import json
 import struct
 import sys
 import zlib
@@ -13,6 +14,9 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
+EXECUTION_SCHEMA_PATH = (
+    ROOT / "schemas/common/property_type_semantic_verification_execution.schema.json"
+)
 WORKFLOW_PATH = (
     ROOT / ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"
 )
@@ -119,7 +123,7 @@ def test_projector_matches_stdlib_csv_on_privacy_safe_synthetic_matrix() -> None
         assert column_count == len(RUNNER.CANONICAL_HEADER) == 25
 
 
-def test_shape_rule_is_strict_but_diagnosis_does_not_relax_it() -> None:
+def test_shape_rule_is_strict_but_remediation_does_not_relax_it() -> None:
     assert RUNNER.PROPERTY_TYPE_RE.fullmatch("IN03") is not None
     assert RUNNER.PROPERTY_TYPE_RE.fullmatch("AC01") is not None
     assert RUNNER.PROPERTY_TYPE_RE.fullmatch("ZZZZ") is not None
@@ -128,7 +132,7 @@ def test_shape_rule_is_strict_but_diagnosis_does_not_relax_it() -> None:
         assert RUNNER.PROPERTY_TYPE_RE.fullmatch(synthetic_variant) is None
 
 
-def test_historical_format_stop_reason_conflates_shape_and_utf8_encoding() -> None:
+def test_remediation_distinguishes_shape_from_utf8_encoding() -> None:
     member = RUNNER.CANONICAL_MEMBERS[0]
 
     shape_rows = [_csv_record(_synthetic_fields(" IN03"))]
@@ -151,8 +155,13 @@ def test_historical_format_stop_reason_conflates_shape_and_utf8_encoding() -> No
     )
     with pytest.raises(RUNNER.RunnerStop) as encoding_exc:
         RUNNER._process_member(member, encoding_body)
-    assert encoding_exc.value.reason == "PROPERTY_TYPE_FORMAT_UNEXPECTED"
+    assert encoding_exc.value.reason == "PROPERTY_TYPE_ENCODING_UNEXPECTED"
+
+    schema = json.loads(EXECUTION_SCHEMA_PATH.read_text(encoding="utf-8"))
+    stop_reasons = schema["properties"]["stop_reason"]["anyOf"][1]["enum"]
+    assert "PROPERTY_TYPE_ENCODING_UNEXPECTED" in stop_reasons
+    assert "PROPERTY_TYPE_FORMAT_UNEXPECTED" in stop_reasons
 
 
-def test_offline_diagnosis_keeps_network_workflow_absent() -> None:
+def test_offline_remediation_keeps_network_workflow_absent() -> None:
     assert not WORKFLOW_PATH.exists()
