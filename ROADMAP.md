@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `PROPERTY_TYPE` REAL ATTEMPT STOPPED FAIL-CLOSED + OFFLINE DIAGNOSTIC REMEDIATION v1.1 CI VERIFIED — HUMAN EVIDENCE REVIEW REQUIRED | Historical run `34965097988`; remediation SHA `f7a9bf9a...`; CI `34971353630` SUCCESS; network workflow absent |
+| M3 — California Data Spike | `PROPERTY_TYPE` REAL ATTEMPT STOPPED FAIL-CLOSED; DIAGNOSIS + v1.1 REMEDIATION CANONICAL AND VERIFIED | Historical run `34965097988`; canonical promotion target `36954b89...`; canonical CI `34980324993` SUCCESS; network workflow absent |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; Vercel runtime integration decommissioned |
 
 ## Completed M3 Readiness Work
@@ -25,8 +25,11 @@ Last updated: 2026-09-15
 - Derived execution evidence persisted; offending value/bytes intentionally not persisted.
 - One-shot network workflow removed immediately after the run.
 - Offline evidence review and synthetic diagnosis completed + CI verified.
-- Offline diagnostic remediation implemented on isolated candidate + CI verified.
-- Historical execution contract frozen as v1.0.0; remediated future execution contract versioned separately as v1.1.0.
+- Diagnostic remediation implemented and versioned as future execution contract v1.1.0.
+- Historical execution contract v1.0.0 preserved frozen and unchanged.
+- Human remediation evidence review APPROVED on 2026-09-15.
+- Remediation lineage promoted by fast-forward into `m2-state-governance-core`.
+- Canonical post-promotion CI `34980324993` SUCCESS.
 
 ## Historical Real Semantic Attempt
 
@@ -51,60 +54,33 @@ Budget actually used:
 - no retry;
 - no cap widening.
 
-The historical stop reason remains intentionally uninterpreted because the prior runner conflated encoding and decoded-format failures.
+The historical root cause remains unresolved. The prior execution and transient-row privacy approvals were consumed and cannot be reused.
 
-The prior execution authorization has been consumed and cannot be reused.
+## Canonical Diagnostic Remediation
 
-## Offline Diagnosis
+Promotion target:
+`36954b89e57d056801a10a302de568d853b46e0d`
 
-Diagnosis SHA:
-`1405d33b7c09373f738dc87f6c93b05a0c342461`
+Canonical promotion CI:
+`34980324993` — SUCCESS.
 
-Diagnosis CI:
-`34968418681` — SUCCESS.
+Rollback checkpoint:
+`checkpoint-pre-property-type-remediation-promotion` -> `c3f0dc7e374d21283358e4e1e8d403f078f08acb`.
 
-Finding:
-- invalid UTF-8 and decoded regex mismatch previously produced the same stop code;
-- custom field projection matched `csv.reader(..., strict=True)` on the committed synthetic standard-CSV edge matrix;
-- no evidence justified trimming, normalization or regex relaxation.
-
-## Offline Diagnostic Remediation
-
-Candidate branch:
-`m3-ca-sco-property-type-diagnostic-remediation`
-
-Base diagnosis HEAD:
-`8aa6c61594232b54b351d0a2063d9de2031a28f7`
-
-Owner authorization:
-`autorizzo remediation diagnostica offline`
-
-Final functional remediation SHA:
-`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
-
-Functional CI:
-`34971353630` — SUCCESS.
-
-Remediation:
+Canonical future behavior:
 - UTF-8 decode failure -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
 - decoded shape failure -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- existing regex unchanged;
+- regex remains `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - no source-value normalization;
 - no raw values/bytes/hashes/lengths persisted or logged;
 - one-shot network workflow remains absent.
 
-Machine contract:
+Machine contracts:
 - historical/frozen schema `1.0.0`: `schemas/common/property_type_semantic_verification_execution.schema.json`;
-- future/remediated schema `1.1.0`: `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`;
-- runner now emits `schema_version: 1.1.0` for future executions;
-- historical v1.0.0 evidence remains unchanged and continues to validate against the frozen historical schema.
-
-Audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
+- future/remediated schema `1.1.0`: `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`.
 
 ## Current Safety State
 
-- canonical development branch `m2-state-governance-core` remains at `c3f0dc7e374d21283358e4e1e8d403f078f08acb`;
 - stable `main` remains at `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`;
 - source policy `PROPOSED`;
 - source-level real acquisition authorization false;
@@ -119,17 +95,18 @@ Audit:
 
 ## Next Product Work
 
-1. Human review at `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_REVIEW`.
-2. If approved, determine the correct bounded integration path into `m2-state-governance-core`; do not assume a blind fast-forward because the candidate lineage includes prior execution/evidence/diagnosis commits not yet canonical.
-3. Do not recreate a network workflow as part of promotion/integration.
-4. Any second bounded real execution requires new explicit semantic-execution + transient-row privacy authorization.
-5. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
+1. Prepare an isolated, evidence-backed proposal for a possible **second bounded `PROPERTY_TYPE` semantic execution** using the canonical v1.1.0 runner.
+2. The proposal must make no SCO request and must not recreate a one-shot network workflow yet.
+3. Preserve all current request/byte/row caps and privacy constraints unless a separately evidenced change is explicitly approved.
+4. Stop at a fresh human decision gate before any real execution.
+5. Any second real execution requires both a new semantic-execution approval and a new transient-row privacy approval.
+6. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
 
 ## Out of Scope Until Later Gates
 
 - automatic retry of the semantic run;
 - another SCO request under the consumed authorization;
-- wider byte/request/row budgets;
+- wider byte/request/row budgets without separate evidence and approval;
 - persisting raw row/value evidence;
 - trimming, uppercasing or normalizing source values;
 - relaxing the `PROPERTY_TYPE` regex without evidence;
