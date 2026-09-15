@@ -10,99 +10,84 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. Live-source semantic compatibility remains unresolved.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source format mismatch has now been classified by one bounded diagnostic execution, but no remediation or production semantic compatibility decision has been authorized.
 
-The bounded diagnostic/remediation evidence proposal was human-reviewed `PASS`. The separate diagnostic execution/authorization artifact was prepared offline, CI-verified, and has now also completed human authorization review with `PASS`.
-
-Authorization package checkpoint SHA:
+Diagnostic authorization package SHA:
 `daeaa7bfb7f7d73a61f011d394cc88393625866c`
 
-Authorization package CI:
-`35017854034` — SUCCESS
-
-Final authorization branch HEAD reviewed:
-`de73b2d4d0fdcc236cbcfa3a0ad253c617919b28`
-
-Final authorization branch CI:
-`35018090207` — SUCCESS
-
-Review branch:
-`m3-ca-sco-property-type-diagnostic-execution-authorization-review`
-
-Review gate:
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
-
-Review decision:
+Authorization review:
 `PASS`
 
-Review audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW.md`
+One-shot diagnostic branch:
+`m3-ca-sco-property-type-diagnostic-execution-one-shot`
 
-## Fresh Approvals Defined — Still Not Granted
+One-shot GitHub Actions run:
+`35019840276` — SUCCESS
 
-The review PASS does not grant either approval.
+Execution evidence:
+`sources/evidence/ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json`
 
-Required exact approval references:
+Execution audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION.md`
 
-- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`
+## Diagnostic Result
 
-Both must be explicitly granted by the owner, single-use, non-reusable, and durably evidenced with package SHA:
+Result status:
+`DIAGNOSTIC_CLASSIFIED`
 
-`daeaa7bfb7f7d73a61f011d394cc88393625866c`
+Diagnostic class:
+`ASCII_STRUCTURAL_MISMATCH`
 
-Both are required before any `claimit.ca.gov` request. No approval evidence file has been created by the review and no network workflow has been created.
+Fail-closed reason:
+`null`
 
-Previously consumed approvals remain non-reusable:
+Verified bounded counters:
 
-- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
-- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
+- source identity verified: `true`;
+- HEAD requests: `1`;
+- Range GET requests: `1`;
+- HTTP requests total: `2`;
+- source response-body bytes read: `131072`;
+- transient data rows examined: `1`.
 
-## Verified Diagnostic Boundary — Still Not Authorized for Execution
+The exact PROPERTY_TYPE value and its bytes/hash/exact length/fragments/codepoints/transformed form were not persisted and must not be reconstructed or inferred.
 
-Only after both fresh approvals are valid may the bounded diagnostic proceed, with:
+Under the fixed classifier, this coarse class means the mismatch was not explained solely by surrounding ASCII SPACE/TAB, ASCII case, the combination of those probes, or non-ASCII/disallowed-control content. It does not reveal the source value and does not authorize a parser, regex, trimming, casing, normalization, or remediation change.
 
-- exact existing endpoint and pinned source identity only;
-- first canonical ZIP member only;
-- maximum 4 transient data rows;
-- stop at first reproduced format mismatch;
-- maximum 1 HEAD + 1 Range GET;
-- maximum 2 HTTP requests total;
-- maximum 131072 source response-body bytes total;
-- maximum 262144 uncompressed transient bytes;
-- maximum 32768 bytes per logical record;
-- zero retries, redirects, additional ranges, full-body fallback or automatic widening;
-- source identity drift or non-reproduction within the bound -> fail closed.
+## Approval State
 
-The classifier contract is deterministic and keeps the current regex unchanged. Diagnostic transforms are in-memory predicates only and cannot become runtime remediation.
+Both fresh diagnostic approvals are now `CONSUMED` and permanently non-reusable:
 
-Only coarse diagnostic class / fail-closed reason / bounded counters / safety flags may persist. Exact PROPERTY_TYPE content, bytes, hash, exact length, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID, owner/holder values, distinct code lists and source-derived free text remain forbidden.
+- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`;
+- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`.
 
-No diagnostic class automatically authorizes remediation.
+They both pin package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c` and execution run `35019840276`.
 
-## Governance Remains Fail-Closed
+Historical semantic/privacy/authority approvals also remain consumed and non-reusable.
 
-- diagnostic execution authorized: `false`;
-- transient-row privacy exposure authorized: `false`;
-- network workflow creation authorized: `false`;
-- network execution authorized: `false`;
-- runtime change authorized: `false`;
-- remediation authorized: `false`;
-- source policy: `PROPOSED`;
-- registry: disabled / not approved;
-- approved real sources: `0`;
-- production classification: inactive;
-- identity resolution, genealogy, beneficiary matching, outreach and claim submission: BLOCKED.
+## Safety State
+
+- one-shot diagnostic workflow removed after execution;
+- full archive downloaded: `false`;
+- raw body persisted: `false`;
+- exact PROPERTY_TYPE persisted: `false`;
+- PROPERTY_TYPE derivative persisted: `false`;
+- full row persisted: `false`;
+- PROPERTY_ID persisted: `false`;
+- owner/holder values persisted: `false`;
+- remediation performed: `false`;
+- source policy remains `PROPOSED`;
+- registry remains disabled / not approved;
+- approved real sources remain `0`;
+- production classification remains inactive;
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
 
 ## Next Recommended Action
 
-Stop for explicit owner authorization.
+Perform only:
 
-The owner must explicitly provide **both** exact fresh approvals above. Do not infer either approval from `PASS`, `procedi`, or generic wording.
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW`
 
-After both durable approval evidences exist and pin package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c`, the next bounded gate may be:
-
-`ONE_SHOT_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION`
+Review the coarse diagnostic evidence and decide what, if anything, it justifies. Do not infer the exact source value and do not implement remediation during the review.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
