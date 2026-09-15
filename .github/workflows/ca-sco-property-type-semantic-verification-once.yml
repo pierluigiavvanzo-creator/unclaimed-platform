@@ -1,0 +1,89 @@
+name: ca-sco-property-type-semantic-verification-once
+
+on:
+  push:
+    branches:
+      - m3-ca-sco-property-type-semantic-execution
+    paths:
+      - .github/workflows/ca-sco-property-type-semantic-verification-once.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ca-sco-property-type-semantic-verification-once
+  cancel-in-progress: false
+
+jobs:
+  bounded-semantic-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact execution commit
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install project
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Execute bounded semantic verification
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          umask 077
+          python scripts/ca_sco_property_type_semantic_verification.py \
+            --approval-ref OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED \
+            --privacy-approval-ref OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED \
+            --output .artifacts/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json \
+            --live-network
+
+      - name: Validate derived evidence and hard caps
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+
+          evidence_path = Path('.artifacts/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json')
+          schema_path = Path('schemas/common/property_type_semantic_verification_execution.schema.json')
+          evidence = json.loads(evidence_path.read_text(encoding='utf-8'))
+          schema = json.loads(schema_path.read_text(encoding='utf-8'))
+          Draft202012Validator.check_schema(schema)
+          Draft202012Validator(schema).validate(evidence)
+
+          assert evidence['execution_approval_ref'] == 'OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED'
+          assert evidence['privacy_approval_ref'] == 'OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED'
+          requests = evidence['requests_summary']
+          assert requests['head_requests'] <= 1
+          assert requests['range_requests'] <= 4
+          assert requests['http_requests_total'] <= 5
+          assert requests['total_body_bytes_read'] <= 524288
+          sample = evidence['sample_summary']
+          assert sample['sample_rows_examined'] <= 16
+          assert all(value <= 4 for value in sample['rows_examined_per_member'].values())
+          safety = evidence['safety_state']
+          for key, value in safety.items():
+              assert value is False, f'safety flag must remain false: {key}'
+          assert evidence['semantic_result_status'] in {
+              'SAMPLE_COMPATIBLE_INSURANCE_CODE_OBSERVED',
+              'SAMPLE_CODE_SHAPE_COMPATIBLE_NO_INSURANCE_CODE_OBSERVED',
+              'STOPPED_FAIL_CLOSED',
+          }
+          print('BOUNDED_EVIDENCE_VALIDATED')
+          PY
+
+      - name: Upload derived evidence only
+        uses: actions/upload-artifact@v4
+        with:
+          name: ca-sco-property-type-semantic-execution-2026-09-15
+          path: .artifacts/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json
+          if-no-files-found: error
+          retention-days: 7
