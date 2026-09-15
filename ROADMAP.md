@@ -7,8 +7,8 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `PROPERTY_TYPE` SEMANTIC-VERIFICATION PROPOSAL CANONICAL + CI VERIFIED — EXECUTION BLOCKED | Promoted `06004c9c...`; canonical CI `34943657157` SUCCESS; policy `PROPOSED`; registry disabled/unapproved |
-| M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; repository-side Vercel integration decommissioned |
+| M3 — California Data Spike | `PROPERTY_TYPE` RUNNER DESIGN CANDIDATE + CI VERIFIED — IMPLEMENTATION/EXECUTION BLOCKED | Candidate `b0824d7c...`; CI `34946533156` SUCCESS; runner absent; policy `PROPOSED`; registry disabled |
+| M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; Vercel runtime integration decommissioned |
 
 ## Completed M3 readiness work
 
@@ -21,61 +21,73 @@ Last updated: 2026-09-15
 - First-purpose persisted scope reduced to `PROPERTY_ID` + `PROPERTY_TYPE`.
 - `HOLDER_NAME` and identity/address fields prohibited for first triage.
 - Transient CSV prohibited-field exposure isolated as a separate privacy boundary.
-- `PROPERTY_TYPE` semantic-verification proposal created, contract-tested, promoted, and canonical CI verified without network/body access.
+- `PROPERTY_TYPE` semantic-verification proposal canonical + CI verified.
+- Bounded semantic runner design and future execution evidence contract created and candidate CI verified.
 
-## Canonical Semantic Proposal
+## Current Candidate
 
-Promoted SHA:
-`06004c9cb61b39692d153d9172c37cebf168ddc5`
+Branch:
+`m3-ca-sco-property-type-runner-design`
 
-Canonical CI:
-`34943657157` — SUCCESS.
+HEAD:
+`b0824d7cbbe693b1d75f3564abac458bcbc5d5e0`
 
-Canonical proposal files:
-- `schemas/common/property_type_semantic_verification_proposal.schema.json`;
-- `schemas/examples/ca_sco_500_plus_property_type_semantic_verification.examples.json`;
-- `sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json`;
-- `tests/contract/test_ca_sco_property_type_semantic_verification_proposal.py`;
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL.md`;
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL_VERIFICATION.md`.
+CI:
+`34946533156` — SUCCESS.
 
-No execution runner or network workflow is present.
+Candidate contains design/contract/example/test/audit only.
 
-## Semantic Question
+Absent by contract:
+- `scripts/ca_sco_property_type_semantic_verification.py`;
+- `.github/workflows/ca-sco-property-type-semantic-verification-once.yml`.
 
-Future bounded check only:
+## Fixed Runner Design
 
-> Are bounded sampled `PROPERTY_TYPE` values NAUPA-style code tokens, and is every observed
-> `IN`-prefixed token one of the official SCO insurance codes `IN01-IN08` or `IN99`?
+Future execution sequence:
+1. validate canonical proposal and approvals;
+2. require transient-row privacy approval before network;
+3. one exact HEAD;
+4. one fixed Range GET/member;
+5. reject non-206 without consuming the unexpected body;
+6. verify local member metadata and exact 25-column header;
+7. incrementally decompress in memory;
+8. parse max four complete rows/member;
+9. project only `PROPERTY_TYPE`;
+10. discard transient row material immediately;
+11. persist derived summary only.
 
-A successful sample does not prove the full dataset domain and does not enable production classification.
+## Fixed Safety Caps
 
-## Fixed Proposal Caps
-
-- 4 canonical CSV members;
-- first 4 complete data rows/member;
-- 16 data rows maximum total;
-- 1 HEAD maximum;
-- 4 Range GET maximum;
-- 5 HTTP requests maximum total;
-- `131,072` response-body bytes maximum per Range;
-- `524,288` response-body bytes maximum total;
-- `1,048,576` uncompressed transient bytes maximum total;
-- `32,768` bytes maximum per logical CSV record;
-- no full-body request;
+- 4 members;
+- 4 rows/member;
+- 16 rows total;
+- 1 HEAD;
+- 4 Range GET;
+- 5 HTTP requests total;
+- 131,072 body bytes/Range;
+- 524,288 body bytes total;
+- 1,048,576 uncompressed transient bytes total;
+- 32,768 bytes/logical record;
+- no additional Range;
+- no full-body fallback;
 - no automatic cap widening.
 
-## Privacy / Persistence Controls
+## Persistence Boundary
 
-- transient full-row exposure remains possible and separately gated;
-- no temporary source files;
-- raw ZIP/Range/full-row persistence prohibited;
-- `PROPERTY_ID` persistence prohibited during semantic verification;
-- nonallowlisted value use/persistence prohibited;
-- per-row `PROPERTY_TYPE` persistence prohibited;
-- derived `PROPERTY_TYPE` summary only;
-- transient buffers retained `0 days` and disposed immediately;
-- raw bytes and record values prohibited from logs.
+Allowed future evidence:
+- aggregate row counts;
+- rows/member;
+- distinct `PROPERTY_TYPE` codes;
+- distinct official insurance codes;
+- transport/request counters;
+- semantic status/stop reason.
+
+Prohibited:
+- raw body;
+- full rows;
+- `PROPERTY_ID` values;
+- owner/holder values;
+- per-row `PROPERTY_TYPE` values.
 
 ## Current Safety State
 
@@ -83,8 +95,10 @@ A successful sample does not prove the full dataset domain and does not enable p
 - real acquisition false;
 - registry disabled/unapproved;
 - approved real sources `0`;
+- runner implementation false;
 - semantic execution false;
-- CSV row access BLOCKED;
+- transient-row privacy approval absent;
+- CSV real-row access BLOCKED;
 - PII processing BLOCKED;
 - identity resolution BLOCKED;
 - beneficiary matching BLOCKED;
@@ -92,18 +106,20 @@ A successful sample does not prove the full dataset domain and does not enable p
 
 ## Next Product Work
 
-1. `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`.
-2. Review/design a bounded runner against the canonical caps; do not read real rows during design.
-3. Runner implementation, if accepted, must remain non-executing until a separate owner gate.
-4. Actual one-shot row access requires separate explicit execution approval and transient-row privacy approval.
-5. Source approval, registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
+1. Human decision on `HUMAN_PROPERTY_TYPE_RUNNER_IMPLEMENTATION_APPROVAL`.
+2. If approved, implement the bounded runner on a new candidate using existing Range primitives.
+3. Validate runner only with synthetic ZIP/mock HTTP behavior.
+4. Keep network one-shot workflow absent until a later explicit execution gate.
+5. Actual SCO row access requires separate execution approval and transient-row privacy approval.
+6. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later
+   independent gates.
 
 ## Out of Scope Until Later Gates
 
-- executing the semantic sample now;
-- reading any real row now;
-- increasing row/request/byte caps automatically;
-- persisting owner/holder values or full rows;
+- real semantic sampling now;
+- any real CSV row read;
+- automatic budget widening;
+- full-body fallback;
 - source approval or registry activation;
 - beneficiary matching, genealogy, outreach or claim submission;
 - promotion to `main` without a separate stable-checkpoint gate.
