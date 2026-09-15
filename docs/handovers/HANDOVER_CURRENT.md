@@ -6,19 +6,18 @@ Date: 2026-09-15
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Diagnostic Execution Authorization Checkpoint
+## Current Branch / Diagnostic Authorization Review Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-diagnostic-execution-authorization`
-- base proposal-review HEAD: `06896084475f0f899fc3e002344e22fc49ffa54d`
-- reviewed diagnostic proposal package: `020044d3013449fabe566c5164b8f99f9d8cc9ab`
-- reviewed diagnostic proposal HEAD: `847cdf5daaa1834c3ce11fc3d6f29e2bbc36b4b4`
-- diagnostic authorization package checkpoint SHA: `daeaa7bfb7f7d73a61f011d394cc88393625866c`
-- diagnostic authorization package CI: `35017854034` — SUCCESS
-- artifact: `sources/proposals/ca_sco_segment_500_plus.property_type_diagnostic_execution_authorization.v1.json`
-- schema: `schemas/common/property_type_diagnostic_execution_authorization.schema.json`
-- audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION.md`
-- contract test: `tests/contract/test_ca_sco_property_type_diagnostic_execution_authorization.py`
+- branch: `m3-ca-sco-property-type-diagnostic-execution-authorization-review`
+- reviewed authorization branch: `m3-ca-sco-property-type-diagnostic-execution-authorization`
+- authorization package checkpoint SHA: `daeaa7bfb7f7d73a61f011d394cc88393625866c`
+- authorization package CI: `35017854034` — SUCCESS
+- final authorization branch HEAD reviewed: `de73b2d4d0fdcc236cbcfa3a0ad253c617919b28`
+- final authorization branch CI: `35018090207` — SUCCESS
+- review gate: `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
+- review decision: `PASS`
+- review audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW.md`
 
 ## Verified Baseline
 
@@ -30,7 +29,8 @@ Authoritative restart point. Verify remote heads before acting and use repositor
 - second bounded semantic run: `34995672539` -> `STOPPED_FAIL_CLOSED`
 - second stop: `PROPERTY_TYPE_FORMAT_UNEXPECTED`
 - current regex: `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
-- diagnostic/remediation evidence proposal review: `PASS`
+- diagnostic/remediation proposal review: `PASS`
+- diagnostic execution/authorization review: `PASS`
 - prior semantic execution/privacy approvals: CONSUMED + NON-REUSABLE
 - authority archival approval: CONSUMED + NON-REUSABLE
 - source policy: `PROPOSED`
@@ -39,26 +39,17 @@ Authoritative restart point. Verify remote heads before acting and use repositor
 - production classification: inactive
 - identity/genealogy/beneficiary matching/outreach/claim submission: BLOCKED
 
-## Authorization Artifact State
+## Review Result
 
-Artifact status:
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW` completed with:
 
-`PENDING_HUMAN_AUTHORIZATION`
+`PASS`
 
-Current gate:
+The PASS accepts the bounded authorization contract only. It does **not** grant either fresh approval and does not authorize a source request by itself.
 
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
+The reviewed package changes only the expected four package files relative to proposal-review HEAD: machine artifact, schema, audit and contract test.
 
-Preparation performed:
-
-- no `claimit.ca.gov` request;
-- no authority request;
-- no transient real-row inspection;
-- no diagnostic execution;
-- no network workflow creation;
-- no runner/parser/regex/normalization/logging/persistence modification.
-
-## Fresh Approvals — Defined but Not Granted
+## Fresh Approvals — Defined but NOT Granted
 
 Execution approval:
 
@@ -70,19 +61,20 @@ Transient-row privacy approval:
 
 Rules for both:
 
+- owner must grant each explicitly;
 - fresh;
 - single-use;
 - non-reusable;
-- approval evidence must pin authorization package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c`;
-- both are required before any source network request;
-- neither is currently granted.
+- durable approval evidence must pin package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c`;
+- both are required before any `claimit.ca.gov` request;
+- neither is granted by review PASS, `procedi`, or other generic wording.
 
-Intended evidence paths after explicit owner approval:
+Required evidence paths after explicit approval:
 
 - `sources/evidence/ca_sco_property_type_diagnostic_execution_approval.v1.json`
 - `sources/evidence/ca_sco_property_type_diagnostic_transient_row_privacy_approval.v1.json`
 
-Do not infer either approval from a review `PASS` or from generic wording.
+No approval evidence file was created by the review.
 
 ## Consumed Approvals — Never Reuse
 
@@ -90,9 +82,9 @@ Do not infer either approval from a review `PASS` or from generic wording.
 - `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
 - `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
 
-## Exact Future Execution Boundary — Not Authorized Yet
+## Exact Future Execution Boundary — Still Blocked Until Both Fresh Approvals
 
-Only after both fresh approvals are valid:
+Only after both approval evidences are valid:
 
 - endpoint: `https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip`;
 - pinned source identity: content length `162416884`, ETag `"b25b315b6cd8007624387c3a00d4b1fe"`, media type `application/zip`, byte-range support `bytes`;
@@ -128,13 +120,11 @@ Fixed precedence:
 
 Surrounding diagnostic whitespace is exactly `U+0020` SPACE and `U+0009` TAB.
 
-Case probing is ASCII-only: `U+0061-U+007A` maps to `U+0041-U+005A`; every other code point is unchanged. Locale-sensitive casing and Unicode normalization are forbidden.
+Case probing is ASCII-only: `a-z` -> `A-Z`; every other code point is unchanged. Locale-sensitive casing and Unicode normalization are forbidden.
 
-Non-ASCII means any code point greater than `U+007F`.
+Non-ASCII means any code point greater than `U+007F`. Disallowed ASCII control content is exactly `U+0000-U+001F` plus `U+007F`, subject to the fixed precedence for boundary TAB.
 
-The disallowed ASCII control set is exactly all code points `U+0000-U+001F` plus `U+007F`. Precedence means a boundary TAB that alone resolves the mismatch is classified as whitespace before the control-content predicate.
-
-Synthetic/test-only vectors cover all five classes and precedence/boundary behavior. They are not evidence about any real source value.
+The current regex remains unchanged and diagnostic transforms cannot be accepted as runtime values.
 
 ## Output / Privacy Contract
 
@@ -160,41 +150,43 @@ Forbidden from persistence/logging:
 - raw response body;
 - PROPERTY_ID;
 - owner/holder values;
-- distinct code lists;
+- distinct source code lists;
 - source-derived free text.
 
 For `STOPPED_FAIL_CLOSED`, `diagnostic_class` is null and an enumerated fail-closed reason code is mandatory.
 
 No diagnostic class authorizes remediation.
 
-## Current Authorization Boundary
+## Current Authorization State
 
+- authorization review: `PASS`
+- execution approval granted: `false`
+- transient-row privacy approval granted: `false`
 - diagnostic execution authorized: `false`
 - transient-row privacy exposure authorized: `false`
 - network workflow creation authorized: `false`
 - network execution authorized: `false`
 - runtime change authorized: `false`
 - remediation authorized: `false`
-- third real execution authorized: `false`
+
+The review performed no source network access, no transient-row inspection and no runtime change.
 
 ## SINGLE NEXT ACTION
 
-Perform exclusively:
+Obtain explicit owner authorization for **both** exact approval references:
 
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
+`APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`
 
-Review the verified authorization package and decide `PASS`, `FAIL`, or `NEEDS_REMEDIATION`.
+`APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`
 
-During this review do **not**:
+Do **not** infer either approval from generic wording.
 
-- access `claimit.ca.gov`;
-- create or execute a diagnostic network workflow;
-- inspect real source rows;
-- grant either fresh approval implicitly;
-- reconstruct the historical unretained PROPERTY_TYPE value;
-- change parser, regex, trimming, casing or normalization;
-- apply remediation.
+After the owner explicitly grants both, persist both approval evidences pinned to package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c` before creating or executing any network workflow.
 
-If review is `PASS`, stop again for explicit owner authorization. Both fresh approval evidences must then be separately granted and pin package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c` before entering `ONE_SHOT_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION`.
+Only then may the project enter:
 
-After any later diagnostic result, stop at `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW`.
+`ONE_SHOT_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION`
+
+After any later diagnostic result, stop at:
+
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW`
