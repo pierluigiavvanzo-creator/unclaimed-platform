@@ -12,14 +12,16 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Stable branch: `main`
 - Stable `main`: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e`
 - Canonical development branch: `m2-state-governance-core`
-- Canonical development HEAD: `c3f0dc7e374d21283358e4e1e8d403f078f08acb`
+- Canonical remediation lineage promotion target: `36954b89e57d056801a10a302de568d853b46e0d`
+- Canonical promotion CI: `34980324993` — SUCCESS
+- Pre-promotion rollback checkpoint: `checkpoint-pre-property-type-remediation-promotion` -> `c3f0dc7e374d21283358e4e1e8d403f078f08acb`
 - Historical execution evidence branch: `m3-ca-sco-property-type-semantic-execution`
 - Historical execution evidence closure SHA: `3ca12f17c0a16ca49205b4d17117f3b41b6efd58`
 - Offline diagnosis branch: `m3-ca-sco-property-type-offline-diagnosis`
-- Diagnosis closure/base for remediation: `8aa6c61594232b54b351d0a2063d9de2031a28f7`
-- Current remediation candidate: `m3-ca-sco-property-type-diagnostic-remediation`
-- Current final functional remediation SHA: `f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
+- Historical remediation candidate: `m3-ca-sco-property-type-diagnostic-remediation`
 - Never develop directly on `main`.
+
+At every restart, verify the current remote branch heads instead of assuming a documentation SHA is the current HEAD.
 
 ## Verified Baseline
 
@@ -36,23 +38,13 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - SCO bounded runner implementation CANONICAL + SYNTHETIC/MOCK CI VERIFIED.
 - One bounded owner-authorized real `PROPERTY_TYPE` semantic attempt EXECUTED ONCE and STOPPED FAIL-CLOSED.
 - Offline evidence review + diagnosis COMPLETED + CI VERIFIED.
-- Offline diagnostic remediation IMPLEMENTED ON ISOLATED CANDIDATE + CI VERIFIED.
-- Historical execution machine contract preserved as v1.0.0; remediated future contract versioned as v1.1.0.
+- Diagnostic remediation v1.1 IMPLEMENTED + CI VERIFIED.
+- Human remediation evidence review APPROVED on 2026-09-15.
+- Remediation lineage PROMOTED to canonical development by fast-forward.
+- Canonical post-promotion CI `34980324993` SUCCESS.
+- Historical execution machine contract remains frozen as v1.0.0; future remediated execution contract is v1.1.0.
 - Repository-side Vercel integration DECOMMISSIONED.
 - Supabase untouched.
-
-## Canonical Runner Before Remediation Integration
-
-Runner:
-`scripts/ca_sco_property_type_semantic_verification.py`
-
-Canonical runner functional SHA:
-`3f612837e4dbb86839942555c34b9384ff4e99a1`
-
-Canonical runner CI:
-`34961511401` — SUCCESS.
-
-The remediation candidate is not yet integrated/promoted into the canonical development branch.
 
 ## Historical Real One-Shot Execution
 
@@ -91,9 +83,6 @@ The temporary one-shot workflow was removed after execution and remains ABSENT.
 
 ## Offline Diagnosis
 
-Owner instruction:
-`procedi con evidence review e diagnosi offline`
-
 Functional diagnostic SHA:
 `1405d33b7c09373f738dc87f6c93b05a0c342461`
 
@@ -108,42 +97,33 @@ The diagnosis established a failure-taxonomy collision in the pre-remediation ru
 1. UTF-8 decoding failure inside `_project_property_type()` emitted `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 2. A successfully decoded, non-empty value failing `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` emitted the same reason.
 
-Therefore the historical real evidence cannot distinguish encoding failure from decoded-value shape failure.
+Therefore the historical real evidence cannot distinguish encoding failure from decoded-value shape failure. The historical root cause remains unresolved.
 
 The committed synthetic differential matrix found no standard-CSV projector mismatch against Python `csv.reader(..., strict=True)` for the tested privacy-safe cases. This does not prove the parser universally correct.
 
 No evidence justified trimming, normalization, uppercasing or regex relaxation.
 
-## Offline Diagnostic Remediation
+## Canonical Diagnostic Remediation
 
-Owner instruction:
-`autorizzo remediation diagnostica offline`
-
-Candidate branch:
-`m3-ca-sco-property-type-diagnostic-remediation`
-
-Base:
-`8aa6c61594232b54b351d0a2063d9de2031a28f7`
-
-Initial remediation functional SHA:
-`ec688df61c56276c36facf2f598a1ad90b97fe5d`
-
-Initial remediation CI:
-`34969967725` — SUCCESS.
-
-That intermediate candidate was superseded before promotion because a final governance review determined that adding a new producer enum value while keeping `schema_version: 1.0.0` could cause silent contract-domain drift for consumers pinned to the historical schema.
-
-Final versioned remediation functional SHA:
-`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
-
-Final functional CI:
-`34971353630` — SUCCESS for both `quality` and `streamlit-candidate`.
-
-Audit:
+Remediation audit:
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION.md`
 
-### Exact future behavior now implemented on candidate
+Final functional remediation SHA:
+`f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef`
 
+Candidate functional CI:
+`34971353630` — SUCCESS for `quality` and `streamlit-candidate`.
+
+Human evidence review decision:
+`APPROVE_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION` on 2026-09-15.
+
+Canonical fast-forward promotion target:
+`36954b89e57d056801a10a302de568d853b46e0d`
+
+Canonical post-promotion CI:
+`34980324993` — SUCCESS.
+
+Exact future behavior now canonical:
 - invalid UTF-8 in projected `PROPERTY_TYPE` -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
 - successfully decoded, non-empty value failing the unchanged token-shape rule -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`.
 
@@ -170,33 +150,15 @@ Future/remediated v1.1.0 schema:
 - it recognizes `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
 - it preserves `PROPERTY_TYPE_FORMAT_UNEXPECTED` for decoded shape mismatch.
 
-The remediated runner now emits `schema_version: 1.1.0` for any future execution output.
+The canonical runner emits `schema_version: 1.1.0` for future executions.
 
 The historical real evidence is NOT migrated or reinterpreted. Its persisted `schema_version: 1.0.0` and `PROPERTY_TYPE_FORMAT_UNEXPECTED` remain historical facts with unresolved root cause.
 
-### Regression tests
+## Network / Privacy State
 
-Updated:
-- `tests/unit/test_ca_sco_property_type_offline_diagnosis.py`
-- `tests/unit/test_ca_sco_property_type_semantic_verification_runner.py`
-
-The suite verifies:
-- future runner output declares v1.1.0 and validates against the v1.1.0 schema;
-- decoded shape mismatch -> `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- invalid UTF-8 -> `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
-- frozen v1.0.0 schema excludes the new reason;
-- historical v1.0.0 evidence remains valid against the frozen historical schema;
-- regex behavior is unchanged;
-- standard-CSV projector differential cases still pass;
-- network one-shot workflow remains absent.
-
-Full repository CI `34971353630` passed Ruff, mypy, contract, smoke, full pytest, frontend lint/typecheck/build and Streamlit safety/startup smoke.
-
-## Network / Privacy State During Remediation
-
-No SCO request was made.
-No source body was read.
-No network workflow was created.
+No SCO request was made during diagnosis, remediation, evidence review or promotion.
+No source body was read during those stages.
+No network workflow was recreated.
 No raw row/value/byte/hash/length diagnostic was persisted or logged.
 No prior execution authorization was reused.
 
@@ -238,15 +200,36 @@ Unchanged:
 - no full-body fallback;
 - no automatic widening.
 
+## Context Health / Chat Rotation
+
+The owner explicitly requested proactive warning **before** chat length/context degradation becomes operationally risky.
+
+Do not wait for mistakes or branch confusion. Warn early when the conversation becomes long enough that state reconstruction or instruction retention may degrade. Before recommending a new chat:
+
+1. safely finish or stop the current bounded task;
+2. update `PROJECT_STATE.md`, `ROADMAP.md` when applicable, `DECISIONS.md` when applicable, and this handover;
+3. record branch/test/network/governance state;
+4. provide a compact ready-to-paste restart prompt.
+
+Repository memory remains the source of truth.
+
 ## SINGLE NEXT ACTION
 
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_REVIEW`
+Prepare an **isolated, evidence-backed proposal for a possible second bounded `PROPERTY_TYPE` semantic execution** using the canonical v1.1.0 runner.
 
-Review the CI-verified versioned remediation. Do not automatically integrate/promote it and do not perform another SCO request.
+Constraints for that proposal:
 
-Important integration note: this candidate descends from the historical semantic-execution/evidence/diagnosis lineage, while canonical `m2-state-governance-core` remains at `c3f0dc7e...`. Therefore a future integration must first inspect the full compare/ancestry and must not assume a blind fast-forward is appropriate.
+1. create/use a bounded feature/candidate branch from the current canonical development head;
+2. do not perform an SCO request;
+3. do not recreate the one-shot network workflow during proposal preparation;
+4. preserve current byte/request/row caps unless a separate evidence-backed change is explicitly approved;
+5. preserve the current privacy boundary and do not persist source rows, per-row values, offending bytes, hashes or lengths;
+6. explicitly show that the previous execution and privacy approvals were consumed and cannot be reused;
+7. define fresh semantic-execution and transient-row privacy approval requirements;
+8. stop at a human review/authorization gate before any second real execution;
+9. do not approve the source, activate the registry, enable production classification, identity resolution, matching or outreach as part of this task.
 
-Any second real SCO execution is a different later gate and requires fresh explicit semantic-execution approval plus transient-row privacy approval.
+A second real SCO execution is a later, separate gate and requires fresh explicit semantic-execution approval plus fresh transient-row privacy approval.
 
 ## Handover Status
 
@@ -254,20 +237,23 @@ Any second real SCO execution is a different later gate and requires fresh expli
 M0: VERIFIED
 M1: VERIFIED
 M2: VERIFIED
-Canonical dev: c3f0dc7e374d21283358e4e1e8d403f078f08acb
+Canonical remediation promotion target: 36954b89e57d056801a10a302de568d853b46e0d
+Canonical promotion CI: 34980324993 SUCCESS
+Pre-promotion rollback checkpoint: checkpoint-pre-property-type-remediation-promotion -> c3f0dc7e374d21283358e4e1e8d403f078f08acb
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e
 Historical real run: 34965097988
 Historical schema: 1.0.0
 Historical result: STOPPED_FAIL_CLOSED
 Historical stop: PROPERTY_TYPE_FORMAT_UNEXPECTED
 Historical root cause: UNRESOLVED
-Execution approval: CONSUMED
+Historical execution approval: CONSUMED
+Historical transient-row privacy approval: CONSUMED
 Network workflow: ABSENT
 Diagnosis SHA: 1405d33b7c09373f738dc87f6c93b05a0c342461
 Diagnosis CI: 34968418681 SUCCESS
-Remediation branch: m3-ca-sco-property-type-diagnostic-remediation
-Final remediation functional SHA: f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef
-Final remediation functional CI: 34971353630 SUCCESS
+Remediation functional SHA: f7a9bf9ac5614dacc38d7e1d1fdc7f5f03a687ef
+Remediation candidate CI: 34971353630 SUCCESS
+Human remediation review: APPROVED
 Future execution schema: 1.1.0
 Future encoding failure: PROPERTY_TYPE_ENCODING_UNEXPECTED
 Future decoded shape failure: PROPERTY_TYPE_FORMAT_UNEXPECTED
@@ -276,6 +262,6 @@ Source policy: PROPOSED
 Registry: DISABLED + NOT APPROVED
 Approved real sources: 0
 Identity/matching/outreach: BLOCKED
-NEXT: HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_REVIEW
-CONTEXT HEALTH: coherent; repository is source of truth
+NEXT: prepare isolated second bounded PROPERTY_TYPE execution proposal; NO NETWORK; stop at fresh human authorization gate
+CONTEXT HEALTH: warn owner proactively before chat length/context degradation becomes risky
 ```
