@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `PROPERTY_TYPE` BOUNDED REAL SEMANTIC ATTEMPT STOPPED FAIL-CLOSED — EVIDENCE REVIEW REQUIRED | Run `34965097988`; 2 requests; 131072 body bytes; 0 accepted rows; stop `PROPERTY_TYPE_FORMAT_UNEXPECTED`; no retry |
+| M3 — California Data Spike | `PROPERTY_TYPE` REAL ATTEMPT STOPPED FAIL-CLOSED + OFFLINE DIAGNOSIS CI VERIFIED — REMEDIATION REVIEW REQUIRED | Run `34965097988`; diagnosis SHA `1405d33b...`; diagnostic CI `34968418681` SUCCESS; network workflow absent |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; Vercel runtime integration decommissioned |
 
 ## Completed M3 Readiness Work
@@ -24,42 +24,27 @@ Last updated: 2026-09-15
 - `PROPERTY_TYPE` semantic-verification proposal canonical + CI verified.
 - Bounded semantic runner design canonical + CI verified.
 - Bounded semantic runner implementation canonical + synthetic/mock CI verified.
-- Owner-authorized bounded semantic execution and transient privacy approvals machine-recorded and CI verified.
-- One bounded real execution performed once and stopped fail-closed.
+- One owner-authorized bounded real semantic execution completed once and stopped fail-closed.
+- Execution evidence persisted as derived summary only.
+- One-shot network workflow removed immediately after the run.
+- Offline evidence review and synthetic parser diagnosis completed + CI verified.
 
-## Canonical Runner
+## Real Semantic Attempt
 
-Runner:
-`scripts/ca_sco_property_type_semantic_verification.py`
-
-Promoted functional SHA:
-`3f612837e4dbb86839942555c34b9384ff4e99a1`
-
-Canonical CI:
-`34961511401` — SUCCESS.
-
-Canonical development HEAD before the execution candidate:
-`c3f0dc7e374d21283358e4e1e8d403f078f08acb`.
-
-## Execution Candidate
-
-Branch:
+Execution candidate:
 `m3-ca-sco-property-type-semantic-execution`
 
-Authorization package commit:
-`6ba8d62824f0f0e8eaaa0eefbb8dc1bfdb58898e`
-
-Authorization CI:
-`34964924686` — SUCCESS.
-
-One-shot commit:
-`dd5dc80a22307586c341b703de8fe03d6861df29`
+Evidence closure SHA:
+`3ca12f17c0a16ca49205b4d17117f3b41b6efd58`
 
 One-shot run:
-`34965097988` — SUCCESS as an execution container; semantic result `STOPPED_FAIL_CLOSED`.
+`34965097988`
 
-Stop reason:
-`PROPERTY_TYPE_FORMAT_UNEXPECTED`.
+Semantic result:
+`STOPPED_FAIL_CLOSED`
+
+Persisted stop reason:
+`PROPERTY_TYPE_FORMAT_UNEXPECTED`
 
 Observed budget usage:
 - 1 HEAD;
@@ -71,30 +56,45 @@ Observed budget usage:
 - no extra Range;
 - no budget widening.
 
-## Evidence
+The offending value is not persisted or logged and must not be inferred.
 
-Persisted derived evidence:
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
+Steady-state CI after evidence closure:
+`34965713695` — SUCCESS.
 
-Execution audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_EXECUTION.md`
-
-Artifact provenance:
-- artifact ID `10394467215`;
-- ZIP digest `sha256:24a39a739872b0d9b3f0bff9a17c22f8ab1a443ddbcf82b7f9126d546ed1a66d`;
-- JSON SHA-256 `790dabcf1c04946ad930de467f204cb0af6fe78c25bae86b1ca541e4fc07b96a`.
-
-No offending `PROPERTY_TYPE` value is persisted or logged. No claim about that value is permitted from current evidence.
-
-## Workflow Steady State
-
-The temporary one-shot workflow was removed after the run at commit:
-`bc1b0a955037d35dfa1a37b0c29497c219a04609`.
-
-Steady-state one-shot workflow:
+Network one-shot workflow:
 ABSENT.
 
-The ordinary CI on the temporary-workflow commit (`34965098018`) failed three historical workflow-absence contract assertions, as expected. Those contracts remain unchanged and should pass again after workflow removal.
+The execution approval was consumed by run `34965097988`.
+
+## Offline Diagnosis
+
+Branch:
+`m3-ca-sco-property-type-offline-diagnosis`
+
+Base:
+`3ca12f17c0a16ca49205b4d17117f3b41b6efd58`
+
+Diagnostic SHA:
+`1405d33b7c09373f738dc87f6c93b05a0c342461`
+
+Diagnostic CI:
+`34968418681` — SUCCESS.
+
+Audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md`
+
+Regression tests:
+`tests/unit/test_ca_sco_property_type_offline_diagnosis.py`
+
+Diagnosis:
+- the current runner maps both UTF-8 decode failure and decoded-value regex mismatch to `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- current historical evidence therefore cannot distinguish those two causes;
+- the custom projector matches Python `csv.reader(..., strict=True)` for the committed synthetic standard-CSV edge matrix;
+- no standard-CSV projection defect was reproduced by that matrix;
+- the real root cause remains unresolved because the offending bytes/value were intentionally not retained;
+- no evidence supports relaxing or normalizing the regex.
+
+No SCO network/body access occurred during diagnosis. No runner/schema/regex/source-policy/registry/network-workflow change was made.
 
 ## Fixed Safety Caps
 
@@ -121,28 +121,30 @@ The ordinary CI on the temporary-workflow commit (`34965098018`) failed three hi
 - approved real sources `0`;
 - semantic compatibility unresolved;
 - production classification inactive;
-- full archive not downloaded;
-- raw/full-row values not persisted;
+- network workflow absent;
 - identity resolution BLOCKED;
 - beneficiary matching BLOCKED;
 - outreach BLOCKED.
 
-The single execution authorization has been consumed. It does not imply permission for another network attempt.
-
 ## Next Product Work
 
-1. Human review at `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_EVIDENCE_REVIEW`.
-2. Diagnose `PROPERTY_TYPE_FORMAT_UNEXPECTED` from code/contracts and synthetic reproduction first, without another SCO request.
-3. Do not infer the offending real value from the stop code.
-4. Any second bounded real execution requires a new explicit human execution + privacy authorization.
-5. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
+1. Human decision at `HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_REVIEW`.
+2. If approved, perform offline-only contract/runner remediation to distinguish encoding failure from decoded-format failure.
+3. Preserve historical evidence and current regex semantics.
+4. Do not add raw source values or privacy-expanding diagnostics.
+5. Keep network workflow absent.
+6. Any second bounded real execution requires new explicit execution + transient-row privacy authorization.
+7. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
 
 ## Out of Scope Until Later Gates
 
 - automatic retry of the semantic run;
+- a second SCO network request under the consumed authorization;
 - wider byte/request/row budgets;
 - persisting raw row/value evidence;
+- silently trimming/normalizing source values;
+- relaxing the `PROPERTY_TYPE` regex without evidence;
 - source approval or registry activation;
-- production insurance classification from this failed sample;
+- production insurance classification;
 - beneficiary matching, genealogy, outreach or claim submission;
 - promotion to `main` without a separate stable-checkpoint gate.
