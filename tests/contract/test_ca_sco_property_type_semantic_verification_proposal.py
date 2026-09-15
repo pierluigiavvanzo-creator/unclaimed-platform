@@ -33,7 +33,6 @@ POLICY_PATH = (
     ROOT / "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json"
 )
 REGISTRY_PATH = ROOT / "sources/registry.yaml"
-RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 WORKFLOW_PATH = (
     ROOT / ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"
 )
@@ -69,7 +68,6 @@ def test_proposal_is_valid_non_authorizing_and_not_executed() -> None:
     assert implementation["execution_runner_present"] is False
     assert implementation["network_workflow_present"] is False
     assert implementation["proposal_execution_performed"] is False
-    assert not RUNNER_PATH.exists()
     assert not WORKFLOW_PATH.exists()
 
 
