@@ -10,103 +10,124 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary, but semantic compatibility with the live source remains unresolved.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. Live-source semantic compatibility remains unresolved.
 
-The bounded diagnostic/remediation evidence proposal has been prepared, CI-verified and human-reviewed **PASS**.
+The bounded diagnostic/remediation evidence proposal was human-reviewed `PASS`. A separate diagnostic execution/authorization artifact has now been prepared offline and CI-verified.
 
-Proposal branch:
-`m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal`
+Current branch:
+`m3-ca-sco-property-type-diagnostic-execution-authorization`
 
-Proposal package checkpoint SHA:
-`020044d3013449fabe566c5164b8f99f9d8cc9ab`
+Authorization package checkpoint SHA:
+`daeaa7bfb7f7d73a61f011d394cc88393625866c`
 
-Proposal package CI:
-`35015429439` — SUCCESS
+Authorization package CI:
+`35017854034` — SUCCESS
 
-Final proposal branch HEAD reviewed:
-`847cdf5daaa1834c3ce11fc3d6f29e2bbc36b4b4`
+Artifact status:
+`PENDING_HUMAN_AUTHORIZATION`
 
-Final proposal branch CI:
-`35015731733` — SUCCESS
+Artifact:
+`sources/proposals/ca_sco_segment_500_plus.property_type_diagnostic_execution_authorization.v1.json`
 
-Review branch:
-`m3-ca-sco-property-type-diagnostic-remediation-evidence-proposal-review`
+Schema:
+`schemas/common/property_type_diagnostic_execution_authorization.schema.json`
 
-Review gate:
-`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW`
+Audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION.md`
 
-Review decision:
-`PASS`
+Contract test:
+`tests/contract/test_ca_sco_property_type_diagnostic_execution_authorization.py`
 
-Review audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW.md`
+## Fresh Approvals Defined — Not Granted
 
-### Verified basis
+The artifact defines two distinct fresh approvals:
 
-The second bounded semantic execution remains the latest real PROPERTY_TYPE source execution:
+- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`
+- `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`
 
-- run `34995672539`;
-- schema `1.1.0`;
-- result `STOPPED_FAIL_CLOSED`;
-- stop `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- the observed mismatch was a decoded, non-empty PROPERTY_TYPE that failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- exact offending value, bytes, hash, length, fragments and codepoints were not retained and must not be reconstructed or inferred from historical evidence.
+Both are single-use, non-reusable and must pin the reviewed authorization package SHA. Both are currently `granted: false`, and both are required before any diagnostic network access.
 
-The completed authority provenance review established that the current regex is not contradicted by the archived authority and did not authorize trimming, casing, normalization, parser change or regex relaxation.
+No approval evidence file exists and no diagnostic network workflow has been created by package preparation.
 
-### Accepted proposal boundary — still not authorized for execution
+Previously consumed approvals remain non-reusable:
 
-If a later separate execution/authorization artifact is approved with fresh execution/privacy approvals, the diagnostic may be bounded to:
+- `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
+- `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
+- `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
 
-- exact existing endpoint and pinned source identity;
+## Verified Diagnostic Boundary — Still Not Authorized
+
+If later separately reviewed and both fresh approvals are explicitly granted, the diagnostic is bounded to:
+
+- exact existing `claimit.ca.gov` endpoint and pinned source identity;
 - first canonical member only;
-- at most 4 transient data rows;
-- stop at the first reproduced format mismatch;
-- 1 HEAD maximum;
-- 1 Range GET maximum;
-- 2 HTTP requests maximum total;
-- 131072 source response-body bytes maximum total;
-- no retry, redirect, extra range, full-body fallback or automatic widening.
+- maximum 4 transient data rows;
+- stop at first reproduced format mismatch;
+- maximum 1 HEAD and 1 Range GET;
+- maximum 2 HTTP requests total;
+- maximum 131072 source response-body bytes total;
+- maximum 262144 uncompressed transient bytes;
+- maximum 32768 bytes per logical record;
+- zero retries;
+- redirects forbidden;
+- additional range forbidden;
+- full-body fallback forbidden;
+- automatic widening forbidden;
+- source identity drift or non-reproduction inside the bound -> fail closed.
 
-Only a fixed coarse diagnostic class plus bounded counters/safety flags may be persisted. Exact source values, bytes, hashes, lengths, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID and owner/holder values remain forbidden from persistence/logging.
+No other source/endpoint or authority access is allowed by this artifact.
 
-No diagnostic class automatically authorizes remediation.
+## Deterministic Classifier Contract
 
-### Mandatory execution-stage tightening
+The execution artifact locks classification precedence to:
 
-Before any real diagnostic request, the separate execution/authorization artifact must contract-test:
+1. `SURROUNDING_ASCII_WHITESPACE_ONLY`
+2. `ASCII_CASE_ONLY`
+3. `SURROUNDING_ASCII_WHITESPACE_AND_CASE`
+4. `NON_ASCII_OR_CONTROL_CONTENT`
+5. `ASCII_STRUCTURAL_MISMATCH`
 
-- fixed classification precedence;
-- exact ASCII-only `a-z` -> `A-Z` case-probe semantics;
-- exact disallowed ASCII control-code set;
-- bounded enumerated fail-closed reason codes and explicit null/absent semantics for diagnostic class on failure;
-- synthetic classifier tests for all classes, precedence collisions, boundary cases and non-persistence/non-logging.
+The regex remains unchanged:
+`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-These tightenings may not widen members, rows, requests, byte budgets, endpoints, privacy scope or persistence fields.
+ASCII case probing maps only `a-z` to `A-Z`; all other code points remain unchanged. Locale-sensitive casing and Unicode normalization are forbidden.
 
-### Governance remains fail-closed
+The disallowed ASCII control set is explicitly `U+0000` through `U+001F` plus `U+007F`. Precedence ensures that a boundary TAB explaining the mismatch is classified as surrounding whitespace before the control-content class is considered.
 
-- proposal review PASS does not authorize source access;
+Synthetic regression vectors cover all five classes, precedence collisions, boundary TAB behavior, non-ASCII/control content and ASCII structural mismatch.
+
+## Persistence / Fail-Closed Contract
+
+Only bounded status/class/reason-code/source-identity/counter/safety evidence may be persisted.
+
+Exact PROPERTY_TYPE content, bytes, hash, exact length, fragments, codepoints, transformed values, full rows, raw bodies, PROPERTY_ID, owner/holder values, distinct code lists and source-derived free text remain forbidden.
+
+When `STOPPED_FAIL_CLOSED`, `diagnostic_class` is null and a fixed enumerated fail-closed reason code is required. No diagnostic class authorizes remediation.
+
+## Governance Remains Fail-Closed
+
 - diagnostic execution authorized: `false`;
 - transient-row privacy exposure authorized: `false`;
-- network workflow authorized: `false`;
+- network workflow creation authorized: `false`;
+- network execution authorized: `false`;
 - runtime change authorized: `false`;
 - remediation authorized: `false`;
-- no approval token was created by the review;
-- previous semantic execution/privacy approvals remain CONSUMED + NON-REUSABLE;
-- authority archival approval remains CONSUMED + NON-REUSABLE;
-- source policy remains `PROPOSED`;
-- registry remains disabled / not approved;
-- approved real sources remain `0`;
-- production classification remains inactive;
-- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
+- third real execution authorized: `false`;
+- source request performed during preparation: `false`;
+- source policy: `PROPOSED`;
+- registry: disabled / not approved;
+- approved real sources: `0`;
+- production classification: inactive;
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission: BLOCKED.
 
 ## Next Recommended Action
 
-Prepare only a **separate diagnostic execution/authorization artifact offline**.
+Perform only:
 
-It must pin the proposal review PASS, preserve or tighten all boundaries, define fresh execution and transient-row privacy approval placeholders, and remain NOT AUTHORIZED until the owner explicitly grants those approvals.
+`HUMAN_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
 
-Do not access SCO/`claimit.ca.gov` and do not perform the diagnostic while preparing that artifact.
+Review the verified authorization artifact package. Do not access `claimit.ca.gov`, create a diagnostic network workflow, or treat either fresh approval as granted during this review.
+
+A review `PASS` still requires the owner to explicitly grant both fresh approvals, with durable evidence pinned to package SHA `daeaa7bfb7f7d73a61f011d394cc88393625866c`, before any source request.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
