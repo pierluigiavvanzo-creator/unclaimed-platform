@@ -20,10 +20,11 @@ import ssl
 import struct
 import sys
 import zlib
+from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Mapping, Protocol
+from typing import Any, Protocol
 from urllib.parse import urlparse
 
 ENDPOINT = "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip"
