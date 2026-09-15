@@ -40,21 +40,32 @@ After remediation, the same exception maps to:
 
 The regex itself is unchanged. No `.strip()`, case-folding, normalization or code-domain relaxation is introduced.
 
-## Machine contract
+## Machine contract versioning
 
-Schema:
+Historical v1.0.0 schema remains frozen at:
+
 `schemas/common/property_type_semantic_verification_execution.schema.json`
 
-The stop-reason enum is extended with:
+It continues to validate the historical real evidence and intentionally does **not** recognize the new encoding-specific reason.
+
+Future remediated runner output uses:
+
+`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
+
+with payload:
+
+`schema_version: 1.1.0`
+
+The v1.1.0 stop-reason enum adds:
 
 `PROPERTY_TYPE_ENCODING_UNEXPECTED`
 
-The payload shape and all other fields are unchanged. `schema_version` remains `1.0.0` because this is an additive, backward-compatible reason-code extension: previously valid execution evidence remains valid and no existing field or accepted value is removed or reinterpreted.
+This explicit minor contract version prevents silent enum-domain drift for consumers pinned to v1.0.0 and follows ADR-0002's versioned-machine-contract principle. No migration of historical evidence is performed or required.
 
 The historical real evidence remains unchanged:
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1.json`
 
-Its persisted stop reason remains:
+Its persisted schema version remains `1.0.0` and its persisted stop reason remains:
 `PROPERTY_TYPE_FORMAT_UNEXPECTED`
 
 The remediation must not retroactively reinterpret that historical reason. The historical root cause remains unresolved.
@@ -63,18 +74,19 @@ The remediation must not retroactively reinterpret that historical reason. The h
 
 Updated synthetic tests verify that:
 
+- future runner output declares `schema_version: 1.1.0`;
 - a decoded shape mismatch still yields `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 - invalid UTF-8 in the projected field now yields `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
-- both reason codes are permitted by the execution schema;
+- the v1.1.0 schema permits both differentiated reasons;
+- the frozen v1.0.0 schema does not permit `PROPERTY_TYPE_ENCODING_UNEXPECTED`;
+- historical v1.0.0 execution evidence continues to validate against the frozen v1.0.0 schema;
 - the existing regex remains strict and unchanged;
 - the previously committed standard-CSV projector differential matrix still passes;
 - the one-shot network workflow remains absent.
 
-Existing contract coverage continues to validate the historical real evidence against the extended schema, proving backward compatibility for that artifact.
-
 ## Privacy boundary
 
-No diagnostic payload is expanded. The runner still does not persist or log:
+No diagnostic payload is expanded with source content. The runner still does not persist or log:
 
 - raw Range bodies;
 - full CSV rows;
@@ -86,7 +98,7 @@ No diagnostic payload is expanded. The runner still does not persist or log:
 - field hashes;
 - field lengths.
 
-Only the categorical stop reason changes for a future execution.
+Only the categorical stop reason becomes more precise for a future separately authorized execution.
 
 ## Network / execution state
 
@@ -119,9 +131,9 @@ The remediation is acceptable only if repository CI confirms:
 
 - Ruff green;
 - mypy green;
-- contract tests green;
+- contract tests green, including historical v1.0.0 evidence validation;
 - smoke tests green;
-- full pytest green, including the two differentiated synthetic failure paths;
+- full pytest green, including the two differentiated synthetic failure paths and v1.1.0 validation;
 - frontend lint/typecheck/build green;
 - Streamlit safety/startup smoke green.
 

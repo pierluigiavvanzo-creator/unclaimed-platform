@@ -14,8 +14,12 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
-EXECUTION_SCHEMA_PATH = (
+LEGACY_EXECUTION_SCHEMA_PATH = (
     ROOT / "schemas/common/property_type_semantic_verification_execution.schema.json"
+)
+EXECUTION_SCHEMA_PATH = (
+    ROOT
+    / "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json"
 )
 WORKFLOW_PATH = (
     ROOT / ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"
@@ -158,9 +162,16 @@ def test_remediation_distinguishes_shape_from_utf8_encoding() -> None:
     assert encoding_exc.value.reason == "PROPERTY_TYPE_ENCODING_UNEXPECTED"
 
     schema = json.loads(EXECUTION_SCHEMA_PATH.read_text(encoding="utf-8"))
+    legacy_schema = json.loads(LEGACY_EXECUTION_SCHEMA_PATH.read_text(encoding="utf-8"))
     stop_reasons = schema["properties"]["stop_reason"]["anyOf"][1]["enum"]
+    legacy_stop_reasons = legacy_schema["properties"]["stop_reason"]["anyOf"][1]["enum"]
+
+    assert schema["properties"]["schema_version"]["const"] == "1.1.0"
+    assert legacy_schema["properties"]["schema_version"]["const"] == "1.0.0"
     assert "PROPERTY_TYPE_ENCODING_UNEXPECTED" in stop_reasons
     assert "PROPERTY_TYPE_FORMAT_UNEXPECTED" in stop_reasons
+    assert "PROPERTY_TYPE_ENCODING_UNEXPECTED" not in legacy_stop_reasons
+    assert "PROPERTY_TYPE_FORMAT_UNEXPECTED" in legacy_stop_reasons
 
 
 def test_offline_remediation_keeps_network_workflow_absent() -> None:

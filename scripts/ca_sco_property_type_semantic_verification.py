@@ -222,7 +222,7 @@ def _base_result(
     privacy_approval_ref: str,
 ) -> dict[str, Any]:
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "execution_id": "ca.sco.unclaimed_property.bulk.500_plus.property_type.semantic",
         "proposal_id": "ca.sco.segment.500_plus.property_type_semantic_verification",
         "source_id": "ca.sco.unclaimed_property.bulk",

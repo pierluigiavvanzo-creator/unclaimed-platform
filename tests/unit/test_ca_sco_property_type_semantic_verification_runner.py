@@ -17,7 +17,8 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[2]
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 EXECUTION_SCHEMA_PATH = (
-    ROOT / "schemas/common/property_type_semantic_verification_execution.schema.json"
+    ROOT
+    / "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json"
 )
 
 
@@ -187,6 +188,7 @@ def test_synthetic_success_is_bounded_and_schema_valid() -> None:
     transport = MockTransport()
     result = _execute(transport)
 
+    assert result["schema_version"] == "1.1.0"
     assert result["semantic_result_status"] == "SAMPLE_COMPATIBLE_INSURANCE_CODE_OBSERVED"
     assert result["stop_reason"] is None
     assert result["requests_summary"] == {
