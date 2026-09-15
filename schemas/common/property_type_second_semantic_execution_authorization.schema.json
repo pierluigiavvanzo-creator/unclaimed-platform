@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-second-semantic-execution-authorization:1.0.0",
+  "title": "PropertyTypeSecondSemanticExecutionAuthorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "authorization_version",
+    "authorization_status",
+    "approved_on",
+    "gate",
+    "proposal_branch",
+    "proposal_sha",
+    "runner_schema_version",
+    "execution_approval_ref",
+    "privacy_approval_ref",
+    "single_use",
+    "authorized_scope",
+    "privacy_controls",
+    "execution_caps",
+    "workflow_path",
+    "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "authorization_id": {"const": "ca.sco.segment.500_plus.property_type_second_semantic_execution"},
+    "authorization_version": {"const": "1.0.0"},
+    "authorization_status": {"const": "GRANTED_NOT_YET_CONSUMED"},
+    "approved_on": {"const": "2026-09-15"},
+    "gate": {"const": "HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_REVIEW"},
+    "proposal_branch": {"const": "m3-ca-sco-property-type-second-execution-proposal"},
+    "proposal_sha": {"const": "ac6d234dda19b1eb8c8f8ceb0206730bcc419bcb"},
+    "runner_schema_version": {"const": "1.1.0"},
+    "execution_approval_ref": {"const": "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED"},
+    "privacy_approval_ref": {"const": "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED"},
+    "single_use": {"const": true},
+    "authorized_scope": {
+      "const": {
+        "bounded_semantic_execution": true,
+        "transient_row_privacy_exposure": true,
+        "network_one_shot_workflow": true,
+        "source_approval": false,
+        "registry_activation": false,
+        "production_classification": false,
+        "identity_resolution": false,
+        "genealogy": false,
+        "beneficiary_matching": false,
+        "outreach": false,
+        "claim_submission": false
+      }
+    },
+    "privacy_controls": {
+      "const": {
+        "memory_only": true,
+        "transient_buffer_retention_days": 0,
+        "immediate_disposal": true,
+        "raw_body_persistence": false,
+        "full_row_persistence": false,
+        "property_id_persistence": false,
+        "owner_holder_persistence": false,
+        "per_row_property_type_persistence": false,
+        "offending_bytes_persistence": false,
+        "offending_value_hash_persistence": false,
+        "offending_value_length_persistence": false,
+        "record_values_in_logs": false
+      }
+    },
+    "execution_caps": {
+      "const": {
+        "members": 4,
+        "rows_max_per_member": 4,
+        "rows_max_total": 16,
+        "head_requests_max": 1,
+        "range_requests_max": 4,
+        "http_requests_max_total": 5,
+        "range_response_bytes_max_each": 131072,
+        "source_response_body_bytes_max_total": 524288,
+        "uncompressed_transient_bytes_max_each": 262144,
+        "uncompressed_transient_bytes_max_total": 1048576,
+        "logical_record_bytes_max": 32768,
+        "additional_range_allowed": false,
+        "full_body_fallback_allowed": false,
+        "automatic_widening_allowed": false
+      }
+    },
+    "workflow_path": {"const": ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"},
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION_EVIDENCE_REVIEW"}
+  }
+}

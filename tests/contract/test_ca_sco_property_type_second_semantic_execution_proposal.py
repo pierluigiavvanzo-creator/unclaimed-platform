@@ -41,9 +41,6 @@ POLICY_PATH = (
     ROOT / "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json"
 )
 REGISTRY_PATH = ROOT / "sources/registry.yaml"
-WORKFLOW_PATH = (
-    ROOT / ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"
-)
 SOURCE_ID = "ca.sco.unclaimed_property.bulk"
 EXPECTED_CANONICAL_BASE = "e97c1f62959f603bdd3df79538d4b70255594c70"
 
@@ -89,7 +86,6 @@ def test_second_execution_proposal_is_valid_and_non_authorizing() -> None:
     assert implementation["network_request_performed_during_proposal"] is False
     assert implementation["source_body_access_performed_during_proposal"] is False
     assert implementation["proposal_execution_performed"] is False
-    assert not WORKFLOW_PATH.exists()
 
 
 def test_historical_approvals_are_explicitly_consumed_and_not_reused() -> None:
