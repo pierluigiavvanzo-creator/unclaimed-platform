@@ -7,7 +7,7 @@ Last updated: 2026-09-15
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas, Windows/CI validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic state/gates/audit/budget, Windows/CI green |
-| M3 — California Data Spike | `PROPERTY_TYPE` RUNNER DESIGN CANDIDATE + CI VERIFIED — IMPLEMENTATION/EXECUTION BLOCKED | Candidate `b0824d7c...`; CI `34946533156` SUCCESS; runner absent; policy `PROPOSED`; registry disabled |
+| M3 — California Data Spike | `PROPERTY_TYPE` RUNNER DESIGN CANONICAL + CI VERIFIED — IMPLEMENTATION/EXECUTION BLOCKED | Promoted `62e32ebe...`; canonical CI `34947637509` SUCCESS; runner absent; policy `PROPOSED`; registry disabled |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active; Vercel runtime integration decommissioned |
 
 ## Completed M3 readiness work
@@ -22,39 +22,27 @@ Last updated: 2026-09-15
 - `HOLDER_NAME` and identity/address fields prohibited for first triage.
 - Transient CSV prohibited-field exposure isolated as a separate privacy boundary.
 - `PROPERTY_TYPE` semantic-verification proposal canonical + CI verified.
-- Bounded semantic runner design and future execution evidence contract created and candidate CI verified.
+- Bounded semantic runner design and future execution evidence contract promoted and canonical CI verified.
 
-## Current Candidate
+## Canonical Runner Design
 
-Branch:
-`m3-ca-sco-property-type-runner-design`
+Functional SHA:
+`62e32ebe38e218bbe4312f48ff2fa2eefb010df9`
 
-HEAD:
-`b0824d7cbbe693b1d75f3564abac458bcbc5d5e0`
+Canonical CI:
+`34947637509` — SUCCESS.
 
-CI:
-`34946533156` — SUCCESS.
-
-Candidate contains design/contract/example/test/audit only.
+Canonical design artifacts:
+- `sources/proposals/ca_sco_segment_500_plus.property_type_semantic_runner_design.v1.json`;
+- `schemas/common/property_type_semantic_runner_design.schema.json`;
+- `schemas/common/property_type_semantic_verification_execution.schema.json`;
+- `schemas/examples/ca_sco_500_plus_property_type_semantic_verification_execution.examples.json`;
+- `tests/contract/test_ca_sco_property_type_semantic_runner_design.py`;
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_RUNNER_DESIGN_REVIEW.md`.
 
 Absent by contract:
 - `scripts/ca_sco_property_type_semantic_verification.py`;
 - `.github/workflows/ca-sco-property-type-semantic-verification-once.yml`.
-
-## Fixed Runner Design
-
-Future execution sequence:
-1. validate canonical proposal and approvals;
-2. require transient-row privacy approval before network;
-3. one exact HEAD;
-4. one fixed Range GET/member;
-5. reject non-206 without consuming the unexpected body;
-6. verify local member metadata and exact 25-column header;
-7. incrementally decompress in memory;
-8. parse max four complete rows/member;
-9. project only `PROPERTY_TYPE`;
-10. discard transient row material immediately;
-11. persist derived summary only.
 
 ## Fixed Safety Caps
 
@@ -111,8 +99,7 @@ Prohibited:
 3. Validate runner only with synthetic ZIP/mock HTTP behavior.
 4. Keep network one-shot workflow absent until a later explicit execution gate.
 5. Actual SCO row access requires separate execution approval and transient-row privacy approval.
-6. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later
-   independent gates.
+6. Source approval/registry activation, A02 normalization, identity, matching and outreach remain later independent gates.
 
 ## Out of Scope Until Later Gates
 
