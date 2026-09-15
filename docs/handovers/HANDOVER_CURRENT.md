@@ -11,15 +11,10 @@ Authoritative restart point. Use repository evidence, not conversational memory.
 - Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 - Stable branch: `main`
 - Canonical development branch: `m2-state-governance-core`
-- Canonical housekeeping HEAD before current candidate: `830aaaed68bd4d2f9298eaede80b5e67918e935b`
-- Current candidate: `m3-ca-sco-property-type-semantic-verification-proposal`
-- Functional candidate HEAD: `6a39502a19f2127b154b95bf0014a8c76c5ae752`
-- Functional candidate CI: `34942475352` — SUCCESS
+- Canonical functional semantic-proposal SHA: `06004c9cb61b39692d153d9172c37cebf168ddc5`
+- Canonical post-promotion CI: `34943657157` — SUCCESS
 - Stable `main`: `bfddf8ee3ef32eedb91af888c998ef72f5cdd15e` — unchanged
 - Never develop directly on `main`.
-
-The canonical housekeeping HEAD contains no functional change relative to the prior verified closure:
-temporary setup files were created and immediately removed, leaving the canonical content tree unchanged.
 
 ## Verified Baseline
 
@@ -34,6 +29,7 @@ temporary setup files were created and immediately removed, leaving the canonica
 - SCO segmented transport evidence CANONICAL + CI VERIFIED.
 - SCO `$500+` bounded structure inspection EXECUTED + CANONICAL + CI VERIFIED.
 - SCO two-field field/privacy boundary CANONICAL + CI VERIFIED.
+- SCO `PROPERTY_TYPE` semantic-verification proposal CANONICAL + CI VERIFIED.
 - Repository-side Vercel integration DECOMMISSIONED.
 - Supabase untouched.
 
@@ -66,29 +62,34 @@ Canonical proposed persisted/allowed first-purpose scope:
 1. `PROPERTY_ID`
 2. `PROPERTY_TYPE`
 
-`HOLDER_NAME`, owner identity/address and holder identity/address fields remain prohibited for first
-triage.
+`HOLDER_NAME`, owner identity/address and holder identity/address fields remain prohibited for first triage.
 
-Official California SCO NAUPA documentation states that the listed NAUPA codes are used by California and
-defines insurance codes:
+Official California SCO NAUPA documentation defines insurance codes:
 `IN01`, `IN02`, `IN03`, `IN04`, `IN05`, `IN06`, `IN07`, `IN08`, `IN99`.
 
 Authority:
 `https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf`.
 
-## Current Candidate — PROPERTY_TYPE Semantic Verification Proposal
+The actual bulk CSV `PROPERTY_TYPE` row-value semantics remain unverified because no data row has been sampled.
 
-Files:
+## Canonical PROPERTY_TYPE Semantic-Verification Proposal
+
+Canonical files:
 - `schemas/common/property_type_semantic_verification_proposal.schema.json`
 - `schemas/examples/ca_sco_500_plus_property_type_semantic_verification.examples.json`
 - `sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json`
 - `tests/contract/test_ca_sco_property_type_semantic_verification_proposal.py`
 - `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL.md`
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SEMANTIC_VERIFICATION_PROPOSAL_VERIFICATION.md`
 
 Proposal status:
 `PROPOSAL_ONLY_NOT_AUTHORIZED`.
 
-No new SCO network request or source-body access occurred.
+Promoted SHA:
+`06004c9cb61b39692d153d9172c37cebf168ddc5`.
+
+Canonical CI:
+`34943657157` — SUCCESS for both `quality` and `streamlit-candidate`.
 
 No execution runner exists:
 `scripts/ca_sco_property_type_semantic_verification.py` — ABSENT.
@@ -96,7 +97,7 @@ No execution runner exists:
 No one-shot network workflow exists:
 `.github/workflows/ca-sco-property-type-semantic-verification-once.yml` — ABSENT.
 
-Contract tests enforce both absences.
+No new SCO network/body access occurred during proposal preparation, candidate verification, promotion, or canonical CI.
 
 ## Exact Semantic Question
 
@@ -171,8 +172,7 @@ These are project safety caps, not source facts. Widening requires a new proposa
 
 ## Privacy / Persistence Boundary
 
-The source is CSV and no server-side column projection is established. A future row read may transiently
-expose prohibited owner/holder bytes.
+The source is CSV and no server-side column projection is established. A future row read may transiently expose prohibited owner/holder bytes.
 
 Therefore a separate transient-row privacy approval remains mandatory before execution.
 
@@ -238,31 +238,34 @@ Production activation remains false for all outcomes.
 - privacy approval missing;
 - unexpected response-body behavior.
 
-## Candidate Verification
+## Promotion Evidence
 
-Functional HEAD:
-`6a39502a19f2127b154b95bf0014a8c76c5ae752`.
+Before promotion:
+- canonical `830aaaed68bd4d2f9298eaede80b5e67918e935b`;
+- candidate `06004c9cb61b39692d153d9172c37cebf168ddc5`;
+- ahead `2`;
+- behind `0`;
+- merge-base exactly `830aaaed68bd4d2f9298eaede80b5e67918e935b`.
 
-CI:
-`34942475352` — SUCCESS for both `quality` and `streamlit-candidate`.
+Owner explicitly approved:
+`m3-ca-sco-property-type-semantic-verification-proposal -> m2-state-governance-core`.
 
-Passed:
-- Ruff;
-- mypy;
-- contract tests;
-- smoke tests;
-- full pytest;
-- frontend install/lint/typecheck/build;
-- Streamlit safety/startup smoke.
+Promotion was a non-force fast-forward to:
+`06004c9cb61b39692d153d9172c37cebf168ddc5`.
 
-Tests verify:
-- proposal remains non-authorizing and unexecuted;
-- runner/workflow remain absent;
-- row/request/byte caps are exact;
-- canonical member offsets and transport identity match existing evidence;
-- persistence is derived-summary-only;
-- source policy and registry remain fail closed;
-- execution and cap widening are schema-invalid.
+Canonical post-promotion CI:
+`34943657157` — SUCCESS.
+
+Verified in canonical CI:
+- Ruff PASS;
+- mypy PASS;
+- contract tests PASS;
+- smoke tests PASS;
+- full pytest PASS;
+- frontend install/lint/typecheck/build PASS;
+- Streamlit safety/startup smoke PASS.
+
+No source approval, registry activation, row-level acquisition, PII processing, identity resolution, matching or outreach was authorized by promotion.
 
 ## Canonical Authorization State — UNCHANGED
 
@@ -279,24 +282,19 @@ Registry remains:
 
 Approved real sources: `0`.
 
-Real row access, PII processing, identity resolution, beneficiary matching and outreach remain BLOCKED.
+Semantic execution, real row access, PII processing, identity resolution, beneficiary matching and outreach remain BLOCKED.
+
+## Operational Note
+
+During post-promotion documentation setup, an accidental one-byte probe file was created only on the old candidate branch and immediately removed in the next candidate commit. The canonical branch was not affected by that probe. Earlier pre-candidate housekeeping commits on the canonical branch similarly created and immediately removed temporary setup files, leaving the functional content unchanged. No force-push or history rewrite was used.
 
 ## SINGLE NEXT ACTION
 
-**HUMAN PROMOTION GATE ONLY**
-
-Decide whether to promote:
-
-`m3-ca-sco-property-type-semantic-verification-proposal -> m2-state-governance-core`
-
-Promotion must remain non-authorizing and must not implement or execute a network runner.
-
-After promotion and canonical CI, the next separate gate is:
-
 `HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW`
 
-That later gate must still distinguish implementation/review of a bounded runner from actual one-shot
-execution that reads real rows.
+This is a review/design gate, not an execution approval.
+
+The next task may design/review a bounded runner against the canonical proposal. Runner implementation must remain non-executing until separately accepted, and actual one-shot execution that reads real CSV rows requires another explicit owner approval plus the transient-row privacy approval.
 
 ## Handover Status
 
@@ -306,10 +304,9 @@ M1: VERIFIED
 M2: VERIFIED
 M3 SCO $500+ structure: CANONICAL + CI VERIFIED
 M3 two-field privacy boundary: CANONICAL + CI VERIFIED
-Canonical base for candidate: 830aaaed68bd4d2f9298eaede80b5e67918e935b
-Current candidate: m3-ca-sco-property-type-semantic-verification-proposal
-Functional candidate SHA: 6a39502a19f2127b154b95bf0014a8c76c5ae752
-Functional candidate CI: 34942475352 SUCCESS
+M3 PROPERTY_TYPE semantic proposal: CANONICAL + CI VERIFIED
+Canonical semantic-proposal SHA: 06004c9cb61b39692d153d9172c37cebf168ddc5
+Canonical promotion CI: 34943657157 SUCCESS
 Semantic rows cap: 16 total / 4 per member
 Range requests cap: 4
 Source body cap: 524288 bytes
@@ -317,6 +314,7 @@ Full-body request: false
 Runner: ABSENT
 Network workflow: ABSENT
 New SCO network/body access: 0
+Semantic execution: BLOCKED
 Real acquisition: BLOCKED
 Real row access: BLOCKED
 Real PII: BLOCKED
@@ -326,6 +324,6 @@ SCO policy: PROPOSED
 SCO registry: DISABLED + NOT APPROVED
 Approved real sources: 0
 main: bfddf8ee3ef32eedb91af888c998ef72f5cdd15e UNCHANGED
-NEXT: human promotion gate only
+NEXT: HUMAN_PROPERTY_TYPE_SEMANTIC_EXECUTION_REVIEW
 CONTEXT HEALTH: coherent; repository is source of truth
 ```
