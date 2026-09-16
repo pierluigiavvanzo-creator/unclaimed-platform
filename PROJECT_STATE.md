@@ -10,41 +10,45 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The original live-source mismatch was first classified as `ASCII_STRUCTURAL_MISMATCH`. A separately reviewed and authorized source-format diagnostic has now executed once and produced the coarse class `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The original live-source mismatch was classified as `ASCII_STRUCTURAL_MISMATCH`; the separately reviewed and authorized source-format diagnostic then produced `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
 
-Semantic compatibility remains unresolved pending human evidence review. No runtime remediation is authorized.
+The human source-format diagnostic evidence review is now complete. It confirms that, for the one examined row, the strict stdlib CSV parser and current custom projector agree on the canonical PROPERTY_TYPE field while that agreed field remains structurally incompatible with the unchanged validation rule.
 
-## Source-Format Diagnostic Execution
+Semantic compatibility remains unresolved. No runtime remediation or source activation is authorized.
 
-Authorization functional package:
+## Source-Format Diagnostic Evidence Review
 
-`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
+Gate:
 
-Authorization review:
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW`
 
-`PASS`
+Decision:
 
-One-shot execution branch:
+`PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED`
 
-`m3-ca-sco-property-type-source-format-diagnostic-execution-one-shot`
+Review branch:
 
-Execution run:
+`m3-ca-sco-property-type-source-format-diagnostic-evidence-review`
 
-`35090057224` — **SUCCESS**
+Review audit:
 
-One-shot closure commit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW.md`
 
-`badd71e2e32d32b48fdd255127931222941716dd`
+Review base HEAD:
 
-Persisted evidence:
+`dbf4826a013daf604a48719c5b2dd92980f1a335`
 
-`sources/evidence/ca_sco_segment_500_plus.property_type_source_format_diagnostic.execution.v1.json`
+Review base CI:
 
-Execution audit:
+`35090434652` — SUCCESS
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION.md`
+## Reviewed Evidence
 
-## Result
+One-shot source-format execution:
+
+`35090057224` — SUCCESS
+
+Persisted result:
 
 - `diagnostic_result_status`: `SOURCE_FORMAT_CLASSIFIED`
 - `source_format_diagnostic_class`: `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
@@ -57,44 +61,28 @@ Execution audit:
 - transient rows examined: `1`
 - full-row cross-check rows examined: `1`
 
-Within the reviewed classifier, this means the strict stdlib CSV comparator and current custom projector agreed on the same PROPERTY_TYPE field for the one examined row, while that agreed field still failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+Within the reviewed classifier this establishes, for the one row only, that strict full-row UTF-8 decode and strict stdlib CSV parse succeeded, the canonical 25-column shape was produced, stdlib column index `1` agreed with the current projector's PROPERTY_TYPE field, and that agreed field still failed `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
 
-This does **not** reveal the exact value or a specific malformed shape. The value and protected derivatives remain unretained and must not be reconstructed or inferred.
+It does not reveal the exact field value or justify inference of a specific malformed shape.
 
-## Approval State
+## Evidence Review Assessment
 
-The two fresh source-format approvals are now `CONSUMED` and permanently non-reusable:
+The parser-disagreement hypothesis is not supported for the examined row. Repeating the same parser-vs-parser diagnostic is not justified at this checkpoint.
+
+The already archived SCO authority supports the accepted enumerated property-type shape boundary and is not contradicted by this evidence. Additional authority retrieval is not justified merely to repeat that proof.
+
+The evidence is sufficient only to justify an offline proposal defining deterministic fail-closed handling for the known condition “canonical PROPERTY_TYPE field is structurally nonconforming”. It does not select or authorize the handling policy itself.
+
+## Approval / Privacy State
+
+The two source-format approvals are `CONSUMED` and permanently non-reusable:
 
 - `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
 - `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
 
-Both evidence records pin:
+All source-format safety flags remain `false`: no row/field content, PROPERTY_TYPE or derivative, PROPERTY_ID, owner/holder value, row hash/exact length, parser exception text, raw body or source-derived free text was persisted; no remediation was performed.
 
-`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
-
-and execution run:
-
-`35090057224`
-
-All earlier execution/privacy/authority approvals also remain consumed and non-reusable.
-
-## Privacy / Safety State
-
-All source-format diagnostic safety flags are `false`:
-
-- no full archive downloaded;
-- no raw body persisted;
-- no full row persisted;
-- no row field value persisted;
-- no PROPERTY_TYPE or derivative persisted;
-- no PROPERTY_ID persisted;
-- no owner/holder value persisted;
-- no row hash or exact row length persisted;
-- no parser exception text persisted;
-- no source-derived free text persisted;
-- no remediation performed.
-
-The source-format one-shot workflow is ABSENT after closure.
+The one-shot source-format workflow remains absent.
 
 ## Governance State
 
@@ -102,8 +90,8 @@ The source-format one-shot workflow is ABSENT after closure.
 - regex unchanged: `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - trimming/casing/normalization unchanged;
 - remediation authorized: `false`;
-- additional source-format execution authorized: `false`;
-- additional authority retrieval authorized: `false`;
+- additional source execution authorized: `false`;
+- additional privacy expansion authorized: `false`;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
 - approved real sources remain `0`;
@@ -112,10 +100,10 @@ The source-format one-shot workflow is ABSENT after closure.
 
 ## Next Recommended Action
 
-Perform exclusively:
+Prepare exclusively, offline:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW`
+`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL`
 
-Review only the retained coarse evidence and decide what, if anything, it justifies. Do not re-run source access, reuse consumed approvals, reconstruct the PROPERTY_TYPE value, change parser/regex/runtime behavior, or apply remediation during the review.
+The proposal must compare deterministic fail-closed handling options without source/authority network access, without reconstructing the hidden value, and without changing runtime behavior. Any future real-source execution, privacy expansion, source activation or remediation requires a separate reviewed authorization path.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
