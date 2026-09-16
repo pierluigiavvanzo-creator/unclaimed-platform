@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import csv
 import importlib.util
 import io
@@ -13,13 +14,19 @@ from typing import Any
 
 import pytest
 from jsonschema import Draft202012Validator, FormatChecker
+from jsonschema.exceptions import ValidationError
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 EXECUTION_SCHEMA_PATH = (
     ROOT
+    / "schemas/common/property_type_semantic_verification_execution.v1_2.schema.json"
+)
+LEGACY_EXECUTION_SCHEMA_PATH = (
+    ROOT
     / "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json"
 )
+EXPECTED_PROPERTY_TYPE_REGEX = r"^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$"
 
 
 def _load_runner() -> ModuleType:
@@ -188,9 +195,10 @@ def test_synthetic_success_is_bounded_and_schema_valid() -> None:
     transport = MockTransport()
     result = _execute(transport)
 
-    assert result["schema_version"] == "1.1.0"
+    assert result["schema_version"] == "1.2.0"
     assert result["semantic_result_status"] == "SAMPLE_COMPATIBLE_INSURANCE_CODE_OBSERVED"
     assert result["stop_reason"] is None
+    assert result["control_disposition"] is None
     assert result["requests_summary"] == {
         "head_requests": 1,
         "range_requests": 4,
@@ -224,11 +232,32 @@ def test_synthetic_no_insurance_is_inconclusive_not_success() -> None:
         == "SAMPLE_CODE_SHAPE_COMPATIBLE_NO_INSURANCE_CODE_OBSERVED"
     )
     assert result["stop_reason"] is None
+    assert result["control_disposition"] is None
     assert result["sample_summary"]["distinct_insurance_codes"] == []
     _execution_validator().validate(result)
 
 
-def test_unknown_insurance_code_stops_fail_closed() -> None:
+def test_nonconforming_property_type_maps_control_and_stops_source() -> None:
+    codes = {
+        member.name: ["BAD", "IN03", "AC01", "ZZZZ"]
+        for member in RUNNER.CANONICAL_MEMBERS
+    }
+    transport = MockTransport(codes_by_member=codes)
+    result = _execute(transport)
+
+    assert result["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
+    assert result["stop_reason"] == "PROPERTY_TYPE_FORMAT_UNEXPECTED"
+    assert result["control_disposition"] == {
+        "status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED",
+        "reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+    }
+    assert len(transport.range_calls) == 1
+    assert result["requests_summary"]["range_requests"] == 1
+    assert result["sample_summary"]["sample_rows_examined"] == 0
+    _execution_validator().validate(result)
+
+
+def test_unknown_insurance_code_stops_fail_closed_without_control_mapping() -> None:
     codes = {
         member.name: ["IN42", "AC01", "SC01", "ZZZZ"]
         for member in RUNNER.CANONICAL_MEMBERS
@@ -237,6 +266,7 @@ def test_unknown_insurance_code_stops_fail_closed() -> None:
 
     assert result["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
     assert result["stop_reason"] == "UNRECOGNIZED_INSURANCE_PREFIX_CODE"
+    assert result["control_disposition"] is None
     _execution_validator().validate(result)
 
 
@@ -246,6 +276,7 @@ def test_ignored_range_stops_without_reading_unexpected_body() -> None:
 
     assert result["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
     assert result["stop_reason"] == "RANGE_RESPONSE_NOT_PARTIAL"
+    assert result["control_disposition"] is None
     assert len(transport.handles) == 1
     assert transport.handles[0].read_calls == 0
     assert transport.handles[0].closed is True
@@ -258,6 +289,7 @@ def test_header_mismatch_stops_before_accepting_data_rows() -> None:
 
     assert result["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
     assert result["stop_reason"] == "HEADER_MISMATCH"
+    assert result["control_disposition"] is None
     assert result["sample_summary"]["sample_rows_examined"] == 0
     _execution_validator().validate(result)
 
@@ -267,7 +299,49 @@ def test_row_column_count_mismatch_stops() -> None:
 
     assert result["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
     assert result["stop_reason"] == "ROW_COLUMN_COUNT_MISMATCH"
+    assert result["control_disposition"] is None
     _execution_validator().validate(result)
+
+
+@pytest.mark.parametrize("property_type", ["in03", " IN03 ", "ＩＮ03"])
+def test_validation_does_not_trim_casefold_or_unicode_normalize(property_type: str) -> None:
+    assert RUNNER.PROPERTY_TYPE_RE.pattern == EXPECTED_PROPERTY_TYPE_REGEX
+    codes = {
+        member.name: [property_type, "IN03", "AC01", "ZZZZ"]
+        for member in RUNNER.CANONICAL_MEMBERS
+    }
+    result = _execute(MockTransport(codes_by_member=codes))
+
+    assert result["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
+    assert result["stop_reason"] == "PROPERTY_TYPE_FORMAT_UNEXPECTED"
+    assert result["control_disposition"] == {
+        "status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED",
+        "reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+    }
+    _execution_validator().validate(result)
+
+
+def test_v1_2_schema_rejects_source_value_bearing_control_fields() -> None:
+    codes = {
+        member.name: ["BAD", "IN03", "AC01", "ZZZZ"]
+        for member in RUNNER.CANONICAL_MEMBERS
+    }
+    result = _execute(MockTransport(codes_by_member=codes))
+    invalid = copy.deepcopy(result)
+    invalid["control_disposition"]["property_type"] = "SYNTHETIC_VALUE"
+
+    with pytest.raises(ValidationError):
+        _execution_validator().validate(invalid)
+
+
+def test_v1_1_historical_contract_remains_immutable_in_shape() -> None:
+    legacy = json.loads(LEGACY_EXECUTION_SCHEMA_PATH.read_text(encoding="utf-8"))
+
+    assert legacy["$id"] == (
+        "urn:unclaimed-platform:schema:property-type-semantic-verification-execution:1.1.0"
+    )
+    assert legacy["properties"]["schema_version"] == {"const": "1.1.0"}
+    assert "control_disposition" not in legacy["properties"]
 
 
 def test_missing_privacy_approval_fails_before_transport() -> None:
