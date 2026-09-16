@@ -116,12 +116,13 @@ def test_historical_approvals_are_explicitly_consumed_and_not_reused() -> None:
     assert historical["offending_source_value_or_bytes_persisted"] is False
 
 
-def test_proposal_is_pinned_to_canonical_v1_1_runner_and_unchanged_caps() -> None:
+def test_proposal_is_pinned_to_historical_v1_1_contract_and_unchanged_caps() -> None:
     proposal = _load(PROPOSAL_PATH)
     runner = _load_runner()
     base = proposal["canonical_base"]
     caps = proposal["transport_caps"]
     controls = proposal["row_processing_controls"]
+    historical_schema = _load(EXECUTION_V1_1_SCHEMA_PATH)
     assert isinstance(base, dict)
     assert isinstance(caps, dict)
     assert isinstance(controls, dict)
@@ -129,8 +130,7 @@ def test_proposal_is_pinned_to_canonical_v1_1_runner_and_unchanged_caps() -> Non
     assert base["branch"] == "m2-state-governance-core"
     assert base["sha"] == EXPECTED_CANONICAL_BASE
     assert base["future_execution_schema_version"] == "1.1.0"
-    result = runner._base_result("SYNTHETIC_EXECUTION", "SYNTHETIC_PRIVACY")
-    assert result["schema_version"] == "1.1.0"
+    assert historical_schema["properties"]["schema_version"] == {"const": "1.1.0"}
     assert caps["head_requests_max"] == runner.MAX_HEAD_REQUESTS == 1
     assert caps["range_requests_max"] == runner.MAX_RANGE_REQUESTS == 4
     assert caps["http_requests_max_total"] == runner.MAX_HTTP_REQUESTS == 5
