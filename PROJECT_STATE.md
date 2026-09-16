@@ -12,86 +12,118 @@ M0, M1 and M2 are VERIFIED.
 
 PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The original live-source mismatch was classified as `ASCII_STRUCTURAL_MISMATCH`; the separately reviewed and authorized source-format diagnostic then produced `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
 
-The human source-format diagnostic evidence review is now complete. It confirms that, for the one examined row, the strict stdlib CSV parser and current custom projector agree on the canonical PROPERTY_TYPE field while that agreed field remains structurally incompatible with the unchanged validation rule.
+The human source-format diagnostic evidence review accepted that evidence and justified only an offline deterministic handling proposal for a canonical `PROPERTY_TYPE` field that remains structurally nonconforming. That proposal is now prepared and CI-green. No handling option has been selected or implemented.
 
-Semantic compatibility remains unresolved. No runtime remediation or source activation is authorized.
+Semantic compatibility remains unresolved. No runtime remediation, row skipping, quarantine persistence, source continuation or source activation is authorized.
 
-## Source-Format Diagnostic Evidence Review
+## Nonconforming PROPERTY_TYPE Handling Proposal
 
-Gate:
+Branch:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW`
+`m3-ca-sco-property-type-nonconforming-row-handling-proposal`
 
-Decision:
+Functional package checkpoint:
 
-`PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED`
+`f29c4423c885d37956bea4aba02e4db241409452`
 
-Review branch:
+Package CI:
 
-`m3-ca-sco-property-type-source-format-diagnostic-evidence-review`
+`35093840690` — **SUCCESS**
 
-Review audit:
+Proposal:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW.md`
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling.v1.json`
 
-Review base HEAD:
+Schema:
 
-`dbf4826a013daf604a48719c5b2dd92980f1a335`
+`schemas/common/property_type_nonconforming_row_handling_proposal.schema.json`
 
-Review base CI:
+Audit:
 
-`35090434652` — SUCCESS
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL.md`
 
-## Reviewed Evidence
+Contract test:
 
-One-shot source-format execution:
+`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_proposal.py`
+
+Proposal status:
+
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
+
+## Evidence Basis
+
+Source-format execution run:
 
 `35090057224` — SUCCESS
 
-Persisted result:
+Retained class:
 
-- `diagnostic_result_status`: `SOURCE_FORMAT_CLASSIFIED`
-- `source_format_diagnostic_class`: `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
-- `fail_closed_reason_code`: `null`
-- source identity verified: `true`
-- HEAD requests: `1`
-- Range GET requests: `1`
-- HTTP requests total: `2`
-- source response-body bytes: `131072`
-- transient rows examined: `1`
-- full-row cross-check rows examined: `1`
+`INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
 
-Within the reviewed classifier this establishes, for the one row only, that strict full-row UTF-8 decode and strict stdlib CSV parse succeeded, the canonical 25-column shape was produced, stdlib column index `1` agreed with the current projector's PROPERTY_TYPE field, and that agreed field still failed `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
+Source-format evidence review decision:
 
-It does not reveal the exact field value or justify inference of a specific malformed shape.
+`PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED`
 
-## Evidence Review Assessment
+Base review HEAD:
 
-The parser-disagreement hypothesis is not supported for the examined row. Repeating the same parser-vs-parser diagnostic is not justified at this checkpoint.
+`27b1a19874449b0170fc0c47328340122d443529`
 
-The already archived SCO authority supports the accepted enumerated property-type shape boundary and is not contradicted by this evidence. Additional authority retrieval is not justified merely to repeat that proof.
+Base review CI:
 
-The evidence is sufficient only to justify an offline proposal defining deterministic fail-closed handling for the known condition “canonical PROPERTY_TYPE field is structurally nonconforming”. It does not select or authorize the handling policy itself.
+`35092673600` — SUCCESS
 
-## Approval / Privacy State
+For the one examined row, strict full-row UTF-8 decode and strict stdlib CSV parse succeeded, exactly one canonical 25-column record was produced, stdlib column index `1` agreed with the current custom projector's PROPERTY_TYPE field, and that agreed field still failed `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
 
-The two source-format approvals are `CONSUMED` and permanently non-reusable:
+The exact field value, its protected derivatives, frequency, cause and source intent remain unknown and must not be inferred.
+
+## Candidate Handling Options — No Selection
+
+The proposal compares exactly three fail-closed options:
+
+1. `WHOLE_SOURCE_STOP`
+2. `ROW_LEVEL_DEFER_OR_QUARANTINE`
+3. `HUMAN_REVIEW_ROUTE`
+
+`selected_option` remains `null`.
+
+None is authorized by the proposal.
+
+The unchanged validation rule is machine-locked and the proposal forbids silent row skipping, silent source continuation, automatic correction, normalization, regex relaxation and semantic acceptance of a nonconforming value.
+
+## Privacy / Persistence Boundary
+
+Metadata-only handling design does not itself expand privacy exposure.
+
+The following remain explicit future privacy expansions and are **not authorized**:
+
+- retaining a real row or field for quarantine;
+- exposing a real row or field for row-specific human review.
+
+Either requires a separate reviewed authorization path before real-source execution or persistence expansion.
+
+The proposal defines no approval token.
+
+## Approval State
+
+All prior execution/privacy/authority approvals remain `CONSUMED` and permanently non-reusable, including:
 
 - `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
 - `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
 
-All source-format safety flags remain `false`: no row/field content, PROPERTY_TYPE or derivative, PROPERTY_ID, owner/holder value, row hash/exact length, parser exception text, raw body or source-derived free text was persisted; no remediation was performed.
-
-The one-shot source-format workflow remains absent.
+No fresh approval exists for handling-policy implementation, source continuation, real-row retention or another real-source execution.
 
 ## Governance State
 
 - parser/projector unchanged;
 - regex unchanged: `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - trimming/casing/normalization unchanged;
+- handling policy selected: `false`;
+- runtime handling change authorized: `false`;
 - remediation authorized: `false`;
 - additional source execution authorized: `false`;
 - additional privacy expansion authorized: `false`;
+- row quarantine persistence authorized: `false`;
+- source continuation after nonconformance authorized: `false`;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
 - approved real sources remain `0`;
@@ -100,10 +132,10 @@ The one-shot source-format workflow remains absent.
 
 ## Next Recommended Action
 
-Prepare exclusively, offline:
+Perform exclusively:
 
-`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW`
 
-The proposal must compare deterministic fail-closed handling options without source/authority network access, without reconstructing the hidden value, and without changing runtime behavior. Any future real-source execution, privacy expansion, source activation or remediation requires a separate reviewed authorization path.
+Review the three design options and their fail-closed, completeness and privacy consequences. Do not select or implement runtime behavior during the review, access the source, reconstruct the hidden value, expand privacy exposure, activate the source/registry or enter downstream work.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
