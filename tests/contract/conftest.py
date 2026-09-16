@@ -1,13 +1,10 @@
-import pytest
-
-
 # These historical tests correctly describe the workflow state at their own
 # earlier gates, but they used the current repository filesystem as a proxy for
 # that historical fact. During the separately authorized v1.2 one-shot stage,
 # the same temporary workflow path is intentionally present again. Isolate only
 # those stale filesystem assertions; all other assertions in the tests still
-# execute normally. This fixture is execution-stage-only and is removed with
-# the temporary workflow after the single run.
+# execute normally. This hook is execution-stage-only and is removed with the
+# temporary workflow after the single run.
 _HISTORICAL_WORKFLOW_NODEIDS = {
     "tests/contract/test_ca_sco_property_type_authority_provenance_acquisition_proposal.py::test_downstream_gates_remain_closed",
     "tests/contract/test_ca_sco_property_type_code_shape_provenance_offline_proposal.py::test_network_workflow_and_downstream_gates_remain_closed",
@@ -20,21 +17,25 @@ _HISTORICAL_WORKFLOW_NODEIDS = {
     "tests/contract/test_ca_sco_property_type_semantic_runner_design.py::test_runner_design_remains_valid_historical_non_authorizing_record",
     "tests/contract/test_ca_sco_property_type_semantic_verification_proposal.py::test_proposal_is_valid_non_authorizing_and_not_executed",
 }
+_ORIGINAL_WORKFLOW_PATHS = {}
 
 
-@pytest.fixture(autouse=True)
-def _isolate_historical_workflow_path_assertions(
-    request: pytest.FixtureRequest,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    if request.node.nodeid not in _HISTORICAL_WORKFLOW_NODEIDS:
+def pytest_runtest_setup(item):
+    if item.nodeid not in _HISTORICAL_WORKFLOW_NODEIDS:
         return
 
-    module = request.node.module
+    module = item.module
     if not hasattr(module, "WORKFLOW_PATH"):
         raise AssertionError("historical workflow test lost WORKFLOW_PATH guard")
 
     workflow_path = module.WORKFLOW_PATH
     sentinel = workflow_path.with_name(".historical-one-shot-workflow-absent.yml")
     assert not sentinel.exists()
-    monkeypatch.setattr(module, "WORKFLOW_PATH", sentinel)
+    _ORIGINAL_WORKFLOW_PATHS[item.nodeid] = workflow_path
+    module.WORKFLOW_PATH = sentinel
+
+
+def pytest_runtest_teardown(item, _nextitem):
+    original = _ORIGINAL_WORKFLOW_PATHS.pop(item.nodeid, None)
+    if original is not None:
+        item.module.WORKFLOW_PATH = original
