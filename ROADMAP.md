@@ -7,65 +7,71 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | SOURCE-FORMAT AUTHORIZATION REVIEW PASS; OWNER APPROVALS NEXT | authorization package `cd76250b...9172`; package CI `35082891083` SUCCESS; review PASS |
+| M3 — California Data Spike | SOURCE-FORMAT DIAGNOSTIC EXECUTED; HUMAN EVIDENCE REVIEW NEXT | run `35090057224` SUCCESS; class `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH` |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
 
 - second semantic execution `34995672539` stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 - archived authority supports the enumerated `AA99` shape with scope boundary, `ZZZZ`, and `IN01-IN08` / `IN99`;
-- bounded diagnostic execution `35019840276`: SUCCESS;
-- diagnostic class: `ASCII_STRUCTURAL_MISMATCH`;
-- diagnostic evidence review justified a separate source-format diagnostic proposal;
-- source-format proposal package `d8dc240bd74e271f88b2ef4583f6b79e533918b2`: CI SUCCESS;
-- source-format proposal review: `PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS`;
-- source-format execution/authorization package `cd76250b9527be91e7e7ac4b3aa658c864cf9172`: CI `35082891083` SUCCESS;
-- authorization final state `e73681941ef9794d54bef78b53361ea45baccbf9`: CI `35083155026` SUCCESS;
-- authorization human review: `PASS`;
-- no fresh source-format approval granted;
+- first bounded diagnostic run `35019840276`: `ASCII_STRUCTURAL_MISMATCH`;
+- source-format diagnostic proposal and authorization contract completed human review;
+- source-format authorization package: `cd76250b9527be91e7e7ac4b3aa658c864cf9172`;
+- source-format one-shot execution run `35090057224`: SUCCESS;
+- source-format result: `SOURCE_FORMAT_CLASSIFIED`;
+- source-format class: `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`;
+- source identity verified;
+- one HEAD + one Range GET, two HTTP requests total;
+- 131072 source response-body bytes;
+- one transient row examined;
+- one transient full-row stdlib cross-check examined;
+- both fresh source-format approvals consumed and non-reusable;
+- one-shot source-format workflow removed after execution;
+- no remediation performed;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Reviewed Source-Format Execution Contract
+## Evidence Meaning — Pending Human Review
 
-The reviewed future execution remains bounded to:
+The retained class supports the bounded conclusion that, for the one examined row:
 
-- exact pinned source endpoint and identity;
-- first canonical ZIP member only;
-- maximum 4 transient rows;
-- maximum 1 transient full-row cross-check;
-- maximum 1 HEAD + 1 Range GET;
-- maximum 2 HTTP requests total;
-- maximum 131072 source response-body bytes;
-- maximum 262144 uncompressed transient bytes;
-- maximum 32768 bytes per logical record;
-- zero retry/redirect/additional range/full-body fallback/automatic widening.
+- strict full-row UTF-8 decode succeeded;
+- strict stdlib CSV parse succeeded;
+- canonical 25-column shape was obtained;
+- stdlib column index `1` agreed with the custom projector PROPERTY_TYPE field;
+- that agreed field still failed the unchanged regex.
 
-T-1 through T-5 are machine-locked. No exact source values, full row, field content, hashes, exact lengths, parser exception text or source-derived free text may persist or be logged.
+The exact field value and its protected derivatives were not persisted and must not be reconstructed or inferred.
 
-## Owner Approval Gate
+This result does not itself authorize parser, regex, trim, case, normalization or other remediation.
 
-Execution remains blocked until the owner explicitly grants both exact fresh tokens:
+## Privacy / Execution Closure
 
-`APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
+All persisted sensitive-data/remediation safety flags are false. The diagnostic persisted no row/field content, PROPERTY_TYPE, derivatives, PROPERTY_ID, owner/holder values, row hash/exact length, parser exception text or source-derived free text.
 
-`APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
+Consumed fresh tokens:
 
-Both must be single-use/non-reusable and their future evidence must pin:
+- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
+- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
 
-`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
+They may not be reused.
 
-Generic wording must not be interpreted as approval.
+## Next Product Work
+
+Perform exclusively:
+
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW`
+
+The review may evaluate the retained coarse class and decide the next governance step, but it must not perform new source access, reuse consumed approvals, reconstruct the exact source value, or silently modify parser/regex/runtime behavior.
 
 ## Still Out of Scope
 
+- another real source execution without a new separately reviewed authorization path;
 - reuse of any consumed approval;
-- source or authority network access before both fresh approvals;
-- real full-row exposure before the fresh privacy approval;
 - source-value reconstruction or inference;
 - parser/projector or regex changes;
 - trimming, casing or normalization runtime changes;
 - automatic remediation;
-- new authority retrieval;
+- new authority retrieval without separate justification;
 - source/registry activation;
 - production classification activation;
 - identity resolution, genealogy, beneficiary matching, outreach or claim submission.
