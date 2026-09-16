@@ -14,13 +14,13 @@ SCHEMA_PATH = (
     ROOT
     / "schemas/common/property_type_transport_archive_layout_baseline_refresh_proposal.schema.json"
 )
-PROPOSAL_PATH = (
-    ROOT
-    / "sources/proposals/ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json"
+PROPOSAL_PATH = ROOT / (
+    "sources/proposals/"
+    "ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json"
 )
-EVIDENCE_PATH = (
-    ROOT
-    / "sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json"
+EVIDENCE_PATH = ROOT / (
+    "sources/evidence/"
+    "ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json"
 )
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 REGISTRY_PATH = ROOT / "sources/registry.yaml"
@@ -36,6 +36,14 @@ EXPECTED_MEMBERS = [
     "From_500_To_Beyond_4_of_4.csv",
 ]
 EXPECTED_HISTORICAL_OFFSETS = [0, 59_747_797, 96_862_896, 134_174_190]
+BASE_BRANCH = (
+    "m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-"
+    "real-source-execution-evidence-review"
+)
+EVIDENCE_REVIEW_RESULT = (
+    "PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_"
+    "BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED"
+)
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -55,10 +63,10 @@ def test_refresh_proposal_is_valid_non_executing_and_pinned_to_reviewed_evidence
 
     assert proposal["proposal_status"] == "PROPOSAL_ONLY_NOT_AUTHORIZED"
     assert proposal["base_state"] == {
-        "branch": "m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-evidence-review",
+        "branch": BASE_BRANCH,
         "head_sha": "9dbdc3c6f1ef05c577c26c9e3524ba74fdbfda56",
         "head_ci_run": "35125609902",
-        "evidence_review_result": "PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED",
+        "evidence_review_result": EVIDENCE_REVIEW_RESULT,
         "runtime_contract_version": "1.2.0",
     }
     assert proposal["evidence_basis"]["execution_result"] == {
@@ -180,17 +188,21 @@ def test_schema_rejects_network_authorization_rebaseline_and_scope_widening() ->
         validator().validate(authorized)
 
     adopted = copy.deepcopy(valid)
-    adopted["baseline_state"]["candidate_replacement_baseline"]["content_length"] = 162_560_390
+    adopted["baseline_state"]["candidate_replacement_baseline"]["content_length"] = (
+        162_560_390
+    )
     with pytest.raises(ValidationError):
         validator().validate(adopted)
 
     rebased = copy.deepcopy(valid)
-    rebased["proposed_revalidation_design"]["archive_layout_phase"]["arithmetic_offset_rebase_allowed"] = True
+    archive = rebased["proposed_revalidation_design"]["archive_layout_phase"]
+    archive["arithmetic_offset_rebase_allowed"] = True
     with pytest.raises(ValidationError):
         validator().validate(rebased)
 
     decompression = copy.deepcopy(valid)
-    decompression["proposed_revalidation_design"]["archive_layout_phase"]["decompression_allowed"] = True
+    archive = decompression["proposed_revalidation_design"]["archive_layout_phase"]
+    archive["decompression_allowed"] = True
     with pytest.raises(ValidationError):
         validator().validate(decompression)
 
