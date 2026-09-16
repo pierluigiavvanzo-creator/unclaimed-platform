@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | HANDLING PROPOSAL REVIEW PASS; POLICY-DECISION PROPOSAL NEXT | handling proposal review PASS with mandatory tightenings T-1…T-6; no runtime policy selected |
+| M3 — California Data Spike | POLICY-DECISION PROPOSAL PREPARED; HUMAN REVIEW NEXT | proposal `WHOLE_SOURCE_STOP`; package `33abf635...fcb8`; CI `35095481531` SUCCESS; not runtime-authorized |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -17,43 +17,54 @@ Last updated: 2026-09-16
 - first bounded diagnostic run `35019840276`: `ASCII_STRUCTURAL_MISMATCH`;
 - source-format one-shot execution run `35090057224`: SUCCESS;
 - source-format class: `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`;
-- both source-format approvals consumed and non-reusable;
-- source-format evidence review justified an offline handling proposal only;
-- nonconforming-row handling proposal package `f29c4423c885d37956bea4aba02e4db241409452` CI `35093840690`: SUCCESS;
-- proposal final HEAD `9d5dc3feaa3a9fa63ce5af0dd2c3749a7bee7c87` CI `35094071730`: SUCCESS;
-- human handling-proposal review decision: `PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS`;
-- no handling policy selected;
+- all historical execution/privacy approvals consumed and non-reusable;
+- nonconforming-row handling proposal and human review completed;
+- handling review decision: `PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS`;
+- policy-decision proposal package: `33abf635dc2b3f3893300b5e6adf3e35abeefcb8`;
+- package CI `35095481531`: SUCCESS;
+- proposed policy: `WHOLE_SOURCE_STOP`;
+- proposal status: `PROPOSAL_ONLY_NOT_AUTHORIZED`;
+- no runtime policy selected or implemented;
 - no remediation performed;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Review Meaning
+## Proposed Policy Contract
 
-The three proposal options remain comparison categories only:
+The policy-decision proposal separates:
 
-- `WHOLE_SOURCE_STOP`;
-- `ROW_LEVEL_DEFER_OR_QUARANTINE`;
-- `HUMAN_REVIEW_ROUTE`.
+### Control disposition
 
-The review accepts the design space but requires the next artifact to separate control disposition from source continuation and to split metadata-only defer from real-row quarantine.
+- `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- reason `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
+- metadata-only;
+- no real row/field retention.
 
-Current runtime behavior remains fail-closed STOP at the mismatch until a later policy is explicitly approved.
+### Source continuation
 
-## Mandatory Tightenings T-1…T-6
+- continuation after trigger: `false`;
+- later rows after trigger: `false`;
+- silent skip/continuation: `false`.
 
-1. model control disposition separately from source continuation;
-2. distinguish metadata-only defer from real-row/field quarantine;
-3. keep human review metadata-only unless a separate privacy authorization exists;
-4. preserve current STOP behavior until explicit policy approval;
-5. if continuation is ever proposed, define completeness/audit evidence without silently dropping a row and privacy-review any counters/identifiers;
-6. keep policy selection and runtime implementation as separate gates.
+The proposal therefore formalizes the safest current fail-closed shape for later review without changing runtime behavior.
+
+## T-1…T-6 State
+
+All six mandatory tightenings are now machine-locked in the proposal/schema/contract test:
+
+1. disposition and continuation are separate axes;
+2. metadata defer is separate from real-row quarantine;
+3. row-specific human review remains separately privacy-gated;
+4. current STOP behavior remains until explicit approval;
+5. future continuation requires a separate completeness/audit and privacy-reviewed design;
+6. policy selection and implementation remain separate gates.
 
 ## Next Product Work
 
-Prepare exclusively, offline:
+Perform exclusively:
 
-`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW`
 
-It may propose one deterministic handling policy for later human review but may not implement it or authorize real-source execution.
+The review may accept, reject or require remediation of the proposed `WHOLE_SOURCE_STOP` policy decision. It must not implement runtime behavior or authorize real-source execution merely by reviewing the proposal.
 
 ## Still Out of Scope
 
@@ -64,9 +75,9 @@ It may propose one deterministic handling policy for later human review but may 
 - parser/projector or regex changes;
 - trimming, casing or normalization runtime changes;
 - automatic remediation;
-- silent row skipping or source continuation;
-- real-row quarantine persistence without separately reviewed privacy design;
-- row-specific human inspection without separately reviewed privacy design;
+- source continuation after the nonconforming row;
+- real-row quarantine persistence;
+- row-specific human inspection without separate privacy authorization;
 - source/registry activation;
 - production classification activation;
 - identity resolution, genealogy, beneficiary matching, outreach or claim submission.
