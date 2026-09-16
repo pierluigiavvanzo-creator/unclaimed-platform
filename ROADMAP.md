@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | IMPLEMENTATION AUTHORIZED; OFFLINE IMPLEMENTATION NEXT | D-008 WHOLE_SOURCE_STOP design accepted; implementation proposal reviewed PASS; bounded implementation authorized; runtime still unchanged |
+| M3 — California Data Spike | V1.2 OFFLINE IMPLEMENTED + CI GREEN; HUMAN IMPLEMENTATION REVIEW NEXT | D-008 WHOLE_SOURCE_STOP; v1.2 control disposition implemented; real-source execution still unauthorized |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -18,64 +18,66 @@ Last updated: 2026-09-16
 - source-format one-shot run `35090057224`: SUCCESS;
 - source-format class: `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`;
 - all historical execution/privacy approvals consumed and non-reusable;
-- nonconforming-row handling design review completed;
-- policy-decision review accepted `WHOLE_SOURCE_STOP` as design;
-- decision recorded as `D-008`;
-- implementation proposal reviewed at `e9af9d61b2f216de58cd8f3ad6a6925c38aef172`;
-- reviewed proposal CI `35098004540`: SUCCESS;
-- implementation proposal human review result: `PASS_IMPLEMENTATION_PROPOSAL_ACCEPTED_AS_DESIGN_RUNTIME_IMPLEMENTATION_NOT_AUTHORIZED`;
-- review branch HEAD used for authorization: `fd9aa939727812692008358709d0a0b0968fffb2`;
-- review branch CI `35098890574`: SUCCESS;
-- implementation authorization result: `PASS_BOUNDED_IMPLEMENTATION_AUTHORIZED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
-- implementation design accepted: `true`;
-- runtime implementation authorized: `true`;
-- runtime implementation completed: `false`;
-- runtime remains schema `1.1.0` and unchanged;
-- future schema `1.2.0` is now authorized for bounded implementation but does not exist yet;
+- policy-decision review accepted `WHOLE_SOURCE_STOP` as design and recorded `D-008`;
+- implementation proposal review: `PASS_IMPLEMENTATION_PROPOSAL_ACCEPTED_AS_DESIGN_RUNTIME_IMPLEMENTATION_NOT_AUTHORIZED`;
+- owner authorization: `PASS_BOUNDED_IMPLEMENTATION_AUTHORIZED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
+- implementation branch: `m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-offline`;
+- functional implementation checkpoint: `f69262a632b6bf0eed1385639aea3c59bb9a94ac`;
+- functional implementation CI `35100766657`: SUCCESS;
+- current runner output contract: `1.2.0`;
+- v1.2 execution schema created: `true`;
+- historical v1.1 schema preserved unchanged: `true`;
+- synthetic/offline regression validation: PASS;
 - real-source execution authorized: `false`;
-- no real-source execution performed;
+- no real-source execution performed by this implementation;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Authorized Implementation — Still Not Executed
+## Implemented v1.2 Control Contract
 
-The authorized minimum implementation remains additive and versioned:
+The completed implementation is additive and versioned:
 
-- reuse the existing runner and existing `RunnerStop` fail-closed behavior;
-- keep historical execution schema v1.1 immutable;
-- move future runner output schema to `1.2.0` only in the bounded implementation;
-- create v1.2 with nullable `control_disposition`;
+- existing runner and existing `RunnerStop` fail-closed behavior are reused;
+- historical execution schema v1.1 remains immutable;
+- current runner output contract is `1.2.0`;
+- v1.2 adds nullable `control_disposition`;
 - only legacy `PROPERTY_TYPE_FORMAT_UNEXPECTED` maps to:
   - `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
   - `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
 - legacy `STOPPED_FAIL_CLOSED` and `PROPERTY_TYPE_FORMAT_UNEXPECTED` remain present;
-- other stops and success keep `control_disposition = null`;
+- other stops and successful/inconclusive outcomes keep `control_disposition = null`;
 - source continuation remains `false`;
-- no value-bearing source data enters the new control vocabulary;
-- only minimum synthetic/offline tests required by the reviewed regression contract may be added or updated.
+- no source-value-bearing data enters the new control vocabulary.
 
 ## Regression / Rollback
 
-The authorized implementation must preserve synthetic/offline regression coverage for legacy compatibility, exact D-008 mapping, no later-member request after trigger, null disposition for other outcomes, privacy constraints and unchanged validation behavior.
+Synthetic/offline regression coverage verifies legacy compatibility, exact D-008 mapping, no later-member request after the trigger, null disposition for unrelated outcomes, privacy constraints and unchanged validation behavior.
 
-No real-source execution is required or authorized to validate the code implementation itself. Any real-source execution remains a later separate gate.
+Functional CI evidence:
 
-Rollback remains revert of implementation commit(s) only; no database, source-state or historical evidence migration is required.
+- contract: `235 passed`;
+- smoke: `6 passed`;
+- full pytest: `292 passed`;
+- ruff/mypy/frontend/Streamlit checks: PASS.
+
+No real-source execution is required or authorized for implementation review. Any real-source execution remains a later separate authorization path.
+
+Rollback remains revert of implementation commit(s) only; no database, source-state or historical-evidence migration is required.
 
 ## Next Product Work
 
 Perform exclusively:
 
-`IMPLEMENT_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_OFFLINE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_IMPLEMENTATION_REVIEW`
 
-This task may implement only the reviewed runtime/schema/test delta plus synthetic/offline validation. It must not authorize or perform a real-source execution, widen privacy, enable continuation, change validation semantics, activate source/registry/production classification or enter downstream work.
+The review must determine only whether the completed bounded implementation conforms to D-008, the reviewed proposal and the owner authorization. It must not authorize or perform real-source execution, widen privacy, enable continuation, change validation semantics, activate source/registry/production classification or enter downstream work.
 
 ## Still Out of Scope
 
 - any real-source execution without a new separately reviewed authorization path;
-- reuse of consumed approvals;
+- reuse or invention of execution/privacy approvals;
 - source-value reconstruction or inference;
 - parser/projector or regex changes;
-- trimming, casing or normalization runtime changes;
+- trimming, casing or Unicode normalization changes;
 - automatic source-value remediation;
 - source continuation after the nonconforming row;
 - real-row quarantine persistence;
