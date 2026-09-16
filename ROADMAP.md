@@ -7,109 +7,123 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | V1.2 REAL-SOURCE EXECUTION PROPOSAL HUMAN-REVIEWED PASS; FRESH AUTHORIZATION NEXT | D-008 WHOLE_SOURCE_STOP; proposal accepted as design; execution still unauthorized |
+| M3 — California Data Spike | V1.2 REAL-SOURCE EXECUTION FRESH SINGLE-USE AUTHORIZED; ONE-SHOT EXECUTION NEXT | D-008 WHOLE_SOURCE_STOP; proposal/review PASS; fresh approvals granted, not consumed |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
 
-- historical second semantic execution stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- diagnostic chain remains bounded by `ASCII_STRUCTURAL_MISMATCH` and `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`;
-- semantic compatibility with the hidden source value remains unresolved;
 - D-008 accepted `WHOLE_SOURCE_STOP` as design;
 - accepted implementation strategy: `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`;
 - v1.2 implementation completed and human-reviewed;
 - current runner output contract: `1.2.0`;
+- real-source execution proposal prepared and human-reviewed PASS;
+- proposal review result: `PASS_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
+- authorization gate completed;
+- authorization result: `PASS_FRESH_SINGLE_USE_EXECUTION_PRIVACY_APPROVALS_GRANTED_ONE_SHOT_PATH_AUTHORIZED_EXECUTION_NOT_PERFORMED`;
 - source continuation remains `false`;
 - all historical execution/privacy approvals remain consumed and non-reusable.
 
-## v1.2 Real-Source Execution Proposal Review
+## Fresh Single-Use Authorization
 
-Reviewed proposal branch:
+Execution approval:
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-proposal`
+`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
 
-Reviewed proposal HEAD:
+Transient-row privacy approval:
 
-`a2139884d99bcd0bd1c06ea7374778347bbd64b1`
+`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
-Reviewed proposal CI:
+Both are:
 
-`35107229194` — **SUCCESS**
+- `GRANTED_NOT_CONSUMED`;
+- fresh;
+- single-use;
+- non-reusable;
+- bound to proposal version `1.0.0`;
+- bound to reviewed proposal SHA `a2139884d99bcd0bd1c06ea7374778347bbd64b1`;
+- bound to runtime contract `1.2.0`.
 
-Review result:
+Workflow creation authorized: `true`.
 
-`PASS_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
+Real-source execution authorized: `true`.
 
-Review artifact:
+Real-source execution performed: `false`.
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REVIEW.md`
+Fresh approvals consumed: `false`.
 
-The proposal remains `PROPOSAL_ONLY_NOT_AUTHORIZED`.
+The fresh approvals become consumed only when the later one-shot workflow actually invokes the authorized real-source execution. No automatic retry is authorized.
 
-Functional proposal evidence remains:
+## Authorized One-Shot Boundary
 
-- checkpoint `19c395a6f89dbec1941566366274070db98cacd0`;
-- CI `35106612846` SUCCESS;
-- contract tests: `242 passed`;
-- smoke tests: `6 passed`;
-- full pytest: `299 passed`;
-- ruff/mypy/frontend/Streamlit checks: PASS.
+The future execution is limited to the reviewed plan:
 
-## Accepted Proposal Boundary
-
-The reviewed design preserves:
-
-- the human-reviewed v1.2 runner and execution schema unchanged;
 - 4 canonical members;
-- max 4 rows/member and 16 total;
-- max 1 HEAD + 4 range requests + 5 HTTP requests;
+- max 4 data rows/member and 16 total;
+- max 1 HEAD request;
+- max 4 range requests;
+- max 5 HTTP requests total;
+- max 131072 response bytes/range;
 - max 524288 source response-body bytes total;
-- no full-body fallback, additional range or automatic widening;
-- exact regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- no trim/case/Unicode normalization;
-- no parser/projector change;
-- D-008 fail-closed mapping if `PROPERTY_TYPE_FORMAT_UNEXPECTED` occurs;
-- source continuation `false`;
-- no precommitted or inferred real-source outcome.
+- max 262144 transient uncompressed bytes/member;
+- max 1048576 transient uncompressed bytes total;
+- max 32768 bytes/logical record;
+- no additional range;
+- no full-body fallback;
+- no automatic widening;
+- no automatic retry.
 
-## Fresh Authorization Path
+Validation remains exactly:
 
-Proposal review does not grant authorization.
+`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-Current state remains:
+No trim, case conversion, Unicode normalization, parser/projector change or regex relaxation is authorized.
 
-- fresh execution approval: `REQUIRED_NOT_GRANTED`;
-- fresh execution approval ref: `null`;
-- fresh transient-row privacy approval: `REQUIRED_NOT_GRANTED`;
-- fresh privacy approval ref: `null`;
-- single-use approval required: `true`;
-- workflow creation authorized: `false`;
-- real-source execution authorized: `false`.
+If `PROPERTY_TYPE_FORMAT_UNEXPECTED` occurs, D-008 remains exact:
 
-A separate owner authorization gate is required before the one-shot workflow or real-source execution can be authorized.
+- `semantic_result_status = STOPPED_FAIL_CLOSED`;
+- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
+- source continuation = `false`;
+- later members after the trigger are not requested.
+
+No real-source outcome is predicted or precommitted.
 
 ## Privacy / Source Governance
 
-No privacy expansion is accepted. Future transient-row handling remains memory-only, immediate-disposal and zero-retention, with no real row/value persistence, quarantine or row-specific human inspection.
+The fresh privacy approval permits only transient in-memory row observation strictly necessary for the reviewed runner. Memory-only, immediate-disposal and zero-retention remain mandatory.
 
-Source policy remains `PROPOSED`; registry remains disabled/unapproved; approved real sources remain `0`; production classification and all downstream identity/genealogy/matching/outreach/claim gates remain inactive.
+No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact-length persistence, record values in logs, real-row quarantine or row-specific human inspection is authorized.
+
+`control_disposition` remains limited to non-value-bearing `status_code` and `reason_code`.
+
+Source policy remains `PROPOSED`. Registry remains disabled/unapproved. Approved real sources remain `0`. Semantic compatibility remains unresolved. Production classification and all downstream identity/genealogy/matching/outreach/claim gates remain inactive.
 
 ## Next Product Work
 
-Perform exclusively:
+Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION`
+`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
 
-This gate may decide whether to grant fresh single-use execution/privacy approvals and authorize the bounded one-shot path already reviewed. It must not itself perform source access or execution.
+The execution task must:
+
+1. create the temporary one-shot workflow on a dedicated execution branch;
+2. use exactly the two fresh approval refs above;
+3. CI-validate the workflow and authorization evidence before source access;
+4. perform exactly one bounded real-source execution;
+5. persist only permitted derived evidence;
+6. remove the temporary workflow immediately after the run;
+7. mark both fresh approvals consumed once the execution occurs;
+8. stop at `HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`.
 
 ## Still Out of Scope
 
-- real-source access/execution before fresh authorization;
-- reuse of consumed approvals;
+- any widening of sample or transport caps;
+- any automatic retry;
+- reuse of consumed historical approvals;
 - source-value reconstruction or inference;
 - parser/projector/regex/normalization changes;
-- privacy widening;
+- privacy widening or real-row persistence;
 - source continuation;
-- real-row quarantine or row-specific human inspection;
 - source/registry/production-classification activation;
 - downstream identity resolution, genealogy, beneficiary matching, outreach or claim submission.

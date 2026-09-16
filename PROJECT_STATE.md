@@ -10,23 +10,35 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-The California SCO `PROPERTY_TYPE` handling path is governed by `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE` with accepted policy `WHOLE_SOURCE_STOP` and implementation strategy `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`.
+California SCO `PROPERTY_TYPE` handling remains governed by `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`, accepted policy `WHOLE_SOURCE_STOP`, implementation strategy `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`, and current runner output contract `1.2.0`.
 
-The v1.2 runtime implementation is complete, CI-green and human-reviewed as conforming. Current runner output contract remains `1.2.0`.
+The v1.2 implementation and its real-source execution proposal have both passed their human reviews.
 
-A bounded non-executing proposal for a future v1.2 real-source verification has now also passed human proposal review.
+The separate fresh authorization gate is now completed.
 
-Proposal review result:
+Authorization result:
 
-`PASS_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
+`PASS_FRESH_SINGLE_USE_EXECUTION_PRIVACY_APPROVALS_GRANTED_ONE_SHOT_PATH_AUTHORIZED_EXECUTION_NOT_PERFORMED`
 
-Real-source execution remains unauthorized. Fresh single-use execution/privacy authorization is the next separate gate.
+This authorizes exactly one future bounded v1.2 real-source execution under the reviewed proposal. No real-source execution was performed by the authorization gate.
 
-## Proposal Review Checkpoint
+## Authorization Checkpoint
 
-Review branch:
+Authorization branch:
+
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-authorization`
+
+Authorization base branch:
 
 `m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-proposal-review`
+
+Authorization base HEAD:
+
+`7714966eb2190209ba2e4dfa52d525fce499009f`
+
+Authorization base CI:
+
+`35120306918` — **SUCCESS**
 
 Reviewed proposal HEAD:
 
@@ -36,60 +48,54 @@ Reviewed proposal CI:
 
 `35107229194` — **SUCCESS**
 
-Functional proposal checkpoint:
+Authorization artifact:
 
-`19c395a6f89dbec1941566366274070db98cacd0`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION.md`
 
-Functional proposal CI:
+## Fresh Single-Use Approvals
 
-`35106612846` — **SUCCESS**
+Execution approval ref:
 
-Proposal review artifact:
+`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REVIEW.md`
+Transient-row privacy approval ref:
 
-Proposal artifact:
+`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
+State of both approvals:
 
-Proposal remains:
+`GRANTED_NOT_CONSUMED`
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+Both are fresh, single-use, non-reusable and bound to:
 
-## Accepted v1.2 Runtime Boundary
+- proposal id `ca.sco.segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution`;
+- proposal version `1.0.0`;
+- reviewed proposal SHA `a2139884d99bcd0bd1c06ea7374778347bbd64b1`;
+- runtime contract `1.2.0`;
+- exact reviewed sample, transport, validation and privacy boundaries.
 
-Runner:
+All historical execution/privacy approvals remain consumed and non-reusable.
 
-`scripts/ca_sco_property_type_semantic_verification.py`
+The fresh approvals become consumed only when the later one-shot workflow actually begins the authorized real-source execution. No automatic retry is authorized.
 
-Execution schema:
+## Authorized One-Shot Boundary
 
-`schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`
+Workflow creation authorized: `true`.
 
-Historical v1.1 schema remains immutable.
+Real-source execution authorized: `true`.
 
-For `PROPERTY_TYPE_FORMAT_UNEXPECTED`, accepted behavior remains exactly:
+Real-source execution performed: `false`.
 
-- `semantic_result_status = STOPPED_FAIL_CLOSED`;
-- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
-- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
-- source continuation = `false`.
+The later execution may create temporary path:
 
-Other stops and non-stopped outcomes retain `control_disposition = null`.
+`.github/workflows/ca-sco-property-type-semantic-verification-once.yml`
 
-Validation remains exactly:
+It must be branch-pinned, use exactly the fresh approval refs above, perform exactly one bounded execution, remove the workflow immediately after the run, persist only permitted derived evidence and stop at evidence review.
 
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
-
-No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is authorized.
-
-## Reviewed Future Execution Boundary
-
-The accepted proposal preserves the existing bounded sample/transport plan:
+Existing caps remain unchanged:
 
 - 4 canonical members;
-- max 4 rows/member and 16 rows total;
+- max 4 data rows/member and 16 total;
 - max 1 HEAD request;
 - max 4 range requests;
 - max 5 HTTP requests total;
@@ -100,64 +106,59 @@ The accepted proposal preserves the existing bounded sample/transport plan:
 - max 32768 bytes/logical record;
 - no additional range;
 - no full-body fallback;
-- no automatic widening.
+- no automatic widening;
+- no automatic retry.
 
-The proposal does not precommit or infer a real-source outcome and does not prove global source semantics, frequency or future compatibility.
+## Runtime / D-008 Boundary
 
-## Fresh Authorization State
+Runner remains:
 
-All historical execution/privacy approvals remain consumed and non-reusable.
+`scripts/ca_sco_property_type_semantic_verification.py`
 
-Current state remains:
+Execution schema remains:
 
-- fresh execution approval: `REQUIRED_NOT_GRANTED`;
-- fresh execution approval ref: `null`;
-- fresh transient-row privacy approval: `REQUIRED_NOT_GRANTED`;
-- fresh privacy approval ref: `null`;
-- single-use approval required: `true`;
-- workflow creation authorized: `false`;
-- real-source execution authorized: `false`.
+`schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`
 
-No approval token was created or granted by proposal review.
+Validation remains exactly:
+
+`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
+
+No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is authorized.
+
+If `PROPERTY_TYPE_FORMAT_UNEXPECTED` occurs, accepted result remains:
+
+- `semantic_result_status = STOPPED_FAIL_CLOSED`;
+- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
+- source continuation = `false`;
+- later members after trigger are not requested.
+
+For unrelated stops and non-stopped outcomes, `control_disposition = null`.
+
+No real-source outcome is predicted or precommitted.
 
 ## Privacy / Persistence Boundary
 
-Future transient full-row observation still requires fresh privacy approval.
+Fresh privacy authorization allows only transient in-memory row observation strictly required by the reviewed runner during the single execution.
 
-The accepted proposal remains memory-only, immediate-disposal and zero-retention. It does not permit raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact-length persistence, record values in logs, real-row quarantine or row-specific human inspection.
+Memory-only, immediate-disposal and zero-retention remain mandatory. No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact-length persistence, record values in logs, real-row quarantine or row-specific human inspection is authorized.
 
 `control_disposition` remains limited to non-value-bearing `status_code` and `reason_code`.
 
 No privacy expansion is authorized.
 
-## CI / Scope Evidence
-
-Reviewed final proposal CI `35107229194` is SUCCESS on exact reviewed HEAD `a2139884d99bcd0bd1c06ea7374778347bbd64b1`.
-
-Functional proposal CI `35106612846` recorded:
-
-- ruff: PASS;
-- mypy: PASS, no issues in 19 source files;
-- contract tests: `242 passed`;
-- smoke tests: `6 passed`;
-- full pytest: `299 passed`;
-- frontend lint/typecheck/build: PASS;
-- Streamlit safety/startup smoke: PASS.
-
-Diff from the prior human-reviewed v1.2 checkpoint contains only proposal/schema/test/audit and durable state/handover documentation. Runtime, execution schema, policy, registry and network workflow were not modified.
-
-## Governance State
+## Source / Product Governance State
 
 - D-008 accepted as design: `true`;
-- v1.2 implementation completed: `true`;
-- v1.2 implementation human-reviewed: `true`;
-- real-source execution proposal prepared: `true`;
-- real-source execution proposal human-reviewed: `true`;
-- proposal review result: `PASS_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
-- fresh execution approval granted: `false`;
-- fresh privacy approval granted: `false`;
-- workflow creation authorized: `false`;
-- real-source execution authorized: `false`;
+- v1.2 implementation completed and human-reviewed: `true`;
+- real-source execution proposal prepared and human-reviewed: `true`;
+- fresh execution approval granted: `true`;
+- fresh privacy approval granted: `true`;
+- fresh approvals consumed: `false`;
+- workflow creation authorized: `true`;
+- real-source execution authorized: `true`;
+- real-source execution performed: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
 - parser/projector unchanged: `true`;
@@ -171,10 +172,12 @@ Diff from the prior human-reviewed v1.2 checkpoint contains only proposal/schema
 
 ## Next Recommended Action
 
-Perform exclusively:
+Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION`
+`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
 
-That gate may decide whether to grant fresh single-use execution/privacy approvals and authorize the reviewed one-shot execution path. It must not itself access the source or perform the execution.
+That execution must remain within the exact authorization boundary, consume the two fresh approvals only when the real execution occurs, remove the temporary workflow after the run, and stop at:
+
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
