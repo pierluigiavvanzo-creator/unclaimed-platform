@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | IMPLEMENTATION PROPOSAL PREPARED; HUMAN REVIEW NEXT | D-008 WHOLE_SOURCE_STOP design accepted; implementation proposal `56e82a2b...930d`; CI `35097296456` SUCCESS; runtime unchanged |
+| M3 — California Data Spike | IMPLEMENTATION DESIGN REVIEW PASSED; IMPLEMENTATION AUTHORIZATION NEXT | D-008 WHOLE_SOURCE_STOP design accepted; implementation proposal reviewed PASS; runtime unchanged |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -21,21 +21,24 @@ Last updated: 2026-09-16
 - nonconforming-row handling design review completed;
 - policy-decision review accepted `WHOLE_SOURCE_STOP` as design;
 - decision recorded as `D-008`;
-- implementation proposal package `56e82a2bde7c1d77ac197dc2ac21f84ecd1a930d`;
-- implementation proposal CI `35097296456`: SUCCESS;
-- implementation proposal status: `PROPOSAL_ONLY_NOT_AUTHORIZED`;
+- implementation proposal branch reviewed at `e9af9d61b2f216de58cd8f3ad6a6925c38aef172`;
+- reviewed proposal CI `35098004540`: SUCCESS;
+- implementation proposal human review result: `PASS_IMPLEMENTATION_PROPOSAL_ACCEPTED_AS_DESIGN_RUNTIME_IMPLEMENTATION_NOT_AUTHORIZED`;
+- implementation design accepted: `true`;
 - runtime remains schema `1.1.0` and unchanged;
-- future schema `1.2.0` is proposed only and does not exist yet;
+- future schema `1.2.0` remains proposed only and does not exist yet;
+- runtime implementation authorized: `false`;
+- real-source execution authorized: `false`;
 - no remediation or real-source execution performed;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Proposed Implementation Shape — Still Gated
+## Accepted Implementation Design — Still Gated
 
-The proposed minimum implementation is additive and versioned:
+The reviewed minimum implementation remains additive and versioned:
 
 - reuse the existing runner and existing `RunnerStop` fail-closed behavior;
 - keep historical execution schema v1.1 immutable;
-- future runner output schema becomes `1.2.0` only after a later authorization;
+- future runner output schema becomes `1.2.0` only after a later explicit implementation authorization;
 - future v1.2 adds nullable `control_disposition`;
 - only legacy `PROPERTY_TYPE_FORMAT_UNEXPECTED` maps to:
   - `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
@@ -47,25 +50,25 @@ The proposed minimum implementation is additive and versioned:
 
 ## Regression / Rollback
 
-Implementation review must preserve synthetic regression coverage for legacy compatibility, exact D-008 mapping, no later-member request after trigger, null disposition for other outcomes, privacy constraints and unchanged validation behavior.
+A later authorized implementation must preserve synthetic/offline regression coverage for legacy compatibility, exact D-008 mapping, no later-member request after trigger, null disposition for other outcomes, privacy constraints and unchanged validation behavior.
 
 No real-source execution is required to validate the code implementation itself. Any real-source execution remains a later separate gate.
 
-Rollback is proposed as revert of implementation commit(s) only; no database, source-state or historical evidence migration is required.
+Rollback remains revert of implementation commit(s) only; no database, source-state or historical evidence migration is required.
 
 ## Next Product Work
 
 Perform exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_AUTHORIZATION`
 
-The review may accept, reject or require remediation of the implementation design. It must not itself silently modify runtime code or authorize real-source execution.
+This gate may authorize only the reviewed runtime/schema/test implementation plus synthetic/offline validation. It must not itself perform the implementation, authorize a real-source execution, widen privacy, enable continuation, change validation semantics, activate source/registry/production classification or enter downstream work.
 
 ## Still Out of Scope
 
-- runtime implementation before explicit later authorization;
-- creation of execution schema v1.2 before explicit later authorization;
-- another real source execution without a new reviewed authorization path;
+- runtime implementation before explicit implementation authorization;
+- creation of execution schema v1.2 before explicit implementation authorization;
+- another real source execution without a new separately reviewed authorization path;
 - reuse of consumed approvals;
 - source-value reconstruction or inference;
 - parser/projector or regex changes;
