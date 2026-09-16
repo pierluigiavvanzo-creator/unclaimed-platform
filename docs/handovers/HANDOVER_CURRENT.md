@@ -1,25 +1,42 @@
-# HANDOVER — Unclaimed Insurance Platform
+# HANDOVER_CURRENT.md
 
-Date: 2026-09-16
+Last updated: 2026-09-16
 
-## Purpose
+## Repository
 
-Authoritative restart point for a new ChatGPT session. GitHub is the source of truth. Before taking any action, re-read the canonical project files and verify the remote branch HEAD and CI rather than relying on chat memory.
+`pierluigiavvanzo-creator/unclaimed-platform`
 
-## Repository / Current Branch
+GitHub is the canonical source of truth.
 
-- repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-nonconforming-row-handling-policy-implementation-proposal`
-- last verified proposal-final HEAD before this handover refresh: `8682dfd0118e0d2cac107f945585bb5fa332151f`
-- proposal-final CI: `35097630322` — **SUCCESS**
-- functional package checkpoint: `56e82a2bde7c1d77ac197dc2ac21f84ecd1a930d`
-- package CI: `35097296456` — **SUCCESS**
+## Current Working Branch
 
-Because this handover refresh itself creates a later documentation commit, the next session must first verify the current remote branch HEAD before acting.
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-implementation-proposal-review`
 
-## Mandatory Initial Read Order
+This branch was created from proposal checkpoint:
 
-Before ANY modification, read in this order:
+`e9af9d61b2f216de58cd8f3ad6a6925c38aef172`
+
+Proposal checkpoint CI:
+
+`35098004540` — **SUCCESS**
+
+## Review Functional Checkpoint
+
+Functional review checkpoint after review artifact + project state + roadmap updates:
+
+`c2e22efbe068a0f0f44e0e6b8798677408f8aa45`
+
+CI:
+
+`35098674308` — **SUCCESS**
+
+The CI completed both `streamlit-candidate` and `quality` successfully, including ruff, mypy, contract tests, smoke tests, full pytest, frontend lint/typecheck/build and Streamlit smoke checks.
+
+The later handover refresh commit is documentation-only. On restart, always verify the remote branch HEAD and latest CI rather than assuming this file is the branch tip.
+
+## Canonical Read Order Before Any New Change
+
+Read in order:
 
 1. `AGENTS.md`
 2. `PROJECT_STATE.md`
@@ -27,35 +44,33 @@ Before ANY modification, read in this order:
 4. `DECISIONS.md`
 5. `docs/handovers/HANDOVER_CURRENT.md`
 
-Then read the implementation-proposal artifacts below before performing the review.
+Then inspect the review evidence and implementation proposal artifacts listed below before acting.
 
-## Current Implementation-Proposal Package
+## Completed Single Next Action
 
-Proposal:
+Completed:
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_implementation.v1.json`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW`
 
-Schema:
+Review artifact:
 
-`schemas/common/property_type_nonconforming_row_handling_policy_implementation_proposal.schema.json`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW.md`
 
-Audit:
+Review result:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL.md`
+`PASS_IMPLEMENTATION_PROPOSAL_ACCEPTED_AS_DESIGN_RUNTIME_IMPLEMENTATION_NOT_AUTHORIZED`
 
-Contract test:
+Meaning of PASS:
 
-`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_implementation_proposal.py`
+- the implementation **design** is acceptable;
+- D-008 conformance is accepted;
+- the additive/versioned contract approach is accepted;
+- regression/rollback/privacy boundaries are acceptable;
+- runtime implementation is **not** authorized by this review;
+- creation of the actual v1.2 execution schema is **not** authorized by this review;
+- real-source execution is **not** authorized by this review.
 
-Proposal status:
-
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
-
-The proposal package and the final persistent checkpoint both passed the full GitHub CI pipeline.
-
-## Accepted Governing Decision
-
-Decision record:
+## Governing Decision
 
 `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`
 
@@ -63,115 +78,79 @@ Accepted design policy:
 
 `WHOLE_SOURCE_STOP`
 
-Completed policy-decision review result:
+The accepted policy remains design/governance authority. It is not yet active as a new runtime control vocabulary.
 
-`PASS_POLICY_DECISION_ACCEPTED_AS_DESIGN_IMPLEMENTATION_NOT_AUTHORIZED`
-
-D-008 is accepted as design only. It is **not implemented or activated in runtime**.
-
-## Evidence Boundary
-
-The retained real-source evidence remains bounded to one previously examined row:
-
-1. strict full-row UTF-8 decoding succeeded;
-2. strict stdlib CSV parsing succeeded;
-3. exactly one canonical 25-column record was produced;
-4. stdlib field index `1` agreed with the custom projector `PROPERTY_TYPE` field;
-5. the agreed field failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
-
-Do not infer or reconstruct:
-
-- the exact `PROPERTY_TYPE` value;
-- token shape beyond the retained coarse evidence;
-- frequency;
-- source intent;
-- semantic correctness;
-- a supposedly correct transformation.
-
-The accepted policy is a platform-side fail-closed handling design. It does not assert that the hidden source value is semantically invalid in the source system.
-
-## Current Runtime Observation — Unchanged
-
-Runner:
-
-`scripts/ca_sco_property_type_semantic_verification.py`
-
-Verified runner blob SHA at the proposal base:
-
-`ae4d3f0ce3fffd6e2e6f45d5611abd1aa4ced30d`
-
-Current execution schema version:
-
-`1.1.0`
-
-Historical schema:
-
-`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
-
-Verified historical schema blob SHA:
-
-`33c829116eea0b568cfe16c664ffbeee9d00e013`
-
-Current mismatch behavior:
-
-- regex mismatch raises `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- result remains `STOPPED_FAIL_CLOSED`;
-- `stop_reason` remains `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- existing fail-closed control flow prevents processing later source members after the trigger;
-- no `control_disposition` exists in runtime output.
-
-No runtime file and no historical v1.1 execution schema were modified while preparing the implementation proposal.
-
-## Proposed Minimal Implementation — Human Review Required
+## Accepted Implementation Design — Still Not Implemented
 
 Strategy:
 
 `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`
 
-A later separately authorized implementation would:
+A later separately authorized implementation may make only the reviewed bounded delta:
 
-1. modify only `scripts/ca_sco_property_type_semantic_verification.py`;
+1. modify `scripts/ca_sco_property_type_semantic_verification.py`;
 2. create `schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`;
-3. leave historical v1.1 schema immutable;
-4. preserve every existing v1.1 field and its meaning;
-5. change future runner output schema version to `1.2.0`;
-6. add nullable top-level `control_disposition`;
+3. preserve historical `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json` unchanged;
+4. move future runner output contract from `1.1.0` to `1.2.0` only in the implementation commit;
+5. add nullable top-level `control_disposition`;
+6. preserve legacy mismatch output:
+   - `semantic_result_status = STOPPED_FAIL_CLOSED`;
+   - `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 7. map only legacy `PROPERTY_TYPE_FORMAT_UNEXPECTED` to:
    - `status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
    - `reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
-8. keep `control_disposition = null` for all unrelated stop reasons and successful results;
-9. preserve source continuation as `false` through the existing fail-closed control flow.
+8. keep `control_disposition = null` for unrelated stop reasons and successful results;
+9. preserve existing exception-driven fail-closed flow so no later member is requested after the trigger;
+10. preserve source continuation = `false`.
 
-Legacy compatibility is mandatory:
+The new control disposition is additive metadata and must not replace or reinterpret the legacy result fields.
 
-- `semantic_result_status = STOPPED_FAIL_CLOSED` remains;
-- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED` remains;
-- no existing field is removed or reinterpreted;
-- historical v1.1 evidence remains validated by the historical v1.1 schema.
+## Current Runtime State — Unchanged
 
-## Validation Boundary
+Current runner:
 
-Unchanged:
+`script: scripts/ca_sco_property_type_semantic_verification.py`
+
+Current execution schema:
+
+`schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
+
+Current runtime schema version:
+
+`1.1.0`
+
+Current mismatch behavior:
+
+- `STOPPED_FAIL_CLOSED`;
+- `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- no `control_disposition` field;
+- the raised `RunnerStop` exits member processing and prevents later canonical members from being processed after the trigger.
+
+The actual v1.2 execution schema does not exist yet.
+
+## Validation Boundary — Unchanged
+
+Regex remains exactly:
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-Not authorized:
+Do not introduce:
 
 - trim;
-- ASCII uppercasing;
+- uppercasing/case conversion;
 - Unicode normalization;
 - alternate-token acceptance;
 - parser/projector changes;
 - regex relaxation.
 
-## Privacy / Persistence Boundary
+## Privacy / Persistence Boundary — Unchanged
 
-Future `control_disposition` may contain only the non-value-bearing:
+The accepted future control metadata may contain only non-value-bearing:
 
 - `status_code`;
 - `reason_code`.
 
-Forbidden from persistence or exposure:
+Do not persist or expose through the new disposition:
 
 - exact or transformed `PROPERTY_TYPE`;
 - row/field hashes;
@@ -181,52 +160,78 @@ Forbidden from persistence or exposure:
 - source-derived free text;
 - real row/field content.
 
-No privacy expansion, real-row quarantine or row-specific human inspection is proposed or authorized.
+No row-specific human inspection or real-row quarantine persistence is authorized.
 
-## Regression Design
+## Regression Requirements for Any Later Authorized Implementation
 
-A later implementation must be validated with synthetic/offline tests covering at least:
+A later authorized implementation must use synthetic/offline tests to prove at least:
 
-1. structural mismatch preserves legacy `STOPPED_FAIL_CLOSED` and `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-2. the mismatch emits the exact D-008 control status/reason;
+1. structural mismatch still returns `STOPPED_FAIL_CLOSED` + `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+2. the same mismatch adds exactly `PROPERTY_TYPE_NONCONFORMING_STOPPED` + `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
 3. no later member is requested after the trigger;
-4. unrelated runner stop leaves `control_disposition = null`;
-5. success leaves `control_disposition = null`;
+4. unrelated runner stops keep `control_disposition = null`;
+5. successful results keep `control_disposition = null`;
 6. v1.2 rejects source-value-bearing control fields;
-7. historical v1.1 schema/evidence remain unchanged;
+7. historical v1.1 schema/evidence remain unchanged and valid;
 8. regex/projector/no-normalization guards remain green.
 
-No real-source test is required to accept the code implementation itself. Any future real-source execution remains a separate governance gate.
+A real-source execution is not required to validate the future code implementation itself.
 
-## Rollback
+## Rollback Requirement
 
-Rollback is limited to reverting future implementation commit(s).
+Rollback must be possible by reverting only the future implementation commit(s).
 
-No database migration, source-state migration or historical-evidence migration is required.
+No database migration, source-state migration or historical-evidence migration is required or authorized.
 
-Rollback would restore runner output schema `1.1.0` and remove future v1.2 `control_disposition` emission while leaving the historical v1.1 contract intact.
+Rollback returns runner output to schema `1.1.0` and removes v1.2 `control_disposition` emission without rewriting historical evidence.
 
-## Approval / Governance State
+## Proposal / Review Artifacts
 
-No new approval token is defined or granted by the implementation proposal or this handover refresh.
+Implementation proposal:
 
-All historical execution/privacy/authority approvals remain consumed and non-reusable.
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_implementation.v1.json`
 
-Current state:
+Proposal schema:
+
+`schemas/common/property_type_nonconforming_row_handling_policy_implementation_proposal.schema.json`
+
+Proposal audit:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL.md`
+
+Proposal contract test:
+
+`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_implementation_proposal.py`
+
+Human review artifact:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW.md`
+
+Prior governing review:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW.md`
+
+## Governance State After This Review
 
 - D-008 accepted as design: `true`;
 - accepted design policy: `WHOLE_SOURCE_STOP`;
 - implementation proposal prepared: `true`;
-- implementation proposal CI-green: `true`;
-- implementation proposal human-reviewed: `false`;
+- implementation proposal human-reviewed: `true`;
+- implementation design accepted: `true`;
 - policy active in runtime: `false`;
 - runtime implementation authorized: `false`;
-- v1.2 execution schema created: `false`;
+- runtime modified by review: `false`;
+- execution schema v1.2 created: `false`;
 - real-source execution authorized: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
+- real-row quarantine authorized: `false`;
+- row-specific human inspection authorized: `false`;
 - parser/projector unchanged;
 - regex unchanged;
+- normalization unchanged;
+- all historical execution/privacy/authority approvals consumed and non-reusable;
+- no new approval token created or granted by this review;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
 - approved real sources remain `0`;
@@ -234,49 +239,56 @@ Current state:
 - production classification remains inactive;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
 
+## DECISIONS.md Handling
+
+`DECISIONS.md` was intentionally not changed by this review.
+
+Reason: no new architectural or governance decision was created. The review accepts a bounded implementation design under existing D-008; it does not supersede or alter D-008.
+
 ## SINGLE NEXT ACTION
 
 Perform exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_AUTHORIZATION`
 
-Review the prepared implementation proposal against:
+This is an explicit human/owner gate deciding whether the already reviewed implementation design may be implemented.
 
-- D-008;
-- backward compatibility;
-- schema/versioning discipline;
-- exact control-vocabulary mapping;
-- regression coverage;
-- rollback sufficiency;
-- privacy/persistence boundary;
-- source-continuation boundary;
-- separation between code implementation and any future real-source execution.
+A PASS at this next gate may authorize only:
 
-The review may PASS, FAIL, or require proposal remediation. It must not silently perform implementation.
+- the reviewed runtime change;
+- creation of the reviewed versioned v1.2 execution schema;
+- corresponding synthetic/offline regression tests and validation.
 
-## Prohibited During the Next Action
+It must **not** authorize or perform a real-source execution.
 
-Do **not**:
+Implementation and real-source execution must remain separate gates.
 
-- access `claimit.ca.gov` or authority endpoints;
-- inspect, infer or reconstruct the hidden `PROPERTY_TYPE` value;
-- reuse consumed approvals;
-- modify the runtime runner;
-- create the actual v1.2 execution schema;
-- change parser/projector or regex;
-- introduce trim/case/Unicode normalization;
-- persist or expose a real row or field;
+## Do Not Do During the Next Authorization Gate
+
+Do not:
+
+- modify runtime while merely deciding the authorization;
+- create the actual v1.2 execution schema while merely deciding the authorization;
+- access `claimit.ca.gov`;
+- access new authority sources;
+- infer or reconstruct the hidden real `PROPERTY_TYPE` value;
+- change parser/projector;
+- modify or relax `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- add trim, case conversion or Unicode normalization;
+- reuse consumed approval tokens;
+- invent execution/privacy approval tokens;
+- authorize a real-source execution as part of the implementation authorization;
+- persist real rows/fields or expand privacy scope;
 - enable source continuation;
-- grant real-source execution merely because the proposal passes review;
 - activate source policy, registry or production classification;
-- enter downstream identity resolution, genealogy, beneficiary matching, outreach or claim work.
+- begin identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
-A PASS may define the later implementation authorization gate, but must not combine implementation with real-source execution.
+## Restart Instruction
 
-## New-Chat Restart Instruction
+At the start of the next task:
 
-In a new chat, instruct the model to use GitHub as source of truth, read the five canonical files in the mandatory order above, verify the current branch HEAD and CI, then execute **only**:
-
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW`
-
-No runtime modification is authorized by merely starting the new chat or reading this handover.
+1. verify the remote HEAD of `m3-ca-sco-property-type-nonconforming-row-handling-policy-implementation-proposal-review`;
+2. verify the latest CI for that remote HEAD;
+3. read the five canonical files in order;
+4. read the implementation proposal and human review artifact;
+5. execute only the `SINGLE NEXT ACTION` above.
