@@ -12,181 +12,199 @@ M0, M1 and M2 are VERIFIED.
 
 California SCO `PROPERTY_TYPE` handling remains governed by `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`, accepted policy `WHOLE_SOURCE_STOP`, implementation strategy `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`, and runner output contract `1.2.0`.
 
-The v1.2 implementation, real-source execution proposal/review, fresh single-use authorization, one-shot real-source execution and human execution-evidence review are complete.
-
-The one-shot execution result remains:
+The v1.2 implementation, one-shot real-source execution and human execution-evidence review remain complete. The one-shot result remains:
 
 `STOPPED_FAIL_CLOSED / TRANSPORT_METADATA_DRIFT`
 
-Human evidence-review result:
+The subsequent repository-only baseline-refresh proposal is now prepared and awaits human review.
 
-`PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED`
+## Current Proposal Checkpoint
 
-The evidence is accepted as valid proof that the runner failed closed before body access when the live HEAD metadata no longer matched the pinned transport identity. It provides no new `PROPERTY_TYPE` semantic evidence.
+Proposal branch:
 
-## Review Checkpoint
+`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal`
 
-Review branch:
+Proposal base:
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-evidence-review`
+`9dbdc3c6f1ef05c577c26c9e3524ba74fdbfda56`
 
-Review base execution HEAD:
+Base CI:
 
-`05a475ef2ddd0ed86f4e934c919bb1d98c58d566`
+`35125609902` — **SUCCESS**
 
-Review base CI:
-
-`35124327126` — **SUCCESS**
-
-Human review artifact:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
-
-## Execution Evidence
-
-Real execution trigger checkpoint:
-
-`c32df1725390de8784e9bb2f29bea8b4f933abac`
-
-One-shot workflow run:
-
-`35123686954` — **SUCCESS**, attempt `1`
-
-Cleanup/evidence checkpoint:
-
-`448e209d7c8afaec4e0f4b6efc1e5598803d87e5`
-
-Cleanup/evidence CI:
-
-`35124024271` — **SUCCESS**
-
-Persisted derived evidence:
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
-
-Execution audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
-
-Evidence contract test:
-
-`tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
-
-## Single-Use Approval State
-
-Execution approval ref:
-
-`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
-
-Transient-row privacy approval ref:
-
-`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
-
-Both remain:
-
-`CONSUMED_SINGLE_USE_NON_REUSABLE`
-
-They were consumed when run `35123686954` invoked the authorized real-source runner. No retry is authorized and these refs must never be reused. All earlier execution/privacy approvals also remain consumed and non-reusable.
-
-## Actual Bounded Execution Result
-
-Actual request/data usage:
-
-- HEAD requests: `1`;
-- Range requests: `0`;
-- total HTTP requests: `1`;
-- source body bytes read: `0`;
-- rows examined: `0`;
-- `PROPERTY_TYPE` values observed: `0`.
-
-Expected pinned transport metadata:
-
-- content length: `162416884`;
-- ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
-- content type: `application/zip`;
-- Accept-Ranges: `bytes`.
-
-Observed live HEAD metadata:
-
-- HTTP status: `200`;
-- content length: `162560390`;
-- ETag: `"222dd79f04c2a0a8fff166b01c8da746"`;
-- content type: `application/zip`;
-- Accept-Ranges: `bytes`;
-- Last-Modified: `Wed, 16 Sep 2026 16:43:22 GMT`.
-
-The changed content length and ETag caused deterministic fail-closed stop reason `TRANSPORT_METADATA_DRIFT`. Because this was an unrelated transport stop, v1.2 correctly emitted `control_disposition = null`.
-
-The D-008 `PROPERTY_TYPE_NONCONFORMING_STOPPED / PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE` mapping was not reached.
-
-## Baseline Staleness / Archive Layout
-
-The evidence review found that future execution planning cannot safely refresh only content length and ETag.
-
-The current runner and reviewed sample plan also pin four ZIP local-header offsets:
-
-- `From_500_To_Beyond_1_of_4.csv` → `0`;
-- `From_500_To_Beyond_2_of_4.csv` → `59747797`;
-- `From_500_To_Beyond_3_of_4.csv` → `96862896`;
-- `From_500_To_Beyond_4_of_4.csv` → `134174190`.
-
-Because the live ZIP identity changed, the old transport and archive-layout pins are treated as **stale for future execution planning**. This does not mean that the historical offsets are proven wrong; it means they must not be blindly reused or arithmetically rebased without a separately reviewed verification path.
-
-No new ETag, content length or member offset has been adopted by the review.
-
-## Proof Boundary
-
-The execution/review establish only that:
-
-- the live HEAD metadata differed from the pinned transport identity at execution time;
-- the runner stopped fail-closed before body access;
-- v1.2 evidence remained schema-conforming and privacy-safe;
-- approvals were consumed and workflow/trigger were removed.
-
-They do **not** establish whether source contents, ZIP member layout, CSV structure or `PROPERTY_TYPE` semantics changed.
-
-Semantic compatibility remains unresolved.
-
-## Workflow Lifecycle / Privacy
-
-The temporary one-shot workflow and execution marker remain absent. No workflow-based retry path remains.
-
-No raw body, full row, `PROPERTY_ID`, owner/holder value, per-row `PROPERTY_TYPE`, offending bytes/hash/exact field length or record values were persisted. No source row was examined.
-
-## Source / Product Governance State
-
-- D-008 accepted as design: `true`;
-- v1.2 implementation completed and human-reviewed: `true`;
-- one-shot real-source execution completed: `true`;
-- execution evidence human-reviewed: `true`;
-- execution evidence accepted: `true`;
-- consumed approvals reusable: `false`;
-- retry authorized: `false`;
-- temporary workflow present: `false`;
-- current transport/archive-layout baseline suitable for blind reuse: `false`;
-- baseline refresh authorized: `false`;
-- another network verification authorized: `false`;
-- source continuation authorized: `false`;
-- privacy expansion authorized: `false`;
-- parser/projector unchanged: `true`;
-- regex/normalization unchanged: `true`;
-- semantic compatibility resolved: `false`;
-- source policy remains `PROPOSED`;
-- registry remains disabled / not approved;
-- approved real sources remain `0`;
-- production classification remains inactive;
-- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
-
-`DECISIONS.md` remains unchanged because the evidence review does not introduce a new architectural decision.
-
-## Next Recommended Action
-
-Prepare exclusively:
+Completed action:
 
 `PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
 
-This next action is repository-only and design-only. It must perform no network/source request, must not update current runner constants or infer new member offsets, must not grant approvals or create a workflow, and must not activate source policy, registry, production classification or downstream work.
+Proposal artifact:
 
-Any later network revalidation requires a separate reviewed proposal and fresh single-use authorization before the first request.
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL.md`
+
+Machine contract:
+
+- `schemas/common/property_type_transport_archive_layout_baseline_refresh_proposal.schema.json`
+- `sources/proposals/ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json`
+- `tests/contract/test_ca_sco_property_type_transport_archive_layout_baseline_refresh_proposal.py`
+
+Proposal status:
+
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
+
+## Evidence Basis
+
+Human evidence-review result remains:
+
+`PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED`
+
+Persisted execution evidence:
+
+`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
+
+Execution result:
+
+- `semantic_result_status = STOPPED_FAIL_CLOSED`;
+- `stop_reason = TRANSPORT_METADATA_DRIFT`;
+- `control_disposition = null`;
+- HEAD requests: `1`;
+- Range requests: `0`;
+- source body bytes read: `0`;
+- rows examined: `0`.
+
+Historical pinned transport identity:
+
+- content length `162416884`;
+- ETag `"b25b315b6cd8007624387c3a00d4b1fe"`;
+- content type `application/zip`;
+- Accept-Ranges `bytes`.
+
+Observed one-shot HEAD evidence:
+
+- HTTP `200`;
+- content length `162560390`;
+- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
+- content type `application/zip`;
+- Accept-Ranges `bytes`;
+- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
+
+Observed values remain evidence only and are not adopted as a replacement baseline.
+
+## Historical Archive-Layout State
+
+Historical canonical member offsets remain:
+
+1. `From_500_To_Beyond_1_of_4.csv` → `0`;
+2. `From_500_To_Beyond_2_of_4.csv` → `59747797`;
+3. `From_500_To_Beyond_3_of_4.csv` → `96862896`;
+4. `From_500_To_Beyond_4_of_4.csv` → `134174190`.
+
+They remain `STALE_FOR_FUTURE_EXECUTION_PLANNING_NOT_PROVEN_INVALID`.
+
+No current or proposed task has inferred, arithmetically rebased or adopted replacement offsets.
+
+## Proposed Refresh/Revalidation Design
+
+The proposal compares four strategies:
+
+- HEAD-only transport refresh — rejected as insufficient to prove ZIP layout;
+- arithmetic offset rebase — rejected as unsupported inference;
+- full archive download — rejected as too broad;
+- bounded ZIP central-directory metadata revalidation — **proposed for human review only**.
+
+The proposed later path has two phases:
+
+1. one same-endpoint HEAD observation for transport identity;
+2. bounded ZIP tail/EOCD/central-directory metadata reads to derive candidate canonical member local-header offsets from ZIP metadata rather than from historical offsets.
+
+Existing caps are preserved:
+
+- HEAD requests max `1`;
+- Range requests max `4`;
+- HTTP requests max total `5`;
+- Range response max each `131072` bytes;
+- total source response-body max `524288` bytes;
+- no full-body fallback;
+- no automatic widening;
+- no automatic retry.
+
+The proposed structural verifier is classic-ZIP-only and fail-closed. ZIP64, multi-disk, missing/ambiguous EOCD, object identity drift during execution, missing/duplicate canonical members or inability to complete within the existing caps must stop without baseline adoption.
+
+No central-directory/EOCD runtime implementation is added by this proposal.
+
+## Candidate Baseline State
+
+All replacement values remain unresolved:
+
+- candidate content length: `null`;
+- candidate ETag: `null`;
+- candidate offset for member 1: `null`;
+- candidate offset for member 2: `null`;
+- candidate offset for member 3: `null`;
+- candidate offset for member 4: `null`.
+
+A later successful revalidation could produce candidate evidence only. Human evidence review and a separate implementation gate would still be required before updating runner constants.
+
+## Authorization / Privacy State
+
+Consumed v1.2 execution approval:
+
+`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
+
+Consumed v1.2 transient-row privacy approval:
+
+`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
+
+Both remain `CONSUMED_SINGLE_USE_NON_REUSABLE`.
+
+The new proposal grants no approval and performs no network request. A later structural revalidation would require:
+
+- a fresh single-use execution approval;
+- a fresh single-use structural-byte privacy approval.
+
+The proposed privacy boundary is memory-only structural bytes, zero retention, no raw-byte persistence, no decompression, no CSV parsing, no row/protected-field observation and no persistence of noncanonical member names.
+
+## Runtime / D-008 State
+
+Unchanged:
+
+- runner: `scripts/ca_sco_property_type_semantic_verification.py`;
+- output contract: `1.2.0`;
+- regex: `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- parser/projector;
+- trimming/casing/normalization;
+- `EXPECTED_LENGTH`;
+- `EXPECTED_ETAG`;
+- canonical member offsets.
+
+The D-008 `PROPERTY_TYPE_NONCONFORMING_STOPPED / PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE` mapping remains unchanged and was not reached in the transport-drift execution.
+
+`DECISIONS.md` remains unchanged because the baseline-refresh design is only a proposal pending human review.
+
+## Source / Product Governance State
+
+- baseline-refresh proposal prepared: `true`;
+- proposal human-reviewed: `false`;
+- network revalidation authorized: `false`;
+- fresh execution approval granted: `false`;
+- fresh structural-byte privacy approval granted: `false`;
+- workflow creation authorized: `false`;
+- retry authorized: `false`;
+- current baseline suitable for blind reuse: `false`;
+- candidate replacement baseline established: `false`;
+- candidate baseline adopted: `false`;
+- source continuation authorized: `false`;
+- source policy remains `PROPOSED`;
+- registry remains disabled / not approved;
+- approved real sources remain `0`;
+- semantic compatibility remains unresolved;
+- production classification remains inactive;
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
+
+## Next Recommended Action
+
+Execute exclusively:
+
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
+
+The review must remain repository-only. It may accept, reject or require revision of the proposal, but it must perform no California SCO request, grant no execution/privacy approval, create no network workflow, update no runner constants and perform no baseline adoption.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
