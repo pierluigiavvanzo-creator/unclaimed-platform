@@ -5,5 +5,8 @@
   "granted_on": "2026-09-16",
   "single_use": true,
   "reusable": false,
-  "status": "GRANTED_NOT_YET_CONSUMED"
+  "status": "CONSUMED",
+  "consumed_at_utc": "2026-09-16T11:23:38.883323Z",
+  "execution_run_id": "35090057224",
+  "execution_branch": "m3-ca-sco-property-type-source-format-diagnostic-execution-one-shot"
 }
