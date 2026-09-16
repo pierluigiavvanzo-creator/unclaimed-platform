@@ -12,117 +12,90 @@ M0, M1 and M2 are VERIFIED.
 
 PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The original live-source mismatch was classified as `ASCII_STRUCTURAL_MISMATCH`; the separately reviewed and authorized source-format diagnostic then produced `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
 
-The human source-format diagnostic evidence review accepted that evidence and justified only an offline deterministic handling proposal for a canonical `PROPERTY_TYPE` field that remains structurally nonconforming. That proposal is now prepared and CI-green. No handling option has been selected or implemented.
+The nonconforming-row handling proposal has now completed human review with decision:
+
+`PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS`
+
+The review accepts the proposal as a valid fail-closed design comparison but does not select or authorize a runtime handling policy.
 
 Semantic compatibility remains unresolved. No runtime remediation, row skipping, quarantine persistence, source continuation or source activation is authorized.
 
-## Nonconforming PROPERTY_TYPE Handling Proposal
+## Handling Proposal Review
 
-Branch:
+Gate:
 
-`m3-ca-sco-property-type-nonconforming-row-handling-proposal`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW`
 
-Functional package checkpoint:
+Review branch:
+
+`m3-ca-sco-property-type-nonconforming-row-handling-proposal-review`
+
+Reviewed proposal final HEAD:
+
+`9d5dc3feaa3a9fa63ce5af0dd2c3749a7bee7c87`
+
+Reviewed functional package checkpoint:
 
 `f29c4423c885d37956bea4aba02e4db241409452`
 
 Package CI:
 
-`35093840690` — **SUCCESS**
+`35093840690` — SUCCESS
 
-Proposal:
+Proposal final CI:
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling.v1.json`
+`35094071730` — SUCCESS
 
-Schema:
+Review audit:
 
-`schemas/common/property_type_nonconforming_row_handling_proposal.schema.json`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW.md`
 
-Audit:
+## Candidate Options — Still Unselected
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL.md`
-
-Contract test:
-
-`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_proposal.py`
-
-Proposal status:
-
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
-
-## Evidence Basis
-
-Source-format execution run:
-
-`35090057224` — SUCCESS
-
-Retained class:
-
-`INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
-
-Source-format evidence review decision:
-
-`PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED`
-
-Base review HEAD:
-
-`27b1a19874449b0170fc0c47328340122d443529`
-
-Base review CI:
-
-`35092673600` — SUCCESS
-
-For the one examined row, strict full-row UTF-8 decode and strict stdlib CSV parse succeeded, exactly one canonical 25-column record was produced, stdlib column index `1` agreed with the current custom projector's PROPERTY_TYPE field, and that agreed field still failed `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`.
-
-The exact field value, its protected derivatives, frequency, cause and source intent remain unknown and must not be inferred.
-
-## Candidate Handling Options — No Selection
-
-The proposal compares exactly three fail-closed options:
+The reviewed proposal compares:
 
 1. `WHOLE_SOURCE_STOP`
 2. `ROW_LEVEL_DEFER_OR_QUARANTINE`
 3. `HUMAN_REVIEW_ROUTE`
 
-`selected_option` remains `null`.
+No option is selected or implemented.
 
-None is authorized by the proposal.
+The existing fail-closed runtime behavior remains unchanged: stop when the nonconforming PROPERTY_TYPE condition is encountered.
 
-The unchanged validation rule is machine-locked and the proposal forbids silent row skipping, silent source continuation, automatic correction, normalization, regex relaxation and semantic acceptance of a nonconforming value.
+## Mandatory Next-Artifact Tightenings
 
-## Privacy / Persistence Boundary
+The next policy-decision proposal must incorporate:
 
-Metadata-only handling design does not itself expand privacy exposure.
+- T-1: separate control disposition from source continuation;
+- T-2: distinguish metadata-only defer from real-row/field quarantine;
+- T-3: keep human review metadata-only unless separate privacy authorization exists;
+- T-4: preserve current STOP behavior until a later policy is explicitly approved;
+- T-5: any future continuation proposal must define non-value-bearing completeness/audit evidence and privacy-review any counters/identifiers;
+- T-6: policy selection and runtime implementation remain separate gates.
 
-The following remain explicit future privacy expansions and are **not authorized**:
+## Validation / Privacy Boundary
 
-- retaining a real row or field for quarantine;
-- exposing a real row or field for row-specific human review.
+Unchanged validation rule:
 
-Either requires a separate reviewed authorization path before real-source execution or persistence expansion.
+`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-The proposal defines no approval token.
+No trim, case conversion, Unicode normalization, regex relaxation or alternate token acceptance is authorized.
 
-## Approval State
+Real-row/field retention for quarantine and row-specific human inspection remain privacy expansions and are not authorized.
 
-All prior execution/privacy/authority approvals remain `CONSUMED` and permanently non-reusable, including:
-
-- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
-
-No fresh approval exists for handling-policy implementation, source continuation, real-row retention or another real-source execution.
+All historical execution/privacy/authority approval tokens remain consumed and non-reusable.
 
 ## Governance State
 
 - parser/projector unchanged;
-- regex unchanged: `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- trimming/casing/normalization unchanged;
+- regex unchanged;
 - handling policy selected: `false`;
 - runtime handling change authorized: `false`;
 - remediation authorized: `false`;
 - additional source execution authorized: `false`;
 - additional privacy expansion authorized: `false`;
-- row quarantine persistence authorized: `false`;
+- real-row quarantine persistence authorized: `false`;
+- row-specific human inspection authorized: `false`;
 - source continuation after nonconformance authorized: `false`;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
@@ -132,10 +105,10 @@ No fresh approval exists for handling-policy implementation, source continuation
 
 ## Next Recommended Action
 
-Perform exclusively:
+Prepare exclusively, offline:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW`
+`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL`
 
-Review the three design options and their fail-closed, completeness and privacy consequences. Do not select or implement runtime behavior during the review, access the source, reconstruct the hidden value, expand privacy exposure, activate the source/registry or enter downstream work.
+The artifact must incorporate T-1 through T-6 and may propose a single deterministic policy for subsequent human review. It must not implement runtime behavior, access the source, expand privacy exposure, activate source/registry/production classification or enter downstream work.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
