@@ -10,13 +10,31 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
 
 ROOT = Path(__file__).resolve().parents[2]
-SCHEMA_PATH = ROOT / "schemas/common/property_type_source_format_diagnostic_proposal.schema.json"
-PROPOSAL_PATH = ROOT / "sources/proposals/ca_sco_segment_500_plus.property_type_source_format_diagnostic.v1.json"
-EXECUTION_EVIDENCE_PATH = ROOT / "sources/evidence/ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json"
+SCHEMA_PATH = (
+    ROOT
+    / "schemas/common/"
+    "property_type_source_format_diagnostic_proposal.schema.json"
+)
+PROPOSAL_PATH = (
+    ROOT
+    / "sources/proposals/"
+    "ca_sco_segment_500_plus.property_type_source_format_diagnostic.v1.json"
+)
+EXECUTION_EVIDENCE_PATH = (
+    ROOT
+    / "sources/evidence/"
+    "ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json"
+)
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
-POLICY_PATH = ROOT / "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json"
+POLICY_PATH = (
+    ROOT / "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json"
+)
 REGISTRY_PATH = ROOT / "sources/registry.yaml"
-FUTURE_WORKFLOW_PATH = ROOT / ".github/workflows/ca-sco-property-type-source-format-diagnostic-once.yml"
+FUTURE_WORKFLOW_PATH = (
+    ROOT
+    / ".github/workflows/"
+    "ca-sco-property-type-source-format-diagnostic-once.yml"
+)
 EXPECTED_REGEX = r"^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$"
 EXPECTED_CLASSES = [
     "FULL_ROW_UTF8_DECODE_FAILED",
@@ -232,7 +250,9 @@ def test_policy_registry_downstream_and_human_gate_remain_closed() -> None:
     )
     assert source["enabled"] is False
     assert source["approved_for_use"] is False
-    assert proposal["next_gate"] == "HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW"
+    assert proposal["next_gate"] == (
+        "HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW"
+    )
 
 
 def test_schema_rejects_execution_privacy_widening_or_remediation() -> None:
