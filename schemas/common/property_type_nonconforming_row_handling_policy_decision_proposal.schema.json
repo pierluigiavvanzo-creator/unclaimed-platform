@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-nonconforming-row-handling-policy-decision-proposal:1.0.0",
+  "title": "PropertyTypeNonconformingRowHandlingPolicyDecisionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "proposal_id", "proposal_version", "proposal_status", "prepared_on",
+    "jurisdiction", "source_id", "source_segment_id", "base_state", "reviewed_evidence_boundary",
+    "mandatory_tightenings", "unchanged_validation_contract", "proposed_policy",
+    "alternatives_not_proposed_for_selection", "selection_and_implementation_boundary",
+    "authorization_boundary", "implementation_state", "consumed_authorizations_remain_non_reusable",
+    "safety_state", "acceptance_criteria", "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "proposal_id": {"const": "ca.sco.segment_500_plus.property_type_nonconforming_row_handling_policy_decision"},
+    "proposal_version": {"const": "1.0.0"},
+    "proposal_status": {"const": "PROPOSAL_ONLY_NOT_AUTHORIZED"},
+    "prepared_on": {"const": "2026-09-16"},
+    "jurisdiction": {"const": "CA"},
+    "source_id": {"const": "ca.sco.unclaimed_property.bulk"},
+    "source_segment_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus"},
+    "base_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["branch", "head_sha", "head_ci_run", "handling_proposal_review_audit", "handling_proposal_review_decision", "source_format_diagnostic_class"],
+      "properties": {
+        "branch": {"const": "m3-ca-sco-property-type-nonconforming-row-handling-proposal-review"},
+        "head_sha": {"const": "6ef0cbaed7536c61d00888644bc463d9894418f6"},
+        "head_ci_run": {"const": "35094679116"},
+        "handling_proposal_review_audit": {"const": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW.md"},
+        "handling_proposal_review_decision": {"const": "PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS"},
+        "source_format_diagnostic_class": {"const": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH"}
+      }
+    },
+    "reviewed_evidence_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["examined_rows", "strict_full_row_utf8_decode_succeeded", "strict_stdlib_csv_parse_succeeded", "canonical_column_count", "stdlib_property_type_index", "stdlib_projector_field_agreement", "agreed_field_failed_unchanged_regex", "exact_property_type_retained", "property_type_derivative_retained", "frequency_known", "cause_known", "source_intent_known"],
+      "properties": {
+        "examined_rows": {"const": 1},
+        "strict_full_row_utf8_decode_succeeded": {"const": true},
+        "strict_stdlib_csv_parse_succeeded": {"const": true},
+        "canonical_column_count": {"const": 25},
+        "stdlib_property_type_index": {"const": 1},
+        "stdlib_projector_field_agreement": {"const": true},
+        "agreed_field_failed_unchanged_regex": {"const": true},
+        "exact_property_type_retained": {"const": false},
+        "property_type_derivative_retained": {"const": false},
+        "frequency_known": {"const": false},
+        "cause_known": {"const": false},
+        "source_intent_known": {"const": false}
+      }
+    },
+    "mandatory_tightenings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["T1_control_disposition_separate_from_source_continuation", "T2_metadata_defer_separate_from_real_row_quarantine", "T3_human_review_metadata_only_without_privacy_authorization", "T4_current_stop_behavior_preserved_until_explicit_approval", "T5_continuation_requires_completeness_audit_design", "T6_policy_selection_and_runtime_implementation_are_separate_gates"],
+      "properties": {
+        "T1_control_disposition_separate_from_source_continuation": {"const": true},
+        "T2_metadata_defer_separate_from_real_row_quarantine": {"const": true},
+        "T3_human_review_metadata_only_without_privacy_authorization": {"const": true},
+        "T4_current_stop_behavior_preserved_until_explicit_approval": {"const": true},
+        "T5_continuation_requires_completeness_audit_design": {"const": true},
+        "T6_policy_selection_and_runtime_implementation_are_separate_gates": {"const": true}
+      }
+    },
+    "unchanged_validation_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["property_type_zero_based_index", "regex", "trim_before_validation", "ascii_uppercase_before_validation", "unicode_normalization_before_validation", "alternate_token_acceptance", "parser_or_projector_change"],
+      "properties": {
+        "property_type_zero_based_index": {"const": 1},
+        "regex": {"const": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$"},
+        "trim_before_validation": {"const": false},
+        "ascii_uppercase_before_validation": {"const": false},
+        "unicode_normalization_before_validation": {"const": false},
+        "alternate_token_acceptance": {"const": false},
+        "parser_or_projector_change": {"const": false}
+      }
+    },
+    "proposed_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_id", "proposal_selection_status", "rationale_codes", "control_disposition", "source_continuation", "persistence_boundary", "human_review_boundary", "completeness_and_audit"],
+      "properties": {
+        "policy_id": {"const": "WHOLE_SOURCE_STOP"},
+        "proposal_selection_status": {"const": "PROPOSED_FOR_HUMAN_REVIEW_NOT_AUTHORIZED"},
+        "rationale_codes": {"const": ["PRESERVES_CURRENT_FAIL_CLOSED_BEHAVIOR", "NO_SOURCE_CONTINUATION", "NO_REAL_ROW_RETENTION", "NO_NEW_PRIVACY_BOUNDARY", "NO_SILENT_ROW_OMISSION", "SEMANTIC_COMPATIBILITY_REMAINS_UNRESOLVED"]},
+        "control_disposition": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status_code", "reason_code", "metadata_only", "retains_real_row_or_field_content", "row_specific_human_inspection"],
+          "properties": {
+            "status_code": {"const": "PROPERTY_TYPE_NONCONFORMING_STOPPED"},
+            "reason_code": {"const": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE"},
+            "metadata_only": {"const": true},
+            "retains_real_row_or_field_content": {"const": false},
+            "row_specific_human_inspection": {"const": false}
+          }
+        },
+        "source_continuation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["continue_after_nonconforming_row", "later_rows_processed_after_trigger", "silent_row_skip_allowed", "silent_source_continuation_allowed"],
+          "properties": {
+            "continue_after_nonconforming_row": {"const": false},
+            "later_rows_processed_after_trigger": {"const": false},
+            "silent_row_skip_allowed": {"const": false},
+            "silent_source_continuation_allowed": {"const": false}
+          }
+        },
+        "persistence_boundary": {
+          "type": "object", "additionalProperties": false,
+          "required": ["may_persist_status_code", "may_persist_reason_code", "may_persist_exact_property_type", "may_persist_property_type_derivative", "may_persist_row_or_field_hash", "may_persist_exact_row_or_field_length", "may_persist_property_id", "may_persist_owner_holder_values", "may_persist_source_derived_free_text", "may_persist_real_row_or_field_content"],
+          "properties": {
+            "may_persist_status_code": {"const": true},
+            "may_persist_reason_code": {"const": true},
+            "may_persist_exact_property_type": {"const": false},
+            "may_persist_property_type_derivative": {"const": false},
+            "may_persist_row_or_field_hash": {"const": false},
+            "may_persist_exact_row_or_field_length": {"const": false},
+            "may_persist_property_id": {"const": false},
+            "may_persist_owner_holder_values": {"const": false},
+            "may_persist_source_derived_free_text": {"const": false},
+            "may_persist_real_row_or_field_content": {"const": false}
+          }
+        },
+        "human_review_boundary": {
+          "type": "object", "additionalProperties": false,
+          "required": ["metadata_only_event_required_by_policy", "row_specific_human_inspection_authorized", "future_row_specific_inspection_requires_separate_privacy_authorization"],
+          "properties": {
+            "metadata_only_event_required_by_policy": {"const": false},
+            "row_specific_human_inspection_authorized": {"const": false},
+            "future_row_specific_inspection_requires_separate_privacy_authorization": {"const": true}
+          }
+        },
+        "completeness_and_audit": {
+          "type": "object", "additionalProperties": false,
+          "required": ["continuation_enabled", "deferred_row_can_silently_disappear", "continuation_completeness_evidence_required_now", "future_continuation_requires_separate_completeness_audit_design", "future_continuation_identifiers_or_counters_require_privacy_review"],
+          "properties": {
+            "continuation_enabled": {"const": false},
+            "deferred_row_can_silently_disappear": {"const": false},
+            "continuation_completeness_evidence_required_now": {"const": false},
+            "future_continuation_requires_separate_completeness_audit_design": {"const": true},
+            "future_continuation_identifiers_or_counters_require_privacy_review": {"const": true}
+          }
+        }
+      }
+    },
+    "alternatives_not_proposed_for_selection": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["option_id", "reason_not_proposed_now"],
+        "properties": {"option_id": {"type": "string", "minLength": 1}, "reason_not_proposed_now": {"type": "string", "minLength": 1}}
+      }
+    },
+    "selection_and_implementation_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_proposed_for_human_review", "policy_selected_for_runtime", "policy_approved_for_runtime", "runtime_implementation_authorized", "real_source_validation_authorized", "source_continuation_authorized", "privacy_expansion_authorized", "real_row_quarantine_authorized", "row_specific_human_inspection_authorized", "source_activation_authorized", "production_classification_activation_authorized"],
+      "properties": {
+        "policy_proposed_for_human_review": {"const": true},
+        "policy_selected_for_runtime": {"const": false},
+        "policy_approved_for_runtime": {"const": false},
+        "runtime_implementation_authorized": {"const": false},
+        "real_source_validation_authorized": {"const": false},
+        "source_continuation_authorized": {"const": false},
+        "privacy_expansion_authorized": {"const": false},
+        "real_row_quarantine_authorized": {"const": false},
+        "row_specific_human_inspection_authorized": {"const": false},
+        "source_activation_authorized": {"const": false},
+        "production_classification_activation_authorized": {"const": false}
+      }
+    },
+    "authorization_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["proposal_preparation_authorized", "source_or_authority_network_access_authorized", "real_source_execution_authorized", "runtime_code_change_authorized", "policy_runtime_selection_authorized", "privacy_expansion_authorized", "parser_change_authorized", "regex_change_authorized", "normalization_change_authorized", "remediation_authorized", "approval_token_defined_by_this_proposal"],
+      "properties": {
+        "proposal_preparation_authorized": {"const": true},
+        "source_or_authority_network_access_authorized": {"const": false},
+        "real_source_execution_authorized": {"const": false},
+        "runtime_code_change_authorized": {"const": false},
+        "policy_runtime_selection_authorized": {"const": false},
+        "privacy_expansion_authorized": {"const": false},
+        "parser_change_authorized": {"const": false},
+        "regex_change_authorized": {"const": false},
+        "normalization_change_authorized": {"const": false},
+        "remediation_authorized": {"const": false},
+        "approval_token_defined_by_this_proposal": {"const": false}
+      }
+    },
+    "implementation_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["proposal_branch", "proposal_only", "source_request_performed", "authority_request_performed", "real_row_access_performed", "runtime_code_modified", "runner_modified", "parser_modified", "regex_modified", "normalization_modified", "logging_modified", "persistence_modified", "source_policy_modified", "registry_modified"],
+      "properties": {
+        "proposal_branch": {"const": "m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal"},
+        "proposal_only": {"const": true},
+        "source_request_performed": {"const": false},
+        "authority_request_performed": {"const": false},
+        "real_row_access_performed": {"const": false},
+        "runtime_code_modified": {"const": false},
+        "runner_modified": {"const": false},
+        "parser_modified": {"const": false},
+        "regex_modified": {"const": false},
+        "normalization_modified": {"const": false},
+        "logging_modified": {"const": false},
+        "persistence_modified": {"const": false},
+        "source_policy_modified": {"const": false},
+        "registry_modified": {"const": false}
+      }
+    },
+    "consumed_authorizations_remain_non_reusable": {"const": true},
+    "safety_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_policy_status", "registry_enabled", "registry_approved_for_use", "approved_real_sources", "authority_provenance_resolved", "semantic_compatibility_resolved", "production_classification_active", "downstream_gates_remain_closed"],
+      "properties": {
+        "source_policy_status": {"const": "PROPOSED"},
+        "registry_enabled": {"const": false},
+        "registry_approved_for_use": {"const": false},
+        "approved_real_sources": {"const": 0},
+        "authority_provenance_resolved": {"const": true},
+        "semantic_compatibility_resolved": {"const": false},
+        "production_classification_active": {"const": false},
+        "downstream_gates_remain_closed": {"const": true}
+      }
+    },
+    "acceptance_criteria": {"type": "array", "minItems": 13, "items": {"type": "string"}},
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW"}
+  }
+}
