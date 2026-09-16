@@ -10,27 +10,58 @@ GitHub is the canonical source of truth.
 
 ## Current Working Branch
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-offline`
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-implementation-review`
 
-This branch was created from the completed implementation-authorization checkpoint:
+This branch was created from the completed offline implementation checkpoint:
 
-`b98faa9ff6e24404ed8a6028dda21c0cf0041222`
+`7d40f410752cdaef96faeae4aaafc1ca86b13e18`
 
-The implementation-authorization result was:
+Base implementation CI:
 
-`PASS_BOUNDED_IMPLEMENTATION_AUTHORIZED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
+`35101304555` — **SUCCESS**
 
-## Offline Implementation Functional Checkpoint
+## Completed Human Implementation Review
 
-Functional implementation checkpoint before documentation-only state refresh:
+Completed:
+
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_IMPLEMENTATION_REVIEW`
+
+Review artifact:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_IMPLEMENTATION_REVIEW.md`
+
+Review result:
+
+`PASS_V1_2_IMPLEMENTATION_ACCEPTED_AS_CONFORMING_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
+
+Meaning:
+
+- the completed v1.2 offline implementation conforms to D-008, the reviewed proposal and the bounded owner authorization;
+- the v1.2 runtime/schema/test delta is accepted as conforming;
+- historical v1.1 remains immutable and valid;
+- source continuation remains false;
+- real-source execution remains separately gated and unauthorized;
+- this review performed no runtime change and no source access.
+
+## Reviewed Implementation Evidence
+
+Reviewed implementation HEAD:
+
+`7d40f410752cdaef96faeae4aaafc1ca86b13e18`
+
+Reviewed implementation CI:
+
+`35101304555` — **SUCCESS**
+
+Functional implementation checkpoint:
 
 `f69262a632b6bf0eed1385639aea3c59bb9a94ac`
 
-GitHub Actions CI:
+Functional CI:
 
 `35100766657` — **SUCCESS**
 
-Verified CI markers:
+Verified functional markers:
 
 - ruff: PASS;
 - mypy: PASS, no issues in 19 source files;
@@ -43,7 +74,7 @@ Verified CI markers:
 - Streamlit safety smoke: PASS;
 - Streamlit startup smoke: PASS.
 
-The subsequent implementation audit / PROJECT_STATE / ROADMAP / handover refresh commits are documentation-only. On restart, always verify the remote branch HEAD and latest CI rather than assuming this file is the branch tip.
+The implementation-review branch adds only review/governance documentation on top of the reviewed implementation checkpoint. On restart, verify its remote HEAD and latest CI before any new change.
 
 ## Canonical Read Order Before Any New Change
 
@@ -57,36 +88,15 @@ Read in order:
 
 Then inspect, in this order as relevant:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_AUTHORIZATION.md`
-2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_OFFLINE_IMPLEMENTATION.md`
-3. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_implementation.v1.json`
-4. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW.md`
-5. `scripts/ca_sco_property_type_semantic_verification.py`
-6. `schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`
-7. `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
-8. relevant unit/contract tests.
-
-## Completed Single Next Action
-
-Completed:
-
-`IMPLEMENT_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_OFFLINE`
-
-Implementation audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_OFFLINE_IMPLEMENTATION.md`
-
-Implementation state:
-
-`IMPLEMENTED_OFFLINE_CI_GREEN_HUMAN_IMPLEMENTATION_REVIEW_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
-
-Meaning:
-
-- the reviewed/authorized runtime delta is implemented;
-- execution contract `1.2.0` exists;
-- synthetic/offline regression validation is green;
-- completed implementation still requires an explicit human implementation review;
-- no real-source execution has been performed or authorized by this task.
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_IMPLEMENTATION_REVIEW.md`
+2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_AUTHORIZATION.md`
+3. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_OFFLINE_IMPLEMENTATION.md`
+4. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_implementation.v1.json`
+5. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW.md`
+6. `scripts/ca_sco_property_type_semantic_verification.py`
+7. `schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`
+8. `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
+9. relevant unit/contract tests.
 
 ## Governing Decision
 
@@ -100,7 +110,7 @@ Accepted implementation strategy:
 
 `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`
 
-## Implemented Runtime State
+## Accepted Runtime State
 
 Runner:
 
@@ -118,9 +128,13 @@ Historical immutable execution schema:
 
 `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
 
-The historical v1.1 schema was not modified.
+Reviewed v1.1 blob SHA:
 
-## Exact v1.2 Behavior
+`33c829116eea0b568cfe16c664ffbeee9d00e013`
+
+This matches the pre-implementation blob recorded in the reviewed proposal/audit.
+
+## Exact Accepted v1.2 Behavior
 
 The runner initializes:
 
@@ -146,11 +160,13 @@ For unrelated runner stops and successful/inconclusive outcomes:
 
 No existing result field was removed or reinterpreted.
 
+The v1.2 schema independently enforces the exact mapping and rejects extra/source-value-bearing control-disposition fields.
+
 ## Fail-Closed / Continuation Boundary
 
 The implementation reuses the existing exception-driven `RunnerStop` flow.
 
-Synthetic/offline regression coverage proves that the targeted mismatch:
+Synthetic/offline regression coverage verifies that the targeted mismatch:
 
 - remains fail-closed;
 - gets only the exact D-008 non-value-bearing control metadata;
@@ -168,7 +184,7 @@ Regex remains exactly:
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-No implementation change was made to:
+No reviewed implementation change was made to:
 
 - parser;
 - projector;
@@ -189,8 +205,6 @@ The v1.2 `control_disposition` may contain only non-value-bearing:
 - `status_code`;
 - `reason_code`.
 
-The v1.2 schema rejects additional/source-value-bearing fields in that object.
-
 Do not persist or expose through the new disposition:
 
 - exact or transformed `PROPERTY_TYPE`;
@@ -204,19 +218,34 @@ Do not persist or expose through the new disposition:
 
 No row-specific human inspection or real-row quarantine persistence is authorized.
 
-## Regression / Repair Evidence
+## Regression Review
 
-The first functional CI attempt identified one obsolete historical-proposal assertion: it required the *current* runner to remain at schema version `1.1.0` even after the explicitly authorized versioned implementation.
+Required authorization coverage is satisfied:
 
-The repair changed only that test boundary so the historical proposal validates directly against the immutable v1.1 schema while current runtime may be v1.2. No runtime behavior changed during this repair.
+1. targeted mismatch preserves legacy status/reason;
+2. exact D-008 control status/reason is emitted;
+3. later member is not requested after trigger;
+4. unrelated stops keep null disposition;
+5. success/inconclusive results keep null disposition;
+6. v1.2 rejects source-value-bearing/additional disposition fields;
+7. v1.1 schema is unchanged and historical second semantic execution still validates against v1.1;
+8. regex/no-normalization guards remain green.
 
-Final functional checkpoint:
+The earlier obsolete historical-proposal assertion was repaired by pinning the historical test to the immutable v1.1 schema rather than requiring current runtime to remain v1.1 forever. The repair did not alter runtime behavior.
 
-`f69262a632b6bf0eed1385639aea3c59bb9a94ac`
+## Scope Review
 
-Final functional CI:
+Comparison from authorization base:
 
-`35100766657` — **SUCCESS**
+`b98faa9ff6e24404ed8a6028dda21c0cf0041222`
+
+to reviewed implementation HEAD:
+
+`7d40f410752cdaef96faeae4aaafc1ca86b13e18`
+
+shows only the authorized runner/new-schema/minimum-test delta plus implementation audit and durable state/handover documentation.
+
+No source policy, registry, parser/projector module, one-shot network workflow or production-classification surface was modified.
 
 ## Rollback Requirement
 
@@ -228,7 +257,7 @@ Rollback restores runner output contract `1.1.0` and removes v1.2 `control_dispo
 
 ## Real-Source / Governance Boundary
 
-This implementation did **not**:
+This review did **not**:
 
 - request `claimit.ca.gov`;
 - request a new authority source;
@@ -248,11 +277,12 @@ Current governance state:
 - D-008 accepted as design: `true`;
 - bounded implementation authorized: `true`;
 - runtime implementation completed: `true`;
+- completed implementation human-reviewed: `true`;
+- implementation review result: `PASS_V1_2_IMPLEMENTATION_ACCEPTED_AS_CONFORMING_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
 - current runner output contract: `1.2.0`;
 - v1.2 schema created: `true`;
 - historical v1.1 schema preserved: `true`;
 - synthetic/offline validation: `PASS`;
-- completed implementation human-reviewed: `false`;
 - real-source execution authorized: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
@@ -270,42 +300,32 @@ Current governance state:
 
 `DECISIONS.md` is intentionally unchanged.
 
-Reason: this implementation executes the already accepted D-008 design and the already reviewed/authorized implementation strategy. It introduces no new architectural or governance decision and does not supersede D-008.
+Reason: the human implementation review confirms conformity with the already accepted D-008 design and the already reviewed/authorized implementation strategy. It introduces no new architecture or governance design decision and does not supersede D-008.
 
 ## SINGLE NEXT ACTION
 
-Perform exclusively:
+Prepare exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_IMPLEMENTATION_REVIEW`
+`PREPARE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL`
 
-This gate must review only whether the completed implementation conforms to:
+This next action is proposal-only.
 
-- D-008 / `WHOLE_SOURCE_STOP`;
-- `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`;
-- the reviewed implementation proposal;
-- the owner implementation authorization;
-- backward compatibility / v1.1 immutability;
-- exact control mapping;
-- fail-closed/no-continuation behavior;
-- regression coverage;
-- privacy/persistence boundary;
-- rollback boundary.
+It may define a fresh, separately reviewable path for bounded v1.2 real-source execution and any strictly necessary fresh execution/privacy approvals. It must not itself authorize or perform that execution.
 
-A PASS at this gate may accept the implementation as conforming. It must **not** authorize or perform a real-source execution.
-
-## Do Not Do During the Next Human Implementation Review
+## Do Not Do During the Next Proposal Task
 
 Do not:
 
 - access `claimit.ca.gov`;
 - access new authority sources;
-- run a real-source semantic verification;
+- perform real-source semantic verification;
 - infer or reconstruct the hidden real `PROPERTY_TYPE` value;
-- change runtime while merely reviewing it;
+- modify the reviewed v1.2 runtime merely to prepare the proposal;
 - change parser/projector;
 - modify or relax `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - add trim, case conversion or Unicode normalization;
-- reuse or invent execution/privacy approval tokens;
+- reuse consumed execution/privacy/authority approvals;
+- invent or grant approvals during proposal preparation;
 - persist real rows/fields or expand privacy scope;
 - enable source continuation;
 - activate source policy, registry or production classification;
@@ -315,9 +335,9 @@ Do not:
 
 At the start of the next task:
 
-1. verify the remote HEAD of `m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-offline`;
+1. verify the remote HEAD of `m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-implementation-review`;
 2. verify the latest CI for that remote HEAD;
 3. read the five canonical files in order;
-4. read the implementation authorization and completed implementation audit;
-5. inspect the v1.2 runner/schema/tests without modifying them;
-6. execute only the `SINGLE NEXT ACTION` above.
+4. read the v1.2 implementation review artifact and the prior authorization/implementation artifacts;
+5. execute only the `SINGLE NEXT ACTION` above;
+6. keep proposal preparation completely separate from real-source authorization and execution.
