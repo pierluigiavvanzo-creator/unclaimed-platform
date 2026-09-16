@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "approval_ref": "APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED",
+  "authorization_artifact_package_sha": "cd76250b9527be91e7e7ac4b3aa658c864cf9172",
+  "granted_on": "2026-09-16",
+  "single_use": true,
+  "reusable": false,
+  "status": "GRANTED_NOT_YET_CONSUMED"
+}
