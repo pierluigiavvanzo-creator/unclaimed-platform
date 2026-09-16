@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 import pytest
 
 
@@ -38,7 +36,7 @@ def _isolate_historical_workflow_path_assertions(
     if not hasattr(module, "WORKFLOW_PATH"):
         raise AssertionError("historical workflow test lost WORKFLOW_PATH guard")
 
-    root = Path(__file__).resolve().parents[2]
-    sentinel = root / ".github/workflows/.historical-one-shot-workflow-absent.yml"
+    workflow_path = module.WORKFLOW_PATH
+    sentinel = workflow_path.with_name(".historical-one-shot-workflow-absent.yml")
     assert not sentinel.exists()
     monkeypatch.setattr(module, "WORKFLOW_PATH", sentinel)
