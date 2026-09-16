@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | SOURCE-FORMAT DIAGNOSTIC EXECUTED; HUMAN EVIDENCE REVIEW NEXT | run `35090057224` SUCCESS; class `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH` |
+| M3 — California Data Spike | SOURCE-FORMAT EVIDENCE REVIEW PASS; NONCONFORMING ROW-HANDLING PROPOSAL NEXT | run `35090057224` SUCCESS; class `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`; human evidence review completed |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -27,41 +27,39 @@ Last updated: 2026-09-16
 - one transient full-row stdlib cross-check examined;
 - both fresh source-format approvals consumed and non-reusable;
 - one-shot source-format workflow removed after execution;
+- human source-format evidence review completed with decision `PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED`;
 - no remediation performed;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Evidence Meaning — Pending Human Review
+## Evidence Review Meaning
 
-The retained class supports the bounded conclusion that, for the one examined row:
+For the one examined row, retained evidence supports the bounded conclusion that:
 
 - strict full-row UTF-8 decode succeeded;
 - strict stdlib CSV parse succeeded;
-- canonical 25-column shape was obtained;
+- exactly one canonical 25-column record was produced;
 - stdlib column index `1` agreed with the custom projector PROPERTY_TYPE field;
 - that agreed field still failed the unchanged regex.
 
-The exact field value and its protected derivatives were not persisted and must not be reconstructed or inferred.
+Therefore the mismatch is not explained by a projector-vs-stdlib field disagreement for that row.
 
-This result does not itself authorize parser, regex, trim, case, normalization or other remediation.
+The exact field value and protected derivatives remain unretained and must not be reconstructed or inferred.
 
-## Privacy / Execution Closure
+## Closed Diagnostic Branches at This Checkpoint
 
-All persisted sensitive-data/remediation safety flags are false. The diagnostic persisted no row/field content, PROPERTY_TYPE, derivatives, PROPERTY_ID, owner/holder values, row hash/exact length, parser exception text or source-derived free text.
+The evidence review does not justify repeating the same parser-vs-parser source-format diagnostic. The archived SCO authority already supports the accepted property-type shape boundary and is not contradicted by the new evidence, so a repeat authority retrieval is also not justified at this checkpoint.
 
-Consumed fresh tokens:
-
-- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
-
-They may not be reused.
+Neither conclusion authorizes remediation.
 
 ## Next Product Work
 
-Perform exclusively:
+Prepare exclusively, offline:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW`
+`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL`
 
-The review may evaluate the retained coarse class and decide the next governance step, but it must not perform new source access, reuse consumed approvals, reconstruct the exact source value, or silently modify parser/regex/runtime behavior.
+The proposal must compare deterministic fail-closed handling options for a canonical PROPERTY_TYPE field that is structurally nonconforming. It must not silently select or implement row skipping, quarantine, transformation, normalization, parser changes or regex relaxation.
+
+Any proposal that would later retain a real nonconforming row, continue real-source processing after a mismatch, expand privacy exposure, or execute against the source requires a separate reviewed authorization path and fresh approvals where applicable.
 
 ## Still Out of Scope
 
@@ -71,6 +69,8 @@ The review may evaluate the retained coarse class and decide the next governance
 - parser/projector or regex changes;
 - trimming, casing or normalization runtime changes;
 - automatic remediation;
+- silent row skipping or source continuation;
+- real-row quarantine persistence without separately reviewed privacy design;
 - new authority retrieval without separate justification;
 - source/registry activation;
 - production classification activation;
