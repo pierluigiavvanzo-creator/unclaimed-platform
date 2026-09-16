@@ -7,58 +7,32 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | SOURCE-FORMAT EXECUTION AUTHORIZATION PACKAGE PREPARED; HUMAN REVIEW REQUIRED | package `cd76250b...9172`; CI `35082891083` SUCCESS |
+| M3 — California Data Spike | SOURCE-FORMAT AUTHORIZATION REVIEW PASS; OWNER APPROVALS NEXT | authorization package `cd76250b...9172`; package CI `35082891083` SUCCESS; review PASS |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
 
-- second semantic execution `34995672539` previously stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- second semantic execution `34995672539` stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 - archived authority supports the enumerated `AA99` shape with scope boundary, `ZZZZ`, and `IN01-IN08` / `IN99`;
-- bounded diagnostic run `35019840276`: SUCCESS;
+- bounded diagnostic execution `35019840276`: SUCCESS;
 - diagnostic class: `ASCII_STRUCTURAL_MISMATCH`;
-- diagnostic evidence review: `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`;
-- source-format proposal package: `d8dc240bd74e271f88b2ef4583f6b79e533918b2`;
+- diagnostic evidence review justified a separate source-format diagnostic proposal;
+- source-format proposal package `d8dc240bd74e271f88b2ef4583f6b79e533918b2`: CI SUCCESS;
 - source-format proposal review: `PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS`;
-- source-format execution/authorization package: `cd76250b9527be91e7e7ac4b3aa658c864cf9172`;
-- package CI `35082891083`: SUCCESS;
-- no source-format execution approval granted;
-- no full-row transient privacy approval granted;
-- no source-format network workflow exists;
+- source-format execution/authorization package `cd76250b9527be91e7e7ac4b3aa658c864cf9172`: CI `35082891083` SUCCESS;
+- authorization final state `e73681941ef9794d54bef78b53361ea45baccbf9`: CI `35083155026` SUCCESS;
+- authorization human review: `PASS`;
+- no fresh source-format approval granted;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Authorization Package
+## Reviewed Source-Format Execution Contract
 
-Artifact status:
-`PENDING_HUMAN_AUTHORIZATION`
+The reviewed future execution remains bounded to:
 
-Human gate:
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
-
-Two fresh approval references are defined but ungranted:
-
-- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
-- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
-
-Both are single-use/non-reusable and, if later explicitly granted after a review PASS, must be evidenced separately and pinned to package `cd76250b9527be91e7e7ac4b3aa658c864cf9172` before any network request.
-
-## Mandatory Tightenings Implemented
-
-The package locks:
-
-1. exact five-class first-match precedence;
-2. same in-memory logical-row bytes only, with no source re-read;
-3. deterministic `io.StringIO(..., newline="")`-equivalent stdlib multiline framing;
-4. exactly one parsed CSV record or enumerated fail-closed stop;
-5. enumerated non-source-bearing fail-closed reasons with no parser exception/source-derived free text.
-
-Synthetic regression coverage includes embedded LF, embedded CRLF and multi-record rejection.
-
-## Future Bounds — Still Not Authorized
-
-- exact pinned endpoint/source identity;
-- first canonical member only;
+- exact pinned source endpoint and identity;
+- first canonical ZIP member only;
 - maximum 4 transient rows;
-- maximum 1 full-row comparator row;
+- maximum 1 transient full-row cross-check;
 - maximum 1 HEAD + 1 Range GET;
 - maximum 2 HTTP requests total;
 - maximum 131072 source response-body bytes;
@@ -66,27 +40,32 @@ Synthetic regression coverage includes embedded LF, embedded CRLF and multi-reco
 - maximum 32768 bytes per logical record;
 - zero retry/redirect/additional range/full-body fallback/automatic widening.
 
-No source values, full row, field content, protected derivatives, parser exception text or source-derived free text may persist or be logged.
+T-1 through T-5 are machine-locked. No exact source values, full row, field content, hashes, exact lengths, parser exception text or source-derived free text may persist or be logged.
 
-## Next Product Work
+## Owner Approval Gate
 
-Perform only:
+Execution remains blocked until the owner explicitly grants both exact fresh tokens:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
+`APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
 
-A PASS approves only the authorization contract. It must not be treated as either execution approval or full-row transient privacy approval.
+`APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
+
+Both must be single-use/non-reusable and their future evidence must pin:
+
+`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
+
+Generic wording must not be interpreted as approval.
 
 ## Still Out of Scope
 
 - reuse of any consumed approval;
-- source or authority network access before fresh approvals;
-- real full-row exposure before fresh explicit privacy approval;
+- source or authority network access before both fresh approvals;
+- real full-row exposure before the fresh privacy approval;
 - source-value reconstruction or inference;
-- parser or regex changes;
+- parser/projector or regex changes;
 - trimming, casing or normalization runtime changes;
-- Unicode normalization;
 - automatic remediation;
-- new authority retrieval at this checkpoint;
+- new authority retrieval;
 - source/registry activation;
 - production classification activation;
 - identity resolution, genealogy, beneficiary matching, outreach or claim submission.
