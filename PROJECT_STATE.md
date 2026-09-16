@@ -12,7 +12,7 @@ M0, M1 and M2 are VERIFIED.
 
 PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The retained live-source diagnostic chain remains bounded by `ASCII_STRUCTURAL_MISMATCH` and `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
 
-The policy-decision proposal for nonconforming canonical `PROPERTY_TYPE` has completed human review with decision:
+The nonconforming-row policy decision completed human review with:
 
 `PASS_POLICY_DECISION_ACCEPTED_AS_DESIGN_IMPLEMENTATION_NOT_AUTHORIZED`
 
@@ -20,63 +20,96 @@ Accepted design policy:
 
 `WHOLE_SOURCE_STOP`
 
-This is now an accepted governance/design decision, recorded as `D-008` in `DECISIONS.md`, but it is **not implemented or activated in runtime**. Existing fail-closed STOP behavior remains operationally unchanged. Semantic compatibility remains unresolved.
-
-## Policy-Decision Review Checkpoint
-
-Review gate:
-
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW`
-
-Review branch:
-
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal-review`
-
-Reviewed proposal final HEAD:
-
-`5e6f538a03f0b5e61c4559a27431e9718b29e265`
-
-Reviewed functional package checkpoint:
-
-`33abf635dc2b3f3893300b5e6adf3e35abeefcb8`
-
-Package CI:
-
-`35095481531` — SUCCESS
-
-Proposal final CI:
-
-`35095734936` — SUCCESS
-
-Review audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW.md`
-
 Decision record:
 
 `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`
 
-## Accepted Design Contract — Not Yet Implemented
+The required implementation proposal is now prepared and CI-green. It remains design-only and does not authorize or perform any runtime change.
 
-Policy:
+## Implementation Proposal Checkpoint
 
-`WHOLE_SOURCE_STOP`
+Branch:
 
-Future control disposition after a separately reviewed implementation:
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-implementation-proposal`
 
-- status: `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
-- reason: `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
-- metadata-only: `true`;
-- real row/field retained: `false`.
+Functional package checkpoint:
 
-Source continuation:
+`56e82a2bde7c1d77ac197dc2ac21f84ecd1a930d`
 
-- continue after triggering row: `false`;
-- process later rows after trigger: `false`;
-- silent row skip: `false`;
-- silent continuation: `false`.
+Package CI:
 
-The accepted design does not claim that the source value is semantically invalid in the source system; it defines only the platform's fail-closed handling while source semantic compatibility remains unresolved.
+`35097296456` — **SUCCESS**
+
+Proposal:
+
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_implementation.v1.json`
+
+Schema:
+
+`schemas/common/property_type_nonconforming_row_handling_policy_implementation_proposal.schema.json`
+
+Audit:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL.md`
+
+Contract test:
+
+`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_implementation_proposal.py`
+
+Proposal status:
+
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
+
+## Proposed Minimal Implementation — Not Authorized
+
+Strategy:
+
+`ADDITIVE_VERSIONED_CONTROL_DISPOSITION`
+
+The proposal identifies the smallest future implementation delta as:
+
+1. modify only `scripts/ca_sco_property_type_semantic_verification.py`;
+2. create a new execution contract `schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`;
+3. leave historical execution schema `1.1.0` immutable;
+4. preserve the existing legacy result `STOPPED_FAIL_CLOSED` and legacy stop reason `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+5. add a nullable, metadata-only `control_disposition` in future schema `1.2.0`;
+6. map only `PROPERTY_TYPE_FORMAT_UNEXPECTED` to:
+   - status `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+   - reason `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
+7. keep `control_disposition = null` for other stop reasons and successful results;
+8. preserve existing fail-closed control flow so no later source member is processed after the trigger.
+
+No existing result field is removed or reinterpreted.
+
+## Current Runtime — Still Unchanged
+
+Current runner remains schema version:
+
+`1.1.0`
+
+Current mismatch behavior remains:
+
+- `semantic_result_status = STOPPED_FAIL_CLOSED`;
+- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- no `control_disposition` field exists in runtime output.
+
+The historical v1.1 execution schema is unchanged. The proposed v1.2 execution schema has **not** been created.
+
+## Regression / Rollback Design
+
+Future implementation acceptance is proposed to use synthetic/offline regression coverage only, including:
+
+- preservation of legacy mismatch status/reason;
+- exact D-008 status/reason mapping;
+- proof that no later member is requested after the trigger;
+- null control disposition for unrelated stops and success;
+- rejection of source-value-bearing control fields;
+- immutability of historical v1.1 schema/evidence;
+- unchanged regex/projector/no-normalization guards.
+
+No real-source test is required to accept the code implementation. Any real-source execution remains a separate later gate.
+
+Rollback requires only reverting the future implementation commit(s); no database, source-state or historical-evidence migration is required.
 
 ## Validation / Privacy Boundary
 
@@ -86,18 +119,19 @@ Unchanged validation rule:
 
 No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is authorized.
 
-No persistence of exact/derived PROPERTY_TYPE, real row/field content, hashes, exact row/field lengths, PROPERTY_ID, owner/holder values or source-derived free text is authorized.
+Only future non-value-bearing control `status_code` and `reason_code` are within the accepted design boundary. Exact/derived PROPERTY_TYPE, real row/field content, hashes, exact lengths, PROPERTY_ID, owner/holder values and source-derived free text remain outside persistence.
 
-Real-row quarantine and row-specific human inspection remain separate privacy expansions and are not authorized.
-
-All historical execution/privacy/authority approvals remain consumed and non-reusable. No fresh execution or privacy approval exists.
+All historical execution/privacy/authority approvals remain consumed and non-reusable. No fresh approval token is defined or granted by this proposal.
 
 ## Governance State
 
-- policy decision accepted as design: `true`;
+- D-008 accepted as design: `true`;
 - accepted design policy: `WHOLE_SOURCE_STOP`;
+- implementation proposal prepared: `true`;
+- implementation proposal human-reviewed: `false`;
 - policy active in runtime: `false`;
 - runtime implementation authorized: `false`;
+- proposed execution schema v1.2 created: `false`;
 - parser/projector unchanged;
 - regex unchanged;
 - remediation authorized: `false`;
@@ -115,10 +149,10 @@ All historical execution/privacy/authority approvals remain consumed and non-reu
 
 ## Next Recommended Action
 
-Prepare exclusively, offline:
+Perform exclusively:
 
-`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW`
 
-The artifact must identify the smallest deterministic runtime/contract/test changes required to implement the accepted `WHOLE_SOURCE_STOP` design, with rollback and regression coverage. It must not itself modify runtime code, access a real source, define/grant execution approvals, expand privacy exposure, activate source/registry/production classification or enter downstream work.
+Review the proposed additive v1.2 implementation design, backward compatibility, regression coverage, rollback, privacy and continuation boundaries. Do not modify runtime code, create the v1.2 execution schema, access the real source, grant execution/privacy approvals, activate source/registry/production classification or enter downstream work during this review.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
