@@ -153,8 +153,27 @@ def test_fresh_approvals_are_distinct_ungranted_and_evidence_absent() -> None:
     consumed = set(artifact["consumed_prior_approvals"])
     assert execution["approval_ref"] not in consumed
     assert privacy["approval_ref"] not in consumed
-    assert not EXECUTION_APPROVAL_PATH.exists()
-    assert not PRIVACY_APPROVAL_PATH.exists()
+    expected_evidence = (
+        (
+            EXECUTION_APPROVAL_PATH,
+            "APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED",
+        ),
+        (
+            PRIVACY_APPROVAL_PATH,
+            "APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_"
+            "FULL_ROW_TRANSIENT_PRIVACY_BOUNDED",
+        ),
+    )
+    for path, approval_ref in expected_evidence:
+        assert path.exists()
+        evidence = _load(path)
+        assert evidence["approval_ref"] == approval_ref
+        assert evidence["authorization_artifact_package_sha"] == (
+            "cd76250b9527be91e7e7ac4b3aa658c864cf9172"
+        )
+        assert evidence["single_use"] is True
+        assert evidence["reusable"] is False
+        assert evidence["status"] == "CONSUMED"
     assert not FUTURE_WORKFLOW_PATH.exists()
 
 

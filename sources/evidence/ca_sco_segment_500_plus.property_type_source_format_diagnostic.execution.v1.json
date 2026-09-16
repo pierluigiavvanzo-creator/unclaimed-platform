@@ -1,0 +1,27 @@
+{
+  "diagnostic_result_status": "SOURCE_FORMAT_CLASSIFIED",
+  "fail_closed_reason_code": null,
+  "full_row_crosscheck_rows_examined": 1,
+  "head_requests": 1,
+  "http_requests_total": 2,
+  "range_requests": 1,
+  "safety_flags": {
+    "any_row_field_value_persisted": false,
+    "full_archive_downloaded": false,
+    "full_row_persisted": false,
+    "owner_holder_values_persisted": false,
+    "parser_exception_text_persisted": false,
+    "property_id_persisted": false,
+    "property_type_derivative_persisted": false,
+    "property_type_persisted": false,
+    "raw_body_persisted": false,
+    "remediation_performed": false,
+    "row_exact_length_persisted": false,
+    "row_hash_persisted": false,
+    "source_derived_free_text_persisted": false
+  },
+  "source_format_diagnostic_class": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH",
+  "source_identity_verified": true,
+  "source_response_body_bytes_read": 131072,
+  "transient_rows_examined": 1
+}
