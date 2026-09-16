@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | V1.2 ONE-SHOT REAL-SOURCE EXECUTED; TRANSPORT_METADATA_DRIFT FAIL-CLOSED; HUMAN EVIDENCE REVIEW NEXT | one authorized run; no body/row access; approvals consumed; workflow removed |
+| M3 — California Data Spike | V1.2 REAL-SOURCE EVIDENCE REVIEW PASS; TRANSPORT + ARCHIVE-LAYOUT BASELINE REFRESH PROPOSAL NEXT | one-shot stopped fail-closed before body access; approvals consumed; no retry; baseline refresh not authorized |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -16,39 +16,35 @@ Last updated: 2026-09-16
 - accepted implementation strategy: `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`;
 - v1.2 implementation completed and human-reviewed;
 - runner output contract remains `1.2.0`;
-- real-source execution proposal prepared and human-reviewed PASS;
-- fresh single-use execution/privacy authorization was granted;
-- the authorized one-shot execution has been performed exactly once;
-- both fresh approvals are consumed and non-reusable;
-- no retry is authorized;
+- real-source execution proposal/review and fresh single-use authorization completed;
+- authorized one-shot execution performed exactly once;
+- one-shot evidence human-reviewed and accepted;
+- both fresh approvals consumed and non-reusable;
+- no retry authorized;
 - source continuation remains `false`;
 - semantic compatibility remains unresolved.
 
-## One-Shot Real-Source Execution
+Human evidence-review result:
+
+`PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED`
+
+## Reviewed One-Shot Result
 
 Execution branch:
 
 `m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-once`
 
-Authorization checkpoint:
+Execution final HEAD before review:
 
-`5872db1368a5b9a2cdee79a0c2e54aa0b9b00dfa`
+`05a475ef2ddd0ed86f4e934c919bb1d98c58d566`
 
-Real execution trigger checkpoint:
+Execution final CI:
 
-`c32df1725390de8784e9bb2f29bea8b4f933abac`
+`35124327126` — **SUCCESS**
 
 One-shot run:
 
 `35123686954` — **SUCCESS**, attempt `1`
-
-Cleanup/evidence checkpoint:
-
-`448e209d7c8afaec4e0f4b6efc1e5598803d87e5`
-
-Cleanup/evidence CI:
-
-`35124024271` — **SUCCESS**
 
 Execution outcome:
 
@@ -56,7 +52,7 @@ Execution outcome:
 - `stop_reason = TRANSPORT_METADATA_DRIFT`;
 - `control_disposition = null`.
 
-Actual request/data usage:
+Actual usage:
 
 - 1 HEAD request;
 - 0 Range requests;
@@ -65,14 +61,14 @@ Actual request/data usage:
 - 0 rows examined;
 - no `PROPERTY_TYPE` value observed.
 
-## Transport Drift Evidence
+## Transport / Archive-Layout Finding
 
-Expected:
+Expected transport identity:
 
 - content length `162416884`;
 - ETag `"b25b315b6cd8007624387c3a00d4b1fe"`.
 
-Observed:
+Observed live HEAD:
 
 - content length `162560390`;
 - ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
@@ -81,11 +77,16 @@ Observed:
 - Accept-Ranges `bytes`;
 - Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
 
-The runner failed closed before body access because the live content length and ETag no longer matched the pinned transport metadata.
+The runner also pins four ZIP local-header offsets used by the deterministic sample plan:
 
-This evidence does not establish whether source contents, archive structure or `PROPERTY_TYPE` semantics changed. The D-008 PROPERTY_TYPE mismatch disposition was not reached.
+- `From_500_To_Beyond_1_of_4.csv` → `0`;
+- `From_500_To_Beyond_2_of_4.csv` → `59747797`;
+- `From_500_To_Beyond_3_of_4.csv` → `96862896`;
+- `From_500_To_Beyond_4_of_4.csv` → `134174190`.
 
-## Approval / Workflow Lifecycle
+Because the live ZIP identity changed, a future path cannot safely update only content length and ETag while assuming the historical archive-layout offsets remain valid. The existing transport/archive-layout baseline is therefore stale for future execution planning, but no new baseline values are adopted by this review.
+
+## Approval / Workflow State
 
 Consumed execution approval:
 
@@ -95,51 +96,37 @@ Consumed privacy approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
-Both are:
+Both remain `CONSUMED_SINGLE_USE_NON_REUSABLE`.
 
-`CONSUMED_SINGLE_USE_NON_REUSABLE`
+The temporary one-shot workflow and trigger marker remain absent. No retry path remains.
 
-The temporary one-shot workflow and trigger marker were removed immediately after the run. No retry path remains in the repository.
+## Evidence Review Artifact
 
-## Evidence
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
 
-Persisted derived evidence:
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
-
-Execution audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
-
-Evidence contract test:
-
-`tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
-
-The evidence validates against the v1.2 execution schema and records only permitted derived metadata.
+The review is repository-only and performs no source access.
 
 ## Privacy / Source Governance
 
-No raw source body or row was read during the stopped execution.
+No raw source body or row was read during the stopped execution. No protected source values were persisted.
 
-No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact field length, real-row quarantine or row-specific human inspection occurred.
+No rebaseline, runtime modification, another network verification or approval grant is authorized by the evidence review.
 
 Source policy remains `PROPOSED`. Registry remains disabled/unapproved. Approved real sources remain `0`. Production classification and all downstream identity/genealogy/matching/outreach/claim gates remain inactive.
 
 ## Next Product Work
 
-Perform exclusively:
+Prepare exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
+`PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
 
-The human evidence review may assess the persisted derived evidence and define a later governance proposal if justified.
+The proposal must be repository-only and design-only. It must:
 
-It must not:
+- distinguish transport identity from ZIP archive-layout/member-offset assumptions;
+- define fail-closed refresh/revalidation options;
+- avoid adopting the newly observed ETag/content length without a later separately authorized verification;
+- avoid inferring or arithmetically rebasing member offsets;
+- preserve existing runtime, parser/projector, regex, privacy and downstream closures;
+- require a separate human-reviewed authorization before any future network request.
 
-- make another source request;
-- retry the execution;
-- reuse consumed approval refs;
-- silently update the pinned transport metadata;
-- modify runner/parser/projector/regex/normalization;
-- widen privacy or source continuation;
-- activate source policy, registry or production classification;
-- begin downstream identity resolution, genealogy, beneficiary matching, outreach or claim submission.
+It must not perform source or authority access, update runner constants, create a network workflow, grant approvals, retry the prior run or activate source/registry/production/downstream gates.
