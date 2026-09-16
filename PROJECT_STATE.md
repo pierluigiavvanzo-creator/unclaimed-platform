@@ -10,68 +10,84 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The original live-source mismatch was classified as `ASCII_STRUCTURAL_MISMATCH`; the separately reviewed and authorized source-format diagnostic then produced `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source mismatch chain remains bounded by the retained classes `ASCII_STRUCTURAL_MISMATCH` and `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
 
-The nonconforming-row handling proposal has now completed human review with decision:
+The nonconforming-row handling proposal completed human review with decision:
 
 `PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS`
 
-The review accepts the proposal as a valid fail-closed design comparison but does not select or authorize a runtime handling policy.
+The required policy-decision proposal is now prepared and CI-green. It proposes exactly one deterministic policy for later human review:
 
-Semantic compatibility remains unresolved. No runtime remediation, row skipping, quarantine persistence, source continuation or source activation is authorized.
+`WHOLE_SOURCE_STOP`
 
-## Handling Proposal Review
+Proposal status remains:
 
-Gate:
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW`
+The policy is **not selected, approved or implemented for runtime**. Existing fail-closed STOP behavior remains unchanged while semantic compatibility remains unresolved.
 
-Review branch:
+## Policy-Decision Proposal Checkpoint
 
-`m3-ca-sco-property-type-nonconforming-row-handling-proposal-review`
+Branch:
 
-Reviewed proposal final HEAD:
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal`
 
-`9d5dc3feaa3a9fa63ce5af0dd2c3749a7bee7c87`
+Functional package checkpoint:
 
-Reviewed functional package checkpoint:
-
-`f29c4423c885d37956bea4aba02e4db241409452`
+`33abf635dc2b3f3893300b5e6adf3e35abeefcb8`
 
 Package CI:
 
-`35093840690` — SUCCESS
+`35095481531` — **SUCCESS**
 
-Proposal final CI:
+Proposal:
 
-`35094071730` — SUCCESS
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_decision.v1.json`
 
-Review audit:
+Schema:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW.md`
+`schemas/common/property_type_nonconforming_row_handling_policy_decision_proposal.schema.json`
 
-## Candidate Options — Still Unselected
+Audit:
 
-The reviewed proposal compares:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL.md`
 
-1. `WHOLE_SOURCE_STOP`
-2. `ROW_LEVEL_DEFER_OR_QUARANTINE`
-3. `HUMAN_REVIEW_ROUTE`
+Contract test:
 
-No option is selected or implemented.
+`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_decision_proposal.py`
 
-The existing fail-closed runtime behavior remains unchanged: stop when the nonconforming PROPERTY_TYPE condition is encountered.
+## Proposed Policy — Not Authorized
 
-## Mandatory Next-Artifact Tightenings
+`WHOLE_SOURCE_STOP`
 
-The next policy-decision proposal must incorporate:
+Control disposition and source continuation are explicitly separated.
 
-- T-1: separate control disposition from source continuation;
-- T-2: distinguish metadata-only defer from real-row/field quarantine;
-- T-3: keep human review metadata-only unless separate privacy authorization exists;
-- T-4: preserve current STOP behavior until a later policy is explicitly approved;
-- T-5: any future continuation proposal must define non-value-bearing completeness/audit evidence and privacy-review any counters/identifiers;
-- T-6: policy selection and runtime implementation remain separate gates.
+Control disposition:
+
+- status: `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- reason: `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
+- metadata-only: `true`;
+- real row/field retained: `false`.
+
+Source continuation:
+
+- continue after nonconforming row: `false`;
+- process later rows after trigger: `false`;
+- silent row skip: `false`;
+- silent continuation: `false`.
+
+This proposal preserves the current fail-closed behavior and creates no new privacy boundary.
+
+## T-1…T-6 Incorporated
+
+The machine contract now locks all mandatory tightenings from the previous human review:
+
+1. control disposition is independent from source continuation;
+2. metadata defer is distinct from real-row quarantine;
+3. row-specific human inspection remains a separate privacy expansion;
+4. current STOP behavior remains in force until explicit later approval;
+5. future continuation requires a separate completeness/audit and privacy-reviewed design;
+6. policy selection and runtime implementation remain separate gates.
 
 ## Validation / Privacy Boundary
 
@@ -79,36 +95,39 @@ Unchanged validation rule:
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-No trim, case conversion, Unicode normalization, regex relaxation or alternate token acceptance is authorized.
+No trim, case conversion, Unicode normalization, regex relaxation, alternate token acceptance or parser/projector change is authorized.
 
-Real-row/field retention for quarantine and row-specific human inspection remain privacy expansions and are not authorized.
+The proposal permits only non-value-bearing status/reason metadata as the eventual control vocabulary. It does not authorize persistence of exact/derived PROPERTY_TYPE, row/field content or hashes, exact lengths, PROPERTY_ID, owner/holder values or source-derived free text.
 
-All historical execution/privacy/authority approval tokens remain consumed and non-reusable.
+All historical execution/privacy/authority approvals remain consumed and non-reusable. No fresh approval token is defined by this proposal.
 
 ## Governance State
 
+- policy proposed for human review: `WHOLE_SOURCE_STOP`;
+- policy selected for runtime: `false`;
+- policy approved for runtime: `false`;
+- runtime implementation authorized: `false`;
 - parser/projector unchanged;
 - regex unchanged;
-- handling policy selected: `false`;
-- runtime handling change authorized: `false`;
 - remediation authorized: `false`;
 - additional source execution authorized: `false`;
+- source continuation authorized: `false`;
 - additional privacy expansion authorized: `false`;
 - real-row quarantine persistence authorized: `false`;
 - row-specific human inspection authorized: `false`;
-- source continuation after nonconformance authorized: `false`;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
 - approved real sources remain `0`;
+- semantic compatibility remains unresolved;
 - production classification remains inactive;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
 
 ## Next Recommended Action
 
-Prepare exclusively, offline:
+Perform exclusively:
 
-`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW`
 
-The artifact must incorporate T-1 through T-6 and may propose a single deterministic policy for subsequent human review. It must not implement runtime behavior, access the source, expand privacy exposure, activate source/registry/production classification or enter downstream work.
+Review whether `WHOLE_SOURCE_STOP` should be accepted as the deterministic policy decision. Do not implement it, access the real source, expand privacy exposure, activate source/registry/production classification or enter downstream work during the review.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
