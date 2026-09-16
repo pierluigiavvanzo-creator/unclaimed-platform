@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | POLICY-DECISION PROPOSAL PREPARED; HUMAN REVIEW NEXT | proposal `WHOLE_SOURCE_STOP`; package `33abf635...fcb8`; CI `35095481531` SUCCESS; not runtime-authorized |
+| M3 — California Data Spike | WHOLE_SOURCE_STOP DESIGN ACCEPTED; IMPLEMENTATION PROPOSAL NEXT | policy-decision review PASS; D-008 accepted as design; runtime implementation not authorized |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -18,57 +18,46 @@ Last updated: 2026-09-16
 - source-format one-shot execution run `35090057224`: SUCCESS;
 - source-format class: `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`;
 - all historical execution/privacy approvals consumed and non-reusable;
-- nonconforming-row handling proposal and human review completed;
-- handling review decision: `PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS`;
-- policy-decision proposal package: `33abf635dc2b3f3893300b5e6adf3e35abeefcb8`;
-- package CI `35095481531`: SUCCESS;
-- proposed policy: `WHOLE_SOURCE_STOP`;
-- proposal status: `PROPOSAL_ONLY_NOT_AUTHORIZED`;
-- no runtime policy selected or implemented;
+- nonconforming-row handling proposal and its human review completed;
+- policy-decision proposal package `33abf635dc2b3f3893300b5e6adf3e35abeefcb8` CI `35095481531`: SUCCESS;
+- proposal final HEAD `5e6f538a03f0b5e61c4559a27431e9718b29e265` CI `35095734936`: SUCCESS;
+- human policy-decision proposal review: `PASS_POLICY_DECISION_ACCEPTED_AS_DESIGN_IMPLEMENTATION_NOT_AUTHORIZED`;
+- accepted design policy: `WHOLE_SOURCE_STOP`;
+- decision recorded as `D-008`;
+- runtime implementation remains unauthorized and unchanged;
 - no remediation performed;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Proposed Policy Contract
+## Accepted Design — Runtime Still Gated
 
-The policy-decision proposal separates:
+The accepted `WHOLE_SOURCE_STOP` design separates control disposition from source continuation.
 
-### Control disposition
+Control disposition for a future separately authorized implementation:
 
-- `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- status `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
 - reason `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
 - metadata-only;
 - no real row/field retention.
 
-### Source continuation
+Source continuation:
 
 - continuation after trigger: `false`;
 - later rows after trigger: `false`;
 - silent skip/continuation: `false`.
 
-The proposal therefore formalizes the safest current fail-closed shape for later review without changing runtime behavior.
-
-## T-1…T-6 State
-
-All six mandatory tightenings are now machine-locked in the proposal/schema/contract test:
-
-1. disposition and continuation are separate axes;
-2. metadata defer is separate from real-row quarantine;
-3. row-specific human review remains separately privacy-gated;
-4. current STOP behavior remains until explicit approval;
-5. future continuation requires a separate completeness/audit and privacy-reviewed design;
-6. policy selection and implementation remain separate gates.
+The accepted design preserves the current fail-closed behavior and does not resolve or reinterpret the hidden source value.
 
 ## Next Product Work
 
-Perform exclusively:
+Prepare exclusively, offline:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW`
+`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL`
 
-The review may accept, reject or require remediation of the proposed `WHOLE_SOURCE_STOP` policy decision. It must not implement runtime behavior or authorize real-source execution merely by reviewing the proposal.
+The implementation proposal must describe the smallest deterministic code/contract/test changes required to implement D-008, including rollback and regression coverage. Preparation does not authorize those code changes or any real-source execution.
 
 ## Still Out of Scope
 
-- runtime handling-policy implementation;
+- runtime policy implementation before a later explicit review/authorization gate;
 - another real source execution without a new reviewed authorization path;
 - reuse of consumed approvals;
 - source-value reconstruction or inference;
