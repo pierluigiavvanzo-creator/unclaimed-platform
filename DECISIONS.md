@@ -177,3 +177,35 @@ Alternatives considered:
 
 Consequences:
 Vercel deployment is unsupported from the active repository tree. Reintroducing a Vercel runtime integration requires a new explicit owner decision and corresponding test/governance update. An already-installed external Git integration may still receive repository events until it is disconnected at the provider/GitHub integration layer.
+
+---
+
+## D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE
+
+Date: 2026-09-16
+
+Status: Accepted as design; implementation pending separate gate
+
+Context:
+The bounded California SCO diagnostics established, for one examined row, that strict UTF-8 decoding and strict stdlib CSV parsing succeeded, the canonical 25-column shape was produced, stdlib field index `1` agreed with the custom projector's `PROPERTY_TYPE` field, and the shared field still failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`. The exact value, frequency, cause and source intent remain unknown. A reviewed handling proposal required disposition, continuation and privacy boundaries to remain separate.
+
+Decision:
+Accept `WHOLE_SOURCE_STOP` as the deterministic handling **design decision** for a canonical `PROPERTY_TYPE` that fails the unchanged validation boundary. The design emits only non-value-bearing control status/reason metadata and does not continue to later rows after the triggering condition.
+
+This decision does not itself authorize or perform runtime implementation, another real-source execution, source activation, registry activation, privacy expansion, real-row quarantine, row-specific human inspection, parser/projector changes, regex changes, trimming/casing/normalization or semantic acceptance of the source value.
+
+Reason:
+This preserves the current fail-closed behavior without silently omitting rows, inventing source semantics, enabling continuation or introducing a new privacy/persistence boundary while semantic compatibility remains unresolved.
+
+Alternatives considered:
+- Row-level metadata defer with separately governed later continuation
+- Real-row quarantine
+- Metadata-only human-review route
+
+Consequences:
+- Runtime behavior remains unchanged until a separate implementation gate is reviewed and authorized.
+- Source continuation after the nonconforming condition remains unauthorized.
+- The accepted future control vocabulary is `PROPERTY_TYPE_NONCONFORMING_STOPPED` with reason `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`, subject to separate implementation review.
+- Exact/derived `PROPERTY_TYPE`, real row/field content, hashes, exact lengths, `PROPERTY_ID`, owner/holder values and source-derived free text remain outside the persistence boundary.
+- Any future continuation, real-row retention or row-specific inspection requires a separately reviewed design and authorization path.
+- Source policy remains `PROPOSED`, registry remains disabled/unapproved, production classification remains inactive and downstream gates remain closed.
