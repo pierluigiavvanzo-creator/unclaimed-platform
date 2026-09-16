@@ -21,7 +21,6 @@ PROPOSAL_PATH = (
     "ca_sco_segment_500_plus."
     "property_type_nonconforming_row_handling_policy_implementation.v1.json"
 )
-RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 V1_1_SCHEMA_PATH = (
     ROOT
     / "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json"
@@ -43,7 +42,7 @@ def _validator() -> Draft202012Validator:
     return Draft202012Validator(schema)
 
 
-def test_implementation_proposal_validates_and_remains_unauthorized() -> None:
+def test_implementation_proposal_validates_and_remains_historical_record() -> None:
     proposal = _load(PROPOSAL_PATH)
     _validator().validate(proposal)
 
@@ -107,22 +106,11 @@ def test_minimal_delta_is_additive_versioned_and_backward_compatible() -> None:
     assert shape["source_value_bearing_fields_allowed"] is False
 
 
-def test_current_runner_and_v1_1_contract_are_still_unmodified() -> None:
+def test_proposal_records_preimplementation_state_and_v1_1_contract_is_immutable() -> None:
     proposal = _load(PROPOSAL_PATH)
     preparation = proposal["preparation_state"]
     assert isinstance(preparation, dict)
     assert all(value is False for value in preparation.values())
-
-    runner_text = RUNNER_PATH.read_text(encoding="utf-8")
-    assert '"schema_version": "1.1.0"' in runner_text
-    assert (
-        'PROPERTY_TYPE_RE = re.compile(r"^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$")'
-        in runner_text
-    )
-    assert 'raise RunnerStop("PROPERTY_TYPE_FORMAT_UNEXPECTED")' in runner_text
-    assert 'result["semantic_result_status"] = "STOPPED_FAIL_CLOSED"' in runner_text
-    assert 'result["stop_reason"] = exc.reason' in runner_text
-    assert "control_disposition" not in runner_text
 
     v1_1 = _load(V1_1_SCHEMA_PATH)
     assert v1_1["$id"] == (
