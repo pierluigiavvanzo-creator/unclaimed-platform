@@ -48,6 +48,8 @@ MAX_HTTP_REQUESTS = 5
 
 PROPERTY_TYPE_INDEX = 1
 PROPERTY_TYPE_RE = re.compile(r"^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$")
+PROPERTY_TYPE_NONCONFORMING_STATUS = "PROPERTY_TYPE_NONCONFORMING_STOPPED"
+PROPERTY_TYPE_NONCONFORMING_REASON = "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE"
 OFFICIAL_INSURANCE_CODES = frozenset(
     {"IN01", "IN02", "IN03", "IN04", "IN05", "IN06", "IN07", "IN08", "IN99"}
 )
@@ -222,7 +224,7 @@ def _base_result(
     privacy_approval_ref: str,
 ) -> dict[str, Any]:
     return {
-        "schema_version": "1.1.0",
+        "schema_version": "1.2.0",
         "execution_id": "ca.sco.unclaimed_property.bulk.500_plus.property_type.semantic",
         "proposal_id": "ca.sco.segment.500_plus.property_type_semantic_verification",
         "source_id": "ca.sco.unclaimed_property.bulk",
@@ -286,6 +288,7 @@ def _base_result(
             "outreach_performed": False,
             "production_classification_activated": False,
         },
+        "control_disposition": None,
         "semantic_result_status": "STOPPED_FAIL_CLOSED",
         "stop_reason": "RUNNER_INTERNAL_ERROR",
     }
@@ -679,6 +682,11 @@ def execute(
         result["sample_summary"]["distinct_insurance_codes"] = sorted(distinct_insurance)
         result["semantic_result_status"] = "STOPPED_FAIL_CLOSED"
         result["stop_reason"] = exc.reason
+        if exc.reason == "PROPERTY_TYPE_FORMAT_UNEXPECTED":
+            result["control_disposition"] = {
+                "status_code": PROPERTY_TYPE_NONCONFORMING_STATUS,
+                "reason_code": PROPERTY_TYPE_NONCONFORMING_REASON,
+            }
         return result
     except Exception:
         result["sample_summary"]["distinct_property_type_codes"] = sorted(distinct_codes)
