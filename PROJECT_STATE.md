@@ -10,59 +10,59 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source mismatch chain remains bounded by the retained classes `ASCII_STRUCTURAL_MISMATCH` and `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The retained live-source diagnostic chain remains bounded by `ASCII_STRUCTURAL_MISMATCH` and `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`.
 
-The nonconforming-row handling proposal completed human review with decision:
+The policy-decision proposal for nonconforming canonical `PROPERTY_TYPE` has completed human review with decision:
 
-`PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS`
+`PASS_POLICY_DECISION_ACCEPTED_AS_DESIGN_IMPLEMENTATION_NOT_AUTHORIZED`
 
-The required policy-decision proposal is now prepared and CI-green. It proposes exactly one deterministic policy for later human review:
+Accepted design policy:
 
 `WHOLE_SOURCE_STOP`
 
-Proposal status remains:
+This is now an accepted governance/design decision, recorded as `D-008` in `DECISIONS.md`, but it is **not implemented or activated in runtime**. Existing fail-closed STOP behavior remains operationally unchanged. Semantic compatibility remains unresolved.
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+## Policy-Decision Review Checkpoint
 
-The policy is **not selected, approved or implemented for runtime**. Existing fail-closed STOP behavior remains unchanged while semantic compatibility remains unresolved.
+Review gate:
 
-## Policy-Decision Proposal Checkpoint
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW`
 
-Branch:
+Review branch:
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal`
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal-review`
 
-Functional package checkpoint:
+Reviewed proposal final HEAD:
+
+`5e6f538a03f0b5e61c4559a27431e9718b29e265`
+
+Reviewed functional package checkpoint:
 
 `33abf635dc2b3f3893300b5e6adf3e35abeefcb8`
 
 Package CI:
 
-`35095481531` — **SUCCESS**
+`35095481531` — SUCCESS
 
-Proposal:
+Proposal final CI:
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_decision.v1.json`
+`35095734936` — SUCCESS
 
-Schema:
+Review audit:
 
-`schemas/common/property_type_nonconforming_row_handling_policy_decision_proposal.schema.json`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW.md`
 
-Audit:
+Decision record:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL.md`
+`D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`
 
-Contract test:
+## Accepted Design Contract — Not Yet Implemented
 
-`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_decision_proposal.py`
-
-## Proposed Policy — Not Authorized
+Policy:
 
 `WHOLE_SOURCE_STOP`
 
-Control disposition and source continuation are explicitly separated.
-
-Control disposition:
+Future control disposition after a separately reviewed implementation:
 
 - status: `PROPERTY_TYPE_NONCONFORMING_STOPPED`;
 - reason: `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
@@ -71,23 +71,12 @@ Control disposition:
 
 Source continuation:
 
-- continue after nonconforming row: `false`;
+- continue after triggering row: `false`;
 - process later rows after trigger: `false`;
 - silent row skip: `false`;
 - silent continuation: `false`.
 
-This proposal preserves the current fail-closed behavior and creates no new privacy boundary.
-
-## T-1…T-6 Incorporated
-
-The machine contract now locks all mandatory tightenings from the previous human review:
-
-1. control disposition is independent from source continuation;
-2. metadata defer is distinct from real-row quarantine;
-3. row-specific human inspection remains a separate privacy expansion;
-4. current STOP behavior remains in force until explicit later approval;
-5. future continuation requires a separate completeness/audit and privacy-reviewed design;
-6. policy selection and runtime implementation remain separate gates.
+The accepted design does not claim that the source value is semantically invalid in the source system; it defines only the platform's fail-closed handling while source semantic compatibility remains unresolved.
 
 ## Validation / Privacy Boundary
 
@@ -95,17 +84,19 @@ Unchanged validation rule:
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-No trim, case conversion, Unicode normalization, regex relaxation, alternate token acceptance or parser/projector change is authorized.
+No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is authorized.
 
-The proposal permits only non-value-bearing status/reason metadata as the eventual control vocabulary. It does not authorize persistence of exact/derived PROPERTY_TYPE, row/field content or hashes, exact lengths, PROPERTY_ID, owner/holder values or source-derived free text.
+No persistence of exact/derived PROPERTY_TYPE, real row/field content, hashes, exact row/field lengths, PROPERTY_ID, owner/holder values or source-derived free text is authorized.
 
-All historical execution/privacy/authority approvals remain consumed and non-reusable. No fresh approval token is defined by this proposal.
+Real-row quarantine and row-specific human inspection remain separate privacy expansions and are not authorized.
+
+All historical execution/privacy/authority approvals remain consumed and non-reusable. No fresh execution or privacy approval exists.
 
 ## Governance State
 
-- policy proposed for human review: `WHOLE_SOURCE_STOP`;
-- policy selected for runtime: `false`;
-- policy approved for runtime: `false`;
+- policy decision accepted as design: `true`;
+- accepted design policy: `WHOLE_SOURCE_STOP`;
+- policy active in runtime: `false`;
 - runtime implementation authorized: `false`;
 - parser/projector unchanged;
 - regex unchanged;
@@ -124,10 +115,10 @@ All historical execution/privacy/authority approvals remain consumed and non-reu
 
 ## Next Recommended Action
 
-Perform exclusively:
+Prepare exclusively, offline:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_DECISION_PROPOSAL_REVIEW`
+`PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL`
 
-Review whether `WHOLE_SOURCE_STOP` should be accepted as the deterministic policy decision. Do not implement it, access the real source, expand privacy exposure, activate source/registry/production classification or enter downstream work during the review.
+The artifact must identify the smallest deterministic runtime/contract/test changes required to implement the accepted `WHOLE_SOURCE_STOP` design, with rollback and regression coverage. It must not itself modify runtime code, access a real source, define/grant execution approvals, expand privacy exposure, activate source/registry/production classification or enter downstream work.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
