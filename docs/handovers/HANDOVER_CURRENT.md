@@ -6,19 +6,19 @@ Date: 2026-09-16
 
 Authoritative restart point. Verify remote heads before acting and use repository evidence rather than chat memory.
 
-## Current Branch / Proposal Checkpoint
+## Current Branch / Review Checkpoint
 
 - repository: `pierluigiavvanzo-creator/unclaimed-platform`
-- branch: `m3-ca-sco-property-type-source-format-diagnostic-proposal`
-- diagnostic evidence review base HEAD: `9195d27e17b89703f7179a9db2ba5dccad43a75e`
-- diagnostic evidence review CI: `35058889923` — SUCCESS
-- source-format proposal package checkpoint: `d8dc240bd74e271f88b2ef4583f6b79e533918b2`
-- source-format proposal package CI: `35060253297` — SUCCESS
+- branch: `m3-ca-sco-property-type-source-format-diagnostic-proposal-review`
+- proposal branch final HEAD reviewed: `5e0aa6fa8bc9516c2cd8447e26e3b76b7485c4e9`
+- proposal final CI: `35060418377` — SUCCESS
+- proposal package checkpoint: `d8dc240bd74e271f88b2ef4583f6b79e533918b2`
+- proposal package CI: `35060253297` — SUCCESS
 - proposal: `sources/proposals/ca_sco_segment_500_plus.property_type_source_format_diagnostic.v1.json`
-- schema: `schemas/common/property_type_source_format_diagnostic_proposal.schema.json`
+- proposal schema: `schemas/common/property_type_source_format_diagnostic_proposal.schema.json`
 - proposal audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL.md`
-- contract test: `tests/contract/test_ca_sco_property_type_source_format_diagnostic_proposal.py`
-- network workflow for this proposal: ABSENT
+- proposal review audit: `docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW.md`
+- source-format network workflow: ABSENT
 
 ## Prior Diagnostic Evidence
 
@@ -37,24 +37,37 @@ Persisted result:
 
 The exact observed PROPERTY_TYPE value, bytes, hash, exact length, fragments, codepoints and transformed form were not persisted and must not be reconstructed or inferred.
 
-Human evidence review decision:
+Prior human evidence review decision:
 
 `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`
 
-## Proposal Status
+## Source-Format Proposal Human Review
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+Gate completed:
 
-Preparation was repository-only/offline. No source request, authority request, real full-row access, diagnostic execution, workflow creation, runner/parser/regex modification, normalization change, logging expansion, persistence expansion or remediation occurred.
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW`
 
-## Proposed Future Source Boundary — Not Authorized
+Decision:
 
-If a later execution artifact is separately reviewed and approved, it may be no wider than:
+`PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS`
+
+Meaning:
+
+- the proposal design is accepted only as the basis for preparing a separate execution/authorization artifact;
+- no network access is authorized;
+- no real full-row exposure is authorized;
+- no workflow creation/execution is authorized;
+- no parser/regex/runtime modification or remediation is authorized;
+- no execution/privacy token is granted or consumed by this review.
+
+## Reviewed Future Source Boundary — Still Not Authorized
+
+A later execution artifact may be no wider than:
 
 - exact current `claimit.ca.gov` endpoint and pinned source identity;
 - first canonical ZIP member only;
 - maximum 4 transient rows while seeking the first reproduced target mismatch;
-- maximum 1 full-row independent cross-check, only on that first mismatch row;
+- maximum 1 full-row independent cross-check, only on that mismatch row;
 - maximum 1 HEAD + 1 Range GET;
 - maximum 2 HTTP requests total;
 - maximum 131072 source response-body bytes;
@@ -65,51 +78,30 @@ If a later execution artifact is separately reviewed and approved, it may be no 
 - additional ranges forbidden;
 - full-body fallback forbidden;
 - automatic widening forbidden;
-- source identity drift or target mismatch not reproduced within the bound -> fail closed.
+- source identity drift or target mismatch not reproduced within bound -> fail closed.
 
-The proposal itself grants no network permission.
+## Full-Row Privacy Boundary — Accepted as Design Only
 
-## Independent Parser Design
+A future strict standard-library CSV cross-check would transiently decode all fields in one real logical row and may expose personal data in memory.
 
-A future comparator is pinned to:
+This privacy expansion remains:
 
-- Python standard-library `csv.reader`;
-- `strict=True`;
-- delimiter `,`;
-- quote character `"`;
-- `doublequote=True`;
-- no escape character;
-- `skipinitialspace=False`;
-- strict UTF-8 row decode;
-- exactly 25 expected columns;
-- PROPERTY_TYPE at zero-based index `1`.
+- full-row transient rows max: `1`;
+- authorized now: `false`;
+- persistence/logging of row or fields: forbidden;
+- fresh execution approval required before network: `true`;
+- separate fresh full-row transient privacy approval required before network: `true`;
+- approvals must be single-use/non-reusable and pinned to the exact reviewed execution artifact.
 
-The existing narrow projector stays unchanged. The current regex stays unchanged:
+No approval token was defined or granted by this review.
 
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
+## Mandatory Tightenings for Next Artifact
 
-The independent parser is diagnostic-only and cannot replace, normalize or accept the source value.
+The future execution/authorization artifact must incorporate all of the following without widening scope:
 
-## Explicit Full-Row Privacy Expansion
+### T-1 — Fixed classifier precedence
 
-A real full-row `csv.reader` cross-check would transiently decode all fields in one row and may therefore expose personal data in memory. This is explicitly classified as a new privacy expansion.
-
-Current state:
-
-- full-row exposure authorized: `false`;
-- source-format execution authorized: `false`;
-- network workflow authorized: `false`;
-- approval token defined by this proposal: `false`.
-
-A future execution requires a new reviewed execution/authorization artifact plus:
-
-1. fresh single-use execution approval;
-2. separate fresh single-use full-row transient privacy approval;
-3. both pinned to the exact reviewed execution artifact before any network request.
-
-Even then, only one mismatch row may undergo the full-row comparator, and no row/field/source value or protected derivative may persist or be logged.
-
-## Proposed Future Categorical Outcomes
+First-match order must be exactly:
 
 1. `FULL_ROW_UTF8_DECODE_FAILED`
 2. `STDLIB_STRICT_CSV_PARSE_FAILED`
@@ -117,11 +109,43 @@ Even then, only one mismatch row may undergo the full-row comparator, and no row
 4. `PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER`
 5. `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
 
-These outcomes are non-value-bearing. None authorizes remediation automatically.
+### T-2 — Same logical-row bytes
+
+The comparator must consume the exact same transient logical-record bytes already assembled in memory for the first reproduced `ASCII_STRUCTURAL_MISMATCH`. No source re-read or extra Range request is allowed.
+
+### T-3 — Exact newline/multiline framing
+
+The artifact must pin deterministic standard-library framing for embedded newline/CRLF handling. Use an explicit construction equivalent to `io.StringIO(decoded_row, newline="")` feeding `csv.reader` with the pinned dialect, or an equivalently explicit standard-library construction proven by synthetic regression tests.
+
+### T-4 — Exactly one parsed record
+
+The independent comparator must produce exactly one CSV record from that one transient logical row. Zero or multiple records must STOP fail-closed under an enumerated non-source-bearing reason code.
+
+### T-5 — Enumerated fail-closed reasons
+
+All non-classification fail-closed reason codes must be enumerated before execution, including source identity drift, target mismatch not reproduced within bound, and independent-parser framing/record-count failure. Parser exception text and source-derived free text remain forbidden.
+
+## Independent Parser Role
+
+The comparator remains diagnostic-only:
+
+- Python standard-library `csv.reader`;
+- `strict=True`;
+- comma delimiter;
+- quote character `"`;
+- `doublequote=True`;
+- no escape character;
+- `skipinitialspace=False`;
+- strict UTF-8 decode;
+- canonical 25 columns;
+- PROPERTY_TYPE at zero-based index `1`;
+- current custom projector unchanged;
+- current regex unchanged: `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- no normalization/value substitution/remediation.
 
 ## Approval State
 
-All prior approvals remain consumed and non-reusable:
+All prior approvals remain consumed and permanently non-reusable:
 
 - `APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED`
 - `APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED`
@@ -129,7 +153,7 @@ All prior approvals remain consumed and non-reusable:
 - `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`
 - `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`
 
-Do not infer or invent replacement approval tokens during proposal review.
+Do not infer or reuse any of them.
 
 ## Governance State
 
@@ -138,6 +162,9 @@ Unchanged and fail-closed:
 - parser unchanged;
 - regex unchanged;
 - trimming/casing/normalization unchanged;
+- source-format execution authorized: `false`;
+- full-row transient privacy exposure authorized: `false`;
+- network workflow authorized: `false`;
 - remediation authorized: `false`;
 - additional authority retrieval authorized: `false`;
 - source policy `PROPOSED`;
@@ -149,22 +176,22 @@ Unchanged and fail-closed:
 
 ## SINGLE NEXT ACTION
 
-Perform exclusively:
+Prepare exclusively, offline, a separate:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW`
+`PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_ARTIFACT`
 
-Review the design and especially the explicit one-row full-row transient privacy expansion.
+That artifact must incorporate T-1 through T-5 and must not:
 
-During review do **not**:
-
-- access `claimit.ca.gov` or authority endpoints;
+- access `claimit.ca.gov` or authority endpoints during preparation;
 - inspect a real full row;
+- create or execute a network workflow;
+- grant or consume execution/full-row privacy approvals;
 - reconstruct or infer the PROPERTY_TYPE value;
-- create a network workflow;
-- define or grant execution/privacy approval tokens;
 - change parser, regex, trimming, casing, normalization, logging or persistence behavior;
 - apply remediation;
 - activate source policy, registry or production classification;
 - enter downstream identity/genealogy/matching/outreach/claim work.
 
-A review PASS approves only the proposal design. It does not authorize execution or privacy exposure.
+If the artifact defines future execution/privacy approval tokens, they must remain explicitly ungranted until a later human authorization gate.
+
+Stop after artifact preparation at its own human review gate; do not silently execute it.
