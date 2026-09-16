@@ -35,7 +35,7 @@ def pytest_runtest_setup(item):
     module.WORKFLOW_PATH = sentinel
 
 
-def pytest_runtest_teardown(item, _nextitem):
+def pytest_runtest_teardown(item, nextitem):
     original = _ORIGINAL_WORKFLOW_PATHS.pop(item.nodeid, None)
     if original is not None:
         item.module.WORKFLOW_PATH = original
