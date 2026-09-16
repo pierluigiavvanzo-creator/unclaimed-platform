@@ -10,61 +10,65 @@ GitHub is the canonical source of truth.
 
 ## Current Working Branch
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-authorization`
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-once`
 
-Created from proposal-review checkpoint:
+Created from authorization checkpoint:
 
-`7714966eb2190209ba2e4dfa52d525fce499009f`
+`5872db1368a5b9a2cdee79a0c2e54aa0b9b00dfa`
 
-Base CI:
+Authorization CI:
 
-`35120306918` — **SUCCESS**
+`35121670753` — **SUCCESS**
 
 ## Completed Action
 
 Completed:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION`
+`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
 
-Authorization result:
+Execution result:
 
-`PASS_FRESH_SINGLE_USE_EXECUTION_PRIVACY_APPROVALS_GRANTED_ONE_SHOT_PATH_AUTHORIZED_EXECUTION_NOT_PERFORMED`
+`STOPPED_FAIL_CLOSED / TRANSPORT_METADATA_DRIFT`
 
-Authorization artifact:
+The authorized real-source execution occurred exactly once. It stopped deterministically after the live HEAD metadata differed from the runner's pinned transport metadata, before any source body or row was read.
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION.md`
+## Execution Evidence
 
-Meaning:
+Real execution trigger checkpoint:
 
-- the reviewed bounded v1.2 one-shot real-source path is authorized;
-- fresh execution/privacy approvals are granted but not consumed;
-- creation of the temporary one-shot workflow is authorized for the later execution task;
-- exactly one real-source execution is authorized;
-- this authorization task performed no source access, created no network workflow and performed no real-source execution.
+`c32df1725390de8784e9bb2f29bea8b4f933abac`
 
-## Reviewed Proposal Evidence
+One-shot workflow run:
 
-Reviewed proposal HEAD:
+`35123686954` — **SUCCESS**, attempt `1`
 
-`a2139884d99bcd0bd1c06ea7374778347bbd64b1`
+Artifact:
 
-Reviewed proposal CI:
+- id: `10457344882`;
+- name: `ca-sco-property-type-v1-2-real-source-execution-2026-09-16`;
+- digest: `sha256:c4146f9bced7722fa5da26a8c1d2ace5a65e610fac7ae190d720bd098e06e6e0`.
 
-`35107229194` — **SUCCESS**
+Cleanup/evidence checkpoint:
 
-Proposal review result:
+`448e209d7c8afaec4e0f4b6efc1e5598803d87e5`
 
-`PASS_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
+Cleanup/evidence CI:
 
-Proposal id:
+`35124024271` — **SUCCESS**
 
-`ca.sco.segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution`
+Persisted derived evidence:
 
-Proposal version:
+`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
 
-`1.0.0`
+Execution audit:
 
-## Fresh Approval References
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
+
+Evidence contract test:
+
+`tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
+
+## Approval State
 
 Execution approval:
 
@@ -74,17 +78,15 @@ Transient-row privacy approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
-State of each approval:
+Both are now:
 
-`GRANTED_NOT_CONSUMED`
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Both are fresh, single-use, non-reusable, proposal-bound to version `1.0.0` / SHA `a2139884d99bcd0bd1c06ea7374778347bbd64b1`, and runtime-bound to `1.2.0`.
+They became consumed when run `35123686954` invoked the real-source runner.
 
-All historical execution/privacy approvals remain consumed and non-reusable.
+No retry is authorized. These approval refs must not be reused.
 
-The fresh approvals become consumed only once the later one-shot workflow actually invokes the authorized real-source execution. They are not consumed by authorization documentation, repository-local CI, workflow-file creation or a pre-execution failure.
-
-No automatic retry is authorized.
+All historical execution/privacy approvals also remain consumed and non-reusable.
 
 ## Canonical Read Order Before Any New Change
 
@@ -98,93 +100,108 @@ Read in order:
 
 Then inspect, in this order as relevant:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION.md`
-2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REVIEW.md`
-3. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL.md`
-4. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
-5. `schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.schema.json`
-6. `tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.py`
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
+2. `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
+3. `tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
+4. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION.md`
+5. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REVIEW.md`
+6. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
 7. `scripts/ca_sco_property_type_semantic_verification.py`
 8. `schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`
 9. historical v1.1 execution evidence as needed.
 
-## Governing Runtime / D-008 State
+## Actual Request / Data Boundary
 
-Decision:
+Actual execution usage:
 
-`D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`
+- HEAD requests: `1`;
+- Range requests: `0`;
+- HTTP requests total: `1`;
+- source body bytes read: `0`;
+- sample rows examined: `0`;
+- rows examined in every canonical member: `0`;
+- distinct `PROPERTY_TYPE` codes observed: none;
+- distinct insurance codes observed: none.
 
-Accepted design:
+No source row, `PROPERTY_TYPE`, `PROPERTY_ID`, owner/holder or other record value was observed or persisted.
 
-`WHOLE_SOURCE_STOP`
+## Transport Metadata Evidence
 
-Accepted implementation strategy:
+Pinned expected metadata:
 
-`ADDITIVE_VERSIONED_CONTROL_DISPOSITION`
+- content length: `162416884`;
+- ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
+- media type: `application/zip`;
+- Accept-Ranges: `bytes`.
 
-Current runner output contract:
+Observed live HEAD metadata:
 
-`1.2.0`
+- HTTP status: `200`;
+- content length: `162560390`;
+- ETag: `"222dd79f04c2a0a8fff166b01c8da746"`;
+- content type: `application/zip`;
+- Accept-Ranges: `bytes`;
+- Last-Modified: `Wed, 16 Sep 2026 16:43:22 GMT`.
 
-Validation remains exactly:
+The content-length and ETag differences caused:
 
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
+`TRANSPORT_METADATA_DRIFT`
 
-No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is authorized.
+The execution stopped before body access.
 
-If `PROPERTY_TYPE_FORMAT_UNEXPECTED` occurs, exact accepted behavior remains:
+## v1.2 / D-008 Interpretation
 
+Machine result:
+
+- `schema_version = 1.2.0`;
 - `semantic_result_status = STOPPED_FAIL_CLOSED`;
-- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
-- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
-- source continuation after trigger = `false`;
-- later members after trigger are not requested;
-- silent row skip is not allowed.
+- `stop_reason = TRANSPORT_METADATA_DRIFT`;
+- `control_disposition = null`.
 
-Other stops and non-stopped outcomes retain `control_disposition = null`.
+`control_disposition = null` is correct because this was an unrelated transport stop.
 
-The authorization does not predict or precommit any real-source outcome.
+The accepted D-008 mapping for `PROPERTY_TYPE_FORMAT_UNEXPECTED` was not reached, and this run provides no new evidence about the semantic compatibility of `PROPERTY_TYPE`.
 
-## Authorized One-Shot Caps
+Semantic compatibility remains unresolved.
 
-The execution boundary remains:
+The evidence does not establish whether source contents, archive structure or source semantics changed. It establishes only that the live archive's HEAD metadata no longer matches the pinned transport metadata.
 
-- 4 canonical members;
-- max 4 data rows/member and 16 total;
-- max 1 HEAD request;
-- max 4 range requests;
-- max 5 HTTP requests total;
-- max 131072 response bytes/range;
-- max 524288 source response-body bytes total;
-- max 262144 transient uncompressed bytes/member;
-- max 1048576 transient uncompressed bytes total;
-- max 32768 bytes/logical record;
-- no additional range;
-- no full-body fallback;
-- no automatic widening;
-- no automatic retry.
+No transport-baseline update is authorized by this result alone.
 
-## Privacy / Persistence Boundary
+## Workflow Lifecycle
 
-Fresh privacy authorization permits only the transient in-memory full-row observation strictly required by the reviewed runner for the single bounded execution.
+The temporary workflow:
 
-Memory-only, immediate-disposal and zero-retention remain mandatory. No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact-length persistence, record values in logs, real-row quarantine or row-specific human inspection is authorized.
+`.github/workflows/ca-sco-property-type-semantic-verification-once.yml`
 
-`control_disposition` remains limited to non-value-bearing `status_code` and `reason_code`.
+and marker:
 
-No privacy expansion is authorized.
+`.github/ca-sco-property-type-semantic-verification-once.trigger.json`
+
+were removed immediately after the single execution.
+
+No one-shot workflow or retry path remains in the current repository tree.
+
+## Privacy / Safety
+
+All persisted evidence remains derived and non-row-bearing.
+
+No raw body, full row, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact source-field length, real-row quarantine or row-specific human inspection was persisted.
+
+All safety flags in the execution evidence are `false`.
+
+No privacy expansion occurred.
 
 ## Source / Downstream Governance
 
 Current state:
 
-- fresh execution approval granted: `true`;
-- fresh privacy approval granted: `true`;
-- fresh approvals consumed: `false`;
-- workflow creation authorized: `true`;
-- real-source execution authorized: `true`;
-- real-source execution performed: `false`;
+- one-shot real-source execution performed: `true`;
+- execution count under fresh refs: `1`;
+- fresh execution approval consumed: `true`;
+- fresh privacy approval consumed: `true`;
+- retry authorized: `false`;
+- temporary workflow present: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
 - source policy remains `PROPOSED`;
@@ -194,40 +211,26 @@ Current state:
 - production classification remains inactive;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain blocked.
 
-`DECISIONS.md` is intentionally unchanged because this authorization is bounded under existing D-008 and introduces no new architectural design decision.
+`DECISIONS.md` is intentionally unchanged because this execution applies existing D-008 and the prior bounded authorization and introduces no new architectural decision.
 
 ## SINGLE NEXT ACTION
 
-Execute exclusively:
+Perform exclusively:
 
-`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
 
-This next task must remain separate from the authorization gate.
+This is a repository-only human evidence review.
 
-Required sequence:
+It may assess the persisted derived evidence and decide what governance proposal, if any, should follow from the transport metadata drift.
 
-1. verify the remote HEAD and latest CI of this authorization branch;
-2. read the five canonical files in order plus the authorization/proposal artifacts;
-3. create a dedicated execution branch from the verified authorization checkpoint;
-4. create the temporary `.github/workflows/ca-sco-property-type-semantic-verification-once.yml` only on that execution branch;
-5. bind the workflow to exactly the two fresh approval refs above and the reviewed `1.2.0` runner/path;
-6. CI-validate the workflow and authorization evidence before any source request;
-7. perform exactly one bounded real-source execution using the frozen caps and validation/privacy boundaries;
-8. do not automatically retry;
-9. persist only permitted derived evidence;
-10. mark both fresh approvals consumed once real execution occurs, regardless of semantic result;
-11. remove the temporary workflow immediately after the run;
-12. stop at `HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`.
-
-## Do Not Do During the Next Execution
-
-Do not widen sample or transport caps; do not add fallback/ranges/retries; do not infer or reconstruct hidden source values; do not persist real rows/values; do not modify runner/parser/projector/regex/normalization; do not reuse historical approvals; do not enable source continuation; do not activate source policy, registry or production classification; do not begin identity resolution, genealogy, beneficiary matching, outreach or claim work.
+It must not perform another source request, retry the execution, reuse consumed approval refs, update the pinned transport metadata, modify runtime/parser/projector/regex/normalization, widen privacy/source continuation, activate source policy/registry/production classification or begin downstream work.
 
 ## Restart Instruction
 
-1. verify remote HEAD of the current authorization branch;
+1. verify remote HEAD of the current execution branch;
 2. verify latest CI for that exact HEAD;
-3. read canonical five files in order;
-4. read authorization artifact and proposal review/proposal/schema/test;
-5. execute only the `SINGLE NEXT ACTION`;
-6. stop after workflow removal/evidence persistence at the separate human evidence-review gate.
+3. read the five canonical files in order;
+4. read the execution audit, derived evidence and evidence contract test;
+5. inspect authorization/proposal artifacts as needed;
+6. execute only the `SINGLE NEXT ACTION`;
+7. perform no real-source request during evidence review.

@@ -7,7 +7,7 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | V1.2 REAL-SOURCE EXECUTION FRESH SINGLE-USE AUTHORIZED; ONE-SHOT EXECUTION NEXT | D-008 WHOLE_SOURCE_STOP; proposal/review PASS; fresh approvals granted, not consumed |
+| M3 — California Data Spike | V1.2 ONE-SHOT REAL-SOURCE EXECUTED; TRANSPORT_METADATA_DRIFT FAIL-CLOSED; HUMAN EVIDENCE REVIEW NEXT | one authorized run; no body/row access; approvals consumed; workflow removed |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -15,115 +15,131 @@ Last updated: 2026-09-16
 - D-008 accepted `WHOLE_SOURCE_STOP` as design;
 - accepted implementation strategy: `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`;
 - v1.2 implementation completed and human-reviewed;
-- current runner output contract: `1.2.0`;
+- runner output contract remains `1.2.0`;
 - real-source execution proposal prepared and human-reviewed PASS;
-- proposal review result: `PASS_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
-- authorization gate completed;
-- authorization result: `PASS_FRESH_SINGLE_USE_EXECUTION_PRIVACY_APPROVALS_GRANTED_ONE_SHOT_PATH_AUTHORIZED_EXECUTION_NOT_PERFORMED`;
+- fresh single-use execution/privacy authorization was granted;
+- the authorized one-shot execution has been performed exactly once;
+- both fresh approvals are consumed and non-reusable;
+- no retry is authorized;
 - source continuation remains `false`;
-- all historical execution/privacy approvals remain consumed and non-reusable.
+- semantic compatibility remains unresolved.
 
-## Fresh Single-Use Authorization
+## One-Shot Real-Source Execution
 
-Execution approval:
+Execution branch:
+
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-once`
+
+Authorization checkpoint:
+
+`5872db1368a5b9a2cdee79a0c2e54aa0b9b00dfa`
+
+Real execution trigger checkpoint:
+
+`c32df1725390de8784e9bb2f29bea8b4f933abac`
+
+One-shot run:
+
+`35123686954` — **SUCCESS**, attempt `1`
+
+Cleanup/evidence checkpoint:
+
+`448e209d7c8afaec4e0f4b6efc1e5598803d87e5`
+
+Cleanup/evidence CI:
+
+`35124024271` — **SUCCESS**
+
+Execution outcome:
+
+- `semantic_result_status = STOPPED_FAIL_CLOSED`;
+- `stop_reason = TRANSPORT_METADATA_DRIFT`;
+- `control_disposition = null`.
+
+Actual request/data usage:
+
+- 1 HEAD request;
+- 0 Range requests;
+- 1 HTTP request total;
+- 0 source body bytes read;
+- 0 rows examined;
+- no `PROPERTY_TYPE` value observed.
+
+## Transport Drift Evidence
+
+Expected:
+
+- content length `162416884`;
+- ETag `"b25b315b6cd8007624387c3a00d4b1fe"`.
+
+Observed:
+
+- content length `162560390`;
+- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
+- HTTP status `200`;
+- content type `application/zip`;
+- Accept-Ranges `bytes`;
+- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
+
+The runner failed closed before body access because the live content length and ETag no longer matched the pinned transport metadata.
+
+This evidence does not establish whether source contents, archive structure or `PROPERTY_TYPE` semantics changed. The D-008 PROPERTY_TYPE mismatch disposition was not reached.
+
+## Approval / Workflow Lifecycle
+
+Consumed execution approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
 
-Transient-row privacy approval:
+Consumed privacy approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
 Both are:
 
-- `GRANTED_NOT_CONSUMED`;
-- fresh;
-- single-use;
-- non-reusable;
-- bound to proposal version `1.0.0`;
-- bound to reviewed proposal SHA `a2139884d99bcd0bd1c06ea7374778347bbd64b1`;
-- bound to runtime contract `1.2.0`.
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Workflow creation authorized: `true`.
+The temporary one-shot workflow and trigger marker were removed immediately after the run. No retry path remains in the repository.
 
-Real-source execution authorized: `true`.
+## Evidence
 
-Real-source execution performed: `false`.
+Persisted derived evidence:
 
-Fresh approvals consumed: `false`.
+`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
 
-The fresh approvals become consumed only when the later one-shot workflow actually invokes the authorized real-source execution. No automatic retry is authorized.
+Execution audit:
 
-## Authorized One-Shot Boundary
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
 
-The future execution is limited to the reviewed plan:
+Evidence contract test:
 
-- 4 canonical members;
-- max 4 data rows/member and 16 total;
-- max 1 HEAD request;
-- max 4 range requests;
-- max 5 HTTP requests total;
-- max 131072 response bytes/range;
-- max 524288 source response-body bytes total;
-- max 262144 transient uncompressed bytes/member;
-- max 1048576 transient uncompressed bytes total;
-- max 32768 bytes/logical record;
-- no additional range;
-- no full-body fallback;
-- no automatic widening;
-- no automatic retry.
+`tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
 
-Validation remains exactly:
-
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
-
-No trim, case conversion, Unicode normalization, parser/projector change or regex relaxation is authorized.
-
-If `PROPERTY_TYPE_FORMAT_UNEXPECTED` occurs, D-008 remains exact:
-
-- `semantic_result_status = STOPPED_FAIL_CLOSED`;
-- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
-- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
-- source continuation = `false`;
-- later members after the trigger are not requested.
-
-No real-source outcome is predicted or precommitted.
+The evidence validates against the v1.2 execution schema and records only permitted derived metadata.
 
 ## Privacy / Source Governance
 
-The fresh privacy approval permits only transient in-memory row observation strictly necessary for the reviewed runner. Memory-only, immediate-disposal and zero-retention remain mandatory.
+No raw source body or row was read during the stopped execution.
 
-No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact-length persistence, record values in logs, real-row quarantine or row-specific human inspection is authorized.
+No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact field length, real-row quarantine or row-specific human inspection occurred.
 
-`control_disposition` remains limited to non-value-bearing `status_code` and `reason_code`.
-
-Source policy remains `PROPOSED`. Registry remains disabled/unapproved. Approved real sources remain `0`. Semantic compatibility remains unresolved. Production classification and all downstream identity/genealogy/matching/outreach/claim gates remain inactive.
+Source policy remains `PROPOSED`. Registry remains disabled/unapproved. Approved real sources remain `0`. Production classification and all downstream identity/genealogy/matching/outreach/claim gates remain inactive.
 
 ## Next Product Work
 
-Execute exclusively:
+Perform exclusively:
 
-`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
 
-The execution task must:
+The human evidence review may assess the persisted derived evidence and define a later governance proposal if justified.
 
-1. create the temporary one-shot workflow on a dedicated execution branch;
-2. use exactly the two fresh approval refs above;
-3. CI-validate the workflow and authorization evidence before source access;
-4. perform exactly one bounded real-source execution;
-5. persist only permitted derived evidence;
-6. remove the temporary workflow immediately after the run;
-7. mark both fresh approvals consumed once the execution occurs;
-8. stop at `HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`.
+It must not:
 
-## Still Out of Scope
-
-- any widening of sample or transport caps;
-- any automatic retry;
-- reuse of consumed historical approvals;
-- source-value reconstruction or inference;
-- parser/projector/regex/normalization changes;
-- privacy widening or real-row persistence;
-- source continuation;
-- source/registry/production-classification activation;
-- downstream identity resolution, genealogy, beneficiary matching, outreach or claim submission.
+- make another source request;
+- retry the execution;
+- reuse consumed approval refs;
+- silently update the pinned transport metadata;
+- modify runner/parser/projector/regex/normalization;
+- widen privacy or source continuation;
+- activate source policy, registry or production classification;
+- begin downstream identity resolution, genealogy, beneficiary matching, outreach or claim submission.
