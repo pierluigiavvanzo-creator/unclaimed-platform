@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ca.sco.segment_500_plus.property_type_nonconforming_row_handling",
+  "proposal_version": "1.0.0",
+  "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+  "prepared_on": "2026-09-16",
+  "jurisdiction": "CA",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "base_state": {
+    "branch": "m3-ca-sco-property-type-source-format-diagnostic-evidence-review",
+    "head_sha": "27b1a19874449b0170fc0c47328340122d443529",
+    "head_ci_run": "35092673600",
+    "source_format_execution_run_id": "35090057224",
+    "source_format_execution_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_source_format_diagnostic.execution.v1.json",
+    "source_format_diagnostic_class": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH",
+    "source_format_evidence_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW.md",
+    "source_format_evidence_review_decision": "PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED",
+    "authority_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md",
+    "authority_review_decision": "ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS"
+  },
+  "established_facts": [
+    "FOR_ONE_EXAMINED_ROW_STRICT_UTF8_AND_STRICT_STDLIB_CSV_PARSE_SUCCEEDED_AND_PRODUCED_THE_CANONICAL_25_COLUMN_SHAPE",
+    "THE_STDLIB_FIELD_AT_ZERO_BASED_INDEX_1_EXACTLY_AGREED_IN_MEMORY_WITH_THE_CURRENT_CUSTOM_PROJECTOR_PROPERTY_TYPE_FIELD",
+    "THE_SHARED_FIELD_STILL_FAILED_THE_UNCHANGED_REGEX",
+    "THE_ARCHIVED_SCO_AUTHORITY_SUPPORTS_THE_ENUMERATED_PROPERTY_TYPE_AA99_SHAPE_WITH_ZZZZ_AS_THE_EXPLICIT_SPECIAL_TOKEN_WITHIN_THE_RECORDED_SCOPE",
+    "THE_EXACT_NONCONFORMING_PROPERTY_TYPE_VALUE_AND_PROTECTED_DERIVATIVES_WERE_NOT_RETAINED_AND_MUST_NOT_BE_RECONSTRUCTED_OR_INFERRED",
+    "THE_FREQUENCY_CAUSE_SOURCE_INTENT_AND_CORRECT_HANDLING_POLICY_REMAIN_UNKNOWN",
+    "NO_CURRENT_EVIDENCE_AUTHORIZES_ACCEPTANCE_TRANSFORMATION_NORMALIZATION_REGEX_RELAXATION_ROW_SKIPPING_QUARANTINE_PERSISTENCE_OR_SOURCE_CONTINUATION"
+  ],
+  "handling_question": "When the canonical PROPERTY_TYPE field is deterministically found to be structurally nonconforming under the unchanged authoritative validation boundary, which fail-closed handling policy should the platform adopt without silently changing source semantics or increasing privacy exposure?",
+  "unchanged_validation_contract": {
+    "property_type_zero_based_index": 1,
+    "regex": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$",
+    "trim_before_validation": false,
+    "ascii_uppercase_before_validation": false,
+    "unicode_normalization_before_validation": false,
+    "alternate_token_acceptance": false,
+    "parser_or_projector_change": false
+  },
+  "candidate_handling_options": [
+    {
+      "option_id": "WHOLE_SOURCE_STOP",
+      "description": "Stop the active source acquisition/classification path at the first deterministically detected nonconforming canonical PROPERTY_TYPE field and emit only non-value-bearing status/reason evidence.",
+      "fail_closed": true,
+      "continues_after_nonconforming_row": false,
+      "retains_real_row_or_field_content": false,
+      "requires_privacy_expansion": false,
+      "requires_new_real_source_execution_to_validate": true,
+      "principal_benefit": "Preserves the strongest fail-closed semantic boundary and avoids selective omission of unknown source conditions.",
+      "principal_cost": "One nonconforming row can block useful processing of the entire source segment until a separately governed decision is made.",
+      "authorized_by_this_proposal": false
+    },
+    {
+      "option_id": "ROW_LEVEL_DEFER_OR_QUARANTINE",
+      "description": "Treat the nonconforming row as non-processable and potentially continue with later rows only under a separately reviewed deterministic continuation policy.",
+      "fail_closed": true,
+      "continues_after_nonconforming_row": "REQUIRES_SEPARATE_POLICY_DECISION",
+      "retains_real_row_or_field_content": "NOT_BY_DEFAULT",
+      "requires_privacy_expansion": "ONLY_IF_REAL_ROW_OR_FIELD_CONTENT_IS_RETAINED",
+      "requires_new_real_source_execution_to_validate": true,
+      "principal_benefit": "Could isolate malformed or semantically unknown rows while preserving processing of independently conforming rows.",
+      "principal_cost": "Creates row-selection and completeness risk; real-row quarantine would introduce a new privacy/persistence boundary.",
+      "authorized_by_this_proposal": false
+    },
+    {
+      "option_id": "HUMAN_REVIEW_ROUTE",
+      "description": "Stop deterministic processing at the nonconforming condition and route a non-value-bearing review event to a human gate; exposing or retaining the actual row/value would require a separately reviewed privacy boundary.",
+      "fail_closed": true,
+      "continues_after_nonconforming_row": false,
+      "retains_real_row_or_field_content": false,
+      "requires_privacy_expansion": "ONLY_IF_HUMAN_REVIEW_REQUIRES_ACTUAL_ROW_OR_FIELD_CONTENT",
+      "requires_new_real_source_execution_to_validate": true,
+      "principal_benefit": "Keeps semantic exceptions under explicit human governance without automatically accepting or transforming source values.",
+      "principal_cost": "A metadata-only review cannot determine the hidden token's semantics; row-specific inspection would require new privacy authorization.",
+      "authorized_by_this_proposal": false
+    }
+  ],
+  "proposal_comparison_constraints": {
+    "selected_option": null,
+    "selection_authorized_by_this_proposal": false,
+    "silent_row_skip_allowed": false,
+    "silent_source_continuation_allowed": false,
+    "silent_semantic_acceptance_allowed": false,
+    "automatic_correction_allowed": false,
+    "normalization_allowed": false,
+    "regex_relaxation_allowed": false,
+    "real_row_quarantine_persistence_allowed": false,
+    "source_activation_allowed": false,
+    "production_classification_activation_allowed": false
+  },
+  "non_value_bearing_control_contract": {
+    "status_codes": [
+      "PROPERTY_TYPE_NONCONFORMING_STOPPED",
+      "PROPERTY_TYPE_NONCONFORMING_DEFERRED_POLICY_REQUIRED",
+      "PROPERTY_TYPE_NONCONFORMING_HUMAN_REVIEW_REQUIRED"
+    ],
+    "reason_codes": [
+      "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+      "ROW_CONTINUATION_POLICY_NOT_AUTHORIZED",
+      "REAL_ROW_RETENTION_NOT_AUTHORIZED",
+      "ROW_SPECIFIC_HUMAN_INSPECTION_NOT_AUTHORIZED"
+    ],
+    "may_persist_exact_property_type": false,
+    "may_persist_property_type_derivative": false,
+    "may_persist_row_or_field_hash": false,
+    "may_persist_exact_row_or_field_length": false,
+    "may_persist_property_id": false,
+    "may_persist_owner_holder_values": false,
+    "may_persist_source_derived_free_text": false,
+    "may_log_real_row_or_field_content": false
+  },
+  "privacy_and_persistence_boundaries": {
+    "metadata_only_handling_design_requires_privacy_expansion": false,
+    "real_row_or_field_retention_is_privacy_expansion": true,
+    "real_row_or_field_retention_authorized_by_this_proposal": false,
+    "row_specific_human_inspection_is_privacy_expansion": true,
+    "row_specific_human_inspection_authorized_by_this_proposal": false,
+    "future_privacy_expansion_requires_separate_reviewed_authorization_path": true,
+    "future_real_source_execution_requires_separate_reviewed_authorization_path": true,
+    "approval_tokens_defined_by_this_proposal": false
+  },
+  "consumed_authorizations": [
+    {"approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED", "consumed": true, "reusable": false}
+  ],
+  "authorization_boundary": {
+    "proposal_preparation_authorized": true,
+    "handling_policy_selection_authorized": false,
+    "runtime_handling_change_authorized": false,
+    "source_or_authority_network_access_authorized": false,
+    "real_source_execution_authorized": false,
+    "privacy_expansion_authorized": false,
+    "row_quarantine_persistence_authorized": false,
+    "row_specific_human_inspection_authorized": false,
+    "source_continuation_after_nonconformance_authorized": false,
+    "parser_change_authorized": false,
+    "regex_change_authorized": false,
+    "normalization_change_authorized": false,
+    "remediation_authorized": false,
+    "source_activation_authorized": false,
+    "production_classification_activation_authorized": false,
+    "approval_token_defined_by_this_proposal": false
+  },
+  "implementation_state": {
+    "proposal_branch": "m3-ca-sco-property-type-nonconforming-row-handling-proposal",
+    "proposal_only": true,
+    "source_request_performed": false,
+    "authority_request_performed": false,
+    "real_row_access_performed": false,
+    "runtime_code_modified": false,
+    "runner_modified": false,
+    "parser_modified": false,
+    "regex_modified": false,
+    "normalization_modified": false,
+    "logging_modified": false,
+    "persistence_modified": false,
+    "source_policy_modified": false,
+    "registry_modified": false
+  },
+  "safety_state": {
+    "source_policy_status": "PROPOSED",
+    "registry_enabled": false,
+    "registry_approved_for_use": false,
+    "approved_real_sources": 0,
+    "authority_provenance_resolved": true,
+    "semantic_compatibility_resolved": false,
+    "production_classification_active": false,
+    "downstream_gates_remain_closed": true
+  },
+  "acceptance_criteria": [
+    "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
+    "BASE_PINNED_TO_CI_GREEN_SOURCE_FORMAT_EVIDENCE_REVIEW",
+    "THREE_FAIL_CLOSED_HANDLING_OPTIONS_ARE_EXPLICITLY_COMPARED_WITH_NO_SELECTION",
+    "UNCHANGED_VALIDATION_REGEX_AND_NO_NORMALIZATION_ARE_MACHINE_LOCKED",
+    "NO_SILENT_ROW_SKIP_SOURCE_CONTINUATION_OR_SEMANTIC_ACCEPTANCE_IS_AUTHORIZED",
+    "REAL_ROW_QUARANTINE_OR_ROW_SPECIFIC_HUMAN_INSPECTION_IS_EXPLICITLY_A_PRIVACY_EXPANSION",
+    "NON_VALUE_BEARING_STATUS_AND_REASON_CODES_ARE_DEFINED",
+    "NO_SOURCE_OR_AUTHORITY_NETWORK_ACCESS_OR_REAL_ROW_ACCESS_DURING_PROPOSAL_PREPARATION",
+    "NO_RUNTIME_PARSER_REGEX_NORMALIZATION_LOGGING_PERSISTENCE_POLICY_OR_REGISTRY_CHANGE",
+    "ALL_PRIOR_APPROVALS_REMAIN_CONSUMED_AND_NON_REUSABLE",
+    "SOURCE_POLICY_REGISTRY_PRODUCTION_CLASSIFICATION_AND_DOWNSTREAM_GATES_REMAIN_CLOSED"
+  ],
+  "next_gate": "HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW"
+}
