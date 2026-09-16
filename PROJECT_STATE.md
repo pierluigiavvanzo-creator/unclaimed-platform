@@ -24,45 +24,67 @@ Accepted implementation strategy:
 
 `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`
 
-The implementation proposal passed human review, the owner granted bounded implementation authorization, the v1.2 implementation completed offline with green CI, and the completed implementation has now passed human implementation review.
+The v1.2 implementation is complete, CI-green and human-reviewed as conforming.
 
 Implementation review result:
 
 `PASS_V1_2_IMPLEMENTATION_ACCEPTED_AS_CONFORMING_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
 
-Real-source execution remains separately gated and unauthorized.
+A non-executing proposal for a future bounded v1.2 real-source verification has now been prepared and validated in CI. It requires separate human proposal review and later fresh execution/privacy authorization before any source access.
 
-## Human Implementation Review Checkpoint
+Current proposal status:
 
-Review branch:
+`PROPOSAL_PREPARED_CI_GREEN_HUMAN_PROPOSAL_REVIEW_REQUIRED_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-implementation-review`
+## Real-Source Execution Proposal Checkpoint
 
-Reviewed implementation HEAD:
+Proposal branch:
 
-`7d40f410752cdaef96faeae4aaafc1ca86b13e18`
+`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-proposal`
 
-Reviewed implementation CI:
+Base human-review checkpoint:
 
-`35101304555` — **SUCCESS**
+`7b6397f0e89d8ee1640be2eea4f8651f6b74478c`
 
-Functional implementation checkpoint:
+Base CI:
 
-`f69262a632b6bf0eed1385639aea3c59bb9a94ac`
+`35105522139` — **SUCCESS**
 
-Functional CI:
+Functional proposal checkpoint:
 
-`35100766657` — **SUCCESS**
+`19c395a6f89dbec1941566366274070db98cacd0`
 
-Implementation review artifact:
+Functional proposal CI:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_IMPLEMENTATION_REVIEW.md`
+`35106612846` — **SUCCESS**
 
-Implementation audit:
+Proposal audit:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_OFFLINE_IMPLEMENTATION.md`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL.md`
 
-## Runtime Contract — v1.2 Accepted as Conforming
+Proposal:
+
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
+
+Proposal schema:
+
+`schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.schema.json`
+
+Contract test:
+
+`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.py`
+
+Functional CI markers:
+
+- ruff: PASS;
+- mypy: PASS, no issues in 19 source files;
+- contract tests: `242 passed`;
+- smoke tests: `6 passed`;
+- full pytest: `299 passed`;
+- frontend lint/typecheck/build: PASS;
+- Streamlit safety/startup smoke: PASS.
+
+## Runtime Contract — v1.2 Remains Accepted and Unchanged
 
 Current runner:
 
@@ -76,110 +98,118 @@ Current versioned contract:
 
 `schemas/common/property_type_semantic_verification_execution.v1_2.schema.json`
 
-Historical contract remains available and unchanged:
+Historical immutable contract:
 
 `schemas/common/property_type_semantic_verification_execution.v1_1.schema.json`
 
-Current reviewed v1.1 blob SHA:
+Reviewed v1.1 blob SHA:
 
 `33c829116eea0b568cfe16c664ffbeee9d00e013`
 
-For `PROPERTY_TYPE_FORMAT_UNEXPECTED`, the runner preserves the legacy machine result:
+For `PROPERTY_TYPE_FORMAT_UNEXPECTED`, the accepted runtime contract remains:
 
 - `semantic_result_status = STOPPED_FAIL_CLOSED`;
-- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`.
-
-It additionally emits only:
-
-```text
-control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED
-control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE
-```
+- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`.
 
 Other stop reasons and successful/inconclusive outcomes retain:
 
 `control_disposition = null`
 
-No existing result field is removed or reinterpreted.
+Source continuation remains `false`.
 
-## Fail-Closed / Continuation Invariants
+## Proposed Future Real-Source Boundary
 
-The implementation reuses the existing `RunnerStop` exception-driven fail-closed flow.
+The proposal is explicitly:
 
-Synthetic/offline regression tests verify that a targeted structural mismatch:
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
 
-- remains `STOPPED_FAIL_CLOSED`;
-- preserves `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- receives only the exact D-008 status/reason metadata;
-- stops before any later canonical source member is requested;
-- does not introduce silent row skip or alternate continuation.
+It does not precommit or infer a real-source outcome. It proposes only a future, separately authorized bounded verification using the existing reviewed v1.2 runner and unchanged sample/transport caps.
 
-Source continuation remains:
+Fresh authorization remains required and not granted:
 
-`false`
+- execution approval status: `REQUIRED_NOT_GRANTED`;
+- execution approval ref: `null`;
+- transient-row privacy approval status: `REQUIRED_NOT_GRANTED`;
+- transient-row privacy approval ref: `null`;
+- network workflow creation authorized: `false`;
+- real execution authorized: `false`;
+- future approvals must be single-use.
 
-## Validation / Privacy Boundary
+All historical execution/privacy approvals remain consumed and non-reusable.
 
-Validation rule remains exactly:
+## Bounded Caps / Validation Boundary
+
+The proposal preserves the existing bounded plan:
+
+- max 4 canonical members;
+- max 4 rows per member;
+- max 16 rows total;
+- max 1 HEAD request;
+- max 4 range requests;
+- max 5 HTTP requests total;
+- max 131072 bytes per range;
+- max 524288 source response-body bytes total;
+- max 262144 transient uncompressed bytes per member;
+- max 1048576 transient uncompressed bytes total;
+- max 32768 bytes per logical record;
+- no additional range;
+- no full-body fallback;
+- no automatic widening.
+
+Validation remains exactly:
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is implemented or authorized.
+No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is proposed or authorized.
 
-The v1.2 `control_disposition` permits only the non-value-bearing:
+## Privacy / Persistence Boundary
+
+The proposal requires fresh transient-row privacy approval before any future transient full-row observation.
+
+The proposed future execution remains memory-only with immediate disposal and zero retention. It allows no raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact-length persistence, record values in logs, real-row quarantine or row-specific human inspection.
+
+The v1.2 `control_disposition` remains limited to non-value-bearing:
 
 - `status_code`;
 - `reason_code`.
 
-The schema rejects extra/source-value-bearing fields in that disposition. Exact or transformed PROPERTY_TYPE, derivatives of the hidden value, real row/field content, hashes, exact lengths, PROPERTY_ID, owner/holder values and source-derived free text remain outside the new control persistence boundary.
+No privacy expansion is proposed.
 
-No real-row quarantine or row-specific human inspection is authorized.
+## Preparation Safety State
 
-All historical execution/privacy/authority approvals remain consumed and non-reusable. No execution/privacy approval token is created or granted by the implementation review.
+This proposal-preparation task did not:
 
-## Regression / CI Evidence
-
-Reviewed final implementation CI `35101304555` is **SUCCESS** for both `quality` and `streamlit-candidate`.
-
-Functional checkpoint evidence includes:
-
-- ruff: PASS;
-- mypy: PASS, no issues in 19 source files;
-- contract tests: `235 passed`;
-- smoke tests: `6 passed`;
-- full pytest: `292 passed`;
-- frontend lint/typecheck/build: PASS;
-- Streamlit safety/startup smoke: PASS.
-
-Historical second semantic execution evidence continues to validate against the immutable v1.1 schema.
-
-## Rollback
-
-Rollback remains bounded to reverting the implementation commits.
-
-No database migration, source-state migration or historical-evidence migration is required. Rollback restores runner output to `1.1.0` and removes v1.2 `control_disposition` emission without rewriting historical evidence.
+- access `claimit.ca.gov`;
+- access a new authority source;
+- perform any network request or real-source execution;
+- access source-body bytes or a real row/field;
+- reconstruct or infer the hidden `PROPERTY_TYPE` value;
+- modify the reviewed v1.2 runtime or execution schema;
+- modify source policy or registry;
+- create the one-shot network workflow;
+- create or grant an execution/privacy approval token;
+- enable source continuation;
+- activate source policy, registry or production classification;
+- enter downstream identity/genealogy/matching/outreach/claim work.
 
 ## Governance State
 
 - D-008 accepted as design: `true`;
-- accepted design policy: `WHOLE_SOURCE_STOP`;
-- accepted implementation strategy: `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`;
-- implementation proposal human-reviewed: `true`;
-- bounded implementation authorized: `true`;
-- runtime implementation completed: `true`;
-- completed implementation human-reviewed: `true`;
-- implementation review result: `PASS_V1_2_IMPLEMENTATION_ACCEPTED_AS_CONFORMING_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED`;
-- current runner output contract version: `1.2.0`;
-- execution schema v1.2 created: `true`;
-- historical v1.1 contract preserved: `true`;
-- synthetic/offline regression validation: `PASS`;
-- parser/projector unchanged: `true`;
-- regex/normalization unchanged: `true`;
+- v1.2 implementation completed: `true`;
+- v1.2 implementation human-reviewed: `true`;
+- real-source execution proposal prepared: `true`;
+- proposal contract validation: `PASS`;
+- real-source execution proposal human-reviewed: `false`;
+- fresh execution approval granted: `false`;
+- fresh privacy approval granted: `false`;
+- network workflow creation authorized: `false`;
 - real-source execution authorized: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
-- real-row quarantine persistence authorized: `false`;
-- row-specific human inspection authorized: `false`;
+- parser/projector unchanged: `true`;
+- regex/normalization unchanged: `true`;
 - source policy remains `PROPOSED`;
 - registry remains disabled / not approved;
 - approved real sources remain `0`;
@@ -189,10 +219,10 @@ No database migration, source-state migration or historical-evidence migration i
 
 ## Next Recommended Action
 
-Prepare exclusively a non-executing proposal for the next separately governed real-source step:
+Perform exclusively:
 
-`PREPARE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REVIEW`
 
-That proposal must define a fresh, separately reviewable execution/privacy authorization path. Proposal preparation must not access `claimit.ca.gov`, perform a real-source execution, reuse consumed approvals, widen privacy, enable source continuation, change validation semantics, activate source/registry/production classification or enter downstream work.
+That gate reviews only the proposal design. It must not access the source, grant approval tokens, create the one-shot workflow, authorize execution, perform real-source execution or widen runtime/privacy/continuation/source/registry/downstream boundaries.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
