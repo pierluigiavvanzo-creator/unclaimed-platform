@@ -7,57 +7,58 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | SOURCE-FORMAT PROPOSAL REVIEW PASS; EXECUTION AUTHORIZATION ARTIFACT NEXT | proposal checkpoint `d8dc240b...18b2`; proposal CI `35060253297` SUCCESS; review PASS |
+| M3 — California Data Spike | SOURCE-FORMAT EXECUTION AUTHORIZATION PACKAGE PREPARED; HUMAN REVIEW REQUIRED | package `cd76250b...9172`; CI `35082891083` SUCCESS |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
 
 - second semantic execution `34995672539` previously stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 - archived authority supports the enumerated `AA99` shape with scope boundary, `ZZZZ`, and `IN01-IN08` / `IN99`;
-- one-shot diagnostic run `35019840276`: SUCCESS;
-- diagnostic result `DIAGNOSTIC_CLASSIFIED`;
-- diagnostic class `ASCII_STRUCTURAL_MISMATCH`;
-- diagnostic evidence review decision: `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`;
-- source-format diagnostic proposal prepared offline;
-- source-format proposal package checkpoint `d8dc240bd74e271f88b2ef4583f6b79e533918b2`;
-- source-format proposal CI `35060253297`: SUCCESS;
-- source-format proposal human review completed;
-- review decision: `PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS`;
-- no execution/full-row privacy approval granted;
+- bounded diagnostic run `35019840276`: SUCCESS;
+- diagnostic class: `ASCII_STRUCTURAL_MISMATCH`;
+- diagnostic evidence review: `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`;
+- source-format proposal package: `d8dc240bd74e271f88b2ef4583f6b79e533918b2`;
+- source-format proposal review: `PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS`;
+- source-format execution/authorization package: `cd76250b9527be91e7e7ac4b3aa658c864cf9172`;
+- package CI `35082891083`: SUCCESS;
+- no source-format execution approval granted;
+- no full-row transient privacy approval granted;
+- no source-format network workflow exists;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Source-Format Proposal Review
+## Authorization Package
 
-The proposal design is accepted for progression to preparation of a separate execution/authorization artifact only.
+Artifact status:
+`PENDING_HUMAN_AUTHORIZATION`
 
-The explicit future one-row full-row transient privacy expansion is accepted as a design boundary because it remains:
+Human gate:
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
 
-- limited to the first reproduced mismatch row;
-- in-memory only;
-- non-persistent and non-logged;
-- separately gated by fresh execution and full-row transient privacy approvals;
-- bounded by the same request/row/byte envelope already reviewed.
+Two fresh approval references are defined but ungranted:
 
-No network access or full-row exposure is authorized by the review.
+- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
+- `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
 
-## Mandatory Execution-Artifact Tightenings
+Both are single-use/non-reusable and, if later explicitly granted after a review PASS, must be evidenced separately and pinned to package `cd76250b9527be91e7e7ac4b3aa658c864cf9172` before any network request.
 
-The next artifact must hard-lock:
+## Mandatory Tightenings Implemented
 
-1. exact first-match precedence for the five diagnostic classes;
-2. reuse of the exact same in-memory logical-row bytes with no re-read;
-3. deterministic stdlib newline/multiline framing, including explicit `StringIO(..., newline="")`-equivalent behavior;
-4. exactly one parsed CSV record, with zero/multiple records fail-closed;
-5. enumerated non-source-bearing fail-closed reason codes and no free-text/parser exception persistence.
+The package locks:
 
-These requirements must not widen source access, privacy exposure or runtime scope.
+1. exact five-class first-match precedence;
+2. same in-memory logical-row bytes only, with no source re-read;
+3. deterministic `io.StringIO(..., newline="")`-equivalent stdlib multiline framing;
+4. exactly one parsed CSV record or enumerated fail-closed stop;
+5. enumerated non-source-bearing fail-closed reasons with no parser exception/source-derived free text.
 
-## Reviewed Future Bounds — Still Not Authorized
+Synthetic regression coverage includes embedded LF, embedded CRLF and multi-record rejection.
 
-- exact pinned source endpoint and identity;
+## Future Bounds — Still Not Authorized
+
+- exact pinned endpoint/source identity;
 - first canonical member only;
-- maximum 4 transient rows while reproducing the target mismatch;
-- maximum 1 full-row independent cross-check;
+- maximum 4 transient rows;
+- maximum 1 full-row comparator row;
 - maximum 1 HEAD + 1 Range GET;
 - maximum 2 HTTP requests total;
 - maximum 131072 source response-body bytes;
@@ -65,20 +66,20 @@ These requirements must not widen source access, privacy exposure or runtime sco
 - maximum 32768 bytes per logical record;
 - zero retry/redirect/additional range/full-body fallback/automatic widening.
 
-No exact source value, row/field content, hash, exact length, fragment, codepoint, transformed value, PROPERTY_ID, owner/holder value, parser exception text or source-derived free text may persist or be logged.
+No source values, full row, field content, protected derivatives, parser exception text or source-derived free text may persist or be logged.
 
 ## Next Product Work
 
-Prepare only, offline:
+Perform only:
 
-`PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_ARTIFACT`
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
 
-The artifact must incorporate all mandatory tightenings and must not itself perform network access or real full-row exposure. Any future execution/full-row privacy tokens introduced by the artifact must remain ungranted until a separate human authorization gate.
+A PASS approves only the authorization contract. It must not be treated as either execution approval or full-row transient privacy approval.
 
 ## Still Out of Scope
 
 - reuse of any consumed approval;
-- source or authority network access during artifact preparation;
+- source or authority network access before fresh approvals;
 - real full-row exposure before fresh explicit privacy approval;
 - source-value reconstruction or inference;
 - parser or regex changes;
