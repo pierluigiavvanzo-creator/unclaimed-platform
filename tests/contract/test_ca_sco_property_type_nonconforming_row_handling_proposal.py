@@ -158,8 +158,14 @@ def test_non_value_bearing_control_contract_and_privacy_boundary_are_locked() ->
     assert privacy["real_row_or_field_retention_authorized_by_this_proposal"] is False
     assert privacy["row_specific_human_inspection_is_privacy_expansion"] is True
     assert privacy["row_specific_human_inspection_authorized_by_this_proposal"] is False
-    assert privacy["future_privacy_expansion_requires_separate_reviewed_authorization_path"] is True
-    assert privacy["future_real_source_execution_requires_separate_reviewed_authorization_path"] is True
+    assert (
+        privacy["future_privacy_expansion_requires_separate_reviewed_authorization_path"]
+        is True
+    )
+    assert (
+        privacy["future_real_source_execution_requires_separate_reviewed_authorization_path"]
+        is True
+    )
     assert privacy["approval_tokens_defined_by_this_proposal"] is False
 
 
