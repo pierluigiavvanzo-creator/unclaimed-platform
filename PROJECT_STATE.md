@@ -10,99 +10,75 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source mismatch was classified by the prior bounded diagnostic as `ASCII_STRUCTURAL_MISMATCH`; human evidence review passed; the source-format diagnostic proposal and its human review are complete; and the separate source-format diagnostic execution/authorization artifact has now been prepared offline and CI-verified.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source mismatch was classified by one bounded diagnostic execution as `ASCII_STRUCTURAL_MISMATCH`. Human evidence review justified a separate source-format diagnostic proposal. That proposal and its execution/authorization artifact have now completed human review. Semantic compatibility remains unresolved and no runtime remediation is authorized.
 
-Semantic compatibility remains unresolved. No source-format execution, full-row privacy exposure or runtime remediation is authorized.
+## Source-Format Diagnostic Authorization Review
 
-## Source-Format Execution Authorization Package
+Gate:
 
-Branch:
-`m3-ca-sco-property-type-source-format-diagnostic-execution-authorization`
-
-Functional package checkpoint:
-`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
-
-Package CI:
-`35082891083` — SUCCESS
-
-Artifact:
-`sources/proposals/ca_sco_segment_500_plus.property_type_source_format_diagnostic_execution_authorization.v1.json`
-
-Schema:
-`schemas/common/property_type_source_format_diagnostic_execution_authorization.schema.json`
-
-Audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION.md`
-
-Contract test:
-`tests/contract/test_ca_sco_property_type_source_format_diagnostic_execution_authorization.py`
-
-Artifact status:
-`PENDING_HUMAN_AUTHORIZATION`
-
-Next human gate:
 `HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
 
-## Mandatory Review Tightenings Implemented
+Decision:
 
-The package machine-locks all five requirements from the prior human review:
+`PASS`
 
-1. `T-1` — first-match classifier precedence is fixed exactly as:
-   - `FULL_ROW_UTF8_DECODE_FAILED`
-   - `STDLIB_STRICT_CSV_PARSE_FAILED`
-   - `STDLIB_COLUMN_SHAPE_NOT_CANONICAL`
-   - `PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER`
-   - `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
-2. `T-2` — comparator input is the same already-assembled in-memory logical-row bytes; source re-read/additional Range requests are forbidden.
-3. `T-3` — stdlib framing is pinned to `io.StringIO(decoded_row, newline="")`-equivalent semantics with the fixed `csv.reader(strict=True)` dialect; synthetic LF and CRLF multiline regression tests pass.
-4. `T-4` — exactly one independent CSV record is required; zero/multiple records stop fail-closed using `INDEPENDENT_PARSER_RECORD_COUNT_UNEXPECTED`.
-5. `T-5` — non-classification fail-closed reasons are enumerated; parser exception text and source-derived free text cannot persist.
+Review audit:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW.md`
+
+Reviewed authorization functional package:
+
+`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
+
+Authorization package CI:
+
+`35082891083` — SUCCESS
+
+Reviewed final authorization-state HEAD:
+
+`e73681941ef9794d54bef78b53361ea45baccbf9`
+
+Final authorization-state CI:
+
+`35083155026` — SUCCESS
+
+The PASS accepts only the bounded authorization contract. It does not grant network access, real full-row exposure, workflow creation, diagnostic execution, parser/regex/runtime changes or remediation.
 
 ## Fresh Approval State
 
-Two new approval references are defined by the artifact but are **not granted**:
+The reviewed artifact defines two fresh approvals:
 
 - `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
 - `APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
 
-Both are single-use, non-reusable, and require separate approval evidence pinned to the exact reviewed authorization-package SHA before any network request.
+Current state for both:
 
-Current state:
+- single-use: `true`;
+- reusable: `false`;
+- granted: `false`;
+- separate approval evidence required: `true`;
+- exact package pin required: `cd76250b9527be91e7e7ac4b3aa658c864cf9172`.
 
-- execution approval granted: `false`;
-- full-row transient privacy approval granted: `false`;
-- approval evidence files: ABSENT;
-- source-format network workflow: ABSENT.
+No approval evidence exists yet. Generic wording such as `procedi` or `vai avanti` must not be interpreted as either token.
 
-The functional package checkpoint that future approval evidence must pin, if and only if the authorization review later passes and the owner explicitly grants the exact tokens, is:
+All prior execution/privacy/authority approvals remain `CONSUMED` and permanently non-reusable.
 
-`cd76250b9527be91e7e7ac4b3aa658c864cf9172`
+## Reviewed Execution Boundary — Still Not Authorized
 
-All historical execution/privacy/authority approvals remain `CONSUMED` and permanently non-reusable.
-
-## Bounded Future Execution Contract — Still Not Authorized
-
-- exact endpoint and pinned source identity only;
+- exact pinned `claimit.ca.gov` endpoint and source identity;
 - first canonical ZIP member only;
-- maximum 4 transient rows while seeking the first reproduced target mismatch;
-- maximum 1 full-row independent cross-check on that mismatch row;
+- maximum 4 transient rows while seeking the first reproduced `ASCII_STRUCTURAL_MISMATCH`;
+- maximum 1 transient full-row independent cross-check on that mismatch row;
 - maximum 1 HEAD + 1 Range GET;
 - maximum 2 HTTP requests total;
 - maximum 131072 source response-body bytes;
 - maximum 262144 uncompressed transient bytes;
 - maximum 32768 bytes per logical record;
 - zero retries;
-- redirects forbidden;
-- additional ranges forbidden;
-- full-body fallback forbidden;
-- automatic widening forbidden;
-- source identity drift or target mismatch not reproduced within the bound -> STOP fail-closed.
+- no redirects/additional ranges/full-body fallback/automatic widening;
+- no authority endpoint or other-source access.
 
-## Full-Row Privacy Boundary — Still Not Authorized
-
-A future comparator may transiently decode at most one real logical row and may use only the same logical-row bytes already in memory.
-
-No full row, field value, `PROPERTY_TYPE`, bytes, hash, exact length, fragments, codepoints, transformed value, `PROPERTY_ID`, owner/holder value, row hash, row exact length, parser exception text or source-derived free text may persist or be logged.
+T-1 through T-5 are machine-locked, including fixed class precedence, same-row no re-read, explicit `StringIO(..., newline="")` framing, exactly one parsed record, and enumerated fail-closed reasons.
 
 ## Safety / Governance State
 
@@ -122,10 +98,12 @@ No full row, field value, `PROPERTY_TYPE`, bytes, hash, exact length, fragments,
 
 ## Next Recommended Action
 
-Perform only:
+The owner must explicitly grant **both** exact fresh approvals if execution is desired:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_REVIEW`
+`APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_BOUNDED`
 
-The review must decide `PASS`, `FAIL` or `NEEDS_REMEDIATION` on the authorization package and its privacy boundary. A PASS still does not grant either fresh approval and does not authorize network execution.
+`APPROVE_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_FULL_ROW_TRANSIENT_PRIVACY_BOUNDED`
+
+Do not create approval evidence or a network workflow before both exact tokens are explicitly granted.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
