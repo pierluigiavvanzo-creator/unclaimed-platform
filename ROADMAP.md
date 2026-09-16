@@ -7,72 +7,86 @@ Last updated: 2026-09-16
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | DIAGNOSTIC EVIDENCE REVIEW PASS; SOURCE-FORMAT PROPOSAL NEXT | run `35019840276`; class `ASCII_STRUCTURAL_MISMATCH`; no remediation authorized |
+| M3 — California Data Spike | SOURCE-FORMAT DIAGNOSTIC PROPOSAL PREPARED; HUMAN REVIEW REQUIRED | proposal checkpoint `d8dc240b...18b2`; CI `35060253297` SUCCESS |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
 
 - second semantic execution `34995672539` previously stopped fail-closed on `PROPERTY_TYPE_FORMAT_UNEXPECTED`;
 - archived authority supports the enumerated `AA99` shape with scope boundary, `ZZZZ`, and `IN01-IN08` / `IN99`;
-- diagnostic/remediation evidence proposal review: `PASS`;
-- diagnostic execution/authorization review: `PASS`;
-- both fresh diagnostic execution/privacy approvals were explicitly granted, pinned to package `daeaa7bfb7f7d73a61f011d394cc88393625866c`, then consumed before source access;
 - one-shot diagnostic run `35019840276`: SUCCESS;
-- source identity verified;
-- exactly 1 HEAD + 1 Range GET, 2 HTTP requests total;
-- exactly 131072 source response-body bytes read;
-- exactly 1 transient data row examined;
-- result `DIAGNOSTIC_CLASSIFIED`;
+- diagnostic result `DIAGNOSTIC_CLASSIFIED`;
 - diagnostic class `ASCII_STRUCTURAL_MISMATCH`;
-- one-shot workflow removed after execution;
-- no exact source value or protected derivative persisted;
+- diagnostic evidence review decision: `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`;
+- exact source value and protected derivatives remain unretained;
 - no remediation performed;
-- human diagnostic evidence review completed;
-- review decision: `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`;
+- source-format diagnostic proposal prepared offline;
+- proposal package checkpoint `d8dc240bd74e271f88b2ef4583f6b79e533918b2`;
+- proposal CI `35060253297`: SUCCESS;
 - source policy remains `PROPOSED`, registry disabled/unapproved, production classification inactive.
 
-## Reviewed Interpretation
+## Source-Format Diagnostic Proposal
 
-Within the fixed deterministic classifier, `ASCII_STRUCTURAL_MISMATCH` means the mismatch was not explained solely by:
+The proposal is design-only and remains:
 
-- surrounding ASCII SPACE/TAB;
-- ASCII case;
-- surrounding ASCII SPACE/TAB plus ASCII case;
-- non-ASCII or disallowed ASCII control content.
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
 
-The evidence does **not** identify the actual value or a positive root cause. It does not establish a parser defect, source schema change, alternate code shape, exact-length condition, prefix/suffix pattern or valid regex relaxation.
+It proposes a future independent parser comparison only after a separately reviewed execution artifact and fresh approvals.
 
-The authority branch is not the next justified investigation because the archived SCO authority has already resolved the targeted provenance questions and does not contradict the unchanged regex. The smallest justified next work is an offline source-format diagnostic proposal.
+The source/request bounds do not widen:
+
+- exact pinned endpoint and identity;
+- first canonical member only;
+- maximum 4 transient rows while reproducing the target mismatch;
+- maximum 1 HEAD + 1 Range GET;
+- maximum 2 HTTP requests total;
+- maximum 131072 source response-body bytes;
+- maximum 262144 uncompressed transient bytes;
+- maximum 32768 bytes per logical record;
+- zero retry/redirect/additional range/full-body fallback/automatic widening.
+
+The independent comparator is pinned to Python standard-library `csv.reader(..., strict=True)`, canonical comma/quote settings, strict UTF-8 decode, 25 columns and zero-based field index `1`. The current custom projector and regex remain unchanged.
+
+## Privacy Boundary
+
+A real-row `csv.reader` comparison would transiently decode all fields in one row and is therefore explicitly treated as a privacy expansion.
+
+The proposal limits any future full-row cross-check to one mismatch row but does **not** authorize it. A later execution requires fresh single-use execution and full-row transient privacy approvals pinned to the exact reviewed execution artifact.
+
+No source value, full row, field value, hash, exact length, fragment, codepoint, transformed value, PROPERTY_ID, owner/holder value, parser exception text or source-derived free text may persist or be logged.
+
+No approval token is defined by this proposal.
+
+## Proposed Future Classes
+
+- `FULL_ROW_UTF8_DECODE_FAILED`
+- `STDLIB_STRICT_CSV_PARSE_FAILED`
+- `STDLIB_COLUMN_SHAPE_NOT_CANONICAL`
+- `PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER`
+- `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
+
+None authorizes remediation automatically.
 
 ## Next Product Work
 
-Prepare only:
+Perform only:
 
-`PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW`
 
-The proposal must be offline/design-only and must not:
-
-- access `claimit.ca.gov` or SCO authority endpoints;
-- reconstruct or infer the unretained PROPERTY_TYPE value;
-- persist exact/hash/length/fragments/codepoints of a source value;
-- modify parser or regex;
-- introduce trimming, casing or normalization runtime behavior;
-- apply remediation;
-- activate source policy, registry or production classification.
-
-If a future proposal includes any further real-source inspection, it must define a new narrow privacy boundary and fresh single-use execution/privacy approvals pinned to the exact reviewed artifact.
+The review must decide whether the design and explicit one-row full-row privacy expansion are acceptable. A review PASS still must not be treated as execution/privacy approval.
 
 ## Still Out of Scope
 
-- reuse of either diagnostic approval or any historical consumed approval;
-- additional source requests without a new reviewed bounded gate;
-- new authority retrieval at this checkpoint;
+- reuse of any consumed approval;
+- source or authority network access under the proposal;
+- real full-row exposure before a fresh privacy approval;
 - source-value reconstruction or inference;
-- exact source-value hashing, exact-length capture, fragments or codepoints;
+- exact source-value or row hashing/length capture, fragments or codepoints;
 - parser or regex changes;
 - trimming, casing or normalization runtime changes;
-- Unicode normalization probes;
+- Unicode normalization;
 - automatic remediation;
+- new authority retrieval at this checkpoint;
 - source/registry activation;
 - production classification activation;
 - identity resolution, genealogy, beneficiary matching, outreach or claim submission.
