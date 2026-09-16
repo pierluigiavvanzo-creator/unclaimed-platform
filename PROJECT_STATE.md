@@ -10,7 +10,7 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source mismatch was classified by one bounded diagnostic execution as `ASCII_STRUCTURAL_MISMATCH`, human evidence review passed, and a separate source-format diagnostic proposal has now been prepared offline and CI-verified. Semantic compatibility remains unresolved and no runtime remediation is authorized.
+PROPERTY_TYPE authority provenance is resolved within the recorded proof boundary. The live-source mismatch was classified by one bounded diagnostic execution as `ASCII_STRUCTURAL_MISMATCH`; human evidence review passed; the separate source-format diagnostic proposal was prepared offline, CI-verified, and has now completed human proposal review. Semantic compatibility remains unresolved and no runtime remediation is authorized.
 
 Diagnostic execution run:
 `35019840276` — SUCCESS
@@ -18,74 +18,58 @@ Diagnostic execution run:
 Diagnostic evidence review decision:
 `PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED`
 
-Source-format proposal branch:
-`m3-ca-sco-property-type-source-format-diagnostic-proposal`
-
 Source-format proposal package checkpoint:
 `d8dc240bd74e271f88b2ef4583f6b79e533918b2`
 
 Source-format proposal CI:
 `35060253297` — SUCCESS
 
-Proposal:
-`sources/proposals/ca_sco_segment_500_plus.property_type_source_format_diagnostic.v1.json`
+Source-format proposal review audit:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW.md`
 
-Schema:
-`schemas/common/property_type_source_format_diagnostic_proposal.schema.json`
+## Source-Format Proposal Human Review
 
-Audit:
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL.md`
+Gate:
+`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW`
 
-Contract test:
-`tests/contract/test_ca_sco_property_type_source_format_diagnostic_proposal.py`
+Decision:
+`PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS`
 
-## Proposal State
+The proposal design is accepted only as a basis for preparing a separate execution/authorization artifact. The review does not authorize network access, real full-row exposure, diagnostic execution, workflow creation, parser/regex/runtime changes or remediation.
 
-Status:
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+The explicit one-row full-row transient privacy expansion is acceptable as a **future design boundary only** because it remains limited to one reproduced mismatch row, persists/logs no row or field content, and requires a separate fresh full-row transient privacy approval plus a separate fresh execution approval before any network request.
 
-The proposal designs a possible future independent source-format cross-check only. It performs no source request, authority request, full-row source access, diagnostic execution, workflow creation, parser change, regex change, normalization change, logging expansion, persistence expansion or remediation.
+## Mandatory Tightenings for the Future Execution Artifact
 
-The future design preserves the existing bounded source limits:
+The next artifact must incorporate all of the following without widening scope:
 
-- exact pinned endpoint and source identity only;
+1. `T-1` — fixed first-match classifier precedence in the exact order:
+   - `FULL_ROW_UTF8_DECODE_FAILED`
+   - `STDLIB_STRICT_CSV_PARSE_FAILED`
+   - `STDLIB_COLUMN_SHAPE_NOT_CANONICAL`
+   - `PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER`
+   - `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
+2. `T-2` — the comparator must use the exact same transient logical-row bytes already in memory; no re-read or extra Range request.
+3. `T-3` — exact stdlib newline/multiline framing must be pinned, e.g. `io.StringIO(decoded_row, newline="")` feeding `csv.reader` with the pinned dialect, or an equivalently explicit standard-library construction covered by synthetic regression tests.
+4. `T-4` — the independent comparator must yield exactly one CSV record; zero or multiple records stop fail-closed under an enumerated non-source-bearing reason code.
+5. `T-5` — all non-classification fail-closed reason codes must be enumerated; free-text/parser exception output remains forbidden.
+
+## Proposal / Privacy Boundary
+
+The reviewed future design remains no wider than:
+
+- exact pinned source endpoint and identity;
 - first canonical ZIP member only;
 - maximum 4 transient rows while seeking the first reproduced target mismatch;
+- maximum 1 full-row independent cross-check on that mismatch row;
 - maximum 1 HEAD + 1 Range GET;
 - maximum 2 HTTP requests total;
 - maximum 131072 source response-body bytes;
 - maximum 262144 uncompressed transient bytes;
 - maximum 32768 bytes per logical record;
-- zero retries, redirects, additional ranges, full-body fallback or automatic widening.
+- zero retries/redirects/additional ranges/full-body fallback/automatic widening.
 
-## Explicit Full-Row Privacy Expansion — Not Authorized
-
-The proposed independent comparator is Python standard-library `csv.reader(..., strict=True)` with the canonical comma/quote dialect, strict UTF-8 row decode, exactly 25 expected columns and `PROPERTY_TYPE` at zero-based index `1`.
-
-Using it on a real row would transiently decode the full row, which may include personal data. The proposal therefore treats this as an explicit privacy expansion and limits any future cross-check to **one** mismatch row.
-
-The proposal does not authorize that exposure. A later execution requires:
-
-- a fresh, separately reviewed execution artifact;
-- a fresh single-use execution approval;
-- a separate fresh single-use full-row transient privacy approval;
-- both approvals pinned to the exact reviewed execution artifact before network access.
-
-This proposal defines no approval token.
-
-Even if later authorized, no full row, field value, PROPERTY_TYPE, bytes, hash, exact length, fragment, codepoint, transformed value, PROPERTY_ID, owner/holder value, row hash, row exact length, parser exception text or source-derived free text may persist or be logged.
-
-## Proposed Future Diagnostic Classes
-
-Only these non-value-bearing classes are designed:
-
-- `FULL_ROW_UTF8_DECODE_FAILED`
-- `STDLIB_STRICT_CSV_PARSE_FAILED`
-- `STDLIB_COLUMN_SHAPE_NOT_CANONICAL`
-- `PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER`
-- `INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH`
-
-No class automatically authorizes remediation.
+No source value, full row, field value, hash, exact length, fragment, codepoint, transformed value, PROPERTY_ID, owner/holder value, parser exception text or source-derived free text may persist or be logged.
 
 ## Approval State
 
@@ -96,6 +80,8 @@ All prior execution/privacy/authority approvals remain `CONSUMED` and permanentl
 - `APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT`
 - `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED`
 - `APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED`
+
+No source-format execution or full-row privacy approval has been granted.
 
 ## Safety / Governance State
 
@@ -115,10 +101,10 @@ All prior execution/privacy/authority approvals remain `CONSUMED` and permanentl
 
 ## Next Recommended Action
 
-Perform only:
+Prepare only, offline, a separate:
 
-`HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW`
+`PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EXECUTION_AUTHORIZATION_ARTIFACT`
 
-Review the design, especially the explicit one-row full-row transient privacy expansion. A PASS would approve only the proposal design; it would not authorize source access, full-row exposure or execution.
+It must incorporate T-1 through T-5, perform no network access or real full-row exposure during preparation, and leave any future execution/full-row privacy approvals ungranted until a later human gate.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
