@@ -7,9 +7,9 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | D-010 CONTINUATION VALIDATED LIVE; SAME-BYTE DEEPER DISCOVERY VALIDATOR READY OFFLINE; FRESH LIVE AUTHORIZATION NEXT | run `35243232091` + offline CI `35244998206` |
+| M3 — California Data Spike | D-010 CONTINUATION VALIDATED; DEEPER LIVE 1024-ROW SCAN COMPLETED; CA PROPERTY_TYPE DISCOVERY PATH HELD FOR MVP-1 | run `35255228459` + derived evidence v1 |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — ONE SAME-BYTE DEEPER LIVE VALIDATION FROM SOURCE DECISION | CA `IN03` remains first high-precision target |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — ALTERNATIVE LAWFUL REAL-SOURCE BENCHMARK NEXT | first approved real source remains blocker |
 
 ## Product Priority
 
@@ -19,67 +19,47 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-## Latest Live Evidence
+## Latest Product-Critical Evidence
 
-D-010 module-mode live validation:
+Same-bytes deeper live run:
 
-`35243232091` — attempt `1` — SUCCESS.
+`35255228459` — attempt `1` — SUCCESS.
 
-Observed live envelope:
+Observed envelope:
 
 - HEAD `1`;
 - Range GET `4`;
+- HTTP total `5`;
 - source bytes `524288`;
-- rows examined `16` (`4/member`);
-- deferred unclassifiable rows `16`;
-- recognized insurance rows `0`;
-- `IN03` `0`.
+- rows examined `1024` (`256/member`);
+- all four members: `ROW_CAP_REACHED`.
 
-D-010 continuation is proven live, but insurance discovery was not observed in that deliberately tiny deterministic sample. California source activation therefore remains held, not rejected.
+Classification:
 
-## Same-Bytes Deeper Discovery
+- deferred unclassifiable rows: `1024`;
+- shape-valid non-target: `0`;
+- recognized insurance rows: `0`;
+- `IN03`: `0`;
+- recognized authority codes: `[]`;
+- stop reason: none.
 
-Implemented offline:
+D-010 continuation remains proven and privacy controls passed. Logical row depth increased `64x` over the prior 16-row scan without increasing source-response bytes.
 
-`scripts/ca_sco_mvp1_same_bytes_deeper_insurance_discovery.py`
+## California Decision
 
-The new validator keeps the future source-response envelope unchanged:
+California source approval remains **HELD / NOT YET APPROVED**. The source is not rejected.
 
-- `1` HEAD max;
-- `4` Range GET max;
-- `131072` bytes per Range;
-- `524288` source body bytes total;
-- no additional Range;
-- no full-body fallback.
+The current California SCO `PROPERTY_TYPE` discovery path is frozen for MVP-1 because another equivalent scan no longer offers a credible improvement in `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME` after `1024/1024` examined rows remained unclassifiable under the unchanged authority-backed boundary.
 
-It increases only complete logical-row depth:
-
-- max `256 rows/member`;
-- max `1024 rows total`;
-- up to `64x` the previous logical depth.
-
-Existing transient caps remain unchanged:
-
-- `262144` uncompressed bytes/member;
-- `1048576` uncompressed bytes total;
-- `32768` bytes/logical record.
-
-D-010 privacy/semantic boundaries remain unchanged: metadata-only defer, no normalization/repair/regex relaxation, no source-value or row/PII persistence.
-
-Offline CI:
-
-`35244998206` — SUCCESS.
-
-Synthetic tests verify discovery of `IN03` after the historical four-row boundary, recognition of `IN01`/`IN99`, hard exclusion of row `257`, unchanged source-byte budget, and fail-closed transport drift.
-
-No California source request occurred during implementation/testing.
+Consumed refs from run `35255228459` are non-reusable. The temporary workflow and trigger were removed.
 
 ## Source State
 
 - transport/archive baseline: CONFIRMED LIVE;
-- authority semantics: RESOLVED;
+- California authority semantics: RESOLVED;
 - D-010 continuation: VALIDATED LIVE;
-- same-byte deeper discovery validator: OFFLINE READY;
+- same-byte deeper validation: COMPLETED;
+- CA `PROPERTY_TYPE` discovery path: FROZEN FOR MVP-1 PENDING NEW EVIDENCE;
 - California source approval: HELD;
 - approved real sources: `0`;
 - real candidates: `0`.
@@ -88,14 +68,12 @@ No California source request occurred during implementation/testing.
 
 Execute exclusively:
 
-`HUMAN_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_LIVE_VALIDATION_AUTHORIZATION`
+`BENCHMARK_MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_OFFLINE`
 
 Classification: `A — Product Critical`.
 
-Fresh approval must cover exactly one deeper live execution plus transient-row privacy up to `256/member`, `1024 total`, while preserving the existing `524288` source-byte envelope.
+Purpose:
 
-After approval:
+Find the shortest lawful path to a first approved real source with deterministic insurance relevance. Compare concrete source candidates on authority/provenance, insurance signal, machine accessibility, privacy burden, source/acquisition cost, update cadence, integration effort and expected time-to-first-candidate.
 
-`one same-byte deeper live validation -> evidence/source decision -> if insurance observed, bounded CA source activation -> candidate -> economics -> reviewer`
-
-Do not repeat the same 16-row run and do not reopen generic transport/CSV/PROPERTY_TYPE diagnostics.
+No new California live access is part of this benchmark. Do not repeat the 16-row or 1024-row scan, widen the same source-response envelope, or reopen generic transport/CSV/PROPERTY_TYPE diagnostics without genuinely new evidence.
