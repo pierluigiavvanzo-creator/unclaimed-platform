@@ -209,3 +209,34 @@ Consequences:
 - Exact/derived `PROPERTY_TYPE`, real row/field content, hashes, exact lengths, `PROPERTY_ID`, owner/holder values and source-derived free text remain outside the persistence boundary.
 - Any future continuation, real-row retention or row-specific inspection requires a separately reviewed design and authorization path.
 - Source policy remains `PROPOSED`, registry remains disabled/unapproved, production classification remains inactive and downstream gates remain closed.
+
+---
+
+## D-009 — MVP-1 commercial validation becomes the product-priority objective
+
+Date: 2026-09-17
+
+Status: Accepted
+
+Context:
+The project has a strong deterministic, contractual and fail-closed engineering foundation, but commercial/product validation remains materially behind the governance layer. At the time of this decision, approved real sources remain `0`, semantic compatibility is unresolved, production classification is inactive, and no real candidate has traversed the full product path into a commercially reviewable case.
+
+Decision:
+Adopt `MVP-1 — First Economically Actionable Case` as the priority product objective. `PRODUCT_STRATEGY_MVP1.md` becomes a priority project source and must be read immediately after `AGENTS.md`.
+
+M3 California source work remains active only as the minimum critical-path enabler required to reach one lawful approved real source. Once a real source is approved, priority must shift immediately to the vertical slice:
+
+`APPROVED REAL SOURCE -> bounded acquisition -> normalization -> insurance classification -> candidate case -> provenance/evidence -> case economics -> reviewer console -> human continue/stop decision`.
+
+No commercial threshold is invented in advance; real execution must establish the baseline.
+
+Reason:
+The project should optimize `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`, not code volume, test count, diagnostic depth or governance completeness as ends in themselves.
+
+Consequences:
+- substantial work must be classified `A/B/C/D` and tied to a specific MVP-1 blocker or exit criterion;
+- diagnostic/infrastructure work that does not materially shorten the path to MVP-1 is deprioritized;
+- Product Owner technical/manual involvement must be minimized except at material product, commercial, legal/privacy, security or irreversible architecture gates;
+- repository-first/reuse-first is mandatory before substantial custom downstream capability;
+- the canonical read order is `AGENTS.md`, `PRODUCT_STRATEGY_MVP1.md`, `PROJECT_STATE.md`, `ROADMAP.md`, `DECISIONS.md`, `docs/handovers/HANDOVER_CURRENT.md`;
+- all existing legal, privacy, security, source-authorization, deterministic and fail-closed controls remain binding and take precedence over product acceleration.
