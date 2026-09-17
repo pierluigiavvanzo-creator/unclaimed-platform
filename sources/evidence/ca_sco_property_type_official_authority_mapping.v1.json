@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "authority_id": "CA_SCO_NAUPA_II_CODES_DORMANCY_PERIODS",
+  "authority_title": "Standard NAUPA II Electronic File Format Codes & Dormancy Periods",
+  "authority_owner": "California State Controller's Office — Unclaimed Property Division",
+  "authority_archive_path": "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf",
+  "authority_sha256": "7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5",
+  "authority_pages_for_property_types": [1, 2, 3],
+  "mapping_policy": "EXACT_OFFICIAL_CODE_ALLOWLIST_ROW_DEFER_UNMAPPED",
+  "normalization_allowed": false,
+  "trimming_allowed": false,
+  "case_conversion_allowed": false,
+  "fuzzy_matching_allowed": false,
+  "official_property_type_codes": [
+    "AC01", "AC02", "AC03", "AC04", "AC05", "AC06", "AC07", "AC08", "AC99",
+    "CK01", "CK02", "CK03", "CK04", "CK05", "CK06", "CK07", "CK08", "CK09", "CK10", "CK11", "CK12", "CK13", "CK14", "CK15", "CK16", "CK99",
+    "CS01", "CS02", "CS03",
+    "CT01", "CT02", "CT03", "CT04", "CT05", "CT99",
+    "HS01", "HS02",
+    "IN01", "IN02", "IN03", "IN04", "IN05", "IN06", "IN07", "IN08", "IN99",
+    "IR01", "IR02", "IR03", "IR05", "IR06", "IR07",
+    "SD01", "SD02", "SD03",
+    "MI01", "MI02", "MI03", "MI04", "MI05", "MI06", "MI07", "MI08", "MI09", "MI99",
+    "SC01", "SC02", "SC03", "SC04", "SC05", "SC06", "SC07", "SC08", "SC09", "SC10", "SC11", "SC12", "SC13", "SC14", "SC15", "SC16", "SC17", "SC18", "SC19", "SC20", "SC50", "SC52", "SC54", "SC56",
+    "MS01", "MS02", "MS03", "MS04", "MS05", "MS06", "MS07", "MS08", "MS09", "MS10", "MS11", "MS12", "MS13", "MS14", "MS15", "MS16", "MS17", "MS18", "MS99",
+    "TR01", "TR02", "TR03", "TR04", "TR05", "TR06", "TR89", "TR99",
+    "UT01", "UT02", "UT03", "UT04", "UT99",
+    "ZZZZ"
+  ],
+  "official_insurance_codes": {
+    "IN01": "Individual Policy Benefits or Claim Payments",
+    "IN02": "Group Policy Benefits or Claim Payments",
+    "IN03": "Proceeds Due Beneficiaries",
+    "IN04": "Proceeds from Matured Policies, Endowments, or Annuities",
+    "IN05": "Premium Refunds",
+    "IN06": "Unidentified Remittances",
+    "IN07": "Other Amounts Due Under Policy Terms",
+    "IN08": "Agent Credit Balances",
+    "IN99": "Aggregate Insurance Property"
+  },
+  "unmapped_value_policy": {
+    "classification": "DEFERRED_UNKNOWN",
+    "whole_source_stop": false,
+    "continue_to_later_rows": true,
+    "raw_value_persistence": false,
+    "value_hash_persistence": false,
+    "exact_length_persistence": false,
+    "normalization_or_inference": false
+  },
+  "proof_boundary": "Only exact PROPERTY_TYPE codes enumerated by the archived California SCO authority are authority-mapped. Any other source value remains unknown and is deferred without semantic inference."
+}
