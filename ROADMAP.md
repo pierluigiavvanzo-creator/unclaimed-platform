@@ -9,7 +9,7 @@ Last updated: 2026-09-17
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence v1 |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST-LINK HUMAN GATE NEXT | NY source contract/privacy gate CI `35258458704` SUCCESS |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST AUTHORIZED; REQUESTER CONTACT INPUTS NEXT | Gate 1 evidence recorded; no request submitted yet |
 
 ## Product Priority
 
@@ -31,10 +31,6 @@ California remains held rather than rejected. Repeating/widening the same `PROPE
 
 ## Alternative Source Decision
 
-Benchmark completed:
-
-`docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md`
-
 Selected:
 
 `New York OSC Owner Name File`
@@ -49,27 +45,47 @@ Completed offline:
 
 `IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
 
-Audit:
-
-`docs/audits/MVP1_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE.md`
-
 CI:
 
-`35258458704` — SUCCESS.
+`35258809399` — SUCCESS.
 
 Implemented without requesting/downloading the real file:
 
 - NY candidate registered disabled and unapproved;
 - A01 v1.1 CA+NY request/result contracts added alongside unchanged historical v1.0;
-- only authority-disclosed semantic fields modeled;
 - physical file schema explicitly left unknown;
-- New York authority-index insurance vocabulary recorded, with `IN03` primary;
+- New York insurance vocabulary recorded, with `IN03` primary;
 - amount represented as `UNKNOWN_FROM_SOURCE`;
 - first real schema discovery constrained to memory-only processing;
 - raw file/owner-row persistence and owner-field logging forbidden for first discovery;
-- fail-closed adapter blocks acquisition and parser activation;
-- request-link authorization separated from later first-download/transient-PII authorization;
-- no default download byte cap invented.
+- request-link authorization separated from later first-download/transient-PII authorization.
+
+## NY OSC Gate 1
+
+Gate:
+
+`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
+
+Authorization received:
+
+`APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
+
+Approval ref:
+
+`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
+
+Current state:
+
+`GRANTED / SINGLE USE / NOT CONSUMED`
+
+No official form has been submitted yet because the required requester contact fields have not been supplied in the authorization input:
+
+- name;
+- company;
+- phone;
+- email.
+
+These values must not be invented.
 
 ## MVP-1 Critical Path
 
@@ -77,9 +93,13 @@ Current sequence:
 
 `NY source contract/privacy gate — DONE`
 
-`-> HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
+`-> NY request-link authorization — GRANTED, NOT CONSUMED`
 
-`-> one official request submission / receive access instructions`
+`-> requester supplies name/company/phone/email`
+
+`-> exactly one official request submission`
+
+`-> receive access instructions`
 
 `-> determine actual observable download constraints`
 
@@ -95,7 +115,7 @@ Current sequence:
 
 `-> provenance/evidence`
 
-`-> economics (source amount remains UNKNOWN_FROM_SOURCE unless later evidence supports value)`
+`-> economics`
 
 `-> Streamlit reviewer`
 
@@ -105,8 +125,8 @@ Current sequence:
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
+`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
 
-Classification: `A — Product Critical`.
+Classification: `A — Product Critical / Human Input Dependency`.
 
-This gate covers only one OSC request submission to obtain access instructions. It does not authorize Owner Name File download or real owner PII processing.
+No Owner Name File download or real owner PII processing is authorized by Gate 1.
