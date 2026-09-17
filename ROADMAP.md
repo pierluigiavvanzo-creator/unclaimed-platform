@@ -1,14 +1,31 @@
 # ROADMAP.md
 
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 
 | Milestone | Status | Exit evidence |
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | V1.2 REAL-SOURCE EVIDENCE REVIEW PASS; TRANSPORT + ARCHIVE-LAYOUT BASELINE REFRESH PROPOSAL NEXT | one-shot stopped fail-closed before body access; approvals consumed; no retry; baseline refresh not authorized |
+| M3 — California Data Spike | CRITICAL PATH TO MVP-1; CURRENTLY BLOCKED ON STALE TRANSPORT/ARCHIVE-LAYOUT BASELINE | safe path to one approved real source; no unauthorized retry or source activation |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
+| MVP-1 — First Economically Actionable Case | PRIORITY PRODUCT OBJECTIVE | approved real source -> acquisition -> normalization -> insurance classification -> candidate -> provenance/evidence -> case economics -> reviewer -> human continue/stop decision |
+
+## Priority Strategy
+
+Priority source:
+
+`PRODUCT_STRATEGY_MVP1.md`
+
+Governing decision:
+
+`D-009 — MVP-1 commercial validation becomes the product-priority objective`
+
+Guiding metric:
+
+`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+
+All substantial work must identify its A/B/C/D class and the MVP-1 blocker or exit criterion it advances.
 
 ## Verified M3 State
 
@@ -61,6 +78,12 @@ Actual usage:
 - 0 rows examined;
 - no `PROPERTY_TYPE` value observed.
 
+## Strategic Meaning Of M3
+
+The M3 stop demonstrates correct fail-closed behavior, but it does not yet create usable product or commercial validation.
+
+M3 is therefore retained only as the minimal safe route to the first approved real source. Additional governance or diagnostics are lower priority unless they are required to control an A-level risk or directly unblock that source.
+
 ## Transport / Archive-Layout Finding
 
 Expected transport identity:
@@ -84,7 +107,7 @@ The runner also pins four ZIP local-header offsets used by the deterministic sam
 - `From_500_To_Beyond_3_of_4.csv` → `96862896`;
 - `From_500_To_Beyond_4_of_4.csv` → `134174190`.
 
-Because the live ZIP identity changed, a future path cannot safely update only content length and ETag while assuming the historical archive-layout offsets remain valid. The existing transport/archive-layout baseline is therefore stale for future execution planning, but no new baseline values are adopted by this review.
+Because the live ZIP identity changed, a future path cannot safely update only content length and ETag while assuming the historical archive-layout offsets remain valid. The existing transport/archive-layout baseline is stale for future execution planning, but no new baseline values are adopted.
 
 ## Approval / Workflow State
 
@@ -100,12 +123,6 @@ Both remain `CONSUMED_SINGLE_USE_NON_REUSABLE`.
 
 The temporary one-shot workflow and trigger marker remain absent. No retry path remains.
 
-## Evidence Review Artifact
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
-
-The review is repository-only and performs no source access.
-
 ## Privacy / Source Governance
 
 No raw source body or row was read during the stopped execution. No protected source values were persisted.
@@ -114,19 +131,62 @@ No rebaseline, runtime modification, another network verification or approval gr
 
 Source policy remains `PROPOSED`. Registry remains disabled/unapproved. Approved real sources remain `0`. Production classification and all downstream identity/genealogy/matching/outreach/claim gates remain inactive.
 
-## Next Product Work
+## MVP-1 Exit Evidence
 
-Prepare exclusively:
+MVP-1 requires evidence of:
+
+1. at least one approved real source;
+2. lawful bounded real ingestion through the authorized vertical slice;
+3. at least one human-reviewable real candidate case, or a documented zero-candidate result through the complete real pipeline;
+4. visible provenance and relevant evidence;
+5. reproducible case economics with explicit inputs/assumptions;
+6. bounded Product Owner review rather than repetitive technical QA;
+7. a measured commercial baseline from real execution where available.
+
+Commercial measurements include records examined, classification survival, candidates produced, candidate-to-review conversion, review time, automated cost, source/data cost where applicable, supportable value/revenue basis, failure reasons, false-positive/unresolved signals and manual research burden.
+
+No success threshold is invented before the first real evidence exists.
+
+## Current Critical Path
+
+### A/B — Product Critical / Material Enabler
+
+Prepare:
 
 `PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
 
-The proposal must be repository-only and design-only. It must:
+Purpose: define the smallest deterministic and safe path that can later support a freshly authorized source revalidation.
 
-- distinguish transport identity from ZIP archive-layout/member-offset assumptions;
-- define fail-closed refresh/revalidation options;
-- avoid adopting the newly observed ETag/content length without a later separately authorized verification;
-- avoid inferring or arithmetically rebasing member offsets;
-- preserve existing runtime, parser/projector, regex, privacy and downstream closures;
-- require a separate human-reviewed authorization before any future network request.
+Constraints remain:
 
-It must not perform source or authority access, update runner constants, create a network workflow, grant approvals, retry the prior run or activate source/registry/production/downstream gates.
+- repository-only and design-only;
+- no source or authority access;
+- no update of runner constants;
+- no inferred/rebased offsets;
+- no workflow creation;
+- no reuse of consumed approvals;
+- no parser/projector/regex/normalization change;
+- no privacy widening;
+- no source/registry/production activation.
+
+### After The Blocker Is Removed
+
+1. separately review any proposed network revalidation;
+2. obtain fresh single-use authorization before the first request;
+3. achieve one approved real source;
+4. immediately move into the MVP-1 vertical slice;
+5. collect commercial baseline measurements;
+6. perform an explicit go / revise / stop product-commercial review before broadening scope.
+
+## Deferred Until MVP-1 Evidence
+
+Unless needed to control an A-level risk, deprioritize:
+
+- broad multi-state expansion;
+- fully automated genealogy;
+- automatic outreach;
+- automatic claim submission;
+- contracts automation;
+- infrastructure refactors without vertical-slice benefit;
+- additional agent complexity without demonstrated product need;
+- repeated diagnostics without a new hypothesis or direct source-unblocking value.
