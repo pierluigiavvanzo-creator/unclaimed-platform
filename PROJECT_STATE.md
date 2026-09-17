@@ -12,7 +12,7 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 California remains active only as the minimum critical-path enabler required to reach one lawful approved real source. Repository-only ceremony or diagnostics that do not shorten that path are deprioritized.
+M3 California remains active only as the minimum critical-path enabler required to reach one lawful approved real source.
 
 ## Current Engineering Milestone
 
@@ -24,76 +24,101 @@ M0, M1 and M2 are VERIFIED.
 
 Current branch:
 
-`m3-ca-sco-v1-2-proposal-contract-preservation-remediation`
+`m3-ca-sco-v1-2-real-source-execution-once-adopted-baseline`
 
 Latest completed action:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
+`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
 
-Review checkpoint before state closure:
+Classification:
 
-- HEAD `ed6a22a3ed5c727b3b4dd7f14416bb06acab2903`;
-- CI `35220411955` — **SUCCESS**.
+`A — Product Critical`
 
-Review result:
+Execution trigger checkpoint:
 
-`PASS_REMEDIATED_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_FOR_FRESH_SINGLE_USE_AUTHORIZATION`
+- HEAD `273a402345783c07c5f3c7bc842e0cd0000b3f01`;
+- one-shot run `35227857742` — **SUCCESS**, attempt `1`;
+- artifact `10499528807`;
+- artifact digest `sha256:e5addd9bebfa5524d03ce2c6766ca4997b84ab497d0a4a2f865d252619dc1b37`.
 
-Review audit:
+Execution audit:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REMEDIATION_RE_REVIEW.md`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_ADOPTED_BASELINE.md`
+
+Persisted derived evidence:
+
+`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once_adopted_baseline.json`
 
 ## Adopted Transport / Archive-Layout Baseline
 
-The active semantic runner remains correctly pinned to:
+The live execution confirmed the adopted transport baseline:
 
-- `EXPECTED_LENGTH = 162560390`;
-- `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
-- offsets `0`, `59745428`, `96861315`, `134172553`.
+- content length `162560390`;
+- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
+- content type `application/zip`;
+- Accept-Ranges `bytes`;
+- canonical offsets remain `0`, `59745428`, `96861315`, `134172553`.
 
-No transport diagnostic is reopened.
+Transport/archive-layout drift is not the active blocker.
 
-## Proposal Contract State
+## Real Execution Result
 
-Proposal `1.1.0` is accepted as the frozen proposal boundary for a separate fresh authorization gate.
+Machine result:
 
-The previously omitted reviewed fields are restored exactly from historical proposal `1.0.0`, including approval provenance, execution question, sample-bias note, official insurance codes, v1.2 null/default outcome constraints, privacy/persistence allowlists, derived-summary boundary and top-level acceptance criteria.
+- `semantic_result_status = STOPPED_FAIL_CLOSED`;
+- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
+- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
+- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`.
 
-The v1.1 schema and contract tests enforce these values. Historical proposal `1.0.0` remains preserved unchanged as provenance.
+D-008 `WHOLE_SOURCE_STOP` operated exactly as designed. No source continuation occurred.
 
-## Runtime / D-008 State
+Actual request use:
 
-Unchanged:
+- HEAD `1`;
+- Range `1`;
+- HTTP total `2`;
+- source body bytes read `131072`;
+- full archive downloaded `false`.
 
-- semantic runner `scripts/ca_sco_property_type_semantic_verification.py`;
-- runtime contract `1.2.0`;
-- parser/projector unchanged;
-- regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` unchanged;
-- trimming/casing/normalization unchanged;
-- D-008 `WHOLE_SOURCE_STOP` unchanged;
-- deterministic sample/request/byte caps unchanged;
-- no automatic widening;
-- `automatic_retry_allowed = false`.
+No raw/source-value evidence was persisted.
 
 ## Authorization / Privacy State
 
-All historical and structural-revalidation execution/privacy approvals remain:
+Fresh approvals created from explicit Product Owner authorization:
+
+- `OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_C18CDDFC`;
+- `OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_C18CDDFC`.
+
+Both are now:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Fresh single-use real-source execution approval: **NOT GRANTED**.
+No retry is authorized.
 
-Fresh transient-row privacy approval: **NOT GRANTED**.
+Temporary one-shot workflow and trigger have been removed.
 
-No California SCO request or network workflow was performed by the review.
+## Runtime / Contract Boundary
+
+Unchanged:
+
+- runner `scripts/ca_sco_property_type_semantic_verification.py`;
+- runtime contract `1.2.0`;
+- proposal `1.1.0`;
+- regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- parser/projector;
+- no trimming/casing/normalization;
+- deterministic request/sample caps;
+- no widening / no retry;
+- D-008 fail-closed mapping;
+- privacy/persistence allowlists.
 
 ## Product / Commercial State
 
 - approved real sources: `0`;
-- transport/archive-layout baseline adopted: `true`;
-- semantic execution proposal accepted for fresh authorization: `true`;
-- fresh execution/privacy authorization: `false`;
-- semantic compatibility resolved: `false`;
+- transport/archive-layout baseline: **CONFIRMED LIVE**;
+- real-source semantic execution completed: `true`;
+- semantic compatibility resolved positively: `false`;
+- active blocker: `PROPERTY_TYPE` compatibility under current strict contract;
 - source policy: `PROPOSED`;
 - registry: disabled / not approved;
 - production classification active: `false`;
@@ -105,14 +130,15 @@ No California SCO request or network workflow was performed by the review.
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-This is the next material human gate. It may grant fresh single-use execution and transient-row privacy approvals for exactly one bounded real-source semantic execution, but must not itself access California SCO or create/trigger the execution workflow.
+The review must not retry the consumed execution or reopen transport diagnostics. It should decide the shortest safe path to MVP-1:
 
-After explicit authorization, proceed directly to exactly one bounded real-source semantic execution, evidence review and source decision. Do not add diagnostics or infrastructure unless new contradictory evidence creates a genuine A-risk blocker.
+1. a separately reviewed compatibility-remediation path grounded in authoritative source semantics; or
+2. reject/defer this California source and move to another lawful source.
 
-Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
+Use `docs/handovers/HANDOVER_CURRENT.md` as the restart point.
