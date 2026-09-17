@@ -192,9 +192,44 @@ Because the live ZIP identity changed, the old transport and archive-layout pins
 
 No new ETag, content length or member offset has been adopted.
 
+## Baseline Refresh Proposal
+
+Completed on the strategy branch:
+
+`docs/audits/M3_CA_SCO_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL.md`
+
+Classification:
+
+`A — Product Critical / MVP-1 critical-path enabler`
+
+Recommended design:
+
+`HEAD -> bounded ZIP tail -> EOCD -> exact Central Directory range -> canonical member local-header offsets`
+
+The proposal intentionally rejects:
+
+- probing around historical offsets;
+- arithmetic rebasing;
+- sequential archive scanning;
+- full ZIP download.
+
+Proposed later execution cap:
+
+- `1` HEAD;
+- at most `2` Range GETs;
+- at most `3` HTTP requests total;
+- at most `262144` response-body bytes total;
+- no CSV decompression;
+- no row/PII access;
+- fail closed on ZIP64, structural ambiguity, cap excess or canonical-member mismatch.
+
+Any resulting transport/layout values are only a `baseline candidate`; they are not automatically adopted into runtime constants.
+
+No network request was performed while preparing this proposal.
+
 ## Proof Boundary
 
-The execution/review establish only that:
+The prior execution/review establish only that:
 
 - the live HEAD metadata differed from the pinned transport identity at execution time;
 - the runner stopped fail-closed before body access;
@@ -202,6 +237,8 @@ The execution/review establish only that:
 - approvals were consumed and workflow/trigger were removed.
 
 They do **not** establish whether source contents, ZIP member layout, CSV structure or `PROPERTY_TYPE` semantics changed.
+
+The new proposal also establishes no live source fact; it is design-only.
 
 Semantic compatibility remains unresolved.
 
@@ -212,10 +249,12 @@ Semantic compatibility remains unresolved.
 - v1.2 implementation completed and human-reviewed: `true`;
 - one-shot real-source execution completed: `true`;
 - execution evidence human-reviewed and accepted: `true`;
+- transport/archive-layout refresh proposal prepared: `true`;
+- refresh proposal human-reviewed: `false`;
 - consumed approvals reusable: `false`;
 - retry authorized: `false`;
 - current transport/archive-layout baseline suitable for blind reuse: `false`;
-- baseline refresh authorized: `false`;
+- baseline refresh execution authorized: `false`;
 - another network verification authorized: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
@@ -249,17 +288,15 @@ These are measurement requirements, not predeclared success thresholds.
 
 ## Next Recommended Action
 
-Execute only the minimum bounded work needed to remove the current M3 blocker:
+Perform exclusively:
 
-`PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
 
-Classification: `A/B — MVP-1 critical-path enabler`.
+This is a material human gate because the next stage could eventually authorize new source-body Range requests, even though only ZIP structural metadata is intended.
 
-The proposal remains repository-only and design-only. It must perform no network/source request, must not update current runner constants or infer new member offsets, must not grant approvals or create a workflow, and must not activate source policy, registry, production classification or downstream work.
+The review should decide whether to approve the Central Directory strategy as the bounded implementation basis. It must not itself perform network access, adopt live values, reuse consumed approvals or activate the source.
 
-The proposal must explicitly optimize for the smallest safe path to a later approved real-source verification, not for additional diagnostic completeness.
-
-Any later network revalidation requires a separate reviewed proposal and fresh single-use authorization before the first request.
+If approved, the next automated package should prepare the implementation, deterministic tests and one-shot execution contract; network execution would still require a fresh explicit single-use authorization.
 
 After one approved real source exists, priority shifts immediately to the MVP-1 vertical slice rather than further infrastructure expansion.
 
