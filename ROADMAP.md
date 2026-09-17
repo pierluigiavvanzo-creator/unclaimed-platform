@@ -9,7 +9,7 @@ Last updated: 2026-09-17
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence v1 |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST AUTHORIZED; REQUESTER CONTACT INPUTS NEXT | Gate 1 evidence recorded; no request submitted yet |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST SUBMITTED; ACCESS INSTRUCTIONS PENDING | Gate 1 consumed after Product Owner-confirmed manual submission |
 
 ## Product Priority
 
@@ -49,16 +49,7 @@ CI:
 
 `35258809399` — SUCCESS.
 
-Implemented without requesting/downloading the real file:
-
-- NY candidate registered disabled and unapproved;
-- A01 v1.1 CA+NY request/result contracts added alongside unchanged historical v1.0;
-- physical file schema explicitly left unknown;
-- New York insurance vocabulary recorded, with `IN03` primary;
-- amount represented as `UNKNOWN_FROM_SOURCE`;
-- first real schema discovery constrained to memory-only processing;
-- raw file/owner-row persistence and owner-field logging forbidden for first discovery;
-- request-link authorization separated from later first-download/transient-PII authorization.
+The source remains disabled/unapproved and the first real schema discovery remains memory-only with raw owner-file and owner-row persistence forbidden.
 
 ## NY OSC Gate 1
 
@@ -66,26 +57,15 @@ Gate:
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
-Authorization received:
-
-`APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
-
 Approval ref:
 
 `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
 
 Current state:
 
-`GRANTED / SINGLE USE / NOT CONSUMED`
+`CONSUMED / SINGLE USE / NON-REUSABLE`
 
-No official form has been submitted yet because the required requester contact fields have not been supplied in the authorization input:
-
-- name;
-- company;
-- phone;
-- email.
-
-These values must not be invented.
+On 2026-09-17 the Product Owner confirmed that the official request form had been manually submitted once. Requester contact values are not persisted in the repository.
 
 ## MVP-1 Critical Path
 
@@ -93,15 +73,15 @@ Current sequence:
 
 `NY source contract/privacy gate — DONE`
 
-`-> NY request-link authorization — GRANTED, NOT CONSUMED`
+`-> NY request-link authorization — CONSUMED`
 
-`-> requester supplies name/company/phone/email`
+`-> official request submission — PRODUCT OWNER CONFIRMED COMPLETE`
 
-`-> exactly one official request submission`
+`-> receive access instructions — PENDING`
 
-`-> receive access instructions`
+`-> determine observable download constraints without processing file contents`
 
-`-> determine actual observable download constraints`
+`-> define explicit max_download_bytes`
 
 `-> HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
 
@@ -125,8 +105,8 @@ Current sequence:
 
 Execute exclusively:
 
-`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
-Classification: `A — Product Critical / Human Input Dependency`.
+Classification: `A — Product Critical / External Dependency`.
 
-No Owner Name File download or real owner PII processing is authorized by Gate 1.
+When instructions arrive, capture only non-content access/download constraints required to prepare Gate 2. Do not download or inspect the Owner Name File and do not process owner PII before separate Gate 2 authorization.
