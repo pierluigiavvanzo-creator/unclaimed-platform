@@ -1,8 +1,48 @@
 # PROJECT_STATE.md
 
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 
-## Current Milestone
+## Current Product Objective
+
+`MVP-1 — First Economically Actionable Case`
+
+Priority strategy source:
+
+`PRODUCT_STRATEGY_MVP1.md`
+
+Governing decision:
+
+`D-009 — MVP-1 commercial validation becomes the product-priority objective`
+
+The guiding project metric is:
+
+`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+
+M3 California source work remains active only as the current critical-path enabler to obtain an approved real source for MVP-1.
+
+## MVP-1 Target Vertical Slice
+
+`APPROVED REAL SOURCE`
+
+`-> bounded acquisition`
+
+`-> normalization`
+
+`-> insurance classification`
+
+`-> candidate case creation`
+
+`-> provenance / evidence package`
+
+`-> case economics`
+
+`-> reviewer console`
+
+`-> human continue / stop decision`
+
+Commercial validation must be based on real execution evidence. No commercial threshold is invented in advance.
+
+## Current Engineering Milestone
 
 M3 — California Data Spike Readiness + Product Visibility
 
@@ -24,21 +64,39 @@ Human evidence-review result:
 
 The evidence is accepted as valid proof that the runner failed closed before body access when the live HEAD metadata no longer matched the pinned transport identity. It provides no new `PROPERTY_TYPE` semantic evidence.
 
+## Strategic Interpretation
+
+This result is a technical success but not yet product/commercial validation.
+
+Current product facts:
+
+- approved real sources: `0`;
+- semantic compatibility resolved: `false`;
+- production classification active: `false`;
+- real candidate cases through MVP-1 vertical slice: `0`;
+- commercial baseline from real cases: not yet established.
+
+Therefore the California transport/archive-layout blocker is classified as an `A/B` critical-path enabler only to the extent required to reach one approved real source. Open-ended diagnostic expansion is not a product objective.
+
 ## Review Checkpoint
 
-Review branch:
+Evidence-review branch:
 
 `m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-evidence-review`
 
-Review base execution HEAD:
+Evidence-review HEAD:
 
-`05a475ef2ddd0ed86f4e934c919bb1d98c58d566`
+`9dbdc3c6f1ef05c577c26c9e3524ba74fdbfda56`
 
-Review base CI:
+Execution base CI:
 
 `35124327126` — **SUCCESS**
 
-Human review artifact:
+Current strategy branch:
+
+`strategy-mvp1-first-economically-actionable-case`
+
+Human evidence-review artifact:
 
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
 
@@ -130,9 +188,9 @@ The current runner and reviewed sample plan also pin four ZIP local-header offse
 - `From_500_To_Beyond_3_of_4.csv` → `96862896`;
 - `From_500_To_Beyond_4_of_4.csv` → `134174190`.
 
-Because the live ZIP identity changed, the old transport and archive-layout pins are treated as **stale for future execution planning**. This does not mean that the historical offsets are proven wrong; it means they must not be blindly reused or arithmetically rebased without a separately reviewed verification path.
+Because the live ZIP identity changed, the old transport and archive-layout pins are treated as **stale for future execution planning**. They must not be blindly reused or arithmetically rebased without a separately reviewed verification path.
 
-No new ETag, content length or member offset has been adopted by the review.
+No new ETag, content length or member offset has been adopted.
 
 ## Proof Boundary
 
@@ -147,22 +205,15 @@ They do **not** establish whether source contents, ZIP member layout, CSV struct
 
 Semantic compatibility remains unresolved.
 
-## Workflow Lifecycle / Privacy
-
-The temporary one-shot workflow and execution marker remain absent. No workflow-based retry path remains.
-
-No raw body, full row, `PROPERTY_ID`, owner/holder value, per-row `PROPERTY_TYPE`, offending bytes/hash/exact field length or record values were persisted. No source row was examined.
-
 ## Source / Product Governance State
 
 - D-008 accepted as design: `true`;
+- D-009 MVP-1 priority accepted: `true`;
 - v1.2 implementation completed and human-reviewed: `true`;
 - one-shot real-source execution completed: `true`;
-- execution evidence human-reviewed: `true`;
-- execution evidence accepted: `true`;
+- execution evidence human-reviewed and accepted: `true`;
 - consumed approvals reusable: `false`;
 - retry authorized: `false`;
-- temporary workflow present: `false`;
 - current transport/archive-layout baseline suitable for blind reuse: `false`;
 - baseline refresh authorized: `false`;
 - another network verification authorized: `false`;
@@ -177,16 +228,39 @@ No raw body, full row, `PROPERTY_ID`, owner/holder value, per-row `PROPERTY_TYPE
 - production classification remains inactive;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
 
-`DECISIONS.md` remains unchanged because the evidence review does not introduce a new architectural decision.
+## MVP-1 Commercial Measurements To Establish
+
+Once a real vertical slice is lawfully available, capture at minimum:
+
+- records examined;
+- records surviving insurance classification;
+- candidate cases produced;
+- candidate-to-review conversion;
+- human review time per candidate;
+- automated processing cost per candidate;
+- source/data cost per candidate where applicable;
+- economically supportable recoverable-value or value-band evidence where available;
+- economically and legally supportable fee/revenue basis where available;
+- principal failure/drop-off reasons;
+- false-positive or unresolved-case signals;
+- additional manual research burden before commercial action.
+
+These are measurement requirements, not predeclared success thresholds.
 
 ## Next Recommended Action
 
-Prepare exclusively:
+Execute only the minimum bounded work needed to remove the current M3 blocker:
 
 `PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
 
-This next action is repository-only and design-only. It must perform no network/source request, must not update current runner constants or infer new member offsets, must not grant approvals or create a workflow, and must not activate source policy, registry, production classification or downstream work.
+Classification: `A/B — MVP-1 critical-path enabler`.
+
+The proposal remains repository-only and design-only. It must perform no network/source request, must not update current runner constants or infer new member offsets, must not grant approvals or create a workflow, and must not activate source policy, registry, production classification or downstream work.
+
+The proposal must explicitly optimize for the smallest safe path to a later approved real-source verification, not for additional diagnostic completeness.
 
 Any later network revalidation requires a separate reviewed proposal and fresh single-use authorization before the first request.
+
+After one approved real source exists, priority shifts immediately to the MVP-1 vertical slice rather than further infrastructure expansion.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
