@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ca-property-type-authority-row-defer`
+`mvp1-ca-property-type-row-defer-live-validation-once`
 
 Always verify remote HEAD and latest CI before any new modification.
 
@@ -28,104 +28,135 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-## Latest Product-Critical Result
+## D-010 Product Boundary
 
-The prior one-shot v1.2 live execution confirmed the adopted CA SCO transport/archive baseline but stopped on a canonical field-level `PROPERTY_TYPE_FORMAT_UNEXPECTED` under D-008.
-
-Earlier source-format diagnostics already proved this was not parser/projector disagreement: strict UTF-8 and strict stdlib CSV parsing succeeded, a canonical 25-column row was produced, and stdlib field index `1` agreed with the custom projector.
-
-The Product Owner then directed:
-
-`risolvere Property_Type usando semantica/documentazione ufficiale california e procedere verso MVP-1`
-
-## California Authority Result
-
-California SCO authority now provides the product boundary:
-
-- `IN01` — Individual Policy Benefits or Claim Payments;
-- `IN02` — Group Policy Benefits or Claim Payments;
-- `IN03` — Proceeds Due Beneficiaries;
-- `IN04` — Proceeds from Matured Policies, Endowments, or Annuities;
-- `IN05` — Premium Refunds;
-- `IN06` — Unidentified Remittances;
-- `IN07` — Other Amounts Due Under Policy Terms;
-- `IN08` — Agent Credit Balances;
-- `IN99` — Aggregate Insurance Property.
-
-Authority archive:
-
-`sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf`
-
-Authority review:
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_authority_archive_provenance.review.v1.json`
-
-The authority does not justify normalizing, trimming, uppercasing, repairing or reconstructing a malformed source value.
-
-## D-010 — MVP-1 Row Defer
-
-Accepted decision:
+Accepted California MVP-1 policy:
 
 `ROW_DEFER_CONTINUE_METADATA_ONLY`
 
-D-010 supersedes D-008 whole-source continuation behavior only for the California SCO MVP-1 classification path.
+Exact authority-backed insurance vocabulary:
 
-A nonconforming or unknown `INxx` value is:
+`IN01, IN02, IN03, IN04, IN05, IN06, IN07, IN08, IN99`
 
-- `DEFER_UNCLASSIFIABLE`;
-- not normalized;
-- not classified as non-insurance;
-- not persisted;
-- represented only by aggregate `nonconforming_rows_deferred_count`;
-- allowed to defer while later rows continue.
-
-Transport/header/CSV-column/hard-cap failures remain whole-source fail-closed.
-
-## MVP-1 Commercial Target
-
-Primary narrow target:
+Primary narrow MVP-1 target:
 
 `IN03 — Proceeds Due Beneficiaries`
 
-This is the first high-precision commercial slice. All nine exact authority-backed `INxx` codes remain valid insurance codes.
+A nonconforming or unknown `INxx` value is deferred without normalization, repair, semantic inference, row/value persistence or row-specific inspection. Only aggregate deferred-row counts may persist. Later rows may continue.
 
-## Implementation
+Transport/header/CSV-column/hard-cap failures remain whole-source fail-closed.
 
-Added on branch:
+## Owner Authorization Just Used
 
-- `policies/states/CA/ca_sco_property_type_classification.v1.json`;
-- `src/unclaimed_platform/adapters/sources/california_property_type.py`;
-- `scripts/ca_sco_mvp1_property_type_validation.py`;
-- `tests/unit/test_california_property_type.py`;
-- `tests/unit/test_ca_sco_mvp1_property_type_validation.py`;
-- `tests/contract/test_ca_sco_property_type_classification_policy.py`;
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_BACKED_MVP1_REMEDIATION.md`.
+The Product Owner explicitly authorized:
 
-The historical v1.2 semantic runner is unchanged.
+`APPROVO D010 LIVE VALIDATION + TRANSIENT-ROW PRIVACY`
 
-Synthetic tests prove that a malformed first row can be deferred while a later `IN03` is observed, unknown `INxx` is deferred, and transport drift still stops fail-closed.
+Fresh refs minted from that authorization:
 
-## Network / Privacy State
+Execution:
 
-This remediation performed no new California SCO source request.
+`OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_BOUNDED_B2AF7877`
 
-All previous execution/privacy refs remain:
+Transient-row privacy:
+
+`OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_TRANSIENT_ROW_PRIVACY_BOUNDED_B2AF7877`
+
+Both are now:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No current fresh validation approval exists.
+Do not reuse or rerun them.
 
-## Product State
+Machine approval record:
 
-- live transport baseline: CONFIRMED;
-- authority semantics: RESOLVED;
-- exact insurance vocabulary: RESOLVED;
-- D-010 row-defer implementation: OFFLINE READY;
-- D-010 live validation: NOT YET AUTHORIZED;
+`sources/evidence/ca_sco_mvp1_property_type_row_defer_live_validation_approval.v1.json`
+
+Authorization/execution audit:
+
+`docs/audits/M3_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION.md`
+
+## Authorization Checkpoint
+
+- base branch: `mvp1-ca-property-type-authority-row-defer`;
+- base HEAD: `a15346a95cc293a1db3cd849b852d5be8846538d`;
+- base CI: `35234190191` — SUCCESS;
+- isolated execution branch: `mvp1-ca-property-type-row-defer-live-validation-once`;
+- authorization checkpoint: `17ec4183726844593c02d442516aef92bf07916c`;
+- authorization-checkpoint CI: `35237433309` — SUCCESS.
+
+The authorization pinned:
+
+- D-010 runner blob `8e952a80105d56a8e84e6fb9feb5524dd01625d0`;
+- classifier blob `05e8637e42070dd6f04218592d20d4a230ab948e`;
+- policy blob `840d09d87187c53d26f4d562527dcb92d810a9f3`;
+- legacy transport/CSV runner blob `706183d5425da16b25f8186574cc356135803326`.
+
+## One-Shot Attempt
+
+Trigger commit:
+
+`6ea068cf24878482ed89ce9af2794461d3b705a9`
+
+Workflow run:
+
+`35237721059` — attempt `1` — **FAILURE BEFORE SCO NETWORK ACCESS**.
+
+Preflight passed. The workflow then consumed both approval refs before network access and pushed:
+
+`49f7e417ca0469f2a3a4e59aecb3d013376f9016` — `governance: consume D010 single-use live approvals`
+
+The live execution process failed immediately at module import:
+
+`ModuleNotFoundError: No module named 'scripts'`
+
+The failing workflow command used direct file execution:
+
+`python scripts/ca_sco_mvp1_property_type_validation.py ...`
+
+Because import failed before `main()` and before `legacy.HttpTransport()` construction, the attempt performed:
+
+- SCO HEAD requests: `0`;
+- SCO Range GET requests: `0`;
+- SCO response-body bytes: `0`;
+- live rows examined: `0`;
+- live semantic outcome: none.
+
+This is an execution-packaging/launch failure, not evidence against the California source or D-010.
+
+No evidence artifact was uploaded because the live step did not reach execution.
+
+## Remediation
+
+The D-010 runner was restored byte-for-byte to the originally reviewed/authorized blob:
+
+`8e952a80105d56a8e84e6fb9feb5524dd01625d0`
+
+The correct operational launch mode is now:
+
+`python -m scripts.ca_sco_mvp1_property_type_validation ...`
+
+`tests/unit/test_ca_sco_mvp1_property_type_validation.py` contains an offline subprocess regression test that boots the runner with exactly that module-mode invocation and `--help`, so no source access occurs.
+
+D-010 semantics, classifier, authority vocabulary, transport/archive baseline, request/sample caps and privacy boundary are unchanged.
+
+The temporary one-shot workflow and trigger were removed together after the failed attempt, preventing accidental re-execution.
+
+## Source / Product State
+
+- adopted transport/archive baseline: CONFIRMED from prior bounded executions;
+- California authority semantics: RESOLVED;
+- D-010 row-defer semantics: OFFLINE IMPLEMENTED;
+- D-010 runtime semantic blob: UNCHANGED;
+- first D-010 authorized attempt: ABORTED PRE-NETWORK;
+- current execution/privacy refs: none fresh;
 - approved real sources: `0`;
-- candidate cases: `0`.
+- production classification: inactive;
+- real MVP-1 candidate cases: `0`.
 
-## Canonical Read Order
+Do not infer any semantic result from run `35237721059` because it accessed no California source data.
+
+## Canonical Read Order Before Any New Change
 
 1. `AGENTS.md`
 2. `PRODUCT_STRATEGY_MVP1.md`
@@ -134,39 +165,44 @@ No current fresh validation approval exists.
 5. `DECISIONS.md`
 6. `docs/handovers/HANDOVER_CURRENT.md`
 
-Then inspect:
+Then inspect at least:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_BACKED_MVP1_REMEDIATION.md`;
-2. `policies/states/CA/ca_sco_property_type_classification.v1.json`;
-3. `src/unclaimed_platform/adapters/sources/california_property_type.py`;
-4. `scripts/ca_sco_mvp1_property_type_validation.py`;
-5. the latest consumed v1.2 execution audit/evidence;
-6. D-010 in `DECISIONS.md`.
+1. `docs/audits/M3_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION.md`;
+2. `sources/evidence/ca_sco_mvp1_property_type_row_defer_live_validation_approval.v1.json`;
+3. `policies/states/CA/ca_sco_property_type_classification.v1.json`;
+4. `src/unclaimed_platform/adapters/sources/california_property_type.py`;
+5. `scripts/ca_sco_mvp1_property_type_validation.py`;
+6. `tests/unit/test_ca_sco_mvp1_property_type_validation.py`;
+7. D-010 in `DECISIONS.md`.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION`
+`HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_REAUTHORIZATION_AFTER_PRENETWORK_CLI_REMEDIATION`
 
 Classification: `A — Product Critical`.
 
-It may mint exactly:
+A new explicit Product Owner authorization is required because `B2AF7877` was consumed and is non-reusable even though no SCO request was reached.
 
-1. one fresh single-use bounded execution approval for `scripts/ca_sco_mvp1_property_type_validation.py`;
-2. one fresh single-use transient-row memory-only privacy approval.
+The fresh authorization may mint exactly:
 
-It must preserve:
+1. one new single-use bounded execution approval;
+2. one new single-use transient-row memory-only privacy approval.
 
-- adopted transport baseline and current request/byte caps;
-- no retry / no widening;
-- exact authority insurance vocabulary;
-- no normalization or regex relaxation;
-- metadata-only deferred-row aggregate count;
-- no malformed source value or row/PII persistence.
+The next one-shot workflow must:
 
-After explicit authorization, proceed directly:
+- pin the unchanged D-010 runner/classifier/policy and adopted transport baseline;
+- invoke the runner with `python -m scripts.ca_sco_mvp1_property_type_validation`;
+- reject `run_attempt != 1`;
+- consume fresh refs before source access;
+- preserve existing request/byte/sample caps;
+- persist only D-010 allowed derived evidence;
+- remove workflow/trigger immediately after execution;
+- never reuse or rerun consumed refs.
 
-`one bounded live D-010 validation -> source decision -> if PASS, bounded California insurance activation -> MVP-1 candidate -> economics -> reviewer`
+After fresh explicit authorization, proceed directly:
 
-Do not reopen transport or generic PROPERTY_TYPE diagnostics absent new contradictory evidence.
+`one module-mode bounded live D-010 validation -> evidence/source decision -> if supported, bounded California insurance activation -> MVP-1 candidate -> economics -> reviewer`
+
+Do not reopen generic transport or PROPERTY_TYPE diagnostics absent new contradictory evidence.
