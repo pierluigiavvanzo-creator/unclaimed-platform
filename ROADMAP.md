@@ -9,6 +9,23 @@ Last updated: 2026-09-17
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | TRANSPORT + ARCHIVE-LAYOUT REFRESH PROPOSAL REVIEW PASS; FRESH AUTHORIZATION NEXT | bounded classic-ZIP structural design accepted; network revalidation still not authorized |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
+
+## Product Priority
+
+Priority strategy source:
+
+`PRODUCT_STRATEGY_MVP1.md`
+
+Governing decision:
+
+`D-009 — MVP-1 commercial validation becomes the product-priority objective`
+
+Guiding metric:
+
+`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+
+M3 is retained only as the minimum critical-path enabler required to reach one lawful approved real source. Additional diagnostics, infrastructure or governance work that does not materially shorten this path is not the current priority.
 
 ## Verified M3 State
 
@@ -29,29 +46,23 @@ Completed:
 
 `HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
 
-Reviewed proposal branch:
+Technical review branch:
 
-`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal`
+`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal-review`
 
-Reviewed proposal HEAD:
+Technical review HEAD:
 
-`359b1c1a86d34edabcd028e5e5fbb6fc3acba781`
+`b8f703db18207661cd799b0baf1f0dac1bfdc398`
 
-Reviewed proposal CI:
+Technical review CI:
 
-`35139290645` — **SUCCESS**
+`35187432747` — **SUCCESS**
 
 Review result:
 
 `PASS_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REVALIDATION_NOT_AUTHORIZED`
 
-Review artifact:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW.md`
-
-## Accepted Design
-
-Accepted for a later separately authorized gate:
+Accepted design:
 
 `BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION`
 
@@ -82,17 +93,7 @@ Rejected:
 
 Classic ZIP only. ZIP64, multi-disk, missing/ambiguous EOCD, identity drift, missing/duplicate canonical members or inability to complete inside these caps must stop fail-closed.
 
-## Baseline Boundary
-
-Historical transport and member-offset pins remain stale for future execution planning but not proven invalid.
-
-The one-shot observed content length `162560390` and ETag `"222dd79f04c2a0a8fff166b01c8da746"` remain evidence only.
-
-Replacement content length, ETag and all four member offsets remain `null`. No baseline has been adopted.
-
 ## Authorization / Privacy Boundary
-
-The review grants no approval and performs no source access.
 
 Any later bounded structural revalidation requires fresh single-use:
 
@@ -101,20 +102,24 @@ Any later bounded structural revalidation requires fresh single-use:
 
 Structural Range bytes must be memory-only with zero retention. No raw byte persistence, decompression, CSV parsing, row inspection or protected-field observation is allowed.
 
-## Runtime / Source Governance
+## MVP-1 Commercial Baseline To Establish
 
-No change to:
+Once one lawful approved real source is available, immediately capture from the vertical slice where available:
 
-- `EXPECTED_LENGTH`;
-- `EXPECTED_ETAG`;
-- canonical member offsets;
-- parser/projector;
-- regex or normalization;
-- D-008 handling;
-- source policy;
-- registry.
+- records examined;
+- records surviving insurance classification;
+- candidate cases produced;
+- candidate-to-review conversion;
+- human review time per candidate;
+- automated processing cost per candidate;
+- data/source cost per candidate;
+- supportable recoverable-value or value-band evidence;
+- legally supportable fee/revenue basis;
+- principal failure/drop-off reasons;
+- false-positive or unresolved-case signals;
+- additional manual research burden before commercial action.
 
-Source policy remains `PROPOSED`; registry remains disabled/unapproved; approved real sources remain `0`; production classification and all identity/genealogy/matching/outreach/claim gates remain inactive.
+These are measurement requirements, not invented success thresholds.
 
 ## Next Product Work
 
@@ -122,4 +127,10 @@ Execute exclusively:
 
 `HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
 
+Classification:
+
+`A/B — MVP-1 critical-path enabler`
+
 That gate is repository-only and may decide whether to grant fresh single-use execution and structural-byte privacy approvals. It must remain separate from the network execution itself.
+
+After one approved real source exists, priority shifts immediately to the MVP-1 vertical slice rather than further infrastructure expansion.
