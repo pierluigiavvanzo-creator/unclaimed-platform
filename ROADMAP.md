@@ -7,50 +7,33 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | STRUCTURAL REVALIDATION ONE-SHOT SUCCESS; CANDIDATE EVIDENCE REVIEW NEXT | candidate transport/archive layout established from bounded classic-ZIP metadata; no adoption yet |
+| M3 — California Data Spike | CANDIDATE BASELINE EVIDENCE HUMAN-REVIEWED PASS; ADOPTION IMPLEMENTATION NEXT | bounded classic-ZIP revalidation succeeded; evidence accepted; runtime pins not yet changed |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 | MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
 
 ## Product Priority
 
-Priority strategy source:
-
-`PRODUCT_STRATEGY_MVP1.md`
-
-Governing decision:
-
-`D-009 — MVP-1 commercial validation becomes the product-priority objective`
+Priority strategy source: `PRODUCT_STRATEGY_MVP1.md`
 
 Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 remains only the minimum critical-path enabler required to reach one lawful approved real source.
+M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Additional diagnostics, governance or infrastructure that do not shorten that path are deprioritized.
 
 ## Verified M3 State
 
 - D-008 `WHOLE_SOURCE_STOP` remains unchanged;
 - semantic runner contract remains `1.2.0`;
-- prior v1.2 one-shot stopped fail-closed on `TRANSPORT_METADATA_DRIFT` before Range/CSV access;
-- bounded transport/archive-layout refresh design was human-reviewed and accepted;
-- fresh single-use structural execution/privacy approvals were granted;
-- implementation preflight was CI-green with source execution skipped;
-- bounded structural revalidation was then executed exactly once;
-- live run `35198720002` attempt `1` completed **SUCCESS**;
-- both fresh approvals are now consumed and non-reusable;
-- candidate transport/archive-layout evidence is established;
-- no candidate value has been adopted;
+- one-shot structural revalidation run `35198720002` completed **SUCCESS** on attempt `1`;
+- candidate transport/archive-layout baseline was established from bounded classic-ZIP metadata;
+- both structural execution/privacy approvals are consumed and non-reusable;
+- persisted candidate evidence passed schema/contract validation;
+- human evidence review accepted the candidate evidence as sufficient for a later separate repository-only adoption implementation;
+- no candidate value is yet adopted;
 - semantic compatibility remains unresolved.
 
-## Candidate Transport / Archive-Layout Evidence
-
-Persisted evidence:
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`
-
-Result:
-
-`CANDIDATE_BASELINE_ESTABLISHED`
+## Reviewed Candidate Baseline
 
 Candidate transport:
 
@@ -63,83 +46,60 @@ Candidate transport:
 Canonical members:
 
 - all four present exactly once;
-- additional member count `0`.
+- additional member count `0`;
+- offsets `0`, `59745428`, `96861315`, `134172553`.
 
-Candidate local-header offsets:
+Human review result:
 
-1. `0`;
-2. `59745428`;
-3. `96861315`;
-4. `134172553`.
+`PASS_CANDIDATE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_EVIDENCE_ACCEPTED_FOR_SEPARATE_ADOPTION_IMPLEMENTATION`
 
-These values are candidate evidence only.
+## Adoption Boundary
 
-## Baseline / Adoption Boundary
-
-Current semantic-runner constants remain historical and unchanged:
+Current semantic-runner pins remain historical:
 
 - length `162416884`;
 - ETag `"b25b315b6cd8007624387c3a00d4b1fe"`;
 - offsets `0`, `59747797`, `96862896`, `134174190`.
 
-Candidate replacement baseline established: `true`.
-
 Candidate baseline adopted: `false`.
 
-A separate human evidence review is required before any later implementation gate may update runtime pins.
-
-## Request / Privacy Boundary Preserved
-
-The one-shot verifier enforced:
-
-- HEAD max `1`;
-- Range max `4`;
-- HTTP total max `5`;
-- response bytes/range max `131072`;
-- source response-body max total `524288`;
-- full-body fallback `false`;
-- widening `false`;
-- retry `false`.
-
-Structural bytes remained memory-only with zero retention. No raw Range bytes, decompressed payload, CSV rows, protected fields or noncanonical member names were persisted.
+The next repository-only implementation may update only those reviewed transport/layout pins. Parser/projector/regex/normalization and D-008 remain unchanged.
 
 ## Approval State
 
-The two structural revalidation approvals are now:
+The two structural revalidation approvals are:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No rerun is authorized.
+The pre-execution authorization artifact is historical provenance only and must not be treated as fresh authority. No network retry is authorized.
 
 ## MVP-1 Commercial Baseline To Establish
 
-Once one lawful approved real source exists, immediately capture where available:
+Once one lawful approved real source exists, immediately measure where available:
 
 - records examined;
 - records surviving insurance classification;
 - candidate cases produced;
 - candidate-to-review conversion;
 - human review time per candidate;
-- automated processing cost per candidate;
-- data/source cost per candidate;
-- supportable recoverable-value or value-band evidence;
-- legally supportable fee/revenue basis;
+- automated/source cost per candidate;
+- supportable recoverable-value/revenue evidence;
 - principal failure/drop-off reasons;
 - false-positive or unresolved-case signals;
-- additional manual research burden before commercial action.
+- additional manual research burden.
 
-These are measurement requirements, not invented success thresholds.
+No commercial threshold is invented in advance.
 
 ## Next Product Work
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW`
+`IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION`
 
 Classification:
 
 `A/B — MVP-1 critical-path enabler`
 
-The review must remain repository-only, perform no source retry, and determine whether the candidate evidence supports a later separate baseline-adoption implementation gate. It must not modify semantic-runner constants in the review itself.
+This action is repository-only. Update the reviewed content length, ETag and four canonical member offsets, add/update regression coverage as needed, run full CI/smoke, and perform no California SCO network request. Do not alter parser/projector/regex/normalization, D-008, source policy, registry or downstream gates.
 
-After one approved real source exists, priority shifts immediately to the MVP-1 vertical slice rather than further infrastructure expansion.
+After the baseline adoption is CI-green, return immediately to the shortest safe path to one approved real source and then the MVP-1 vertical slice.
