@@ -66,7 +66,11 @@ The process terminated during Python module import:
 
 `ModuleNotFoundError: No module named 'scripts'`
 
-The failing statement was the top-level import in `scripts/ca_sco_mvp1_property_type_validation.py`. Because the module failed to import before `main()` ran, `legacy.HttpTransport()` was never constructed and no `HEAD` or `Range GET` to `claimit.ca.gov` was issued by this attempt.
+The failing workflow invoked the package-owned runner as a file:
+
+`python scripts/ca_sco_mvp1_property_type_validation.py ...`
+
+That launch mode sets the script directory, rather than the repository root, as the leading Python import path. The runner itself imports the existing repository `scripts` namespace. Because the module failed to import before `main()` ran, `legacy.HttpTransport()` was never constructed and no `HEAD` or `Range GET` to `claimit.ca.gov` was issued by this attempt.
 
 Therefore:
 
@@ -74,17 +78,21 @@ Therefore:
 - California SCO source response-body bytes read: `0`;
 - real source rows examined: `0`;
 - semantic result about live `PROPERTY_TYPE`: **none**;
-- this failure is an execution-packaging/CLI-startup defect, not evidence against D-010 or the California source.
+- this failure is an execution-packaging/CLI-launch defect, not evidence against D-010 or the California source.
 
 ## Remediation
 
-The direct-script startup defect was corrected after the consumed attempt by explicitly making the repository root importable before importing the `scripts` namespace.
+The reviewed D-010 runner was restored byte-for-byte to its originally authorized blob:
 
-A subprocess regression test now invokes the runner exactly as GitHub Actions did:
+`8e952a80105d56a8e84e6fb9feb5524dd01625d0`
 
-`python scripts/ca_sco_mvp1_property_type_validation.py --help`
+No runtime-semantic code change is required. Future one-shot execution must invoke it as a module from the repository root:
 
-This test is offline and performs no source access. The correction does not change D-010 semantics, the classifier, the authority vocabulary, transport/archive constants, request/sample caps, privacy rules, or source activation state.
+`python -m scripts.ca_sco_mvp1_property_type_validation ...`
+
+A subprocess regression test now verifies the same module-mode startup path offline using `--help`. This performs no source access and catches the packaging error that escaped the prior in-process unit tests.
+
+The remediation changes no D-010 semantics, classifier, authority vocabulary, transport/archive constants, request/sample caps, privacy rules, or source activation state.
 
 ## Authorized execution boundary (consumed, not reusable)
 
@@ -108,6 +116,10 @@ PASS for the failed attempt.
 
 No source content was accessed or persisted. No raw body, row, `PROPERTY_TYPE`, `PROPERTY_ID`, owner/holder value, hash, exact length, source-derived free text, identity resolution, beneficiary matching, outreach or claim work occurred.
 
+## Workflow cleanup
+
+The temporary D-010 execution workflow and trigger were deleted together after the failed attempt. Their absence prevents accidental reuse or push-triggered re-execution under the consumed refs.
+
 ## Product/source state
 
-This attempt does not approve or reject the California source and provides no new live semantic evidence. D-010 remains the selected source-specific remediation design and its synthetic tests remain valid. A new real validation requires a **fresh explicit Product Owner authorization** and fresh single-use execution/privacy references after the CLI-startup remediation is CI-green.
+This attempt does not approve or reject the California source and provides no new live semantic evidence. D-010 remains the selected source-specific remediation design and its synthetic tests remain valid. A new real validation requires a **fresh explicit Product Owner authorization** and fresh single-use execution/privacy references after module-mode startup remediation is CI-green.
