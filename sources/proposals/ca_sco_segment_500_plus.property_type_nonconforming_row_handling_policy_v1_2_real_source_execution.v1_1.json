@@ -36,6 +36,12 @@
     "all_prior_execution_approvals_consumed": true,
     "all_prior_privacy_approvals_consumed": true,
     "approvals_reusable": false,
+    "consumed_approval_refs": [
+      "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED",
+      "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED",
+      "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED",
+      "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED"
+    ],
     "historical_v1_1_evidence_preserved": true,
     "semantic_compatibility_resolved": false
   },
@@ -53,6 +59,7 @@
   "execution_question": {
     "field": "PROPERTY_TYPE",
     "question_id": "VERIFY_V1_2_REAL_SOURCE_FAIL_CLOSED_CONTROL_DISPOSITION_BOUNDED",
+    "question": "Using the human-reviewed v1.2.0 runner and the unchanged deterministic bounded prefix sample, does a separately authorized real-source execution conform to the v1.2 execution contract, including the exact D-008 control_disposition mapping if PROPERTY_TYPE_FORMAT_UNEXPECTED occurs?",
     "proof_boundary": "ONE_BOUNDED_EXECUTION_ONLY_DOES_NOT_PROVE_GLOBAL_SOURCE_SEMANTICS_FREQUENCY_OR_FUTURE_COMPATIBILITY",
     "hidden_source_value_inference_allowed": false,
     "production_classification_activation_allowed": false,
@@ -70,7 +77,8 @@
     "data_rows_max_per_member": 4,
     "data_rows_max_total": 16,
     "header_rows_counted_as_data": false,
-    "representativeness_claimed": false
+    "representativeness_claimed": false,
+    "sample_bias_note": "Prefix sampling is deterministic and privacy-minimized; it is not statistically representative."
   },
   "transport_caps": {
     "head_requests_max": 1,
@@ -90,6 +98,7 @@
     "expected_column_count": 25,
     "property_type_column_index_zero_based": 1,
     "property_type_code_shape_regex": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$",
+    "official_insurance_codes": ["IN01", "IN02", "IN03", "IN04", "IN05", "IN06", "IN07", "IN08", "IN99"],
     "trimming_allowed": false,
     "uppercasing_allowed": false,
     "normalization_allowed": false,
@@ -103,9 +112,12 @@
     "property_type_format_unexpected_legacy_stop_reason": "PROPERTY_TYPE_FORMAT_UNEXPECTED",
     "property_type_format_unexpected_control_status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED",
     "property_type_format_unexpected_control_reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+    "unrelated_stop_control_disposition": null,
+    "non_stopped_control_disposition": null,
     "source_continuation_after_property_type_format_unexpected": false,
     "later_members_requested_after_trigger": false,
-    "silent_row_skip_allowed": false
+    "silent_row_skip_allowed": false,
+    "specific_real_source_outcome_required_for_proposal_acceptance": false
   },
   "privacy_controls": {
     "transient_full_row_bytes_may_be_observed_only_after_fresh_privacy_approval": true,
@@ -123,7 +135,19 @@
     "record_values_in_logs": false,
     "real_row_quarantine_persistence": false,
     "row_specific_human_inspection": false,
-    "privacy_expansion_required": false
+    "privacy_expansion_required": false,
+    "control_disposition_allowed_persisted_fields": ["status_code", "reason_code"],
+    "control_disposition_source_value_bearing_fields_allowed": false,
+    "derived_summary_persistence_allowed": true,
+    "allowed_persisted_derived_fields": [
+      "sample_rows_examined",
+      "rows_examined_per_member",
+      "distinct_property_type_codes",
+      "distinct_insurance_codes",
+      "control_disposition",
+      "semantic_result_status",
+      "stop_reason"
+    ]
   },
   "workflow_plan": {
     "planned_path": ".github/workflows/ca-sco-property-type-semantic-verification-once.yml",
@@ -162,5 +186,20 @@
     "outreach_allowed": false,
     "claim_submission_allowed": false
   },
+  "acceptance_criteria": [
+    "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
+    "BASE_PINNED_TO_CI_GREEN_HUMAN_REVIEWED_V1_2_CHECKPOINT",
+    "FRESH_EXECUTION_AND_PRIVACY_APPROVALS_REQUIRED_AND_NOT_GRANTED",
+    "ALL_PRIOR_APPROVALS_REMAIN_CONSUMED_AND_NON_REUSABLE",
+    "RUNNER_AND_V1_2_EXECUTION_SCHEMA_REMAIN_UNMODIFIED",
+    "SAMPLE_AND_TRANSPORT_CAPS_REMAIN_UNCHANGED",
+    "PROPERTY_TYPE_VALIDATION_REGEX_PARSER_PROJECTOR_AND_NO_NORMALIZATION_REMAIN_UNCHANGED",
+    "D008_CONTROL_DISPOSITION_MAPPING_REMAINS_EXACT_AND_FAIL_CLOSED",
+    "NO_REAL_SOURCE_OUTCOME_IS_PRECOMMITTED_OR_INFERRED",
+    "PRIVACY_SCOPE_DOES_NOT_EXPAND",
+    "SOURCE_CONTINUATION_REMAINS_FALSE",
+    "PROPOSAL_PREPARATION_PERFORMS_NO_NETWORK_OR_SOURCE_ACCESS",
+    "SOURCE_POLICY_REGISTRY_PRODUCTION_CLASSIFICATION_AND_DOWNSTREAM_GATES_REMAIN_CLOSED"
+  ],
   "next_gate": "HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW"
 }
