@@ -12,9 +12,24 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
 
 ROOT = Path(__file__).resolve().parents[2]
-PROPOSAL_PATH = ROOT / "sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json"
-HISTORICAL_PROPOSAL_PATH = ROOT / "sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json"
-SCHEMA_PATH = ROOT / "schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.v1_1.schema.json"
+PROPOSAL_PATH = (
+    ROOT
+    / "sources/proposals/"
+    "ca_sco_segment_500_plus."
+    "property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json"
+)
+HISTORICAL_PROPOSAL_PATH = (
+    ROOT
+    / "sources/proposals/"
+    "ca_sco_segment_500_plus."
+    "property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json"
+)
+SCHEMA_PATH = (
+    ROOT
+    / "schemas/common/"
+    "property_type_nonconforming_row_handling_policy_"
+    "v1_2_real_source_execution_proposal.v1_1.schema.json"
+)
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 WORKFLOW_PATH = ROOT / ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"
 
@@ -24,7 +39,10 @@ def _load(path: Path) -> dict[str, object]:
 
 
 def _load_runner() -> ModuleType:
-    spec = importlib.util.spec_from_file_location("ca_sco_semantic_runner_refresh_contract", RUNNER_PATH)
+    spec = importlib.util.spec_from_file_location(
+        "ca_sco_semantic_runner_refresh_contract",
+        RUNNER_PATH,
+    )
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
@@ -67,7 +85,9 @@ def test_refreshed_proposal_is_bound_to_adopted_runner_baseline() -> None:
     assert base["head_ci_run"] == "35210199280"
     assert base["baseline_adopted"] is True
     assert baseline["expected_length"] == RUNNER.EXPECTED_LENGTH == 162_560_390
-    assert baseline["expected_etag"] == RUNNER.EXPECTED_ETAG == '"222dd79f04c2a0a8fff166b01c8da746"'
+    assert baseline["expected_etag"] == RUNNER.EXPECTED_ETAG == (
+        '"222dd79f04c2a0a8fff166b01c8da746"'
+    )
 
     expected_members = [
         {"name": member.name, "local_header_offset": member.local_header_offset}
@@ -86,13 +106,16 @@ def test_refreshed_proposal_is_bound_to_adopted_runner_baseline() -> None:
 def test_refresh_preserves_historical_proposal_as_provenance() -> None:
     refreshed = _load(PROPOSAL_PATH)
     historical = _load(HISTORICAL_PROPOSAL_PATH)
-    assert refreshed["supersedes_proposal_version"] == historical["proposal_version"] == "1.0.0"
+    assert refreshed["supersedes_proposal_version"] == historical["proposal_version"]
+    assert historical["proposal_version"] == "1.0.0"
     historical_offsets = [
-        item["local_header_offset"] for item in historical["sample_plan"]["canonical_members"]
+        item["local_header_offset"]
+        for item in historical["sample_plan"]["canonical_members"]
     ]
     assert historical_offsets == [0, 59_747_797, 96_862_896, 134_174_190]
     assert historical_offsets != [
-        item["local_header_offset"] for item in refreshed["sample_plan"]["canonical_members"]
+        item["local_header_offset"]
+        for item in refreshed["sample_plan"]["canonical_members"]
     ]
 
 
@@ -115,7 +138,9 @@ def test_design_caps_d008_privacy_and_parser_boundary_are_unchanged() -> None:
     assert caps["range_requests_max"] == RUNNER.MAX_RANGE_REQUESTS == 4
     assert caps["http_requests_max_total"] == RUNNER.MAX_HTTP_REQUESTS == 5
     assert caps["range_response_bytes_max_each"] == RUNNER.RANGE_RESPONSE_BYTES
-    assert caps["source_response_body_bytes_max_total"] == RUNNER.MAX_TOTAL_RESPONSE_BYTES
+    assert caps["source_response_body_bytes_max_total"] == (
+        RUNNER.MAX_TOTAL_RESPONSE_BYTES
+    )
     assert caps["automatic_widening_allowed"] is False
     assert caps["automatic_retry_allowed"] is False
     assert controls["property_type_code_shape_regex"] == RUNNER.PROPERTY_TYPE_RE.pattern
@@ -124,8 +149,12 @@ def test_design_caps_d008_privacy_and_parser_boundary_are_unchanged() -> None:
     assert controls["normalization_allowed"] is False
     assert controls["parser_change_allowed"] is False
     assert controls["projector_change_allowed"] is False
-    assert outcome["property_type_format_unexpected_control_status_code"] == RUNNER.PROPERTY_TYPE_NONCONFORMING_STATUS
-    assert outcome["property_type_format_unexpected_control_reason_code"] == RUNNER.PROPERTY_TYPE_NONCONFORMING_REASON
+    assert outcome["property_type_format_unexpected_control_status_code"] == (
+        RUNNER.PROPERTY_TYPE_NONCONFORMING_STATUS
+    )
+    assert outcome["property_type_format_unexpected_control_reason_code"] == (
+        RUNNER.PROPERTY_TYPE_NONCONFORMING_REASON
+    )
     assert outcome["source_continuation_after_property_type_format_unexpected"] is False
     assert privacy["memory_only"] is True
     assert privacy["per_row_property_type_persistence"] is False
@@ -137,7 +166,9 @@ def test_schema_rejects_baseline_or_authorization_widening() -> None:
     validator = Draft202012Validator(_load(SCHEMA_PATH))
 
     wrong_offset = copy.deepcopy(proposal)
-    wrong_offset["sample_plan"]["canonical_members"][1]["local_header_offset"] = 59_747_797
+    wrong_offset["sample_plan"]["canonical_members"][1]["local_header_offset"] = (
+        59_747_797
+    )
 
     execution = copy.deepcopy(proposal)
     execution["fresh_authorization_requirements"]["real_execution_authorized"] = True
