@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-osc-request-link-authorization`
+`mvp1-synthetic-vertical-slice-offline`
 
 Always verify remote HEAD and latest CI before any new modification.
 
@@ -35,9 +35,11 @@ Before any new change read, in order:
 5. `DECISIONS.md`
 6. `docs/handovers/HANDOVER_CURRENT.md`
 
+Then inspect task-relevant artifacts.
+
 ## California Path
 
-Latest California live run:
+Latest bounded California live run remains:
 
 `35255228459` — attempt `1` — SUCCESS.
 
@@ -47,14 +49,13 @@ Result:
 - `DEFER_UNCLASSIFIABLE`: `1024`;
 - recognized insurance rows: `0`;
 - `IN03`: `0`;
-- source response bytes: `524288`;
-- no stop.
+- source response bytes: `524288`.
 
-California source remains `HELD / NOT YET APPROVED`, not rejected. The current CA SCO `PROPERTY_TYPE` discovery path is frozen for MVP-1 absent genuinely new evidence. Consumed CA approvals are non-reusable.
+California remains `HELD / NOT YET APPROVED`, not rejected. The current CA SCO `PROPERTY_TYPE` discovery path is frozen for MVP-1 absent genuinely new evidence.
 
-## New York Source Selection / Offline Contract
+## New York Source Candidate
 
-Selected candidate:
+Selected:
 
 `New York Office of the State Comptroller — Owner Name File`
 
@@ -62,23 +63,23 @@ Source id:
 
 `ny.osc.unclaimed_funds.owner_name_file`
 
-Offline source-contract/privacy package:
-
-`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
-
-Implementation base checkpoint:
-
-`198821ff41abb103b6c56876a075abb6c28c9c8f`
-
-Base CI:
-
-`35258809399` — SUCCESS.
-
-Source remains:
+State:
 
 `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`
 
-Physical schema remains `UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE`; production parser/classification remains inactive.
+Physical schema:
+
+`UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE`
+
+Dollar value:
+
+`UNKNOWN_FROM_SOURCE`
+
+Primary MVP-1 insurance target:
+
+`IN03 — Proceeds Due Beneficiaries`
+
+Production parser/classification remains inactive.
 
 ## Gate 1 — Request Access Only
 
@@ -86,11 +87,11 @@ Gate:
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
-Product Owner authorization received on 2026-09-17:
+Owner authorization:
 
 `APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
 
-Machine evidence:
+Evidence:
 
 `sources/evidence/ny_osc_owner_name_file_request_link_authorization.v1.json`
 
@@ -98,102 +99,168 @@ Approval ref:
 
 `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
 
-Current approval state:
+State:
 
 `GRANTED_SINGLE_USE_NOT_CONSUMED_PENDING_REQUESTER_CONTACT_DATA`
 
-Single-use: yes. Reusable: no. Retry authorized: no.
+No official OSC request has been submitted. Requester values are currently unavailable:
 
-### Gate 1 authorized scope
+1. name;
+2. company;
+3. phone;
+4. email.
 
-May perform exactly one official OSC Owner Name File request submission for the purpose of receiving access instructions / secure FTP link information.
+Do not invent or infer them.
 
-May disclose the requester contact data only when those values are explicitly supplied for this request.
+Gate 1 does NOT authorize Owner Name File download, real owner PII processing, schema parsing, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity.
 
-Gate 1 does NOT authorize:
+Gate 2 remains `NOT GRANTED / NOT READY` and requires an explicit `max_download_bytes` after access instructions are obtained.
 
-- Owner Name File download;
-- processing of owner name/address or other real owner PII;
-- raw file persistence;
-- schema parsing;
-- identity resolution;
-- beneficiary matching;
-- outreach;
-- representation;
-- fee agreement;
-- claim activity.
+## Completed Parallel Product Action
 
-Do not mark the approval consumed until the request has actually been submitted.
+Because Gate 1 is parked on unavailable human contact inputs, downstream MVP-1 construction continued offline with synthetic data only.
 
-## Current External Form Facts
+Completed:
 
-Official form:
+`MVP1_SYNTHETIC_VERTICAL_SLICE_OFFLINE`
 
-`https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form`
+Classification:
 
-The form currently requires exactly these requester contact values:
+`A — Product Critical`.
 
-- Name;
-- Company;
-- Phone number;
-- Email address.
+Audit:
 
-OSC states that after receiving the request it will email a secure FTP link and instructions for downloading a zipped delimited `.txt` file.
+`docs/audits/MVP1_SYNTHETIC_VERTICAL_SLICE_OFFLINE.md`
 
-The authorization message did not supply the four requester contact values. They must not be inferred from memory, Git metadata, account profile, prior conversations or other sources; obtain them explicitly from the Product Owner for this external disclosure.
+Stable implementation checkpoint before canonical documentation updates:
 
-No OSC form has been submitted yet. The Gate 1 approval remains unconsumed.
+`caedbb67c3077a654533a5c96dab42cbfa4e0cf3`
 
-## Gate 2 — Later Bounded First Download
+CI:
 
-Gate:
+`35263620224` — SUCCESS.
 
-`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
+Passed:
 
-State:
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint/typecheck/build.
 
-`NOT GRANTED / NOT READY`
+The preceding run `35263474623` failed only on Ruff import ordering in one new test and was corrected without product-logic change.
 
-Before requesting Gate 2:
+## Synthetic Downstream Path
 
-1. submit the authorized Gate 1 request;
-2. receive access instructions;
-3. determine observable download constraints without processing owner-file contents;
-4. define explicit `max_download_bytes`.
+Implemented path:
 
-No default byte cap may be invented.
+`SYNTHETIC_POST_SCHEMA_MAPPING -> exact NY insurance classification -> IN03 candidate -> economics -> reviewer`
 
-When later separately authorized, Gate 2 may cover exactly one bounded download plus memory-only schema discovery with transient owner PII. It remains single-use, non-reusable and no retry/rerun is implicitly authorized.
+Key behavior:
 
-## Source / Product State
+- exact `IN03` -> `MVP1_PRIMARY_INSURANCE`;
+- another exact recorded NY insurance code -> `INSURANCE_OTHER`;
+- unknown code -> `NO_AUTHORITY_BACKED_INSURANCE_MATCH`;
+- no normalization, repair, inference or regex-like promotion;
+- only exact `IN03` creates the narrow synthetic MVP-1 candidate;
+- candidate id is deterministic;
+- no identity resolution or beneficiary matching is performed;
+- no real source or PII is accessed.
+
+New files/surfaces include:
+
+- `src/unclaimed_platform/domain/mvp1_vertical_slice.py`;
+- `schemas/ui/mvp1_synthetic_case_review.schema.json`;
+- `GET /api/reviewer/mvp1/synthetic-case`;
+- Streamlit `MVP-1 SYNTHETIC CASE` and `CASE ECONOMICS` sections;
+- unit, contract and smoke coverage.
+
+## Economics Finding
+
+The synthetic case deliberately preserves:
+
+- `recoverable_value_state = UNKNOWN_FROM_SOURCE`;
+- `source_amount_available = false`;
+- `fee_basis_state = NOT_COMPUTABLE_FROM_SOURCE`;
+- `commercial_threshold_applied = false`;
+- `invented_amounts = false`.
+
+Reviewer decision:
+
+`CONTINUE_VALUE_RESEARCH_OR_STOP`
+
+Required next evidence:
+
+- recoverable value evidence;
+- expected follow-up cost;
+- lawful fee basis.
+
+This is now the highest-value offline commercial blocker. The OSC Owner Name File may identify a candidate category, but by itself it does not establish recoverable amount.
+
+## Reuse Decision
+
+Existing Pydantic + JSON Schema + FastAPI + Streamlit stack was reused.
+
+External rule engines benchmarked but not adopted:
+
+- `venmo/business-rules` — MIT; Python DSL; excess abstraction for current exact-rule scope;
+- `gorules/zen` — MIT; active multi-language engine; excess runtime/integration complexity for current scope.
+
+Decision:
+
+`REUSE EXISTING STACK > ADD NEW RULE ENGINE`
+
+## Product / Source State
 
 - approved real sources: `0`;
 - California source: `HELD`;
-- CA `PROPERTY_TYPE` discovery: `FROZEN FOR MVP-1`;
-- NY OSC Owner Name File: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
+- NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: `GRANTED / NOT CONSUMED`;
 - NY request submitted: no;
 - NY access instructions obtained: no;
 - NY real owner PII processed: no;
 - NY Gate 2: not granted;
-- production parser/classification: inactive;
+- synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - real MVP-1 candidates: `0`.
+
+## Parallel Critical Paths
+
+External source path:
+
+`requester contact inputs -> one authorized OSC request -> access instructions -> download constraints -> Gate 2 -> bounded first-file memory-only schema discovery`
+
+Offline product path:
+
+`synthetic downstream slice — DONE -> recoverable-value evidence benchmark -> economics evidence contract -> real candidate integration when source becomes available`
+
+Gate 1 remains parked and unconsumed while offline Product Critical work continues.
+
+## Task-Relevant Artifacts for Next Work
+
+Inspect at least:
+
+1. `PRODUCT_STRATEGY_MVP1.md`;
+2. `docs/audits/MVP1_SYNTHETIC_VERTICAL_SLICE_OFFLINE.md`;
+3. `src/unclaimed_platform/domain/mvp1_vertical_slice.py`;
+4. `schemas/ui/mvp1_synthetic_case_review.schema.json`;
+5. `policies/states/NY/ny_osc_owner_name_file.v1.json`;
+6. `sources/registry.yaml`;
+7. current official New York OSC/insurance/legal sources relevant to value evidence and location-service-provider economics.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
+`BENCHMARK_NY_MVP1_RECOVERABLE_VALUE_EVIDENCE_PATHS_OFFLINE`
 
-Classification: `A — Product Critical / Human Input Dependency`.
+Classification:
 
-Required explicit Product Owner inputs:
+`A — Product Critical`.
 
-1. Name
-2. Company
-3. Phone number
-4. Email address
+Goal:
 
-After all four values are supplied, use Gate 1 approval ref `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71` for exactly one official request submission if an execution-capable browser/form surface is available. If the current chat surface cannot perform form submission, provide the official form and exact values to enter rather than claiming submission occurred.
+Identify and compare lawful, evidence-backed ways to obtain or estimate recoverable monetary value, expected follow-up cost and lawful fee basis for a future New York `IN03` candidate. Distinguish exact case-level evidence from proxies and market-level estimates. Prefer official/public/authorized sources and reusable capabilities.
 
-After actual submission, mark Gate 1 consumed and update canonical state. Do not download the Owner Name File under Gate 1.
+No real owner PII, Owner Name File download, outreach, representation, fee agreement or claim activity is authorized by this offline action.
