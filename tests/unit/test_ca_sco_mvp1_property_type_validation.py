@@ -3,10 +3,16 @@ from __future__ import annotations
 import csv
 import io
 import struct
+import subprocess
+import sys
 import zlib
+from pathlib import Path
 
 from scripts import ca_sco_mvp1_property_type_validation as mvp1
 from scripts import ca_sco_property_type_semantic_verification as legacy
+
+ROOT = Path(__file__).resolve().parents[2]
+RUNNER_PATH = ROOT / "scripts/ca_sco_mvp1_property_type_validation.py"
 
 
 def _row(property_type: str) -> list[str]:
@@ -69,6 +75,19 @@ class Transport:
             "content-length": str(legacy.RANGE_RESPONSE_BYTES),
         }
         return handle
+
+
+def test_direct_cli_boots_from_repo_root_without_network() -> None:
+    completed = subprocess.run(
+        [sys.executable, str(RUNNER_PATH), "--help"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr
+    assert "--live-network" in completed.stdout
+    assert "--approval-ref" in completed.stdout
 
 
 def test_nonconforming_first_row_is_deferred_and_later_in03_is_observed() -> None:
