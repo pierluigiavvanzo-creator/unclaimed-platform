@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ca.sco.property_type.classification",
+  "jurisdiction": "CA",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "authority": {
+    "name": "California State Controller - Standard NAUPA II Electronic File Format Codes & Dormancy Periods",
+    "archived_path": "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf",
+    "archive_sha256": "7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5",
+    "current_official_url": "https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf"
+  },
+  "canonical_shape_regex": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$",
+  "insurance_codes": {
+    "IN01": "Individual Policy Benefits or Claim Payments",
+    "IN02": "Group Policy Benefits or Claim Payments",
+    "IN03": "Proceeds Due Beneficiaries",
+    "IN04": "Proceeds from Matured Policies, Endowments, or Annuities",
+    "IN05": "Premium Refunds",
+    "IN06": "Unidentified Remittances",
+    "IN07": "Other Amounts Due Under Policy Terms",
+    "IN08": "Agent Credit Balances",
+    "IN99": "Aggregate Insurance Property"
+  },
+  "mvp1_target": {
+    "primary_code": "IN03",
+    "internal_reason": "DIRECT_AUTHORITY_DESCRIPTION_PROCEEDS_DUE_BENEFICIARIES",
+    "authority_description_is_product_score": false
+  },
+  "nonconforming_row_policy": {
+    "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY",
+    "semantic_acceptance": false,
+    "normalization_allowed": false,
+    "regex_relaxation_allowed": false,
+    "row_content_persistence_allowed": false,
+    "property_type_value_persistence_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "persisted_metadata": [
+      "nonconforming_rows_deferred_count"
+    ],
+    "continue_after_nonconforming_row": true,
+    "silent_row_omission_allowed": false,
+    "deferred_row_is_treated_as_non_insurance": false,
+    "deferred_row_is_treated_as_unknown_unclassifiable": true
+  }
+}
