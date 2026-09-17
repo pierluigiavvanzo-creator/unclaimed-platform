@@ -9,7 +9,7 @@ Last updated: 2026-09-17
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence v1 |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NEW YORK OSC SOURCE CONTRACT / PRIVACY GATE NEXT | first approved real source remains blocker |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST-LINK HUMAN GATE NEXT | NY source contract/privacy gate CI `35258458704` SUCCESS |
 
 ## Product Priority
 
@@ -27,59 +27,75 @@ Latest deeper live execution:
 
 It examined `1024` rows (`256/member`) under the unchanged `524288`-byte source-response envelope. All `1024` were deferred as unclassifiable and no authority-backed insurance code was observed.
 
-California remains held rather than rejected, but repeating/widening the same `PROPERTY_TYPE` discovery pattern is no longer on the MVP-1 critical path without genuinely new evidence.
+California remains held rather than rejected. Repeating/widening the same `PROPERTY_TYPE` discovery pattern is not on the MVP-1 critical path without genuinely new evidence.
 
-## Alternative Lawful Source Benchmark
+## Alternative Source Decision
 
-Completed:
-
-`BENCHMARK_MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_OFFLINE`
-
-Audit:
+Benchmark completed:
 
 `docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md`
 
-Selected next source candidate:
+Selected:
 
 `New York OSC Owner Name File`
 
-Product reasons:
+Source id:
 
-- official bulk-download request path;
-- quarterly refresh;
-- owner/name address plus nature-of-property and reporter semantics are officially disclosed;
-- official New York insurance table includes `IN03 — Proceeds Due Beneficiaries`;
-- OSC explicitly supports an Abandoned Property Location Service Provider workflow;
-- lower expected semantic/integration friction than the California feed.
+`ny.osc.unclaimed_funds.owner_name_file`
 
-The source is **not approved or acquired yet**. Exact file schema remains unknown and must not be inferred.
+## New York Source Contract / Privacy Gate
 
-Benchmark disposition of alternatives:
+Completed offline:
 
-- Texas SIFT: DEFER / secondary;
-- Pennsylvania aggregate data: DEFER for market sizing only;
-- Illinois: REJECT for bulk MVP-1 ingest because no bulk/API is provided;
-- Washington: REJECT for commercial list acquisition because the official public-records guidance prohibits releasing lists for commercial purpose.
+`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
+
+Audit:
+
+`docs/audits/MVP1_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE.md`
+
+CI:
+
+`35258458704` — SUCCESS.
+
+Implemented without requesting/downloading the real file:
+
+- NY candidate registered disabled and unapproved;
+- A01 v1.1 CA+NY request/result contracts added alongside unchanged historical v1.0;
+- only authority-disclosed semantic fields modeled;
+- physical file schema explicitly left unknown;
+- New York authority-index insurance vocabulary recorded, with `IN03` primary;
+- amount represented as `UNKNOWN_FROM_SOURCE`;
+- first real schema discovery constrained to memory-only processing;
+- raw file/owner-row persistence and owner-field logging forbidden for first discovery;
+- fail-closed adapter blocks acquisition and parser activation;
+- request-link authorization separated from later first-download/transient-PII authorization;
+- no default download byte cap invented.
 
 ## MVP-1 Critical Path
 
-Current intended sequence:
+Current sequence:
 
-`NY source contract + privacy gate (offline)`
+`NY source contract/privacy gate — DONE`
 
-`-> fresh human authorization`
+`-> HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
-`-> request/download official NY Owner Name File`
+`-> one official request submission / receive access instructions`
 
-`-> fail-closed first-file schema discovery`
+`-> determine actual observable download constraints`
 
-`-> insurance classification using authority-backed NY semantics`
+`-> HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
+
+`-> exactly one bounded first-file memory-only schema discovery`
+
+`-> source/schema decision`
+
+`-> insurance classification using observed mapping + NY authority semantics`
 
 `-> candidate creation`
 
 `-> provenance/evidence`
 
-`-> economics with source value marked UNKNOWN_FROM_SOURCE where unsupported`
+`-> economics (source amount remains UNKNOWN_FROM_SOURCE unless later evidence supports value)`
 
 `-> Streamlit reviewer`
 
@@ -89,8 +105,8 @@ Current intended sequence:
 
 Execute exclusively:
 
-`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
+`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
 Classification: `A — Product Critical`.
 
-No real New York file request/download or PII processing is part of that action.
+This gate covers only one OSC request submission to obtain access instructions. It does not authorize Owner Name File download or real owner PII processing.
