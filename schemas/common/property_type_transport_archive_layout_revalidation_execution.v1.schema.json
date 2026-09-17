@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-transport-archive-layout-revalidation-execution:1.0.0",
+  "title": "PropertyTypeTransportArchiveLayoutRevalidationExecution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "OBSERVED_CONTENT_LENGTH",
+    "OBSERVED_ETAG",
+    "OBSERVED_CONTENT_TYPE",
+    "OBSERVED_ACCEPT_RANGES",
+    "OBSERVED_LAST_MODIFIED",
+    "OBSERVED_AT",
+    "CANONICAL_MEMBER_NAMES",
+    "CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS",
+    "CANONICAL_MEMBER_MATCH_STATUS",
+    "ADDITIONAL_MEMBER_COUNT",
+    "REVALIDATION_RESULT_STATUS",
+    "STOP_REASON"
+  ],
+  "properties": {
+    "OBSERVED_CONTENT_LENGTH": {"type": ["integer", "null"], "minimum": 1},
+    "OBSERVED_ETAG": {"type": ["string", "null"], "minLength": 1},
+    "OBSERVED_CONTENT_TYPE": {"type": ["string", "null"], "minLength": 1},
+    "OBSERVED_ACCEPT_RANGES": {"type": ["string", "null"], "minLength": 1},
+    "OBSERVED_LAST_MODIFIED": {"type": ["string", "null"], "minLength": 1},
+    "OBSERVED_AT": {"type": "string", "format": "date-time"},
+    "CANONICAL_MEMBER_NAMES": {
+      "const": [
+        "From_500_To_Beyond_1_of_4.csv",
+        "From_500_To_Beyond_2_of_4.csv",
+        "From_500_To_Beyond_3_of_4.csv",
+        "From_500_To_Beyond_4_of_4.csv"
+      ]
+    },
+    "CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "From_500_To_Beyond_1_of_4.csv",
+        "From_500_To_Beyond_2_of_4.csv",
+        "From_500_To_Beyond_3_of_4.csv",
+        "From_500_To_Beyond_4_of_4.csv"
+      ],
+      "properties": {
+        "From_500_To_Beyond_1_of_4.csv": {"type": ["integer", "null"], "minimum": 0},
+        "From_500_To_Beyond_2_of_4.csv": {"type": ["integer", "null"], "minimum": 0},
+        "From_500_To_Beyond_3_of_4.csv": {"type": ["integer", "null"], "minimum": 0},
+        "From_500_To_Beyond_4_of_4.csv": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "CANONICAL_MEMBER_MATCH_STATUS": {
+      "enum": ["ALL_CANONICAL_MEMBERS_UNIQUE", "NOT_ESTABLISHED"]
+    },
+    "ADDITIONAL_MEMBER_COUNT": {"type": ["integer", "null"], "minimum": 0},
+    "REVALIDATION_RESULT_STATUS": {
+      "enum": ["CANDIDATE_BASELINE_ESTABLISHED", "STOPPED_FAIL_CLOSED"]
+    },
+    "STOP_REASON": {
+      "enum": [
+        null,
+        "REQUEST_OR_BYTE_CAP_EXCEEDED",
+        "EOCD_NOT_FOUND_OR_AMBIGUOUS",
+        "ZIP64_DETECTED",
+        "MULTI_DISK_DETECTED",
+        "ETAG_OR_LENGTH_OBJECT_DRIFT",
+        "CANONICAL_MEMBER_MISSING_OR_DUPLICATE",
+        "LAYOUT_AMBIGUITY_OR_UNRESOLVABLE_WITHIN_CAPS"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"REVALIDATION_RESULT_STATUS": {"const": "CANDIDATE_BASELINE_ESTABLISHED"}},
+        "required": ["REVALIDATION_RESULT_STATUS"]
+      },
+      "then": {
+        "properties": {
+          "OBSERVED_CONTENT_LENGTH": {"type": "integer", "minimum": 1},
+          "OBSERVED_ETAG": {"type": "string", "minLength": 1},
+          "OBSERVED_CONTENT_TYPE": {"const": "application/zip"},
+          "OBSERVED_ACCEPT_RANGES": {"const": "bytes"},
+          "CANONICAL_MEMBER_MATCH_STATUS": {"const": "ALL_CANONICAL_MEMBERS_UNIQUE"},
+          "ADDITIONAL_MEMBER_COUNT": {"type": "integer", "minimum": 0},
+          "STOP_REASON": {"type": "null"},
+          "CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS": {
+            "properties": {
+              "From_500_To_Beyond_1_of_4.csv": {"type": "integer", "minimum": 0},
+              "From_500_To_Beyond_2_of_4.csv": {"type": "integer", "minimum": 0},
+              "From_500_To_Beyond_3_of_4.csv": {"type": "integer", "minimum": 0},
+              "From_500_To_Beyond_4_of_4.csv": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"REVALIDATION_RESULT_STATUS": {"const": "STOPPED_FAIL_CLOSED"}},
+        "required": ["REVALIDATION_RESULT_STATUS"]
+      },
+      "then": {
+        "properties": {
+          "CANONICAL_MEMBER_MATCH_STATUS": {"const": "NOT_ESTABLISHED"},
+          "STOP_REASON": {"type": "string"}
+        }
+      }
+    }
+  ]
+}
