@@ -23,24 +23,14 @@ M3 California source work remains active only as the minimum critical-path enabl
 ## MVP-1 Target Vertical Slice
 
 `APPROVED REAL SOURCE`
-
 `-> bounded acquisition`
-
 `-> normalization`
-
 `-> insurance classification`
-
 `-> candidate case creation`
-
 `-> provenance / evidence package`
-
 `-> case economics`
-
 `-> reviewer console`
-
 `-> human continue / stop decision`
-
-No commercial success threshold is invented in advance. Real execution must establish the commercial baseline.
 
 ## Current Engineering Milestone
 
@@ -50,226 +40,174 @@ M0, M1 and M2 are VERIFIED.
 
 ## Current Working Checkpoint
 
-Authorization work branch:
+Execution branch:
 
-`m3-ca-sco-transport-archive-layout-revalidation-authorization`
+`m3-ca-sco-transport-archive-layout-revalidation-once`
 
-Authorization base branch:
+Authorization checkpoint:
 
-`m3-unified-mvp1`
+`4079fb44b36699e9b05821761c222d063a89648d`
 
-Authorization base HEAD:
+Implementation preflight checkpoint:
 
-`3d4d8a76e47d88eca77ca6d899b85341ba8beaf2`
+`e87e7d20d766ad06ca0feb8805ac00c4a6ed547c`
 
-Authorization base CI:
+Execution trigger checkpoint:
 
-`35195330933` — **SUCCESS**
+`de4c20e0a4158da0497d2ca9c2090589636b40e0`
 
 Completed action:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
+`EXECUTE_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_ONCE`
 
-Authorization result:
+Execution workflow run:
 
-`PASS_FRESH_SINGLE_USE_STRUCTURAL_REVALIDATION_EXECUTION_AND_STRUCTURAL_BYTE_PRIVACY_APPROVALS_GRANTED_EXECUTION_NOT_PERFORMED`
+`35198720002` — **SUCCESS** — attempt `1`
 
-Authorization audit:
+Execution job:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION.md`
+`105128028851` — **SUCCESS**
 
-Machine authorization:
+Execution audit:
 
-`sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation_approval.v1.json`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EXECUTION.md`
 
-## Accepted Bounded Design
+Persisted evidence:
 
-Accepted design remains:
+`sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`
 
-`BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION`
+## Structural Revalidation Result
 
-Reviewed proposal HEAD:
+`REVALIDATION_RESULT_STATUS = CANDIDATE_BASELINE_ESTABLISHED`
 
-`359b1c1a86d34edabcd028e5e5fbb6fc3acba781`
+`STOP_REASON = null`
 
-Accepted review HEAD:
+Observed candidate transport:
 
-`b8f703db18207661cd799b0baf1f0dac1bfdc398`
+- content length: `162560390`;
+- ETag: `"222dd79f04c2a0a8fff166b01c8da746"`;
+- content type: `application/zip`;
+- Accept-Ranges: `bytes`;
+- Last-Modified: `Wed, 16 Sep 2026 16:43:22 GMT`;
+- observed at: `2026-09-17T08:15:58.436797Z`.
 
-The later separately authorized execution remains limited to:
+Canonical member status:
 
-1. one exact-endpoint HEAD observation for transport identity;
-2. bounded classic-ZIP tail/EOCD/central-directory Range reads;
-3. candidate extraction of the four canonical member local-header offsets from central-directory metadata;
-4. persistence only of bounded derived transport/layout evidence;
-5. human candidate-evidence review before any baseline adoption.
+`ALL_CANONICAL_MEMBERS_UNIQUE`
 
-Rejected paths remain:
+Additional member count:
 
-- HEAD-only baseline refresh;
-- arithmetic offset rebasing;
-- full archive download and inspection.
+`0`
 
-## Preserved Caps
-
-- HEAD max: `1`;
-- Range max: `4`;
-- HTTP total max: `5`;
-- Range response max each: `131072` bytes;
-- source response-body bytes max total: `524288`;
-- full-body fallback: `false`;
-- automatic widening: `false`;
-- automatic retry: `false`.
-
-ZIP64, multi-disk ZIP, ambiguous/missing EOCD, missing/duplicate canonical members, identity drift or inability to resolve the layout within these caps must stop fail-closed.
-
-## Baseline State
-
-Historical transport pins remain stale for future execution planning but not proven invalid:
-
-- content length `162416884`;
-- ETag `"b25b315b6cd8007624387c3a00d4b1fe"`.
-
-Historical canonical local-header offsets remain:
+Candidate canonical local-header offsets:
 
 1. `From_500_To_Beyond_1_of_4.csv` -> `0`;
-2. `From_500_To_Beyond_2_of_4.csv` -> `59747797`;
-3. `From_500_To_Beyond_3_of_4.csv` -> `96862896`;
-4. `From_500_To_Beyond_4_of_4.csv` -> `134174190`.
+2. `From_500_To_Beyond_2_of_4.csv` -> `59745428`;
+3. `From_500_To_Beyond_3_of_4.csv` -> `96861315`;
+4. `From_500_To_Beyond_4_of_4.csv` -> `134172553`.
 
-One-shot observed drift evidence remains evidence only:
+These candidate values were derived from current classic-ZIP Central Directory metadata. They are evidence only and are **not adopted** as runtime/source baseline values.
 
-- content length `162560390`;
-- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
-- HTTP `200`;
-- content type `application/zip`;
-- Accept-Ranges `bytes`;
-- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
+## Historical Baseline / Adoption State
 
-No observed value has been adopted as a replacement baseline.
+Historical semantic-runner pins remain unchanged pending separate human evidence review and any later implementation gate:
 
-Candidate replacement baseline remains unresolved:
+- `EXPECTED_LENGTH = 162416884`;
+- `EXPECTED_ETAG = "b25b315b6cd8007624387c3a00d4b1fe"` including quote characters in the actual ETag;
+- offsets: `0`, `59747797`, `96862896`, `134174190`.
 
-- candidate content length: `null`;
-- candidate ETag: `null`;
-- all four candidate member offsets: `null`.
+Candidate replacement baseline established: `true`.
+
+Candidate baseline adopted: `false`.
 
 ## Authorization / Privacy State
 
-Consumed v1.2 execution approval:
-
-`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
-
-Consumed transient-row privacy approval:
-
-`OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
-
-Both remain:
-
-`CONSUMED_SINGLE_USE_NON_REUSABLE`
-
-Fresh structural revalidation execution approval:
+Structural revalidation execution approval:
 
 `OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB`
 
-Fresh structural-byte privacy approval:
+Structural-byte privacy approval:
 
 `OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB`
 
-Both fresh approvals are:
+Both are now:
 
-- `GRANTED_NOT_CONSUMED`;
-- single-use;
-- reusable: `false`;
-- consumed together on the first authorized California SCO network request of the later execution;
-- invalid for automatic retry or any broader source/runtime scope.
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Accepted privacy boundary remains:
+They were consumed together on the first California SCO network request of workflow run `35198720002`. No retry is authorized or performed.
+
+Historical v1.2 execution/privacy approvals also remain `CONSUMED_SINGLE_USE_NON_REUSABLE`.
+
+## Structural / Privacy Boundary
+
+Execution remained governed by the accepted design:
+
+`HEAD -> ZIP tail -> classic EOCD -> bounded Central Directory -> canonical local-header offsets`
+
+Hard caps remained:
+
+- HEAD max `1`;
+- Range max `4`;
+- HTTP total max `5`;
+- Range response max `131072` bytes;
+- source response-body max total `524288` bytes;
+- full-body fallback `false`;
+- widening `false`;
+- retry `false`.
+
+Privacy boundary remained:
 
 - structural bytes memory-only;
 - retention `0` days;
 - raw Range bytes not persisted;
-- compressed payload not decompressed or interpreted;
+- compressed payload not decompressed;
 - CSV not parsed;
-- no row or protected field observed;
+- no row/protected field inspected;
 - noncanonical member names not persisted;
-- only the reviewed bounded derived transport/layout evidence may persist.
+- only approved derived transport/archive-layout evidence persisted.
 
-## Authorization Gate Actual Effects
-
-This authorization task is repository-only.
-
-Actual network/source usage by this gate:
-
-- California SCO requests: `0`;
-- HEAD requests: `0`;
-- Range GET requests: `0`;
-- source-body bytes read: `0`;
-- CSV records read: `0`;
-- structural revalidation performed: `false`;
-- candidate baseline established: `false`;
-- candidate baseline adopted: `false`.
-
-No fresh approval has been consumed.
+The approved evidence schema does not persist exact request counters, so no unsupported exact count is asserted beyond the enforced caps.
 
 ## Runtime / D-008 State
 
 Unchanged:
 
-- runner `scripts/ca_sco_property_type_semantic_verification.py`;
+- semantic runner `scripts/ca_sco_property_type_semantic_verification.py`;
 - runtime contract `1.2.0`;
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - parser/projector;
 - trimming/casing/normalization;
 - `EXPECTED_LENGTH`;
 - `EXPECTED_ETAG`;
-- canonical member offsets;
+- historical semantic-runner member offsets;
 - D-008 `WHOLE_SOURCE_STOP` handling.
 
-## Product / Commercial Interpretation
-
-Current facts:
+## Product / Commercial State
 
 - approved real sources: `0`;
+- candidate transport/archive-layout baseline established: `true`;
+- candidate baseline adopted: `false`;
 - semantic compatibility resolved: `false`;
 - production classification active: `false`;
-- real candidate cases through MVP-1: `0`;
-- commercial baseline from real cases: not yet established.
+- real MVP-1 candidate cases: `0`;
+- identity resolution: BLOCKED;
+- genealogy: BLOCKED;
+- beneficiary matching: BLOCKED;
+- outreach: BLOCKED;
+- claim submission: BLOCKED.
 
-The fresh one-shot authorization removes the authorization blocker for structural revalidation but does not itself resolve transport/archive layout or approve a real source.
-
-## Source / Product Governance State
-
-- D-008 accepted as design: `true`;
-- D-009 MVP-1 priority accepted: `true`;
-- baseline-refresh proposal human-reviewed and accepted: `true`;
-- bounded structural revalidation authorized for one future execution: `true`;
-- fresh execution approval granted: `true`;
-- fresh structural-byte privacy approval granted: `true`;
-- workflow creation for the later one-shot execution authorized: `true`;
-- approvals consumed: `false`;
-- retry authorized: `false`;
-- current historical baseline suitable for blind reuse: `false`;
-- candidate replacement baseline established: `false`;
-- candidate baseline adopted: `false`;
-- source continuation authorized: `false`;
-- source policy remains `PROPOSED`;
-- registry remains disabled / not approved;
-- approved real sources remain `0`;
-- semantic compatibility remains unresolved;
-- production classification remains inactive;
-- identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
+The structural execution removed a material transport/layout uncertainty but did not itself approve the California source.
 
 ## Next Recommended Action
 
 Execute exclusively:
 
-`EXECUTE_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_ONCE`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW`
 
 Classification:
 
 `A/B — MVP-1 critical-path enabler`
 
-This must be a separate action. It must use exactly the two fresh approval refs, stay inside the accepted classic-ZIP structural and privacy boundaries, consume both approvals on the first California SCO network request, perform no retry or widening, and stop at a separate human candidate-evidence review before any baseline adoption or runner mutation.
+The review must decide whether the persisted candidate evidence is sufficient for a later separate baseline-adoption implementation gate. It must perform no source retry and must not mutate semantic-runner constants in the review itself.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.

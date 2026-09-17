@@ -1,0 +1,24 @@
+{
+  "ADDITIONAL_MEMBER_COUNT": 0,
+  "CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS": {
+    "From_500_To_Beyond_1_of_4.csv": 0,
+    "From_500_To_Beyond_2_of_4.csv": 59745428,
+    "From_500_To_Beyond_3_of_4.csv": 96861315,
+    "From_500_To_Beyond_4_of_4.csv": 134172553
+  },
+  "CANONICAL_MEMBER_MATCH_STATUS": "ALL_CANONICAL_MEMBERS_UNIQUE",
+  "CANONICAL_MEMBER_NAMES": [
+    "From_500_To_Beyond_1_of_4.csv",
+    "From_500_To_Beyond_2_of_4.csv",
+    "From_500_To_Beyond_3_of_4.csv",
+    "From_500_To_Beyond_4_of_4.csv"
+  ],
+  "OBSERVED_ACCEPT_RANGES": "bytes",
+  "OBSERVED_AT": "2026-09-17T08:15:58.436797Z",
+  "OBSERVED_CONTENT_LENGTH": 162560390,
+  "OBSERVED_CONTENT_TYPE": "application/zip",
+  "OBSERVED_ETAG": "\"222dd79f04c2a0a8fff166b01c8da746\"",
+  "OBSERVED_LAST_MODIFIED": "Wed, 16 Sep 2026 16:43:22 GMT",
+  "REVALIDATION_RESULT_STATUS": "CANDIDATE_BASELINE_ESTABLISHED",
+  "STOP_REASON": null
+}

@@ -7,7 +7,7 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | STRUCTURAL REVALIDATION AUTHORIZATION PASS; ONE-SHOT EXECUTION NEXT | fresh bounded execution + structural-byte privacy approvals granted; no network execution yet |
+| M3 — California Data Spike | STRUCTURAL REVALIDATION ONE-SHOT SUCCESS; CANDIDATE EVIDENCE REVIEW NEXT | candidate transport/archive layout established from bounded classic-ZIP metadata; no adoption yet |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 | MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
 
@@ -25,95 +25,95 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Additional diagnostics, infrastructure or governance work that does not materially shorten this path is not the current priority.
+M3 remains only the minimum critical-path enabler required to reach one lawful approved real source.
 
 ## Verified M3 State
 
-- D-008 accepted `WHOLE_SOURCE_STOP` as design;
-- runner output contract remains `1.2.0`;
-- v1.2 one-shot execution performed exactly once;
-- one-shot result: `STOPPED_FAIL_CLOSED / TRANSPORT_METADATA_DRIFT`;
-- no source body or CSV row was read in that stopped execution;
-- prior v1.2 execution/privacy approvals are consumed and non-reusable;
-- transport + archive-layout baseline-refresh proposal was human-reviewed and accepted as design;
-- accepted structural strategy: `BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION`;
-- fresh single-use structural revalidation execution and structural-byte privacy approvals are now granted;
-- structural revalidation itself has not been performed;
-- candidate replacement baseline remains unresolved;
+- D-008 `WHOLE_SOURCE_STOP` remains unchanged;
+- semantic runner contract remains `1.2.0`;
+- prior v1.2 one-shot stopped fail-closed on `TRANSPORT_METADATA_DRIFT` before Range/CSV access;
+- bounded transport/archive-layout refresh design was human-reviewed and accepted;
+- fresh single-use structural execution/privacy approvals were granted;
+- implementation preflight was CI-green with source execution skipped;
+- bounded structural revalidation was then executed exactly once;
+- live run `35198720002` attempt `1` completed **SUCCESS**;
+- both fresh approvals are now consumed and non-reusable;
+- candidate transport/archive-layout evidence is established;
+- no candidate value has been adopted;
 - semantic compatibility remains unresolved.
 
-## Structural Revalidation Authorization
+## Candidate Transport / Archive-Layout Evidence
 
-Completed:
+Persisted evidence:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
+`sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`
 
-Authorization base:
+Result:
 
-- branch: `m3-unified-mvp1`;
-- HEAD: `3d4d8a76e47d88eca77ca6d899b85341ba8beaf2`;
-- CI: `35195330933` — **SUCCESS**.
+`CANDIDATE_BASELINE_ESTABLISHED`
 
-Accepted technical review:
+Candidate transport:
 
-- HEAD: `b8f703db18207661cd799b0baf1f0dac1bfdc398`;
-- CI: `35187432747` — **SUCCESS**.
+- content length `162560390`;
+- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
+- media type `application/zip`;
+- Accept-Ranges `bytes`;
+- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
 
-Reviewed proposal:
+Canonical members:
 
-- HEAD: `359b1c1a86d34edabcd028e5e5fbb6fc3acba781`;
-- CI: `35139290645` — **SUCCESS**.
+- all four present exactly once;
+- additional member count `0`.
 
-Authorization result:
+Candidate local-header offsets:
 
-`PASS_FRESH_SINGLE_USE_STRUCTURAL_REVALIDATION_EXECUTION_AND_STRUCTURAL_BYTE_PRIVACY_APPROVALS_GRANTED_EXECUTION_NOT_PERFORMED`
+1. `0`;
+2. `59745428`;
+3. `96861315`;
+4. `134172553`.
 
-Fresh execution approval:
-
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB`
-
-Fresh structural-byte privacy approval:
-
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB`
-
-Both are `GRANTED_NOT_CONSUMED`, single-use and non-reusable. They are consumed together on the first authorized California SCO network request of the later execution. No automatic retry is authorized.
-
-## Preserved Request / Byte Caps
-
-- HEAD requests max: `1`;
-- Range requests max: `4`;
-- HTTP requests max total: `5`;
-- Range response max each: `131072` bytes;
-- source response-body max total: `524288` bytes;
-- full-body fallback: `false`;
-- automatic widening: `false`;
-- automatic retry: `false`.
-
-Classic ZIP only. ZIP64, multi-disk, missing/ambiguous EOCD, identity drift, missing/duplicate canonical members or inability to complete inside these caps must stop fail-closed.
-
-## Privacy / Persistence Boundary
-
-Structural Range bytes are authorized only for the later one-shot execution and must remain:
-
-- memory-only;
-- retention `0` days;
-- immediately disposed;
-- not persisted raw;
-- not decompressed as payload;
-- not parsed as CSV;
-- not inspected as rows or protected fields.
-
-Only bounded derived transport/archive-layout candidate evidence may persist. Noncanonical member names may not persist.
+These values are candidate evidence only.
 
 ## Baseline / Adoption Boundary
 
-No content length, ETag or member offset has been adopted by the authorization gate.
+Current semantic-runner constants remain historical and unchanged:
 
-A successful later structural execution may create only candidate evidence and must stop at a separate human evidence-review gate before any runner constant update.
+- length `162416884`;
+- ETag `"b25b315b6cd8007624387c3a00d4b1fe"`;
+- offsets `0`, `59747797`, `96862896`, `134174190`.
+
+Candidate replacement baseline established: `true`.
+
+Candidate baseline adopted: `false`.
+
+A separate human evidence review is required before any later implementation gate may update runtime pins.
+
+## Request / Privacy Boundary Preserved
+
+The one-shot verifier enforced:
+
+- HEAD max `1`;
+- Range max `4`;
+- HTTP total max `5`;
+- response bytes/range max `131072`;
+- source response-body max total `524288`;
+- full-body fallback `false`;
+- widening `false`;
+- retry `false`.
+
+Structural bytes remained memory-only with zero retention. No raw Range bytes, decompressed payload, CSV rows, protected fields or noncanonical member names were persisted.
+
+## Approval State
+
+The two structural revalidation approvals are now:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
+
+No rerun is authorized.
 
 ## MVP-1 Commercial Baseline To Establish
 
-Once one lawful approved real source is available, immediately capture where available:
+Once one lawful approved real source exists, immediately capture where available:
 
 - records examined;
 - records surviving insurance classification;
@@ -134,12 +134,12 @@ These are measurement requirements, not invented success thresholds.
 
 Execute exclusively:
 
-`EXECUTE_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_ONCE`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW`
 
 Classification:
 
 `A/B — MVP-1 critical-path enabler`
 
-That action must be separate from authorization, use exactly the two fresh approval refs, remain bounded to the accepted classic-ZIP structural design, consume the approvals on the first source request, perform no retry/widening, persist only approved derived candidate evidence, and stop at a separate human candidate-evidence review.
+The review must remain repository-only, perform no source retry, and determine whether the candidate evidence supports a later separate baseline-adoption implementation gate. It must not modify semantic-runner constants in the review itself.
 
 After one approved real source exists, priority shifts immediately to the MVP-1 vertical slice rather than further infrastructure expansion.
