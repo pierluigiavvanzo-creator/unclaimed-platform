@@ -24,24 +24,20 @@ M0, M1 and M2 are VERIFIED.
 
 Current branch:
 
-`m3-ca-sco-v1-2-real-source-proposal-adopted-baseline-refresh`
+`m3-ca-sco-v1-2-proposal-contract-preservation-remediation`
 
-Latest reviewed action:
+Completed action:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
+`REMEDIATE_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_CONTRACT_PRESERVATION`
 
-Reviewed implementation checkpoint:
+Implementation checkpoint before state closure:
 
-- HEAD `16a7e6f82a17a3f27b74195067aa1cff34bcba0e`;
-- CI `35218563391` — **SUCCESS**.
+- HEAD `509567fb250386e266faf96e3d9acef04631f724`;
+- CI `35220182596` — **SUCCESS**.
 
-Review result:
+Remediation audit:
 
-`FAIL_MINIMAL_REMEDIATION_REQUIRED`
-
-Review audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW.md`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_CONTRACT_PRESERVATION_REMEDIATION.md`
 
 ## Adopted Transport / Archive-Layout Baseline
 
@@ -51,15 +47,26 @@ The active semantic runner remains correctly pinned to:
 - `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
 - offsets `0`, `59745428`, `96861315`, `134172553`.
 
-The review found no defect in the adopted runtime baseline.
+The remediation does not modify this adopted baseline.
 
-## Proposal Review Finding
+## Proposal Contract State
 
-Proposal `1.1.0` correctly adopted the current baseline and remained non-authorizing, but it removed reviewed contract fields unrelated to baseline/provenance refresh.
+Proposal `1.1.0` retains the adopted baseline/provenance binding and now restores all reviewed historical design fields omitted by the first refresh.
 
-Material omissions include explicit privacy/persistence allowlists and v1.2 outcome fields, plus supporting provenance/acceptance fields. Therefore the proposal cannot yet be used as the frozen boundary for fresh execution authorization.
+Restored contract areas include:
 
-The historical proposal `1.0.0` remains preserved unchanged as provenance.
+- consumed historical approval references;
+- execution question text;
+- deterministic sample-bias note;
+- official insurance codes;
+- v1.2 null/default outcome constraints;
+- privacy/persistence allowlists;
+- derived-summary persistence boundary;
+- top-level acceptance criteria.
+
+The v1.1 schema requires those values, and the contract test compares the restored design fields against historical proposal `1.0.0` where appropriate.
+
+The historical proposal remains preserved unchanged as provenance.
 
 ## Runtime / D-008 State
 
@@ -71,8 +78,9 @@ Unchanged:
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` unchanged;
 - trimming/casing/normalization unchanged;
 - D-008 `WHOLE_SOURCE_STOP` unchanged;
-- sample/request/byte caps unchanged;
-- no automatic retry/widening.
+- deterministic sample/request/byte caps unchanged;
+- no automatic widening;
+- `automatic_retry_allowed = false` retained.
 
 ## Authorization / Privacy State
 
@@ -82,14 +90,14 @@ All historical and structural-revalidation execution/privacy approvals remain:
 
 No fresh execution or transient-row privacy approval exists.
 
-No California SCO request or network workflow was performed by the review.
+No California SCO request or network workflow was performed by the remediation.
 
 ## Product / Commercial State
 
 - approved real sources: `0`;
 - transport/archive-layout baseline adopted: `true`;
 - semantic execution proposal rebound to adopted baseline: `true`;
-- proposal refresh human review: `FAIL_MINIMAL_REMEDIATION_REQUIRED`;
+- proposal contract-preservation remediation: `CI_GREEN_PENDING_HUMAN_RE_REVIEW`;
 - fresh execution/privacy authorization: `false`;
 - semantic compatibility resolved: `false`;
 - source policy: `PROPOSED`;
@@ -102,12 +110,12 @@ No California SCO request or network workflow was performed by the review.
 
 Execute exclusively:
 
-`REMEDIATE_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_CONTRACT_PRESERVATION`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-Repository-only remediation. Restore the reviewed fields omitted from proposal/schema `1.1.0`, preserve the adopted baseline and current runtime exactly, extend contract assertions, and perform no California SCO request, workflow creation, approval grant/reuse or downstream activation.
+Perform only the minimum re-review of the remediated proposal/schema/test. Confirm that the fields identified by the previous FAIL are restored exactly, while adopted baseline, runtime, D-008, privacy scope and non-authorizing state remain unchanged. Do not access California SCO, create a network workflow, grant/reuse approvals or activate downstream gates.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
