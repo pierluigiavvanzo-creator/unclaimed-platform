@@ -1,0 +1,10 @@
+{
+  "authorization_checkpoint_sha": "888ec27ffc7563698dbf84c3a454a5964a015c90",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_REAL_SOURCE_VALIDATION_BOUNDED_D4F29A61",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_TRANSIENT_ROW_PRIVACY_BOUNDED_D4F29A61",
+  "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY",
+  "scan_mode": "SAME_BYTES_DEEPER_LOGICAL_ROWS",
+  "invocation_mode": "python_module",
+  "single_use": true,
+  "retry_authorized": false
+}
