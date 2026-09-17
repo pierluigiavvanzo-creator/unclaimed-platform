@@ -1,0 +1,77 @@
+{
+  "control_disposition": {
+    "reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+    "status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED"
+  },
+  "controls": {
+    "additional_range_allowed": false,
+    "full_body_fallback_allowed": false,
+    "head_requests_max": 1,
+    "http_requests_max_total": 5,
+    "logical_record_bytes_max": 32768,
+    "range_requests_max": 4,
+    "range_response_bytes_max_each": 131072,
+    "rows_max_per_member": 4,
+    "rows_max_total": 16,
+    "total_source_response_body_bytes_max": 524288,
+    "uncompressed_transient_bytes_max_each": 262144,
+    "uncompressed_transient_bytes_max_total": 1048576
+  },
+  "executed_at": "2026-09-17T13:34:14.847823Z",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_C18CDDFC",
+  "execution_id": "ca.sco.unclaimed_property.bulk.500_plus.property_type.semantic",
+  "jurisdiction": "CA",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_C18CDDFC",
+  "proposal_id": "ca.sco.segment.500_plus.property_type_semantic_verification",
+  "requests_summary": {
+    "head_requests": 1,
+    "http_requests_total": 2,
+    "range_requests": 1,
+    "total_body_bytes_read": 131072
+  },
+  "safety_state": {
+    "beneficiary_matching_performed": false,
+    "full_archive_downloaded": false,
+    "full_rows_persisted": false,
+    "identity_resolution_performed": false,
+    "outreach_performed": false,
+    "owner_holder_values_persisted": false,
+    "per_row_property_type_persisted": false,
+    "production_classification_activated": false,
+    "property_id_persisted": false,
+    "raw_body_persisted": false,
+    "temporary_source_files_created": false
+  },
+  "sample_summary": {
+    "distinct_insurance_codes": [],
+    "distinct_property_type_codes": [],
+    "rows_examined_per_member": {
+      "From_500_To_Beyond_1_of_4.csv": 0,
+      "From_500_To_Beyond_2_of_4.csv": 0,
+      "From_500_To_Beyond_3_of_4.csv": 0,
+      "From_500_To_Beyond_4_of_4.csv": 0
+    },
+    "sample_rows_examined": 0
+  },
+  "schema_version": "1.2.0",
+  "semantic_result_status": "STOPPED_FAIL_CLOSED",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "stop_reason": "PROPERTY_TYPE_FORMAT_UNEXPECTED",
+  "target": {
+    "endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
+    "expected_accept_ranges": "bytes",
+    "expected_content_length": 162560390,
+    "expected_etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
+    "expected_media_type": "application/zip"
+  },
+  "transport_verification": {
+    "accept_ranges": "bytes",
+    "content_length": 162560390,
+    "content_type": "application/zip",
+    "etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
+    "head_performed": true,
+    "head_status": 200,
+    "last_modified": "Wed, 16 Sep 2026 16:43:22 GMT"
+  }
+}
