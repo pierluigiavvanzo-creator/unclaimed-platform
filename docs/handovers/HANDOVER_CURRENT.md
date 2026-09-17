@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 
 ## Repository
 
@@ -10,17 +10,72 @@ GitHub is the canonical source of truth.
 
 ## Current Working Branch
 
-`m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-real-source-execution-evidence-review`
+`strategy-mvp1-first-economically-actionable-case`
 
-Created from execution checkpoint:
+Created from prior evidence-review HEAD:
 
-`05a475ef2ddd0ed86f4e934c919bb1d98c58d566`
+`9dbdc3c6f1ef05c577c26c9e3524ba74fdbfda56`
 
-Execution-checkpoint CI:
+Prior execution-checkpoint CI:
 
 `35124327126` — **SUCCESS**
 
-## Completed Action
+## Priority Product Strategy
+
+Priority source:
+
+`PRODUCT_STRATEGY_MVP1.md`
+
+Governing decision:
+
+`D-009 — MVP-1 commercial validation becomes the product-priority objective`
+
+Primary product objective:
+
+`MVP-1 — First Economically Actionable Case`
+
+Guiding metric:
+
+`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+
+The project must optimize for the shortest lawful, privacy-safe, deterministic path to a real economically reviewable case rather than maximum infrastructure, governance or diagnostic completeness.
+
+## Canonical Read Order Before Any New Change
+
+Read in order:
+
+1. `AGENTS.md`
+2. `PRODUCT_STRATEGY_MVP1.md`
+3. `PROJECT_STATE.md`
+4. `ROADMAP.md`
+5. `DECISIONS.md`
+6. `docs/handovers/HANDOVER_CURRENT.md`
+
+Then inspect the relevant M3 evidence/audit/runtime artifacts as needed.
+
+Precedence:
+
+- law, privacy, security, source authorization and explicit safety controls prevail;
+- accepted architecture decisions and machine contracts remain binding unless explicitly superseded;
+- within those constraints, `PRODUCT_STRATEGY_MVP1.md` governs work prioritization and definition of useful progress.
+
+## Current Strategic Interpretation
+
+The engineering/governance foundation is strong, but commercial validation remains incomplete.
+
+Current facts:
+
+- M0, M1 and M2: VERIFIED;
+- Streamlit reviewer: ACTIVE;
+- approved real sources: `0`;
+- production classification: inactive;
+- semantic compatibility: unresolved;
+- real candidate cases through MVP-1: `0`;
+- commercial baseline from real cases: not established.
+
+Therefore M3 California work is retained only as a critical-path enabler to obtain the first approved real source.
+
+## Completed M3 Action
 
 Completed:
 
@@ -33,14 +88,6 @@ Human review result:
 Review artifact:
 
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
-
-Meaning:
-
-- the persisted one-shot evidence is accepted as internally consistent, schema-conforming and privacy-safe;
-- the one-shot `TRANSPORT_METADATA_DRIFT` stop is accepted as valid fail-closed behavior;
-- the evidence justifies only a later offline proposal for refreshing/revalidating the transport + ZIP archive-layout baseline;
-- this review performs no network/source access;
-- no rebaseline, retry, runtime change, approval grant or downstream activation is authorized.
 
 ## Reviewed Execution Evidence
 
@@ -60,23 +107,9 @@ Cleanup/evidence CI:
 
 `35124024271` — **SUCCESS**
 
-Artifact:
-
-- id: `10457344882`;
-- name: `ca-sco-property-type-v1-2-real-source-execution-2026-09-16`;
-- digest: `sha256:c4146f9bced7722fa5da26a8c1d2ace5a65e610fac7ae190d720bd098e06e6e0`.
-
 Persisted evidence:
 
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
-
-Execution audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
-
-Evidence contract test:
-
-`tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
 
 Machine result:
 
@@ -85,31 +118,25 @@ Machine result:
 - `stop_reason = TRANSPORT_METADATA_DRIFT`;
 - `control_disposition = null`.
 
-## Actual Request / Data Boundary
-
-Actual execution usage:
+Actual usage:
 
 - HEAD requests: `1`;
 - Range requests: `0`;
 - HTTP requests total: `1`;
 - source body bytes read: `0`;
-- sample rows examined: `0`;
-- rows examined in every canonical member: `0`;
-- distinct `PROPERTY_TYPE` codes observed: none;
-- distinct insurance codes observed: none.
+- rows examined: `0`;
+- distinct `PROPERTY_TYPE` codes observed: none.
 
-No source row, `PROPERTY_TYPE`, `PROPERTY_ID`, owner/holder or other record value was observed or persisted.
+## Transport / Archive-Layout Blocker
 
-## Transport Evidence
-
-Pinned expected metadata:
+Pinned expected transport identity:
 
 - content length: `162416884`;
 - ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
 - media type: `application/zip`;
 - Accept-Ranges: `bytes`.
 
-Observed live HEAD metadata:
+Observed live HEAD metadata from the consumed one-shot execution:
 
 - HTTP status: `200`;
 - content length: `162560390`;
@@ -118,30 +145,22 @@ Observed live HEAD metadata:
 - Accept-Ranges: `bytes`;
 - Last-Modified: `Wed, 16 Sep 2026 16:43:22 GMT`.
 
-The content-length and ETag mismatch caused the deterministic transport stop before body access.
-
-The observed values are evidence from one timestamp, not an automatically adopted replacement baseline.
-
-## Archive-Layout Dependency
-
-The current runner and reviewed real-source proposal also pin four ZIP local-header offsets:
+The runner/sample plan also pins four ZIP local-header offsets:
 
 1. `From_500_To_Beyond_1_of_4.csv` — `0`;
 2. `From_500_To_Beyond_2_of_4.csv` — `59747797`;
 3. `From_500_To_Beyond_3_of_4.csv` — `96862896`;
 4. `From_500_To_Beyond_4_of_4.csv` — `134174190`.
 
-Because the live ZIP identity changed, the evidence review does not assume these historical offsets remain valid. It also does not declare them invalid, because no archive body/layout was inspected in the stopped run.
+Because live ZIP identity changed, transport identity and archive-layout assumptions must be refreshed/revalidated together. Historical offsets must not be blindly reused or arithmetically rebased.
 
-For future execution planning, transport identity and archive-layout/member-offset pins must therefore be refreshed or revalidated together under a separate reviewed design. No new offsets may be inferred or arithmetically rebased from the observed size difference.
+## Approval State
 
-## Approval State / Retry Closure
-
-Execution approval:
+Consumed execution approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
 
-Transient-row privacy approval:
+Consumed privacy approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
@@ -149,31 +168,7 @@ Both remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-They must not be reused. No retry is authorized.
-
-The temporary one-shot workflow and trigger marker remain absent. No workflow-based retry path remains.
-
-## Canonical Read Order Before Any New Change
-
-Read in order:
-
-1. `AGENTS.md`
-2. `PROJECT_STATE.md`
-3. `ROADMAP.md`
-4. `DECISIONS.md`
-5. `docs/handovers/HANDOVER_CURRENT.md`
-
-Then inspect, in this order as relevant:
-
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
-2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md`
-3. `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
-4. `tests/contract/test_ca_sco_property_type_v1_2_real_source_execution_evidence.py`
-5. `scripts/ca_sco_property_type_semantic_verification.py`
-6. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
-7. `docs/audits/M3_CA_SCO_TRANSPORT_PREFLIGHT_PROPOSAL.md`
-8. `docs/audits/M3_CA_SCO_TRANSPORT_PREFLIGHT_EXECUTION.md`
-9. authorization/proposal-review artifacts as needed.
+No retry is authorized. No current network verification is authorized. No privacy expansion is authorized.
 
 ## Governing Runtime / D-008 State
 
@@ -199,29 +194,12 @@ Validation remains exactly:
 
 No trim, case conversion, Unicode normalization, alternate-token acceptance, parser/projector change or regex relaxation is authorized.
 
-The D-008 `PROPERTY_TYPE_FORMAT_UNEXPECTED` control-disposition mapping was not reached in the stopped one-shot execution. This review makes no new semantic claim about `PROPERTY_TYPE`.
-
-`DECISIONS.md` remains unchanged because the evidence review introduces no new architectural decision.
-
-## Privacy / Persistence State
-
-The stopped run read zero source body bytes and zero source rows.
-
-No raw/full-row persistence, `PROPERTY_ID`, owner/holder, per-row `PROPERTY_TYPE`, offending bytes/hash/exact source-field length, record values in logs, real-row quarantine or row-specific human inspection occurred.
-
-No privacy expansion is authorized.
-
 ## Source / Downstream Governance
 
 Current state:
 
-- one-shot real-source execution performed: `true`;
-- execution evidence human-reviewed: `true`;
-- execution evidence accepted: `true`;
-- execution count under consumed fresh refs: `1`;
 - consumed approvals reusable: `false`;
 - retry authorized: `false`;
-- temporary workflow present: `false`;
 - current transport/archive-layout baseline suitable for blind reuse: `false`;
 - baseline refresh authorized: `false`;
 - another network verification authorized: `false`;
@@ -234,19 +212,59 @@ Current state:
 - production classification remains inactive;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain blocked.
 
+## MVP-1 Target Vertical Slice
+
+`APPROVED REAL SOURCE`
+
+`-> bounded acquisition`
+
+`-> normalization`
+
+`-> insurance classification`
+
+`-> candidate case creation`
+
+`-> provenance / evidence package`
+
+`-> case economics`
+
+`-> reviewer console`
+
+`-> human continue / stop decision`
+
+MVP-1 must collect real commercial baseline measurements rather than assume commercial viability.
+
+## Work Classification Rule
+
+Every substantial task must state:
+
+1. class `A/B/C/D`;
+2. exact MVP-1 blocker or exit criterion addressed;
+3. reuse-first outcome for nontrivial custom work;
+4. evidence expected from completion;
+5. minimum Product Owner involvement required.
+
+Work that cannot credibly answer these points should not become the next priority.
+
 ## SINGLE NEXT ACTION
 
 Prepare exclusively:
 
 `PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
 
-This next task is **repository-only and design-only**.
+Classification:
 
-It must define a bounded proposal for how transport identity and ZIP archive-layout/member offsets could later be refreshed or revalidated together. It must compare deterministic fail-closed options and preserve provenance of old versus proposed baselines.
+`A/B — MVP-1 critical-path enabler`
+
+Purpose:
+
+Define the smallest deterministic, privacy-safe and fail-closed method by which transport identity and ZIP archive-layout/member offsets could later be refreshed or revalidated together so that a fresh, separately authorized source verification can become possible.
+
+This task is repository-only and design-only.
 
 It must not:
 
-- perform a California SCO or other external request;
+- perform California SCO or other external requests;
 - perform HEAD, Range GET or authority retrieval;
 - reuse consumed approval refs;
 - grant fresh approvals;
@@ -259,13 +277,26 @@ It must not:
 - activate source policy, registry or production classification;
 - begin identity resolution, genealogy, beneficiary matching, outreach or claim work.
 
-If the later proposal recommends any network revalidation, that execution must remain a separate gate with human review and fresh single-use authorization before the first request. Any row/protected-field exposure would require an explicitly reviewed privacy boundary.
+The proposal must explicitly reject diagnostic work that does not materially improve the path to an approved real source.
+
+## After The Current Blocker
+
+The intended strategic sequence is:
+
+1. human-review any later network revalidation design;
+2. obtain fresh single-use authorization before the first request;
+3. achieve one approved real source;
+4. immediately shift to the MVP-1 vertical slice;
+5. capture records examined, classification survival, candidate production, review time, automated/source cost, supportable value/revenue basis, failure reasons and manual research burden where available;
+6. perform an explicit product-commercial `GO / REVISE / STOP` review before broadening scope.
+
+No outreach, claimant contact, legal representation, fee contracting or claim submission is authorized merely by reaching MVP-1.
 
 ## Restart Instruction
 
-1. verify remote HEAD of the current evidence-review branch;
-2. verify latest CI for that exact HEAD;
-3. read the five canonical files in order;
-4. read the evidence-review audit, execution audit/evidence/test, runner and reviewed execution proposal;
-5. execute only the `SINGLE NEXT ACTION`;
-6. perform no external request during the proposal task.
+1. verify remote HEAD of `strategy-mvp1-first-economically-actionable-case`;
+2. verify CI for the latest relevant checkpoint when available;
+3. read the six canonical sources in the order above;
+4. execute only the `SINGLE NEXT ACTION`;
+5. preserve all source/privacy/fail-closed boundaries;
+6. optimize for MVP-1 product/commercial evidence, not governance volume.
