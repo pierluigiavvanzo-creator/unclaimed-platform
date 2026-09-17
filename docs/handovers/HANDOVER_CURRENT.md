@@ -34,98 +34,101 @@ M3 California is only a critical-path enabler for the first lawful approved real
 
 Completed:
 
-`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-Authoritative base:
+Reviewed implementation checkpoint:
 
-- branch `m3-ca-sco-transport-archive-layout-baseline-adoption`;
-- HEAD `6188806e58ac87ccde7b8d6d20dcb2bbbec67c28`;
-- CI `35210199280` — **SUCCESS**.
+- HEAD `16a7e6f82a17a3f27b74195067aa1cff34bcba0e`;
+- CI `35218563391` — **SUCCESS**.
 
-Refresh audit:
+Review result:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ADOPTED_BASELINE_REFRESH.md`
+`FAIL_MINIMAL_REMEDIATION_REQUIRED`
 
-## Proposal Artifacts
+Review audit:
 
-Historical proposal preserved unchanged as provenance:
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW.md`
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
+## Why the review failed
 
-Refreshed proposal:
+Proposal `1.1.0` correctly binds to the adopted runtime baseline and remains non-authorizing, but the refresh was not purely conservative.
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`
+The historical proposal `1.0.0` contains reviewed fields that were omitted from `1.1.0` and its schema even though they are unrelated to transport/archive-layout rebinding.
 
-Refreshed schema:
+Fields to restore exactly from the historical design:
 
-`schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.v1_1.schema.json`
+- `historical_authorization_state.consumed_approval_refs`;
+- `execution_question.question`;
+- `sample_plan.sample_bias_note`;
+- `row_processing_controls.official_insurance_codes`;
+- `v1_2_outcome_contract.unrelated_stop_control_disposition`;
+- `v1_2_outcome_contract.non_stopped_control_disposition`;
+- `v1_2_outcome_contract.specific_real_source_outcome_required_for_proposal_acceptance`;
+- `privacy_controls.control_disposition_allowed_persisted_fields`;
+- `privacy_controls.control_disposition_source_value_bearing_fields_allowed`;
+- `privacy_controls.derived_summary_persistence_allowed`;
+- `privacy_controls.allowed_persisted_derived_fields`;
+- top-level `acceptance_criteria`.
 
-Refresh contract test:
+The explicit privacy/persistence allowlists are the most material omission because the proposal is intended to become the frozen boundary for fresh authorization.
 
-`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal_v1_1.py`
+## What remains valid
 
-The refresh is non-authorizing and repository-only.
-
-## Adopted Runtime Baseline
-
-Semantic runner:
-
-`scripts/ca_sco_property_type_semantic_verification.py`
-
-Runtime contract:
-
-`1.2.0`
-
-Active pins:
+Adopted runtime baseline:
 
 - `EXPECTED_LENGTH = 162560390`;
 - `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
-- `From_500_To_Beyond_1_of_4.csv` -> `0`;
-- `From_500_To_Beyond_2_of_4.csv` -> `59745428`;
-- `From_500_To_Beyond_3_of_4.csv` -> `96861315`;
-- `From_500_To_Beyond_4_of_4.csv` -> `134172553`.
+- canonical offsets `0`, `59745428`, `96861315`, `134172553`.
 
-Proposal v1.1.0 is bound to these exact values and its contract test compares them directly with the active runner.
+Runtime remains unchanged:
 
-## Preserved Execution Design
-
-The refresh reuses the existing v1.2 design. Unchanged:
-
-- four canonical members;
-- deterministic first-complete-row prefix sampling;
-- max 4 data rows/member and 16 total;
-- max 1 HEAD, 4 Range, 5 HTTP requests;
-- existing range/body/transient/logical-record byte caps;
-- no additional range;
-- no full-body fallback;
-- no automatic widening;
-- no automatic retry;
+- contract `1.2.0`;
+- parser/projector unchanged;
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- parser/projector;
-- trimming/casing/normalization rules;
-- D-008 `WHOLE_SOURCE_STOP` fail-closed control disposition;
-- transient-row memory-only privacy boundary;
-- no row/value persistence or row-specific human inspection.
+- no trimming/casing/normalization changes;
+- D-008 `WHOLE_SOURCE_STOP` unchanged;
+- four-member deterministic prefix sample unchanged;
+- request/byte caps unchanged;
+- no widening;
+- `automatic_retry_allowed = false` may remain as an additive conservative constraint.
+
+Historical proposal remains preserved unchanged:
+
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
+
+Current refreshed proposal:
+
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`
+
+Current refreshed schema:
+
+`schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.v1_1.schema.json`
+
+Current refresh contract test:
+
+`tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal_v1_1.py`
 
 ## Network / Approval State
 
-This proposal refresh performs no California SCO request and creates no network workflow.
+No California SCO request was performed by the refresh or review.
 
-All prior execution/privacy approvals, including structural-revalidation approvals, remain:
+No network workflow exists for this execution.
+
+All previous execution/privacy approvals remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No fresh real-source execution or transient-row privacy approval exists yet.
+No fresh execution or transient-row privacy approval currently exists.
 
 ## Source / Product State
 
 - transport/archive-layout baseline adopted: `true`;
-- real-source proposal rebound to adopted baseline: `true`;
-- refreshed proposal human-reviewed: `false`;
+- proposal rebound to adopted baseline: `true`;
+- proposal refresh review: `FAIL_MINIMAL_REMEDIATION_REQUIRED`;
 - approved real sources: `0`;
 - source policy: `PROPOSED`;
 - registry: disabled / not approved;
@@ -147,50 +150,44 @@ Read in exact order:
 
 Then inspect at least:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ADOPTED_BASELINE_REFRESH.md`;
-2. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`;
-3. `schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.v1_1.schema.json`;
-4. `tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal_v1_1.py`;
-5. historical proposal v1.0.0 for provenance comparison;
-6. `scripts/ca_sco_property_type_semantic_verification.py`;
-7. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION.md`.
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW.md`;
+2. proposal `v1_1.json`;
+3. proposal schema `v1_1.schema.json`;
+4. proposal `v1.json` for exact historical values;
+5. the v1.1 contract test;
+6. `scripts/ca_sco_property_type_semantic_verification.py`.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
+`REMEDIATE_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_CONTRACT_PRESERVATION`
 
 Classification:
 
 `A — Product Critical`
 
-The review is repository-only.
+This action is repository-only.
 
-It must determine whether proposal `1.1.0` faithfully preserves the already accepted v1.2 execution design while changing only the stale transport/archive-layout provenance/binding required by the adopted runtime baseline.
+It must:
 
-It must verify at least:
-
-- proposal/schema contract validity;
-- exact equality of length, ETag and canonical offsets with the active runner;
-- historical proposal remains preserved as provenance;
-- sample plan and request/byte caps are not widened;
-- no automatic retry/widening is introduced;
-- regex/parser/projector/normalization boundaries are unchanged;
-- D-008 fail-closed behavior is unchanged;
-- privacy scope is unchanged;
-- proposal remains non-authorizing;
-- all consumed approvals remain non-reusable;
-- source policy, registry, production classification and downstream gates remain closed.
+- restore exactly the omitted reviewed fields listed above from proposal `1.0.0` into `1.1.0`;
+- preserve the adopted baseline length, ETag and offsets already present in `1.1.0`;
+- preserve the current adopted-baseline provenance/checkpoint fields;
+- preserve `automatic_retry_allowed = false`;
+- update the v1.1 schema to require the restored fields with the historical reviewed values;
+- extend the contract test to prove preservation against proposal `1.0.0` where appropriate;
+- run full CI.
 
 It must not:
 
-- perform a California SCO request;
+- access California SCO;
 - create/trigger a network workflow;
 - grant or reuse execution/privacy approvals;
-- modify runtime/parser/projector/regex/normalization;
+- change runtime/parser/projector/regex/trimming/casing/normalization;
 - change D-008;
+- alter the adopted transport/archive-layout baseline;
 - activate source policy, registry or production classification;
 - start identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
-A PASS should move directly to the minimum fresh single-use authorization gate for exactly one bounded real-source semantic execution. Do not reopen transport diagnostics without new contradictory evidence.
+After CI-green remediation, perform the minimum human re-review. A PASS should then move directly to fresh single-use execution + transient-row privacy authorization for exactly one bounded real-source semantic execution.
