@@ -36,22 +36,27 @@ class PropertyTypeClassification:
     persist_source_value: bool = False
 
 
+def _deferred() -> PropertyTypeClassification:
+    return PropertyTypeClassification(
+        disposition=PropertyTypeDisposition.DEFER_UNCLASSIFIABLE,
+        authority_description=None,
+        mvp1_primary_target=False,
+        continue_source=True,
+    )
+
+
 def classify_property_type(value: str) -> PropertyTypeClassification:
     """Classify CA SCO PROPERTY_TYPE without modifying source semantics.
 
-    A nonconforming value is not normalized, interpreted as non-insurance, or
-    persisted. It is deferred as unclassifiable while source processing may
-    continue. Exact authority-backed insurance codes are recognized directly.
-    Other shape-valid values remain non-target for this insurance vertical
+    Nonconforming values and shape-valid unknown ``INxx`` values are not
+    normalized, interpreted as non-insurance, or persisted. They are deferred
+    as unclassifiable while source processing may continue. Only the exact
+    California-authority insurance vocabulary is recognized as insurance.
+    Other shape-valid prefixes remain non-target for this insurance vertical
     slice without claiming that shape alone proves semantic validity.
     """
     if PROPERTY_TYPE_RE.fullmatch(value) is None:
-        return PropertyTypeClassification(
-            disposition=PropertyTypeDisposition.DEFER_UNCLASSIFIABLE,
-            authority_description=None,
-            mvp1_primary_target=False,
-            continue_source=True,
-        )
+        return _deferred()
 
     description = CA_INSURANCE_CODES.get(value)
     if description is not None:
@@ -61,6 +66,9 @@ def classify_property_type(value: str) -> PropertyTypeClassification:
             mvp1_primary_target=value == MVP1_PRIMARY_PROPERTY_TYPE,
             continue_source=True,
         )
+
+    if value.startswith("IN"):
+        return _deferred()
 
     return PropertyTypeClassification(
         disposition=PropertyTypeDisposition.SHAPE_VALID_NON_TARGET,
