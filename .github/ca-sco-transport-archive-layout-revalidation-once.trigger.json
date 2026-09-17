@@ -1,0 +1,9 @@
+{
+  "authorization_checkpoint_sha": "4079fb44b36699e9b05821761c222d063a89648d",
+  "implementation_checkpoint_sha": "e87e7d20d766ad06ca0feb8805ac00c4a6ed547c",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB",
+  "structural_byte_privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB",
+  "accepted_review_sha": "b8f703db18207661cd799b0baf1f0dac1bfdc398",
+  "reviewed_proposal_sha": "359b1c1a86d34edabcd028e5e5fbb6fc3acba781",
+  "single_use": true
+}
