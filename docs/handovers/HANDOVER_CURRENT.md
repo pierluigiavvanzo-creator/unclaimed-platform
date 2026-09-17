@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`m3-ca-sco-v1-2-real-source-execution-once-adopted-baseline`
+`mvp1-ca-property-type-authority-row-defer`
 
 Always verify remote HEAD and latest CI before any new modification.
 
@@ -28,140 +28,104 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-Optimize for the shortest safe path to one approved real source and then immediately to the MVP-1 vertical slice.
+## Latest Product-Critical Result
 
-## Latest Completed Action
+The prior one-shot v1.2 live execution confirmed the adopted CA SCO transport/archive baseline but stopped on a canonical field-level `PROPERTY_TYPE_FORMAT_UNEXPECTED` under D-008.
 
-Completed:
+Earlier source-format diagnostics already proved this was not parser/projector disagreement: strict UTF-8 and strict stdlib CSV parsing succeeded, a canonical 25-column row was produced, and stdlib field index `1` agreed with the custom projector.
 
-`EXECUTE_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_ONCE`
+The Product Owner then directed:
 
-Classification:
+`risolvere Property_Type usando semantica/documentazione ufficiale california e procedere verso MVP-1`
 
-`A — Product Critical`
+## California Authority Result
 
-## Owner Authorization Used
+California SCO authority now provides the product boundary:
 
-Owner authorization:
+- `IN01` — Individual Policy Benefits or Claim Payments;
+- `IN02` — Group Policy Benefits or Claim Payments;
+- `IN03` — Proceeds Due Beneficiaries;
+- `IN04` — Proceeds from Matured Policies, Endowments, or Annuities;
+- `IN05` — Premium Refunds;
+- `IN06` — Unidentified Remittances;
+- `IN07` — Other Amounts Due Under Policy Terms;
+- `IN08` — Agent Credit Balances;
+- `IN99` — Aggregate Insurance Property.
 
-`APPROVO FRESH SINGLE-USE EXECUTION + TRANSIENT-ROW PRIVACY`
+Authority archive:
 
-Fresh execution approval:
+`sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf`
 
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_C18CDDFC`
+Authority review:
 
-Fresh privacy approval:
+`sources/evidence/ca_sco_segment_500_plus.property_type_authority_archive_provenance.review.v1.json`
 
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_C18CDDFC`
+The authority does not justify normalizing, trimming, uppercasing, repairing or reconstructing a malformed source value.
 
-Both are now:
+## D-010 — MVP-1 Row Defer
+
+Accepted decision:
+
+`ROW_DEFER_CONTINUE_METADATA_ONLY`
+
+D-010 supersedes D-008 whole-source continuation behavior only for the California SCO MVP-1 classification path.
+
+A nonconforming or unknown `INxx` value is:
+
+- `DEFER_UNCLASSIFIABLE`;
+- not normalized;
+- not classified as non-insurance;
+- not persisted;
+- represented only by aggregate `nonconforming_rows_deferred_count`;
+- allowed to defer while later rows continue.
+
+Transport/header/CSV-column/hard-cap failures remain whole-source fail-closed.
+
+## MVP-1 Commercial Target
+
+Primary narrow target:
+
+`IN03 — Proceeds Due Beneficiaries`
+
+This is the first high-precision commercial slice. All nine exact authority-backed `INxx` codes remain valid insurance codes.
+
+## Implementation
+
+Added on branch:
+
+- `policies/states/CA/ca_sco_property_type_classification.v1.json`;
+- `src/unclaimed_platform/adapters/sources/california_property_type.py`;
+- `scripts/ca_sco_mvp1_property_type_validation.py`;
+- `tests/unit/test_california_property_type.py`;
+- `tests/unit/test_ca_sco_mvp1_property_type_validation.py`;
+- `tests/contract/test_ca_sco_property_type_classification_policy.py`;
+- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_BACKED_MVP1_REMEDIATION.md`.
+
+The historical v1.2 semantic runner is unchanged.
+
+Synthetic tests prove that a malformed first row can be deferred while a later `IN03` is observed, unknown `INxx` is deferred, and transport drift still stops fail-closed.
+
+## Network / Privacy State
+
+This remediation performed no new California SCO source request.
+
+All previous execution/privacy refs remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No retry is authorized.
+No current fresh validation approval exists.
 
-Authorization audit:
+## Product State
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_ADOPTED_BASELINE_AUTHORIZATION.md`
-
-## Execution Lifecycle
-
-Authorization checkpoint:
-
-`7e4ebb91cd8d25be4f4b45ee08ec6bd3a5be5a36`
-
-Execution branch:
-
-`m3-ca-sco-v1-2-real-source-execution-once-adopted-baseline`
-
-Preflight-only workflow run:
-
-`35227794053` — **SUCCESS**
-
-The live execution step was skipped in preflight.
-
-Real execution trigger commit:
-
-`273a402345783c07c5f3c7bc842e0cd0000b3f01`
-
-One-shot real execution run:
-
-`35227857742` — **SUCCESS**, attempt `1`.
-
-Artifact:
-
-- id `10499528807`;
-- name `ca-sco-property-type-v1-2-real-source-execution-2026-09-17`;
-- digest `sha256:e5addd9bebfa5524d03ce2c6766ca4997b84ab497d0a4a2f865d252619dc1b37`.
-
-Temporary workflow and trigger were removed immediately after the run.
-
-## Persisted Derived Evidence
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once_adopted_baseline.json`
-
-Execution audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_ADOPTED_BASELINE.md`
-
-## Adopted Transport Baseline — Live Result
-
-Expected and observed transport metadata matched:
-
-- content length `162560390`;
-- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
-- content type `application/zip`;
-- Accept-Ranges `bytes`;
-- HEAD status `200`;
-- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
-
-Therefore transport/archive-layout drift is not the active blocker.
-
-## Actual Request Boundary
-
-The single authorized run used:
-
-- HEAD requests: `1`;
-- Range requests: `1`;
-- HTTP total: `2`;
-- source body bytes read: `131072`;
-- full archive download: `false`.
-
-All hard caps were respected.
-
-## Machine Result
-
-- `schema_version = 1.2.0`;
-- `semantic_result_status = STOPPED_FAIL_CLOSED`;
-- `stop_reason = PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- `control_disposition.status_code = PROPERTY_TYPE_NONCONFORMING_STOPPED`;
-- `control_disposition.reason_code = PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`.
-
-This is the exact D-008 `WHOLE_SOURCE_STOP` outcome. No continuation occurred.
-
-Persisted sample summary contains zero row values and no source code values. The contract intentionally prevents persistence of the nonconforming value, bytes, hash or exact length.
-
-## Privacy / Safety Result
-
-PASS.
-
-No raw body, full row, PROPERTY_ID, owner/holder value, per-row PROPERTY_TYPE, offending value material or source-value-bearing control metadata was persisted.
-
-No temporary source file, identity resolution, beneficiary matching, outreach or production classification occurred.
-
-## Source / Product State
-
-- transport/archive-layout baseline: live-confirmed;
-- semantic compatibility resolved positively: `false`;
-- source policy: `PROPOSED`;
-- registry: disabled / not approved;
+- live transport baseline: CONFIRMED;
+- authority semantics: RESOLVED;
+- exact insurance vocabulary: RESOLVED;
+- D-010 row-defer implementation: OFFLINE READY;
+- D-010 live validation: NOT YET AUTHORIZED;
 - approved real sources: `0`;
-- production classification: inactive;
-- real MVP-1 candidate cases: `0`;
-- active blocker: `PROPERTY_TYPE` compatibility under the current strict validation/no-normalization contract;
-- identity resolution, genealogy, beneficiary matching, outreach and claims remain BLOCKED.
+- candidate cases: `0`.
 
-## Canonical Read Order Before Any New Change
+## Canonical Read Order
 
 1. `AGENTS.md`
 2. `PRODUCT_STRATEGY_MVP1.md`
@@ -170,38 +134,39 @@ No temporary source file, identity resolution, beneficiary matching, outreach or
 5. `DECISIONS.md`
 6. `docs/handovers/HANDOVER_CURRENT.md`
 
-Then inspect at least:
+Then inspect:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_ADOPTED_BASELINE_AUTHORIZATION.md`;
-2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_ADOPTED_BASELINE.md`;
-3. `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once_adopted_baseline.json`;
-4. proposal `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`;
-5. runner `scripts/ca_sco_property_type_semantic_verification.py`;
-6. D-008 in `DECISIONS.md`.
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_BACKED_MVP1_REMEDIATION.md`;
+2. `policies/states/CA/ca_sco_property_type_classification.v1.json`;
+3. `src/unclaimed_platform/adapters/sources/california_property_type.py`;
+4. `scripts/ca_sco_mvp1_property_type_validation.py`;
+5. the latest consumed v1.2 execution audit/evidence;
+6. D-010 in `DECISIONS.md`.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
+`HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION`
 
-Classification:
+Classification: `A — Product Critical`.
 
-`A — Product Critical`
+It may mint exactly:
 
-The review must not perform another California SCO request or reuse the consumed approvals.
+1. one fresh single-use bounded execution approval for `scripts/ca_sco_mvp1_property_type_validation.py`;
+2. one fresh single-use transient-row memory-only privacy approval.
 
-It must establish the minimum safe product decision from the evidence:
+It must preserve:
 
-- transport is confirmed and should not be re-diagnosed;
-- the live run reached `PROPERTY_TYPE_FORMAT_UNEXPECTED` under the unchanged strict regex;
-- D-008 fail-closed mapping operated correctly;
-- the exact source value was intentionally not persisted and must not be guessed;
-- the source is not yet approved for production.
+- adopted transport baseline and current request/byte caps;
+- no retry / no widening;
+- exact authority insurance vocabulary;
+- no normalization or regex relaxation;
+- metadata-only deferred-row aggregate count;
+- no malformed source value or row/PII persistence.
 
-The review should choose between:
+After explicit authorization, proceed directly:
 
-1. a separately reviewed compatibility-remediation proposal grounded in authoritative California source semantics; or
-2. rejecting/deferring this California source for MVP-1 and moving to another lawful source.
+`one bounded live D-010 validation -> source decision -> if PASS, bounded California insurance activation -> MVP-1 candidate -> economics -> reviewer`
 
-Do not add broad diagnostics, infrastructure or governance work. The next action after evidence review should materially shorten the path to the first approved real source.
+Do not reopen transport or generic PROPERTY_TYPE diagnostics absent new contradictory evidence.
