@@ -16,19 +16,19 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ca-property-type-row-defer-live-validation-module-once`
+`mvp1-ca-same-bytes-deeper-insurance-discovery-offline`
 
 Latest product-critical lifecycle:
 
-`FRESH_REAUTHORIZATION -> MODULE_MODE_ONE_SHOT_LIVE_EXECUTION -> D010_CONTINUATION_PASS -> INSURANCE_DISCOVERY_NOT_OBSERVED -> SOURCE_ACTIVATION_HELD`
+`D010_CONTINUATION_VALIDATED_LIVE -> INSURANCE_NOT_OBSERVED_IN_16_ROWS -> SAME_BYTES_DEEPER_VALIDATOR_IMPLEMENTED_OFFLINE -> FRESH_LIVE_AUTHORIZATION_NEXT`
 
 Classification: `A — Product Critical`.
 
-Evidence review:
+Offline implementation audit:
 
-`docs/audits/M3_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_LIVE_EVIDENCE_REVIEW.md`
+`docs/audits/M3_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_VALIDATOR_OFFLINE.md`
 
-## D-010 Live Result
+## Prior Live Evidence
 
 Run:
 
@@ -38,79 +38,120 @@ Persisted derived evidence:
 
 `sources/evidence/ca_sco_mvp1_property_type_row_defer.module_live_once.v2.json`
 
-The adopted transport/archive baseline was confirmed live again.
+Observed:
 
-Authorized source use:
-
-- HEAD: `1 / 1`;
-- Range GET: `4 / 4`;
-- HTTP total: `5 / 5`;
-- source response-body bytes: `524288 / 524288`;
-- rows: `16 / 16` (`4` per canonical member).
-
-D-010 outcome:
-
+- HEAD `1`;
+- Range GET `4`;
+- source body bytes `524288`;
+- rows examined `16` (`4/member`);
 - `DEFER_UNCLASSIFIABLE`: `16`;
-- shape-valid non-target: `0`;
 - recognized insurance rows: `0`;
 - `IN03`: `0`;
-- distinct insurance codes: `[]`;
-- semantic status: `NO_INSURANCE_CODE_OBSERVED_IN_BOUNDED_SAMPLE`;
-- stop reason: `null`.
+- stop reason: none.
 
-Therefore D-010 metadata-only row-defer continuation is now validated against the live source: all 16 approved rows were processed without whole-source stop.
+D-010 continuation is therefore validated live, but source activation remains held because the tiny deterministic sample did not demonstrate insurance discovery.
 
-The bounded deterministic sample did **not** demonstrate insurance discovery.
+The approvals used for that run remain consumed/non-reusable. No retry is authorized.
 
-## Authorization / Privacy State
+## Same-Bytes Deeper Validator
 
-Fresh refs used for run `35243232091`:
+New runner:
 
-- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_REAL_SOURCE_VALIDATION_BOUNDED_C6D79506`;
-- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_TRANSIENT_ROW_PRIVACY_BOUNDED_C6D79506`.
+`scripts/ca_sco_mvp1_same_bytes_deeper_insurance_discovery.py`
 
-Both are:
+Runner blob:
 
-`CONSUMED_SINGLE_USE_NON_REUSABLE`
+`d7c7321aa01a86af346dfbe8c1d7cde6e91d1755`
 
-No retry or rerun is authorized.
+Tests:
 
-Privacy result: PASS. All persisted evidence is aggregate/derived; no raw row/body, `PROPERTY_ID`, per-row/malformed `PROPERTY_TYPE`, owner/holder data, identity work, beneficiary matching or outreach was persisted or performed.
+`tests/unit/test_ca_sco_mvp1_same_bytes_deeper_insurance_discovery.py`
 
-The temporary one-shot workflow and trigger were removed together after execution.
+Test blob:
 
-## Source Decision
+`2ffd378a4b9a94eef8f68907b0dbd24660fbcb8b`
 
-California source activation remains **HELD / NOT YET APPROVED**.
+Implementation CI:
 
-Reason:
+`35244998206` — SUCCESS.
 
-D-010 live continuation is proven, but the current `16`-row deterministic prefix sample produced no authority-backed insurance code. That is insufficient for source activation and insufficient for source rejection.
+The validator reuses the existing transport/archive/parser/projector and D-010 classifier. The historical live-validated D-010 runner remains unchanged.
 
-Current product state:
+## Bounded Discovery Contract
+
+Future live source-response envelope remains unchanged:
+
+- HEAD max: `1`;
+- Range GET max: `4`;
+- HTTP max total: `5`;
+- bytes per Range: `131072`;
+- source body bytes total: `524288`;
+- additional Range: false;
+- full-body fallback: false.
+
+Logical row depth increases only within those same bytes:
+
+- complete data rows max/member: `256`;
+- complete data rows max/total: `1024`;
+- prior depth: `4/member`, `16 total`;
+- maximum logical-depth increase: `64x`.
+
+Existing transient caps remain unchanged:
+
+- uncompressed bytes/member: `262144`;
+- uncompressed bytes total: `1048576`;
+- logical record bytes: `32768`.
+
+Only complete logical records are classified. An incomplete trailing record inside the fixed prefix is ignored without persistence or inference.
+
+D-010 remains unchanged:
+
+- nonconforming/unknown PROPERTY_TYPE -> `DEFER_UNCLASSIFIABLE`;
+- no normalization/regex relaxation/repair;
+- exact insurance vocabulary `IN01-IN08`, `IN99`;
+- `IN03` remains primary MVP-1 target;
+- only aggregate counts, per-member scan metadata and exact recognized authority-backed insurance codes are allowed as discovery evidence;
+- no raw row/body, PROPERTY_ID, source PROPERTY_TYPE or owner/holder persistence.
+
+## Offline Acceptance Evidence
+
+Synthetic regression coverage proves:
+
+- insurance can be discovered after the previous four-row boundary;
+- `IN03` is detected when present deeper in the same prefix;
+- `IN01`/`IN99` are detected without inventing `IN03`;
+- row `257` is not observed when the `256/member` cap is reached;
+- transport drift remains fail-closed before Range reads;
+- source response-byte budget remains exactly unchanged.
+
+No California network request occurred in this work package.
+
+## Product / Source State
 
 - transport/archive baseline: **CONFIRMED LIVE**;
 - California authority vocabulary: **RESOLVED**;
 - D-010 row-defer semantics: **VALIDATED LIVE**;
-- insurance discovery in current bounded sample: **NOT OBSERVED**;
+- same-byte deeper discovery validator: **OFFLINE READY**;
+- California source activation: **HELD / NOT YET APPROVED**;
 - approved real sources: `0`;
 - production classification: inactive;
-- real MVP-1 candidate cases: `0`.
-
-## Product-Critical Next Hypothesis
-
-Authority-backed insurance codes may occur deeper than the first four rows of each member while the same four already-bounded `131072`-byte compressed prefixes may contain enough data to inspect more logical rows without increasing source requests or source-response bytes.
-
-Do not repeat the same 16-row sample and do not reopen generic transport/CSV/PROPERTY_TYPE diagnostics.
+- real MVP-1 candidates: `0`.
 
 ## SINGLE NEXT ACTION
 
-`IMPLEMENT_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_VALIDATOR_OFFLINE`
+Execute exclusively:
+
+`HUMAN_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_LIVE_VALIDATION_AUTHORIZATION`
 
 Classification: `A — Product Critical`.
 
-Goal:
+A fresh explicit Product Owner authorization must mint exactly:
 
-Build and test, offline only, a deeper bounded logical-row scan that preserves the same future source network envelope (`1 HEAD + 4 Range`, `524288` source bytes total), D-010 metadata-only defer, and zero row/source-value persistence.
+1. one new single-use bounded execution approval;
+2. one new single-use transient-row memory-only privacy approval covering up to `256 rows/member`, `1024 total`, while keeping the existing `524288` source-byte envelope.
 
-Only after that offline validator is green should a fresh human execution/privacy authorization be requested for another live run.
+After fresh authorization:
+
+`one same-byte deeper live validation -> evidence/source decision -> if insurance observed, bounded CA source activation -> MVP-1 candidate -> economics -> reviewer`
+
+Do not reuse prior approvals, repeat the 16-row sample, widen source-response bytes, or reopen generic transport/PROPERTY_TYPE diagnostics absent new contradictory evidence.
