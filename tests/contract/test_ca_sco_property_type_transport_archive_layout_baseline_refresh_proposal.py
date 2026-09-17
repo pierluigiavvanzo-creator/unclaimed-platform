@@ -22,7 +22,6 @@ EVIDENCE_PATH = ROOT / (
     "sources/evidence/"
     "ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json"
 )
-RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 REGISTRY_PATH = ROOT / "sources/registry.yaml"
 POLICY_PATH = (
     ROOT
@@ -212,18 +211,17 @@ def test_schema_rejects_network_authorization_rebaseline_and_scope_widening() ->
         validator().validate(mutation)
 
 
-def test_runner_constants_and_source_governance_remain_unchanged() -> None:
-    runner = RUNNER_PATH.read_text(encoding="utf-8")
+def test_proposal_historical_pins_and_source_governance_remain_preserved() -> None:
     proposal = load_json(PROPOSAL_PATH)
     registry = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8"))
     policy = load_json(POLICY_PATH)
+    historical = proposal["baseline_state"]["historical_pinned_transport"]
+    members = proposal["baseline_state"]["historical_pinned_members"]
 
-    assert "EXPECTED_LENGTH = 162_416_884" in runner
-    assert "EXPECTED_ETAG = '\"b25b315b6cd8007624387c3a00d4b1fe\"'" in runner
-    for name, offset in zip(EXPECTED_MEMBERS, EXPECTED_HISTORICAL_OFFSETS, strict=True):
-        formatted = f"{offset:,}".replace(",", "_")
-        assert name in runner
-        assert formatted in runner or str(offset) in runner
+    assert historical["content_length"] == 162_416_884
+    assert historical["etag"] == '"b25b315b6cd8007624387c3a00d4b1fe"'
+    assert [entry["name"] for entry in members] == EXPECTED_MEMBERS
+    assert [entry["local_header_offset"] for entry in members] == EXPECTED_HISTORICAL_OFFSETS
 
     source = next(
         entry
