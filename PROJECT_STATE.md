@@ -16,95 +16,76 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ca-same-bytes-deeper-live-validation-once`
+`mvp1-alternative-lawful-source-benchmark-offline`
 
 Latest product-critical lifecycle:
 
-`D010_CONTINUATION_VALIDATED_LIVE -> SAME_BYTES_DEEPER_VALIDATOR_READY -> DEEPER_LIVE_1024_ROWS -> INSURANCE_NOT_OBSERVED -> CA_PROPERTY_TYPE_DISCOVERY_PATH_FROZEN_FOR_MVP1 -> ALTERNATIVE_SOURCE_BENCHMARK_NEXT`
+`CA_D010_VALIDATED -> CA_DEEPER_LIVE_1024_ROWS_ZERO_INSURANCE -> CA_PROPERTY_TYPE_PATH_FROZEN_FOR_MVP1 -> ALTERNATIVE_SOURCE_BENCHMARK_COMPLETE -> NY_OSC_OWNER_NAME_FILE_SELECTED -> NY_SOURCE_CONTRACT_PRIVACY_GATE_NEXT`
 
 Classification: `A — Product Critical`.
 
-Latest evidence review:
+Latest benchmark:
 
-`docs/audits/M3_CA_SCO_MVP1_SAME_BYTES_DEEPER_LIVE_EVIDENCE_REVIEW.md`
+`docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md`
 
-## Latest Live Execution
+## California State
 
-Run:
+Latest California live run:
 
 `35255228459` — attempt `1` — SUCCESS.
 
-Persisted derived evidence:
+Observed:
 
-`sources/evidence/ca_sco_mvp1_same_bytes_deeper_insurance_discovery.module_live_once.v1.json`
-
-Authorization record:
-
-`sources/evidence/ca_sco_mvp1_same_bytes_deeper_insurance_discovery_live_validation_approval.v1.json`
-
-Fresh refs used:
-
-- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_REAL_SOURCE_VALIDATION_BOUNDED_D4F29A61`;
-- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_TRANSIENT_ROW_PRIVACY_BOUNDED_D4F29A61`.
-
-Both are:
-
-`CONSUMED_SINGLE_USE_NON_REUSABLE`
-
-No retry/rerun is authorized.
-
-## Observed Same-Bytes Envelope
-
-- HEAD: `1 / 1`;
-- Range GET: `4 / 4`;
-- HTTP total: `5 / 5`;
-- source body bytes: `524288 / 524288`;
-- rows examined: `1024 / 1024`;
-- rows/member: `256, 256, 256, 256`;
-- each member scan status: `ROW_CAP_REACHED`;
-- no additional Range;
-- no full-body fallback.
-
-Transport metadata matched the adopted baseline.
-
-## D-010 / Insurance Result
-
+- source bytes: `524288`;
+- rows examined: `1024` (`256/member`);
 - `DEFER_UNCLASSIFIABLE`: `1024`;
-- shape-valid non-target: `0`;
 - recognized insurance rows: `0`;
 - `IN03`: `0`;
-- distinct authority-backed insurance codes: `[]`;
-- semantic status: `NO_INSURANCE_CODE_OBSERVED_IN_BOUNDED_SAMPLE`;
-- stop reason: `null`.
+- stop reason: none.
 
-D-010 row-defer continuation remains validated. The deeper scan increased logical depth `64x` over the prior 16-row sample without increasing source-response bytes, but still produced no exact authority-backed insurance code.
+California source approval remains `HELD / NOT YET APPROVED` and the source is not rejected. The current California SCO `PROPERTY_TYPE` discovery path remains frozen for MVP-1 pending genuinely new evidence. Consumed approvals are non-reusable and no one-shot workflow remains armed.
 
-## Privacy State
+## Alternative Source Benchmark Result
 
-PASS.
+Selected next source candidate:
 
-No raw body/full row, `PROPERTY_ID`, per-row/source `PROPERTY_TYPE`, owner/holder value, identity resolution, beneficiary matching, outreach or production classification activation was persisted or performed.
+`New York Office of the State Comptroller — Owner Name File`
 
-The one-shot workflow and trigger were removed after execution.
+Proposed internal source id for the next package:
 
-## Source / Product Decision
+`ny.osc.unclaimed_funds.owner_name_file`
 
-California source activation remains:
+Why selected:
 
-`HELD / NOT YET APPROVED`
+- first-party New York OSC authority;
+- official request path for a zipped delimited owner file;
+- file updated quarterly;
+- officially disclosed semantics include owner name, last-known address, nature of property, when reported and reporting organization;
+- New York publishes authority-backed insurance property types including `IN03 — Proceeds Due Beneficiaries`;
+- OSC explicitly publishes a framework for Abandoned Property Location Service Providers, including a 15% maximum fee and no licensing/registration requirement under the current published requirements;
+- materially lower semantic friction than the California feed.
 
-The source is **not rejected**.
+Known constraints:
 
-However, the California SCO `PROPERTY_TYPE` discovery path is now **frozen for MVP-1 pending genuinely new evidence or a separately justified authority-backed interpretation path**. Repeating or widening the same scan is not product-critical after `1024/1024` rows remained unclassifiable.
+- the exact downloadable file delimiter, physical column names, encoding and code representation have not yet been observed and must not be invented;
+- dollar values and taxpayer-identification numbers are not disclosed in the public list;
+- the list omits some categories, including accounts under $20, foreign-address records and certain records without owner name/address;
+- owner name/address are PII and require a fresh privacy authorization before real acquisition/processing;
+- no source activation, outreach, representation, fee agreement or claim submission is authorized.
 
-Current product state:
+Other benchmark outcomes:
 
-- transport/archive baseline: **CONFIRMED LIVE**;
-- California authority vocabulary: **RESOLVED**;
-- D-010 continuation: **VALIDATED LIVE**;
-- same-byte deeper live scan: **COMPLETED**;
-- California source approval: **HELD**;
+- Texas SIFT: `DEFER / SECONDARY` — official evidence indicates an Unclaimed Property SIFT path but access/schema evidence is not yet sufficiently consistent;
+- Pennsylvania OpenBookPA: `DEFER` — reviewed data are aggregate rather than an evidenced candidate-level feed;
+- Illinois I-CASH: `REJECT FOR BULK MVP-1 INGEST` — official FAQ states no bulk data/database export/API;
+- Washington DOR: `REJECT FOR COMMERCIAL LIST ACQUISITION` — official public-records guidance prohibits releasing lists of individuals/taxpayers for commercial purpose.
+
+## Current Product / Source State
+
 - approved real sources: `0`;
+- California source: `HELD`;
+- California `PROPERTY_TYPE` discovery: `FROZEN FOR MVP-1`;
+- New York OSC Owner Name File: `SELECTED CANDIDATE / NOT APPROVED / NOT ACQUIRED`;
 - production classification: inactive;
 - real MVP-1 candidates: `0`.
 
@@ -112,12 +93,14 @@ Current product state:
 
 Execute exclusively:
 
-`BENCHMARK_MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_OFFLINE`
+`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Goal:
 
-Identify and rank concrete lawful public/authorized source paths that can expose insurance relevance deterministically with less semantic friction than the current California `PROPERTY_TYPE` path. Compare at least authority/provenance, insurance-specific signal, machine accessibility, privacy burden, acquisition cost, update cadence, expected integration effort and time-to-first-candidate.
+Create the smallest versioned source candidate contract, authority-backed insurance policy boundary and privacy/acquisition gate needed for a later authorized New York Owner Name File request and first-file inspection, using synthetic fixtures only.
 
-This next action is research/offline only and requires no new California source access. Any later live source execution remains separately approval-gated.
+Must not invent the real file schema. The first real file must enter a fail-closed schema-discovery step before production parsing.
+
+No New York Owner Name File request/download or real PII processing is authorized by this offline action.
