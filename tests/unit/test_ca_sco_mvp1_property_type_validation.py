@@ -12,7 +12,6 @@ from scripts import ca_sco_mvp1_property_type_validation as mvp1
 from scripts import ca_sco_property_type_semantic_verification as legacy
 
 ROOT = Path(__file__).resolve().parents[2]
-RUNNER_PATH = ROOT / "scripts/ca_sco_mvp1_property_type_validation.py"
 
 
 def _row(property_type: str) -> list[str]:
@@ -77,9 +76,9 @@ class Transport:
         return handle
 
 
-def test_direct_cli_boots_from_repo_root_without_network() -> None:
+def test_module_cli_boots_from_repo_root_without_network() -> None:
     completed = subprocess.run(
-        [sys.executable, str(RUNNER_PATH), "--help"],
+        [sys.executable, "-m", "scripts.ca_sco_mvp1_property_type_validation", "--help"],
         cwd=ROOT,
         capture_output=True,
         text=True,
