@@ -209,3 +209,41 @@ Consequences:
 - Exact/derived `PROPERTY_TYPE`, real row/field content, hashes, exact lengths, `PROPERTY_ID`, owner/holder values and source-derived free text remain outside the persistence boundary.
 - Any future continuation, real-row retention or row-specific inspection requires a separately reviewed design and authorization path.
 - Source policy remains `PROPOSED`, registry remains disabled/unapproved, production classification remains inactive and downstream gates remain closed.
+
+---
+
+## D-009 — MVP-1 commercial validation becomes the product-priority objective
+
+Date: 2026-09-17
+
+Status: Accepted
+
+Context:
+The platform has a strong verified engineering and governance foundation, but product/economic validation remains incomplete. The current repository state still has zero approved real sources, unresolved semantic compatibility and blocked downstream identity, genealogy, matching, outreach and claim flows. Continued governance and diagnostic expansion without a real product vertical slice risks producing technically correct work with diminishing usable and commercial value.
+
+Decision:
+Adopt `PRODUCT_STRATEGY_MVP1.md` as a priority strategic source and make `MVP-1 — First Economically Actionable Case` the governing product-validation objective.
+
+M3 California work remains on the critical path only insofar as it safely and minimally enables an approved real source. After one approved real source exists, priority shifts immediately to the shortest lawful, privacy-safe and deterministic vertical slice:
+
+`approved real source -> acquisition -> normalization -> insurance classification -> candidate case -> provenance/evidence -> case economics -> reviewer console -> human continue/stop decision`.
+
+Every substantial task must be classified A/B/C/D and identify the MVP-1 blocker or exit criterion it advances. Infrastructure, governance and diagnostics that do not materially advance MVP-1 are deprioritized unless required to control a Product Critical risk.
+
+The project must collect real commercial baseline measurements before broadening scope. No revenue, conversion, case-value or success threshold is invented by this decision.
+
+Reason:
+This aligns project execution with the guiding metric `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME` and tests whether the platform can create commercially useful cases before investing further in broad automation or infrastructure.
+
+Alternatives considered:
+- Continue the existing milestone sequence without an explicit commercial-validation gate.
+- Expand downstream agents and infrastructure before obtaining an approved real source.
+- Reduce existing safety/governance controls to accelerate execution.
+
+Consequences:
+- `PRODUCT_STRATEGY_MVP1.md` is read immediately after `AGENTS.md` in the canonical read order.
+- Existing law, privacy, security, source-authorization, fail-closed and deterministic governance controls are not weakened.
+- The current California transport/archive-layout blocker is treated as an A/B critical-path enabler, not as an open-ended diagnostic program.
+- Product Owner manual technical work must be minimized; human involvement should concentrate on material commercial, legal/privacy, security and irreversible architecture gates.
+- Reuse scouting is mandatory before substantial custom downstream implementation.
+- Full multi-state expansion, broad agent automation, automatic outreach, claim submission and nonessential infrastructure work remain lower priority until MVP-1 evidence exists.
