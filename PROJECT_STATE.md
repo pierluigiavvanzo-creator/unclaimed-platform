@@ -16,110 +16,101 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ca-property-type-row-defer-live-validation-once`
+`mvp1-ca-property-type-row-defer-live-validation-module-once`
 
 Latest product-critical lifecycle:
 
-`AUTHORIZE_D010_LIVE_VALIDATION -> CONSUME_SINGLE_USE_APPROVALS -> PRE_NETWORK_CLI_FAILURE -> OFFLINE_LAUNCH_REMEDIATION`
+`FRESH_REAUTHORIZATION -> MODULE_MODE_ONE_SHOT_LIVE_EXECUTION -> D010_CONTINUATION_PASS -> INSURANCE_DISCOVERY_NOT_OBSERVED -> SOURCE_ACTIVATION_HELD`
 
 Classification: `A — Product Critical`.
 
-Authorization/execution audit:
+Evidence review:
 
-`docs/audits/M3_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION.md`
+`docs/audits/M3_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_LIVE_EVIDENCE_REVIEW.md`
 
-## D-010 State
+## D-010 Live Result
 
-D-010 remains the selected California SCO MVP-1 classification policy:
+Run:
 
-`ROW_DEFER_CONTINUE_METADATA_ONLY`
+`35243232091` — attempt `1` — SUCCESS.
 
-Nonconforming or unknown insurance-like `PROPERTY_TYPE` values are not normalized, repaired, persisted or inferred. They are represented by an aggregate deferred-row count while later rows may continue.
+Persisted derived evidence:
 
-Exact authority-backed insurance vocabulary remains:
+`sources/evidence/ca_sco_mvp1_property_type_row_defer.module_live_once.v2.json`
 
-`IN01, IN02, IN03, IN04, IN05, IN06, IN07, IN08, IN99`
+The adopted transport/archive baseline was confirmed live again.
 
-Primary high-precision MVP-1 target remains:
+Authorized source use:
 
-`IN03 — Proceeds Due Beneficiaries`
+- HEAD: `1 / 1`;
+- Range GET: `4 / 4`;
+- HTTP total: `5 / 5`;
+- source response-body bytes: `524288 / 524288`;
+- rows: `16 / 16` (`4` per canonical member).
 
-Transport/header/CSV-column/hard-cap failures remain whole-source fail-closed.
+D-010 outcome:
 
-## Authorized Attempt Result
+- `DEFER_UNCLASSIFIABLE`: `16`;
+- shape-valid non-target: `0`;
+- recognized insurance rows: `0`;
+- `IN03`: `0`;
+- distinct insurance codes: `[]`;
+- semantic status: `NO_INSURANCE_CODE_OBSERVED_IN_BOUNDED_SAMPLE`;
+- stop reason: `null`.
 
-Product Owner authorization:
+Therefore D-010 metadata-only row-defer continuation is now validated against the live source: all 16 approved rows were processed without whole-source stop.
 
-`APPROVO D010 LIVE VALIDATION + TRANSIENT-ROW PRIVACY`
+The bounded deterministic sample did **not** demonstrate insurance discovery.
 
-Fresh single-use refs minted for that authorization:
+## Authorization / Privacy State
 
-- execution: `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_BOUNDED_B2AF7877`;
-- privacy: `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_TRANSIENT_ROW_PRIVACY_BOUNDED_B2AF7877`.
+Fresh refs used for run `35243232091`:
 
-Both are now:
+- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_REAL_SOURCE_VALIDATION_BOUNDED_C6D79506`;
+- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_TRANSIENT_ROW_PRIVACY_BOUNDED_C6D79506`.
+
+Both are:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-One-shot run:
+No retry or rerun is authorized.
 
-`35237721059` — attempt `1` — FAILED before SCO network access.
+Privacy result: PASS. All persisted evidence is aggregate/derived; no raw row/body, `PROPERTY_ID`, per-row/malformed `PROPERTY_TYPE`, owner/holder data, identity work, beneficiary matching or outreach was persisted or performed.
 
-The authorization preflight passed and the approvals were deliberately consumed before network. The execution process then failed during top-level Python import with:
+The temporary one-shot workflow and trigger were removed together after execution.
 
-`ModuleNotFoundError: No module named 'scripts'`
+## Source Decision
 
-Because the import failed before `main()` and before `legacy.HttpTransport()` construction:
+California source activation remains **HELD / NOT YET APPROVED**.
 
-- SCO requests issued: `0`;
-- SCO response-body bytes read: `0`;
-- live rows examined: `0`;
-- live semantic evidence produced: `none`;
-- source approval/rejection decision from this attempt: `none`.
+Reason:
 
-No rerun under the consumed refs is authorized.
+D-010 live continuation is proven, but the current `16`-row deterministic prefix sample produced no authority-backed insurance code. That is insufficient for source activation and insufficient for source rejection.
 
-## CLI Launch Remediation
+Current product state:
 
-Root cause was invocation mode, not D-010 runtime semantics.
-
-The D-010 runner is restored byte-for-byte to the previously reviewed/authorized blob:
-
-`8e952a80105d56a8e84e6fb9feb5524dd01625d0`
-
-Future one-shot execution must invoke it from repository root as:
-
-`python -m scripts.ca_sco_mvp1_property_type_validation ...`
-
-A subprocess unit test now validates module-mode startup offline with `--help`, closing the exact packaging gap that caused run `35237721059` to fail.
-
-The temporary live workflow and trigger from the consumed attempt have been removed together. No live workflow remains armed.
-
-## Product / Commercial State
-
-- live transport/archive baseline: **CONFIRMED** from prior executions;
+- transport/archive baseline: **CONFIRMED LIVE**;
 - California authority vocabulary: **RESOLVED**;
-- D-010 row-defer semantics: **IMPLEMENTED OFFLINE**;
-- D-010 runner semantic blob: **UNCHANGED**;
-- D-010 module-mode launch remediation: **IMPLEMENTED OFFLINE**;
-- latest D-010 authorized attempt: **ABORTED PRE-NETWORK**;
+- D-010 row-defer semantics: **VALIDATED LIVE**;
+- insurance discovery in current bounded sample: **NOT OBSERVED**;
 - approved real sources: `0`;
+- production classification: inactive;
 - real MVP-1 candidate cases: `0`.
 
-This pre-network packaging failure is not evidence against the California source and does not reopen transport or generic `PROPERTY_TYPE` diagnostics.
+## Product-Critical Next Hypothesis
+
+Authority-backed insurance codes may occur deeper than the first four rows of each member while the same four already-bounded `131072`-byte compressed prefixes may contain enough data to inspect more logical rows without increasing source requests or source-response bytes.
+
+Do not repeat the same 16-row sample and do not reopen generic transport/CSV/PROPERTY_TYPE diagnostics.
 
 ## SINGLE NEXT ACTION
 
-Execute exclusively:
-
-`HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_REAUTHORIZATION_AFTER_PRENETWORK_CLI_REMEDIATION`
+`IMPLEMENT_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_VALIDATOR_OFFLINE`
 
 Classification: `A — Product Critical`.
 
-A new explicit Product Owner authorization is required because the previous execution/privacy refs are consumed and non-reusable even though no SCO request occurred.
+Goal:
 
-After fresh authorization:
+Build and test, offline only, a deeper bounded logical-row scan that preserves the same future source network envelope (`1 HEAD + 4 Range`, `524288` source bytes total), D-010 metadata-only defer, and zero row/source-value persistence.
 
-`fresh single-use refs -> one module-mode bounded live D-010 validation -> source decision -> if PASS, bounded CA insurance activation -> MVP-1 candidate/economics/reviewer`
-
-Do not retry or reuse `B2AF7877`, widen transport/sample caps, or reopen generic diagnostics absent new contradictory evidence.
+Only after that offline validator is green should a fresh human execution/privacy authorization be requested for another live run.
