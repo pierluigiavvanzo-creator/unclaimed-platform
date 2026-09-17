@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-from jsonschema import Draft202012Validator, ValidationError
 import pytest
+from jsonschema import Draft202012Validator, ValidationError
 
 from unclaimed_platform.domain.mvp1_vertical_slice import synthetic_ny_mvp1_case_review
 
