@@ -2,7 +2,7 @@
 
 Date: 2026-09-17
 
-Status: **REFRESH PREPARED — REPOSITORY ONLY — HUMAN PROPOSAL REVIEW REQUIRED — REAL-SOURCE EXECUTION NOT AUTHORIZED**
+Status: **REFRESH COMPLETED — CI GREEN — REPOSITORY ONLY — HUMAN PROPOSAL REVIEW REQUIRED — REAL-SOURCE EXECUTION NOT AUTHORIZED**
 
 ## Action
 
@@ -42,6 +42,33 @@ Reviewed structural evidence:
 
 `sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`
 
+## Refresh checkpoint
+
+Branch:
+
+`m3-ca-sco-property-type-v1-2-real-source-proposal-adopted-baseline-refresh`
+
+Functional refresh HEAD:
+
+`c4dfc596b18fccd3348a388c1d08647d5cd00a45`
+
+GitHub Actions CI:
+
+`35217101641` — **SUCCESS**
+
+Verified CI markers:
+
+- Ruff: PASS;
+- mypy: PASS;
+- contract tests: PASS;
+- smoke tests: PASS;
+- full pytest: PASS;
+- frontend lint: PASS;
+- frontend typecheck: PASS;
+- frontend build: PASS;
+- Streamlit safety smoke: PASS;
+- Streamlit startup smoke: PASS.
+
 ## Reuse-first decision
 
 No new execution design, transport library, parser, projector or workflow mechanism is introduced.
@@ -50,7 +77,7 @@ Decision:
 
 `REUSE existing v1.2 proposal + existing runner + existing schema/test pattern`
 
-Only stale baseline/provenance bindings are refreshed. This avoids unnecessary custom work and keeps the task on the shortest path to one bounded real-source semantic verification.
+Only stale baseline/provenance bindings were refreshed. This avoids unnecessary custom work and keeps the task on the shortest path to one bounded real-source semantic verification.
 
 ## Refreshed proposal
 
@@ -81,7 +108,7 @@ The sample plan now matches the active semantic runner and reviewed structural e
 - `From_500_To_Beyond_3_of_4.csv` -> `96861315`;
 - `From_500_To_Beyond_4_of_4.csv` -> `134172553`.
 
-The contract regression also verifies that these offsets equal both the runner constants and persisted structural evidence, and that runner content length / ETag still equal the reviewed adopted values.
+The contract regression verifies that these offsets equal both the runner constants and persisted structural evidence, and that runner content length / ETag still equal the reviewed adopted values.
 
 ## Authorization state
 
@@ -132,7 +159,7 @@ Unchanged:
 
 ## Explicitly not performed
 
-This refresh does not:
+This refresh did not:
 
 - access California SCO;
 - perform HEAD or Range requests;
@@ -147,12 +174,12 @@ This refresh does not:
 
 ## DECISIONS.md assessment
 
-No architecture, policy or product-strategy decision changes. `DECISIONS.md` remains unchanged.
+No architecture, policy or product-strategy decision changed. `DECISIONS.md` remains unchanged.
 
 ## Next gate
 
-After CI-green validation, perform exclusively:
+Perform exclusively:
 
 `HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REVIEW`
 
-That review may accept or reject only the refreshed proposal. It must not grant approvals, create a network workflow, perform source access or execute the real-source semantic verification.
+That review may accept or reject only proposal version `1.1.0` and its adopted-baseline provenance. It must not grant approvals, create a network workflow, perform source access or execute the real-source semantic verification.
