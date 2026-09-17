@@ -16,25 +16,25 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-osc-owner-file-source-contract-privacy-gate-offline`
+`mvp1-ny-osc-request-link-authorization`
 
 Latest product-critical lifecycle:
 
-`CA_PATH_FROZEN_FOR_MVP1 -> ALTERNATIVE_SOURCE_BENCHMARK_COMPLETE -> NY_OSC_SELECTED -> NY_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE_READY -> NY_REQUEST_LINK_HUMAN_GATE_NEXT`
+`CA_PATH_FROZEN_FOR_MVP1 -> ALTERNATIVE_SOURCE_BENCHMARK_COMPLETE -> NY_OSC_SELECTED -> NY_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE_READY -> NY_REQUEST_LINK_AUTHORIZATION_GRANTED -> REQUESTER_CONTACT_INPUTS_REQUIRED_BEFORE_SUBMISSION`
 
 Classification: `A — Product Critical`.
 
-Implementation audit:
+Authorization evidence:
 
-`docs/audits/MVP1_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE.md`
+`sources/evidence/ny_osc_owner_name_file_request_link_authorization.v1.json`
 
-Implementation checkpoint before canonical state updates:
+Authorization base checkpoint:
 
-`29d91e3bb78838db9345991b3ade720283dc2440`
+`198821ff41abb103b6c56876a075abb6c28c9c8f`
 
-Implementation CI:
+Authorization base CI:
 
-`35258458704` — SUCCESS.
+`35258809399` — SUCCESS.
 
 ## California State
 
@@ -116,32 +116,65 @@ During that first discovery:
 - row-specific human inspection: forbidden;
 - derived non-PII schema metadata may persist.
 
-Two separate single-use gates are defined:
+### Gate 1 — request-link authorization
 
-1. `HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
-   - submit the official OSC request and receive access instructions only;
-   - no Owner Name File download;
-   - no real owner PII processing.
+Gate:
 
-2. `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
-   - later, exactly one bounded download and memory-only schema discovery;
-   - requires an explicit `max_download_bytes` discovered/defined before authorization;
-   - no default byte cap is invented.
+`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
+
+Owner authorization received:
+
+`APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
+
+Approval ref:
+
+`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
+
+State:
+
+`GRANTED_SINGLE_USE_NOT_CONSUMED_PENDING_REQUESTER_CONTACT_DATA`
+
+The official form currently requires:
+
+- name;
+- company;
+- phone;
+- email.
+
+Those values have not been supplied in this authorization record and must not be invented. No OSC request has been submitted yet.
+
+Gate 1 still does **not** authorize:
+
+- Owner Name File download;
+- real owner PII processing;
+- raw persistence;
+- schema parsing;
+- identity resolution;
+- beneficiary matching;
+- outreach;
+- representation;
+- fee agreement;
+- claim activity.
+
+### Gate 2 — later first download
+
+`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
+
+Not granted. It requires an explicit `max_download_bytes` after access instructions / download constraints are observed. No default byte cap is invented.
 
 ## Contract / Test State
 
-Added:
+Existing NY offline package remains verified by CI `35258809399`:
 
-- `schemas/agents/a01_acquisition_request.v1.1.schema.json`;
-- `schemas/agents/a01_acquisition_result.v1.1.schema.json`;
-- `schemas/examples/a01_ny_owner_name_file.examples.json`;
-- `policies/states/NY/ny_osc_owner_name_file.v1.json`;
-- `src/unclaimed_platform/adapters/sources/new_york_osc.py`;
-- NY unit and contract tests.
+- Ruff: PASS;
+- mypy: PASS;
+- contract tests: PASS;
+- smoke tests: PASS;
+- full pytest: PASS;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
 
-Historical A01 v1.0 California contracts remain unchanged. A01 v1.1 supports `CA` and `NY` while preserving REAL approval and raw-ingest-only controls.
-
-CI `35258458704` passed Ruff, mypy, contract tests, smoke tests, full pytest, Streamlit safety/startup, frontend lint, typecheck and build.
+No new production code is required merely to record Gate 1 authorization.
 
 ## Current Product / Source State
 
@@ -149,8 +182,11 @@ CI `35258458704` passed Ruff, mypy, contract tests, smoke tests, full pytest, St
 - California source: `HELD`;
 - California `PROPERTY_TYPE` discovery: `FROZEN FOR MVP-1`;
 - New York OSC Owner Name File: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
+- NY Gate 1 authorization: `GRANTED / NOT CONSUMED`;
 - NY request submitted: no;
+- NY access instructions obtained: no;
 - NY real owner PII processed: no;
+- NY Gate 2 authorization: not granted;
 - production insurance classification: inactive;
 - real MVP-1 candidates: `0`.
 
@@ -158,12 +194,14 @@ CI `35258458704` passed Ruff, mypy, contract tests, smoke tests, full pytest, St
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
+`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
 
-Classification: `A — Product Critical`.
+Classification: `A — Product Critical / Human Input Dependency`.
 
-This human gate may authorize exactly one submission of the official New York OSC Owner Name File request for the purpose of receiving access instructions / secure-file-link information.
+Required user-supplied values:
 
-It must **not** authorize Owner Name File download, real owner PII processing, raw persistence, schema parsing, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity.
+`name, company, phone, email`
 
-After access instructions are obtained, determine the observable download constraints and prepare the separate bounded `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` gate.
+After those values are supplied, perform exactly one authorized official request submission using approval ref `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71` if an execution-capable browser/form surface is available. Mark the approval consumed only after actual submission.
+
+Do not download the Owner Name File or process owner PII under Gate 1.
