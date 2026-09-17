@@ -28,42 +28,36 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 California is only a critical-path enabler for the first lawful approved real source.
+M3 California is only a critical-path enabler for the first lawful approved real source. Optimize for the shortest safe path; do not add diagnostics, governance or infrastructure unless they materially unblock an A-risk or MVP-1 exit criterion.
 
 ## Latest Completed Action
 
 Completed:
 
-`REMEDIATE_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_CONTRACT_PRESERVATION`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-Implementation checkpoint before closure docs:
+Reviewed checkpoint:
 
-- HEAD `509567fb250386e266faf96e3d9acef04631f724`;
-- CI `35220182596` — **SUCCESS**.
+- HEAD `ed6a22a3ed5c727b3b4dd7f14416bb06acab2903`;
+- CI `35220411955` — **SUCCESS**.
 
-Remediation audit:
+Review result:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_CONTRACT_PRESERVATION_REMEDIATION.md`
-
-## Prior Review Finding
-
-The prior human refresh review returned:
-
-`FAIL_MINIMAL_REMEDIATION_REQUIRED`
-
-because proposal `1.1.0` correctly adopted the new transport/archive-layout baseline but omitted reviewed design fields from historical proposal `1.0.0` that were unrelated to baseline rebinding.
+`PASS_REMEDIATED_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_FOR_FRESH_SINGLE_USE_AUTHORIZATION`
 
 Review audit:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW.md`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REMEDIATION_RE_REVIEW.md`
 
-## Remediation Result
+## Re-Review Basis
 
-Restored exactly from historical proposal `1.0.0`:
+The previous review had returned `FAIL_MINIMAL_REMEDIATION_REQUIRED` because proposal `1.1.0` omitted 12 reviewed fields from historical proposal `1.0.0`.
+
+The remediation restored all 12 exactly:
 
 - `historical_authorization_state.consumed_approval_refs`;
 - `execution_question.question`;
@@ -78,9 +72,7 @@ Restored exactly from historical proposal `1.0.0`:
 - `privacy_controls.allowed_persisted_derived_fields`;
 - top-level `acceptance_criteria`.
 
-Proposal version remains `1.1.0`.
-
-The v1.1 schema now requires the restored values and the contract test compares them against proposal `1.0.0` where appropriate. It also rejects removal of the privacy persisted-field allowlist and top-level acceptance contract.
+The v1.1 schema requires them and contract tests compare them with historical proposal `1.0.0` where appropriate.
 
 ## Adopted Runtime Baseline
 
@@ -101,7 +93,7 @@ Active pins remain:
 - `From_500_To_Beyond_3_of_4.csv` -> `96861315`;
 - `From_500_To_Beyond_4_of_4.csv` -> `134172553`.
 
-The remediation does not alter these pins or the adopted-baseline provenance/checkpoint.
+Historical proposal `1.0.0` remains unchanged as provenance.
 
 ## Preserved Execution Design
 
@@ -111,42 +103,46 @@ Unchanged:
 - deterministic first-complete-row prefix sampling;
 - max 4 data rows/member and 16 total;
 - max 1 HEAD, 4 Range, 5 HTTP requests;
-- existing range/body/transient/logical-record byte caps;
-- no additional range;
+- existing byte caps;
+- no additional Range;
 - no full-body fallback;
 - no automatic widening;
 - `automatic_retry_allowed = false`;
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - parser/projector;
-- trimming/casing/normalization rules;
-- D-008 `WHOLE_SOURCE_STOP` fail-closed control disposition;
-- transient-row memory-only privacy boundary;
-- persisted `control_disposition` fields limited to `status_code` and `reason_code`;
+- trimming/casing/normalization;
+- D-008 `WHOLE_SOURCE_STOP` fail-closed behavior;
+- memory-only transient-row privacy boundary;
+- persisted control-disposition fields limited to `status_code` and `reason_code`;
 - no source-value-bearing control-disposition fields;
 - reviewed derived-summary allowlist only;
 - no row/value persistence or row-specific human inspection.
 
 ## Network / Approval State
 
-This remediation performs no California SCO request and creates no network workflow.
+No California SCO request has been performed by the remediation or re-review.
+
+No network execution workflow exists for this action.
 
 All prior execution/privacy approvals remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No fresh real-source execution or transient-row privacy approval exists yet.
+Fresh single-use real-source execution approval: **NOT GRANTED**.
+
+Fresh transient-row privacy approval: **NOT GRANTED**.
 
 ## Source / Product State
 
 - transport/archive-layout baseline adopted: `true`;
-- real-source proposal rebound to adopted baseline: `true`;
-- proposal contract-preservation remediation: `CI_GREEN_PENDING_HUMAN_RE_REVIEW`;
+- proposal `1.1.0` accepted for fresh authorization: `true`;
 - approved real sources: `0`;
 - source policy: `PROPOSED`;
 - registry: disabled / not approved;
 - semantic compatibility: unresolved;
 - production classification: inactive;
 - real MVP-1 candidate cases: `0`;
+- commercial baseline from real cases: not established;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
 
 ## Canonical Read Order Before Any New Change
@@ -162,49 +158,40 @@ Read in exact order:
 
 Then inspect at least:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW.md`;
-2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_CONTRACT_PRESERVATION_REMEDIATION.md`;
-3. proposal `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`;
-4. schema `schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.v1_1.schema.json`;
-5. historical proposal `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`;
-6. contract test `tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal_v1_1.py`;
-7. `scripts/ca_sco_property_type_semantic_verification.py`.
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REMEDIATION_RE_REVIEW.md`;
+2. proposal `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`;
+3. schema `schemas/common/property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal.v1_1.schema.json`;
+4. contract test `tests/contract/test_ca_sco_property_type_nonconforming_row_handling_policy_v1_2_real_source_execution_proposal_v1_1.py`;
+5. `scripts/ca_sco_property_type_semantic_verification.py`;
+6. historical authorization audit/provenance needed to mint fresh single-use refs without reusing consumed approvals.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION`
 
 Classification:
 
 `A — Product Critical`
 
-This is a minimum repository-only re-review of the remediation delta.
+This is a material human authorization gate.
 
-It must confirm:
+It may grant exactly two fresh single-use references:
 
-- all 12 fields identified by the previous FAIL are restored exactly from historical proposal `1.0.0`;
-- proposal/schema contract validity;
-- adopted length, ETag and canonical offsets remain equal to the active runner;
-- historical proposal remains unchanged as provenance;
-- sample/request/byte caps are unchanged;
-- no automatic widening or retry is introduced;
-- regex/parser/projector/normalization boundaries are unchanged;
-- D-008 fail-closed behavior is unchanged;
-- privacy/persistence allowlists are restored and unchanged;
-- proposal remains non-authorizing;
-- all consumed approvals remain non-reusable;
-- source policy, registry, production classification and downstream gates remain closed.
+1. one bounded real-source semantic execution approval;
+2. one transient-row memory-only privacy approval.
 
-It must not:
+The authorization must remain bound to proposal `1.1.0`, the adopted runner baseline and the existing request/byte/privacy/D-008 limits.
+
+It must not itself:
 
 - perform a California SCO request;
-- create/trigger a network workflow;
-- grant or reuse execution/privacy approvals;
+- create/trigger the network execution workflow;
+- reuse any consumed approval;
 - modify runtime/parser/projector/regex/normalization;
+- widen sample/request/byte/privacy limits;
 - change D-008;
-- activate source policy, registry or production classification;
-- start identity resolution, genealogy, beneficiary matching, outreach or claim submission.
+- activate source policy, registry, production classification or downstream work.
 
-A PASS should move directly to fresh single-use execution + transient-row privacy authorization for exactly one bounded real-source semantic execution. Do not reopen transport diagnostics without new contradictory evidence.
+After explicit authorization, proceed directly to exactly one bounded real-source semantic execution, consume both fresh refs on first network invocation, persist only contract-approved derived evidence, remove the one-shot workflow after execution, then perform evidence review and source decision. Do not reopen transport diagnostics absent contradictory evidence.
