@@ -15,7 +15,7 @@
     "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_BOUNDED_B2AF7877",
     "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_TRANSIENT_ROW_PRIVACY_BOUNDED_B2AF7877"
   ],
-  "approval_state": "GRANTED_NOT_YET_CONSUMED",
+  "approval_state": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -42,7 +42,12 @@
     "endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
     "expected_content_length": 162560390,
     "expected_etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
-    "canonical_member_offsets": [0, 59745428, 96861315, 134172553]
+    "canonical_member_offsets": [
+      0,
+      59745428,
+      96861315,
+      134172553
+    ]
   },
   "authorized_bounds": {
     "head_requests_max": 1,
@@ -62,7 +67,7 @@
     "aggregate_deferred_count_persistence_allowed": true,
     "authority_backed_insurance_codes_persistence_allowed": true
   },
-  "consumed_at_utc": null,
-  "execution_run_id": null,
-  "execution_run_attempt": null
+  "consumed_at_utc": "2026-09-17T15:55:02.347920Z",
+  "execution_run_id": "35243232091",
+  "execution_run_attempt": 1
 }
