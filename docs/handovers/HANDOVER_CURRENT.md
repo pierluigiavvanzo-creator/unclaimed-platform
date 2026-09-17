@@ -10,9 +10,9 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`m3-ca-sco-transport-archive-layout-revalidation-once`
+`m3-ca-sco-transport-archive-layout-baseline-adoption`
 
-Verify remote HEAD and latest CI before any new modification.
+Always verify remote HEAD and latest CI before any new modification.
 
 ## Priority Product Strategy
 
@@ -28,85 +28,37 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 California work is only a critical-path enabler for the first lawful approved real source. Avoid additional diagnostics/governance that do not shorten that path.
+M3 California is only a critical-path enabler for the first lawful approved real source. Avoid additional diagnostics/governance that do not shorten that path.
 
 ## Latest Completed Action
 
 Completed:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW`
+`IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION`
 
 Classification:
 
 `A/B — MVP-1 critical-path enabler`
 
-Review result:
+Human evidence-review basis:
 
 `PASS_CANDIDATE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_EVIDENCE_ACCEPTED_FOR_SEPARATE_ADOPTION_IMPLEMENTATION`
 
-Review audit:
+Review checkpoint:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW.md`
+- HEAD `008c1290b867abcfe30447c9dad326e1676d5570`;
+- CI `35200127505` — **SUCCESS**.
 
-Reviewed base checkpoint:
+Verified adoption checkpoint before closure-state update:
 
-- HEAD: `ac7ced81299d5a563e4c4beeb74858ba28e2b50a`;
-- CI: `35199132893` — **SUCCESS**.
+- HEAD `1eb8f79bac3024c7b69785663e3102a0fe83f8fd`;
+- CI `35208763198` — **SUCCESS**.
 
-The review was repository-only. It performed no California SCO request and no retry.
+Adoption audit:
 
-## Execution Provenance
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION.md`
 
-Successful one-shot structural revalidation:
-
-- run `35198720002`;
-- job `105128028851`;
-- attempt `1`;
-- conclusion **SUCCESS**;
-- rerun not authorized / not performed.
-
-Persisted evidence:
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`
-
-Execution audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EXECUTION.md`
-
-Artifact provenance:
-
-- artifact id `10487072813`;
-- artifact digest `sha256:2ed7f3e620a50f635f3eae7dad5efca80f3dc86d239c728dd12dfd23eda07e65`;
-- evidence SHA-256 `120f5ee2eef859578adb922f15138bab65cb19e7979274ed9360c24b9b071d64`.
-
-## Human-Accepted Candidate Baseline
-
-Candidate transport:
-
-- content length `162560390`;
-- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
-- content type `application/zip`;
-- Accept-Ranges `bytes`;
-- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
-
-Canonical status:
-
-`ALL_CANONICAL_MEMBERS_UNIQUE`
-
-Additional members:
-
-`0`
-
-Candidate canonical local-header offsets:
-
-1. `From_500_To_Beyond_1_of_4.csv` -> `0`;
-2. `From_500_To_Beyond_2_of_4.csv` -> `59745428`;
-3. `From_500_To_Beyond_3_of_4.csv` -> `96861315`;
-4. `From_500_To_Beyond_4_of_4.csv` -> `134172553`.
-
-These values are accepted as sufficient evidence for a separate repository-only adoption implementation, but are not yet adopted.
-
-## Current Runtime Baseline — Still Historical
+## Adopted Runtime Baseline
 
 Semantic runner:
 
@@ -116,49 +68,73 @@ Runtime contract:
 
 `1.2.0`
 
-Current runtime pins remain:
+Adopted transport/archive-layout pins:
 
-- `EXPECTED_LENGTH = 162416884`;
-- `EXPECTED_ETAG = "b25b315b6cd8007624387c3a00d4b1fe"`;
-- offsets `0`, `59747797`, `96862896`, `134174190`.
+- `EXPECTED_LENGTH = 162560390`;
+- `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
+- `From_500_To_Beyond_1_of_4.csv` -> `0`;
+- `From_500_To_Beyond_2_of_4.csv` -> `59745428`;
+- `From_500_To_Beyond_3_of_4.csv` -> `96861315`;
+- `From_500_To_Beyond_4_of_4.csv` -> `134172553`.
 
-Other runtime behavior remains unchanged:
+The adoption regression contract asserts that these values equal the persisted human-reviewed structural revalidation evidence.
 
+## Runtime Behavior Preserved
+
+Unchanged:
+
+- parser/projector;
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- parser/projector unchanged;
-- trimming/casing/normalization unchanged;
-- D-008 `WHOLE_SOURCE_STOP` unchanged.
+- trimming/casing/normalization;
+- D-008 `WHOLE_SOURCE_STOP` semantics;
+- deterministic sample limits;
+- request/byte caps;
+- source policy;
+- registry;
+- production/downstream gates.
 
-## Approval State
+The implementation branch also adjusted existing schema/contract regressions needed to distinguish immutable historical evidence from the new active baseline. No source-access or privacy scope was widened.
 
-Structural execution approval:
+## Network / Approval State
 
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB`
+This baseline-adoption action is repository-only and performed no California SCO request.
 
-Structural-byte privacy approval:
-
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB`
-
-Current state of both:
+Structural revalidation approvals remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Important: the historical authorization JSON still records its pre-execution `GRANTED_NOT_CONSUMED` snapshot. That artifact is provenance only and must never be treated as current/fresh authority after run `35198720002`.
+Historical v1.2 real-source execution/privacy approvals also remain:
 
-No replacement network/privacy approval exists.
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-## Product / Source State
+No fresh real-source execution or transient-row privacy approval currently exists.
 
-- approved real sources: `0`;
-- candidate transport/archive-layout baseline established: `true`;
+## Source / Product State
+
+- transport/archive-layout candidate established: `true`;
 - human evidence review accepted: `true`;
-- candidate baseline adopted: `false`;
+- transport/archive-layout baseline adopted: `true`;
+- approved real sources: `0`;
 - source policy: `PROPOSED`;
 - registry: disabled / not approved;
 - semantic compatibility: unresolved;
 - production classification: inactive;
 - real MVP-1 candidate cases: `0`;
 - identity resolution, genealogy, beneficiary matching, outreach and claim submission remain BLOCKED.
+
+## Why the historical v1.2 execution proposal needs a minimal refresh
+
+Historical proposal:
+
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`
+
+It still binds its sample plan to historical canonical offsets:
+
+`0`, `59747797`, `96862896`, `134174190`.
+
+Therefore it must not be reused unchanged for a fresh execution after baseline adoption.
+
+The existing execution design itself remains the preferred path and should be reused: same four canonical members, same deterministic prefix sample, same D-008 mapping, same privacy constraints, same request/byte caps, same no-widening/no-retry behavior. Only stale baseline/provenance binding and strictly dependent assertions need refresh.
 
 ## Canonical Read Order Before Any New Change
 
@@ -173,47 +149,44 @@ Read in exact order:
 
 Then inspect at least:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW.md`;
-2. `sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`;
-3. `tests/contract/test_ca_sco_property_type_transport_archive_layout_revalidation_execution.py`;
-4. `scripts/ca_sco_property_type_semantic_verification.py`.
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION.md`;
+2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_EVIDENCE_REVIEW.md`;
+3. `sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json`;
+4. `scripts/ca_sco_property_type_semantic_verification.py`;
+5. `sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json`;
+6. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL.md`;
+7. its proposal schema/contract test as needed.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION`
+`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
 
 Classification:
 
-`A/B — MVP-1 critical-path enabler`
+`A — Product Critical`
 
 This next action is repository-only.
 
-It may:
+It must:
 
-- set `EXPECTED_LENGTH = 162560390`;
-- set `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
-- set canonical member offsets to `0`, `59745428`, `96861315`, `134172553`;
-- update regression/contract tests strictly as required;
-- run full CI and smoke tests;
-- update state/roadmap/handover after green verification.
+- reuse the existing v1.2 real-source execution proposal design;
+- bind the proposal to the adopted baseline and current CI-green runner;
+- replace the stale canonical offsets in the proposal with `0`, `59745428`, `96861315`, `134172553`;
+- update provenance/base checkpoint and strictly dependent schema/contract assertions only where necessary;
+- preserve the same deterministic sample, request/byte caps, privacy boundary, D-008 behavior and no-retry/no-widening rules;
+- validate in CI.
 
 It must not:
 
 - perform any California SCO request;
+- create/trigger a network workflow;
+- grant execution/privacy approvals;
 - reuse consumed approvals;
 - change parser/projector/regex/trimming/casing/normalization;
 - change D-008 semantics;
 - activate source policy, registry or production classification;
 - start identity resolution, genealogy, beneficiary matching, outreach or claim submission.
 
-After CI-green baseline adoption, return immediately to the shortest safe path toward a freshly authorized real-source semantic verification and then one approved real source.
-
-## Restart Instruction
-
-1. verify remote HEAD and latest CI;
-2. read the six canonical files;
-3. inspect the evidence-review audit and persisted candidate evidence;
-4. execute only `IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION`;
-5. perform no source/network request.
+After the refreshed proposal is CI-green, proceed through the minimum required human review and fresh single-use authorization to exactly one bounded real-source semantic execution. Do not reopen transport diagnostics without new contradictory evidence.

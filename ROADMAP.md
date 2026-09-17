@@ -7,7 +7,7 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | CANDIDATE BASELINE EVIDENCE HUMAN-REVIEWED PASS; ADOPTION IMPLEMENTATION NEXT | bounded classic-ZIP revalidation succeeded; evidence accepted; runtime pins not yet changed |
+| M3 — California Data Spike | REVIEWED TRANSPORT/ARCHIVE BASELINE ADOPTED; REAL SEMANTIC PROPOSAL REFRESH NEXT | current content length, ETag and canonical offsets adopted in runner; CI green; no source request during adoption |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 | MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
 
@@ -19,59 +19,48 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Additional diagnostics, governance or infrastructure that do not shorten that path are deprioritized.
+M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Do not return to transport diagnostics unless new evidence invalidates the adopted baseline.
 
 ## Verified M3 State
 
 - D-008 `WHOLE_SOURCE_STOP` remains unchanged;
 - semantic runner contract remains `1.2.0`;
-- one-shot structural revalidation run `35198720002` completed **SUCCESS** on attempt `1`;
-- candidate transport/archive-layout baseline was established from bounded classic-ZIP metadata;
-- both structural execution/privacy approvals are consumed and non-reusable;
-- persisted candidate evidence passed schema/contract validation;
-- human evidence review accepted the candidate evidence as sufficient for a later separate repository-only adoption implementation;
-- no candidate value is yet adopted;
+- structural revalidation run `35198720002` completed **SUCCESS** on attempt `1`;
+- candidate transport/archive-layout evidence was human-reviewed and accepted;
+- reviewed baseline is now explicitly adopted in the semantic runner;
+- implementation CI `35208763198` is **SUCCESS** on checkpoint `1eb8f79bac3024c7b69785663e3102a0fe83f8fd`;
+- no California SCO request occurred during baseline adoption;
+- all previous execution/privacy approvals remain consumed and non-reusable;
 - semantic compatibility remains unresolved.
 
-## Reviewed Candidate Baseline
+## Adopted Baseline
 
-Candidate transport:
+Runtime transport/archive-layout pins:
 
 - content length `162560390`;
 - ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
-- media type `application/zip`;
-- Accept-Ranges `bytes`;
-- Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
+- canonical offsets `0`, `59745428`, `96861315`, `134172553`.
 
-Canonical members:
+Contract regression verifies equality between these runtime pins and the persisted human-reviewed structural evidence.
 
-- all four present exactly once;
-- additional member count `0`;
-- offsets `0`, `59745428`, `96861315`, `134172553`.
+## Preserved Runtime Boundary
 
-Human review result:
+Unchanged:
 
-`PASS_CANDIDATE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_EVIDENCE_ACCEPTED_FOR_SEPARATE_ADOPTION_IMPLEMENTATION`
-
-## Adoption Boundary
-
-Current semantic-runner pins remain historical:
-
-- length `162416884`;
-- ETag `"b25b315b6cd8007624387c3a00d4b1fe"`;
-- offsets `0`, `59747797`, `96862896`, `134174190`.
-
-Candidate baseline adopted: `false`.
-
-The next repository-only implementation may update only those reviewed transport/layout pins. Parser/projector/regex/normalization and D-008 remain unchanged.
+- parser/projector;
+- regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
+- trimming/casing/normalization;
+- D-008 fail-closed mapping;
+- sample and request/byte caps;
+- source policy / registry / production gates.
 
 ## Approval State
 
-The two structural revalidation approvals are:
+All prior real-source and structural-revalidation execution/privacy approvals are:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-The pre-execution authorization artifact is historical provenance only and must not be treated as fresh authority. No network retry is authorized.
+A future real semantic verification requires fresh single-use execution and transient-row privacy authorization after the execution proposal is rebound to the adopted baseline.
 
 ## MVP-1 Commercial Baseline To Establish
 
@@ -94,12 +83,12 @@ No commercial threshold is invented in advance.
 
 Execute exclusively:
 
-`IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION`
+`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
 
 Classification:
 
-`A/B — MVP-1 critical-path enabler`
+`A — Product Critical`
 
-This action is repository-only. Update the reviewed content length, ETag and four canonical member offsets, add/update regression coverage as needed, run full CI/smoke, and perform no California SCO network request. Do not alter parser/projector/regex/normalization, D-008, source policy, registry or downstream gates.
+Reuse the existing v1.2 execution proposal rather than creating a new execution design. Update only its stale canonical offsets/baseline provenance and any strictly dependent contract assertions. Preserve sample plan, privacy controls, D-008, hard caps and no-retry boundary. This refresh is repository-only and must perform no California SCO request or grant fresh approvals.
 
-After the baseline adoption is CI-green, return immediately to the shortest safe path to one approved real source and then the MVP-1 vertical slice.
+After the refreshed proposal is validated, take the shortest safe route through human review + fresh authorization to exactly one bounded real-source semantic execution, then evaluate source approval rather than expanding infrastructure.
