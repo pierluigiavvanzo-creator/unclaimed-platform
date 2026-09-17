@@ -7,61 +7,43 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | LIVE TRANSPORT CONFIRMED; SEMANTIC EXECUTION STOPPED FAIL-CLOSED; EVIDENCE REVIEW NEXT | one authorized bounded run reached `PROPERTY_TYPE_FORMAT_UNEXPECTED`; D-008 applied correctly |
+| M3 — California Data Spike | AUTHORITY SEMANTICS RESOLVED; D-010 ROW-DEFER IMPLEMENTED OFFLINE; LIVE VALIDATION NEXT | exact CA insurance vocabulary + row-defer continuation tests |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — ONE LIVE ROW-DEFER VALIDATION FROM SOURCE DECISION | CA `IN03` is first high-precision target |
 
 ## Product Priority
 
-Priority strategy source: `PRODUCT_STRATEGY_MVP1.md`
+`MVP-1 — First Economically Actionable Case`
 
 Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 remains only the minimum critical-path enabler to one approved real source. No further transport diagnostics are justified by the latest execution.
+## Critical-path state
 
-## Verified M3 State
+Resolved:
 
-- D-008 `WHOLE_SOURCE_STOP` unchanged and now exercised on live source data;
-- runtime contract `1.2.0` unchanged;
-- proposal `1.1.0` remains the frozen reviewed boundary;
-- adopted transport baseline was confirmed live: length `162560390`, ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
-- one-shot real execution run `35227857742` completed **SUCCESS**, attempt `1`;
-- actual request use: 1 HEAD + 1 Range, 2 HTTP total, 131072 body bytes;
-- result: `STOPPED_FAIL_CLOSED / PROPERTY_TYPE_FORMAT_UNEXPECTED`;
-- control disposition: `PROPERTY_TYPE_NONCONFORMING_STOPPED / PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`;
-- temporary workflow and trigger removed;
-- fresh execution/privacy refs consumed and non-reusable;
-- privacy/safety boundary preserved;
-- semantic compatibility remains unresolved positively;
-- approved real sources remain `0`.
+- live transport/archive baseline;
+- parser/projector field agreement;
+- California authority provenance;
+- exact California insurance vocabulary `IN01-IN08`, `IN99`;
+- product rule that `IN03 = Proceeds Due Beneficiaries` is the first narrow MVP-1 target;
+- deterministic metadata-only row defer for nonconforming/unknown insurance tokens;
+- continuation after deferred rows in the product validator;
+- no normalization, source-value persistence or silent omission.
 
-## Active Product Blocker
-
-The current blocker is no longer transport/archive layout.
-
-It is compatibility between live `PROPERTY_TYPE` source content and the unchanged strict validation boundary:
-
-`^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
-
-The execution intentionally persisted no source value, row, hash or exact value length. Therefore no source semantics should be invented from the stop alone.
+D-010 supersedes D-008 whole-source continuation behavior only for this MVP-1 classification path. Transport/header/CSV-column/hard-cap failures remain fail-closed.
 
 ## Next Product Work
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
+`HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION`
 
-Classification:
+Classification: `A — Product Critical`.
 
-`A — Product Critical`
+After fresh single-use execution + transient-row privacy authorization:
 
-The evidence review should choose the shortest safe commercial path:
+`one bounded live D-010 validation -> source decision -> bounded CA insurance activation -> candidate -> economics -> reviewer`
 
-- if authoritative source semantics can resolve compatibility without unsupported inference, define the smallest separately reviewed remediation;
-- otherwise reject/defer this source for MVP-1 and move to another lawful source.
-
-Do not retry the consumed execution, widen regex/parser/normalization, or reopen transport work without new evidence.
-
-After the first real source is approved, immediately switch priority to the MVP-1 vertical slice and commercial measurements.
+No additional generic PROPERTY_TYPE or transport diagnostics are on the critical path.
