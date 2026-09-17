@@ -24,51 +24,40 @@ M0, M1 and M2 are VERIFIED.
 
 Current branch:
 
-`m3-ca-sco-transport-archive-layout-baseline-adoption`
+`m3-ca-sco-v1-2-real-source-proposal-adopted-baseline-refresh`
 
 Completed action:
 
-`IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION`
+`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
 
-Human evidence-review checkpoint:
+Authoritative adopted-baseline base:
 
-`008c1290b867abcfe30447c9dad326e1676d5570`
+- HEAD `6188806e58ac87ccde7b8d6d20dcb2bbbec67c28`;
+- CI `35210199280` — **SUCCESS**.
 
-Human evidence-review CI:
+Refresh audit:
 
-`35200127505` — **SUCCESS**
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ADOPTED_BASELINE_REFRESH.md`
 
-Verified implementation checkpoint before closure-state update:
+Refreshed proposal:
 
-`1eb8f79bac3024c7b69785663e3102a0fe83f8fd`
+`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`
 
-Implementation CI:
-
-`35208763198` — **SUCCESS**
-
-Adoption audit:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION.md`
+The historical v1.0.0 proposal remains preserved unchanged as provenance.
 
 ## Adopted Transport / Archive-Layout Baseline
 
-The semantic runner now uses the human-reviewed current structural evidence:
+Semantic runner active pins remain:
 
 - `EXPECTED_LENGTH = 162560390`;
 - `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
-- offsets `0`, `59745428`, `96861315`, `134172553` for the four canonical members.
+- offsets `0`, `59745428`, `96861315`, `134172553`.
 
-Candidate replacement baseline established: `true`.
-
-Human evidence review accepted: `true`.
-
-Candidate baseline adopted: `true`.
-
-Contract regression verifies that the adopted runtime pins equal the persisted structural revalidation evidence.
+The refreshed proposal is bound to exactly these values and the contract regression compares them directly with the runner.
 
 ## Runtime / D-008 State
 
-Unchanged except for the explicit reviewed transport/archive-layout pin adoption:
+Unchanged:
 
 - semantic runner `scripts/ca_sco_property_type_semantic_verification.py`;
 - runtime contract `1.2.0`;
@@ -76,53 +65,43 @@ Unchanged except for the explicit reviewed transport/archive-layout pin adoption
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$` unchanged;
 - trimming/casing/normalization unchanged;
 - D-008 `WHOLE_SOURCE_STOP` unchanged;
-- request/byte caps unchanged.
+- sample/request/byte caps unchanged;
+- no automatic retry/widening.
 
 ## Authorization / Privacy State
 
-Structural revalidation execution approval:
-
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB`
-
-Structural-byte privacy approval:
-
-`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB`
-
-Current state of both:
+All historical and structural-revalidation execution/privacy approvals remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Historical v1.2 real-source execution/privacy approvals are also consumed and non-reusable.
+The refreshed proposal grants no replacement approval.
 
-This adoption action performs no source/network request and grants no replacement approval.
+Fresh single-use execution and transient-row privacy approvals remain required before any future real-source semantic execution.
 
 ## Product / Commercial State
 
 - approved real sources: `0`;
 - transport/archive-layout baseline adopted: `true`;
+- semantic execution proposal rebound to adopted baseline: `true`;
+- proposal human review after refresh: `false`;
+- fresh execution/privacy authorization: `false`;
 - semantic compatibility resolved: `false`;
 - source policy: `PROPOSED`;
 - registry: disabled / not approved;
 - production classification active: `false`;
 - real MVP-1 candidate cases: `0`;
-- identity resolution: BLOCKED;
-- genealogy: BLOCKED;
-- beneficiary matching: BLOCKED;
-- outreach: BLOCKED;
-- claim submission: BLOCKED.
-
-The transport/archive-layout runtime blocker is closed. The next useful product move is to rebind the existing bounded v1.2 real-source execution proposal to the adopted baseline and proceed toward fresh single-use authorization and one real semantic verification.
+- identity resolution, genealogy, beneficiary matching, outreach and claim submission: BLOCKED.
 
 ## Next Recommended Action
 
 Execute exclusively:
 
-`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-This action is repository-only. Reuse the existing v1.2 proposal design and update only the stale baseline/provenance binding required by the adopted pins. Perform no California SCO request, grant no approval, create no network workflow, and do not change parser/projector/regex/normalization, D-008, source policy, registry or downstream gates.
+This next action is repository-only. Review whether proposal version `1.1.0` faithfully preserves the previously accepted v1.2 execution design while rebinding only transport/archive-layout provenance to the adopted baseline. It must not access California SCO, grant/reuse approvals, create a network workflow, modify runtime/parser/regex/normalization/D-008, or activate source/downstream gates.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
