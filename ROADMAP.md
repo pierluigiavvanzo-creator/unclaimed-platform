@@ -7,7 +7,7 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | ADOPTED BASELINE; PROPOSAL CONTRACT REMEDIATED; HUMAN RE-REVIEW NEXT | omitted reviewed fields restored; CI green; runtime baseline unchanged |
+| M3 — California Data Spike | ADOPTED BASELINE; REMEDIATED PROPOSAL REVIEW PASS; FRESH AUTHORIZATION NEXT | proposal accepted as bounded execution boundary; no source access yet |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 | MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
 
@@ -19,69 +19,50 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Do not reopen transport diagnostics without new contradictory evidence.
+M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Do not reopen transport diagnostics or add governance/infrastructure work without new evidence that it blocks an A-risk or MVP-1 exit criterion.
 
 ## Verified M3 State
 
-- D-008 `WHOLE_SOURCE_STOP` remains unchanged;
-- semantic runner contract remains `1.2.0`;
-- adopted transport/archive-layout baseline remains active and valid;
-- active pins remain length `162560390`, ETag `"222dd79f04c2a0a8fff166b01c8da746"`, offsets `0`, `59745428`, `96861315`, `134172553`;
-- historical proposal `1.0.0` remains preserved as provenance;
-- proposal `1.1.0` remains bound to the adopted baseline;
-- previous refresh review result was `FAIL_MINIMAL_REMEDIATION_REQUIRED`;
-- contract-preservation remediation checkpoint `509567fb250386e266faf96e3d9acef04631f724`, CI `35220182596` — **SUCCESS**;
-- all reviewed fields identified by that FAIL are restored in proposal/schema/test;
-- all previous execution/privacy approvals remain consumed and non-reusable;
-- no fresh execution/privacy approval exists;
-- semantic compatibility remains unresolved;
-- approved real sources remain `0`.
+- D-008 `WHOLE_SOURCE_STOP` unchanged;
+- semantic runner contract `1.2.0` unchanged;
+- adopted transport/archive-layout baseline active and valid;
+- active pins: length `162560390`, ETag `"222dd79f04c2a0a8fff166b01c8da746"`, offsets `0`, `59745428`, `96861315`, `134172553`;
+- historical proposal `1.0.0` preserved as provenance;
+- proposal `1.1.0` bound to the adopted baseline;
+- prior review defect remediated;
+- remediated proposal re-review result: `PASS_REMEDIATED_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ACCEPTED_FOR_FRESH_SINGLE_USE_AUTHORIZATION`;
+- review checkpoint `ed6a22a3ed5c727b3b4dd7f14416bb06acab2903`, CI `35220411955` — **SUCCESS**;
+- all prior execution/privacy approvals consumed and non-reusable;
+- no fresh execution/privacy approval yet;
+- semantic compatibility unresolved;
+- approved real sources `0`.
 
-## Restored Contract Boundary
-
-The remediation restores exactly the historical reviewed fields required by the prior review, including:
-
-- approval provenance references;
-- execution-question text and sample-bias note;
-- official insurance-code vocabulary;
-- v1.2 outcome null/default constraints;
-- privacy/persistence allowlists and derived-summary boundary;
-- top-level acceptance criteria.
-
-The contract test now compares these restored fields with proposal `1.0.0` and rejects removal of the privacy allowlist or acceptance contract.
-
-## Preserved Runtime Boundary
+## Preserved Boundary
 
 Unchanged:
 
-- parser/projector;
-- regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
-- trimming/casing/normalization;
-- D-008 fail-closed mapping;
 - deterministic four-member prefix sample;
 - request/byte caps;
-- no widening;
-- `automatic_retry_allowed = false`;
+- no widening or automatic retry;
+- regex/parser/projector/normalization;
+- D-008 fail-closed mapping;
+- privacy/persistence allowlists;
 - source policy / registry / production gates.
-
-## Approval State
-
-All prior real-source and structural-revalidation execution/privacy approvals are:
-
-`CONSUMED_SINGLE_USE_NON_REUSABLE`
-
-Fresh single-use execution and transient-row privacy authorization remain blocked until the remediated proposal passes human re-review.
 
 ## Next Product Work
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_AUTHORIZATION`
 
 Classification:
 
 `A — Product Critical`
 
-Re-review only the remediation delta and confirm that all previously omitted reviewed fields are restored while baseline, runtime, D-008, privacy scope, no-retry/no-widening and non-authorizing state remain unchanged.
+This is a material human authorization gate. Granting it should create fresh single-use execution and transient-row privacy approval references for exactly one bounded semantic verification, without performing the source request in the authorization action itself.
 
-After a PASS, move directly to fresh single-use execution + transient-row privacy authorization and exactly one bounded real-source semantic execution, rather than expanding infrastructure.
+After explicit authorization, move directly to:
+
+`one bounded real-source semantic execution -> evidence review -> source decision -> if approved, MVP-1 vertical slice`
+
+Avoid further diagnostics or infrastructure expansion unless contradictory evidence makes them necessary.
