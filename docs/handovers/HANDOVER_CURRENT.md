@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-osc-request-link-authorization`
+`mvp1-ny-osc-request-submitted`
 
 Always verify remote HEAD and latest CI before any new modification.
 
@@ -86,31 +86,33 @@ Gate:
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
-Product Owner authorization received on 2026-09-17:
+Approval ref:
 
-`APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
+`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
 
 Machine evidence:
 
 `sources/evidence/ny_osc_owner_name_file_request_link_authorization.v1.json`
 
-Approval ref:
-
-`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
-
 Current approval state:
 
-`GRANTED_SINGLE_USE_NOT_CONSUMED_PENDING_REQUESTER_CONTACT_DATA`
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
 Single-use: yes. Reusable: no. Retry authorized: no.
 
-### Gate 1 authorized scope
+### Submission evidence
 
-May perform exactly one official OSC Owner Name File request submission for the purpose of receiving access instructions / secure FTP link information.
+On 2026-09-17 the Product Owner explicitly confirmed in chat that the official OSC Owner Name File request form had been manually submitted once.
 
-May disclose the requester contact data only when those values are explicitly supplied for this request.
+This repository records that Product Owner attestation. The external submission was not independently verified by repository tooling, and the exact external submit timestamp is not independently known.
 
-Gate 1 does NOT authorize:
+Requester contact values are intentionally not persisted in GitHub.
+
+### Gate 1 scope after consumption
+
+Gate 1 is exhausted and cannot be reused. It does not authorize any additional request submission or retry.
+
+Gate 1 never authorized and still does not authorize:
 
 - Owner Name File download;
 - processing of owner name/address or other real owner PII;
@@ -123,26 +125,18 @@ Gate 1 does NOT authorize:
 - fee agreement;
 - claim activity.
 
-Do not mark the approval consumed until the request has actually been submitted.
-
-## Current External Form Facts
-
-Official form:
-
-`https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form`
-
-The form currently requires exactly these requester contact values:
-
-- Name;
-- Company;
-- Phone number;
-- Email address.
+## External Dependency — OSC Access Instructions
 
 OSC states that after receiving the request it will email a secure FTP link and instructions for downloading a zipped delimited `.txt` file.
 
-The authorization message did not supply the four requester contact values. They must not be inferred from memory, Git metadata, account profile, prior conversations or other sources; obtain them explicitly from the Product Owner for this external disclosure.
+Current state:
 
-No OSC form has been submitted yet. The Gate 1 approval remains unconsumed.
+- request submitted: yes, Product Owner confirmed;
+- access instructions received: no;
+- Owner Name File downloaded: no;
+- real owner PII processed: no.
+
+No polling or retry is authorized by the consumed Gate 1 approval.
 
 ## Gate 2 — Later Bounded First Download
 
@@ -156,10 +150,10 @@ State:
 
 Before requesting Gate 2:
 
-1. submit the authorized Gate 1 request;
-2. receive access instructions;
-3. determine observable download constraints without processing owner-file contents;
-4. define explicit `max_download_bytes`.
+1. receive OSC access instructions;
+2. determine observable access/download constraints without processing Owner Name File contents;
+3. define explicit `max_download_bytes`;
+4. prepare a separately reviewed bounded first-download/transient-PII proposal.
 
 No default byte cap may be invented.
 
@@ -171,8 +165,8 @@ When later separately authorized, Gate 2 may cover exactly one bounded download 
 - California source: `HELD`;
 - CA `PROPERTY_TYPE` discovery: `FROZEN FOR MVP-1`;
 - NY OSC Owner Name File: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
-- NY Gate 1: `GRANTED / NOT CONSUMED`;
-- NY request submitted: no;
+- NY Gate 1: `CONSUMED / NON-REUSABLE`;
+- NY request submitted: yes, Product Owner confirmed manual submission;
 - NY access instructions obtained: no;
 - NY real owner PII processed: no;
 - NY Gate 2: not granted;
@@ -183,17 +177,10 @@ When later separately authorized, Gate 2 may cover exactly one bounded download 
 
 Execute exclusively:
 
-`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
-Classification: `A — Product Critical / Human Input Dependency`.
+Classification: `A — Product Critical / External Dependency`.
 
-Required explicit Product Owner inputs:
+When the OSC email/access instructions arrive, provide or expose only the access instructions needed to determine non-content download constraints. Do not download or inspect the Owner Name File and do not process owner PII under the consumed Gate 1 approval.
 
-1. Name
-2. Company
-3. Phone number
-4. Email address
-
-After all four values are supplied, use Gate 1 approval ref `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71` for exactly one official request submission if an execution-capable browser/form surface is available. If the current chat surface cannot perform form submission, provide the official form and exact values to enter rather than claiming submission occurred.
-
-After actual submission, mark Gate 1 consumed and update canonical state. Do not download the Owner Name File under Gate 1.
+After those non-content constraints are known, prepare the separate Gate 2 bounded first-download/transient-PII authorization proposal with an explicit `max_download_bytes`.
