@@ -24,6 +24,11 @@ PROPOSAL_PATH = (
     "ca_sco_segment_500_plus."
     "property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1.json"
 )
+EVIDENCE_PATH = (
+    ROOT
+    / "sources/evidence/"
+    "ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json"
+)
 RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 V1_2_SCHEMA_PATH = (
     ROOT / "schemas/common/property_type_semantic_verification_execution.v1_2.schema.json"
@@ -63,6 +68,8 @@ def test_proposal_validates_and_is_non_authorizing() -> None:
     proposal = _load(PROPOSAL_PATH)
     _validator().validate(proposal)
 
+    assert proposal["proposal_version"] == "1.1.0"
+    assert proposal["prepared_on"] == "2026-09-17"
     assert proposal["proposal_status"] == "PROPOSAL_ONLY_NOT_AUTHORIZED"
     fresh = proposal["fresh_authorization_requirements"]
     preparation = proposal["preparation_state"]
@@ -79,17 +86,32 @@ def test_proposal_validates_and_is_non_authorizing() -> None:
     assert not WORKFLOW_PATH.exists()
 
 
-def test_base_is_pinned_to_human_reviewed_v1_2_checkpoint() -> None:
+def test_base_is_pinned_to_ci_green_adopted_baseline_checkpoint() -> None:
     proposal = _load(PROPOSAL_PATH)
     base = proposal["base_state"]
     assert isinstance(base, dict)
 
-    assert base["branch"] == (
-        "m3-ca-sco-property-type-nonconforming-row-handling-policy-"
-        "v1-2-implementation-review"
+    assert base["branch"] == "m3-ca-sco-transport-archive-layout-baseline-adoption"
+    assert base["head_sha"] == "6188806e58ac87ccde7b8d6d20dcb2bbbec67c28"
+    assert base["head_ci_run"] == "35210199280"
+    assert base["implementation_review_result"] == (
+        "PASS_V1_2_IMPLEMENTATION_ACCEPTED_AS_CONFORMING_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED"
     )
-    assert base["head_sha"] == "7b6397f0e89d8ee1640be2eea4f8651f6b74478c"
-    assert base["head_ci_run"] == "35105522139"
+    assert base["baseline_adoption_action"] == (
+        "IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION"
+    )
+    assert base["baseline_adoption_audit"] == (
+        "docs/audits/"
+        "M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION.md"
+    )
+    assert base["baseline_evidence_review_result"] == (
+        "PASS_CANDIDATE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_EVIDENCE_"
+        "ACCEPTED_FOR_SEPARATE_ADOPTION_IMPLEMENTATION"
+    )
+    assert base["baseline_evidence_path"] == (
+        "sources/evidence/"
+        "ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json"
+    )
     assert base["decision_record"] == "D-008"
     assert base["accepted_design_policy"] == "WHOLE_SOURCE_STOP"
     assert base["accepted_implementation_strategy"] == (
@@ -105,6 +127,28 @@ def test_base_is_pinned_to_human_reviewed_v1_2_checkpoint() -> None:
     assert RUNNER.PROPERTY_TYPE_RE.pattern == EXPECTED_REGEX
 
 
+def test_proposal_offsets_match_adopted_runner_and_reviewed_evidence() -> None:
+    proposal = _load(PROPOSAL_PATH)
+    evidence = _load(EVIDENCE_PATH)
+    sample = proposal["sample_plan"]
+    assert isinstance(sample, dict)
+
+    proposed_offsets = {
+        item["name"]: item["local_header_offset"]
+        for item in sample["canonical_members"]
+    }
+    runner_offsets = {
+        member.name: member.local_header_offset for member in RUNNER.CANONICAL_MEMBERS
+    }
+    evidence_offsets = evidence["CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS"]
+
+    assert proposed_offsets == runner_offsets == evidence_offsets
+    assert RUNNER.EXPECTED_LENGTH == evidence["OBSERVED_CONTENT_LENGTH"] == 162560390
+    assert RUNNER.EXPECTED_ETAG == evidence["OBSERVED_ETAG"] == (
+        '"222dd79f04c2a0a8fff166b01c8da746"'
+    )
+
+
 def test_all_prior_approvals_are_consumed_and_fresh_refs_are_required() -> None:
     proposal = _load(PROPOSAL_PATH)
     historical = proposal["historical_authorization_state"]
@@ -115,7 +159,15 @@ def test_all_prior_approvals_are_consumed_and_fresh_refs_are_required() -> None:
     assert historical["all_prior_execution_approvals_consumed"] is True
     assert historical["all_prior_privacy_approvals_consumed"] is True
     assert historical["approvals_reusable"] is False
-    assert len(historical["consumed_approval_refs"]) == 4
+    assert len(historical["consumed_approval_refs"]) == 8
+    assert (
+        "OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884"
+        in historical["consumed_approval_refs"]
+    )
+    assert (
+        "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB"
+        in historical["consumed_approval_refs"]
+    )
     assert fresh["execution_approval_ref"] is None
     assert fresh["transient_row_privacy_approval_ref"] is None
 
@@ -273,6 +325,10 @@ def test_schema_rejects_authorization_widening_privacy_widening_or_result_precom
     result = copy.deepcopy(proposal)
     result["execution_question"]["specific_real_source_outcome_precommitted"] = True
     invalid_cases.append(result)
+
+    stale_offset = copy.deepcopy(proposal)
+    stale_offset["sample_plan"]["canonical_members"][1]["local_header_offset"] = 59747797
+    invalid_cases.append(stale_offset)
 
     for invalid in invalid_cases:
         with pytest.raises(ValidationError):

@@ -1,17 +1,21 @@
 {
   "schema_version": "1.0.0",
   "proposal_id": "ca.sco.segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution",
-  "proposal_version": "1.0.0",
+  "proposal_version": "1.1.0",
   "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
-  "prepared_on": "2026-09-16",
+  "prepared_on": "2026-09-17",
   "jurisdiction": "CA",
   "source_id": "ca.sco.unclaimed_property.bulk",
   "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
   "base_state": {
-    "branch": "m3-ca-sco-property-type-nonconforming-row-handling-policy-v1-2-implementation-review",
-    "head_sha": "7b6397f0e89d8ee1640be2eea4f8651f6b74478c",
-    "head_ci_run": "35105522139",
+    "branch": "m3-ca-sco-transport-archive-layout-baseline-adoption",
+    "head_sha": "6188806e58ac87ccde7b8d6d20dcb2bbbec67c28",
+    "head_ci_run": "35210199280",
     "implementation_review_result": "PASS_V1_2_IMPLEMENTATION_ACCEPTED_AS_CONFORMING_REAL_SOURCE_EXECUTION_NOT_AUTHORIZED",
+    "baseline_adoption_action": "IMPLEMENT_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION",
+    "baseline_adoption_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_ADOPTION.md",
+    "baseline_evidence_review_result": "PASS_CANDIDATE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_EVIDENCE_ACCEPTED_FOR_SEPARATE_ADOPTION_IMPLEMENTATION",
+    "baseline_evidence_path": "sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation.execution.v1.json",
     "decision_record": "D-008",
     "accepted_design_policy": "WHOLE_SOURCE_STOP",
     "accepted_implementation_strategy": "ADDITIVE_VERSIONED_CONTROL_DISPOSITION",
@@ -27,7 +31,11 @@
       "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED",
       "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED",
       "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED",
-      "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED"
+      "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED",
+      "OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884",
+      "OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884",
+      "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB",
+      "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB"
     ],
     "historical_v1_1_evidence_preserved": true,
     "semantic_compatibility_resolved": false
@@ -57,9 +65,9 @@
     "canonical_member_count": 4,
     "canonical_members": [
       {"name": "From_500_To_Beyond_1_of_4.csv", "local_header_offset": 0},
-      {"name": "From_500_To_Beyond_2_of_4.csv", "local_header_offset": 59747797},
-      {"name": "From_500_To_Beyond_3_of_4.csv", "local_header_offset": 96862896},
-      {"name": "From_500_To_Beyond_4_of_4.csv", "local_header_offset": 134174190}
+      {"name": "From_500_To_Beyond_2_of_4.csv", "local_header_offset": 59745428},
+      {"name": "From_500_To_Beyond_3_of_4.csv", "local_header_offset": 96861315},
+      {"name": "From_500_To_Beyond_4_of_4.csv", "local_header_offset": 134172553}
     ],
     "data_rows_max_per_member": 4,
     "data_rows_max_total": 16,
@@ -174,7 +182,8 @@
   },
   "acceptance_criteria": [
     "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
-    "BASE_PINNED_TO_CI_GREEN_HUMAN_REVIEWED_V1_2_CHECKPOINT",
+    "BASE_PINNED_TO_CI_GREEN_ADOPTED_TRANSPORT_ARCHIVE_BASELINE_CHECKPOINT",
+    "CANONICAL_MEMBER_OFFSETS_MATCH_ADOPTED_RUNTIME_BASELINE",
     "FRESH_EXECUTION_AND_PRIVACY_APPROVALS_REQUIRED_AND_NOT_GRANTED",
     "ALL_PRIOR_APPROVALS_REMAIN_CONSUMED_AND_NON_REUSABLE",
     "RUNNER_AND_V1_2_EXECUTION_SCHEMA_REMAIN_UNMODIFIED",
