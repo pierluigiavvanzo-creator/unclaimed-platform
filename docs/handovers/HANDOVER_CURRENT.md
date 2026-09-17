@@ -75,41 +75,19 @@ Current facts:
 
 Therefore M3 California work is retained only as a critical-path enabler to obtain the first approved real source.
 
-## Completed M3 Action
+## Completed M3 Evidence Review
 
 Completed:
 
 `HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW`
 
-Human review result:
+Review result:
 
 `PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED`
-
-Review artifact:
-
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
-
-## Reviewed Execution Evidence
 
 One-shot execution run:
 
 `35123686954` — **SUCCESS**, attempt `1`
-
-Real execution trigger checkpoint:
-
-`c32df1725390de8784e9bb2f29bea8b4f933abac`
-
-Cleanup/evidence checkpoint:
-
-`448e209d7c8afaec4e0f4b6efc1e5598803d87e5`
-
-Cleanup/evidence CI:
-
-`35124024271` — **SUCCESS**
-
-Persisted evidence:
-
-`sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
 
 Machine result:
 
@@ -122,21 +100,19 @@ Actual usage:
 
 - HEAD requests: `1`;
 - Range requests: `0`;
-- HTTP requests total: `1`;
 - source body bytes read: `0`;
-- rows examined: `0`;
-- distinct `PROPERTY_TYPE` codes observed: none.
+- rows examined: `0`.
 
 ## Transport / Archive-Layout Blocker
 
-Pinned expected transport identity:
+Historical pinned transport identity:
 
 - content length: `162416884`;
 - ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
 - media type: `application/zip`;
 - Accept-Ranges: `bytes`.
 
-Observed live HEAD metadata from the consumed one-shot execution:
+Observed live HEAD during the consumed one-shot execution:
 
 - HTTP status: `200`;
 - content length: `162560390`;
@@ -145,14 +121,50 @@ Observed live HEAD metadata from the consumed one-shot execution:
 - Accept-Ranges: `bytes`;
 - Last-Modified: `Wed, 16 Sep 2026 16:43:22 GMT`.
 
-The runner/sample plan also pins four ZIP local-header offsets:
+Historical pinned local-header offsets:
 
 1. `From_500_To_Beyond_1_of_4.csv` — `0`;
 2. `From_500_To_Beyond_2_of_4.csv` — `59747797`;
 3. `From_500_To_Beyond_3_of_4.csv` — `96862896`;
 4. `From_500_To_Beyond_4_of_4.csv` — `134174190`.
 
-Because live ZIP identity changed, transport identity and archive-layout assumptions must be refreshed/revalidated together. Historical offsets must not be blindly reused or arithmetically rebased.
+These historical transport/layout pins are stale for future execution planning and must not be blindly reused or rebased.
+
+## Baseline Refresh Proposal — Completed
+
+Artifact:
+
+`docs/audits/M3_CA_SCO_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL.md`
+
+Classification:
+
+`A — Product Critical / MVP-1 critical-path enabler`
+
+Recommended strategy:
+
+`HEAD -> bounded ZIP tail -> EOCD -> exact Central Directory range -> canonical member local-header offsets`
+
+Rejected alternatives:
+
+- probing around old offsets;
+- arithmetic rebasing;
+- sequential archive scan;
+- full ZIP download.
+
+Proposed later execution limits:
+
+- 1 HEAD maximum;
+- 2 Range GETs maximum;
+- 3 HTTP requests total maximum;
+- 131072 bytes maximum per Range response;
+- 262144 response-body bytes total maximum;
+- no CSV decompression;
+- no row/field/PII access;
+- fail closed on ZIP64, EOCD ambiguity, Central Directory cap excess, parse failure, canonical-member-set mismatch or invalid offsets.
+
+Any values produced later are `baseline candidate` evidence only and must not automatically update runtime constants.
+
+No network request was made while preparing the proposal.
 
 ## Approval State
 
@@ -168,7 +180,7 @@ Both remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No retry is authorized. No current network verification is authorized. No privacy expansion is authorized.
+No retry, baseline-refresh execution, semantic execution or other network verification is currently authorized.
 
 ## Governing Runtime / D-008 State
 
@@ -198,10 +210,12 @@ No trim, case conversion, Unicode normalization, alternate-token acceptance, par
 
 Current state:
 
+- baseline refresh proposal prepared: `true`;
+- baseline refresh proposal human-reviewed: `false`;
 - consumed approvals reusable: `false`;
 - retry authorized: `false`;
 - current transport/archive-layout baseline suitable for blind reuse: `false`;
-- baseline refresh authorized: `false`;
+- baseline-refresh execution authorized: `false`;
 - another network verification authorized: `false`;
 - source continuation authorized: `false`;
 - privacy expansion authorized: `false`;
@@ -232,8 +246,6 @@ Current state:
 
 `-> human continue / stop decision`
 
-MVP-1 must collect real commercial baseline measurements rather than assume commercial viability.
-
 ## Work Classification Rule
 
 Every substantial task must state:
@@ -248,55 +260,47 @@ Work that cannot credibly answer these points should not become the next priorit
 
 ## SINGLE NEXT ACTION
 
-Prepare exclusively:
+Perform exclusively:
 
-`PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
 
-Classification:
+This is the next material Product Owner gate.
 
-`A/B — MVP-1 critical-path enabler`
+The review must assess whether the bounded ZIP Central Directory strategy is acceptable as the implementation basis.
 
-Purpose:
+The review itself must not:
 
-Define the smallest deterministic, privacy-safe and fail-closed method by which transport identity and ZIP archive-layout/member offsets could later be refreshed or revalidated together so that a fresh, separately authorized source verification can become possible.
-
-This task is repository-only and design-only.
-
-It must not:
-
-- perform California SCO or other external requests;
-- perform HEAD, Range GET or authority retrieval;
+- perform any external/network request;
+- adopt the 2026-09-16 observed live transport values as runtime pins;
+- update member offsets;
 - reuse consumed approval refs;
-- grant fresh approvals;
-- create a network workflow;
-- retry the prior execution;
-- update `EXPECTED_LENGTH`, `EXPECTED_ETAG` or canonical member offsets;
-- infer or arithmetically rebase offsets;
-- modify runner/parser/projector/regex/normalization;
-- widen privacy or source continuation;
-- activate source policy, registry or production classification;
-- begin identity resolution, genealogy, beneficiary matching, outreach or claim work.
+- authorize a semantic retry;
+- activate source policy, registry, production classification or downstream work.
 
-The proposal must explicitly reject diagnostic work that does not materially improve the path to an approved real source.
+If approved, the next automated package should implement the structural refresh runner/contract and deterministic synthetic tests, then stop before any network execution. A fresh single-use execution authorization would still be required immediately before the first refresh request.
 
-## After The Current Blocker
+## After The Current Human Gate
 
-The intended strategic sequence is:
+If the design is approved:
 
-1. human-review any later network revalidation design;
-2. obtain fresh single-use authorization before the first request;
-3. achieve one approved real source;
-4. immediately shift to the MVP-1 vertical slice;
-5. capture records examined, classification survival, candidate production, review time, automated/source cost, supportable value/revenue basis, failure reasons and manual research burden where available;
-6. perform an explicit product-commercial `GO / REVISE / STOP` review before broadening scope.
+1. implement bounded structural refresh using ZIP EOCD/Central Directory metadata only;
+2. add synthetic ZIP tests, cap/fail-closed tests and evidence contract;
+3. prepare one-shot execution path with no standing retry;
+4. request fresh single-use execution authorization;
+5. execute the structural refresh once;
+6. review/adopt or reject the candidate baseline;
+7. update semantic runner pins only after baseline adoption;
+8. perform the smallest separately authorized semantic verification needed for source approval;
+9. once one approved real source exists, immediately move to the MVP-1 vertical slice and commercial measurements;
+10. perform explicit product-commercial `GO / REVISE / STOP` review before broadening scope.
 
 No outreach, claimant contact, legal representation, fee contracting or claim submission is authorized merely by reaching MVP-1.
 
 ## Restart Instruction
 
 1. verify remote HEAD of `strategy-mvp1-first-economically-actionable-case`;
-2. verify CI for the latest relevant checkpoint when available;
-3. read the six canonical sources in the order above;
+2. read the six canonical sources in the order above;
+3. read the baseline refresh proposal;
 4. execute only the `SINGLE NEXT ACTION`;
 5. preserve all source/privacy/fail-closed boundaries;
 6. optimize for MVP-1 product/commercial evidence, not governance volume.
