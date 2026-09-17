@@ -16,6 +16,14 @@ import sys
 from pathlib import Path
 from typing import Any
 
+# When this file is invoked directly (``python scripts/<file>.py``), Python puts
+# the scripts directory rather than the repository root on sys.path. Add the
+# repository root explicitly so the existing ``scripts`` namespace and project
+# package imports resolve identically in GitHub Actions and unit-test imports.
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from scripts import ca_sco_property_type_semantic_verification as legacy
 from unclaimed_platform.adapters.sources.california_property_type import (
     PropertyTypeDisposition,
