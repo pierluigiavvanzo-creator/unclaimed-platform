@@ -7,9 +7,9 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | D-010 READY; FIRST AUTHORIZED ATTEMPT ABORTED PRE-NETWORK; MODULE-LAUNCH REMEDIATED; FRESH REAUTHORIZATION NEXT | run `35237721059` + consumed refs + module-mode regression test |
+| M3 — California Data Spike | D-010 CONTINUATION VALIDATED LIVE; INSURANCE DISCOVERY NOT OBSERVED; SOURCE ACTIVATION HELD | run `35243232091` + derived evidence v2 |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — ONE FRESH AUTHORIZED D-010 LIVE VALIDATION FROM SOURCE DECISION | CA `IN03` remains first high-precision target |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — SAME-BYTE DEEPER INSURANCE DISCOVERY NEXT | CA `IN03` remains first high-precision target |
 
 ## Product Priority
 
@@ -19,72 +19,65 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-## Critical-path state
+## Latest Product-Critical Evidence
 
-Resolved:
+Authorized one-shot D-010 module-mode validation:
 
-- live transport/archive baseline from prior bounded executions;
-- parser/projector field agreement;
-- California authority provenance;
-- exact California insurance vocabulary `IN01-IN08`, `IN99`;
-- product rule that `IN03 = Proceeds Due Beneficiaries` is the first narrow MVP-1 target;
-- deterministic metadata-only row defer for nonconforming/unknown insurance tokens;
-- continuation after deferred rows in the product validator;
-- no normalization, source-value persistence or silent omission;
-- operational CLI packaging defect from first D-010 attempt: future execution uses module-mode invocation.
+`35243232091` — attempt `1` — SUCCESS.
 
-D-010 supersedes D-008 whole-source continuation behavior only for this MVP-1 classification path. Transport/header/CSV-column/hard-cap failures remain fail-closed.
+Observed live envelope:
 
-## First D-010 Authorization Attempt
+- HEAD `1`;
+- Range GET `4`;
+- HTTP total `5`;
+- source bytes `524288`;
+- rows examined `16` (`4/member`).
 
-Owner authorization:
+Classification result:
 
-`APPROVO D010 LIVE VALIDATION + TRANSIENT-ROW PRIVACY`
+- deferred unclassifiable rows: `16`;
+- recognized insurance rows: `0`;
+- `IN03`: `0`;
+- distinct insurance codes: `[]`;
+- stop reason: none.
 
-One-shot run:
+D-010 therefore removed the old whole-source continuation blocker in live execution: all authorized rows were examined. However, the tiny deterministic prefix sample did not demonstrate authority-backed insurance discovery, so California is not activated yet.
 
-`35237721059`, attempt `1`.
+Fresh refs used for the run are consumed and non-reusable. The one-shot workflow and trigger were removed after execution.
 
-The workflow preflight passed and fresh execution/privacy refs were consumed before source access. The process then failed at Python import because the workflow invoked the package-owned runner by file path rather than module path.
+## Source State
 
-Observed source use for this failed attempt:
+- transport/archive baseline: CONFIRMED LIVE;
+- authority semantics: RESOLVED;
+- D-010 continuation: VALIDATED LIVE;
+- insurance discovery in current sample: NOT OBSERVED;
+- California source approval: HELD;
+- approved real sources: `0`;
+- real candidates: `0`.
 
-- SCO HEAD: `0`;
-- SCO Range GET: `0`;
-- SCO source bytes: `0`;
-- live rows: `0`.
-
-Therefore this attempt creates no positive or negative semantic evidence about the live source.
-
-Consumed refs:
-
-- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_BOUNDED_B2AF7877`;
-- `OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_TRANSIENT_ROW_PRIVACY_BOUNDED_B2AF7877`.
-
-They are non-reusable and no rerun is permitted.
-
-## Remediation
-
-The D-010 runner remains unchanged at blob:
-
-`8e952a80105d56a8e84e6fb9feb5524dd01625d0`
-
-Future one-shot workflows must invoke:
-
-`python -m scripts.ca_sco_mvp1_property_type_validation ...`
-
-A subprocess regression test covers this exact startup mode offline. The failed attempt's temporary workflow and trigger have been removed.
+This is neither source approval nor source rejection. The current bounded prefix is not statistically representative.
 
 ## Next Product Work
 
 Execute exclusively:
 
-`HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_REAUTHORIZATION_AFTER_PRENETWORK_CLI_REMEDIATION`
+`IMPLEMENT_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_VALIDATOR_OFFLINE`
 
 Classification: `A — Product Critical`.
 
-After fresh explicit execution + transient-row privacy authorization:
+Purpose:
 
-`fresh single-use refs -> one module-mode bounded live D-010 validation -> source decision -> bounded CA insurance activation if supported -> candidate -> economics -> reviewer`
+Increase logical row depth from the already-established compressed Range prefixes while preserving the same future network envelope:
 
-No generic PROPERTY_TYPE or transport diagnostic is on the critical path.
+- `1` HEAD;
+- `4` Range GETs;
+- `131072` bytes per Range;
+- `524288` source bytes total;
+- no extra Range/full-body fallback;
+- no normalization/regex relaxation;
+- metadata-only D-010 defer;
+- no source-value/row/PII persistence.
+
+The implementation/test step is offline and requires no California source access. After it is green, request fresh single-use execution/privacy approval for one deeper live validation.
+
+Do not repeat the same 16-row run and do not reopen generic transport/CSV diagnostics.
