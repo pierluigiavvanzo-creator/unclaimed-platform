@@ -9,7 +9,7 @@ Last updated: 2026-09-17
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence v1 |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST AUTHORIZED; REQUESTER CONTACT INPUTS NEXT | Gate 1 evidence recorded; no request submitted yet |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — SYNTHETIC DOWNSTREAM SLICE VERIFIED; VALUE-EVIDENCE BENCHMARK NEXT | CI `35263620224` SUCCESS |
 
 ## Product Priority
 
@@ -19,19 +19,11 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-## California Outcome
+## Source Path
 
-Latest deeper live execution:
+California remains held rather than rejected; repeating/widening the same CA `PROPERTY_TYPE` scan is not on the MVP-1 critical path without genuinely new evidence.
 
-`35255228459` — attempt `1` — SUCCESS.
-
-It examined `1024` rows (`256/member`) under the unchanged `524288`-byte source-response envelope. All `1024` were deferred as unclassifiable and no authority-backed insurance code was observed.
-
-California remains held rather than rejected. Repeating/widening the same `PROPERTY_TYPE` discovery pattern is not on the MVP-1 critical path without genuinely new evidence.
-
-## Alternative Source Decision
-
-Selected:
+Selected alternative source candidate:
 
 `New York OSC Owner Name File`
 
@@ -39,94 +31,87 @@ Source id:
 
 `ny.osc.unclaimed_funds.owner_name_file`
 
-## New York Source Contract / Privacy Gate
-
-Completed offline:
-
-`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
-
-CI:
-
-`35258809399` — SUCCESS.
-
-Implemented without requesting/downloading the real file:
-
-- NY candidate registered disabled and unapproved;
-- A01 v1.1 CA+NY request/result contracts added alongside unchanged historical v1.0;
-- physical file schema explicitly left unknown;
-- New York insurance vocabulary recorded, with `IN03` primary;
-- amount represented as `UNKNOWN_FROM_SOURCE`;
-- first real schema discovery constrained to memory-only processing;
-- raw file/owner-row persistence and owner-field logging forbidden for first discovery;
-- request-link authorization separated from later first-download/transient-PII authorization.
+The NY source contract/privacy package is complete, but the source remains disabled, unapproved and unacquired. Physical schema remains unknown until a separately authorized first file.
 
 ## NY OSC Gate 1
 
-Gate:
+Request-link authorization is:
 
-`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
-
-Authorization received:
-
-`APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
+`GRANTED / SINGLE USE / NOT CONSUMED`
 
 Approval ref:
 
 `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
 
-Current state:
-
-`GRANTED / SINGLE USE / NOT CONSUMED`
-
-No official form has been submitted yet because the required requester contact fields have not been supplied in the authorization input:
+Submission is parked because required requester values are currently unavailable:
 
 - name;
 - company;
 - phone;
 - email.
 
-These values must not be invented.
+The values must not be invented. No Owner Name File download or real owner PII processing is authorized by Gate 1.
+
+## Synthetic Downstream Vertical Slice
+
+Completed:
+
+`SYNTHETIC_POST_SCHEMA_MAPPING -> exact IN03 classification -> candidate -> economics -> reviewer`
+
+Audit:
+
+`docs/audits/MVP1_SYNTHETIC_VERTICAL_SLICE_OFFLINE.md`
+
+CI:
+
+`35263620224` — SUCCESS.
+
+Delivered:
+
+- exact-code NY insurance classification;
+- narrow candidate creation only for `IN03`;
+- deterministic synthetic case identifier;
+- explicit no-identity-resolution / no-beneficiary-matching boundary;
+- economics with `UNKNOWN_FROM_SOURCE`, no invented amount and no invented commercial threshold;
+- reviewer decision `CONTINUE_VALUE_RESEARCH_OR_STOP`;
+- read-only FastAPI endpoint;
+- Streamlit MVP-1 case/economics view;
+- versioned JSON Schema + unit/contract/smoke coverage.
+
+This means the downstream product path no longer needs to be built after the first real source arrives; the real-data path can target an already exercised interface.
+
+## Newly Exposed Commercial Blocker
+
+The OSC Owner Name File does not disclose dollar value, so exact `IN03` discovery alone cannot make a case economically actionable.
+
+The next critical evidence problem is:
+
+- recoverable value evidence;
+- expected follow-up cost;
+- lawful fee basis.
+
+Do not substitute a guessed amount or generic market average for case-level evidence.
 
 ## MVP-1 Critical Path
 
-Current sequence:
+Two parallel paths now exist:
 
-`NY source contract/privacy gate — DONE`
+`EXTERNAL SOURCE PATH`
 
-`-> NY request-link authorization — GRANTED, NOT CONSUMED`
+`NY Gate 1 — GRANTED/NOT CONSUMED -> requester contact inputs -> one OSC request -> access constraints -> Gate 2 -> first bounded memory-only schema discovery`
 
-`-> requester supplies name/company/phone/email`
+`OFFLINE PRODUCT PATH`
 
-`-> exactly one official request submission`
+`synthetic downstream slice — DONE -> value-evidence benchmark -> economics evidence contract -> connect real candidate when source becomes available`
 
-`-> receive access instructions`
-
-`-> determine actual observable download constraints`
-
-`-> HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
-
-`-> exactly one bounded first-file memory-only schema discovery`
-
-`-> source/schema decision`
-
-`-> insurance classification using observed mapping + NY authority semantics`
-
-`-> candidate creation`
-
-`-> provenance/evidence`
-
-`-> economics`
-
-`-> Streamlit reviewer`
-
-`-> human continue/stop decision`
+The external source path remains parked until requester contact inputs exist. Offline Product Critical work may continue without consuming Gate 1.
 
 ## Next Product Work
 
 Execute exclusively:
 
-`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
+`BENCHMARK_NY_MVP1_RECOVERABLE_VALUE_EVIDENCE_PATHS_OFFLINE`
 
-Classification: `A — Product Critical / Human Input Dependency`.
+Classification: `A — Product Critical`.
 
-No Owner Name File download or real owner PII processing is authorized by Gate 1.
+No real owner PII, outreach, representation, fee agreement or claim activity is part of that action.
