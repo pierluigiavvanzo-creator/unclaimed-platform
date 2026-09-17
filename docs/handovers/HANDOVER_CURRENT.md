@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 
 ## Repository
 
@@ -10,25 +10,33 @@ GitHub is the canonical source of truth.
 
 ## Current Working Branch
 
-`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal`
+`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal-review`
 
-Created from evidence-review checkpoint:
+Created from reviewed proposal checkpoint:
 
-`9dbdc3c6f1ef05c577c26c9e3524ba74fdbfda56`
+`359b1c1a86d34edabcd028e5e5fbb6fc3acba781`
 
-Evidence-review checkpoint CI:
+Reviewed proposal CI:
 
-`35125609902` — **SUCCESS**
+`35139290645` — **SUCCESS**
 
 ## Completed Action
 
 Completed:
 
-`PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
 
-Proposal status:
+Review result:
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+`PASS_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REVALIDATION_NOT_AUTHORIZED`
+
+Review artifact:
+
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW.md`
+
+The review is repository-only. It performed no California SCO request, HEAD, Range GET, authority retrieval, source-body access, workflow creation, approval grant, retry, baseline adoption or runtime mutation.
+
+## Reviewed Proposal
 
 Proposal audit:
 
@@ -46,11 +54,13 @@ Contract test:
 
 `tests/contract/test_ca_sco_property_type_transport_archive_layout_baseline_refresh_proposal.py`
 
-This completed action is repository-only and design-only. It performed no California SCO request, no HEAD, no Range GET, no authority retrieval, no source-body access and no retry.
+Proposal status remains:
+
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
 
 ## Governing Evidence
 
-Reviewed one-shot execution result remains:
+Previously accepted v1.2 one-shot result remains:
 
 - `semantic_result_status = STOPPED_FAIL_CLOSED`;
 - `stop_reason = TRANSPORT_METADATA_DRIFT`;
@@ -61,15 +71,11 @@ Reviewed one-shot execution result remains:
 - source body bytes read = `0`;
 - rows examined = `0`.
 
-Human evidence-review result:
-
-`PASS_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_ACCEPTED_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_JUSTIFIED_NO_REBASELINE_RETRY_OR_RUNTIME_CHANGE_AUTHORIZED`
-
-Evidence:
+Persisted evidence:
 
 `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
 
-Evidence review:
+Human evidence review:
 
 `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
 
@@ -93,9 +99,9 @@ Historical canonical local-header offsets:
 3. `From_500_To_Beyond_3_of_4.csv` → `96862896`;
 4. `From_500_To_Beyond_4_of_4.csv` → `134174190`.
 
-These historical values are `STALE_FOR_FUTURE_EXECUTION_PLANNING_NOT_PROVEN_INVALID`.
+These historical values remain `STALE_FOR_FUTURE_EXECUTION_PLANNING_NOT_PROVEN_INVALID`.
 
-One-shot observed drift evidence:
+One-shot observed drift evidence remains evidence only:
 
 - HTTP `200`;
 - content length `162560390`;
@@ -104,39 +110,42 @@ One-shot observed drift evidence:
 - Accept-Ranges `bytes`;
 - Last-Modified `Wed, 16 Sep 2026 16:43:22 GMT`.
 
-Observed values are evidence only and are not adopted.
-
-Candidate replacement baseline remains entirely unresolved:
+Candidate replacement baseline remains unresolved:
 
 - content length = `null`;
 - ETag = `null`;
 - all four canonical member offsets = `null`.
 
-## Proposed Strategy
+No baseline value has been adopted.
 
-The proposal rejects:
+## Accepted Bounded Revalidation Design
 
-- `HEAD_ONLY_TRANSPORT_REFRESH` — insufficient archive-layout proof;
-- `ARITHMETIC_MEMBER_OFFSET_REBASE` — unsupported inference;
-- `FULL_ARCHIVE_DOWNLOAD_AND_INSPECTION` — excessive scope.
-
-It proposes for human review only:
+Accepted for a later separately authorized gate:
 
 `BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION`
 
-Future design, if later approved and separately authorized:
+The design requires:
 
-1. one exact-endpoint HEAD for transport identity;
+1. one exact-endpoint HTTPS HEAD observation;
 2. bounded Range read of archive tail to locate classic ZIP EOCD;
-3. bounded central-directory metadata read only if needed;
-4. derive the four canonical `relative offset of local header` values from central-directory metadata;
-5. require same-object ETag/length consistency;
-6. persist only bounded derived transport/layout evidence;
-7. stop for human evidence review before any runner constant changes.
+3. bounded central-directory metadata read only if needed and still within caps;
+4. derive canonical `relative offset of local header` values from central-directory metadata only;
+5. same-object ETag / `If-Match` consistency;
+6. `Content-Range` total consistency with HEAD-observed length;
+7. unique presence of all four canonical members;
+8. candidate offsets within observed archive length;
+9. persistence only of bounded derived transport/layout evidence;
+10. human evidence review before any runner constant change.
 
-## Preserved Hard Caps
+Rejected paths:
 
-The proposal does not widen the existing source-exposure limits:
+- HEAD-only baseline refresh;
+- arithmetic rebasing of historical offsets;
+- full archive download and inspection.
+
+## Hard Caps
+
+No widening is accepted:
 
 - HEAD max `1`;
 - Range max `4`;
@@ -147,30 +156,41 @@ The proposal does not widen the existing source-exposure limits:
 - automatic widening `false`;
 - automatic retry `false`.
 
-If the central directory cannot be resolved within these limits, later execution must stop fail-closed.
+Fail closed on:
 
-## Structural / Privacy Boundary
+- request/byte cap exhaustion;
+- missing or ambiguous classic EOCD;
+- ZIP64;
+- multi-disk ZIP;
+- ETag/content-length object drift;
+- missing/duplicate canonical member;
+- any layout ambiguity or inability to finish within the approved caps.
 
-Proposed later structural access is limited to ZIP metadata. It must not:
+No larger implicit read is permitted.
 
-- decompress member payload;
-- parse CSV;
-- inspect rows or protected fields;
-- use historical offsets to derive new offsets;
-- persist raw Range bytes;
-- persist noncanonical member names.
+## Structural Privacy Boundary
 
-Because a bounded tail Range may contain opaque compressed bytes adjacent to ZIP metadata, a later execution requires a fresh single-use **structural-byte privacy approval** as well as a fresh single-use execution approval.
+A later structural execution may encounter opaque compressed bytes adjacent to ZIP metadata. Therefore it requires a fresh single-use structural-byte privacy approval as well as a fresh single-use execution approval.
 
-Both refs are currently `null`; neither approval is granted by this proposal.
+Accepted privacy boundary:
+
+- structural bytes memory-only;
+- retention `0` days;
+- raw Range bytes not persisted;
+- compressed payload not decompressed or interpreted;
+- CSV not parsed;
+- no row or protected field observed;
+- no `PROPERTY_TYPE`, `PROPERTY_ID`, owner/holder or other record value observed;
+- noncanonical member names not persisted;
+- only bounded derived transport/layout evidence may persist.
 
 ## Consumed Approval State
 
-Consumed execution approval:
+Consumed v1.2 execution approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884`
 
-Consumed transient-row privacy approval:
+Consumed v1.2 transient-row privacy approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
@@ -178,7 +198,9 @@ Both remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-No consumed approval may be reused.
+They must not be reused.
+
+Fresh structural-revalidation approval refs are currently absent / ungranted.
 
 ## Runtime / D-008 State
 
@@ -186,7 +208,7 @@ Decision:
 
 `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`
 
-Accepted design:
+Accepted policy:
 
 `WHOLE_SOURCE_STOP`
 
@@ -202,7 +224,7 @@ Validation remains exactly:
 
 `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`
 
-The proposal changes none of:
+No change to:
 
 - `scripts/ca_sco_property_type_semantic_verification.py`;
 - `EXPECTED_LENGTH`;
@@ -212,20 +234,22 @@ The proposal changes none of:
 - regex;
 - trimming/casing/normalization.
 
-`DECISIONS.md` remains unchanged because the bounded structural strategy is only proposed, not accepted.
+`DECISIONS.md` remains unchanged. The accepted structural strategy is a bounded operational verification design under existing deterministic/fail-closed governance and does not introduce new architecture or runtime semantics.
 
 ## Source / Downstream Governance
 
 Current state:
 
 - baseline-refresh proposal prepared: `true`;
-- proposal human-reviewed: `false`;
+- proposal human-reviewed: `true`;
+- proposal accepted as bounded design: `true`;
 - network revalidation authorized: `false`;
 - fresh execution approval granted: `false`;
 - fresh structural-byte privacy approval granted: `false`;
 - workflow creation authorized: `false`;
 - retry authorized: `false`;
-- candidate baseline established: `false`;
+- current historical baseline suitable for blind reuse: `false`;
+- candidate replacement baseline established: `false`;
 - candidate baseline adopted: `false`;
 - source continuation authorized: `false`;
 - source policy: `PROPOSED`;
@@ -251,49 +275,49 @@ Read in exact order:
 
 Then inspect at least:
 
-1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL.md`
-2. `sources/proposals/ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json`
-3. `schemas/common/property_type_transport_archive_layout_baseline_refresh_proposal.schema.json`
-4. `tests/contract/test_ca_sco_property_type_transport_archive_layout_baseline_refresh_proposal.py`
-5. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md`
+1. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW.md`
+2. `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL.md`
+3. `sources/proposals/ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json`
+4. `schemas/common/property_type_transport_archive_layout_baseline_refresh_proposal.schema.json`
+5. `tests/contract/test_ca_sco_property_type_transport_archive_layout_baseline_refresh_proposal.py`
 6. `sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json`
 7. `scripts/ca_sco_property_type_semantic_verification.py`
-8. `docs/audits/M3_CA_SCO_TRANSPORT_PREFLIGHT_PROPOSAL.md`
-9. `schemas/common/source_transport_preflight_proposal.schema.json` as reuse context.
+8. prior authorization artifacts/patterns as needed.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
 
-This next task is repository-only.
+This next task is **repository-only** and must remain separate from execution.
 
-It must review whether the proposed bounded central-directory strategy is sufficient, internally consistent, privacy-bounded and compatible with current fail-closed governance.
+It may decide whether to grant fresh single-use:
 
-It may accept, reject or require revision of the proposal.
+- structural revalidation execution approval;
+- structural-byte privacy approval.
+
+Any granted authorization must be pinned to the exact accepted proposal/review checkpoint, exact endpoint, exact request/byte caps, classic-ZIP-only structural scope, zero-retention privacy boundary, fail-closed conditions and one-shot/no-retry semantics.
 
 It must not:
 
 - perform a California SCO or other external request;
 - perform HEAD or Range GET;
-- grant fresh execution or privacy approvals;
 - reuse consumed approval refs;
-- create a network workflow;
-- retry the v1.2 execution;
-- update `EXPECTED_LENGTH`, `EXPECTED_ETAG` or canonical member offsets;
-- implement EOCD/central-directory runtime code;
-- modify runner/parser/projector/regex/normalization;
-- adopt candidate baseline values;
+- execute structural revalidation;
+- adopt content length, ETag or member offsets;
+- update runner constants;
+- implement or trigger a network workflow;
+- modify parser/projector/regex/normalization;
 - activate source policy, registry, production classification or downstream work.
 
-If the proposal is later accepted, any network revalidation remains a separate gate and requires fresh single-use approvals before the first request.
+If authorization is granted, the actual bounded structural revalidation must remain a later separate `SINGLE NEXT ACTION` and consume the fresh refs on first network invocation.
 
 ## Restart Instruction
 
-1. verify remote HEAD of the current proposal branch;
+1. verify remote HEAD of the current review branch;
 2. verify latest CI for that exact HEAD;
 3. read the five canonical files in exact order;
-4. read the proposal audit, machine proposal, schema and contract test;
-5. execute only the `SINGLE NEXT ACTION`;
-6. perform no external request during proposal review.
+4. read the review audit and accepted proposal artifacts;
+5. execute only `HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`;
+6. perform no external request during authorization.

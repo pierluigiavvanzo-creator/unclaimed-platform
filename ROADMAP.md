@@ -1,13 +1,13 @@
 # ROADMAP.md
 
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 
 | Milestone | Status | Exit evidence |
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | TRANSPORT + ARCHIVE-LAYOUT BASELINE REFRESH PROPOSAL PREPARED; HUMAN REVIEW NEXT | v1.2 one-shot drift evidence accepted; no rebaseline or retry; bounded structural design only |
+| M3 — California Data Spike | TRANSPORT + ARCHIVE-LAYOUT REFRESH PROPOSAL REVIEW PASS; FRESH AUTHORIZATION NEXT | bounded classic-ZIP structural design accepted; network revalidation still not authorized |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 
 ## Verified M3 State
@@ -15,61 +15,59 @@ Last updated: 2026-09-16
 - D-008 accepted `WHOLE_SOURCE_STOP` as design;
 - accepted implementation strategy: `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`;
 - runner output contract remains `1.2.0`;
-- authorized v1.2 one-shot execution performed exactly once;
-- result: `STOPPED_FAIL_CLOSED / TRANSPORT_METADATA_DRIFT`;
+- v1.2 one-shot execution performed exactly once;
+- one-shot result: `STOPPED_FAIL_CLOSED / TRANSPORT_METADATA_DRIFT`;
 - one-shot evidence human-reviewed and accepted;
 - consumed execution/privacy approvals remain non-reusable;
 - no retry authorized;
-- no source body or row was read in the stopped execution;
+- no source body or row was read during the stopped one-shot;
 - semantic compatibility remains unresolved.
 
-## Baseline Refresh Proposal
+## Transport + Archive-Layout Proposal Review
 
 Completed:
 
-`PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
 
-Proposal branch:
+Reviewed proposal branch:
 
 `m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal`
 
-Base checkpoint:
+Reviewed proposal HEAD:
 
-`9dbdc3c6f1ef05c577c26c9e3524ba74fdbfda56`
+`359b1c1a86d34edabcd028e5e5fbb6fc3acba781`
 
-Base CI:
+Reviewed proposal CI:
 
-`35125609902` — **SUCCESS**
+`35139290645` — **SUCCESS**
 
-Artifacts:
+Review result:
 
-- `docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL.md`;
-- `sources/proposals/ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json`;
-- `schemas/common/property_type_transport_archive_layout_baseline_refresh_proposal.schema.json`;
-- `tests/contract/test_ca_sco_property_type_transport_archive_layout_baseline_refresh_proposal.py`.
+`PASS_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REVALIDATION_NOT_AUTHORIZED`
 
-Status:
+Review artifact:
 
-`PROPOSAL_ONLY_NOT_AUTHORIZED`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW.md`
 
-## Proposal Decision Map
+## Accepted Design
 
-Rejected by design:
-
-- `HEAD_ONLY_TRANSPORT_REFRESH` — cannot establish member offsets;
-- `ARITHMETIC_MEMBER_OFFSET_REBASE` — unsupported inference;
-- `FULL_ARCHIVE_DOWNLOAD_AND_INSPECTION` — scope too broad.
-
-Proposed for human review:
+Accepted for a later separately authorized gate:
 
 `BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION`
 
-The later design would use:
+The design permits only:
 
-1. one HEAD observation for transport identity;
-2. bounded tail/EOCD/central-directory Range reads for structural ZIP metadata only.
+1. one exact-endpoint HEAD observation;
+2. bounded classic-ZIP tail/EOCD/central-directory metadata Range reads;
+3. candidate derivation of canonical local-header offsets from central-directory metadata;
+4. privacy-safe derived evidence persistence;
+5. human evidence review before any baseline adoption.
 
-No decompression, CSV parsing, row/field inspection, full archive download, automatic widening or automatic retry is allowed.
+Rejected:
+
+- HEAD-only transport refresh;
+- arithmetic member-offset rebasing;
+- full archive download and inspection.
 
 ## Preserved Request / Byte Caps
 
@@ -77,35 +75,31 @@ No decompression, CSV parsing, row/field inspection, full archive download, auto
 - Range requests max: `4`;
 - HTTP requests max total: `5`;
 - Range response max each: `131072` bytes;
-- source response-body max total: `524288` bytes.
+- source response-body max total: `524288` bytes;
+- full-body fallback: `false`;
+- automatic widening: `false`;
+- automatic retry: `false`.
 
-Failure to resolve a classic ZIP central directory within these limits must stop fail-closed and cannot trigger an implicit larger read.
+Classic ZIP only. ZIP64, multi-disk, missing/ambiguous EOCD, identity drift, missing/duplicate canonical members or inability to complete inside these caps must stop fail-closed.
 
-## Candidate Baseline Boundary
+## Baseline Boundary
 
-Observed one-shot drift values remain evidence only:
+Historical transport and member-offset pins remain stale for future execution planning but not proven invalid.
 
-- observed content length: `162560390`;
-- observed ETag: `"222dd79f04c2a0a8fff166b01c8da746"`.
+The one-shot observed content length `162560390` and ETag `"222dd79f04c2a0a8fff166b01c8da746"` remain evidence only.
 
-Historical pinned values remain stale for future execution planning, not proven invalid:
-
-- content length: `162416884`;
-- ETag: `"b25b315b6cd8007624387c3a00d4b1fe"`;
-- member offsets: `0`, `59747797`, `96862896`, `134174190`.
-
-Replacement values are all still `null` and no baseline has been adopted.
+Replacement content length, ETag and all four member offsets remain `null`. No baseline has been adopted.
 
 ## Authorization / Privacy Boundary
 
-The proposal itself performs no network request and grants no approval.
+The review grants no approval and performs no source access.
 
-Any later structural revalidation requires fresh single-use:
+Any later bounded structural revalidation requires fresh single-use:
 
 - execution approval;
 - structural-byte privacy approval.
 
-Structural bytes must remain memory-only with zero retention. Raw Range bytes may not persist; compressed payload may not be decompressed or interpreted; CSV rows and protected fields may not be inspected.
+Structural Range bytes must be memory-only with zero retention. No raw byte persistence, decompression, CSV parsing, row inspection or protected-field observation is allowed.
 
 ## Runtime / Source Governance
 
@@ -126,6 +120,6 @@ Source policy remains `PROPOSED`; registry remains disabled/unapproved; approved
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
 
-The review is repository-only. It must not perform network/source access, grant fresh approvals, create a network workflow, retry the prior run, update runner constants or adopt candidate baseline values.
+That gate is repository-only and may decide whether to grant fresh single-use execution and structural-byte privacy approvals. It must remain separate from the network execution itself.
