@@ -66,6 +66,9 @@ def test_human_reviewed_candidate_baseline_is_explicitly_adopted_by_semantic_run
 
     assert runner.EXPECTED_LENGTH == evidence["OBSERVED_CONTENT_LENGTH"]
     assert runner.EXPECTED_ETAG == evidence["OBSERVED_ETAG"]
+    assert [member.name for member in runner.CANONICAL_MEMBERS] == evidence[
+        "CANONICAL_MEMBER_NAMES"
+    ]
 
     candidate_offsets = evidence["CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS"]
     assert isinstance(candidate_offsets, dict)
