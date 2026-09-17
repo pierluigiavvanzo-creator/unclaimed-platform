@@ -48,43 +48,55 @@ M3 — California Data Spike Readiness + Product Visibility
 
 M0, M1 and M2 are VERIFIED.
 
-## Current Unified Checkpoint
+## Current Working Checkpoint
 
-Current unified branch:
+Authorization work branch:
+
+`m3-ca-sco-transport-archive-layout-revalidation-authorization`
+
+Authorization base branch:
 
 `m3-unified-mvp1`
 
-Technical base branch:
+Authorization base HEAD:
 
-`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal-review`
+`3d4d8a76e47d88eca77ca6d899b85341ba8beaf2`
 
-Technical base HEAD:
+Authorization base CI:
 
-`b8f703db18207661cd799b0baf1f0dac1bfdc398`
+`35195330933` — **SUCCESS**
 
-Technical base CI:
+Completed action:
 
-`35187432747` — **SUCCESS**
+`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
 
-Completed technical action:
+Authorization result:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
+`PASS_FRESH_SINGLE_USE_STRUCTURAL_REVALIDATION_EXECUTION_AND_STRUCTURAL_BYTE_PRIVACY_APPROVALS_GRANTED_EXECUTION_NOT_PERFORMED`
 
-Review result:
+Authorization audit:
 
-`PASS_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REVALIDATION_NOT_AUTHORIZED`
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION.md`
 
-Review artifact:
+Machine authorization:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW.md`
+`sources/evidence/ca_sco_segment_500_plus.property_type_transport_archive_layout_revalidation_approval.v1.json`
 
 ## Accepted Bounded Design
 
-Accepted for a later separately authorized gate:
+Accepted design remains:
 
 `BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION`
 
-The accepted future design is limited to:
+Reviewed proposal HEAD:
+
+`359b1c1a86d34edabcd028e5e5fbb6fc3acba781`
+
+Accepted review HEAD:
+
+`b8f703db18207661cd799b0baf1f0dac1bfdc398`
+
+The later separately authorized execution remains limited to:
 
 1. one exact-endpoint HEAD observation for transport identity;
 2. bounded classic-ZIP tail/EOCD/central-directory Range reads;
@@ -152,14 +164,25 @@ Consumed transient-row privacy approval:
 
 `OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884`
 
-Both remain `CONSUMED_SINGLE_USE_NON_REUSABLE`.
+Both remain:
 
-The accepted bounded structural design requires fresh single-use:
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-- execution approval;
-- structural-byte privacy approval.
+Fresh structural revalidation execution approval:
 
-Neither is currently granted.
+`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB`
+
+Fresh structural-byte privacy approval:
+
+`OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB`
+
+Both fresh approvals are:
+
+- `GRANTED_NOT_CONSUMED`;
+- single-use;
+- reusable: `false`;
+- consumed together on the first authorized California SCO network request of the later execution;
+- invalid for automatic retry or any broader source/runtime scope.
 
 Accepted privacy boundary remains:
 
@@ -169,7 +192,25 @@ Accepted privacy boundary remains:
 - compressed payload not decompressed or interpreted;
 - CSV not parsed;
 - no row or protected field observed;
-- noncanonical member names not persisted.
+- noncanonical member names not persisted;
+- only the reviewed bounded derived transport/layout evidence may persist.
+
+## Authorization Gate Actual Effects
+
+This authorization task is repository-only.
+
+Actual network/source usage by this gate:
+
+- California SCO requests: `0`;
+- HEAD requests: `0`;
+- Range GET requests: `0`;
+- source-body bytes read: `0`;
+- CSV records read: `0`;
+- structural revalidation performed: `false`;
+- candidate baseline established: `false`;
+- candidate baseline adopted: `false`.
+
+No fresh approval has been consumed.
 
 ## Runtime / D-008 State
 
@@ -195,19 +236,18 @@ Current facts:
 - real candidate cases through MVP-1: `0`;
 - commercial baseline from real cases: not yet established.
 
-Therefore additional M3 diagnostic or governance work is justified only when it materially shortens the safe path to one approved real source. Once one approved real source exists, priority shifts immediately to the MVP-1 vertical slice and commercial measurements.
+The fresh one-shot authorization removes the authorization blocker for structural revalidation but does not itself resolve transport/archive layout or approve a real source.
 
 ## Source / Product Governance State
 
 - D-008 accepted as design: `true`;
 - D-009 MVP-1 priority accepted: `true`;
-- baseline-refresh proposal prepared: `true`;
-- proposal human-reviewed: `true`;
-- proposal accepted as design: `true`;
-- network revalidation authorized: `false`;
-- fresh execution approval granted: `false`;
-- fresh structural-byte privacy approval granted: `false`;
-- workflow creation authorized: `false`;
+- baseline-refresh proposal human-reviewed and accepted: `true`;
+- bounded structural revalidation authorized for one future execution: `true`;
+- fresh execution approval granted: `true`;
+- fresh structural-byte privacy approval granted: `true`;
+- workflow creation for the later one-shot execution authorized: `true`;
+- approvals consumed: `false`;
 - retry authorized: `false`;
 - current historical baseline suitable for blind reuse: `false`;
 - candidate replacement baseline established: `false`;
@@ -224,14 +264,12 @@ Therefore additional M3 diagnostic or governance work is justified only when it 
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
+`EXECUTE_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_ONCE`
 
 Classification:
 
 `A/B — MVP-1 critical-path enabler`
 
-This next gate is repository-only. It may decide whether to grant fresh single-use execution and structural-byte privacy approvals for the accepted bounded revalidation design.
-
-It must perform no source/network request and must remain separate from execution itself.
+This must be a separate action. It must use exactly the two fresh approval refs, stay inside the accepted classic-ZIP structural and privacy boundaries, consume both approvals on the first California SCO network request, perform no retry or widening, and stop at a separate human candidate-evidence review before any baseline adoption or runner mutation.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
