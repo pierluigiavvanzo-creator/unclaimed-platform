@@ -1,0 +1,8 @@
+{
+  "authorization_checkpoint_sha": "17ec4183726844593c02d442516aef92bf07916c",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_BOUNDED_B2AF7877",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_TRANSIENT_ROW_PRIVACY_BOUNDED_B2AF7877",
+  "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY",
+  "single_use": true,
+  "retry_authorized": false
+}
