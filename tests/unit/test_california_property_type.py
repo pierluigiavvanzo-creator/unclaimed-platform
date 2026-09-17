@@ -59,3 +59,12 @@ def test_nonconforming_value_is_deferred_without_normalization_or_noninsurance_i
         assert result.mvp1_primary_target is False
         assert result.continue_source is True
         assert result.persist_source_value is False
+
+
+def test_unknown_shape_valid_insurance_prefix_is_deferred_not_misclassified() -> None:
+    result = classify_property_type("IN10")
+    assert result.disposition is PropertyTypeDisposition.DEFER_UNCLASSIFIABLE
+    assert result.authority_description is None
+    assert result.mvp1_primary_target is False
+    assert result.continue_source is True
+    assert result.persist_source_value is False
