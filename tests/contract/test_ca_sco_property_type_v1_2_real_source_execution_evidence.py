@@ -4,16 +4,12 @@ import json
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE_PATH = (
     ROOT
     / "sources/evidence/"
     "ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json"
-)
-SCHEMA_PATH = (
-    ROOT / "schemas/common/property_type_semantic_verification_execution.v1_2.schema.json"
 )
 AUDIT_PATH = (
     ROOT
@@ -39,13 +35,17 @@ def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_v1_2_real_source_evidence_validates_and_is_fail_closed_transport_drift() -> None:
+def test_v1_2_real_source_evidence_is_preserved_as_fail_closed_historical_snapshot() -> None:
     evidence = _load(EVIDENCE_PATH)
-    schema = _load(SCHEMA_PATH)
-    Draft202012Validator.check_schema(schema)
-    Draft202012Validator(schema, format_checker=FormatChecker()).validate(evidence)
 
+    # This file is immutable historical execution evidence. The active 1.2.0
+    # runtime schema may advance its adopted transport pins after a separately
+    # reviewed baseline-adoption gate, so historical evidence is asserted by its
+    # own recorded values rather than revalidated against mutable current pins.
     assert evidence["schema_version"] == "1.2.0"
+    assert evidence["proposal_id"] == (
+        "ca.sco.segment.500_plus.property_type_semantic_verification"
+    )
     assert evidence["execution_approval_ref"] == EXECUTION_REF
     assert evidence["privacy_approval_ref"] == PRIVACY_REF
     assert evidence["semantic_result_status"] == "STOPPED_FAIL_CLOSED"
