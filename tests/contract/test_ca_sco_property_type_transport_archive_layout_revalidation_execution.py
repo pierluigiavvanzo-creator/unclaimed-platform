@@ -60,23 +60,24 @@ def test_persisted_structural_revalidation_evidence_validates() -> None:
     }
 
 
-def test_candidate_evidence_is_not_silently_adopted_by_semantic_runner() -> None:
+def test_human_reviewed_candidate_baseline_is_explicitly_adopted_by_semantic_runner() -> None:
     evidence = _load(EVIDENCE_PATH)
     runner = _load_semantic_runner()
 
-    assert runner.EXPECTED_LENGTH == 162416884
-    assert runner.EXPECTED_ETAG == '"b25b315b6cd8007624387c3a00d4b1fe"'
-    assert [member.local_header_offset for member in runner.CANONICAL_MEMBERS] == [
-        0,
-        59747797,
-        96862896,
-        134174190,
-    ]
+    assert runner.EXPECTED_LENGTH == evidence["OBSERVED_CONTENT_LENGTH"]
+    assert runner.EXPECTED_ETAG == evidence["OBSERVED_ETAG"]
 
-    assert evidence["OBSERVED_CONTENT_LENGTH"] != runner.EXPECTED_LENGTH
-    assert evidence["OBSERVED_ETAG"] != runner.EXPECTED_ETAG
     candidate_offsets = evidence["CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS"]
     assert isinstance(candidate_offsets, dict)
-    assert list(candidate_offsets.values()) != [
-        member.local_header_offset for member in runner.CANONICAL_MEMBERS
+    assert {
+        member.name: member.local_header_offset for member in runner.CANONICAL_MEMBERS
+    } == candidate_offsets
+
+    assert runner.EXPECTED_LENGTH == 162560390
+    assert runner.EXPECTED_ETAG == '"222dd79f04c2a0a8fff166b01c8da746"'
+    assert [member.local_header_offset for member in runner.CANONICAL_MEMBERS] == [
+        0,
+        59745428,
+        96861315,
+        134172553,
     ]

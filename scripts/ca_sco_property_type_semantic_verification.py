@@ -29,8 +29,8 @@ from urllib.parse import urlparse
 
 ENDPOINT = "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip"
 HOST = "claimit.ca.gov"
-EXPECTED_LENGTH = 162_416_884
-EXPECTED_ETAG = '"b25b315b6cd8007624387c3a00d4b1fe"'
+EXPECTED_LENGTH = 162_560_390
+EXPECTED_ETAG = '"222dd79f04c2a0a8fff166b01c8da746"'
 EXPECTED_MEDIA_TYPE = "application/zip"
 EXPECTED_ACCEPT_RANGES = "bytes"
 DEFAULT_TIMEOUT_SECONDS = 10
@@ -90,9 +90,9 @@ class CanonicalMember:
 
 CANONICAL_MEMBERS = (
     CanonicalMember("From_500_To_Beyond_1_of_4.csv", 0),
-    CanonicalMember("From_500_To_Beyond_2_of_4.csv", 59_747_797),
-    CanonicalMember("From_500_To_Beyond_3_of_4.csv", 96_862_896),
-    CanonicalMember("From_500_To_Beyond_4_of_4.csv", 134_174_190),
+    CanonicalMember("From_500_To_Beyond_2_of_4.csv", 59_745_428),
+    CanonicalMember("From_500_To_Beyond_3_of_4.csv", 96_861_315),
+    CanonicalMember("From_500_To_Beyond_4_of_4.csv", 134_172_553),
 )
 
 
