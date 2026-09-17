@@ -1,0 +1,9 @@
+{
+  "authorization_checkpoint_sha": "7e4ebb91cd8d25be4f4b45ee08ec6bd3a5be5a36",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_C18CDDFC",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_C18CDDFC",
+  "reviewed_checkpoint_sha": "c18cddfc92bf3bb69f40b76170e687136e7fd21a",
+  "proposal_version": "1.1.0",
+  "runtime_contract": "1.2.0",
+  "single_use": true
+}
