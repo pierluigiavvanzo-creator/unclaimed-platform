@@ -7,7 +7,7 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | ADOPTED BASELINE; PROPOSAL REFRESH REVIEW FOUND NARROW CONTRACT-PRESERVATION DEFECT | runtime pins correct; proposal needs minimal restoration of omitted reviewed fields before authorization |
+| M3 — California Data Spike | ADOPTED BASELINE; PROPOSAL CONTRACT REMEDIATED; HUMAN RE-REVIEW NEXT | omitted reviewed fields restored; CI green; runtime baseline unchanged |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 | MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
 
@@ -28,19 +28,27 @@ M3 remains only the minimum critical-path enabler required to reach one lawful a
 - adopted transport/archive-layout baseline remains active and valid;
 - active pins remain length `162560390`, ETag `"222dd79f04c2a0a8fff166b01c8da746"`, offsets `0`, `59745428`, `96861315`, `134172553`;
 - historical proposal `1.0.0` remains preserved as provenance;
-- refreshed proposal `1.1.0` binds correctly to the adopted baseline;
-- review checkpoint `16a7e6f82a17a3f27b74195067aa1cff34bcba0e`, CI `35218563391` — **SUCCESS**;
-- human refresh review result: `FAIL_MINIMAL_REMEDIATION_REQUIRED`;
+- proposal `1.1.0` remains bound to the adopted baseline;
+- previous refresh review result was `FAIL_MINIMAL_REMEDIATION_REQUIRED`;
+- contract-preservation remediation checkpoint `509567fb250386e266faf96e3d9acef04631f724`, CI `35220182596` — **SUCCESS**;
+- all reviewed fields identified by that FAIL are restored in proposal/schema/test;
 - all previous execution/privacy approvals remain consumed and non-reusable;
 - no fresh execution/privacy approval exists;
 - semantic compatibility remains unresolved;
 - approved real sources remain `0`.
 
-## Review Defect
+## Restored Contract Boundary
 
-The refresh removed previously reviewed fields unrelated to transport baseline binding. The most material omissions are explicit privacy/persistence allowlists and v1.2 outcome-contract null/default constraints.
+The remediation restores exactly the historical reviewed fields required by the prior review, including:
 
-This is a narrow repository-contract defect. It does not invalidate the runner or adopted baseline and does not justify new transport diagnostics.
+- approval provenance references;
+- execution-question text and sample-bias note;
+- official insurance-code vocabulary;
+- v1.2 outcome null/default constraints;
+- privacy/persistence allowlists and derived-summary boundary;
+- top-level acceptance criteria.
+
+The contract test now compares these restored fields with proposal `1.0.0` and rejects removal of the privacy allowlist or acceptance contract.
 
 ## Preserved Runtime Boundary
 
@@ -52,7 +60,8 @@ Unchanged:
 - D-008 fail-closed mapping;
 - deterministic four-member prefix sample;
 - request/byte caps;
-- no widening or automatic retry;
+- no widening;
+- `automatic_retry_allowed = false`;
 - source policy / registry / production gates.
 
 ## Approval State
@@ -61,18 +70,18 @@ All prior real-source and structural-revalidation execution/privacy approvals ar
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Fresh single-use execution and transient-row privacy authorization remain blocked until the proposal contract is minimally repaired and human-reviewed.
+Fresh single-use execution and transient-row privacy authorization remain blocked until the remediated proposal passes human re-review.
 
 ## Next Product Work
 
 Execute exclusively:
 
-`REMEDIATE_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_CONTRACT_PRESERVATION`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-Restore only the reviewed fields omitted from proposal/schema `1.1.0`, retain the adopted baseline and additive `automatic_retry_allowed = false`, extend the contract test to compare restored design fields with proposal `1.0.0`, and run CI. No California SCO access, approval grant/reuse, workflow creation or downstream activation.
+Re-review only the remediation delta and confirm that all previously omitted reviewed fields are restored while baseline, runtime, D-008, privacy scope, no-retry/no-widening and non-authorizing state remain unchanged.
 
-After CI-green remediation, immediately re-review the proposal and then take the shortest safe route to fresh single-use authorization and exactly one bounded real-source semantic execution.
+After a PASS, move directly to fresh single-use execution + transient-row privacy authorization and exactly one bounded real-source semantic execution, rather than expanding infrastructure.
