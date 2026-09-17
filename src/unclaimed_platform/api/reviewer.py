@@ -3,6 +3,11 @@ from typing import Literal
 from fastapi import APIRouter
 from pydantic import BaseModel, ConfigDict
 
+from unclaimed_platform.domain.mvp1_vertical_slice import (
+    Mvp1SyntheticCaseReview,
+    synthetic_ny_mvp1_case_review,
+)
+
 router = APIRouter(prefix="/api/reviewer", tags=["reviewer"])
 
 
@@ -129,3 +134,9 @@ def synthetic_operations_snapshot() -> OperationsSnapshot:
 def get_m3_operations() -> OperationsSnapshot:
     """Return the governed, read-only M3 reviewer snapshot."""
     return synthetic_operations_snapshot()
+
+
+@router.get("/mvp1/synthetic-case", response_model=Mvp1SyntheticCaseReview)
+def get_mvp1_synthetic_case() -> Mvp1SyntheticCaseReview:
+    """Return the governed synthetic MVP-1 case-review vertical slice."""
+    return synthetic_ny_mvp1_case_review()
