@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_LIVE_VALIDATION_AUTHORIZATION",
+  "authorized_on": "2026-09-17",
+  "owner_authorization": "APPROVO FRESH SAME-BYTES DEEPER LIVE VALIDATION + TRANSIENT-ROW PRIVACY — 256/MEMBER, 1024 TOTAL, 524288 SOURCE BYTES MAX",
+  "repository": "pierluigiavvanzo-creator/unclaimed-platform",
+  "authorization_base_branch": "mvp1-ca-same-bytes-deeper-insurance-discovery-offline",
+  "authorization_base_head": "eebb18693c9a75de4d060bdfeb38d98d0975ccfc",
+  "authorization_base_ci_run": "35245311115",
+  "authorization_base_ci_conclusion": "SUCCESS",
+  "execution_branch": "mvp1-ca-same-bytes-deeper-live-validation-once",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_REAL_SOURCE_VALIDATION_BOUNDED_D4F29A61",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_TRANSIENT_ROW_PRIVACY_BOUNDED_D4F29A61",
+  "approval_state": "GRANTED_NOT_YET_CONSUMED",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "invocation": {
+    "mode": "python_module",
+    "module": "scripts.ca_sco_mvp1_same_bytes_deeper_insurance_discovery",
+    "direct_file_execution_allowed": false
+  },
+  "runner": {
+    "path": "scripts/ca_sco_mvp1_same_bytes_deeper_insurance_discovery.py",
+    "blob_sha": "d7c7321aa01a86af346dfbe8c1d7cde6e91d1755"
+  },
+  "classifier": {
+    "path": "src/unclaimed_platform/adapters/sources/california_property_type.py",
+    "blob_sha": "05e8637e42070dd6f04218592d20d4a230ab948e"
+  },
+  "policy": {
+    "path": "policies/states/CA/ca_sco_property_type_classification.v1.json",
+    "blob_sha": "840d09d87187c53d26f4d562527dcb92d810a9f3",
+    "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY"
+  },
+  "transport_baseline": {
+    "legacy_runner_blob_sha": "706183d5425da16b25f8186574cc356135803326",
+    "endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
+    "expected_content_length": 162560390,
+    "expected_etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
+    "canonical_member_offsets": [0, 59745428, 96861315, 134172553]
+  },
+  "authorized_bounds": {
+    "head_requests_max": 1,
+    "range_requests_max": 4,
+    "http_requests_max_total": 5,
+    "range_response_bytes_max_each": 131072,
+    "source_response_body_bytes_max_total": 524288,
+    "rows_max_per_member": 256,
+    "rows_max_total": 1024,
+    "uncompressed_bytes_max_per_member": 262144,
+    "uncompressed_bytes_max_total": 1048576,
+    "logical_record_bytes_max": 32768,
+    "full_body_fallback_allowed": false,
+    "additional_range_allowed": false,
+    "normalization_allowed": false,
+    "regex_relaxation_allowed": false,
+    "raw_row_persistence_allowed": false,
+    "per_row_property_type_persistence_allowed": false,
+    "property_id_persistence_allowed": false,
+    "owner_holder_persistence_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "aggregate_counts_persistence_allowed": true,
+    "per_member_scan_metadata_persistence_allowed": true,
+    "authority_backed_insurance_codes_persistence_allowed": true
+  },
+  "consumed_at_utc": null,
+  "execution_run_id": null,
+  "execution_run_attempt": null
+}
