@@ -26,34 +26,40 @@ Current branch:
 
 `m3-ca-sco-v1-2-real-source-proposal-adopted-baseline-refresh`
 
-Completed action:
+Latest reviewed action:
 
-`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
-Authoritative adopted-baseline base:
+Reviewed implementation checkpoint:
 
-- HEAD `6188806e58ac87ccde7b8d6d20dcb2bbbec67c28`;
-- CI `35210199280` — **SUCCESS**.
+- HEAD `16a7e6f82a17a3f27b74195067aa1cff34bcba0e`;
+- CI `35218563391` — **SUCCESS**.
 
-Refresh audit:
+Review result:
 
-`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_ADOPTED_BASELINE_REFRESH.md`
+`FAIL_MINIMAL_REMEDIATION_REQUIRED`
 
-Refreshed proposal:
+Review audit:
 
-`sources/proposals/ca_sco_segment_500_plus.property_type_nonconforming_row_handling_policy_v1_2_real_source_execution.v1_1.json`
-
-The historical v1.0.0 proposal remains preserved unchanged as provenance.
+`docs/audits/M3_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW.md`
 
 ## Adopted Transport / Archive-Layout Baseline
 
-Semantic runner active pins remain:
+The active semantic runner remains correctly pinned to:
 
 - `EXPECTED_LENGTH = 162560390`;
 - `EXPECTED_ETAG = "222dd79f04c2a0a8fff166b01c8da746"`;
 - offsets `0`, `59745428`, `96861315`, `134172553`.
 
-The refreshed proposal is bound to exactly these values and the contract regression compares them directly with the runner.
+The review found no defect in the adopted runtime baseline.
+
+## Proposal Review Finding
+
+Proposal `1.1.0` correctly adopted the current baseline and remained non-authorizing, but it removed reviewed contract fields unrelated to baseline/provenance refresh.
+
+Material omissions include explicit privacy/persistence allowlists and v1.2 outcome fields, plus supporting provenance/acceptance fields. Therefore the proposal cannot yet be used as the frozen boundary for fresh execution authorization.
+
+The historical proposal `1.0.0` remains preserved unchanged as provenance.
 
 ## Runtime / D-008 State
 
@@ -74,16 +80,16 @@ All historical and structural-revalidation execution/privacy approvals remain:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-The refreshed proposal grants no replacement approval.
+No fresh execution or transient-row privacy approval exists.
 
-Fresh single-use execution and transient-row privacy approvals remain required before any future real-source semantic execution.
+No California SCO request or network workflow was performed by the review.
 
 ## Product / Commercial State
 
 - approved real sources: `0`;
 - transport/archive-layout baseline adopted: `true`;
 - semantic execution proposal rebound to adopted baseline: `true`;
-- proposal human review after refresh: `false`;
+- proposal refresh human review: `FAIL_MINIMAL_REMEDIATION_REQUIRED`;
 - fresh execution/privacy authorization: `false`;
 - semantic compatibility resolved: `false`;
 - source policy: `PROPOSED`;
@@ -96,12 +102,12 @@ Fresh single-use execution and transient-row privacy approvals remain required b
 
 Execute exclusively:
 
-`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
+`REMEDIATE_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_CONTRACT_PRESERVATION`
 
 Classification:
 
 `A — Product Critical`
 
-This next action is repository-only. Review whether proposal version `1.1.0` faithfully preserves the previously accepted v1.2 execution design while rebinding only transport/archive-layout provenance to the adopted baseline. It must not access California SCO, grant/reuse approvals, create a network workflow, modify runtime/parser/regex/normalization/D-008, or activate source/downstream gates.
+Repository-only remediation. Restore the reviewed fields omitted from proposal/schema `1.1.0`, preserve the adopted baseline and current runtime exactly, extend contract assertions, and perform no California SCO request, workflow creation, approval grant/reuse or downstream activation.
 
 Use `docs/handovers/HANDOVER_CURRENT.md` as the complete restart point.
