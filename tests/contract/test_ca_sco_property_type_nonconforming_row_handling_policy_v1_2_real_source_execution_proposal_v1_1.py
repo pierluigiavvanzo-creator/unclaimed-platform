@@ -119,6 +119,67 @@ def test_refresh_preserves_historical_proposal_as_provenance() -> None:
     ]
 
 
+def test_remediation_restores_reviewed_historical_design_fields() -> None:
+    refreshed = _load(PROPOSAL_PATH)
+    historical = _load(HISTORICAL_PROPOSAL_PATH)
+
+    refreshed_history = refreshed["historical_authorization_state"]
+    historical_history = historical["historical_authorization_state"]
+    assert isinstance(refreshed_history, dict)
+    assert isinstance(historical_history, dict)
+    assert refreshed_history["consumed_approval_refs"] == (
+        historical_history["consumed_approval_refs"]
+    )
+
+    refreshed_question = refreshed["execution_question"]
+    historical_question = historical["execution_question"]
+    assert isinstance(refreshed_question, dict)
+    assert isinstance(historical_question, dict)
+    assert refreshed_question["question"] == historical_question["question"]
+
+    refreshed_sample = refreshed["sample_plan"]
+    historical_sample = historical["sample_plan"]
+    assert isinstance(refreshed_sample, dict)
+    assert isinstance(historical_sample, dict)
+    assert refreshed_sample["sample_bias_note"] == historical_sample["sample_bias_note"]
+
+    refreshed_controls = refreshed["row_processing_controls"]
+    historical_controls = historical["row_processing_controls"]
+    assert isinstance(refreshed_controls, dict)
+    assert isinstance(historical_controls, dict)
+    assert refreshed_controls["official_insurance_codes"] == (
+        historical_controls["official_insurance_codes"]
+    )
+    assert set(refreshed_controls["official_insurance_codes"]) == (
+        set(RUNNER.OFFICIAL_INSURANCE_CODES)
+    )
+
+    refreshed_outcome = refreshed["v1_2_outcome_contract"]
+    historical_outcome = historical["v1_2_outcome_contract"]
+    assert isinstance(refreshed_outcome, dict)
+    assert isinstance(historical_outcome, dict)
+    for field in (
+        "unrelated_stop_control_disposition",
+        "non_stopped_control_disposition",
+        "specific_real_source_outcome_required_for_proposal_acceptance",
+    ):
+        assert refreshed_outcome[field] == historical_outcome[field]
+
+    refreshed_privacy = refreshed["privacy_controls"]
+    historical_privacy = historical["privacy_controls"]
+    assert isinstance(refreshed_privacy, dict)
+    assert isinstance(historical_privacy, dict)
+    for field in (
+        "control_disposition_allowed_persisted_fields",
+        "control_disposition_source_value_bearing_fields_allowed",
+        "derived_summary_persistence_allowed",
+        "allowed_persisted_derived_fields",
+    ):
+        assert refreshed_privacy[field] == historical_privacy[field]
+
+    assert refreshed["acceptance_criteria"] == historical["acceptance_criteria"]
+
+
 def test_design_caps_d008_privacy_and_parser_boundary_are_unchanged() -> None:
     proposal = _load(PROPOSAL_PATH)
     sample = proposal["sample_plan"]
@@ -159,9 +220,14 @@ def test_design_caps_d008_privacy_and_parser_boundary_are_unchanged() -> None:
     assert privacy["memory_only"] is True
     assert privacy["per_row_property_type_persistence"] is False
     assert privacy["row_specific_human_inspection"] is False
+    assert privacy["control_disposition_allowed_persisted_fields"] == [
+        "status_code",
+        "reason_code",
+    ]
+    assert privacy["control_disposition_source_value_bearing_fields_allowed"] is False
 
 
-def test_schema_rejects_baseline_or_authorization_widening() -> None:
+def test_schema_rejects_baseline_authorization_or_contract_widening() -> None:
     proposal = _load(PROPOSAL_PATH)
     validator = Draft202012Validator(_load(SCHEMA_PATH))
 
@@ -179,6 +245,21 @@ def test_schema_rejects_baseline_or_authorization_widening() -> None:
     normalization = copy.deepcopy(proposal)
     normalization["row_processing_controls"]["normalization_allowed"] = True
 
-    for invalid in (wrong_offset, execution, retry, normalization):
+    missing_privacy_allowlist = copy.deepcopy(proposal)
+    del missing_privacy_allowlist["privacy_controls"][
+        "control_disposition_allowed_persisted_fields"
+    ]
+
+    missing_acceptance = copy.deepcopy(proposal)
+    del missing_acceptance["acceptance_criteria"]
+
+    for invalid in (
+        wrong_offset,
+        execution,
+        retry,
+        normalization,
+        missing_privacy_allowlist,
+        missing_acceptance,
+    ):
         with pytest.raises(ValidationError):
             validator.validate(invalid)
