@@ -1,0 +1,9 @@
+{
+  "authorization_checkpoint_sha": "de1ca653824cd86af588ab2eff450c40e9ff85c4",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_REAL_SOURCE_VALIDATION_BOUNDED_C6D79506",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_MODULE_MODE_TRANSIENT_ROW_PRIVACY_BOUNDED_C6D79506",
+  "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY",
+  "invocation_mode": "python_module",
+  "single_use": true,
+  "retry_authorized": false
+}
