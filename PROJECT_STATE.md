@@ -16,11 +16,11 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-osc-request-link-authorization`
+`mvp1-ny-osc-request-submitted`
 
 Latest product-critical lifecycle:
 
-`CA_PATH_FROZEN_FOR_MVP1 -> ALTERNATIVE_SOURCE_BENCHMARK_COMPLETE -> NY_OSC_SELECTED -> NY_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE_READY -> NY_REQUEST_LINK_AUTHORIZATION_GRANTED -> REQUESTER_CONTACT_INPUTS_REQUIRED_BEFORE_SUBMISSION`
+`CA_PATH_FROZEN_FOR_MVP1 -> ALTERNATIVE_SOURCE_BENCHMARK_COMPLETE -> NY_OSC_SELECTED -> NY_SOURCE_CONTRACT_PRIVACY_GATE_OFFLINE_READY -> NY_REQUEST_LINK_AUTHORIZATION_GRANTED -> NY_REQUEST_SUBMITTED_GATE1_CONSUMED -> AWAITING_NY_OSC_ACCESS_INSTRUCTIONS`
 
 Classification: `A — Product Critical`.
 
@@ -28,13 +28,9 @@ Authorization evidence:
 
 `sources/evidence/ny_osc_owner_name_file_request_link_authorization.v1.json`
 
-Authorization base checkpoint:
+Gate 1 approval ref:
 
-`198821ff41abb103b6c56876a075abb6c28c9c8f`
-
-Authorization base CI:
-
-`35258809399` — SUCCESS.
+`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
 
 ## California State
 
@@ -67,28 +63,7 @@ Registry state:
 - acquired: false;
 - provenance required: true.
 
-The source contract preserves only OSC-disclosed semantics:
-
-- owner name;
-- last-known address;
-- nature of property;
-- when reported;
-- reporting organization.
-
-Owner name and last-known address are treated as PII. Dollar amount is not disclosed by the source and is represented as:
-
-`UNKNOWN_FROM_SOURCE`
-
-Physical file facts remain deliberately unknown until the first separately authorized file:
-
-- physical column names;
-- delimiter;
-- encoding;
-- archive layout;
-- representation of `nature_of_property`;
-- presence of a property identifier.
-
-No production parser or classification activation is allowed before fail-closed schema discovery.
+Physical file facts remain deliberately unknown until the first separately authorized file. No production parser or classification activation is allowed before fail-closed schema discovery.
 
 ## New York Insurance Boundary
 
@@ -100,13 +75,9 @@ Primary MVP-1 target:
 
 `IN03 — Proceeds Due Beneficiaries`
 
-The official property-type PDF could not be directly opened by the research tooling because OSC returned HTTP 403; the policy records this provenance limitation and does not claim visual PDF verification.
-
 ## Privacy / Authorization Boundary
 
-First real file schema discovery is designed as:
-
-`MEMORY_ONLY`
+First real file schema discovery remains designed as `MEMORY_ONLY`.
 
 During that first discovery:
 
@@ -122,28 +93,15 @@ Gate:
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
-Owner authorization received:
-
-`APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY`
-
-Approval ref:
-
-`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
-
 State:
 
-`GRANTED_SINGLE_USE_NOT_CONSUMED_PENDING_REQUESTER_CONTACT_DATA`
+`CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-The official form currently requires:
+On 2026-09-17 the Product Owner explicitly confirmed that the official OSC Owner Name File request form had been manually submitted once. This is a Product Owner attestation; the external OSC submission was not independently verified by repository tooling.
 
-- name;
-- company;
-- phone;
-- email.
+Requester contact values are intentionally not persisted in the repository.
 
-Those values have not been supplied in this authorization record and must not be invented. No OSC request has been submitted yet.
-
-Gate 1 still does **not** authorize:
+Gate 1 does **not** authorize:
 
 - Owner Name File download;
 - real owner PII processing;
@@ -160,7 +118,18 @@ Gate 1 still does **not** authorize:
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
 
-Not granted. It requires an explicit `max_download_bytes` after access instructions / download constraints are observed. No default byte cap is invented.
+State:
+
+`NOT GRANTED / NOT READY`
+
+Before Gate 2 can be requested:
+
+1. receive OSC access instructions;
+2. determine observable download constraints without processing Owner Name File contents;
+3. define an explicit `max_download_bytes`;
+4. separately review and authorize the first bounded transient-PII download/schema-discovery action.
+
+No default byte cap may be invented.
 
 ## Contract / Test State
 
@@ -174,7 +143,7 @@ Existing NY offline package remains verified by CI `35258809399`:
 - Streamlit safety/startup: PASS;
 - frontend lint/typecheck/build: PASS.
 
-No new production code is required merely to record Gate 1 authorization.
+The Gate 1 consumption update changes repository evidence/state only; it does not activate any production source or parser.
 
 ## Current Product / Source State
 
@@ -182,8 +151,8 @@ No new production code is required merely to record Gate 1 authorization.
 - California source: `HELD`;
 - California `PROPERTY_TYPE` discovery: `FROZEN FOR MVP-1`;
 - New York OSC Owner Name File: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
-- NY Gate 1 authorization: `GRANTED / NOT CONSUMED`;
-- NY request submitted: no;
+- NY Gate 1 authorization: `CONSUMED / NON-REUSABLE`;
+- NY request submitted: yes, Product Owner confirmed manual submission;
 - NY access instructions obtained: no;
 - NY real owner PII processed: no;
 - NY Gate 2 authorization: not granted;
@@ -194,14 +163,8 @@ No new production code is required merely to record Gate 1 authorization.
 
 Execute exclusively:
 
-`COLLECT_NY_OSC_REQUESTER_CONTACT_INPUTS_FOR_AUTHORIZED_REQUEST`
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
-Classification: `A — Product Critical / Human Input Dependency`.
+Classification: `A — Product Critical / External Dependency`.
 
-Required user-supplied values:
-
-`name, company, phone, email`
-
-After those values are supplied, perform exactly one authorized official request submission using approval ref `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71` if an execution-capable browser/form surface is available. Mark the approval consumed only after actual submission.
-
-Do not download the Owner Name File or process owner PII under Gate 1.
+When the OSC email/access instructions arrive, capture only the non-content access/download constraints needed to define a bounded first-download proposal. Do not download or inspect the Owner Name File and do not process owner PII until Gate 2 is separately reviewed and granted.
