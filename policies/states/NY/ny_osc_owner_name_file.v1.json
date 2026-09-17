@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ny.osc.owner_name_file.mvp1.source_contract",
+  "source": {
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "jurisdiction": "NY",
+    "authority": "New York State Office of the State Comptroller, Office of Unclaimed Funds",
+    "candidate_state": "SELECTED_CANDIDATE_NOT_APPROVED_NOT_ACQUIRED",
+    "official_request_url": "https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form",
+    "official_location_service_provider_url": "https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers",
+    "delivery_description": "secure FTP link to a zipped delimited .txt owner file after an accepted request",
+    "update_cadence": "QUARTERLY",
+    "enabled": false,
+    "approved_for_use": false
+  },
+  "officially_disclosed_semantics": [
+    {"semantic_id": "owner_name", "description": "name of a potential unclaimed-funds owner", "owner_pii": true},
+    {"semantic_id": "last_known_address", "description": "last-known address of a potential unclaimed-funds owner", "owner_pii": true},
+    {"semantic_id": "nature_of_property", "description": "nature of the property", "owner_pii": false},
+    {"semantic_id": "reported_when", "description": "when the property was reported", "owner_pii": false},
+    {"semantic_id": "reported_by", "description": "by whom the property was reported", "owner_pii": false}
+  ],
+  "physical_file_contract": {
+    "state": "UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE",
+    "physical_column_names_known": false,
+    "delimiter_known": false,
+    "encoding_known": false,
+    "archive_layout_known": false,
+    "property_nature_representation_known": false,
+    "property_id_presence_known": false,
+    "parser_activation_allowed": false,
+    "normalization_allowed": false,
+    "schema_inference_from_documentation_allowed": false,
+    "fail_closed_reason": "NY_OWNER_FILE_SCHEMA_UNOBSERVED"
+  },
+  "insurance_authority": {
+    "official_property_type_table_url": "https://www.osc.ny.gov/files/unclaimed-funds/reporters/pdf/property-type-tables.pdf",
+    "authority_verification_state": "OFFICIAL_INDEX_TEXT_VERIFIED_PDF_DIRECT_OPEN_BLOCKED_403_IN_TOOLING",
+    "property_type_representation_in_owner_file": "UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE",
+    "codes": {
+      "IN01": "Individual Policy Benefits or Claim Payments",
+      "IN02": "Group Policy Benefits or Claim Payments",
+      "IN03": "Proceeds Due Beneficiaries",
+      "IN04": "Proceeds from Matured Policies, Endowments or Annuities",
+      "IN05": "Premium Refunds",
+      "IN06": "Unidentified Remittances",
+      "IN07": "Other Amounts Due Under Policy Terms",
+      "IN12": "Retained Asset, Benefit Access or Similar Distribution Accounts",
+      "IN77": "Limiting Age (superannuated) contracts"
+    },
+    "mvp1_primary_code": "IN03",
+    "mvp1_primary_description": "Proceeds Due Beneficiaries",
+    "classification_activation_allowed": false
+  },
+  "economics": {
+    "source_discloses_dollar_value": false,
+    "recoverable_value_state": "UNKNOWN_FROM_SOURCE",
+    "invent_amount_allowed": false
+  },
+  "privacy": {
+    "owner_pii_semantics": ["owner_name", "last_known_address"],
+    "requester_contact_data_required_by_official_form": ["name", "company", "phone", "email"],
+    "first_file_schema_discovery_mode": "MEMORY_ONLY",
+    "real_owner_pii_allowed_without_privacy_approval": false,
+    "raw_file_persistence_allowed_during_first_schema_discovery": false,
+    "real_owner_row_persistence_allowed_during_first_schema_discovery": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true,
+    "later_raw_persistence_requires_separate_policy": true
+  },
+  "authorization_gates": {
+    "request_link_gate": {
+      "gate_id": "HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "scope": "submit the official request and receive access instructions only; no owner-file download"
+    },
+    "first_download_transient_pii_gate": {
+      "gate_id": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "explicit_max_download_bytes_required": true,
+      "default_max_download_bytes": null,
+      "scope": "exactly one bounded first-file download and memory-only schema discovery with transient owner PII"
+    }
+  },
+  "first_file_schema_discovery": {
+    "required_before_production_parsing": true,
+    "allowed_persisted_outputs": [
+      "observed container/media type",
+      "observed file byte count",
+      "observed archive member count and non-owner-identifying member names",
+      "observed delimiter",
+      "observed encoding",
+      "observed physical header names",
+      "aggregate complete-record count",
+      "whether nature_of_property can be mapped deterministically to an authority-backed representation"
+    ],
+    "forbidden_persisted_outputs": [
+      "raw owner file bytes",
+      "owner name",
+      "owner address",
+      "complete owner row",
+      "row-specific nature-of-property value",
+      "row-specific reporting metadata"
+    ],
+    "classification_before_schema_mapping_allowed": false,
+    "source_activation_before_schema_mapping_allowed": false
+  },
+  "prohibited_actions": [
+    "identity resolution",
+    "beneficiary matching",
+    "outreach",
+    "representation",
+    "fee agreement",
+    "claim submission",
+    "production classification activation"
+  ]
+}
