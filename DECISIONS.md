@@ -184,7 +184,7 @@ Vercel deployment is unsupported from the active repository tree. Reintroducing 
 
 Date: 2026-09-16
 
-Status: Accepted as design; implementation pending separate gate
+Status: Superseded for the California SCO MVP-1 classification path by D-010; retained as historical fail-closed baseline
 
 Context:
 The bounded California SCO diagnostics established, for one examined row, that strict UTF-8 decoding and strict stdlib CSV parsing succeeded, the canonical 25-column shape was produced, stdlib field index `1` agreed with the custom projector's `PROPERTY_TYPE` field, and the shared field still failed the unchanged regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`. The exact value, frequency, cause and source intent remain unknown. A reviewed handling proposal required disposition, continuation and privacy boundaries to remain separate.
@@ -204,11 +204,10 @@ Alternatives considered:
 
 Consequences:
 - Runtime behavior remains unchanged until a separate implementation gate is reviewed and authorized.
-- Source continuation after the nonconforming condition remains unauthorized.
-- The accepted future control vocabulary is `PROPERTY_TYPE_NONCONFORMING_STOPPED` with reason `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`, subject to separate implementation review.
+- Source continuation after the nonconforming condition remains unauthorized under D-008 itself.
+- The accepted historical control vocabulary is `PROPERTY_TYPE_NONCONFORMING_STOPPED` with reason `PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE`.
 - Exact/derived `PROPERTY_TYPE`, real row/field content, hashes, exact lengths, `PROPERTY_ID`, owner/holder values and source-derived free text remain outside the persistence boundary.
-- Any future continuation, real-row retention or row-specific inspection requires a separately reviewed design and authorization path.
-- Source policy remains `PROPOSED`, registry remains disabled/unapproved, production classification remains inactive and downstream gates remain closed.
+- D-010 changes only the source-specific MVP-1 continuation policy while preserving the no-normalization/no-value-persistence boundary.
 
 ---
 
@@ -240,3 +239,49 @@ Consequences:
 - repository-first/reuse-first is mandatory before substantial custom downstream capability;
 - the canonical read order is `AGENTS.md`, `PRODUCT_STRATEGY_MVP1.md`, `PROJECT_STATE.md`, `ROADMAP.md`, `DECISIONS.md`, `docs/handovers/HANDOVER_CURRENT.md`;
 - all existing legal, privacy, security, source-authorization, deterministic and fail-closed controls remain binding and take precedence over product acceleration.
+
+---
+
+## D-010 — Authority-backed row defer for California SCO MVP-1 PROPERTY_TYPE classification
+
+Date: 2026-09-17
+
+Status: Accepted; real-source validation still requires fresh single-use authorization
+
+Context:
+The adopted transport baseline was confirmed live. A one-shot real-source execution then reached a canonical `PROPERTY_TYPE` field that failed the unchanged structural boundary and correctly stopped under D-008. Earlier source-format diagnostics already established that strict UTF-8 and strict stdlib CSV parsing succeed, the row has the canonical 25-column shape, and stdlib field index `1` agrees with the custom projector. California SCO authority provenance is now resolved: the archived/current California NAUPA material enumerates insurance codes `IN01` through `IN08` plus `IN99`, and the current California Holder Handbook identifies `IN03` as `Proceeds Due Beneficiaries`.
+
+Decision:
+For the California SCO MVP-1 insurance-classification path, supersede D-008's whole-source continuation behavior with `ROW_DEFER_CONTINUE_METADATA_ONLY` while preserving its semantic and privacy safeguards.
+
+A nonconforming `PROPERTY_TYPE`:
+- is not normalized, trimmed, uppercased, repaired, regex-relaxed, inferred, or accepted;
+- is not classified as non-insurance;
+- is classified only as `DEFER_UNCLASSIFIABLE`;
+- contributes only to a non-value-bearing aggregate deferred-row count;
+- does not persist the source value, derivative, row content, `PROPERTY_ID`, owner/holder fields, hash, exact length, or source-derived free text;
+- does not trigger row-specific human inspection;
+- does not silently disappear: the defer count is part of completeness evidence;
+- permits processing of later rows so exact authority-backed insurance codes can be found.
+
+Exact California insurance codes `IN01`-`IN08` and `IN99` are recognized as insurance. For the first high-precision MVP-1 vertical slice, `IN03` is the primary target because the California authority description is `Proceeds Due Beneficiaries`. This is a product targeting rule, not an alteration of California semantics and not a claim that other insurance codes lack commercial value.
+
+Reason:
+A malformed/unclassified row does not justify inventing semantics, but stopping the entire public source prevents reaching later rows that may contain exact authority-backed insurance codes. Metadata-only row defer preserves uncertainty and privacy while removing a disproportionate blocker to the first economically actionable case.
+
+Alternatives considered:
+- Keep D-008 whole-source stop indefinitely
+- Normalize or relax the malformed value
+- Persist/quarantine the row for inspection
+- Treat malformed values as non-insurance
+- Abandon California SCO immediately
+
+Consequences:
+- the existing diagnostic runner remains historical evidence and need not be rewritten;
+- the new source-specific classifier is the MVP-1 product classification boundary;
+- exact authority-backed insurance codes can flow forward, with `IN03` as the first narrow target;
+- nonconforming rows remain unresolved and auditable via aggregate count rather than silent omission;
+- no privacy expansion or real-row persistence is introduced;
+- source approval is not granted by this decision;
+- a fresh bounded real-source execution must validate row-defer continuation and insurance discovery before source activation;
+- after source approval, priority moves immediately to candidate generation, case economics and reviewer decision rather than further PROPERTY_TYPE diagnostics.
