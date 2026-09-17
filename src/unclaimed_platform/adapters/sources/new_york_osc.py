@@ -13,6 +13,9 @@ NY_OSC_OWNER_NAME_FILE_SOURCE_ID = "ny.osc.unclaimed_funds.owner_name_file"
 NY_OSC_OWNER_NAME_FILE_REQUEST_URL = (
     "https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form"
 )
+NY_OSC_AUTHORITY = (
+    "New York State Office of the State Comptroller, Office of Unclaimed Funds"
+)
 NY_SOURCE_CONTRACT_REF = "policies/states/NY/ny_osc_owner_name_file.v1.json"
 NY_BENCHMARK_REF = "docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md"
 
@@ -52,7 +55,10 @@ class NewYorkOSCOwnerNameFileAdapter:
             return self._blocked(
                 request,
                 "SCOPE_NOT_ALLOWED",
-                "The source boundary permits raw-ingest-only acquisition; downstream identity work is out of scope.",
+                (
+                    "The source boundary permits raw-ingest-only acquisition; "
+                    "downstream identity work is out of scope."
+                ),
             )
 
         if not self._approved_for_use or not request.approval_id:
@@ -67,7 +73,7 @@ class NewYorkOSCOwnerNameFileAdapter:
             "FIRST_FILE_SCHEMA_DISCOVERY_REQUIRED",
             (
                 "The source is selected, but the physical file contract has not been observed. "
-                "A separately authorized first-file memory-only schema-discovery execution is required."
+                "A separately authorized memory-only schema-discovery execution is required."
             ),
         )
 
@@ -88,13 +94,14 @@ class NewYorkOSCOwnerNameFileAdapter:
             artifact=None,
             provenance=AcquisitionProvenance(
                 source_uri=NY_OSC_OWNER_NAME_FILE_REQUEST_URL,
-                authority="New York State Office of the State Comptroller, Office of Unclaimed Funds",
+                authority=NY_OSC_AUTHORITY,
                 acquisition_method=AcquisitionMethod.OFFICIAL_BULK_DOWNLOAD,
                 retrieved_at=None,
                 terms_review_ref=NY_BENCHMARK_REF,
                 source_revision=None,
                 access_notes=(
-                    "Source contract boundary only; no request, download, parsing, or real PII processing performed. "
+                    "Source contract boundary only; no request, download, parsing, "
+                    "or real PII processing performed. "
                     f"Machine source contract: {NY_SOURCE_CONTRACT_REF}."
                 ),
             ),
