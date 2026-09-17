@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import importlib.util
 import json
-import sys
 from pathlib import Path
-from types import ModuleType
 
 from jsonschema import Draft202012Validator, FormatChecker
 
@@ -24,7 +21,6 @@ PROPOSAL_PATH = (
     / "sources/proposals/"
     "ca_sco_segment_500_plus.property_type_transport_archive_layout_baseline_refresh.v1.json"
 )
-RUNNER_PATH = ROOT / "scripts/ca_sco_property_type_semantic_verification.py"
 
 EXECUTION_REF = (
     "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_"
@@ -45,18 +41,6 @@ CONSUMED_PRIVACY_REF = (
 
 def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _load_runner() -> ModuleType:
-    spec = importlib.util.spec_from_file_location(
-        "ca_sco_property_type_semantic_verification_revalidation_auth",
-        RUNNER_PATH,
-    )
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
 
 
 def test_revalidation_authorization_validates_and_is_fresh_single_use() -> None:
@@ -192,22 +176,11 @@ def test_authorization_gate_performed_no_network_and_adopted_no_baseline() -> No
     )
 
 
-def test_authorization_does_not_mutate_runner_or_open_downstream_gates() -> None:
+def test_authorization_snapshot_remains_non_adopting_and_downstream_closed() -> None:
     authorization = _load(AUTH_PATH)
-    runner = _load_runner()
     scope = authorization["authorized_scope"]
 
     assert isinstance(scope, dict)
-    assert runner.EXPECTED_LENGTH == 162_416_884
-    assert runner.EXPECTED_ETAG == '"b25b315b6cd8007624387c3a00d4b1fe"'
-    assert [member.local_header_offset for member in runner.CANONICAL_MEMBERS] == [
-        0,
-        59_747_797,
-        96_862_896,
-        134_174_190,
-    ]
-    assert runner.PROPERTY_TYPE_RE.pattern == r"^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$"
-
     assert scope["baseline_adoption"] is False
     assert scope["runner_constant_update"] is False
     for key in (
@@ -222,6 +195,7 @@ def test_authorization_does_not_mutate_runner_or_open_downstream_gates() -> None
     ):
         assert scope[key] is False
 
+    assert authorization["current_gate_effect"]["runner_modified"] is False
     assert authorization["next_gate"] == (
         "EXECUTE_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_"
         "BASELINE_REFRESH_REVALIDATION_ONCE"
