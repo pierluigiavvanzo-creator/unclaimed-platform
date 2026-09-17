@@ -7,7 +7,7 @@ Last updated: 2026-09-17
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | REVIEWED TRANSPORT/ARCHIVE BASELINE ADOPTED; REAL SEMANTIC PROPOSAL REFRESH NEXT | current content length, ETag and canonical offsets adopted in runner; CI green; no source request during adoption |
+| M3 — California Data Spike | ADOPTED BASELINE + REFRESHED REAL-SEMANTIC PROPOSAL; HUMAN REVIEW NEXT | current content length, ETag and canonical offsets active in runner; proposal v1.1.0 rebound to those pins |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
 | MVP-1 — First Economically Actionable Case | IN PROGRESS — BLOCKED ON FIRST APPROVED REAL SOURCE | real source -> acquisition -> normalization -> insurance classification -> candidate -> evidence -> economics -> reviewer -> human decision |
 
@@ -19,29 +19,20 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-M3 remains only the minimum critical-path enabler required to reach one lawful approved real source. Do not return to transport diagnostics unless new evidence invalidates the adopted baseline.
+M3 remains only the minimum critical-path enabler required to reach one lawful approved real source.
 
 ## Verified M3 State
 
 - D-008 `WHOLE_SOURCE_STOP` remains unchanged;
 - semantic runner contract remains `1.2.0`;
-- structural revalidation run `35198720002` completed **SUCCESS** on attempt `1`;
-- candidate transport/archive-layout evidence was human-reviewed and accepted;
-- reviewed baseline is now explicitly adopted in the semantic runner;
-- implementation CI `35208763198` is **SUCCESS** on checkpoint `1eb8f79bac3024c7b69785663e3102a0fe83f8fd`;
-- no California SCO request occurred during baseline adoption;
+- reviewed transport/archive-layout baseline is adopted in the runner;
+- adopted pins are content length `162560390`, ETag `"222dd79f04c2a0a8fff166b01c8da746"`, offsets `0`, `59745428`, `96861315`, `134172553`;
+- historical real-source execution proposal v1.0.0 is preserved as provenance;
+- refreshed proposal v1.1.0 is bound to the adopted baseline and current CI-green runner;
 - all previous execution/privacy approvals remain consumed and non-reusable;
-- semantic compatibility remains unresolved.
-
-## Adopted Baseline
-
-Runtime transport/archive-layout pins:
-
-- content length `162560390`;
-- ETag `"222dd79f04c2a0a8fff166b01c8da746"`;
-- canonical offsets `0`, `59745428`, `96861315`, `134172553`.
-
-Contract regression verifies equality between these runtime pins and the persisted human-reviewed structural evidence.
+- no fresh execution/privacy approval currently exists;
+- semantic compatibility remains unresolved;
+- approved real sources remain `0`.
 
 ## Preserved Runtime Boundary
 
@@ -51,7 +42,9 @@ Unchanged:
 - regex `^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$`;
 - trimming/casing/normalization;
 - D-008 fail-closed mapping;
-- sample and request/byte caps;
+- deterministic four-member prefix sample;
+- request/byte caps;
+- no widening or automatic retry;
 - source policy / registry / production gates.
 
 ## Approval State
@@ -60,7 +53,7 @@ All prior real-source and structural-revalidation execution/privacy approvals ar
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-A future real semantic verification requires fresh single-use execution and transient-row privacy authorization after the execution proposal is rebound to the adopted baseline.
+A future real semantic verification still requires fresh single-use execution and transient-row privacy authorization after human review of the refreshed proposal.
 
 ## MVP-1 Commercial Baseline To Establish
 
@@ -83,12 +76,12 @@ No commercial threshold is invented in advance.
 
 Execute exclusively:
 
-`REFRESH_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_FOR_ADOPTED_BASELINE`
+`HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_PROPOSAL_REFRESH_REVIEW`
 
 Classification:
 
 `A — Product Critical`
 
-Reuse the existing v1.2 execution proposal rather than creating a new execution design. Update only its stale canonical offsets/baseline provenance and any strictly dependent contract assertions. Preserve sample plan, privacy controls, D-008, hard caps and no-retry boundary. This refresh is repository-only and must perform no California SCO request or grant fresh approvals.
+Review proposal version `1.1.0` only. Confirm that it changes the stale baseline/provenance binding while preserving sample plan, D-008, privacy, request/byte caps, no-retry/no-widening and non-authorizing status. Do not access California SCO or activate any downstream gate.
 
-After the refreshed proposal is validated, take the shortest safe route through human review + fresh authorization to exactly one bounded real-source semantic execution, then evaluate source approval rather than expanding infrastructure.
+After a PASS, take the shortest safe route through fresh single-use authorization to exactly one bounded real-source semantic execution, then evaluate source approval rather than expanding infrastructure.
