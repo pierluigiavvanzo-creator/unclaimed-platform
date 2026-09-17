@@ -209,3 +209,39 @@ Consequences:
 - Exact/derived `PROPERTY_TYPE`, real row/field content, hashes, exact lengths, `PROPERTY_ID`, owner/holder values and source-derived free text remain outside the persistence boundary.
 - Any future continuation, real-row retention or row-specific inspection requires a separately reviewed design and authorization path.
 - Source policy remains `PROPOSED`, registry remains disabled/unapproved, production classification remains inactive and downstream gates remain closed.
+
+---
+
+## D-009 — Product-value-first sequencing and MVP-1 commercial validation
+
+Date: 2026-09-17
+
+Status: Accepted
+
+Context:
+M0, M1 and M2 are verified and M3 has produced strong governance, provenance and fail-closed behavior, but the product still has zero approved real sources and no completed real-source-to-economic-decision vertical slice. A02 normalization, A03 insurance classification and A15 economics remain unimplemented beyond placeholders. The dominant risk is therefore product/economic validation rather than further foundation depth.
+
+Decision:
+- Adopt `PRODUCT_STRATEGY.md` as the canonical source for product priority and sequencing.
+- Make `MVP-1 — First Economically Actionable Case` the primary product milestone.
+- Require significant tasks to state A/B/C/D class, MVP-1 stage, expected product/economic contribution, user-time impact and reuse decision.
+- Defer C/D work unless it materially protects or unblocks an A-class product/legal/privacy/security risk.
+- Treat the California transport/archive-layout baseline refresh as a possible source-unblock task, not as an objective by itself or an automatically exclusive next action.
+- Require repository-first/reuse-first benchmarking before substantial new A02/A03/A15/A16 implementation.
+- Do not expand full identity, genealogy, outreach, claim automation or multi-state infrastructure before upstream commercial evidence exists.
+
+Reason:
+The project must validate that a lawful real-data path can produce cases with defensible economics before investing further in downstream sophistication. This aligns development effort with economic value, usable product value and Product Owner time.
+
+Alternatives considered:
+- Continue the M3 diagnostic/governance sequence until California is exhaustively resolved.
+- Implement the complete A01-A23 target architecture before commercial validation.
+- Build downstream workflows first on synthetic data.
+
+Consequences:
+- `docs/decisions/ADR-0007-mvp1-product-value-first.md` records the detailed rationale and constraints.
+- The immediate next action becomes `MVP1_VERTICAL_SLICE_GAP_AND_REUSE_AUDIT`, repository-only and non-networked.
+- D-008 and all legal/privacy/source-access controls remain in force.
+- Consumed approvals remain non-reusable.
+- This decision grants no network request, source approval, privacy expansion, outreach or claim authorization.
+- Technical tests and governance artifacts remain necessary where they protect MVP-1, but do not count as product progress by themselves.
