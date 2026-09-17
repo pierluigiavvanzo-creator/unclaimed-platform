@@ -2,37 +2,71 @@
 
 Last updated: 2026-09-17
 
-## Current Milestone
+## Current Product Objective
+
+`MVP-1 — First Economically Actionable Case`
+
+Priority strategy source:
+
+`PRODUCT_STRATEGY_MVP1.md`
+
+Governing decision:
+
+`D-009 — MVP-1 commercial validation becomes the product-priority objective`
+
+Guiding metric:
+
+`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+
+M3 California source work remains active only as the minimum critical-path enabler required to reach one lawful approved real source.
+
+## MVP-1 Target Vertical Slice
+
+`APPROVED REAL SOURCE`
+
+`-> bounded acquisition`
+
+`-> normalization`
+
+`-> insurance classification`
+
+`-> candidate case creation`
+
+`-> provenance / evidence package`
+
+`-> case economics`
+
+`-> reviewer console`
+
+`-> human continue / stop decision`
+
+No commercial success threshold is invented in advance. Real execution must establish the commercial baseline.
+
+## Current Engineering Milestone
 
 M3 — California Data Spike Readiness + Product Visibility
 
-## Current Status
-
 M0, M1 and M2 are VERIFIED.
 
-California SCO `PROPERTY_TYPE` handling remains governed by `D-008 — Fail-closed handling design for nonconforming California SCO PROPERTY_TYPE`, accepted policy `WHOLE_SOURCE_STOP`, implementation strategy `ADDITIVE_VERSIONED_CONTROL_DISPOSITION`, and runner output contract `1.2.0`.
+## Current Unified Checkpoint
 
-The v1.2 one-shot real-source execution stopped fail-closed on transport metadata drift before body access. Its evidence was human-reviewed and accepted. The subsequent repository-only transport + archive-layout baseline refresh proposal has now also been human-reviewed and accepted as a bounded design.
+Current unified branch:
 
-## Current Review Checkpoint
+`m3-unified-mvp1`
 
-Review branch:
+Technical base branch:
 
 `m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal-review`
 
-Reviewed proposal branch:
+Technical base HEAD:
 
-`m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal`
+`b8f703db18207661cd799b0baf1f0dac1bfdc398`
 
-Reviewed proposal HEAD:
+Technical base CI:
 
-`359b1c1a86d34edabcd028e5e5fbb6fc3acba781`
+`35187432747` — **SUCCESS**
 
-Reviewed proposal CI:
-
-`35139290645` — **SUCCESS**
-
-Completed action:
+Completed technical action:
 
 `HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_REVIEW`
 
@@ -86,10 +120,10 @@ Historical transport pins remain stale for future execution planning but not pro
 
 Historical canonical local-header offsets remain:
 
-1. `From_500_To_Beyond_1_of_4.csv` → `0`;
-2. `From_500_To_Beyond_2_of_4.csv` → `59747797`;
-3. `From_500_To_Beyond_3_of_4.csv` → `96862896`;
-4. `From_500_To_Beyond_4_of_4.csv` → `134174190`.
+1. `From_500_To_Beyond_1_of_4.csv` -> `0`;
+2. `From_500_To_Beyond_2_of_4.csv` -> `59747797`;
+3. `From_500_To_Beyond_3_of_4.csv` -> `96862896`;
+4. `From_500_To_Beyond_4_of_4.csv` -> `134174190`.
 
 One-shot observed drift evidence remains evidence only:
 
@@ -151,10 +185,22 @@ Unchanged:
 - canonical member offsets;
 - D-008 `WHOLE_SOURCE_STOP` handling.
 
-`DECISIONS.md` remains unchanged because this review accepts a bounded operational verification design under existing deterministic/fail-closed governance and introduces no new architecture or runtime semantics.
+## Product / Commercial Interpretation
+
+Current facts:
+
+- approved real sources: `0`;
+- semantic compatibility resolved: `false`;
+- production classification active: `false`;
+- real candidate cases through MVP-1: `0`;
+- commercial baseline from real cases: not yet established.
+
+Therefore additional M3 diagnostic or governance work is justified only when it materially shortens the safe path to one approved real source. Once one approved real source exists, priority shifts immediately to the MVP-1 vertical slice and commercial measurements.
 
 ## Source / Product Governance State
 
+- D-008 accepted as design: `true`;
+- D-009 MVP-1 priority accepted: `true`;
 - baseline-refresh proposal prepared: `true`;
 - proposal human-reviewed: `true`;
 - proposal accepted as design: `true`;
@@ -179,6 +225,10 @@ Unchanged:
 Execute exclusively:
 
 `HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION`
+
+Classification:
+
+`A/B — MVP-1 critical-path enabler`
 
 This next gate is repository-only. It may decide whether to grant fresh single-use execution and structural-byte privacy approvals for the accepted bounded revalidation design.
 
