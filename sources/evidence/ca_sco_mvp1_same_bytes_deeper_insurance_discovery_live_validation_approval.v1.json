@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "authorization_gate": "HUMAN_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_LIVE_VALIDATION_AUTHORIZATION",
   "authorized_on": "2026-09-17",
-  "owner_authorization": "APPROVO FRESH SAME-BYTES DEEPER LIVE VALIDATION + TRANSIENT-ROW PRIVACY — 256/MEMBER, 1024 TOTAL, 524288 SOURCE BYTES MAX",
+  "owner_authorization": "APPROVO FRESH SAME-BYTES DEEPER LIVE VALIDATION + TRANSIENT-ROW PRIVACY \u2014 256/MEMBER, 1024 TOTAL, 524288 SOURCE BYTES MAX",
   "repository": "pierluigiavvanzo-creator/unclaimed-platform",
   "authorization_base_branch": "mvp1-ca-same-bytes-deeper-insurance-discovery-offline",
   "authorization_base_head": "eebb18693c9a75de4d060bdfeb38d98d0975ccfc",
@@ -11,7 +11,7 @@
   "execution_branch": "mvp1-ca-same-bytes-deeper-live-validation-once",
   "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_REAL_SOURCE_VALIDATION_BOUNDED_D4F29A61",
   "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_TRANSIENT_ROW_PRIVACY_BOUNDED_D4F29A61",
-  "approval_state": "GRANTED_NOT_YET_CONSUMED",
+  "approval_state": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -38,7 +38,12 @@
     "endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
     "expected_content_length": 162560390,
     "expected_etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
-    "canonical_member_offsets": [0, 59745428, 96861315, 134172553]
+    "canonical_member_offsets": [
+      0,
+      59745428,
+      96861315,
+      134172553
+    ]
   },
   "authorized_bounds": {
     "head_requests_max": 1,
@@ -64,7 +69,7 @@
     "per_member_scan_metadata_persistence_allowed": true,
     "authority_backed_insurance_codes_persistence_allowed": true
   },
-  "consumed_at_utc": null,
-  "execution_run_id": null,
-  "execution_run_attempt": null
+  "consumed_at_utc": "2026-09-17T17:51:23.512117Z",
+  "execution_run_id": "35255228459",
+  "execution_run_attempt": 1
 }
