@@ -1,0 +1,86 @@
+{
+  "control_disposition": null,
+  "controls": {
+    "additional_range_allowed": false,
+    "full_body_fallback_allowed": false,
+    "head_requests_max": 1,
+    "http_requests_max_total": 5,
+    "logical_record_bytes_max": 32768,
+    "range_requests_max": 4,
+    "range_response_bytes_max_each": 131072,
+    "rows_max_per_member": 256,
+    "rows_max_total": 1024,
+    "source_response_byte_budget_unchanged": true,
+    "total_source_response_body_bytes_max": 524288,
+    "uncompressed_transient_bytes_max_each": 262144,
+    "uncompressed_transient_bytes_max_total": 1048576
+  },
+  "executed_at": "2026-09-17T17:51:24.780806Z",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_REAL_SOURCE_VALIDATION_BOUNDED_D4F29A61",
+  "execution_id": "ca.sco.unclaimed_property.bulk.500_plus.mvp1.property_type.same_bytes_deeper_insurance_discovery",
+  "jurisdiction": "CA",
+  "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_SAME_BYTES_DEEPER_INSURANCE_DISCOVERY_TRANSIENT_ROW_PRIVACY_BOUNDED_D4F29A61",
+  "proposal_id": "ca.sco.mvp1.property_type.same_bytes_deeper_discovery",
+  "requests_summary": {
+    "head_requests": 1,
+    "http_requests_total": 5,
+    "range_requests": 4,
+    "total_body_bytes_read": 524288
+  },
+  "safety_state": {
+    "beneficiary_matching_performed": false,
+    "full_archive_downloaded": false,
+    "full_rows_persisted": false,
+    "identity_resolution_performed": false,
+    "outreach_performed": false,
+    "owner_holder_values_persisted": false,
+    "per_row_property_type_persisted": false,
+    "production_classification_activated": false,
+    "property_id_persisted": false,
+    "raw_body_persisted": false,
+    "temporary_source_files_created": false
+  },
+  "sample_summary": {
+    "distinct_insurance_codes": [],
+    "insurance_rows_count": 0,
+    "mvp1_primary_rows_count": 0,
+    "nonconforming_rows_deferred_count": 1024,
+    "rows_examined_per_member": {
+      "From_500_To_Beyond_1_of_4.csv": 256,
+      "From_500_To_Beyond_2_of_4.csv": 256,
+      "From_500_To_Beyond_3_of_4.csv": 256,
+      "From_500_To_Beyond_4_of_4.csv": 256
+    },
+    "sample_rows_examined": 1024,
+    "scan_status_per_member": {
+      "From_500_To_Beyond_1_of_4.csv": "ROW_CAP_REACHED",
+      "From_500_To_Beyond_2_of_4.csv": "ROW_CAP_REACHED",
+      "From_500_To_Beyond_3_of_4.csv": "ROW_CAP_REACHED",
+      "From_500_To_Beyond_4_of_4.csv": "ROW_CAP_REACHED"
+    },
+    "shape_valid_non_target_rows_count": 0
+  },
+  "scan_mode": "SAME_BYTES_DEEPER_LOGICAL_ROWS",
+  "schema_version": "1.1.0",
+  "semantic_result_status": "NO_INSURANCE_CODE_OBSERVED_IN_BOUNDED_SAMPLE",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "stop_reason": null,
+  "target": {
+    "endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
+    "expected_accept_ranges": "bytes",
+    "expected_content_length": 162560390,
+    "expected_etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
+    "expected_media_type": "application/zip"
+  },
+  "transport_verification": {
+    "accept_ranges": "bytes",
+    "content_length": 162560390,
+    "content_type": "application/zip",
+    "etag": "\"222dd79f04c2a0a8fff166b01c8da746\"",
+    "head_performed": true,
+    "head_status": 200,
+    "last_modified": "Wed, 16 Sep 2026 16:43:22 GMT"
+  }
+}
