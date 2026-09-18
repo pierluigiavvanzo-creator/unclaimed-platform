@@ -3,7 +3,12 @@ from pathlib import Path
 import pytest
 
 from unclaimed_platform.api.reviewer import synthetic_operations_snapshot
-from unclaimed_platform.ui.streamlit_console import load_safe_snapshot, validate_safe_snapshot
+from unclaimed_platform.ui.streamlit_console import (
+    load_safe_mvp1_case,
+    load_safe_snapshot,
+    validate_safe_mvp1_case,
+    validate_safe_snapshot,
+)
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -32,6 +37,29 @@ def test_streamlit_snapshot_fails_closed_if_real_source_is_approved() -> None:
         validate_safe_snapshot(unsafe_snapshot)
 
 
+def test_streamlit_mvp1_case_preserves_synthetic_safety_boundaries() -> None:
+    case = load_safe_mvp1_case()
+
+    assert case.mode == "SYNTHETIC_READ_ONLY"
+    assert case.classification.authority_code == "IN03"
+    assert case.classification.primary_target is True
+    assert case.candidate.status == "CREATED"
+    assert case.economics.recoverable_value_state == "UNKNOWN_FROM_SOURCE"
+    assert case.economics.invented_amounts is False
+    assert case.provenance.real_source_accessed is False
+    assert case.safety.owner_file_downloaded is False
+    assert case.safety.real_owner_pii_processed is False
+
+
+def test_streamlit_mvp1_case_fails_closed_on_real_source_access() -> None:
+    case = load_safe_mvp1_case()
+    unsafe_provenance = case.provenance.model_copy(update={"real_source_accessed": True})
+    unsafe_case = case.model_copy(update={"provenance": unsafe_provenance})
+
+    with pytest.raises(RuntimeError, match="real source access is forbidden"):
+        validate_safe_mvp1_case(unsafe_case)
+
+
 def test_streamlit_console_preserves_verified_visual_language() -> None:
     app_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "streamlit_app.py"
     theme_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "theme.css"
@@ -41,6 +69,8 @@ def test_streamlit_console_preserves_verified_visual_language() -> None:
 
     assert "theme.css" in app_source
     assert "authoritative typed Python read model" in app_source
+    assert "MVP-1 SYNTHETIC CASE" in app_source
+    assert "CASE ECONOMICS" in app_source
     assert "st.metric" not in app_source
     assert "st.info" not in app_source
     assert "st.html(page_html)" in app_source

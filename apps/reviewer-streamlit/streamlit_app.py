@@ -14,7 +14,10 @@ _SRC_PATH = str(_SRC_DIR)
 if _SRC_PATH not in sys.path:
     sys.path.insert(0, _SRC_PATH)
 
-from unclaimed_platform.ui.streamlit_console import load_safe_snapshot  # noqa: E402
+from unclaimed_platform.ui.streamlit_console import (  # noqa: E402
+    load_safe_mvp1_case,
+    load_safe_snapshot,
+)
 
 
 def _display(value: str) -> str:
@@ -42,6 +45,7 @@ st.set_page_config(page_title="M3 Operations Console", layout="wide")
 
 try:
     snapshot = load_safe_snapshot()
+    mvp1_case = load_safe_mvp1_case()
 except RuntimeError as exc:
     st.error("Safety boundary violation. Reviewer console stopped.")
     st.code(str(exc))
@@ -91,6 +95,31 @@ audit_rows = "".join(
     ]
 )
 
+mvp1_case_rows = "".join(
+    [
+        _row("Property type", mvp1_case.classification.authority_code or "NONE", mono=True),
+        _row("Classification", mvp1_case.classification.status.replace("_", " ")),
+        _row("Case ID", mvp1_case.candidate.case_id or "NOT CREATED", mono=True),
+        _row("Source record", mvp1_case.candidate.source_record_ref, mono=True),
+        _row("Input boundary", mvp1_case.provenance.input_boundary.replace("_", " ")),
+    ]
+)
+
+mvp1_economics_rows = "".join(
+    [
+        _row("Recoverable value", mvp1_case.economics.recoverable_value_state.replace("_", " ")),
+        _row("Fee basis", mvp1_case.economics.fee_basis_state.replace("_", " ")),
+        _row(
+            "Economic actionability",
+            mvp1_case.economics.economic_actionability.replace("_", " "),
+        ),
+        _row(
+            "Reviewer decision",
+            mvp1_case.reviewer_decision_required.replace("_", " "),
+        ),
+    ]
+)
+
 page_html = f"""
 <div class="uip-shell">
   <header class="uip-hero">
@@ -113,6 +142,20 @@ page_html = f"""
 
   <section class="uip-grid uip-milestones">
     {milestones_html}
+  </section>
+
+  <section class="uip-grid uip-two-col">
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">MVP-1 SYNTHETIC CASE</p>
+      <h2>NY IN03 vertical slice</h2>
+      <div class="uip-list">{mvp1_case_rows}</div>
+    </article>
+
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">CASE ECONOMICS</p>
+      <h2>Value evidence is the next commercial blocker</h2>
+      <div class="uip-list">{mvp1_economics_rows}</div>
+    </article>
   </section>
 
   <section class="uip-grid uip-two-col">
