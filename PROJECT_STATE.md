@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-gate2-approved-ready-execution`
+`mvp1-ny-first-real-schema-discovery-blocked`
 
 Latest verified product implementation checkpoint:
 
@@ -530,6 +530,32 @@ Durable raw persistence, repository storage, cloud-sync storage, chat upload and
 
 No real Owner Name File was downloaded and Gate 2 remains ungranted.
 
+## NY OSC First Real Schema Discovery — Blocked Fail-Closed
+
+The single authorized real execution completed its bounded transfer checks and then stopped fail-closed.
+
+Observed non-PII facts:
+
+- archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- reason: `PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED`;
+- local raw ZIP logically deleted: yes;
+- owner values returned: no.
+
+Both the Gate 2 approval and transient-local-file approval are consumed and non-reusable. No retry is authorized.
+
+The root-cause remediation has now been implemented offline:
+
+- UTF-8 BOM documented header is recognized;
+- 14-field layout remains fail-closed;
+- Property Type Code value shape is now aggregate diagnostic only and no longer a physical-schema blocker;
+- semantic code validation remains deferred.
+
+Audit:
+
+`docs/audits/NY_OSC_PROPERTY_TYPE_FIELD_SHAPE_ROOT_CAUSE_REMEDIATION.md`
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -537,8 +563,8 @@ No real Owner Name File was downloaded and Gate 2 remains ungranted.
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: `CONSUMED / NON-REUSABLE`;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY`;
-- NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
+- NY Gate 2: `CONSUMED_SINGLE_USE_NON_REUSABLE / BLOCKED_FAIL_CLOSED`;
+- NY transient-local-file approval: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
 - NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - real owner PII processed: no;
@@ -557,20 +583,12 @@ No real Owner Name File was downloaded and Gate 2 remains ungranted.
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
+`VERIFY_NY_PROPERTY_TYPE_FIELD_SHAPE_REMEDIATION_OFFLINE`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Offline Diagnostic Remediation`.
 
-All technical prerequisites are now ready:
+Do not reacquire or rerun the real Owner Name File.
 
-- current remote listing identity observed;
-- `max_download_bytes = 450,000,000`;
-- `max_uncompressed_bytes = 2,000,000,000`;
-- `max_archive_members = 1`;
-- one download maximum;
-- zero retries;
-- transient-local-file exception granted but not consumed;
-- transient-local runner verified;
-- bounded schema-discovery harness verified.
+Run the full CI against the remediated schema-discovery harness. If green, prepare a fresh bounded rerun proposal for separate human review.
 
-Gate 2 is now explicitly granted but not consumed. The next action is the single bounded real execution. No retry is authorized.
+Any later real rerun requires new explicit Product Owner authorization.
