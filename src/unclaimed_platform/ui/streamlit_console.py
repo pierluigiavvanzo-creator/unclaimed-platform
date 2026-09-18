@@ -5,6 +5,10 @@ from unclaimed_platform.domain.mvp1_vertical_slice import (
     Mvp1SyntheticCaseReview,
     synthetic_ny_mvp1_case_review,
 )
+from unclaimed_platform.domain.ny_mvp1_value_evidence import (
+    NyMvp1PrecontactEconomicsEvidence,
+    ny_mvp1_precontact_economics_evidence,
+)
 
 
 def validate_safe_snapshot(snapshot: OperationsSnapshot) -> OperationsSnapshot:
@@ -87,3 +91,39 @@ def validate_safe_mvp1_case(case: Mvp1SyntheticCaseReview) -> Mvp1SyntheticCaseR
 def load_safe_mvp1_case() -> Mvp1SyntheticCaseReview:
     """Load and validate the deterministic synthetic MVP-1 case-review slice."""
     return validate_safe_mvp1_case(synthetic_ny_mvp1_case_review())
+
+
+def validate_safe_mvp1_economics(
+    evidence: NyMvp1PrecontactEconomicsEvidence,
+) -> NyMvp1PrecontactEconomicsEvidence:
+    """Fail closed if pre-contact economics starts implying unsupported value or fees."""
+    violations: list[str] = []
+
+    if evidence.contract_version != "1.0.0":
+        violations.append("unexpected NY economics contract version")
+    if evidence.mode != "OFFLINE_PRECONTACT_EVIDENCE":
+        violations.append("NY economics mode is not offline pre-contact evidence")
+    if evidence.exact_recoverable_value_cents is not None:
+        violations.append("exact recoverable value must remain unavailable pre-contact")
+    if evidence.owner_file_discloses_amount:
+        violations.append("Owner Name File must not be represented as disclosing amount")
+    if evidence.statutory_fee_cap_bps != 1500:
+        violations.append("unexpected statutory fee cap")
+    if evidence.actual_fee_bps is not None:
+        violations.append("actual fee rate must remain unsupported pre-contact")
+    if evidence.expected_follow_up_cost_cents is not None:
+        violations.append("follow-up cost must remain unmeasured until evidence exists")
+    if evidence.commercial_actionability != "NOT_COMPUTABLE_PRE_CONTACT":
+        violations.append("commercial actionability must remain not computable pre-contact")
+    if not evidence.fee_applicability_requires_legal_review:
+        violations.append("fee-rule applicability must remain subject to legal review")
+
+    if violations:
+        raise RuntimeError("Unsafe NY MVP-1 economics evidence: " + "; ".join(violations))
+
+    return evidence
+
+
+def load_safe_mvp1_economics() -> NyMvp1PrecontactEconomicsEvidence:
+    """Load and validate the current fail-closed pre-contact economics evidence."""
+    return validate_safe_mvp1_economics(ny_mvp1_precontact_economics_evidence())
