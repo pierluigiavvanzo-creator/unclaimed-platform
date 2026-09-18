@@ -204,7 +204,7 @@ page_html = f"""
     <div>
       <p class="uip-eyebrow">UNCLAIMED INSURANCE PLATFORM</p>
       <h1 class="uip-title">MVP-1 Reviewer Console</h1>
-      <p class="uip-lede">Synthetic/test-only review of NY IN03 candidate economics, provenance and governance.</p>
+      <p class="uip-lede">Synthetic/test-only review of NY IN03 economics and governance.</p>
     </div>
     <div class="uip-mode-card">
       <span>Data mode</span>
@@ -215,7 +215,7 @@ page_html = f"""
 
   <section class="uip-alert">
     <strong>Synthetic/test-only deployment candidate.</strong>
-    <span>No real acquisition, no Owner Name File download, no beneficiary matching, no real PII.</span>
+    <span>No real acquisition, Owner Name File download, beneficiary matching, or real PII.</span>
   </section>
 
   <section class="uip-grid uip-milestones">
