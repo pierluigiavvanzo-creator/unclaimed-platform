@@ -7,7 +7,6 @@ Raw archive bytes and owner-row values are never part of the serializable contra
 from __future__ import annotations
 
 import io
-import re
 import zipfile
 from typing import Literal
 
@@ -37,7 +36,6 @@ NY_DOCUMENTED_FIELDS: tuple[str, ...] = (
     "Holder Report Year",
 )
 NY_PROPERTY_TYPE_CODE_INDEX = 1
-_ASCII_ALNUM = re.compile(rb"^[A-Za-z0-9]+$")
 
 
 class NyOwnerNameSchemaDiscoveryAuthorization(BaseModel):
@@ -86,6 +84,7 @@ class NyOwnerNameSchemaDiscoveryResult(BaseModel):
     observed_data_field_count: int | None = Field(default=None, ge=0)
     observed_header_state: Literal[
         "EXACT_DOCUMENTED_HEADER",
+        "UTF8_BOM_DOCUMENTED_HEADER",
         "NO_HEADER_OBSERVED",
         "NOT_EVALUATED",
     ]
@@ -208,6 +207,7 @@ def discover_ny_owner_name_schema(
         property_type_ascii_count = 0
         header_state: Literal[
             "EXACT_DOCUMENTED_HEADER",
+            "UTF8_BOM_DOCUMENTED_HEADER",
             "NO_HEADER_OBSERVED",
         ] = "NO_HEADER_OBSERVED"
         observed_data_field_count: int | None = None
@@ -223,6 +223,9 @@ def discover_ny_owner_name_schema(
                     first_nonblank_seen = True
                     if line == documented_header:
                         header_state = "EXACT_DOCUMENTED_HEADER"
+                        continue
+                    if line.removeprefix(b"\xef\xbb\xbf") == documented_header:
+                        header_state = "UTF8_BOM_DOCUMENTED_HEADER"
                         continue
 
                 fields = line.split(b"|")
@@ -241,17 +244,9 @@ def discover_ny_owner_name_schema(
                     )
 
                 property_type_raw = fields[NY_PROPERTY_TYPE_CODE_INDEX]
-                if not property_type_raw or _ASCII_ALNUM.fullmatch(property_type_raw) is None:
-                    return _blocked(
-                        authorization,
-                        reason_code="PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
-                        archive_byte_count=archive_byte_count,
-                        archive_member_count=member_count,
-                        selected_text_member_present=True,
-                        selected_member_uncompressed_bytes=selected.file_size,
-                    )
+                if property_type_raw and property_type_raw.isalnum():
+                    property_type_ascii_count += 1
 
-                property_type_ascii_count += 1
                 record_count += 1
 
         if not first_nonblank_seen:
@@ -276,7 +271,10 @@ def discover_ny_owner_name_schema(
             observed_data_field_count=observed_data_field_count,
             observed_header_state=header_state,
             physical_header_names=(
-                NY_DOCUMENTED_FIELDS if header_state == "EXACT_DOCUMENTED_HEADER" else ()
+                NY_DOCUMENTED_FIELDS
+                if header_state
+                in {"EXACT_DOCUMENTED_HEADER", "UTF8_BOM_DOCUMENTED_HEADER"}
+                else ()
             ),
             aggregate_complete_record_count=record_count,
             property_type_ascii_record_count=property_type_ascii_count,
