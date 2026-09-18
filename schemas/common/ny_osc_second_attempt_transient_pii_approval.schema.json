@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-second-attempt-transient-pii-approval:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "attempt_number",
+    "source_identity",
+    "execution_bounds",
+    "remediation_checkpoint",
+    "remediation_ci_run_id",
+    "remediation_ci_conclusion",
+    "processing_scope",
+    "authorization_does_not_grant"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION"
+    },
+    "owner_authorization": {
+      "const": "APPROVO NY OSC OWNER NAME FILE SECOND BOUNDED TRANSIENT PII ATTEMPT ONCE"
+    },
+    "granted_on": {
+      "const": "2026-09-18"
+    },
+    "execution_approval_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "GRANTED_NOT_CONSUMED"
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "attempt_number": {
+      "const": 2
+    },
+    "source_identity": {
+      "type": "object"
+    },
+    "execution_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "downloads_max",
+        "retries_max",
+        "max_download_bytes",
+        "max_uncompressed_bytes",
+        "max_archive_members",
+        "text_members_required_exactly",
+        "expected_delimiter",
+        "expected_documented_field_count"
+      ],
+      "properties": {
+        "downloads_max": {
+          "const": 1
+        },
+        "retries_max": {
+          "const": 0
+        },
+        "max_download_bytes": {
+          "const": 450000000
+        },
+        "max_uncompressed_bytes": {
+          "const": 2000000000
+        },
+        "max_archive_members": {
+          "const": 1
+        },
+        "text_members_required_exactly": {
+          "const": 1
+        },
+        "expected_delimiter": {
+          "const": "|"
+        },
+        "expected_documented_field_count": {
+          "const": 14
+        }
+      }
+    },
+    "remediation_checkpoint": {
+      "const": "151f3a2f16c74f604fa72cc1284b2f9cd2e73f52"
+    },
+    "remediation_ci_run_id": {
+      "const": 35363685148
+    },
+    "remediation_ci_conclusion": {
+      "const": "SUCCESS"
+    },
+    "processing_scope": {
+      "type": "object"
+    },
+    "authorization_does_not_grant": {
+      "type": "object"
+    }
+  }
+}

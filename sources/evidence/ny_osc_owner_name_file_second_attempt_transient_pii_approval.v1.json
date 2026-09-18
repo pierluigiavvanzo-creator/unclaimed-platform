@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
+  "owner_authorization": "APPROVO NY OSC OWNER NAME FILE SECOND BOUNDED TRANSIENT PII ATTEMPT ONCE",
+  "granted_on": "2026-09-18",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_C41B7E93",
+  "status": "GRANTED_NOT_CONSUMED",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "attempt_number": 2,
+  "source_identity": {
+    "fresh_preflight_required": true,
+    "expected_if_unchanged_name": "FINDERS.zip",
+    "expected_if_unchanged_size_display": "390.51 MB",
+    "expected_if_unchanged_last_modified_display": "9/16/2026, 1:33:31 PM",
+    "drift_behavior": "STOP_BEFORE_DOWNLOAD_REQUIRE_FRESH_REVIEW"
+  },
+  "execution_bounds": {
+    "downloads_max": 1,
+    "retries_max": 0,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "text_members_required_exactly": 1,
+    "expected_delimiter": "|",
+    "expected_documented_field_count": 14
+  },
+  "remediation_checkpoint": "151f3a2f16c74f604fa72cc1284b2f9cd2e73f52",
+  "remediation_ci_run_id": 35363685148,
+  "remediation_ci_conclusion": "SUCCESS",
+  "processing_scope": {
+    "transient_owner_pii_in_memory_allowed": true,
+    "raw_file_persistence_beyond_temp_execution_allowed": false,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true
+  },
+  "authorization_does_not_grant": {
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  }
+}

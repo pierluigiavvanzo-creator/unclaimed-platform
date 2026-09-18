@@ -286,8 +286,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_REVIEW`
+`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Single-Use Real Execution`.
 
-Second-attempt proposal is prepared with unchanged safety bounds and verified offline remediation. Fresh preflight plus two new single-use approvals are required before any download.
+Both new v2 approvals are granted and not consumed. Before download, freshly verify the OSC listing. Any drift stops the attempt.

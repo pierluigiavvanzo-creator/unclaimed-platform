@@ -3,7 +3,7 @@
   "artifact_id": "ny.osc.owner_name_file.second_bounded_attempt_authorization_proposal",
   "artifact_version": "1.0.0",
   "prepared_on": "2026-09-18",
-  "status": "PENDING_HUMAN_AUTHORIZATION_AND_FRESH_PREFLIGHT",
+  "status": "GRANTED_NOT_CONSUMED_PENDING_FRESH_PREFLIGHT",
   "source_id": "ny.osc.unclaimed_funds.owner_name_file",
   "previous_attempt": {
     "execution_result_path": "sources/evidence/ny_osc_owner_name_file_first_download_execution_result.v1.json",
@@ -85,5 +85,10 @@
     "fee_agreement": false,
     "representation": false,
     "claim_activity": false
-  }
+  },
+  "local_approval_path": "sources/evidence/ny_osc_owner_name_file_second_attempt_transient_local_approval.v1.json",
+  "transient_pii_approval_path": "sources/evidence/ny_osc_owner_name_file_second_attempt_transient_pii_approval.v1.json",
+  "local_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_8D2E1F64",
+  "transient_pii_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_C41B7E93",
+  "next_action": "EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT"
 }

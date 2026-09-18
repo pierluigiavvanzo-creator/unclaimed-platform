@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-first-download-retry-proposal`
+`mvp1-ny-second-attempt-approved-ready-execution`
 
 Latest verified product implementation checkpoint:
 
@@ -580,7 +580,7 @@ Retry script:
 
 `scripts/ny_osc_gate2_retry_transient_local.ps1`
 
-Safety bounds remain unchanged from the consumed first attempt. No second download is authorized yet.
+Safety bounds remain unchanged from the consumed first attempt. Second-attempt approvals are now granted but not consumed. A fresh remote-listing preflight is still mandatory before the single authorized download.
 
 Fresh preflight is mandatory immediately before any execution.
 
@@ -611,7 +611,7 @@ Fresh preflight is mandatory immediately before any execution.
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_REVIEW`
+`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
 
 Classification: `A — Product Critical / Human Authorization Gate`.
 

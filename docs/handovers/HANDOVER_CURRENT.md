@@ -628,6 +628,24 @@ CI:
 
 No bounds are increased. A fresh listing check and two new single-use approvals are required before execution.
 
+### 14. Second-attempt approvals granted
+
+Product Owner granted both fresh v2 approvals.
+
+Local retention:
+
+`OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_8D2E1F64`
+
+Transient PII:
+
+`OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_C41B7E93`
+
+State:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY`
+
+Fresh preflight remains mandatory before the second download.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -664,10 +682,14 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_REVIEW`
+`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
 
 Classification:
 
-`A — Product Critical / Human Authorization Gate`
+`A — Product Critical / Single-Use Real Execution`
 
-Required approval phrases are recorded in the proposal. Do not execute until both are explicitly granted and fresh preflight still matches the remote listing.
+Use:
+
+`scripts/ny_osc_gate2_retry_transient_local.ps1`
+
+Before download, freshly verify the secure-transfer listing. Any name/size/last-modified drift stops before download.
