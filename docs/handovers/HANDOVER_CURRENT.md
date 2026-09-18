@@ -680,6 +680,31 @@ Both v2 approvals are consumed and non-reusable. No retry is authorized.
 
 The current fail-closed receipt does not retain how many valid rows were scanned before the mismatch, so the next step is a metadata-only nonconforming-row policy proposal rather than another blind retry.
 
+### 17. NY nonconforming-row policy proposal
+
+Prepared offline:
+
+`ROW_DEFER_CONTINUE_METADATA_ONLY`
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_nonconforming_row_handling_policy.v1.json`
+
+Status:
+
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
+
+Proposed behavior for a non-14-field row:
+
+- increment aggregate deferred-row count;
+- parse no field from the row;
+- persist no row-specific metadata;
+- do not classify the row as non-insurance;
+- continue to later rows;
+- preserve completeness accounting so no row silently disappears.
+
+Runtime implementation is not authorized. A third real-file execution is not authorized.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -716,10 +741,14 @@ Offline:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_NONCONFORMING_ROW_HANDLING_POLICY_PROPOSAL`
+`HUMAN_NY_OSC_NONCONFORMING_ROW_DEFER_POLICY_REVIEW`
 
 Classification:
 
-`A — Product Critical / Offline Policy Proposal`
+`A — Product Critical / Human Policy Gate`
 
-Prepare only the proposal for metadata-only row defer/continuation. Do not perform a third download, do not reuse consumed approvals, and do not modify runtime source-continuation behavior before explicit human approval.
+Approval phrase:
+
+`APPROVO NY OSC ROW DEFER CONTINUE METADATA ONLY POLICY`
+
+Approval authorizes bounded offline implementation only. It does not authorize another OSC download or any downstream source/classification/matching/outreach/claim activity.
