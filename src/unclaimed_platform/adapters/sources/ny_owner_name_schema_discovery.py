@@ -138,6 +138,13 @@ def _blocked(
     archive_member_count: int | None = None,
     selected_text_member_present: bool | None = None,
     selected_member_uncompressed_bytes: int | None = None,
+    observed_data_field_count: int | None = None,
+    observed_header_state: Literal[
+        "EXACT_DOCUMENTED_HEADER",
+        "NORMALIZED_DOCUMENTED_HEADER",
+        "NO_HEADER_OBSERVED",
+        "NOT_EVALUATED",
+    ] = "NOT_EVALUATED",
 ) -> NyOwnerNameSchemaDiscoveryResult:
     return NyOwnerNameSchemaDiscoveryResult(
         status="BLOCKED",
@@ -147,8 +154,14 @@ def _blocked(
         archive_member_count=archive_member_count,
         selected_text_member_present=selected_text_member_present,
         selected_member_uncompressed_bytes=selected_member_uncompressed_bytes,
-        observed_header_state="NOT_EVALUATED",
-        physical_header_names=(),
+        observed_data_field_count=observed_data_field_count,
+        observed_header_state=observed_header_state,
+        physical_header_names=(
+            NY_DOCUMENTED_FIELDS
+            if observed_header_state
+            in {"EXACT_DOCUMENTED_HEADER", "NORMALIZED_DOCUMENTED_HEADER"}
+            else ()
+        ),
         nature_of_property_mapping_state="NOT_CONFIRMED",
         encoding_state="NOT_EVALUATED_BYTE_LEVEL_DISCOVERY_ONLY",
     )
@@ -268,6 +281,8 @@ def discover_ny_owner_name_schema(
                         archive_member_count=member_count,
                         selected_text_member_present=True,
                         selected_member_uncompressed_bytes=selected.file_size,
+                        observed_data_field_count=field_count,
+                        observed_header_state=header_state,
                     )
 
                 property_type_raw = _normalize_ascii_token(
@@ -281,6 +296,8 @@ def discover_ny_owner_name_schema(
                         archive_member_count=member_count,
                         selected_text_member_present=True,
                         selected_member_uncompressed_bytes=selected.file_size,
+                        observed_data_field_count=field_count,
+                        observed_header_state=header_state,
                     )
 
                 property_type_ascii_count += 1

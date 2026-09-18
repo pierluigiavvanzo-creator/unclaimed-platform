@@ -248,3 +248,31 @@ def test_property_type_code_still_rejects_non_alphanumeric_internal_shape() -> N
 
     assert result.status == "BLOCKED"
     assert result.reason_code == "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+
+
+
+def test_wrong_field_count_preserves_non_pii_shape_metadata() -> None:
+    bad_row = "1|IN03|too|few|fields"
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=[bad_row]),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_data_field_count == 5
+    assert result.observed_header_state == "NO_HEADER_OBSERVED"
+    assert result.physical_header_names == ()
+
+
+def test_wrong_field_count_after_header_preserves_header_state() -> None:
+    bad_row = "1|IN03|too|few|fields"
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=True, rows=[bad_row]),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.observed_data_field_count == 5
+    assert result.observed_header_state == "EXACT_DOCUMENTED_HEADER"
+    assert result.physical_header_names == NY_DOCUMENTED_FIELDS
