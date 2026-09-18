@@ -9,7 +9,7 @@ Last updated: 2026-09-18
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | reviewer surface verified |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; FOLLOW-UP COST MEASUREMENT CONTRACT VERIFIED | CI `35321285527` |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; COST→ECONOMICS INTEGRATION VERIFIED | CI `35336436604` |
 
 ## Product Priority
 
@@ -112,13 +112,38 @@ Audit:
 
 `docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE.md`
 
+### Follow-up cost → case economics integration
+
+Implemented a thin fail-closed adapter from measured follow-up cost into the existing explicit economics engine.
+
+Checkpoint:
+
+`65748470ca69b71afd859d411a7f5673bb7bd823`
+
+CI:
+
+`35336436604` — SUCCESS.
+
+Verified:
+
+- fully loaded measured cost can populate explicit case economics;
+- missing labor rate blocks integration;
+- direct machine/data cost cannot be substituted;
+- all cost evidence refs remain visible;
+- existing fee/value evidence remains preserved;
+- no commercial recommendation is introduced.
+
+Audit:
+
+`docs/audits/NY_MVP1_FOLLOW_UP_COST_CASE_ECONOMICS_INTEGRATION_OFFLINE.md`
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions / Gate 2 / schema discovery`
 
 in parallel with:
 
-`follow-up cost contract DONE -> case-economics integration -> commercial measurement capture`
+`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure NEXT -> commercial measurement capture`
 
 then, once a lawful real source is available:
 
@@ -128,10 +153,10 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
+`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Purpose:
 
-Wire only fully computed, evidence-backed follow-up cost into the existing explicit case-economics contract. If no documented labor rate exists, keep the cost unavailable rather than substituting machine/data cost as a false fully loaded cost.
+Expose ready-vs-blocked integrated case economics in the existing reviewer API and Streamlit UI using synthetic fixtures only, while preserving the current fail-closed real-data boundary.

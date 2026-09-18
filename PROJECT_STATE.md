@@ -16,15 +16,15 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-follow-up-cost-measurement-offline`
+`mvp1-ny-case-economics-cost-integration-offline`
 
 Latest verified product implementation checkpoint:
 
-`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
+`65748470ca69b71afd859d411a7f5673bb7bd823`
 
 Product implementation CI:
 
-`35321285527` — SUCCESS.
+`35336436604` — SUCCESS.
 
 Classification: `A — Product Critical`.
 
@@ -34,7 +34,7 @@ Current lifecycle has two bounded tracks:
 
 and, while that external dependency is pending:
 
-`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> NY_VALUE_EVIDENCE_VISIBLE_IN_REVIEWER -> FOLLOW_UP_COST_MEASUREMENT_CONTRACT_VERIFIED`
+`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> FOLLOW_UP_COST_MEASUREMENT_VERIFIED -> CASE_ECONOMICS_COST_INTEGRATION_VERIFIED`
 
 ## California State
 
@@ -228,6 +228,42 @@ Three early CI runs stopped on test-file lint/syntax only. After two corrective 
 
 No domain logic or schema semantics changed in that repair.
 
+## NY MVP-1 Follow-Up Cost → Case Economics Integration
+
+Completed offline:
+
+`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
+
+Verified checkpoint:
+
+`65748470ca69b71afd859d411a7f5673bb7bd823`
+
+CI:
+
+`35336436604` — SUCCESS.
+
+Implemented an additive fail-closed bridge between the verified follow-up-cost measurement result and the existing explicit case-economics contract.
+
+Rules now enforced:
+
+- only `fully_loaded_follow_up_cost_state = COMPUTED_FROM_MEASURED_COMPONENTS` may populate `measured_follow_up_cost_cents`;
+- missing documented labor rate produces `BLOCKED_FOLLOW_UP_COST_UNAVAILABLE`;
+- direct machine/data cost alone is never substituted as fully loaded follow-up cost;
+- all follow-up cost evidence refs are preserved;
+- value evidence ref and fee evidence ref are preserved;
+- the existing case-economics arithmetic remains authoritative;
+- no automatic commercial recommendation is introduced.
+
+Implemented:
+
+- `src/unclaimed_platform/domain/ny_mvp1_case_economics_integration.py`;
+- `schemas/economics/ny_mvp1_case_economics_integration_input.schema.json`;
+- `schemas/economics/ny_mvp1_case_economics_integration_result.schema.json`;
+- unit + contract tests;
+- `docs/audits/NY_MVP1_FOLLOW_UP_COST_CASE_ECONOMICS_INTEGRATION_OFFLINE.md`.
+
+The first CI run exposed one contract-only gap: the JSON Schema did not yet encode the cross-field invariant that a blocked integration must keep the cost and nested economics objects null. The schema was tightened with conditional `if/then` rules; Python semantics were unchanged. Final CI passed.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -240,6 +276,7 @@ No domain logic or schema semantics changed in that repair.
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics evidence contract: `READY / VERIFIED`;
 - follow-up cost measurement contract: `READY / VERIFIED`;
+- follow-up cost → case economics integration: `READY / VERIFIED`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -247,12 +284,17 @@ No domain logic or schema semantics changed in that repair.
 
 Execute exclusively:
 
-`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
+`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Goal:
 
-Connect the verified follow-up-cost measurement result to the existing explicit case-economics input without inventing values. A fully loaded measured cost may populate `measured_follow_up_cost_cents` only when the measurement state is `COMPUTED_FROM_MEASURED_COMPONENTS`; otherwise the integration must fail closed and preserve the cost as unavailable.
+Expose the verified integration state in the existing reviewer API and Streamlit surface using synthetic/test-only data. The reviewer must make the distinction visible between:
 
-Use synthetic/test inputs only. Do not access the Owner Name File, process real owner PII, create fee agreements, perform outreach or submit claims.
+- fully loaded measured cost available -> explicit economics computable;
+- labor rate/cost incomplete -> economics blocked fail-closed.
+
+Preserve evidence refs and show no automatic continue/stop recommendation.
+
+Do not access the Owner Name File, process real owner PII, create fee agreements, perform outreach or submit claims.

@@ -10,15 +10,15 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-follow-up-cost-measurement-offline`
+`mvp1-ny-case-economics-cost-integration-offline`
 
 Latest verified product implementation checkpoint:
 
-`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
+`65748470ca69b71afd859d411a7f5673bb7bd823`
 
 Product implementation CI:
 
-`35321285527` — SUCCESS.
+`35336436604` — SUCCESS.
 
 The branch HEAD can advance when canonical state files are refreshed; always verify remote HEAD before modifying.
 
@@ -247,6 +247,63 @@ After two failed corrective commits on the same Ruff/test-file issue, developmen
 
 `docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_RUFF_ROOT_CAUSE.md`
 
+### 5. Follow-up cost → case economics integration
+
+Completed:
+
+`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
+
+Implemented additive bridge:
+
+- `src/unclaimed_platform/domain/ny_mvp1_case_economics_integration.py`;
+- integration input JSON Schema;
+- integration result JSON Schema;
+- unit tests;
+- contract tests;
+- technical audit.
+
+Critical fail-closed rule:
+
+`COMPUTED_FROM_MEASURED_COMPONENTS -> may populate measured_follow_up_cost_cents`
+
+Any other follow-up cost state:
+
+`-> BLOCKED_FOLLOW_UP_COST_UNAVAILABLE`
+
+The bridge explicitly does not substitute `direct_machine_and_data_cost_cents` when the fully loaded cost is unavailable.
+
+Provenance retained:
+
+- candidate case id;
+- follow-up cost measurement id;
+- component cost evidence refs;
+- value evidence ref;
+- fee evidence ref.
+
+Verified checkpoint:
+
+`65748470ca69b71afd859d411a7f5673bb7bd823`
+
+CI:
+
+`35336436604` — SUCCESS.
+
+Passed:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint/typecheck/build.
+
+First run `35336348948` failed on one contract test because the JSON Schema allowed a blocked state with a non-null cost even though the Pydantic model already rejected it. The result schema was tightened with conditional `if/then` constraints. No Python domain logic changed.
+
+Audit:
+
+`docs/audits/NY_MVP1_FOLLOW_UP_COST_CASE_ECONOMICS_INTEGRATION_OFFLINE.md`
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -258,6 +315,7 @@ After two failed corrective commits on the same Ruff/test-file issue, developmen
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
 - follow-up cost measurement contract: `READY / VERIFIED`;
+- follow-up cost → case economics integration: `READY / VERIFIED`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -269,13 +327,13 @@ External:
 
 Offline:
 
-`synthetic downstream slice DONE -> value-evidence contract DONE -> reviewer integration DONE -> follow-up cost measurement DONE -> economics integration NEXT`
+`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure NEXT`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
+`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
 
 Classification:
 
@@ -283,14 +341,13 @@ Classification:
 
 Goal:
 
-Connect `NyMvp1FollowUpCostMeasurementResult` to the existing explicit case-economics contract.
+Expose the verified cost→economics bridge through the existing reviewer API and Streamlit surface using deterministic synthetic fixtures only.
 
-Rules:
+The reviewer must visibly distinguish:
 
-- only `fully_loaded_follow_up_cost_state = COMPUTED_FROM_MEASURED_COMPONENTS` may populate `measured_follow_up_cost_cents`;
-- missing documented labor rate must fail closed;
-- direct machine/data cost alone must never be mislabeled as fully loaded follow-up cost;
-- preserve all evidence refs/provenance;
-- no commercial recommendation is introduced.
+- `READY_FOR_EXPLICIT_ECONOMICS`;
+- `BLOCKED_FOLLOW_UP_COST_UNAVAILABLE`.
 
-Use synthetic/test inputs only. Do not access the Owner Name File, process real owner PII, perform outreach, create fee agreements or submit claims.
+Show the measured/blocked cost state and preserve evidence references. Do not introduce an automatic continue/stop commercial decision.
+
+No real-source access, Owner Name File download, PII processing, outreach, fee agreement, representation or claim activity is authorized.
