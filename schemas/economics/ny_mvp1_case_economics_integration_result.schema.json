@@ -109,5 +109,64 @@
     "no_commercial_recommendation": {
       "const": true
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "integration_state": {
+            "const": "BLOCKED_FOLLOW_UP_COST_UNAVAILABLE"
+          }
+        },
+        "required": [
+          "integration_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason_code": {
+            "const": "FULLY_LOADED_FOLLOW_UP_COST_UNAVAILABLE"
+          },
+          "measured_follow_up_cost_cents": {
+            "type": "null"
+          },
+          "explicit_economics_input": {
+            "type": "null"
+          },
+          "explicit_economics_result": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "integration_state": {
+            "const": "READY_FOR_EXPLICIT_ECONOMICS"
+          }
+        },
+        "required": [
+          "integration_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason_code": {
+            "const": "FULLY_LOADED_FOLLOW_UP_COST_AVAILABLE"
+          },
+          "measured_follow_up_cost_cents": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "explicit_economics_input": {
+            "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-input:1.0.0"
+          },
+          "explicit_economics_result": {
+            "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-result:1.0.0"
+          }
+        }
+      }
+    }
+  ]
 }
