@@ -48,6 +48,9 @@ def test_row_shape_diagnostic_contract_is_non_pii() -> None:
     )
     Draft202012Validator(_load(RESULT_SCHEMA)).validate(result.model_dump(mode="json"))
 
-    serialized = result.model_dump_json()
-    assert "owner_name" not in serialized.lower()
-    assert "owner_address" not in serialized.lower()
+    payload = result.model_dump(mode="json")
+    assert "owner_name" not in payload
+    assert "owner_address" not in payload
+    assert "raw_bytes" not in payload
+    assert "row_values" not in payload
+    assert payload["no_owner_values_returned"] is True
