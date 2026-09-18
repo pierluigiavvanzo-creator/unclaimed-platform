@@ -40,7 +40,10 @@
       "minLength": 1
     },
     "status": {
-      "const": "GRANTED_NOT_CONSUMED"
+      "enum": [
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
     },
     "single_use": {
       "const": true
@@ -53,6 +56,14 @@
     },
     "attempt_number": {
       "const": 2
+    },
+    "consumed_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "execution_result_ref": {
+      "type": "string",
+      "minLength": 1
     },
     "source_identity": {
       "type": "object"
@@ -112,5 +123,25 @@
     "authorization_does_not_grant": {
       "type": "object"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "consumed_on",
+          "execution_result_ref"
+        ]
+      }
+    }
+  ]
 }

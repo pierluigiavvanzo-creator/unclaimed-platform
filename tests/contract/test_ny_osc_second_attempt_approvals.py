@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
+
+from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution import (
+    build_real_execution_authorization,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -40,12 +45,18 @@ def test_second_attempt_approvals_are_single_use_and_bounded() -> None:
     Draft202012Validator(local_schema).validate(local)
     Draft202012Validator(pii_schema).validate(pii)
 
-    assert local["status"] == "GRANTED_NOT_CONSUMED"
+    assert local["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE"
+    assert local["consumed_on"] == "2026-09-18"
+    assert local["execution_result_ref"].endswith(
+        "ny_osc_owner_name_file_second_attempt_execution_result.v1.json"
+    )
     assert local["single_use"] is True
     assert local["reusable"] is False
     assert local["retry_authorized"] is False
 
-    assert pii["status"] == "GRANTED_NOT_CONSUMED"
+    assert pii["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE"
+    assert pii["consumed_on"] == "2026-09-18"
+    assert pii["execution_result_ref"] == local["execution_result_ref"]
     assert pii["single_use"] is True
     assert pii["reusable"] is False
     assert pii["retry_authorized"] is False
@@ -54,3 +65,8 @@ def test_second_attempt_approvals_are_single_use_and_bounded() -> None:
     assert pii["execution_bounds"]["max_download_bytes"] == 450_000_000
     assert pii["authorization_does_not_grant"]["beneficiary_matching"] is False
     assert pii["authorization_does_not_grant"]["outreach"] is False
+
+
+def test_consumed_second_attempt_approvals_cannot_build_runtime_authorization() -> None:
+    with pytest.raises(ValueError, match="approval is not available"):
+        build_real_execution_authorization(LOCAL_APPROVAL, PII_APPROVAL)

@@ -2,6 +2,15 @@
 
 Last updated: 2026-09-18
 
+## Current Override — NY Second Attempt Consumed
+
+The second bounded NY OSC attempt completed fail-closed with
+`UNEXPECTED_DATA_FIELD_COUNT`. Both second-attempt approvals are consumed and cannot be
+reused. The raw ZIP was logically deleted and no owner values were returned or persisted.
+
+Current offline candidate repairs quote-aware pipe parsing and blocked-result structural
+observability using synthetic fixtures only. No third real execution is authorized.
+
 | Milestone | Status | Exit evidence |
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
@@ -298,8 +307,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`REVIEW_AND_INTEGRATE_NY_OSC_QUOTE_AWARE_OFFLINE_REPAIR`
 
-Classification: `A — Product Critical / Single-Use Real Execution`.
+Classification: `A — Product Critical / Offline Safety Repair`.
 
-Both new v2 approvals are granted and not consumed. Before download, freshly verify the OSC listing. Any drift stops the attempt.
+Do not download the Owner Name File again. A third attempt, if later justified, requires a
+separate proposal, fresh preflight and new explicit single-use approvals after CI passes.

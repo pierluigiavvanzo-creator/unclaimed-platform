@@ -2,6 +2,33 @@
 
 Last updated: 2026-09-18
 
+## Superseding Event — Second NY Attempt Consumed Fail-Closed
+
+Inspected repository package checkpoint:
+
+`61a533e035dfba45d0c1359b8eee0fdbba41d7d8`
+
+The second bounded execution was performed once and stopped fail-closed:
+
+`BLOCKED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Observed non-PII metadata:
+
+- archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local file logically deleted: yes;
+- no owner values or raw path returned.
+
+Both second-attempt approvals are now
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`. Do not run
+`scripts/ny_osc_gate2_retry_transient_local.ps1` again.
+
+An offline repair candidate adds byte-level quote-aware pipe parsing, non-PII blocked
+diagnostics, synthetic regression coverage, persisted execution evidence and a PowerShell
+consumption precheck that runs before any download prompt. The real-file cause remains a
+bounded hypothesis because the source row was not retained.
+
 ## Repository
 
 `pierluigiavvanzo-creator/unclaimed-platform`
@@ -698,14 +725,11 @@ Offline:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`REVIEW_AND_INTEGRATE_NY_OSC_QUOTE_AWARE_OFFLINE_REPAIR`
 
 Classification:
 
-`A — Product Critical / Single-Use Real Execution`
+`A — Product Critical / Offline Safety Repair`
 
-Use:
-
-`scripts/ny_osc_gate2_retry_transient_local.ps1`
-
-Before download, freshly verify the secure-transfer listing. Any name/size/last-modified drift stops before download.
+No source/network request is authorized. Run repository tests and CI first. Any future
+third attempt requires a new proposal and fresh explicit single-use approvals.

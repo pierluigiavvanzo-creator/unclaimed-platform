@@ -143,7 +143,74 @@ def test_wrong_field_count_fails_closed() -> None:
 
     assert result.status == "BLOCKED"
     assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_delimiter == "|"
+    assert result.observed_data_field_count == 5
+    assert result.observed_header_state == "NO_HEADER_OBSERVED"
+    assert result.aggregate_complete_record_count == 0
+    assert result.property_type_ascii_record_count == 0
     assert result.physical_header_names == ()
+
+
+def test_quoted_pipe_in_owner_field_does_not_change_structural_field_count() -> None:
+    values = [
+        "1001",
+        "IN03",
+        "Synthetic property description",
+        "1",
+        "Synthetic | Owner",
+        "1 Synthetic Street",
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        'Synthetic "Holder"',
+        "2026",
+    ]
+    quoted_row = "|".join(f'"{value.replace(chr(34), chr(34) * 2)}"' for value in values)
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=True, rows=[quoted_row]),
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == 1
+    assert "Synthetic | Owner" not in result.model_dump_json()
+    assert 'Synthetic "Holder"' not in result.model_dump_json()
+
+
+def test_unclosed_double_quote_fails_closed_without_returning_owner_values() -> None:
+    bad_row = _row(
+        "1001",
+        "IN03",
+        '"Synthetic Owner',
+        "1 Synthetic Street",
+    )
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=[bad_row]),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "MALFORMED_QUOTED_RECORD"
+    assert result.aggregate_complete_record_count == 0
+    assert "Synthetic Owner" not in result.model_dump_json()
+
+
+def test_field_count_block_preserves_only_documented_header_metadata() -> None:
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=True, rows=["1|IN03|too|few|fields"]),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_header_state == "EXACT_DOCUMENTED_HEADER"
+    assert result.physical_header_names == NY_DOCUMENTED_FIELDS
+    assert result.observed_data_field_count == 5
 
 
 def test_multiple_text_members_fail_closed_without_persisting_names() -> None:

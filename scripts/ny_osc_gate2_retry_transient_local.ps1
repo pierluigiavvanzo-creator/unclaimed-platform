@@ -13,6 +13,16 @@ if (-not (Test-Path $Gate2Approval)) {
     throw "Second-attempt transient-PII approval is missing. Do not download."
 }
 
+$LocalApprovalRecord = Get-Content -LiteralPath $LocalApproval -Raw | ConvertFrom-Json
+$Gate2ApprovalRecord = Get-Content -LiteralPath $Gate2Approval -Raw | ConvertFrom-Json
+
+if ($LocalApprovalRecord.status -ne "GRANTED_NOT_CONSUMED") {
+    throw "Second-attempt transient-local approval is consumed or unavailable. Do not download."
+}
+if ($Gate2ApprovalRecord.status -ne "GRANTED_NOT_CONSUMED") {
+    throw "Second-attempt transient-PII approval is consumed or unavailable. Do not download."
+}
+
 $TempDir = Join-Path $env:TEMP ("unclaimed-ny-osc-gate2-retry-" + [guid]::NewGuid().ToString("N"))
 $Archive = Join-Path $TempDir "FINDERS.zip"
 New-Item -ItemType Directory -Path $TempDir | Out-Null
