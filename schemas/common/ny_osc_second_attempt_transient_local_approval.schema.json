@@ -35,7 +35,10 @@
       "minLength": 1
     },
     "status": {
-      "const": "GRANTED_NOT_CONSUMED"
+      "enum": [
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
     },
     "single_use": {
       "const": true
@@ -54,6 +57,35 @@
     },
     "authorization_does_not_grant": {
       "type": "object"
+    },
+    "consumed_on": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_result": {
+      "enum": [
+        "RAW_FILE_LOGICALLY_DELETED"
+      ]
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "consumed_on",
+          "execution_result"
+        ]
+      }
+    }
+  ]
 }
