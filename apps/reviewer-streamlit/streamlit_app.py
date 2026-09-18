@@ -1,4 +1,4 @@
-"""Streamlit entrypoint for the governed M3 Operations Console."""
+"""Streamlit entrypoint for the governed MVP-1 reviewer deployment candidate."""
 
 from __future__ import annotations
 
@@ -49,7 +49,7 @@ def _row(label: str, value: str, *, mono: bool = False) -> str:
     )
 
 
-st.set_page_config(page_title="M3 Operations Console", layout="wide")
+st.set_page_config(page_title="MVP-1 Reviewer Console", layout="wide")
 
 try:
     snapshot = load_safe_snapshot()
@@ -148,7 +148,7 @@ ready_rows = "".join(
             mvp1_integrated.ready.integration.integration_state.replace("_", " "),
         ),
         _row(
-            "Fully loaded follow-up cost",
+            "Fully loaded follow-up cost — synthetic",
             _usd_cents(mvp1_integrated.ready.integration.measured_follow_up_cost_cents),
         ),
         _row(
@@ -182,7 +182,7 @@ blocked_rows = "".join(
             mvp1_integrated.blocked.follow_up_cost.human_labor_rate_state.replace("_", " "),
         ),
         _row(
-            "Direct machine/data cost",
+            "Direct machine/data cost — synthetic",
             _usd_cents(
                 mvp1_integrated.blocked.follow_up_cost.direct_machine_and_data_cost_cents
             )
@@ -203,8 +203,8 @@ page_html = f"""
   <header class="uip-hero">
     <div>
       <p class="uip-eyebrow">UNCLAIMED INSURANCE PLATFORM</p>
-      <h1 class="uip-title">M3 Operations Console</h1>
-      <p class="uip-lede">A read-only view of provenance, governance and deployment readiness.</p>
+      <h1 class="uip-title">MVP-1 Reviewer Console</h1>
+      <p class="uip-lede">Synthetic/test-only review of NY IN03 candidate economics, provenance and governance.</p>
     </div>
     <div class="uip-mode-card">
       <span>Data mode</span>
@@ -214,8 +214,8 @@ page_html = f"""
   </header>
 
   <section class="uip-alert">
-    <strong>Safety boundary active.</strong>
-    <span>No real acquisition, no beneficiary matching, no real PII.</span>
+    <strong>Synthetic/test-only deployment candidate.</strong>
+    <span>No real acquisition, no Owner Name File download, no beneficiary matching, no real PII.</span>
   </section>
 
   <section class="uip-grid uip-milestones">
@@ -239,13 +239,13 @@ page_html = f"""
 
   <section class="uip-grid uip-two-col">
     <article class="uip-card uip-feature-card">
-      <p class="uip-eyebrow">MVP-1 INTEGRATED ECONOMICS — SYNTHETIC</p>
+      <p class="uip-eyebrow">MVP-1 INTEGRATED ECONOMICS — SYNTHETIC TEST</p>
       <h2>Ready: documented fully loaded cost</h2>
       <div class="uip-list">{ready_rows}</div>
     </article>
 
     <article class="uip-card uip-feature-card">
-      <p class="uip-eyebrow">MVP-1 INTEGRATED ECONOMICS — FAIL CLOSED</p>
+      <p class="uip-eyebrow">MVP-1 INTEGRATED ECONOMICS — SYNTHETIC TEST / FAIL CLOSED</p>
       <h2>Blocked: labor rate/cost incomplete</h2>
       <div class="uip-list">{blocked_rows}</div>
     </article>
@@ -288,7 +288,7 @@ page_html = f"""
   </section>
 
   <footer class="uip-footer">
-    Contract v{escape(snapshot.contract_version)} · Synthetic reviewer surface ·
+    Contract v{escape(snapshot.contract_version)} · MVP-1 synthetic/test-only deployment candidate ·
     deterministic governance remains authoritative
   </footer>
 </div>

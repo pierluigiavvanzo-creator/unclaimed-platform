@@ -126,8 +126,10 @@ def test_streamlit_console_preserves_verified_visual_language() -> None:
     assert "MVP-1 SYNTHETIC CASE" in app_source
     assert "NY PRE-CONTACT ECONOMICS" in app_source
     assert "Statutory fee cap" in app_source
-    assert "MVP-1 INTEGRATED ECONOMICS — SYNTHETIC" in app_source
-    assert "MVP-1 INTEGRATED ECONOMICS — FAIL CLOSED" in app_source
+    assert "MVP-1 Reviewer Console" in app_source
+    assert "Synthetic/test-only deployment candidate" in app_source
+    assert "MVP-1 INTEGRATED ECONOMICS — SYNTHETIC TEST" in app_source
+    assert "MVP-1 INTEGRATED ECONOMICS — SYNTHETIC TEST / FAIL CLOSED" in app_source
     assert "NONE — HUMAN DECISION REQUIRED" in app_source
     assert "st.metric" not in app_source
     assert "st.info" not in app_source
@@ -143,3 +145,33 @@ def test_streamlit_console_preserves_verified_visual_language() -> None:
     assert 'data-testid="stToolbar"' in theme
     assert 'data-testid="stStatusWidget"' in theme
     assert 'data-testid="stAppDeployButton"' in theme
+
+
+
+def test_streamlit_deployment_candidate_files_are_reproducible() -> None:
+    requirements_path = (
+        _REPO_ROOT / "apps" / "reviewer-streamlit" / "requirements.txt"
+    )
+    readme_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "README.md"
+    candidate_path = (
+        _REPO_ROOT
+        / "apps"
+        / "reviewer-streamlit"
+        / "DEPLOYMENT_CANDIDATE.md"
+    )
+
+    requirements = requirements_path.read_text(encoding="utf-8").splitlines()
+    readme = readme_path.read_text(encoding="utf-8")
+    candidate = candidate_path.read_text(encoding="utf-8")
+
+    assert requirements == [
+        "streamlit==1.63.0",
+        "fastapi==0.141.1",
+        "pydantic==2.13.5",
+    ]
+    assert "mvp1-ny-reviewer-deployment-candidate-offline" in readme
+    assert "apps/reviewer-streamlit/streamlit_app.py" in readme
+    assert "Python: `3.11`" in readme
+    assert "READY_OFFLINE_NOT_REMOTELY_DEPLOYED" in candidate
+    assert "Gate 2 remains ungranted" in candidate
+    assert "6b14edfa39aab0c9bfe7be840820859075c7a708" in candidate
