@@ -17,12 +17,15 @@ $TempDir = Join-Path $env:TEMP ("unclaimed-ny-osc-gate2-" + [guid]::NewGuid().To
 $Archive = Join-Path $TempDir "FINDERS.zip"
 
 New-Item -ItemType Directory -Path $TempDir | Out-Null
+Set-Clipboard -Value $TempDir
+Start-Process explorer.exe $TempDir
 
 try {
     Write-Host ""
     Write-Host "NY OSC Gate 2 transient local-file runner"
     Write-Host "Save exactly FINDERS.zip into:"
     Write-Host $TempDir
+    Write-Host "The folder was opened in Explorer and its path copied to the clipboard."
     Write-Host ""
     Write-Host "Before downloading, verify the portal still shows:"
     Write-Host "  Name: FINDERS.zip"

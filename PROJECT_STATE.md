@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-transient-local-runner-offline`
+`mvp1-ny-gate2-approved-ready-execution`
 
 Latest verified product implementation checkpoint:
 
@@ -537,7 +537,7 @@ No real Owner Name File was downloaded and Gate 2 remains ungranted.
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: `CONSUMED / NON-REUSABLE`;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `READY FOR HUMAN AUTHORIZATION / NOT GRANTED`;
+- NY Gate 2: `GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY`;
 - NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
 - NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
@@ -557,7 +557,7 @@ No real Owner Name File was downloaded and Gate 2 remains ungranted.
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION_REVIEW`
+`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
 
 Classification: `A — Product Critical / Human Authorization Gate`.
 
@@ -573,6 +573,4 @@ All technical prerequisites are now ready:
 - transient-local runner verified;
 - bounded schema-discovery harness verified.
 
-Gate 2 itself is still NOT GRANTED.
-
-No download may occur until explicit Product Owner authorization of the Gate 2 proposal.
+Gate 2 is now explicitly granted but not consumed. The next action is the single bounded real execution. No retry is authorized.

@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "artifact_id": "ny.osc.owner_name_file.first_download_transient_pii_authorization",
   "artifact_version": "1.0.0",
-  "status": "PENDING_HUMAN_AUTHORIZATION",
+  "status": "GRANTED_NOT_CONSUMED",
   "prepared_on": "2026-09-18",
   "gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
   "approval_ref": "APPROVE_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE",
@@ -89,5 +89,7 @@
     "representation_authorized": false,
     "claim_activity_authorized": false
   },
-  "next_gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION_REVIEW"
+  "next_gate": "EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE",
+  "gate2_approval_path": "sources/evidence/ny_osc_owner_name_file_first_download_transient_pii_approval.v1.json",
+  "gate2_execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1"
 }

@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-transient-local-runner-offline`
+`mvp1-ny-gate2-approved-ready-execution`
 
 Latest verified product implementation checkpoint:
 
@@ -585,7 +585,7 @@ No real download or real owner PII processing occurred.
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: consumed/non-reusable;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `READY FOR HUMAN AUTHORIZATION / NOT GRANTED`;
+- NY Gate 2: `GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY`;
 - NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
 - NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
@@ -614,25 +614,28 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION_REVIEW`
+`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
 
 Classification:
 
-`A — Product Critical / Human Authorization Gate`
+`A — Product Critical / Single-Use Real Execution`
 
-Ready proposal bounds:
+Gate 2 approval:
 
-- `max_download_bytes = 450,000,000`;
-- `max_uncompressed_bytes = 2,000,000,000`;
-- `max_archive_members = 1`;
-- downloads max = 1;
-- retries max = 0;
-- preflight identity must still match `FINDERS.zip / 390.51 MB / 9/16/2026, 1:33:31 PM`;
-- drift -> stop before download;
-- local raw file allowed only under the already granted one-shot temp-file exception;
-- immediate logical deletion required;
-- no durable raw persistence;
-- no owner field logging;
-- no row-specific human inspection.
+`OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1`
 
-Gate 2 is not granted until explicit Product Owner approval.
+Preflight identity must still match:
+
+- `FINDERS.zip`;
+- `390.51 MB`;
+- `9/16/2026, 1:33:31 PM`.
+
+Execution limits:
+
+- compressed max: `450,000,000` bytes;
+- uncompressed max: `2,000,000,000` bytes;
+- archive members max: `1`;
+- downloads max: `1`;
+- retries max: `0`.
+
+The execution must use `scripts/ny_osc_gate2_transient_local.ps1` so the raw archive exists only under the dedicated OS-temp directory and is logically deleted immediately after bounded processing.

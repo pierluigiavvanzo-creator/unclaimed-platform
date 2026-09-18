@@ -177,7 +177,9 @@
       "proposed_preflight_name": "FINDERS.zip",
       "proposed_preflight_size_display": "390.51 MB",
       "proposed_preflight_last_modified_display": "9/16/2026, 1:33:31 PM",
-      "execution_transport_state": "TRANSIENT_LOCAL_RUNNER_READY_GATE2_STILL_REQUIRED"
+      "execution_transport_state": "READY_FOR_SINGLE_REAL_EXECUTION",
+      "status": "GRANTED_NOT_CONSUMED",
+      "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1"
     }
   },
   "first_file_schema_discovery": {
