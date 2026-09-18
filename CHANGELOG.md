@@ -5,6 +5,8 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Versioned NY OSC third-attempt offline proposal with explicit `PROPOSED_NOT_AUTHORIZED` state.
+- Contract tests preventing source access, approval reuse, automatic retry, or silent bound widening.
 - Persisted non-PII evidence for the consumed second NY OSC bounded attempt.
 - Byte-level quote-aware pipe record parsing with synthetic privacy regression coverage.
 - Pre-download PowerShell checks that reject consumed second-attempt approvals.
