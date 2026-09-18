@@ -322,7 +322,9 @@ Prepared under an explicit zero-source-access boundary:
 
 State:
 
-`IMPLEMENTED_OFFLINE / CI_PENDING / NOT AUTHORIZED FOR EXECUTION`
+`READY_OFFLINE / CI_35384965991_SUCCESS / NOT AUTHORIZED FOR EXECUTION`
+
+Checkpoint: `5aa606f9f79dc05508628d8a97f514cce7e4f770`.
 
 ## MVP-1 Remaining Product Path
 
