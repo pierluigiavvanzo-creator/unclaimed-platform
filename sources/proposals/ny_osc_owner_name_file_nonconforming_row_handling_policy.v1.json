@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ny.osc.owner_name_file.nonconforming_row_handling_policy",
+  "proposal_version": "1.0.0",
+  "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+  "prepared_on": "2026-09-18",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "trigger_evidence": {
+    "first_attempt_reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+    "first_attempt_consumed": true,
+    "second_attempt_reason_code": "UNEXPECTED_DATA_FIELD_COUNT",
+    "second_attempt_consumed": true,
+    "second_attempt_archive_byte_count": 409477526,
+    "second_attempt_archive_member_count": 1,
+    "second_attempt_selected_member_uncompressed_bytes": 1939569781,
+    "no_owner_values_persisted_or_returned": true
+  },
+  "reuse_basis": {
+    "repository_pattern": "CA ROW_DEFER_CONTINUE_METADATA_ONLY",
+    "ca_policy_path": "policies/states/CA/ca_sco_property_type_classification.v1.json",
+    "reused_principles": [
+      "nonconforming row is not normalized into a valid row",
+      "nonconforming row is not treated as non-insurance",
+      "source value and row content are not persisted",
+      "row-specific human inspection is not performed",
+      "aggregate defer count is mandatory",
+      "later rows may be processed only with completeness accounting"
+    ]
+  },
+  "proposed_policy": {
+    "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY",
+    "selection_status": "PROPOSED_FOR_HUMAN_REVIEW_NOT_AUTHORIZED",
+    "applicable_fail_closed_reasons": [
+      "UNEXPECTED_DATA_FIELD_COUNT",
+      "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+    ],
+    "row_field_count_nonconformance": {
+      "expected_field_count": 14,
+      "disposition": "DEFER_UNCLASSIFIABLE",
+      "parse_any_field_from_deferred_row": false,
+      "continue_after_defer": true
+    },
+    "property_type_code_nonconformance": {
+      "disposition": "DEFER_UNCLASSIFIABLE",
+      "semantic_acceptance": false,
+      "continue_after_defer": true,
+      "persist_property_type_value": false
+    },
+    "completeness": {
+      "total_nonblank_data_rows_seen_required": true,
+      "exact_14_field_rows_count_required": true,
+      "deferred_nonconforming_rows_count_required": true,
+      "property_type_shape_valid_rows_count_required": true,
+      "invariant": "total_nonblank_data_rows_seen = exact_14_field_rows_count + deferred_field_count_rows_count",
+      "silent_row_omission_allowed": false,
+      "exact_row_identifiers_persisted": false,
+      "exact_bad_field_counts_persisted": false,
+      "per_row_reason_persisted": false
+    },
+    "result_semantics": {
+      "at_least_one_structurally_usable_row_required_for_schema_progress": true,
+      "zero_structurally_usable_rows_behavior": "BLOCKED_NO_STRUCTURALLY_USABLE_ROWS",
+      "deferred_rows_do_not_confirm_source_semantics": true,
+      "source_activation_allowed": false,
+      "classification_activation_allowed": false
+    },
+    "persistence_boundary": {
+      "raw_archive_persistence_allowed": false,
+      "owner_row_persistence_allowed": false,
+      "owner_field_logging_allowed": false,
+      "row_specific_human_inspection_allowed": false,
+      "row_hash_persistence_allowed": false,
+      "row_length_persistence_allowed": false,
+      "property_id_persistence_allowed": false,
+      "holder_or_owner_value_persistence_allowed": false,
+      "aggregate_metadata_only": true
+    }
+  },
+  "unchanged_contracts": {
+    "documented_delimiter": "|",
+    "documented_field_count": 14,
+    "property_type_code_position_zero_based": 1,
+    "current_normalized_header_handling_preserved": true,
+    "quote_aware_csv_parser_introduced": false,
+    "delimiter_inference_introduced": false,
+    "encoding_inference_introduced": false,
+    "owner_field_decoding_introduced": false,
+    "insurance_code_vocabulary_changed": false,
+    "source_enabled": false,
+    "source_approved_for_use": false
+  },
+  "authorization_boundary": {
+    "policy_selected_for_runtime": false,
+    "runtime_implementation_authorized": false,
+    "real_source_execution_authorized": false,
+    "privacy_expansion_authorized": false,
+    "parser_change_authorized": false,
+    "source_activation_authorized": false,
+    "production_classification_activation_authorized": false,
+    "identity_resolution_authorized": false,
+    "beneficiary_matching_authorized": false,
+    "outreach_authorized": false,
+    "claim_activity_authorized": false
+  },
+  "human_gate": {
+    "gate_id": "HUMAN_NY_OSC_NONCONFORMING_ROW_DEFER_POLICY_REVIEW",
+    "approval_phrase": "APPROVO NY OSC ROW DEFER CONTINUE METADATA ONLY POLICY",
+    "approval_effect": "authorizes bounded offline runtime implementation only; does not authorize a real-file download"
+  },
+  "next_action_if_approved": "IMPLEMENT_NY_OSC_ROW_DEFER_CONTINUE_METADATA_ONLY_OFFLINE"
+}

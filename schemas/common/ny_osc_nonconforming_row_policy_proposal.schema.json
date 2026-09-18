@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-nonconforming-row-policy-proposal:1.0.0",
+  "title": "NY OSC Nonconforming Row Handling Policy Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "proposal_version",
+    "proposal_status",
+    "prepared_on",
+    "source_id",
+    "trigger_evidence",
+    "reuse_basis",
+    "proposed_policy",
+    "unchanged_contracts",
+    "authorization_boundary",
+    "human_gate",
+    "next_action_if_approved"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "proposal_id": {
+      "const": "ny.osc.owner_name_file.nonconforming_row_handling_policy"
+    },
+    "proposal_version": {
+      "const": "1.0.0"
+    },
+    "proposal_status": {
+      "const": "PROPOSAL_ONLY_NOT_AUTHORIZED"
+    },
+    "prepared_on": {
+      "const": "2026-09-18"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "trigger_evidence": {
+      "type": "object"
+    },
+    "reuse_basis": {
+      "type": "object"
+    },
+    "proposed_policy": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "const": "ROW_DEFER_CONTINUE_METADATA_ONLY"
+        },
+        "selection_status": {
+          "const": "PROPOSED_FOR_HUMAN_REVIEW_NOT_AUTHORIZED"
+        }
+      },
+      "required": [
+        "policy_id",
+        "selection_status"
+      ]
+    },
+    "unchanged_contracts": {
+      "type": "object"
+    },
+    "authorization_boundary": {
+      "type": "object"
+    },
+    "human_gate": {
+      "type": "object",
+      "properties": {
+        "gate_id": {
+          "const": "HUMAN_NY_OSC_NONCONFORMING_ROW_DEFER_POLICY_REVIEW"
+        },
+        "approval_phrase": {
+          "const": "APPROVO NY OSC ROW DEFER CONTINUE METADATA ONLY POLICY"
+        }
+      },
+      "required": [
+        "gate_id",
+        "approval_phrase"
+      ]
+    },
+    "next_action_if_approved": {
+      "const": "IMPLEMENT_NY_OSC_ROW_DEFER_CONTINUE_METADATA_ONLY_OFFLINE"
+    }
+  }
+}
