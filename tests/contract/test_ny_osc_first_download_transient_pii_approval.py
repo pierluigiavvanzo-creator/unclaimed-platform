@@ -26,7 +26,10 @@ def test_gate2_approval_artifact_validates_and_is_single_use() -> None:
 
     Draft202012Validator(schema).validate(approval)
 
-    assert approval["status"] == "GRANTED_NOT_CONSUMED"
+    assert approval["status"] in {
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE",
+    }
     assert approval["single_use"] is True
     assert approval["reusable"] is False
     assert approval["retry_authorized"] is False
@@ -34,3 +37,7 @@ def test_gate2_approval_artifact_validates_and_is_single_use() -> None:
     assert approval["execution_bounds"]["retries_max"] == 0
     assert approval["authorization_does_not_grant"]["beneficiary_matching"] is False
     assert approval["authorization_does_not_grant"]["outreach"] is False
+    if approval["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE":
+        assert approval["consumed_on"]
+        assert approval["execution_result"] == "BLOCKED_FAIL_CLOSED"
+        assert approval["execution_reason_code"]
