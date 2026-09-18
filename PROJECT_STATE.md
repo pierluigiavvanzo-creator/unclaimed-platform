@@ -16,15 +16,15 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-case-economics-cost-integration-offline`
+`mvp1-ny-integrated-economics-reviewer-offline`
 
 Latest verified product implementation checkpoint:
 
-`65748470ca69b71afd859d411a7f5673bb7bd823`
+`8274660554733d39e7dc7c522676bc709fb90214`
 
 Product implementation CI:
 
-`35336436604` — SUCCESS.
+`35339962098` — SUCCESS.
 
 Classification: `A — Product Critical`.
 
@@ -34,7 +34,7 @@ Current lifecycle has two bounded tracks:
 
 and, while that external dependency is pending:
 
-`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> FOLLOW_UP_COST_MEASUREMENT_VERIFIED -> CASE_ECONOMICS_COST_INTEGRATION_VERIFIED`
+`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> CASE_ECONOMICS_COST_INTEGRATION_VERIFIED -> INTEGRATED_ECONOMICS_REVIEWER_VERIFIED`
 
 ## California State
 
@@ -264,6 +264,54 @@ Implemented:
 
 The first CI run exposed one contract-only gap: the JSON Schema did not yet encode the cross-field invariant that a blocked integration must keep the cost and nested economics objects null. The schema was tightened with conditional `if/then` rules; Python semantics were unchanged. Final CI passed.
 
+## NY MVP-1 Integrated Economics Reviewer Exposure
+
+Completed offline:
+
+`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
+
+Verified checkpoint:
+
+`8274660554733d39e7dc7c522676bc709fb90214`
+
+CI:
+
+`35339962098` — SUCCESS.
+
+Added reviewer API:
+
+`GET /api/reviewer/mvp1/economics/integrated`
+
+The deterministic synthetic reviewer contract exposes two states side by side:
+
+- `READY_WITH_DOCUMENTED_LABOR_RATE -> READY_FOR_EXPLICIT_ECONOMICS`;
+- `BLOCKED_WITHOUT_DOCUMENTED_LABOR_RATE -> BLOCKED_FOLLOW_UP_COST_UNAVAILABLE`.
+
+The ready scenario shows a synthetic fully loaded follow-up cost and the existing explicit economics arithmetic. The blocked scenario keeps the fully loaded cost unavailable and makes clear that direct machine/data cost is `NOT FULLY LOADED`.
+
+Both scenarios preserve evidence refs and state:
+
+`no_commercial_recommendation = true`
+
+Streamlit now renders two corresponding MVP-1 integrated-economics cards. Safety flags remain explicit:
+
+- real source accessed: false;
+- Owner Name File downloaded: false;
+- real owner PII processed: false;
+- automatic commercial recommendation: false.
+
+Added contract:
+
+`schemas/ui/ny_mvp1_integrated_economics_reviewer.schema.json`
+
+and API/Streamlit smoke plus contract coverage.
+
+The first CI run `35339876798` stopped on mypy because synthetic fixture components were supplied as dictionaries. They were replaced with the already existing typed `MeasuredCostComponent` and `MeasuredDurationComponent` models. No economics values or behavior changed. Final CI passed.
+
+Audit:
+
+`docs/audits/NY_MVP1_INTEGRATED_CASE_ECONOMICS_REVIEWER_OFFLINE.md`
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -277,6 +325,8 @@ The first CI run exposed one contract-only gap: the JSON Schema did not yet enco
 - NY pre-contact economics evidence contract: `READY / VERIFIED`;
 - follow-up cost measurement contract: `READY / VERIFIED`;
 - follow-up cost → case economics integration: `READY / VERIFIED`;
+- integrated economics reviewer/API/Streamlit: `READY / VERIFIED`;
+- remote deployment evidence for current MVP-1 branch: `NOT RECORDED`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -284,17 +334,20 @@ The first CI run exposed one contract-only gap: the JSON Schema did not yet enco
 
 Execute exclusively:
 
-`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
+`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Goal:
 
-Expose the verified integration state in the existing reviewer API and Streamlit surface using synthetic/test-only data. The reviewer must make the distinction visible between:
+Prepare the current integrated MVP-1 reviewer as a deployable Streamlit candidate without changing any real-data authorization.
 
-- fully loaded measured cost available -> explicit economics computable;
-- labor rate/cost incomplete -> economics blocked fail-closed.
+Required work:
 
-Preserve evidence refs and show no automatic continue/stop recommendation.
+- verify entrypoint, requirements and startup contract for Streamlit deployment;
+- verify all visible synthetic values are unmistakably labeled synthetic/test-only;
+- align product-facing page/title language with the MVP-1 reviewer rather than legacy M3-only wording where safe;
+- define a deployment-candidate checklist and rollback checkpoint;
+- keep real acquisition, real PII, Gate 2, outreach and claim activity disabled.
 
-Do not access the Owner Name File, process real owner PII, create fee agreements, perform outreach or submit claims.
+Do not claim a remote deployment occurred unless a real deployment URL and remote verification are observed.

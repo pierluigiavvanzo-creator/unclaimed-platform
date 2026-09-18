@@ -9,7 +9,7 @@ Last updated: 2026-09-18
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | reviewer surface verified |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; COST→ECONOMICS INTEGRATION VERIFIED | CI `35336436604` |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; INTEGRATED ECONOMICS REVIEWER VERIFIED | CI `35339962098` |
 
 ## Product Priority
 
@@ -137,13 +137,38 @@ Audit:
 
 `docs/audits/NY_MVP1_FOLLOW_UP_COST_CASE_ECONOMICS_INTEGRATION_OFFLINE.md`
 
+### Integrated case economics reviewer
+
+Implemented reviewer exposure of both deterministic synthetic economics states:
+
+- ready with documented fully loaded follow-up cost;
+- blocked without documented labor-rate/cost.
+
+API:
+
+`/api/reviewer/mvp1/economics/integrated`
+
+Streamlit shows the two states side by side and explicitly labels machine/data-only cost as not fully loaded in the blocked state.
+
+Checkpoint:
+
+`8274660554733d39e7dc7c522676bc709fb90214`
+
+CI:
+
+`35339962098` — SUCCESS.
+
+Audit:
+
+`docs/audits/NY_MVP1_INTEGRATED_CASE_ECONOMICS_REVIEWER_OFFLINE.md`
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions / Gate 2 / schema discovery`
 
 in parallel with:
 
-`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure NEXT -> commercial measurement capture`
+`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness NEXT -> commercial measurement capture`
 
 then, once a lawful real source is available:
 
@@ -153,10 +178,10 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
+`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Purpose:
 
-Expose ready-vs-blocked integrated case economics in the existing reviewer API and Streamlit UI using synthetic fixtures only, while preserving the current fail-closed real-data boundary.
+Turn the now-verified integrated Streamlit reviewer into an explicit deployment candidate: validate deployment files/startup, remove legacy M3-only product wording where appropriate, preserve synthetic labeling and safety boundaries, and document rollback. Do not claim remote deployment until a real URL is observed and verified.

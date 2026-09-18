@@ -10,15 +10,15 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-case-economics-cost-integration-offline`
+`mvp1-ny-integrated-economics-reviewer-offline`
 
 Latest verified product implementation checkpoint:
 
-`65748470ca69b71afd859d411a7f5673bb7bd823`
+`8274660554733d39e7dc7c522676bc709fb90214`
 
 Product implementation CI:
 
-`35336436604` — SUCCESS.
+`35339962098` — SUCCESS.
 
 The branch HEAD can advance when canonical state files are refreshed; always verify remote HEAD before modifying.
 
@@ -304,6 +304,58 @@ Audit:
 
 `docs/audits/NY_MVP1_FOLLOW_UP_COST_CASE_ECONOMICS_INTEGRATION_OFFLINE.md`
 
+### 6. Integrated case economics reviewer exposure
+
+Completed:
+
+`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
+
+Added:
+
+- `GET /api/reviewer/mvp1/economics/integrated`;
+- typed deterministic ready/blocked reviewer snapshot;
+- safe Streamlit adapter validation;
+- two Streamlit integrated-economics cards;
+- UI JSON Schema;
+- contract + API/Streamlit smoke tests;
+- technical audit.
+
+Ready state:
+
+`READY_WITH_DOCUMENTED_LABOR_RATE -> READY_FOR_EXPLICIT_ECONOMICS`
+
+Blocked state:
+
+`BLOCKED_WITHOUT_DOCUMENTED_LABOR_RATE -> BLOCKED_FOLLOW_UP_COST_UNAVAILABLE`
+
+The blocked UI exposes machine/data direct cost only as educational context and labels it `NOT FULLY LOADED`; it does not populate the integrated follow-up cost or compute explicit economics.
+
+Both states preserve evidence refs and show no automatic commercial recommendation.
+
+Verified checkpoint:
+
+`8274660554733d39e7dc7c522676bc709fb90214`
+
+CI:
+
+`35339962098` — SUCCESS.
+
+Passed:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint/typecheck/build.
+
+First run `35339876798` failed only because mypy rejected dictionary literals passed where existing typed measurement components were required. The fixture was changed to use the existing Pydantic component models. No domain behavior changed.
+
+Audit:
+
+`docs/audits/NY_MVP1_INTEGRATED_CASE_ECONOMICS_REVIEWER_OFFLINE.md`
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -316,6 +368,8 @@ Audit:
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
 - follow-up cost measurement contract: `READY / VERIFIED`;
 - follow-up cost → case economics integration: `READY / VERIFIED`;
+- integrated economics reviewer/API/Streamlit: `READY / VERIFIED`;
+- current MVP-1 remote deployment URL/evidence: `NOT RECORDED`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -327,13 +381,13 @@ External:
 
 Offline:
 
-`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure NEXT`
+`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate NEXT`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`EXPOSE_NY_MVP1_INTEGRATED_CASE_ECONOMICS_IN_REVIEWER_OFFLINE`
+`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
 
 Classification:
 
@@ -341,13 +395,16 @@ Classification:
 
 Goal:
 
-Expose the verified cost→economics bridge through the existing reviewer API and Streamlit surface using deterministic synthetic fixtures only.
+Prepare the verified integrated MVP-1 Streamlit reviewer for deployment without changing authorization state.
 
-The reviewer must visibly distinguish:
+Required boundaries:
 
-- `READY_FOR_EXPLICIT_ECONOMICS`;
-- `BLOCKED_FOLLOW_UP_COST_UNAVAILABLE`.
+- validate Streamlit entrypoint/requirements/startup;
+- keep synthetic/test-only values clearly labeled;
+- align legacy M3-only display wording to MVP-1 reviewer language where this is presentation-only;
+- document deployment checklist and rollback checkpoint;
+- keep approved real sources at zero;
+- keep Gate 2 ungranted;
+- no Owner Name File download, real PII, outreach, fee agreement, representation or claim activity.
 
-Show the measured/blocked cost state and preserve evidence references. Do not introduce an automatic continue/stop commercial decision.
-
-No real-source access, Owner Name File download, PII processing, outreach, fee agreement, representation or claim activity is authorized.
+No remote deployment may be claimed until a real deployment URL is observed and remotely verified.
