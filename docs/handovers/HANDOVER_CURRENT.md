@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-reviewer-deployment-candidate-offline`
+`mvp1-ny-first-schema-discovery-harness-offline`
 
 Latest verified product implementation checkpoint:
 
@@ -463,6 +463,47 @@ Non-blocking presentation debt:
 
 These are legacy synthetic labels/history only and do not invalidate the MVP-1 deployment.
 
+### 9. NY first schema-discovery harness — offline
+
+Completed:
+
+`IMPLEMENT_NY_OSC_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE`
+
+Official non-secret instruction facts incorporated:
+
+- archive name `NYSFINDERS.ZIP`;
+- pipe delimiter;
+- documented 14-field KAPS layout;
+- `Property Type Code` at zero-based position 1;
+- secure-transfer listing includes a pre-download Size column.
+
+The historical size shown in OSC documentation is not used as current-size evidence.
+
+Implementation:
+
+- transient archive bytes are never serializable;
+- max download bytes checked before ZIP parsing;
+- max uncompressed bytes and max archive members required explicitly;
+- one text member required;
+- owner name/address columns never decoded, logged or returned;
+- exact documented header names are persisted only if exact header bytes are observed;
+- otherwise no row is promoted to a header;
+- output is aggregate/non-PII schema metadata only.
+
+Checkpoint:
+
+`9885377addec66d2802f58f6fa7184c2cd8ffdb1`
+
+CI:
+
+`35353395811` — SUCCESS.
+
+Audit:
+
+`docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md`
+
+Gate 2 remains ungranted; no OSC network access or real owner PII occurred.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -471,6 +512,7 @@ These are legacy synthetic labels/history only and do not invalidate the MVP-1 d
 - NY Gate 1: consumed/non-reusable;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
 - NY Gate 2: not granted;
+- NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
 - follow-up cost measurement contract: `READY / VERIFIED`;
@@ -515,8 +557,9 @@ A reply was sent to OSC asking only for current archive size metadata and whethe
 
 Next:
 
-1. wait for OSC size metadata reply;
-2. set evidence-based `max_download_bytes`;
-3. prepare separate Gate 2 authorization.
+1. wait for OSC/current size metadata;
+2. set evidence-based `max_download_bytes` and explicit transient expansion/member caps;
+3. prepare separate Gate 2 authorization;
+4. if approved, run the already verified memory-only schema-discovery harness exactly once.
 
 Optional later presentation cleanup: replace the visible legacy synthetic M3 raw-artifact label without changing audit semantics.

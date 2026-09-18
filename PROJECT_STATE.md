@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-reviewer-deployment-candidate-offline`
+`mvp1-ny-first-schema-discovery-harness-offline`
 
 Latest verified product implementation checkpoint:
 
@@ -34,7 +34,7 @@ Current lifecycle has two bounded tracks:
 
 and, while that external dependency is pending:
 
-`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> INTEGRATED_ECONOMICS_REVIEWER_VERIFIED -> STREAMLIT_REMOTE_DEPLOYMENT_VERIFIED`
+`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> STREAMLIT_REMOTE_DEPLOYMENT_VERIFIED -> FIRST_SCHEMA_DISCOVERY_HARNESS_VERIFIED_OFFLINE`
 
 ## California State
 
@@ -417,6 +417,45 @@ Non-blocking presentation debt observed:
 
 These do not affect the verified MVP-1 reviewer logic or safety boundary, but may be cleaned up later as presentation work.
 
+## NY OSC First Schema Discovery Harness — Offline
+
+Completed:
+
+`IMPLEMENT_NY_OSC_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE`
+
+Verified checkpoint:
+
+`9885377addec66d2802f58f6fa7184c2cd8ffdb1`
+
+CI:
+
+`35353395811` — SUCCESS.
+
+Official instructions now provide a documented 14-field KAPS layout and pipe delimiter. The secure-transfer screenshot also shows a pre-download `Size` column, but its historical example size is not treated as the current archive size.
+
+Implemented bounded memory-only discovery:
+
+- download-byte cap enforced before ZIP parsing;
+- explicit uncompressed-byte cap;
+- explicit archive-member cap;
+- exactly one text member required;
+- documented 14-field row width validation;
+- exact documented header persisted only if actually observed;
+- otherwise first row is treated as data and never persisted as a header;
+- only the non-owner `Property Type Code` position is shape-checked;
+- aggregate record counts only;
+- no owner name/address decoding, logging or return;
+- raw archive bytes exist only as a transient function argument and are absent from serialized contracts.
+
+Files:
+
+- `src/unclaimed_platform/adapters/sources/ny_owner_name_schema_discovery.py`;
+- authorization/result JSON Schemas;
+- unit + contract tests;
+- `docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md`.
+
+The harness uses synthetic ZIP fixtures only. It does not connect to OSC or consume Gate 2.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -425,6 +464,7 @@ These do not affect the verified MVP-1 reviewer logic or safety boundary, but ma
 - NY Gate 1: `CONSUMED / NON-REUSABLE`;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
 - NY Gate 2: not granted;
+- NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - real owner PII processed: no;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics evidence contract: `READY / VERIFIED`;
@@ -451,9 +491,10 @@ A reply was sent to OSC requesting only the current `NYSFINDERS.ZIP` size metada
 
 Next:
 
-1. wait for official size metadata;
-2. define evidence-based `max_download_bytes`;
-3. prepare `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` for separate review.
+1. wait for official/current size metadata;
+2. define evidence-based `max_download_bytes` plus explicit in-memory expansion/member caps;
+3. prepare `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` for separate review;
+4. if granted, execute the already verified bounded memory-only schema-discovery harness exactly once.
 
 Do not download or inspect the Owner Name File under Gate 1.
 

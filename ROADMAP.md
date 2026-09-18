@@ -220,9 +220,34 @@ State:
 
 Non-blocking debt: legacy synthetic M3 raw-artifact label remains visible in the lower audit card.
 
+### First schema-discovery harness — offline ready
+
+Completed:
+
+`IMPLEMENT_NY_OSC_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE`
+
+Checkpoint:
+
+`9885377addec66d2802f58f6fa7184c2cd8ffdb1`
+
+CI:
+
+`35353395811` — SUCCESS.
+
+Prepared before Gate 2:
+
+- byte-bounded ZIP validation;
+- uncompressed-size and member-count guards;
+- 14-field documented KAPS layout validation;
+- non-PII property-type-column mapping;
+- no owner-value persistence/logging;
+- aggregate-only schema metadata output.
+
+This removes implementation work from the post-Gate2 critical path. Real execution remains blocked until current archive size and explicit Gate 2 approval exist.
+
 ## MVP-1 Remaining Product Path
 
-`OSC access instructions / Gate 2 / schema discovery`
+`OSC access instructions DONE / current size metadata PENDING / Gate 2 / schema-discovery harness READY OFFLINE`
 
 in parallel with:
 
