@@ -75,7 +75,21 @@
     ],
     "property_type_code_documented_position_zero_based": 1,
     "secure_transfer_listing_size_column_documented": true,
-    "current_archive_size_known": false
+    "current_archive_size_known": false,
+    "current_remote_listing_observed": true,
+    "current_remote_listing_name": "FINDERS.zip",
+    "current_remote_listing_size_display": "390.51 MB",
+    "current_remote_listing_size_unit_semantics": "PORTAL_LABEL_MB_EXACT_BYTE_COUNT_NOT_EXPOSED",
+    "current_remote_listing_size_decimal_interpretation_bytes": 390510000,
+    "current_remote_listing_size_binary_interpretation_ceil_bytes": 409479414,
+    "current_remote_listing_last_modified_display": "9/16/2026, 1:33:31 PM",
+    "current_remote_listing_evidence": "PRODUCT_OWNER_SCREENSHOT_2026-09-18",
+    "current_archive_exact_byte_count_known": false,
+    "documented_archive_name_variants": [
+      "NYSFINDERS.ZIP",
+      "FINDERS.ZIP",
+      "FINDERS.zip"
+    ]
   },
   "insurance_authority": {
     "official_property_type_table_url": "https://www.osc.ny.gov/files/unclaimed-funds/reporters/pdf/property-type-tables.pdf",
@@ -136,7 +150,17 @@
       "retry_authorized": false,
       "explicit_max_download_bytes_required": true,
       "default_max_download_bytes": null,
-      "scope": "exactly one bounded first-file download and memory-only schema discovery with transient owner PII"
+      "scope": "exactly one bounded first-file download and memory-only schema discovery with transient owner PII",
+      "proposed_max_download_bytes": 450000000,
+      "proposed_max_uncompressed_bytes": 2000000000,
+      "proposed_max_archive_members": 1,
+      "proposed_downloads_max": 1,
+      "proposed_retries_max": 0,
+      "proposed_preflight_identity_match_required": true,
+      "proposed_preflight_name": "FINDERS.zip",
+      "proposed_preflight_size_display": "390.51 MB",
+      "proposed_preflight_last_modified_display": "9/16/2026, 1:33:31 PM",
+      "execution_transport_state": "BLOCKED_BROWSER_SAVE_TO_DISK_INCOMPATIBLE_WITH_MEMORY_ONLY_POLICY"
     }
   },
   "first_file_schema_discovery": {

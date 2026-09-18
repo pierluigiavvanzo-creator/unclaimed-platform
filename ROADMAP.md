@@ -247,7 +247,7 @@ This removes implementation work from the post-Gate2 critical path. Real executi
 
 ## MVP-1 Remaining Product Path
 
-`OSC access instructions DONE / current size metadata PENDING / Gate 2 / schema-discovery harness READY OFFLINE`
+`OSC access instructions DONE / current listing size OBSERVED / Gate 2 proposal PREPARED / transfer-mode blocker / schema-discovery harness READY OFFLINE`
 
 in parallel with:
 
@@ -261,8 +261,12 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_FILE_SIZE_METADATA_RESPONSE`
+`HUMAN_NY_OSC_GATE2_BOUNDED_PROPOSAL_AND_TRANSPORT_REVIEW`
 
-Classification: `A — Product Critical / External Dependency`.
+Classification: `A — Product Critical / Human Authorization + Execution Transport Gate`.
 
-The frontend deployment milestone is closed. OSC access instructions have now arrived. Await OSC's reply with `NYSFINDERS.ZIP` size metadata so `max_download_bytes` can be evidence-based before Gate 2.
+Current listing: `FINDERS.zip`, `390.51 MB`, last modified `9/16/2026, 1:33:31 PM`.
+
+Proposed compressed byte cap: `450,000,000`.
+
+Before any real download, resolve the transport mismatch between OSC's browser-save workflow and the current no-raw-persistence/memory-only policy.

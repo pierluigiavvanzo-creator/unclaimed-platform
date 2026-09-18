@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-first-schema-discovery-harness-offline`
+`mvp1-ny-gate2-bounded-first-download-proposal`
 
 Latest verified product implementation checkpoint:
 
@@ -456,6 +456,38 @@ Files:
 
 The harness uses synthetic ZIP fixtures only. It does not connect to OSC or consume Gate 2.
 
+## NY OSC Current Listing / Gate 2 Proposal
+
+Current remote listing evidence supplied by Product Owner:
+
+- `FINDERS.zip`;
+- `390.51 MB`;
+- last modified `9/16/2026, 1:33:31 PM`.
+
+No file was downloaded.
+
+Prepared bounded Gate 2 proposal:
+
+- `max_download_bytes = 450,000,000`;
+- `max_uncompressed_bytes = 2,000,000,000`;
+- `max_archive_members = 1`;
+- one download maximum;
+- zero retries;
+- exact preflight identity match required;
+- any listing drift -> stop before download.
+
+Evidence:
+
+`sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v1.json`
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_first_download_transient_pii_authorization.v1.json`
+
+Important execution blocker:
+
+OSC's documented browser flow saves the ZIP to the computer, while current Gate 2 policy forbids raw-file persistence and requires memory-only discovery. The proposal is therefore ready for human review but execution is not yet allowed until a compliant memory-only transfer path is verified or a separate transient-local-file policy expansion is explicitly authorized.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -463,7 +495,7 @@ The harness uses synthetic ZIP fixtures only. It does not connect to OSC or cons
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: `CONSUMED / NON-REUSABLE`;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: not granted;
+- NY Gate 2: `PROPOSAL PREPARED / NOT GRANTED`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - real owner PII processed: no;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
@@ -481,21 +513,17 @@ The harness uses synthetic ZIP fixtures only. It does not connect to OSC or cons
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_FILE_SIZE_METADATA_RESPONSE`
+`HUMAN_NY_OSC_GATE2_BOUNDED_PROPOSAL_AND_TRANSPORT_REVIEW`
 
-Classification: `A — Product Critical / External Dependency`.
+Classification: `A — Product Critical / Human Authorization + Execution Transport Gate`.
 
-The NY OSC access instructions were received and reviewed without downloading the Owner Name File. The instructions identify the secure FTP workflow, archive name `NYSFINDERS.ZIP`, and pipe-delimited file format, but do not state the archive size.
+Review the prepared Gate 2 bounds and the execution-transport blocker.
 
-A reply was sent to OSC requesting only the current `NYSFINDERS.ZIP` size metadata and whether that size is visible pre-download. No file content was requested or downloaded.
+No download is allowed yet.
 
-Next:
+The existing memory-only schema-discovery harness is verified. The remaining choice is:
 
-1. wait for official/current size metadata;
-2. define evidence-based `max_download_bytes` plus explicit in-memory expansion/member caps;
-3. prepare `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` for separate review;
-4. if granted, execute the already verified bounded memory-only schema-discovery harness exactly once.
+- preserve memory-only/no-raw-persistence and implement a compliant authenticated transfer path; or
+- separately authorize tightly bounded transient local raw-file persistence with immediate deletion.
 
-Do not download or inspect the Owner Name File under Gate 1.
-
-Optional non-blocking UI cleanup may later replace the visible legacy synthetic M3 fixture label, but this must not displace the NY OSC critical path.
+Gate 2 remains ungranted until explicit Product Owner authorization.

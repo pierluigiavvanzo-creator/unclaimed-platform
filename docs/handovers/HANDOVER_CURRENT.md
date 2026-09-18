@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-first-schema-discovery-harness-offline`
+`mvp1-ny-gate2-bounded-first-download-proposal`
 
 Latest verified product implementation checkpoint:
 
@@ -504,6 +504,36 @@ Audit:
 
 Gate 2 remains ungranted; no OSC network access or real owner PII occurred.
 
+### 10. Current listing metadata and Gate 2 bounded proposal
+
+Product Owner supplied current OSC outbound-listing evidence:
+
+- remote name `FINDERS.zip`;
+- displayed size `390.51 MB`;
+- last modified `9/16/2026, 1:33:31 PM`.
+
+No Owner Name File download occurred.
+
+Derived bounds:
+
+- decimal-MB interpretation: `390,510,000` bytes;
+- binary-MiB equivalent ceiling: `409,479,414` bytes;
+- proposed `max_download_bytes = 450,000,000`;
+- proposed `max_uncompressed_bytes = 2,000,000,000`;
+- proposed `max_archive_members = 1`;
+- downloads max = 1;
+- retries max = 0.
+
+Preflight must match remote name, displayed size and last-modified value exactly; drift stops before download.
+
+Artifacts:
+
+- `sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v1.json`;
+- `sources/proposals/ny_osc_owner_name_file_first_download_transient_pii_authorization.v1.json`;
+- `docs/audits/NY_OSC_GATE2_BOUNDED_FIRST_DOWNLOAD_PROPOSAL.md`.
+
+Execution transport is not yet compliant: official OSC browser instructions save the ZIP to local disk, while current policy requires memory-only/no raw-file persistence. Proposal review can proceed, but execution remains blocked until transport policy is resolved.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -511,7 +541,7 @@ Gate 2 remains ungranted; no OSC network access or real owner PII occurred.
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: consumed/non-reusable;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: not granted;
+- NY Gate 2: `PROPOSAL PREPARED / NOT GRANTED`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
@@ -538,28 +568,20 @@ Offline:
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_FILE_SIZE_METADATA_RESPONSE`
+`HUMAN_NY_OSC_GATE2_BOUNDED_PROPOSAL_AND_TRANSPORT_REVIEW`
 
 Classification:
 
-`A — Product Critical / External Dependency`
+`A — Product Critical / Human Authorization + Execution Transport Gate`
 
-The remote MVP-1 reviewer deployment is verified. NY OSC access instructions have now been received and reviewed at the non-content level only.
+Review:
 
-Observed from official instructions:
+- current listing identity;
+- `max_download_bytes = 450,000,000`;
+- `max_uncompressed_bytes = 2,000,000,000`;
+- `max_archive_members = 1`;
+- one download / zero retries;
+- no raw persistence under current policy;
+- execution transport mismatch.
 
-- secure FTP workflow is provided;
-- archive name is `NYSFINDERS.ZIP`;
-- downloaded content is a zipped pipe-delimited text file;
-- the instructions do not provide current archive size.
-
-A reply was sent to OSC asking only for current archive size metadata and whether that size is visible before download. No Owner Name File download or content inspection occurred.
-
-Next:
-
-1. wait for OSC/current size metadata;
-2. set evidence-based `max_download_bytes` and explicit transient expansion/member caps;
-3. prepare separate Gate 2 authorization;
-4. if approved, run the already verified memory-only schema-discovery harness exactly once.
-
-Optional later presentation cleanup: replace the visible legacy synthetic M3 raw-artifact label without changing audit semantics.
+Do not download the Owner Name File until explicit approval and transport compliance exist.
