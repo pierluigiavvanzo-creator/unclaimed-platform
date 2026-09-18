@@ -469,7 +469,7 @@ These are legacy synthetic labels/history only and do not invalidate the MVP-1 d
 - CA source: `HELD`;
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: consumed/non-reusable;
-- NY access instructions: pending;
+- NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
 - NY Gate 2: not granted;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
@@ -496,19 +496,27 @@ Offline:
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
+`AWAIT_NY_OSC_FILE_SIZE_METADATA_RESPONSE`
 
 Classification:
 
 `A — Product Critical / External Dependency`
 
-The remote MVP-1 reviewer deployment is verified. The remaining critical path is NY OSC source access.
+The remote MVP-1 reviewer deployment is verified. NY OSC access instructions have now been received and reviewed at the non-content level only.
 
-When OSC instructions arrive:
+Observed from official instructions:
 
-1. inspect only non-content access/download constraints;
-2. do not download or inspect the Owner Name File under Gate 1;
-3. establish evidence-based `max_download_bytes`;
-4. prepare the separate Gate 2 proposal.
+- secure FTP workflow is provided;
+- archive name is `NYSFINDERS.ZIP`;
+- downloaded content is a zipped pipe-delimited text file;
+- the instructions do not provide current archive size.
+
+A reply was sent to OSC asking only for current archive size metadata and whether that size is visible before download. No Owner Name File download or content inspection occurred.
+
+Next:
+
+1. wait for OSC size metadata reply;
+2. set evidence-based `max_download_bytes`;
+3. prepare separate Gate 2 authorization.
 
 Optional later presentation cleanup: replace the visible legacy synthetic M3 raw-artifact label without changing audit semantics.

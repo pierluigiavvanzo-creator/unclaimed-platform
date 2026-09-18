@@ -39,9 +39,9 @@ Official request submission:
 
 Current sequence:
 
-`receive OSC access instructions — PENDING`
+`receive OSC access instructions — DONE`
 
-`-> observe non-content download constraints`
+`-> observe non-content download constraints — PARTIAL; size metadata requested from OSC`
 
 `-> define explicit max_download_bytes`
 
@@ -236,8 +236,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
+`AWAIT_NY_OSC_FILE_SIZE_METADATA_RESPONSE`
 
 Classification: `A — Product Critical / External Dependency`.
 
-The frontend deployment milestone is closed. Resume the real-source critical path only when OSC access instructions arrive.
+The frontend deployment milestone is closed. OSC access instructions have now arrived. Await OSC's reply with `NYSFINDERS.ZIP` size metadata so `max_download_bytes` can be evidence-based before Gate 2.

@@ -423,7 +423,7 @@ These do not affect the verified MVP-1 reviewer logic or safety boundary, but ma
 - California source: `HELD`;
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: `CONSUMED / NON-REUSABLE`;
-- NY access instructions: pending;
+- NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
 - NY Gate 2: not granted;
 - real owner PII processed: no;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
@@ -441,17 +441,20 @@ These do not affect the verified MVP-1 reviewer logic or safety boundary, but ma
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
+`AWAIT_NY_OSC_FILE_SIZE_METADATA_RESPONSE`
 
 Classification: `A — Product Critical / External Dependency`.
 
-The MVP-1 synthetic reviewer is now remotely deployed and verified. The remaining critical path to a real economically actionable case is the NY OSC source-access track.
+The NY OSC access instructions were received and reviewed without downloading the Owner Name File. The instructions identify the secure FTP workflow, archive name `NYSFINDERS.ZIP`, and pipe-delimited file format, but do not state the archive size.
 
-When access instructions arrive:
+A reply was sent to OSC requesting only the current `NYSFINDERS.ZIP` size metadata and whether that size is visible pre-download. No file content was requested or downloaded.
 
-1. inspect only non-content access/download constraints;
-2. do not download or inspect the Owner Name File under Gate 1;
-3. define explicit `max_download_bytes`;
-4. prepare `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` for separate review.
+Next:
+
+1. wait for official size metadata;
+2. define evidence-based `max_download_bytes`;
+3. prepare `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` for separate review.
+
+Do not download or inspect the Owner Name File under Gate 1.
 
 Optional non-blocking UI cleanup may later replace the visible legacy synthetic M3 fixture label, but this must not displace the NY OSC critical path.
