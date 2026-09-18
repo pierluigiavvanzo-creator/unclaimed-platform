@@ -1,0 +1,292 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-third-attempt-transient-local-approval:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "required_owner_authorization",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "attempt_number",
+    "proposal_ref",
+    "proposal_checkpoint",
+    "proposal_ci_run_id",
+    "runner_checkpoint",
+    "runner_ci_run_id",
+    "runner_ci_conclusion",
+    "authorization_does_not_grant",
+    "scope"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION"
+    },
+    "required_owner_authorization": {
+      "const": "APPROVO NY OSC THIRD TRANSIENT LOCAL FILE BOUNDED ONCE"
+    },
+    "owner_authorization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "granted_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "execution_approval_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "NOT_GRANTED",
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "attempt_number": {
+      "const": 3
+    },
+    "proposal_ref": {
+      "const": "sources/proposals/ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json"
+    },
+    "proposal_checkpoint": {
+      "const": "fbb9ae1e104897e032a7442fd679bb3c17f021c6"
+    },
+    "proposal_ci_run_id": {
+      "const": 35382914678
+    },
+    "runner_checkpoint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "runner_ci_run_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "runner_ci_conclusion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "consumed_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "execution_result_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_local_filename",
+        "max_download_bytes",
+        "dedicated_os_temp_directory_required",
+        "immediate_logical_deletion_required",
+        "durable_raw_persistence_allowed",
+        "repository_persistence_allowed",
+        "cloud_sync_allowed",
+        "chat_upload_allowed",
+        "physical_secure_erasure_guaranteed"
+      ],
+      "properties": {
+        "expected_local_filename": {
+          "const": "FINDERS.zip"
+        },
+        "max_download_bytes": {
+          "const": 450000000
+        },
+        "dedicated_os_temp_directory_required": {
+          "const": true
+        },
+        "immediate_logical_deletion_required": {
+          "const": true
+        },
+        "durable_raw_persistence_allowed": {
+          "const": false
+        },
+        "repository_persistence_allowed": {
+          "const": false
+        },
+        "cloud_sync_allowed": {
+          "const": false
+        },
+        "chat_upload_allowed": {
+          "const": false
+        },
+        "physical_secure_erasure_guaranteed": {
+          "const": false
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "NOT_GRANTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": null
+          },
+          "granted_on": {
+            "const": null
+          },
+          "execution_approval_ref": {
+            "const": null
+          },
+          "runner_checkpoint": {
+            "const": null
+          },
+          "runner_ci_run_id": {
+            "const": null
+          },
+          "runner_ci_conclusion": {
+            "const": null
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "GRANTED_NOT_CONSUMED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": "APPROVO NY OSC THIRD TRANSIENT LOCAL FILE BOUNDED ONCE"
+          },
+          "granted_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "execution_approval_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runner_checkpoint": {
+            "type": "string",
+            "minLength": 40
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
+          }
+        },
+        "required": [
+          "owner_authorization",
+          "granted_on",
+          "execution_approval_ref",
+          "runner_checkpoint",
+          "runner_ci_run_id",
+          "runner_ci_conclusion"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": "APPROVO NY OSC THIRD TRANSIENT LOCAL FILE BOUNDED ONCE"
+          },
+          "granted_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "execution_approval_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runner_checkpoint": {
+            "type": "string",
+            "minLength": 40
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
+          }
+        },
+        "required": [
+          "owner_authorization",
+          "granted_on",
+          "execution_approval_ref",
+          "runner_checkpoint",
+          "runner_ci_run_id",
+          "runner_ci_conclusion",
+          "consumed_on",
+          "execution_result_ref"
+        ]
+      }
+    }
+  ]
+}
