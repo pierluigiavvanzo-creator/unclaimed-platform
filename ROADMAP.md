@@ -286,8 +286,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_PROPOSAL`
+`HUMAN_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_REVIEW`
 
-Classification: `A — Product Critical / Human Authorization Preparation`.
+Classification: `A — Product Critical / Human Authorization Gate`.
 
-The first real bounded execution was consumed and stopped fail-closed. The offline remediation is verified by CI `35363685148`. Prepare a fresh second-attempt proposal; do not re-download under the consumed v1 approvals.
+Second-attempt proposal is prepared with unchanged safety bounds and verified offline remediation. Fresh preflight plus two new single-use approvals are required before any download.

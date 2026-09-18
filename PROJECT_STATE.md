@@ -568,6 +568,22 @@ CI:
 
 `35363685148` — SUCCESS.
 
+## NY OSC Second Bounded Attempt Proposal
+
+Prepared after verified offline remediation.
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_second_bounded_attempt_authorization.v1.json`
+
+Retry script:
+
+`scripts/ny_osc_gate2_retry_transient_local.ps1`
+
+Safety bounds remain unchanged from the consumed first attempt. No second download is authorized yet.
+
+Fresh preflight is mandatory immediately before any execution.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -595,10 +611,10 @@ CI:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_PROPOSAL`
+`HUMAN_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_REVIEW`
 
-Classification: `A — Product Critical / Human Authorization Preparation`.
+Classification: `A — Product Critical / Human Authorization Gate`.
 
-Prepare a fresh, separately reviewable second-attempt proposal using the verified offline remediation.
+Review the verified offline remediation and the fresh second-attempt proposal.
 
-Do not download the Owner Name File again unless a new explicit human authorization is granted. The v1 approvals are consumed and non-reusable.
+Do not execute a second download until both new single-use approvals are explicitly granted and the secure-transfer listing is freshly verified.

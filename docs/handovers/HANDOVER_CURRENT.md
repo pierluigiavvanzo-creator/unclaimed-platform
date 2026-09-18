@@ -608,6 +608,26 @@ CI:
 
 `35363685148` — SUCCESS.
 
+### 13. Second bounded attempt proposal
+
+Prepared:
+
+`sources/proposals/ny_osc_owner_name_file_second_bounded_attempt_authorization.v1.json`
+
+Runner:
+
+`scripts/ny_osc_gate2_retry_transient_local.ps1`
+
+Remediation checkpoint:
+
+`151f3a2f16c74f604fa72cc1284b2f9cd2e73f52`
+
+CI:
+
+`35363685148 — SUCCESS`
+
+No bounds are increased. A fresh listing check and two new single-use approvals are required before execution.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -644,10 +664,10 @@ Offline:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_PROPOSAL`
+`HUMAN_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_REVIEW`
 
 Classification:
 
-`A — Product Critical / Human Authorization Preparation`
+`A — Product Critical / Human Authorization Gate`
 
-Prepare a fresh v2 second-attempt authorization proposal using the verified offline remediation. Do not reuse v1 approvals and do not re-download before new explicit Product Owner approval.
+Required approval phrases are recorded in the proposal. Do not execute until both are explicitly granted and fresh preflight still matches the remote listing.
