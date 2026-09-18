@@ -137,7 +137,7 @@
     "transient_local_raw_file_exception": {
       "authorization_gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
       "granted": true,
-      "status": "GRANTED_NOT_CONSUMED",
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
       "single_use": true,
       "reusable": false,
       "retry_authorized": false,
@@ -177,9 +177,10 @@
       "proposed_preflight_name": "FINDERS.zip",
       "proposed_preflight_size_display": "390.51 MB",
       "proposed_preflight_last_modified_display": "9/16/2026, 1:33:31 PM",
-      "execution_transport_state": "READY_FOR_SINGLE_REAL_EXECUTION",
-      "status": "GRANTED_NOT_CONSUMED",
-      "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1"
+      "execution_transport_state": "EXECUTED_FAIL_CLOSED_NO_RETRY",
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1",
+      "execution_reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
     }
   },
   "first_file_schema_discovery": {
