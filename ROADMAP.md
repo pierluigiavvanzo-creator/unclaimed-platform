@@ -2,6 +2,24 @@
 
 Last updated: 2026-09-18
 
+## Current Override — Third Attempt Proposal Prepared Offline
+
+Completed:
+
+`PREPARE_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / ZERO SOURCE ACCESS`
+
+The proposed envelope remains one download, zero retries, unchanged byte/member caps,
+quote-aware offline parser checkpoint verified, consumed approvals non-reusable, and fresh
+listing preflight mandatory. No execution runner or granted approval artifact was created.
+
 ## Current Override — NY Second Attempt Consumed
 
 The second bounded NY OSC attempt completed fail-closed with
@@ -307,9 +325,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`REVIEW_AND_INTEGRATE_NY_OSC_QUOTE_AWARE_OFFLINE_REPAIR`
+`HUMAN_REVIEW_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL`
 
-Classification: `A — Product Critical / Offline Safety Repair`.
+Classification: `A — Product Critical / Human Authorization Gate`.
 
-Do not download the Owner Name File again. A third attempt, if later justified, requires a
-separate proposal, fresh preflight and new explicit single-use approvals after CI passes.
+No source/network request or download is authorized. Implementation and execution remain
+blocked until separate explicit approvals are granted after review.
