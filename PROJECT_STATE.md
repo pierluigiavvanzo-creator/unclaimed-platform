@@ -17,7 +17,17 @@ Candidate artifacts:
 
 State:
 
-`IMPLEMENTED_OFFLINE / CI_PENDING / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS`
+`READY_OFFLINE / VERIFIED_CI / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS`
+
+
+Candidate verification checkpoint:
+
+`5aa606f9f79dc05508628d8a97f514cce7e4f770`
+
+CI:
+
+`35384965991 — SUCCESS`
+
 
 The runner cannot advance past its prechecks while the templates remain `NOT_GRANTED`.
 No network request, listing check, download, owner-file opening, or owner-PII processing
