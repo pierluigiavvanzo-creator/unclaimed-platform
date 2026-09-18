@@ -17,12 +17,19 @@ if _SRC_PATH not in sys.path:
 from unclaimed_platform.ui.streamlit_console import (  # noqa: E402
     load_safe_mvp1_case,
     load_safe_mvp1_economics,
+    load_safe_mvp1_integrated_economics,
     load_safe_snapshot,
 )
 
 
 def _display(value: str) -> str:
     return escape(value.replace("_", " "))
+
+
+def _usd_cents(value: int | None) -> str:
+    if value is None:
+        return "UNAVAILABLE"
+    return f"$ {value / 100:,.2f}"
 
 
 def _pill(value: str) -> str:
@@ -48,6 +55,7 @@ try:
     snapshot = load_safe_snapshot()
     mvp1_case = load_safe_mvp1_case()
     mvp1_economics = load_safe_mvp1_economics()
+    mvp1_integrated = load_safe_mvp1_integrated_economics()
 except RuntimeError as exc:
     st.error("Safety boundary violation. Reviewer console stopped.")
     st.code(str(exc))
@@ -131,6 +139,65 @@ mvp1_economics_rows = "".join(
     ]
 )
 
+
+ready_result = mvp1_integrated.ready.integration.explicit_economics_result
+ready_rows = "".join(
+    [
+        _row(
+            "Integration state",
+            mvp1_integrated.ready.integration.integration_state.replace("_", " "),
+        ),
+        _row(
+            "Fully loaded follow-up cost",
+            _usd_cents(mvp1_integrated.ready.integration.measured_follow_up_cost_cents),
+        ),
+        _row(
+            "Gross fee — synthetic",
+            _usd_cents(None if ready_result is None else ready_result.gross_fee_cents),
+        ),
+        _row(
+            "Contribution before overhead — synthetic",
+            _usd_cents(
+                None
+                if ready_result is None
+                else ready_result.contribution_before_overhead_cents
+            ),
+        ),
+        _row(
+            "Cost evidence refs",
+            str(len(mvp1_integrated.ready.integration.follow_up_cost_evidence_refs)),
+        ),
+        _row("Automatic recommendation", "NONE — HUMAN DECISION REQUIRED"),
+    ]
+)
+
+blocked_rows = "".join(
+    [
+        _row(
+            "Integration state",
+            mvp1_integrated.blocked.integration.integration_state.replace("_", " "),
+        ),
+        _row(
+            "Human labor rate",
+            mvp1_integrated.blocked.follow_up_cost.human_labor_rate_state.replace("_", " "),
+        ),
+        _row(
+            "Direct machine/data cost",
+            _usd_cents(
+                mvp1_integrated.blocked.follow_up_cost.direct_machine_and_data_cost_cents
+            )
+            + " — NOT FULLY LOADED",
+        ),
+        _row("Fully loaded follow-up cost", "UNAVAILABLE"),
+        _row("Explicit economics result", "NOT COMPUTED — FAIL CLOSED"),
+        _row(
+            "Cost evidence refs",
+            str(len(mvp1_integrated.blocked.integration.follow_up_cost_evidence_refs)),
+        ),
+        _row("Automatic recommendation", "NONE — HUMAN DECISION REQUIRED"),
+    ]
+)
+
 page_html = f"""
 <div class="uip-shell">
   <header class="uip-hero">
@@ -166,6 +233,21 @@ page_html = f"""
       <p class="uip-eyebrow">NY PRE-CONTACT ECONOMICS</p>
       <h2>Fail-closed value, fee and cost evidence</h2>
       <div class="uip-list">{mvp1_economics_rows}</div>
+    </article>
+  </section>
+
+
+  <section class="uip-grid uip-two-col">
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">MVP-1 INTEGRATED ECONOMICS — SYNTHETIC</p>
+      <h2>Ready: documented fully loaded cost</h2>
+      <div class="uip-list">{ready_rows}</div>
+    </article>
+
+    <article class="uip-card uip-feature-card">
+      <p class="uip-eyebrow">MVP-1 INTEGRATED ECONOMICS — FAIL CLOSED</p>
+      <h2>Blocked: labor rate/cost incomplete</h2>
+      <div class="uip-list">{blocked_rows}</div>
     </article>
   </section>
 

@@ -40,3 +40,33 @@ def test_mvp1_precontact_economics_api_is_fail_closed() -> None:
     assert payload["actual_fee_bps"] is None
     assert payload["expected_follow_up_cost_cents"] is None
     assert payload["commercial_actionability"] == "NOT_COMPUTABLE_PRE_CONTACT"
+
+
+def test_mvp1_integrated_economics_api_exposes_ready_and_blocked_states() -> None:
+    response = TestClient(app).get("/api/reviewer/mvp1/economics/integrated")
+    payload = response.json()
+
+    assert response.status_code == 200
+    assert payload["mode"] == "SYNTHETIC_READ_ONLY"
+    assert payload["safety"]["real_source_accessed"] is False
+    assert payload["safety"]["owner_file_downloaded"] is False
+    assert payload["safety"]["real_owner_pii_processed"] is False
+    assert payload["safety"]["automatic_commercial_recommendation"] is False
+
+    ready = payload["ready"]
+    assert ready["scenario"] == "READY_WITH_DOCUMENTED_LABOR_RATE"
+    assert ready["integration"]["integration_state"] == "READY_FOR_EXPLICIT_ECONOMICS"
+    assert ready["integration"]["measured_follow_up_cost_cents"] == 417
+    assert ready["integration"]["explicit_economics_result"] is not None
+    assert ready["integration"]["no_commercial_recommendation"] is True
+    assert len(ready["integration"]["follow_up_cost_evidence_refs"]) == 5
+
+    blocked = payload["blocked"]
+    assert blocked["scenario"] == "BLOCKED_WITHOUT_DOCUMENTED_LABOR_RATE"
+    assert blocked["follow_up_cost"]["direct_machine_and_data_cost_cents"] == 37
+    assert blocked["integration"]["integration_state"] == (
+        "BLOCKED_FOLLOW_UP_COST_UNAVAILABLE"
+    )
+    assert blocked["integration"]["measured_follow_up_cost_cents"] is None
+    assert blocked["integration"]["explicit_economics_result"] is None
+    assert blocked["integration"]["no_commercial_recommendation"] is True

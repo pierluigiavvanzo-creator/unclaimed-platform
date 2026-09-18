@@ -1,6 +1,11 @@
 """Safe read model adapters for the Streamlit reviewer surfaces."""
 
-from unclaimed_platform.api.reviewer import OperationsSnapshot, synthetic_operations_snapshot
+from unclaimed_platform.api.reviewer import (
+    Mvp1IntegratedEconomicsReviewerSnapshot,
+    OperationsSnapshot,
+    synthetic_mvp1_integrated_economics_snapshot,
+    synthetic_operations_snapshot,
+)
 from unclaimed_platform.domain.mvp1_vertical_slice import (
     Mvp1SyntheticCaseReview,
     synthetic_ny_mvp1_case_review,
@@ -127,3 +132,72 @@ def validate_safe_mvp1_economics(
 def load_safe_mvp1_economics() -> NyMvp1PrecontactEconomicsEvidence:
     """Load and validate the current fail-closed pre-contact economics evidence."""
     return validate_safe_mvp1_economics(ny_mvp1_precontact_economics_evidence())
+
+
+def validate_safe_mvp1_integrated_economics(
+    snapshot: Mvp1IntegratedEconomicsReviewerSnapshot,
+) -> Mvp1IntegratedEconomicsReviewerSnapshot:
+    """Fail closed if integrated economics reviewer states blur synthetic safety boundaries."""
+    violations: list[str] = []
+
+    if snapshot.contract_version != "1.0.0":
+        violations.append("unexpected integrated economics contract version")
+    if snapshot.mode != "SYNTHETIC_READ_ONLY":
+        violations.append("integrated economics reviewer must remain synthetic read-only")
+
+    safety = snapshot.safety
+    if safety.real_source_accessed:
+        violations.append("real source access is forbidden")
+    if safety.owner_file_downloaded:
+        violations.append("Owner Name File download is forbidden")
+    if safety.real_owner_pii_processed:
+        violations.append("real owner PII is forbidden")
+    if safety.automatic_commercial_recommendation:
+        violations.append("automatic commercial recommendation is forbidden")
+
+    ready = snapshot.ready
+    if ready.scenario != "READY_WITH_DOCUMENTED_LABOR_RATE":
+        violations.append("ready scenario marker is invalid")
+    if ready.follow_up_cost.fully_loaded_follow_up_cost_state != (
+        "COMPUTED_FROM_MEASURED_COMPONENTS"
+    ):
+        violations.append("ready scenario requires computed fully loaded cost")
+    if ready.integration.integration_state != "READY_FOR_EXPLICIT_ECONOMICS":
+        violations.append("ready scenario must reach explicit economics")
+    if ready.integration.measured_follow_up_cost_cents is None:
+        violations.append("ready scenario requires measured fully loaded cost")
+    if ready.integration.explicit_economics_result is None:
+        violations.append("ready scenario requires explicit economics result")
+    if not ready.integration.no_commercial_recommendation:
+        violations.append("ready scenario cannot add automatic commercial recommendation")
+
+    blocked = snapshot.blocked
+    if blocked.scenario != "BLOCKED_WITHOUT_DOCUMENTED_LABOR_RATE":
+        violations.append("blocked scenario marker is invalid")
+    if blocked.follow_up_cost.fully_loaded_follow_up_cost_state != (
+        "NOT_COMPUTABLE_NO_LABOR_RATE"
+    ):
+        violations.append("blocked scenario must preserve missing labor-rate state")
+    if blocked.integration.integration_state != "BLOCKED_FOLLOW_UP_COST_UNAVAILABLE":
+        violations.append("blocked scenario must remain fail closed")
+    if blocked.integration.measured_follow_up_cost_cents is not None:
+        violations.append("blocked scenario cannot expose substitute follow-up cost")
+    if blocked.integration.explicit_economics_result is not None:
+        violations.append("blocked scenario cannot compute explicit economics")
+    if not blocked.integration.no_commercial_recommendation:
+        violations.append("blocked scenario cannot add automatic commercial recommendation")
+
+    if violations:
+        raise RuntimeError(
+            "Unsafe NY MVP-1 integrated economics reviewer: " + "; ".join(violations)
+        )
+
+    return snapshot
+
+
+def load_safe_mvp1_integrated_economics(
+) -> Mvp1IntegratedEconomicsReviewerSnapshot:
+    """Load deterministic synthetic integrated economics and validate before display."""
+    return validate_safe_mvp1_integrated_economics(
+        synthetic_mvp1_integrated_economics_snapshot()
+    )

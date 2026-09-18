@@ -6,9 +6,11 @@ from unclaimed_platform.api.reviewer import synthetic_operations_snapshot
 from unclaimed_platform.ui.streamlit_console import (
     load_safe_mvp1_case,
     load_safe_mvp1_economics,
+    load_safe_mvp1_integrated_economics,
     load_safe_snapshot,
     validate_safe_mvp1_case,
     validate_safe_mvp1_economics,
+    validate_safe_mvp1_integrated_economics,
     validate_safe_snapshot,
 )
 
@@ -83,6 +85,35 @@ def test_streamlit_mvp1_economics_fails_closed_on_invented_value() -> None:
     with pytest.raises(RuntimeError, match="exact recoverable value"):
         validate_safe_mvp1_economics(unsafe)
 
+
+
+def test_streamlit_integrated_economics_exposes_ready_and_blocked_states() -> None:
+    snapshot = load_safe_mvp1_integrated_economics()
+
+    assert snapshot.mode == "SYNTHETIC_READ_ONLY"
+    assert snapshot.ready.integration.integration_state == "READY_FOR_EXPLICIT_ECONOMICS"
+    assert snapshot.ready.integration.measured_follow_up_cost_cents == 417
+    assert snapshot.ready.integration.explicit_economics_result is not None
+    assert snapshot.blocked.integration.integration_state == (
+        "BLOCKED_FOLLOW_UP_COST_UNAVAILABLE"
+    )
+    assert snapshot.blocked.follow_up_cost.direct_machine_and_data_cost_cents == 37
+    assert snapshot.blocked.integration.measured_follow_up_cost_cents is None
+    assert snapshot.blocked.integration.explicit_economics_result is None
+
+
+def test_streamlit_integrated_economics_fails_closed_on_substitute_cost() -> None:
+    snapshot = load_safe_mvp1_integrated_economics()
+    unsafe_integration = snapshot.blocked.integration.model_copy(
+        update={"measured_follow_up_cost_cents": 37}
+    )
+    unsafe_blocked = snapshot.blocked.model_copy(update={"integration": unsafe_integration})
+    unsafe_snapshot = snapshot.model_copy(update={"blocked": unsafe_blocked})
+
+    with pytest.raises(RuntimeError, match="cannot expose substitute follow-up cost"):
+        validate_safe_mvp1_integrated_economics(unsafe_snapshot)
+
+
 def test_streamlit_console_preserves_verified_visual_language() -> None:
     app_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "streamlit_app.py"
     theme_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "theme.css"
@@ -95,6 +126,9 @@ def test_streamlit_console_preserves_verified_visual_language() -> None:
     assert "MVP-1 SYNTHETIC CASE" in app_source
     assert "NY PRE-CONTACT ECONOMICS" in app_source
     assert "Statutory fee cap" in app_source
+    assert "MVP-1 INTEGRATED ECONOMICS — SYNTHETIC" in app_source
+    assert "MVP-1 INTEGRATED ECONOMICS — FAIL CLOSED" in app_source
+    assert "NONE — HUMAN DECISION REQUIRED" in app_source
     assert "st.metric" not in app_source
     assert "st.info" not in app_source
     assert "st.html(page_html)" in app_source
