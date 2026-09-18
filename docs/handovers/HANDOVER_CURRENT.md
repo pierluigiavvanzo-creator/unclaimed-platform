@@ -662,6 +662,36 @@ Execution script:
 
 Both v2 approvals are granted/not consumed. Fresh listing preflight is mandatory; any drift stops before download.
 
+### 16. Second attempt consumed / root-cause probe ready
+
+Second real bounded attempt result:
+
+`BLOCKED_FAIL_CLOSED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Observed non-PII metadata:
+
+- archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local raw file logically deleted: yes;
+- no owner values returned or persisted.
+
+Both v2 approvals are consumed and non-reusable.
+
+Root-cause diagnostic checkpoint:
+
+`b58276956ba851b1b633487443735c7ec5470caf`
+
+CI:
+
+`35376786975 — SUCCESS`
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_row_shape_diagnostic_authorization.v1.json`
+
+The diagnostic is aggregate-only and byte-level. It does not select a new production parser.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -698,14 +728,12 @@ Offline:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`HUMAN_NY_OSC_ROW_SHAPE_DIAGNOSTIC_AUTHORIZATION_REVIEW`
 
 Classification:
 
-`A — Product Critical / Single-Use Real Execution`
+`A — Product Critical / Root-Cause Human Gate`
 
-Use:
+Do not re-download under v1 or v2 approvals; both are consumed.
 
-`scripts/ny_osc_gate2_retry_transient_local.ps1`
-
-Before download, freshly verify the secure-transfer listing. Any name/size/last-modified drift stops before download.
+If a third real access is authorized, it must be diagnostic-only, single-use, zero-retry, and must specify an explicit `max_physical_lines_to_scan`.

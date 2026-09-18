@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-second-attempt-approved-ready-execution`
+`mvp1-ny-second-attempt-failclosed-root-cause`
 
 Latest verified product implementation checkpoint:
 
@@ -602,6 +602,48 @@ CI:
 
 The second attempt remains single-use and zero-retry. Fresh remote-listing preflight is mandatory immediately before download.
 
+## NY OSC Second Real Bounded Execution — Consumed / Fail-Closed
+
+The second authorized real execution was consumed exactly once.
+
+Result:
+
+`BLOCKED_FAIL_CLOSED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Persisted non-PII metadata:
+
+- compressed archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local raw ZIP logically deleted: yes;
+- no owner values returned or persisted.
+
+Approval state:
+
+- second-attempt transient-local approval: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
+- second-attempt transient-PII approval: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
+- retry under v2: not authorized.
+
+Root-cause diagnostic preparation is now verified offline.
+
+Diagnostic checkpoint:
+
+`b58276956ba851b1b633487443735c7ec5470caf`
+
+CI:
+
+`35376786975 — SUCCESS`
+
+The diagnostic compares only aggregate byte-level row shape:
+
+- raw pipe-based field-count histogram;
+- double-quote-aware field-count histogram;
+- trailing-delimiter line count;
+- unbalanced-double-quote line count;
+- exact-14 counts under both methods.
+
+No third download is authorized.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -629,10 +671,8 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`HUMAN_NY_OSC_ROW_SHAPE_DIAGNOSTIC_AUTHORIZATION_REVIEW`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Root-Cause Human Gate`.
 
-Review the verified offline remediation and the fresh second-attempt proposal.
-
-Do not execute a second download until both new single-use approvals are explicitly granted and the secure-transfer listing is freshly verified.
+Review the dedicated aggregate row-shape diagnostic proposal. Do not authorize a production parser retry. Any future real diagnostic requires a fresh explicit bounded authorization.

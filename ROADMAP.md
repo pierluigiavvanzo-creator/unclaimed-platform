@@ -282,6 +282,24 @@ CI:
 
 Both v2 approvals are granted/not consumed. Fresh preflight remains mandatory before the single authorized download.
 
+### NY second real attempt — consumed fail-closed
+
+Result:
+
+`UNEXPECTED_DATA_FIELD_COUNT`
+
+Both v2 approvals are consumed and non-reusable.
+
+Root-cause probe:
+
+`b58276956ba851b1b633487443735c7ec5470caf`
+
+CI:
+
+`35376786975 — SUCCESS`
+
+The next real access, if approved, must be diagnostic-only and aggregate/non-PII.
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions DONE / current listing size OBSERVED / Gate 2 v1 CONSUMED_FAIL_CLOSED / transient-local runner VERIFIED / ONE REAL EXECUTION NEXT / schema-discovery harness READY`
@@ -298,8 +316,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`HUMAN_NY_OSC_ROW_SHAPE_DIAGNOSTIC_AUTHORIZATION_REVIEW`
 
-Classification: `A — Product Critical / Single-Use Real Execution`.
+Classification: `A — Product Critical / Root-Cause Human Gate`.
 
-Both new v2 approvals are granted and not consumed. Before download, freshly verify the OSC listing. Any drift stops the attempt.
+Two bounded real attempts are consumed. Do not patch the production parser again from inference alone. Review the aggregate row-shape diagnostic proposal and explicitly choose a bounded physical-line scan limit before any third real download.
