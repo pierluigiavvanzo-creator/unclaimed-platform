@@ -9,7 +9,7 @@ Last updated: 2026-09-18
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | reviewer surface verified |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; OFFLINE DOWNSTREAM + ECONOMICS EVIDENCE VERIFIED | CI `35318092067` |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; FOLLOW-UP COST MEASUREMENT CONTRACT VERIFIED | CI `35321285527` |
 
 ## Product Priority
 
@@ -85,9 +85,32 @@ Reviewer exposure:
 - API `/api/reviewer/mvp1/economics/precontact`;
 - Streamlit `NY PRE-CONTACT ECONOMICS` card.
 
-Latest cumulative CI:
+Latest cumulative reviewer/economics CI:
 
 `35318092067` — SUCCESS.
+
+### Follow-up cost measurement
+
+Implemented deterministic, provenance-bearing measurement contracts for:
+
+- automated processing cost per candidate;
+- source/data cost per candidate;
+- human review seconds;
+- additional manual research seconds.
+
+Optional documented human labor rate is required before measured human time can become monetary labor cost. Without it, fully loaded follow-up cost remains unavailable.
+
+Checkpoint:
+
+`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
+
+CI:
+
+`35321285527` — SUCCESS.
+
+Audit:
+
+`docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE.md`
 
 ## MVP-1 Remaining Product Path
 
@@ -95,7 +118,7 @@ Latest cumulative CI:
 
 in parallel with:
 
-`measured candidate-cost contract -> commercial measurement capture`
+`follow-up cost contract DONE -> case-economics integration -> commercial measurement capture`
 
 then, once a lawful real source is available:
 
@@ -105,10 +128,10 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
+`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Purpose:
 
-Prepare deterministic measurement of automated processing cost, source/data cost, human review time and additional manual research effort per candidate, with provenance and without invented assumptions or real PII.
+Wire only fully computed, evidence-backed follow-up cost into the existing explicit case-economics contract. If no documented labor rate exists, keep the cost unavailable rather than substituting machine/data cost as a false fully loaded cost.

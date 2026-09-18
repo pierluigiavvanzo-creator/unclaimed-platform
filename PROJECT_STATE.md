@@ -16,19 +16,15 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-offline-vertical-slice-integrated`
+`mvp1-ny-follow-up-cost-measurement-offline`
 
 Latest verified product implementation checkpoint:
 
-`d94a86f8d774d40c9170f9da2234dd53eb3feff9`
+`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
 
 Product implementation CI:
 
-`35318092067` — SUCCESS.
-
-Canonical documentation refresh CI:
-
-`35318343802` — SUCCESS.
+`35321285527` — SUCCESS.
 
 Classification: `A — Product Critical`.
 
@@ -38,7 +34,7 @@ Current lifecycle has two bounded tracks:
 
 and, while that external dependency is pending:
 
-`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> NY_VALUE_EVIDENCE_CONTRACT_VERIFIED -> NY_VALUE_EVIDENCE_VISIBLE_IN_REVIEWER`
+`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> NY_VALUE_EVIDENCE_VISIBLE_IN_REVIEWER -> FOLLOW_UP_COST_MEASUREMENT_CONTRACT_VERIFIED`
 
 ## California State
 
@@ -191,6 +187,47 @@ Passed:
 
 One prior CI `35317731747` failed only because a unit test and contract test shared the same Python module basename. The contract test was renamed; no product logic changed. Repair CI `35317814189` was SUCCESS.
 
+## NY MVP-1 Follow-Up Cost Measurement
+
+Completed offline:
+
+`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
+
+Verified checkpoint:
+
+`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
+
+CI:
+
+`35321285527` — SUCCESS.
+
+Implemented measured dimensions:
+
+- automated processing cost per candidate in integer cents;
+- source/data cost per candidate in integer cents;
+- human review time per candidate in integer seconds;
+- additional manual research time per candidate in integer seconds.
+
+Every measured component requires an evidence reference and observation timestamp. No default monetary or time assumption is supplied.
+
+Human time is not converted into money unless an explicit documented labor rate is provided. Without that rate, fully loaded follow-up cost remains `NOT_COMPUTABLE_NO_LABOR_RATE`.
+
+Implemented:
+
+- `src/unclaimed_platform/domain/ny_mvp1_follow_up_cost.py`;
+- `schemas/economics/ny_mvp1_follow_up_cost_measurement_input.schema.json`;
+- `schemas/economics/ny_mvp1_follow_up_cost_measurement_result.schema.json`;
+- unit and contract tests;
+- `docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE.md`.
+
+The contract requires `owner_pii_included = false` and returns `no_commercial_recommendation = true`.
+
+Three early CI runs stopped on test-file lint/syntax only. After two corrective patches, the mandatory root-cause audit identified a connector escape-sequence serialization defect in the test edit. The audited repair is recorded in:
+
+`docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_RUFF_ROOT_CAUSE.md`
+
+No domain logic or schema semantics changed in that repair.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -202,18 +239,20 @@ One prior CI `35317731747` failed only because a unit test and contract test sha
 - real owner PII processed: no;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics evidence contract: `READY / VERIFIED`;
+- follow-up cost measurement contract: `READY / VERIFIED`;
+- real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
+`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
 
 Classification: `A — Product Critical`.
 
 Goal:
 
-Create a deterministic, provenance-bearing contract for measured per-candidate automated processing cost, source/data cost, human review time and additional manual research effort, using synthetic/test inputs only. This should replace `NOT_MEASURED` only when actual measured evidence later exists.
+Connect the verified follow-up-cost measurement result to the existing explicit case-economics input without inventing values. A fully loaded measured cost may populate `measured_follow_up_cost_cents` only when the measurement state is `COMPUTED_FROM_MEASURED_COMPONENTS`; otherwise the integration must fail closed and preserve the cost as unavailable.
 
-Do not invent cost assumptions, use real owner data, download the Owner Name File, or weaken Gate 2.
+Use synthetic/test inputs only. Do not access the Owner Name File, process real owner PII, create fee agreements, perform outreach or submit claims.

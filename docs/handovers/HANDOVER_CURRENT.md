@@ -10,19 +10,15 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-offline-vertical-slice-integrated`
+`mvp1-ny-follow-up-cost-measurement-offline`
 
 Latest verified product implementation checkpoint:
 
-`d94a86f8d774d40c9170f9da2234dd53eb3feff9`
+`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
 
 Product implementation CI:
 
-`35318092067` — SUCCESS.
-
-Canonical documentation refresh CI:
-
-`35318343802` — SUCCESS.
+`35321285527` — SUCCESS.
 
 The branch HEAD can advance when canonical state files are refreshed; always verify remote HEAD before modifying.
 
@@ -202,6 +198,55 @@ Verified:
 - frontend typecheck PASS;
 - frontend build PASS.
 
+### 4. Follow-up cost measurement contract
+
+Completed:
+
+`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
+
+Implemented measured fields:
+
+- automated processing cost per candidate;
+- source/data cost per candidate;
+- human review duration;
+- manual research duration.
+
+All monetary amounts use integer cents and all human durations use integer seconds. Each component requires provenance via evidence reference plus observation timestamp.
+
+An optional documented human labor rate can convert measured time into human labor cost. If no documented rate exists, fully loaded follow-up cost remains `NOT_COMPUTABLE_NO_LABOR_RATE`.
+
+Files:
+
+- `src/unclaimed_platform/domain/ny_mvp1_follow_up_cost.py`;
+- `schemas/economics/ny_mvp1_follow_up_cost_measurement_input.schema.json`;
+- `schemas/economics/ny_mvp1_follow_up_cost_measurement_result.schema.json`;
+- unit + contract tests;
+- `docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE.md`.
+
+Verified checkpoint:
+
+`e9c1bc0e310f1b7b65f4153c90d5efb5d812caa0`
+
+CI:
+
+`35321285527` — SUCCESS.
+
+Passed:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint/typecheck/build.
+
+Patch-loop note:
+
+After two failed corrective commits on the same Ruff/test-file issue, development stopped for the required root-cause audit. The defect was a literal escaped newline inserted by connector-side patching, not domain logic. Audit:
+
+`docs/audits/NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_RUFF_ROOT_CAUSE.md`
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -212,6 +257,8 @@ Verified:
 - NY Gate 2: not granted;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
+- follow-up cost measurement contract: `READY / VERIFIED`;
+- real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
 ## Parallel Critical Paths
@@ -222,13 +269,13 @@ External:
 
 Offline:
 
-`synthetic downstream slice DONE -> value-evidence contract DONE -> reviewer integration DONE -> measured follow-up-cost contract NEXT`
+`synthetic downstream slice DONE -> value-evidence contract DONE -> reviewer integration DONE -> follow-up cost measurement DONE -> economics integration NEXT`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
+`INTEGRATE_NY_MVP1_FOLLOW_UP_COST_WITH_CASE_ECONOMICS_OFFLINE`
 
 Classification:
 
@@ -236,13 +283,14 @@ Classification:
 
 Goal:
 
-Create a deterministic, provenance-bearing contract for the commercial measurements already required by MVP-1:
+Connect `NyMvp1FollowUpCostMeasurementResult` to the existing explicit case-economics contract.
 
-- automated processing cost per candidate;
-- source/data cost per candidate where applicable;
-- human review time per candidate;
-- additional manual research effort.
+Rules:
 
-Use synthetic/test inputs only. Do not invent default monetary/time assumptions. The contract may accept measured values later but must keep them absent/unknown until real measurement evidence exists.
+- only `fully_loaded_follow_up_cost_state = COMPUTED_FROM_MEASURED_COMPONENTS` may populate `measured_follow_up_cost_cents`;
+- missing documented labor rate must fail closed;
+- direct machine/data cost alone must never be mislabeled as fully loaded follow-up cost;
+- preserve all evidence refs/provenance;
+- no commercial recommendation is introduced.
 
-Do not access the Owner Name File, process real owner PII, perform outreach, create fee agreements or submit claims.
+Use synthetic/test inputs only. Do not access the Owner Name File, process real owner PII, perform outreach, create fee agreements or submit claims.
