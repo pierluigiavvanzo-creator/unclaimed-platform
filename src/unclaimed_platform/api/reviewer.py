@@ -7,6 +7,10 @@ from unclaimed_platform.domain.mvp1_vertical_slice import (
     Mvp1SyntheticCaseReview,
     synthetic_ny_mvp1_case_review,
 )
+from unclaimed_platform.domain.ny_mvp1_value_evidence import (
+    NyMvp1PrecontactEconomicsEvidence,
+    ny_mvp1_precontact_economics_evidence,
+)
 
 router = APIRouter(prefix="/api/reviewer", tags=["reviewer"])
 
@@ -140,3 +144,12 @@ def get_m3_operations() -> OperationsSnapshot:
 def get_mvp1_synthetic_case() -> Mvp1SyntheticCaseReview:
     """Return the governed synthetic MVP-1 case-review vertical slice."""
     return synthetic_ny_mvp1_case_review()
+
+
+@router.get(
+    "/mvp1/economics/precontact",
+    response_model=NyMvp1PrecontactEconomicsEvidence,
+)
+def get_mvp1_precontact_economics() -> NyMvp1PrecontactEconomicsEvidence:
+    """Return the fail-closed NY MVP-1 pre-contact economics evidence state."""
+    return ny_mvp1_precontact_economics_evidence()
