@@ -16,15 +16,15 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-gate2-bounded-first-download-proposal`
+`mvp1-ny-transient-local-runner-offline`
 
 Latest verified product implementation checkpoint:
 
-`2a4c4bc6e3103bc7d5800facd0fbe4d8a01c2e16`
+`688469e87fc39da20b7906b3825c81367a594b16`
 
 Product implementation CI:
 
-`35344178149` — SUCCESS.
+`35359065170` — SUCCESS.
 
 Classification: `A — Product Critical`.
 
@@ -488,6 +488,48 @@ Important execution blocker:
 
 OSC's documented browser flow saves the ZIP to the computer, while current Gate 2 policy forbids raw-file persistence and requires memory-only discovery. The proposal is therefore ready for human review but execution is not yet allowed until a compliant memory-only transfer path is verified or a separate transient-local-file policy expansion is explicitly authorized.
 
+## NY OSC Transient Local File Runner — Offline
+
+Completed:
+
+`IMPLEMENT_NY_OSC_TRANSIENT_LOCAL_FILE_RUNNER_OFFLINE`
+
+Product Owner authorization:
+
+`APPROVO NY OSC FIRST DOWNLOAD TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+Recorded state:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE`
+
+Verified checkpoint:
+
+`688469e87fc39da20b7906b3825c81367a594b16`
+
+CI:
+
+`35359065170` — SUCCESS.
+
+The transport mismatch is now resolved offline without using real data.
+
+The runner:
+
+- requires both the transient-local-file approval and a separate Gate 2 approval artifact;
+- accepts only `FINDERS.zip`;
+- requires a dedicated OS-temp directory prefixed `unclaimed-ny-osc-gate2-`;
+- enforces the Gate 2 compressed-byte cap before schema discovery;
+- reads the bounded ZIP into memory;
+- delegates to the verified schema-discovery harness;
+- returns only non-PII aggregate/schema metadata;
+- logically deletes the local raw ZIP in a `finally` block;
+- fails closed if deletion fails;
+- never returns the local path;
+- never guarantees physical secure erasure.
+
+Durable raw persistence, repository storage, cloud-sync storage, chat upload and owner-field logging remain forbidden.
+
+No real Owner Name File was downloaded and Gate 2 remains ungranted.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -495,7 +537,9 @@ OSC's documented browser flow saves the ZIP to the computer, while current Gate 
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: `CONSUMED / NON-REUSABLE`;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `PROPOSAL PREPARED / NOT GRANTED`;
+- NY Gate 2: `READY FOR HUMAN AUTHORIZATION / NOT GRANTED`;
+- NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
+- NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - real owner PII processed: no;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
@@ -513,17 +557,22 @@ OSC's documented browser flow saves the ZIP to the computer, while current Gate 
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_GATE2_BOUNDED_PROPOSAL_AND_TRANSPORT_REVIEW`
+`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION_REVIEW`
 
-Classification: `A — Product Critical / Human Authorization + Execution Transport Gate`.
+Classification: `A — Product Critical / Human Authorization Gate`.
 
-Review the prepared Gate 2 bounds and the execution-transport blocker.
+All technical prerequisites are now ready:
 
-No download is allowed yet.
+- current remote listing identity observed;
+- `max_download_bytes = 450,000,000`;
+- `max_uncompressed_bytes = 2,000,000,000`;
+- `max_archive_members = 1`;
+- one download maximum;
+- zero retries;
+- transient-local-file exception granted but not consumed;
+- transient-local runner verified;
+- bounded schema-discovery harness verified.
 
-The existing memory-only schema-discovery harness is verified. The remaining choice is:
+Gate 2 itself is still NOT GRANTED.
 
-- preserve memory-only/no-raw-persistence and implement a compliant authenticated transfer path; or
-- separately authorize tightly bounded transient local raw-file persistence with immediate deletion.
-
-Gate 2 remains ungranted until explicit Product Owner authorization.
+No download may occur until explicit Product Owner authorization of the Gate 2 proposal.

@@ -10,15 +10,15 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-gate2-bounded-first-download-proposal`
+`mvp1-ny-transient-local-runner-offline`
 
 Latest verified product implementation checkpoint:
 
-`2a4c4bc6e3103bc7d5800facd0fbe4d8a01c2e16`
+`688469e87fc39da20b7906b3825c81367a594b16`
 
 Product implementation CI:
 
-`35344178149` — SUCCESS.
+`35359065170` — SUCCESS.
 
 The branch HEAD can advance when canonical state files are refreshed; always verify remote HEAD before modifying.
 
@@ -534,6 +534,50 @@ Artifacts:
 
 Execution transport is not yet compliant: official OSC browser instructions save the ZIP to local disk, while current policy requires memory-only/no raw-file persistence. Proposal review can proceed, but execution remains blocked until transport policy is resolved.
 
+### 11. Transient local-file runner — offline verified
+
+Product Owner authorization:
+
+`APPROVO NY OSC FIRST DOWNLOAD TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+State:
+
+`GRANTED_NOT_CONSUMED`
+
+This authorization is only a local-retention exception and does not itself grant Gate 2.
+
+Implemented:
+
+- `src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution.py`;
+- `scripts/ny_osc_gate2_transient_local.ps1`;
+- runtime authorization/result schemas;
+- local-retention approval schema/evidence;
+- unit + contract tests;
+- `docs/audits/NY_OSC_TRANSIENT_LOCAL_FILE_RUNNER_OFFLINE.md`.
+
+Verified behavior:
+
+- both approvals required;
+- dedicated OS-temp path required;
+- `FINDERS.zip` required;
+- Gate 2 byte bounds reused;
+- ZIP read into memory;
+- existing schema-discovery harness reused;
+- raw local file logically deleted in `finally`;
+- deletion failure stops fail-closed;
+- no raw path or owner values returned;
+- physical secure erasure is not claimed.
+
+Checkpoint:
+
+`688469e87fc39da20b7906b3825c81367a594b16`
+
+CI:
+
+`35359065170` — SUCCESS.
+
+No real download or real owner PII processing occurred.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -541,7 +585,9 @@ Execution transport is not yet compliant: official OSC browser instructions save
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: consumed/non-reusable;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `PROPOSAL PREPARED / NOT GRANTED`;
+- NY Gate 2: `READY FOR HUMAN AUTHORIZATION / NOT GRANTED`;
+- NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
+- NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
 - NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
@@ -568,20 +614,25 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_GATE2_BOUNDED_PROPOSAL_AND_TRANSPORT_REVIEW`
+`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION_REVIEW`
 
 Classification:
 
-`A — Product Critical / Human Authorization + Execution Transport Gate`
+`A — Product Critical / Human Authorization Gate`
 
-Review:
+Ready proposal bounds:
 
-- current listing identity;
 - `max_download_bytes = 450,000,000`;
 - `max_uncompressed_bytes = 2,000,000,000`;
 - `max_archive_members = 1`;
-- one download / zero retries;
-- no raw persistence under current policy;
-- execution transport mismatch.
+- downloads max = 1;
+- retries max = 0;
+- preflight identity must still match `FINDERS.zip / 390.51 MB / 9/16/2026, 1:33:31 PM`;
+- drift -> stop before download;
+- local raw file allowed only under the already granted one-shot temp-file exception;
+- immediate logical deletion required;
+- no durable raw persistence;
+- no owner field logging;
+- no row-specific human inspection.
 
-Do not download the Owner Name File until explicit approval and transport compliance exist.
+Gate 2 is not granted until explicit Product Owner approval.

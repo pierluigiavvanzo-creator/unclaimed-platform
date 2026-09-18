@@ -245,9 +245,34 @@ Prepared before Gate 2:
 
 This removes implementation work from the post-Gate2 critical path. Real execution remains blocked until current archive size and explicit Gate 2 approval exist.
 
+### Transient local-file execution bridge
+
+Completed:
+
+`IMPLEMENT_NY_OSC_TRANSIENT_LOCAL_FILE_RUNNER_OFFLINE`
+
+Checkpoint:
+
+`688469e87fc39da20b7906b3825c81367a594b16`
+
+CI:
+
+`35359065170` — SUCCESS.
+
+The Product Owner approved a single-use transient-local-file retention exception. The tested runner now resolves the browser-save transport mismatch while preserving:
+
+- dedicated OS-temp location only;
+- no durable raw persistence;
+- no repository/cloud/chat copy;
+- immediate logical deletion in `finally`;
+- Gate 2 artifact required before execution;
+- no physical secure-erasure claim.
+
+No real file was used.
+
 ## MVP-1 Remaining Product Path
 
-`OSC access instructions DONE / current listing size OBSERVED / Gate 2 proposal PREPARED / transfer-mode blocker / schema-discovery harness READY OFFLINE`
+`OSC access instructions DONE / current listing size OBSERVED / Gate 2 proposal READY / transient-local runner VERIFIED / Gate 2 HUMAN REVIEW NEXT / schema-discovery harness READY OFFLINE`
 
 in parallel with:
 
@@ -261,12 +286,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_GATE2_BOUNDED_PROPOSAL_AND_TRANSPORT_REVIEW`
+`HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION_REVIEW`
 
-Classification: `A — Product Critical / Human Authorization + Execution Transport Gate`.
+Classification: `A — Product Critical / Human Authorization Gate`.
 
-Current listing: `FINDERS.zip`, `390.51 MB`, last modified `9/16/2026, 1:33:31 PM`.
-
-Proposed compressed byte cap: `450,000,000`.
-
-Before any real download, resolve the transport mismatch between OSC's browser-save workflow and the current no-raw-persistence/memory-only policy.
+All bounded execution controls are ready. The only remaining pre-download gate is explicit Product Owner approval of the one-shot transient-PII Gate 2.
