@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-gate2-approved-ready-execution`
+`mvp1-ny-first-real-schema-discovery-blocked`
 
 Latest verified product implementation checkpoint:
 
@@ -578,6 +578,34 @@ CI:
 
 No real download or real owner PII processing occurred.
 
+### 12. First real bounded schema discovery — blocked fail-closed
+
+The one authorized Gate 2 execution was performed with the transient-local runner.
+
+Observed non-PII result:
+
+- archive bytes: `409,477,526`;
+- archive member count: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- reason code: `PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED`;
+- local raw file logically deleted: yes;
+- owner values returned: no;
+- raw/row persistence: no.
+
+The Gate 2 and transient-local-file approvals are consumed and non-reusable. No retry is authorized.
+
+Offline root-cause remediation is implemented:
+
+- physical 14-field layout validation remains fail-closed;
+- UTF-8 BOM documented header is recognized;
+- Property Type Code shape is aggregate diagnostic only;
+- semantic code validation is deferred;
+- no owner values are returned.
+
+Audit:
+
+`docs/audits/NY_OSC_PROPERTY_TYPE_FIELD_SHAPE_ROOT_CAUSE_REMEDIATION.md`
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -585,8 +613,8 @@ No real download or real owner PII processing occurred.
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: consumed/non-reusable;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY`;
-- NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
+- NY Gate 2: `CONSUMED_SINGLE_USE_NON_REUSABLE / BLOCKED_FAIL_CLOSED`;
+- NY transient-local-file approval: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
 - NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
@@ -614,28 +642,14 @@ Offline:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
+`VERIFY_NY_PROPERTY_TYPE_FIELD_SHAPE_REMEDIATION_OFFLINE`
 
 Classification:
 
-`A — Product Critical / Single-Use Real Execution`
+`A — Product Critical / Offline Diagnostic Remediation`
 
-Gate 2 approval:
+Do not reacquire or rerun the real Owner Name File.
 
-`OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1`
+Run the full CI against the remediated schema-discovery harness. If green, prepare a new bounded rerun proposal for separate human authorization.
 
-Preflight identity must still match:
-
-- `FINDERS.zip`;
-- `390.51 MB`;
-- `9/16/2026, 1:33:31 PM`.
-
-Execution limits:
-
-- compressed max: `450,000,000` bytes;
-- uncompressed max: `2,000,000,000` bytes;
-- archive members max: `1`;
-- downloads max: `1`;
-- retries max: `0`.
-
-The execution must use `scripts/ny_osc_gate2_transient_local.ps1` so the raw archive exists only under the dedicated OS-temp directory and is logically deleted immediately after bounded processing.
+Fresh approval is mandatory before any future real-file access.
