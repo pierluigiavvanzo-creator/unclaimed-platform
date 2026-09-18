@@ -32,7 +32,7 @@ class MeasuredCostComponent(BaseModel):
     observed_at: AwareDatetime
 
     @model_validator(mode="after")
-    def validate_zero_cost_markers(self) -> "MeasuredCostComponent":
+    def validate_zero_cost_markers(self) -> MeasuredCostComponent:
         zero_method = self.measurement_method == "ZERO_DIRECT_COST_DOCUMENTED"
         zero_basis = self.allocation_basis == "ZERO_DIRECT_COST_PER_CANDIDATE"
         if zero_method != zero_basis:
@@ -121,7 +121,7 @@ class NyMvp1FollowUpCostMeasurementResult(BaseModel):
     no_commercial_recommendation: Literal[True]
 
     @model_validator(mode="after")
-    def validate_aggregates_and_states(self) -> "NyMvp1FollowUpCostMeasurementResult":
+    def validate_aggregates_and_states(self) -> NyMvp1FollowUpCostMeasurementResult:
         if self.direct_machine_and_data_cost_cents != (
             self.automated_processing_cost_cents + self.source_data_cost_cents
         ):
