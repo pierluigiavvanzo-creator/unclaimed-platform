@@ -6,8 +6,16 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[2]
-PROPOSAL = (\n    ROOT\n    / "sources/proposals"\n    / "ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json"\n)
-SCHEMA = (\n    ROOT\n    / "schemas/common"\n    / "ny_osc_third_attempt_authorization_proposal.schema.json"\n)
+PROPOSAL = (
+    ROOT
+    / "sources/proposals"
+    / "ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json"
+)
+SCHEMA = (
+    ROOT
+    / "schemas/common"
+    / "ny_osc_third_attempt_authorization_proposal.schema.json"
+)
 
 
 def _load(path: Path) -> dict[str, object]:
