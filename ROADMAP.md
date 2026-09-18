@@ -272,7 +272,7 @@ No real file was used.
 
 ## MVP-1 Remaining Product Path
 
-`OSC access instructions DONE / current listing size OBSERVED / Gate 2 GRANTED_NOT_CONSUMED / transient-local runner VERIFIED / ONE REAL EXECUTION NEXT / schema-discovery harness READY`
+`OSC access instructions DONE / current listing size OBSERVED / Gate 2 v1 CONSUMED_FAIL_CLOSED / transient-local runner VERIFIED / ONE REAL EXECUTION NEXT / schema-discovery harness READY`
 
 in parallel with:
 
@@ -286,16 +286,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
+`PREPARE_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_PROPOSAL`
 
-Classification: `A — Product Critical / Single-Use Real Execution`.
+Classification: `A — Product Critical / Human Authorization Preparation`.
 
-Gate 2 is granted, single-use, non-reusable and zero-retry. The transient-local-file approval is also granted and not consumed.
-
-Before the browser download, the portal must still show exactly:
-
-- `FINDERS.zip`;
-- `390.51 MB`;
-- `9/16/2026, 1:33:31 PM`.
-
-Any drift stops execution before download.
+The first real bounded execution was consumed and stopped fail-closed. The offline remediation is verified by CI `35363685148`. Prepare a fresh second-attempt proposal; do not re-download under the consumed v1 approvals.

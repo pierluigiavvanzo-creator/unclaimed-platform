@@ -578,6 +578,36 @@ CI:
 
 No real download or real owner PII processing occurred.
 
+### 12. First real bounded execution — consumed fail-closed
+
+Executed once.
+
+Result:
+
+`BLOCKED_FAIL_CLOSED / PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED`
+
+Persisted non-PII metadata:
+
+- compressed archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local raw file logically deleted: yes;
+- no owner values returned or persisted.
+
+Approvals consumed:
+
+- Gate 2 v1: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
+- transient-local v1: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
+- v1 retry: not authorized.
+
+Offline remediation checkpoint:
+
+`151f3a2f16c74f604fa72cc1284b2f9cd2e73f52`
+
+CI:
+
+`35363685148` — SUCCESS.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -585,8 +615,8 @@ No real download or real owner PII processing occurred.
 - NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
 - NY Gate 1: consumed/non-reusable;
 - NY access instructions: `RECEIVED / REVIEWED NON-CONTENT ONLY`;
-- NY Gate 2: `GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY`;
-- NY transient-local-file approval: `GRANTED_NOT_CONSUMED`;
+- NY Gate 2 v1: `CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`;
+- NY transient-local-file approval v1: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
 - NY transient-local runner: `READY / VERIFIED OFFLINE`;
 - NY bounded first schema-discovery harness: `READY / VERIFIED OFFLINE`;
 - synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
@@ -614,28 +644,10 @@ Offline:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
+`PREPARE_NY_OSC_SECOND_BOUNDED_ATTEMPT_AUTHORIZATION_PROPOSAL`
 
 Classification:
 
-`A — Product Critical / Single-Use Real Execution`
+`A — Product Critical / Human Authorization Preparation`
 
-Gate 2 approval:
-
-`OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1`
-
-Preflight identity must still match:
-
-- `FINDERS.zip`;
-- `390.51 MB`;
-- `9/16/2026, 1:33:31 PM`.
-
-Execution limits:
-
-- compressed max: `450,000,000` bytes;
-- uncompressed max: `2,000,000,000` bytes;
-- archive members max: `1`;
-- downloads max: `1`;
-- retries max: `0`.
-
-The execution must use `scripts/ny_osc_gate2_transient_local.ps1` so the raw archive exists only under the dedicated OS-temp directory and is logically deleted immediately after bounded processing.
+Prepare a fresh v2 second-attempt authorization proposal using the verified offline remediation. Do not reuse v1 approvals and do not re-download before new explicit Product Owner approval.
