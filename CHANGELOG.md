@@ -5,6 +5,9 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Registered both exact NY OSC third-attempt approvals as granted and not consumed.
+- Bound the single-use zero-retry grants to the integrated runner checkpoint and successful CI.
+- Added policy, contract tests and audit evidence for the human-controlled third execution.
 - Fail-closed NY OSC third-attempt runner bound to attempt-specific approvals.
 - Third-attempt approval schemas and `NOT_GRANTED` templates with unchanged bounds.
 - Runtime checks for matching attempt numbers, distinct approval refs and zero-retry policy.
