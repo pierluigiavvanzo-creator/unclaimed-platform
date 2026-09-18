@@ -72,11 +72,22 @@ def test_ny_policy_preserves_only_authority_disclosed_semantics_without_schema_i
     physical = policy["physical_file_contract"]
     assert physical["state"] == "UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE"
     assert physical["physical_column_names_known"] is False
-    assert physical["delimiter_known"] is False
+    assert physical["physical_header_presence_known"] is False
+    assert physical["delimiter_known"] is True
+    assert physical["documented_delimiter"] == "|"
+    assert physical["documented_layout_known"] is True
+    assert physical["documented_layout_field_count"] == 14
+    assert physical["documented_archive_name"] == "NYSFINDERS.ZIP"
+    assert physical["documented_field_layout"][1] == "Property Type Code"
+    assert physical["property_type_code_documented_position_zero_based"] == 1
+    assert physical["secure_transfer_listing_size_column_documented"] is True
+    assert physical["current_archive_size_known"] is False
     assert physical["encoding_known"] is False
+    assert physical["archive_layout_known"] is False
     assert physical["property_nature_representation_known"] is False
     assert physical["parser_activation_allowed"] is False
     assert physical["normalization_allowed"] is False
+    assert physical["schema_inference_from_documentation_allowed"] is False
 
 
 def test_ny_insurance_vocabulary_is_source_specific_and_in03_is_primary() -> None:
