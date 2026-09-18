@@ -444,26 +444,31 @@ External:
 
 Offline:
 
-`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate DONE -> remote Streamlit deploy NEXT`
+`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate DONE -> remote deploy TRIGGERED -> remote verification NEXT`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_DEPLOY_NY_MVP1_REVIEWER_CANDIDATE_TO_STREAMLIT_COMMUNITY_CLOUD`
+`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
 
 Classification:
 
-`A — Product Critical / External Deployment Gate`
+`A — Product Critical / Remote Verification Gate`
 
-Exact deployment coordinates:
+Deployment trigger:
 
-- repository: `pierluigiavvanzo-creator/unclaimed-platform`;
-- branch: `mvp1-ny-reviewer-deployment-candidate-offline`;
-- main file path: `apps/reviewer-streamlit/streamlit_app.py`;
-- Python: `3.11`;
-- secrets: none.
+- `m2-state-governance-core` was a pure fast-forward to the verified MVP-1 deployment candidate;
+- an explicit deploy-trigger audit commit was pushed afterward to create an unambiguous push event for connected deployment automation;
+- historical hosted URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`.
 
-After deployment, capture the real `streamlit.app` URL and execute remote visual/safety smoke before recording deployment as verified.
+Remote verification must confirm:
 
-Do not enable Gate 2, real source acquisition, Owner Name File download, real owner PII, outreach, fee agreements, representation or claim activity.
+- `MVP-1 Reviewer Console`;
+- visible synthetic/test-only deployment banner;
+- READY integrated economics card;
+- FAIL-CLOSED integrated economics card;
+- no runtime error;
+- no real source / no real owner PII.
+
+No Gate 2, real acquisition, Owner Name File download, outreach, fee agreement, representation or claim activity is authorized.

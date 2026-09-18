@@ -386,8 +386,9 @@ No remote deployment has been performed or claimed.
 - follow-up cost measurement contract: `READY / VERIFIED`;
 - follow-up cost → case economics integration: `READY / VERIFIED`;
 - integrated economics reviewer/API/Streamlit: `READY / VERIFIED`;
-- Streamlit deployment candidate: `READY_OFFLINE_NOT_REMOTELY_DEPLOYED`;
-- remote deployment evidence for current MVP-1 branch: `NOT RECORDED`;
+- Streamlit deployment candidate: `READY_OFFLINE`;
+- remote Streamlit deployment trigger: `PUSHED_TO_TRACKED_BRANCH_PENDING_REMOTE_VERIFICATION`;
+- remote deployment evidence for current MVP-1 branch: `HISTORICAL_URL_KNOWN_NOT_REVERIFIED`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -395,20 +396,24 @@ No remote deployment has been performed or claimed.
 
 Execute exclusively:
 
-`HUMAN_DEPLOY_NY_MVP1_REVIEWER_CANDIDATE_TO_STREAMLIT_COMMUNITY_CLOUD`
+`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
 
-Classification: `A — Product Critical / External Deployment Gate`.
+Classification: `A — Product Critical / Remote Verification Gate`.
 
-Goal:
+Deployment trigger evidence:
 
-Deploy the verified synthetic-only MVP-1 reviewer candidate to Streamlit Community Cloud using exactly:
+- historical tracked branch: `m2-state-governance-core`;
+- branch fast-forwarded non-destructively from `e97c1f62959f603bdd3df79538d4b70255594c70` to the verified MVP-1 candidate;
+- an explicit deploy-trigger audit commit was then pushed to generate a real GitHub push event;
+- historical Streamlit URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`.
 
-- repository: `pierluigiavvanzo-creator/unclaimed-platform`;
-- branch: `mvp1-ny-reviewer-deployment-candidate-offline`;
-- main file path: `apps/reviewer-streamlit/streamlit_app.py`;
-- Python: `3.11`;
-- secrets: none.
+Required verification before marking deployed:
 
-After deployment, record the real `streamlit.app` URL and perform remote smoke verification before marking deployment complete.
+1. remote URL loads;
+2. page title is `MVP-1 Reviewer Console`;
+3. `Synthetic/test-only deployment candidate` banner is visible;
+4. READY and FAIL-CLOSED integrated economics cards render;
+5. no runtime error appears;
+6. real sources remain zero/blocked and no real PII is shown.
 
-Do not enable real sources, Gate 2, Owner Name File download, real PII, outreach, fee agreements, representation or claim activity.
+Do not enable Gate 2, Owner Name File download, real PII, outreach, fee agreements, representation or claim activity.

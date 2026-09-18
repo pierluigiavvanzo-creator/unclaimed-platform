@@ -199,7 +199,7 @@ Remote deployment is not yet performed.
 
 in parallel with:
 
-`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness DONE -> remote Streamlit deploy NEXT -> commercial measurement capture`
+`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness DONE -> remote deploy TRIGGERED -> remote verification NEXT -> commercial measurement capture`
 
 then, once a lawful real source is available:
 
@@ -209,8 +209,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_DEPLOY_NY_MVP1_REVIEWER_CANDIDATE_TO_STREAMLIT_COMMUNITY_CLOUD`
+`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
 
-Classification: `A — Product Critical / External Deployment Gate`.
+Classification: `A — Product Critical / Remote Verification Gate`.
 
-Use the exact candidate coordinates documented in `apps/reviewer-streamlit/DEPLOYMENT_CANDIDATE.md`. After a real URL exists, perform remote smoke verification before promoting the deployment state.
+The verified candidate has been pushed to the historical Streamlit-tracked branch to trigger auto-redeploy. Verify the real hosted page before marking deployment complete.
