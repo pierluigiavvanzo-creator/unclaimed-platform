@@ -2,6 +2,27 @@
 
 Last updated: 2026-09-18
 
+## Superseding Current Event — Third Attempt Runner Prepared Offline
+
+The Product Owner authorized technical preparation only and explicitly did not authorize
+download, remote preflight, or source access.
+
+Candidate artifacts:
+
+- `scripts/ny_osc_gate3_transient_local.ps1`;
+- third-attempt transient-local and transient-PII approval schemas;
+- two approval templates with status `NOT_GRANTED`;
+- attempt-number binding in the shared transient-local execution bridge;
+- fail-closed ordering and authorization-binding tests.
+
+State:
+
+`IMPLEMENTED_OFFLINE / CI_PENDING / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS`
+
+The runner cannot advance past its prechecks while the templates remain `NOT_GRANTED`.
+No network request, listing check, download, owner-file opening, or owner-PII processing
+occurred.
+
 ## Superseding Current Event — Third Attempt Offline Proposal
 
 The quote-aware offline repair is integrated at:
@@ -699,10 +720,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL`
+`REVIEW_AND_INTEGRATE_NY_OSC_THIRD_ATTEMPT_RUNNER_OFFLINE`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Offline Safety Implementation`.
 
-Review the repository-only proposal. Do not access the source, implement an executable
-third-attempt runner, create granted approval artifacts, or download the Owner Name File
-unless the Product Owner later provides the two exact new approval phrases separately.
+Run repository CI and review the runner/contracts. Do not grant either approval, perform a
+remote preflight, access the source, or download the Owner Name File.
