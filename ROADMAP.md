@@ -270,9 +270,28 @@ The Product Owner approved a single-use transient-local-file retention exception
 
 No real file was used.
 
+### First real bounded schema discovery
+
+The one-shot real execution ran and stopped fail-closed with:
+
+`PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED`
+
+Observed non-PII bounds:
+
+- compressed bytes: `409,477,526`;
+- uncompressed text bytes: `1,939,569,781`;
+- archive members: `1`;
+- local raw file deleted: yes.
+
+Both one-shot approvals are consumed and cannot be reused.
+
+Offline remediation now decouples physical 14-field schema discovery from semantic Property Type Code value-shape validation and adds UTF-8 BOM header handling.
+
+No real rerun is authorized.
+
 ## MVP-1 Remaining Product Path
 
-`OSC access instructions DONE / current listing size OBSERVED / Gate 2 GRANTED_NOT_CONSUMED / transient-local runner VERIFIED / ONE REAL EXECUTION NEXT / schema-discovery harness READY`
+`OSC access instructions DONE / first real bounded execution BLOCKED_FAIL_CLOSED / Gate 2 CONSUMED / offline remediation IMPLEMENTED / CI verification NEXT`
 
 in parallel with:
 
@@ -286,16 +305,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE`
+`VERIFY_NY_PROPERTY_TYPE_FIELD_SHAPE_REMEDIATION_OFFLINE`
 
-Classification: `A — Product Critical / Single-Use Real Execution`.
+Classification: `A — Product Critical / Offline Diagnostic Remediation`.
 
-Gate 2 is granted, single-use, non-reusable and zero-retry. The transient-local-file approval is also granted and not consumed.
-
-Before the browser download, the portal must still show exactly:
-
-- `FINDERS.zip`;
-- `390.51 MB`;
-- `9/16/2026, 1:33:31 PM`.
-
-Any drift stops execution before download.
+Run full CI on the remediated schema-discovery harness. Only after a green result may a fresh bounded rerun proposal be prepared for separate human authorization.
