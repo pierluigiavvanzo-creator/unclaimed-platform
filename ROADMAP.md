@@ -309,6 +309,21 @@ CI:
 
 Both v2 approvals are granted/not consumed. Fresh preflight remains mandatory before the single authorized download.
 
+### NY third-attempt runner — offline candidate
+
+Prepared under an explicit zero-source-access boundary:
+
+- attempt-specific fail-closed PowerShell runner;
+- transient-local and transient-PII schemas;
+- `NOT_GRANTED` approval templates;
+- shared runtime binding to an exact attempt number;
+- tests preventing pre-gate temp-directory creation, network clients, approval reuse,
+  automatic retry, or bound widening.
+
+State:
+
+`IMPLEMENTED_OFFLINE / CI_PENDING / NOT AUTHORIZED FOR EXECUTION`
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions DONE / current listing size OBSERVED / Gate 2 v1 CONSUMED_FAIL_CLOSED / transient-local runner VERIFIED / ONE REAL EXECUTION NEXT / schema-discovery harness READY`
@@ -325,9 +340,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL`
+`REVIEW_AND_INTEGRATE_NY_OSC_THIRD_ATTEMPT_RUNNER_OFFLINE`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Offline Safety Implementation`.
 
-No source/network request or download is authorized. Implementation and execution remain
-blocked until separate explicit approvals are granted after review.
+No source/network request, remote preflight, approval grant, or download is authorized.
