@@ -16,6 +16,8 @@ from unclaimed_platform.domain.ny_mvp1_case_economics_integration import (
 )
 from unclaimed_platform.domain.ny_mvp1_follow_up_cost import (
     DocumentedHumanLaborRate,
+    MeasuredCostComponent,
+    MeasuredDurationComponent,
     NyMvp1FollowUpCostMeasurementInput,
     NyMvp1FollowUpCostMeasurementResult,
     measure_follow_up_cost,
@@ -150,34 +152,34 @@ def _synthetic_follow_up_cost(
         measurement_id=measurement_id,
         candidate_case_id=UUID("22222222-2222-4222-8222-222222222222"),
         owner_pii_included=False,
-        automated_processing={
-            "amount_cents": 37,
-            "currency": "USD",
-            "measurement_method": "SYSTEM_METERED",
-            "allocation_basis": "PER_CANDIDATE_DIRECT",
-            "evidence_ref": f"synthetic:reviewer:{scenario_key}:automation-meter",
-            "observed_at": observed_at,
-        },
-        source_data={
-            "amount_cents": 0,
-            "currency": "USD",
-            "measurement_method": "ZERO_DIRECT_COST_DOCUMENTED",
-            "allocation_basis": "ZERO_DIRECT_COST_PER_CANDIDATE",
-            "evidence_ref": f"synthetic:reviewer:{scenario_key}:source-cost",
-            "observed_at": observed_at,
-        },
-        human_review={
-            "duration_seconds": 125,
-            "measurement_method": "REVIEWER_TIMER",
-            "evidence_ref": f"synthetic:reviewer:{scenario_key}:review-timer",
-            "observed_at": observed_at,
-        },
-        manual_research={
-            "duration_seconds": 65,
-            "measurement_method": "MANUAL_TIMER",
-            "evidence_ref": f"synthetic:reviewer:{scenario_key}:research-timer",
-            "observed_at": observed_at,
-        },
+        automated_processing=MeasuredCostComponent(
+            amount_cents=37,
+            currency="USD",
+            measurement_method="SYSTEM_METERED",
+            allocation_basis="PER_CANDIDATE_DIRECT",
+            evidence_ref=f"synthetic:reviewer:{scenario_key}:automation-meter",
+            observed_at=observed_at,
+        ),
+        source_data=MeasuredCostComponent(
+            amount_cents=0,
+            currency="USD",
+            measurement_method="ZERO_DIRECT_COST_DOCUMENTED",
+            allocation_basis="ZERO_DIRECT_COST_PER_CANDIDATE",
+            evidence_ref=f"synthetic:reviewer:{scenario_key}:source-cost",
+            observed_at=observed_at,
+        ),
+        human_review=MeasuredDurationComponent(
+            duration_seconds=125,
+            measurement_method="REVIEWER_TIMER",
+            evidence_ref=f"synthetic:reviewer:{scenario_key}:review-timer",
+            observed_at=observed_at,
+        ),
+        manual_research=MeasuredDurationComponent(
+            duration_seconds=65,
+            measurement_method="MANUAL_TIMER",
+            evidence_ref=f"synthetic:reviewer:{scenario_key}:research-timer",
+            observed_at=observed_at,
+        ),
         human_labor_rate=labor_rate,
     )
     return measure_follow_up_cost(measured)
