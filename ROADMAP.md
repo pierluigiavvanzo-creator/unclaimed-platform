@@ -298,8 +298,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_NONCONFORMING_ROW_HANDLING_POLICY_PROPOSAL`
+`HUMAN_NY_OSC_NONCONFORMING_ROW_DEFER_POLICY_REVIEW`
 
-Classification: `A — Product Critical / Offline Policy Proposal`.
+Classification: `A — Product Critical / Human Policy Gate`.
 
-The second real attempt stopped fail-closed on `UNEXPECTED_DATA_FIELD_COUNT`. Prepare a metadata-only row-defer/continuation policy proposal; no third download or runtime continuation is authorized.
+The NY metadata-only row-defer policy proposal is prepared. Runtime implementation and any future real-source execution remain separately gated.

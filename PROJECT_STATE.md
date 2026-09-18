@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-second-attempt-failclosed-evidence`
+`mvp1-ny-nonconforming-row-policy-proposal`
 
 Latest verified product implementation checkpoint:
 
@@ -626,6 +626,28 @@ Approval state:
 
 The result proves only that at least one nonblank row did not split into the documented 14 fields under the current strict scanner. It does not establish malformed OSC source data.
 
+## NY OSC Nonconforming Row Handling Policy Proposal
+
+Prepared offline:
+
+`ROW_DEFER_CONTINUE_METADATA_ONLY`
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_nonconforming_row_handling_policy.v1.json`
+
+Status:
+
+`PROPOSAL_ONLY_NOT_AUTHORIZED`
+
+The proposal reuses the California metadata-only defer pattern but is NY-specific.
+
+For a row whose physical field count is not exactly 14, the proposed behavior is to count it as deferred, parse no field from it, persist no row-specific metadata, and continue. Exact-14-field rows remain subject to the existing strict Property Type Code checks.
+
+Mandatory completeness accounting prevents silent row omission.
+
+No runtime source-continuation change and no real-file retry are authorized by proposal preparation.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -653,10 +675,10 @@ The result proves only that at least one nonblank row did not split into the doc
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_NONCONFORMING_ROW_HANDLING_POLICY_PROPOSAL`
+`HUMAN_NY_OSC_NONCONFORMING_ROW_DEFER_POLICY_REVIEW`
 
-Classification: `A — Product Critical / Offline Policy Proposal`.
+Classification: `A — Product Critical / Human Policy Gate`.
 
-Prepare a source-specific metadata-only row-defer proposal for rows whose physical field count is not exactly 14.
+Review the NY-specific `ROW_DEFER_CONTINUE_METADATA_ONLY` proposal.
 
-Do not implement source continuation yet. Do not download the Owner Name File again. Both v2 approvals are consumed and zero retry was authorized.
+Approval may authorize bounded offline implementation only. It must not authorize a third download, source activation, classification activation, identity resolution, beneficiary matching, outreach or claim activity.
