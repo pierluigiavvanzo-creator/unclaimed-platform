@@ -726,7 +726,11 @@ Approval templates:
 
 State:
 
-`IMPLEMENTED_OFFLINE / CI_PENDING / BOTH APPROVALS NOT_GRANTED`
+`READY_OFFLINE / CI_35384965991_SUCCESS / BOTH APPROVALS NOT_GRANTED`
+
+Runner verification checkpoint: `5aa606f9f79dc05508628d8a97f514cce7e4f770`.
+
+CI: `35384965991 — SUCCESS`.
 
 The runtime bridge now supports exact attempt-number binding. The historical second runner
 binds to attempt 2 and the new runner binds to attempt 3. The third runner checks both grants,
