@@ -10,7 +10,7 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-first-real-schema-discovery-blocked`
+`mvp1-ny-second-schema-discovery-rerun-proposal`
 
 Latest verified product implementation checkpoint:
 
@@ -606,6 +606,39 @@ Audit:
 
 `docs/audits/NY_OSC_PROPERTY_TYPE_FIELD_SHAPE_ROOT_CAUSE_REMEDIATION.md`
 
+### 13. Property-type shape remediation verified / second rerun proposed
+
+Remediation checkpoint:
+
+`57c881aec082ebb2b7c187f7cb8e9d2a443e5e13`
+
+CI:
+
+`35362395868` — SUCCESS.
+
+Verified remediation behavior:
+
+- documented UTF-8 BOM header support;
+- 14-field physical layout remains fail-closed;
+- Property Type Code shape is aggregate diagnostic only;
+- semantic code validation remains deferred;
+- no owner values returned.
+
+Fresh second rerun proposal:
+
+`sources/proposals/ny_osc_owner_name_file_second_schema_discovery_rerun_authorization.v1.json`
+
+Status:
+
+`PENDING_HUMAN_AUTHORIZATION`
+
+Proposed fresh approval phrases:
+
+- `APPROVO NY OSC SECOND TRANSIENT LOCAL FILE BOUNDED ONCE`;
+- `APPROVO NY OSC SECOND SCHEMA DISCOVERY RERUN TRANSIENT PII BOUNDED ONCE`.
+
+No second download has been authorized.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -642,7 +675,7 @@ Offline:
 
 Execute exclusively:
 
-`VERIFY_NY_PROPERTY_TYPE_FIELD_SHAPE_REMEDIATION_OFFLINE`
+`HUMAN_NY_OSC_SECOND_SCHEMA_DISCOVERY_RERUN_AUTHORIZATION_REVIEW`
 
 Classification:
 
@@ -650,6 +683,6 @@ Classification:
 
 Do not reacquire or rerun the real Owner Name File.
 
-Run the full CI against the remediated schema-discovery harness. If green, prepare a new bounded rerun proposal for separate human authorization.
+Remediation is verified by CI `35362395868` — SUCCESS. A fresh bounded rerun proposal is prepared but not authorized.
 
 Fresh approval is mandatory before any future real-file access.
