@@ -7,6 +7,7 @@
   "required": [
     "contract_version",
     "mode",
+    "attempt_number",
     "local_file_approval_ref",
     "gate2_approval_ref",
     "local_file_approval_granted",
@@ -78,6 +79,10 @@
     },
     "row_specific_human_inspection_allowed": {
       "const": false
+    },
+    "attempt_number": {
+      "type": "integer",
+      "minimum": 1
     }
   }
 }
