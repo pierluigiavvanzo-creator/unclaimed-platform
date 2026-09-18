@@ -4,7 +4,7 @@ Date: 2026-09-18
 
 Classification: `A — Product Critical / Offline Safety Implementation`
 
-Status: `IMPLEMENTED_OFFLINE / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS`
+Status: `VERIFIED_OFFLINE / CI_SUCCESS / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS`
 
 ## Authorization boundary
 
@@ -67,6 +67,15 @@ remain subject to a fresh listing comparison and exact-match-or-stop behavior.
 - exactly one text member;
 - 14 documented fields;
 - no automatic widening or retry.
+
+## Verification
+
+- candidate checkpoint: `5aa606f9f79dc05508628d8a97f514cce7e4f770`;
+- CI run: `35384965991 — SUCCESS`;
+- Ruff: pass;
+- mypy: pass;
+- repository tests: pass;
+- Streamlit candidate job: pass.
 
 ## Safety state after this change
 
