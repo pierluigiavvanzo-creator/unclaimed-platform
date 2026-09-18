@@ -18,13 +18,17 @@ Branch:
 
 `mvp1-ny-offline-vertical-slice-integrated`
 
-HEAD:
+Latest verified product implementation checkpoint:
 
 `d94a86f8d774d40c9170f9da2234dd53eb3feff9`
 
-Latest CI:
+Product implementation CI:
 
 `35318092067` — SUCCESS.
+
+Canonical documentation refresh CI:
+
+`35318343802` — SUCCESS.
 
 Classification: `A — Product Critical`.
 

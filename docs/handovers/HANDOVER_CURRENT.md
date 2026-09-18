@@ -12,13 +12,19 @@ GitHub is the canonical technical source of truth.
 
 `mvp1-ny-offline-vertical-slice-integrated`
 
-Current verified HEAD:
+Latest verified product implementation checkpoint:
 
 `d94a86f8d774d40c9170f9da2234dd53eb3feff9`
 
-Latest cumulative CI:
+Product implementation CI:
 
 `35318092067` — SUCCESS.
+
+Canonical documentation refresh CI:
+
+`35318343802` — SUCCESS.
+
+The branch HEAD can advance when canonical state files are refreshed; always verify remote HEAD before modifying.
 
 Always verify remote HEAD and latest CI before any new modification.
 
