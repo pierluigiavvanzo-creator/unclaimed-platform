@@ -180,3 +180,71 @@ def test_result_model_rejects_owner_value_return_flag_change() -> None:
 
     with pytest.raises(ValidationError):
         NyOwnerNameSchemaDiscoveryResult.model_validate(result)
+
+
+
+def _zip_raw_payload(payload: bytes) -> bytes:
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("owner_names.txt", payload)
+    return buffer.getvalue()
+
+
+def test_normalized_header_accepts_utf8_bom_without_persisting_data_values() -> None:
+    header = ("|".join(NY_DOCUMENTED_FIELDS) + "\n").encode("utf-8")
+    row = (
+        _row("1001", "IN03", "Synthetic Owner Alpha", "1 Synthetic Street") + "\n"
+    ).encode("utf-8")
+    archive = _zip_raw_payload(b"\xef\xbb\xbf" + header + row)
+
+    result = discover_ny_owner_name_schema(_authorization(), archive)
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_header_state == "NORMALIZED_DOCUMENTED_HEADER"
+    assert result.physical_header_names == NY_DOCUMENTED_FIELDS
+    assert result.aggregate_complete_record_count == 1
+    assert "Synthetic Owner Alpha" not in result.model_dump_json()
+
+
+def test_normalized_header_accepts_quoted_documented_field_names() -> None:
+    quoted_header = "|".join(f'"{field}"' for field in NY_DOCUMENTED_FIELDS) + "\n"
+    row = _row("1001", "IN03", "Synthetic Owner Alpha", "1 Synthetic Street") + "\n"
+    archive = _zip_raw_payload((quoted_header + row).encode("utf-8"))
+
+    result = discover_ny_owner_name_schema(_authorization(), archive)
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_header_state == "NORMALIZED_DOCUMENTED_HEADER"
+    assert result.aggregate_complete_record_count == 1
+
+
+@pytest.mark.parametrize("code", ['"IN03"', " IN03 ", "'IN03'"])
+def test_property_type_code_accepts_harmless_ascii_wrapping(code: str) -> None:
+    archive = _zip_bytes(
+        include_header=False,
+        rows=[_row("1001", code, "Synthetic Owner Alpha", "1 Synthetic Street")],
+    )
+
+    result = discover_ny_owner_name_schema(_authorization(), archive)
+
+    assert result.status == "DISCOVERED"
+    assert result.property_type_ascii_record_count == 1
+
+
+def test_property_type_code_still_rejects_non_alphanumeric_internal_shape() -> None:
+    archive = _zip_bytes(
+        include_header=False,
+        rows=[
+            _row(
+                "1001",
+                "IN 03",
+                "Synthetic Owner Alpha",
+                "1 Synthetic Street",
+            )
+        ],
+    )
+
+    result = discover_ny_owner_name_schema(_authorization(), archive)
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"

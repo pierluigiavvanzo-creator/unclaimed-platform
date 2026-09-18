@@ -106,6 +106,7 @@
     "observed_header_state": {
       "enum": [
         "EXACT_DOCUMENTED_HEADER",
+        "NORMALIZED_DOCUMENTED_HEADER",
         "NO_HEADER_OBSERVED",
         "NOT_EVALUATED"
       ]

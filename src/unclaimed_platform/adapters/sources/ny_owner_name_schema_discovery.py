@@ -38,6 +38,30 @@ NY_DOCUMENTED_FIELDS: tuple[str, ...] = (
 )
 NY_PROPERTY_TYPE_CODE_INDEX = 1
 _ASCII_ALNUM = re.compile(rb"^[A-Za-z0-9]+$")
+_UTF8_BOM = b"\xef\xbb\xbf"
+
+
+def _normalize_ascii_token(value: bytes, *, strip_bom: bool = False) -> bytes:
+    token = value.strip()
+    if strip_bom and token.startswith(_UTF8_BOM):
+        token = token[len(_UTF8_BOM):].lstrip()
+
+    if len(token) >= 2 and token[:1] == token[-1:] and token[:1] in {b'"', b"'"}:
+        token = token[1:-1].strip()
+
+    return token
+
+
+def _normalized_documented_header(fields: list[bytes]) -> bool:
+    if len(fields) != len(NY_DOCUMENTED_FIELDS):
+        return False
+
+    documented = [field.encode("ascii").lower() for field in NY_DOCUMENTED_FIELDS]
+    observed = [
+        _normalize_ascii_token(field, strip_bom=index == 0).lower()
+        for index, field in enumerate(fields)
+    ]
+    return observed == documented
 
 
 class NyOwnerNameSchemaDiscoveryAuthorization(BaseModel):
@@ -86,6 +110,7 @@ class NyOwnerNameSchemaDiscoveryResult(BaseModel):
     observed_data_field_count: int | None = Field(default=None, ge=0)
     observed_header_state: Literal[
         "EXACT_DOCUMENTED_HEADER",
+        "NORMALIZED_DOCUMENTED_HEADER",
         "NO_HEADER_OBSERVED",
         "NOT_EVALUATED",
     ]
@@ -208,6 +233,7 @@ def discover_ny_owner_name_schema(
         property_type_ascii_count = 0
         header_state: Literal[
             "EXACT_DOCUMENTED_HEADER",
+            "NORMALIZED_DOCUMENTED_HEADER",
             "NO_HEADER_OBSERVED",
         ] = "NO_HEADER_OBSERVED"
         observed_data_field_count: int | None = None
@@ -219,13 +245,17 @@ def discover_ny_owner_name_schema(
                 if not line:
                     continue
 
+                fields = line.split(b"|")
+
                 if not first_nonblank_seen:
                     first_nonblank_seen = True
                     if line == documented_header:
                         header_state = "EXACT_DOCUMENTED_HEADER"
                         continue
+                    if _normalized_documented_header(fields):
+                        header_state = "NORMALIZED_DOCUMENTED_HEADER"
+                        continue
 
-                fields = line.split(b"|")
                 field_count = len(fields)
                 if observed_data_field_count is None:
                     observed_data_field_count = field_count
@@ -240,7 +270,9 @@ def discover_ny_owner_name_schema(
                         selected_member_uncompressed_bytes=selected.file_size,
                     )
 
-                property_type_raw = fields[NY_PROPERTY_TYPE_CODE_INDEX]
+                property_type_raw = _normalize_ascii_token(
+                    fields[NY_PROPERTY_TYPE_CODE_INDEX]
+                )
                 if not property_type_raw or _ASCII_ALNUM.fullmatch(property_type_raw) is None:
                     return _blocked(
                         authorization,
@@ -276,7 +308,12 @@ def discover_ny_owner_name_schema(
             observed_data_field_count=observed_data_field_count,
             observed_header_state=header_state,
             physical_header_names=(
-                NY_DOCUMENTED_FIELDS if header_state == "EXACT_DOCUMENTED_HEADER" else ()
+                NY_DOCUMENTED_FIELDS
+                if header_state in {
+                    "EXACT_DOCUMENTED_HEADER",
+                    "NORMALIZED_DOCUMENTED_HEADER",
+                }
+                else ()
             ),
             aggregate_complete_record_count=record_count,
             property_type_ascii_record_count=property_type_ascii_count,
