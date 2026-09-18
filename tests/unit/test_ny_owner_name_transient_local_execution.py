@@ -120,7 +120,10 @@ def test_real_authorization_requires_both_unconsumed_single_use_approvals(
                 "status": "GRANTED_NOT_CONSUMED",
                 "single_use": True,
                 "reusable": False,
+                "retry_authorized": False,
+                "attempt_number": 1,
                 "execution_approval_ref": "local-approval-ref",
+                "scope": {"max_download_bytes": 450_000_000},
             }
         ),
         encoding="utf-8",
@@ -134,8 +137,12 @@ def test_real_authorization_requires_both_unconsumed_single_use_approvals(
                 "status": "GRANTED_NOT_CONSUMED",
                 "single_use": True,
                 "reusable": False,
+                "retry_authorized": False,
+                "attempt_number": 1,
                 "execution_approval_ref": "gate2-approval-ref",
                 "execution_bounds": {
+                    "downloads_max": 1,
+                    "retries_max": 0,
                     "max_download_bytes": 450_000_000,
                     "max_uncompressed_bytes": 2_000_000_000,
                     "max_archive_members": 1,
@@ -148,6 +155,7 @@ def test_real_authorization_requires_both_unconsumed_single_use_approvals(
     authorization = build_real_execution_authorization(local, gate2)
 
     assert authorization.mode == "AUTHORIZED_REAL_ONCE"
+    assert authorization.attempt_number == 1
     assert authorization.max_download_bytes == 450_000_000
     assert authorization.max_uncompressed_bytes == 2_000_000_000
     assert authorization.max_archive_members == 1
