@@ -298,8 +298,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`PREPARE_NY_OSC_NONCONFORMING_ROW_HANDLING_POLICY_PROPOSAL`
 
-Classification: `A — Product Critical / Single-Use Real Execution`.
+Classification: `A — Product Critical / Offline Policy Proposal`.
 
-Both new v2 approvals are granted and not consumed. Before download, freshly verify the OSC listing. Any drift stops the attempt.
+The second real attempt stopped fail-closed on `UNEXPECTED_DATA_FIELD_COUNT`. Prepare a metadata-only row-defer/continuation policy proposal; no third download or runtime continuation is authorized.

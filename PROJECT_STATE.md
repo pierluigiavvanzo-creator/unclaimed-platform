@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-second-attempt-approved-ready-execution`
+`mvp1-ny-second-attempt-failclosed-evidence`
 
 Latest verified product implementation checkpoint:
 
@@ -602,6 +602,30 @@ CI:
 
 The second attempt remains single-use and zero-retry. Fresh remote-listing preflight is mandatory immediately before download.
 
+## NY OSC Second Real Bounded Execution — Consumed / Fail-Closed
+
+The second authorized real execution was consumed exactly once.
+
+Result:
+
+`BLOCKED_FAIL_CLOSED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Persisted non-PII metadata:
+
+- compressed archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local raw ZIP logically deleted: yes;
+- no owner values returned or persisted.
+
+Approval state:
+
+- second-attempt transient-PII approval: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
+- second-attempt transient-local approval: `CONSUMED_SINGLE_USE_NON_REUSABLE`;
+- retry: not authorized.
+
+The result proves only that at least one nonblank row did not split into the documented 14 fields under the current strict scanner. It does not establish malformed OSC source data.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -629,10 +653,10 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`PREPARE_NY_OSC_NONCONFORMING_ROW_HANDLING_POLICY_PROPOSAL`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Offline Policy Proposal`.
 
-Review the verified offline remediation and the fresh second-attempt proposal.
+Prepare a source-specific metadata-only row-defer proposal for rows whose physical field count is not exactly 14.
 
-Do not execute a second download until both new single-use approvals are explicitly granted and the secure-transfer listing is freshly verified.
+Do not implement source continuation yet. Do not download the Owner Name File again. Both v2 approvals are consumed and zero retry was authorized.
