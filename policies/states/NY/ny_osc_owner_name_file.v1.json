@@ -133,7 +133,24 @@
     "owner_field_logging_allowed": false,
     "row_specific_human_inspection_allowed": false,
     "derived_non_pii_schema_metadata_persistence_allowed": true,
-    "later_raw_persistence_requires_separate_policy": true
+    "later_raw_persistence_requires_separate_policy": true,
+    "transient_local_raw_file_exception": {
+      "authorization_gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "granted": true,
+      "status": "GRANTED_NOT_CONSUMED",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "applies_only_with_separately_granted_gate2": true,
+      "local_temp_directory_only": true,
+      "expected_filename": "FINDERS.zip",
+      "max_download_bytes": 450000000,
+      "durable_raw_persistence_allowed": false,
+      "cloud_sync_allowed": false,
+      "repository_persistence_allowed": false,
+      "immediate_logical_deletion_required": true,
+      "physical_secure_erasure_guaranteed": false
+    }
   },
   "authorization_gates": {
     "request_link_gate": {
@@ -160,7 +177,7 @@
       "proposed_preflight_name": "FINDERS.zip",
       "proposed_preflight_size_display": "390.51 MB",
       "proposed_preflight_last_modified_display": "9/16/2026, 1:33:31 PM",
-      "execution_transport_state": "BLOCKED_BROWSER_SAVE_TO_DISK_INCOMPATIBLE_WITH_MEMORY_ONLY_POLICY"
+      "execution_transport_state": "TRANSIENT_LOCAL_RUNNER_READY_GATE2_STILL_REQUIRED"
     }
   },
   "first_file_schema_discovery": {

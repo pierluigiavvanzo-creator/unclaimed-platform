@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "artifact_id": "ny.osc.owner_name_file.first_download_transient_pii_authorization",
   "artifact_version": "1.0.0",
-  "status": "PENDING_HUMAN_AUTHORIZATION_AND_EXECUTION_TRANSPORT_READINESS",
+  "status": "PENDING_HUMAN_AUTHORIZATION",
   "prepared_on": "2026-09-18",
   "gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
   "approval_ref": "APPROVE_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE",
@@ -64,14 +64,19 @@
   ],
   "execution_transport": {
     "official_instruction_behavior": "browser download saves archive to computer",
-    "current_policy_required_behavior": "MEMORY_ONLY_NO_RAW_FILE_PERSISTENCE",
-    "transport_ready": false,
-    "blocking_reason": "Official browser flow persists the ZIP to local storage, which does not satisfy the current memory-only/no-raw-persistence policy.",
-    "execution_before_transport_resolution_allowed": false,
-    "acceptable_resolution": [
-      "implement and verify an authenticated memory-only transfer path",
-      "or obtain a separate explicit policy authorization for transient local raw-file persistence with immediate deletion"
-    ]
+    "resolution": "TRANSIENT_LOCAL_FILE_SINGLE_USE_WITH_IMMEDIATE_LOGICAL_DELETION",
+    "transport_ready_after_runner_verification": true,
+    "transient_local_file_approval_path": "sources/evidence/ny_osc_owner_name_file_transient_local_file_approval.v1.json",
+    "transient_local_file_approval_status": "GRANTED_NOT_CONSUMED",
+    "dedicated_os_temp_directory_required": true,
+    "dedicated_temp_directory_prefix": "unclaimed-ny-osc-gate2-",
+    "expected_local_filename": "FINDERS.zip",
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "physical_secure_erasure_guaranteed": false,
+    "execution_before_gate2_grant_allowed": false
   },
   "authorization_boundary": {
     "owner_file_download_authorized_by_proposal_preparation": false,
