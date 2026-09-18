@@ -10,15 +10,15 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-integrated-economics-reviewer-offline`
+`mvp1-ny-reviewer-deployment-candidate-offline`
 
 Latest verified product implementation checkpoint:
 
-`8274660554733d39e7dc7c522676bc709fb90214`
+`2a4c4bc6e3103bc7d5800facd0fbe4d8a01c2e16`
 
 Product implementation CI:
 
-`35339962098` — SUCCESS.
+`35344178149` — SUCCESS.
 
 The branch HEAD can advance when canonical state files are refreshed; always verify remote HEAD before modifying.
 
@@ -356,6 +356,68 @@ Audit:
 
 `docs/audits/NY_MVP1_INTEGRATED_CASE_ECONOMICS_REVIEWER_OFFLINE.md`
 
+### 7. MVP-1 Streamlit deployment candidate
+
+Completed:
+
+`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
+
+Candidate status:
+
+`READY_OFFLINE_NOT_REMOTELY_DEPLOYED`
+
+Deployment coordinates:
+
+- repository: `pierluigiavvanzo-creator/unclaimed-platform`;
+- branch: `mvp1-ny-reviewer-deployment-candidate-offline`;
+- entrypoint: `apps/reviewer-streamlit/streamlit_app.py`;
+- Python: `3.11`;
+- secrets: none.
+
+Runtime pins:
+
+- Streamlit 1.63.0;
+- FastAPI 0.141.1;
+- Pydantic 2.13.5.
+
+Product-facing UI now says `MVP-1 Reviewer Console` and has a visible synthetic/test-only deployment-candidate banner. Ready and blocked monetary demonstrations remain explicitly synthetic/test-only; machine/data cost in the blocked state remains `NOT FULLY LOADED`.
+
+Checklist:
+
+`apps/reviewer-streamlit/DEPLOYMENT_CANDIDATE.md`
+
+Audit:
+
+`docs/audits/NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE.md`
+
+Verified checkpoint:
+
+`2a4c4bc6e3103bc7d5800facd0fbe4d8a01c2e16`
+
+CI:
+
+`35344178149` — SUCCESS.
+
+Passed:
+
+- pinned requirements install;
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety smoke;
+- Streamlit startup health;
+- frontend lint/typecheck/build.
+
+Initial run `35344088288` failed only on two line-length lint errors in display copy. No safety or product semantics changed in the fix.
+
+Rollback:
+
+`6b14edfa39aab0c9bfe7be840820859075c7a708`
+
+Remote deployment is not yet claimed and no current MVP-1 `streamlit.app` URL is recorded.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -369,6 +431,7 @@ Audit:
 - follow-up cost measurement contract: `READY / VERIFIED`;
 - follow-up cost → case economics integration: `READY / VERIFIED`;
 - integrated economics reviewer/API/Streamlit: `READY / VERIFIED`;
+- Streamlit deployment candidate: `READY_OFFLINE_NOT_REMOTELY_DEPLOYED`;
 - current MVP-1 remote deployment URL/evidence: `NOT RECORDED`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
@@ -381,30 +444,26 @@ External:
 
 Offline:
 
-`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate NEXT`
+`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate DONE -> remote Streamlit deploy NEXT`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
+`HUMAN_DEPLOY_NY_MVP1_REVIEWER_CANDIDATE_TO_STREAMLIT_COMMUNITY_CLOUD`
 
 Classification:
 
-`A — Product Critical`
+`A — Product Critical / External Deployment Gate`
 
-Goal:
+Exact deployment coordinates:
 
-Prepare the verified integrated MVP-1 Streamlit reviewer for deployment without changing authorization state.
+- repository: `pierluigiavvanzo-creator/unclaimed-platform`;
+- branch: `mvp1-ny-reviewer-deployment-candidate-offline`;
+- main file path: `apps/reviewer-streamlit/streamlit_app.py`;
+- Python: `3.11`;
+- secrets: none.
 
-Required boundaries:
+After deployment, capture the real `streamlit.app` URL and execute remote visual/safety smoke before recording deployment as verified.
 
-- validate Streamlit entrypoint/requirements/startup;
-- keep synthetic/test-only values clearly labeled;
-- align legacy M3-only display wording to MVP-1 reviewer language where this is presentation-only;
-- document deployment checklist and rollback checkpoint;
-- keep approved real sources at zero;
-- keep Gate 2 ungranted;
-- no Owner Name File download, real PII, outreach, fee agreement, representation or claim activity.
-
-No remote deployment may be claimed until a real deployment URL is observed and remotely verified.
+Do not enable Gate 2, real source acquisition, Owner Name File download, real owner PII, outreach, fee agreements, representation or claim activity.

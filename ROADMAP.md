@@ -9,7 +9,7 @@ Last updated: 2026-09-18
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | reviewer surface verified |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; INTEGRATED ECONOMICS REVIEWER VERIFIED | CI `35339962098` |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; STREAMLIT DEPLOYMENT CANDIDATE READY OFFLINE | CI `35344178149` |
 
 ## Product Priority
 
@@ -162,13 +162,44 @@ Audit:
 
 `docs/audits/NY_MVP1_INTEGRATED_CASE_ECONOMICS_REVIEWER_OFFLINE.md`
 
+### Streamlit deployment candidate
+
+Completed:
+
+`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
+
+Candidate state:
+
+`READY_OFFLINE_NOT_REMOTELY_DEPLOYED`
+
+Checkpoint:
+
+`2a4c4bc6e3103bc7d5800facd0fbe4d8a01c2e16`
+
+CI:
+
+`35344178149` — SUCCESS.
+
+Prepared:
+
+- MVP-1 page/title language;
+- explicit synthetic/test-only deployment banner;
+- synthetic monetary labels;
+- pinned Streamlit/FastAPI/Pydantic runtime;
+- exact branch/entrypoint/Python 3.11 coordinates;
+- no-secrets synthetic deployment path;
+- deployment checklist;
+- rollback to `6b14edfa39aab0c9bfe7be840820859075c7a708`.
+
+Remote deployment is not yet performed.
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions / Gate 2 / schema discovery`
 
 in parallel with:
 
-`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness NEXT -> commercial measurement capture`
+`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness DONE -> remote Streamlit deploy NEXT -> commercial measurement capture`
 
 then, once a lawful real source is available:
 
@@ -178,10 +209,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`PREPARE_NY_MVP1_REVIEWER_DEPLOYMENT_CANDIDATE_OFFLINE`
+`HUMAN_DEPLOY_NY_MVP1_REVIEWER_CANDIDATE_TO_STREAMLIT_COMMUNITY_CLOUD`
 
-Classification: `A — Product Critical`.
+Classification: `A — Product Critical / External Deployment Gate`.
 
-Purpose:
-
-Turn the now-verified integrated Streamlit reviewer into an explicit deployment candidate: validate deployment files/startup, remove legacy M3-only product wording where appropriate, preserve synthetic labeling and safety boundaries, and document rollback. Do not claim remote deployment until a real URL is observed and verified.
+Use the exact candidate coordinates documented in `apps/reviewer-streamlit/DEPLOYMENT_CANDIDATE.md`. After a real URL exists, perform remote smoke verification before promoting the deployment state.
