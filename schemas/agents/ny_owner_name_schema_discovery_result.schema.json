@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0",
+  "title": "NY Owner Name First Schema Discovery Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "status",
+    "reason_code",
+    "source_id",
+    "gate_id",
+    "approval_id",
+    "archive_byte_count",
+    "archive_member_count",
+    "member_names_persisted",
+    "selected_text_member_present",
+    "selected_member_uncompressed_bytes",
+    "observed_delimiter",
+    "documented_layout_field_count",
+    "observed_data_field_count",
+    "observed_header_state",
+    "physical_header_names",
+    "aggregate_complete_record_count",
+    "property_type_code_column_index_zero_based",
+    "property_type_ascii_record_count",
+    "nature_of_property_mapping_state",
+    "encoding_state",
+    "raw_file_persisted",
+    "owner_rows_persisted",
+    "owner_field_logging",
+    "row_specific_human_inspection",
+    "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "status": {
+      "enum": [
+        "DISCOVERED",
+        "BLOCKED"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "minLength": 3
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "gate_id": {
+      "const": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION"
+    },
+    "approval_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "archive_byte_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "archive_member_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "member_names_persisted": {
+      "const": false
+    },
+    "selected_text_member_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "selected_member_uncompressed_bytes": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "observed_delimiter": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "|",
+        null
+      ]
+    },
+    "documented_layout_field_count": {
+      "const": 14
+    },
+    "observed_data_field_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "observed_header_state": {
+      "enum": [
+        "EXACT_DOCUMENTED_HEADER",
+        "NO_HEADER_OBSERVED",
+        "NOT_EVALUATED"
+      ]
+    },
+    "physical_header_names": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "aggregate_complete_record_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "property_type_code_column_index_zero_based": {
+      "const": 1
+    },
+    "property_type_ascii_record_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "nature_of_property_mapping_state": {
+      "enum": [
+        "DETERMINISTIC_DOCUMENTED_POSITION_REQUIRES_LATER_CODE_VALIDATION",
+        "NOT_CONFIRMED"
+      ]
+    },
+    "encoding_state": {
+      "const": "NOT_EVALUATED_BYTE_LEVEL_DISCOVERY_ONLY"
+    },
+    "raw_file_persisted": {
+      "const": false
+    },
+    "owner_rows_persisted": {
+      "const": false
+    },
+    "owner_field_logging": {
+      "const": false
+    },
+    "row_specific_human_inspection": {
+      "const": false
+    },
+    "no_owner_values_returned": {
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "DISCOVERED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_delimiter": {
+            "const": "|"
+          },
+          "observed_data_field_count": {
+            "const": 14
+          },
+          "aggregate_complete_record_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "property_type_ascii_record_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "nature_of_property_mapping_state": {
+            "const": "DETERMINISTIC_DOCUMENTED_POSITION_REQUIRES_LATER_CODE_VALIDATION"
+          }
+        }
+      }
+    }
+  ]
+}

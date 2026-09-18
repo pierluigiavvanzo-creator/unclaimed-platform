@@ -14,16 +14,36 @@
     "approved_for_use": false
   },
   "officially_disclosed_semantics": [
-    {"semantic_id": "owner_name", "description": "name of a potential unclaimed-funds owner", "owner_pii": true},
-    {"semantic_id": "last_known_address", "description": "last-known address of a potential unclaimed-funds owner", "owner_pii": true},
-    {"semantic_id": "nature_of_property", "description": "nature of the property", "owner_pii": false},
-    {"semantic_id": "reported_when", "description": "when the property was reported", "owner_pii": false},
-    {"semantic_id": "reported_by", "description": "by whom the property was reported", "owner_pii": false}
+    {
+      "semantic_id": "owner_name",
+      "description": "name of a potential unclaimed-funds owner",
+      "owner_pii": true
+    },
+    {
+      "semantic_id": "last_known_address",
+      "description": "last-known address of a potential unclaimed-funds owner",
+      "owner_pii": true
+    },
+    {
+      "semantic_id": "nature_of_property",
+      "description": "nature of the property",
+      "owner_pii": false
+    },
+    {
+      "semantic_id": "reported_when",
+      "description": "when the property was reported",
+      "owner_pii": false
+    },
+    {
+      "semantic_id": "reported_by",
+      "description": "by whom the property was reported",
+      "owner_pii": false
+    }
   ],
   "physical_file_contract": {
     "state": "UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE",
     "physical_column_names_known": false,
-    "delimiter_known": false,
+    "delimiter_known": true,
     "encoding_known": false,
     "archive_layout_known": false,
     "property_nature_representation_known": false,
@@ -31,7 +51,31 @@
     "parser_activation_allowed": false,
     "normalization_allowed": false,
     "schema_inference_from_documentation_allowed": false,
-    "fail_closed_reason": "NY_OWNER_FILE_SCHEMA_UNOBSERVED"
+    "fail_closed_reason": "NY_OWNER_FILE_SCHEMA_UNOBSERVED",
+    "documented_delimiter": "|",
+    "documented_layout_known": true,
+    "documented_layout_field_count": 14,
+    "physical_header_presence_known": false,
+    "documented_archive_name": "NYSFINDERS.ZIP",
+    "documented_field_layout": [
+      "Property ID",
+      "Property Type Code",
+      "Property Type Code Description",
+      "Property Owner Count",
+      "Owner Name",
+      "Owner Address 1",
+      "Owner Address 2",
+      "Owner Address 3",
+      "Owner City",
+      "Owner Address State",
+      "Owner Zip Code",
+      "Owner Country Code",
+      "Holder Name",
+      "Holder Report Year"
+    ],
+    "property_type_code_documented_position_zero_based": 1,
+    "secure_transfer_listing_size_column_documented": true,
+    "current_archive_size_known": false
   },
   "insurance_authority": {
     "official_property_type_table_url": "https://www.osc.ny.gov/files/unclaimed-funds/reporters/pdf/property-type-tables.pdf",
@@ -58,8 +102,16 @@
     "invent_amount_allowed": false
   },
   "privacy": {
-    "owner_pii_semantics": ["owner_name", "last_known_address"],
-    "requester_contact_data_required_by_official_form": ["name", "company", "phone", "email"],
+    "owner_pii_semantics": [
+      "owner_name",
+      "last_known_address"
+    ],
+    "requester_contact_data_required_by_official_form": [
+      "name",
+      "company",
+      "phone",
+      "email"
+    ],
     "first_file_schema_discovery_mode": "MEMORY_ONLY",
     "real_owner_pii_allowed_without_privacy_approval": false,
     "raw_file_persistence_allowed_during_first_schema_discovery": false,
