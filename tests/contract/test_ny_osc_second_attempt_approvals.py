@@ -7,10 +7,24 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[2]
 
-LOCAL_SCHEMA = ROOT / "schemas/common/ny_osc_second_attempt_transient_local_approval.schema.json"
-LOCAL_APPROVAL = ROOT / "sources/evidence/ny_osc_owner_name_file_second_attempt_transient_local_approval.v1.json"
-PII_SCHEMA = ROOT / "schemas/common/ny_osc_second_attempt_transient_pii_approval.schema.json"
-PII_APPROVAL = ROOT / "sources/evidence/ny_osc_owner_name_file_second_attempt_transient_pii_approval.v1.json"
+LOCAL_SCHEMA = (
+    ROOT
+    / "schemas/common/ny_osc_second_attempt_transient_local_approval.schema.json"
+)
+LOCAL_APPROVAL = (
+    ROOT
+    / "sources/evidence"
+    / "ny_osc_owner_name_file_second_attempt_transient_local_approval.v1.json"
+)
+PII_SCHEMA = (
+    ROOT
+    / "schemas/common/ny_osc_second_attempt_transient_pii_approval.schema.json"
+)
+PII_APPROVAL = (
+    ROOT
+    / "sources/evidence"
+    / "ny_osc_owner_name_file_second_attempt_transient_pii_approval.v1.json"
+)
 
 
 def _load(path: Path) -> dict[str, object]:
