@@ -144,5 +144,7 @@ def test_result_rejects_inconsistent_aggregate() -> None:
 def test_synthetic_fixture_values_are_not_defaulted() -> None:
     schema = NyMvp1FollowUpCostMeasurementInput.model_json_schema()
 
-    assert "default" not in schema["$defs"]["MeasuredCostComponent"]["properties"]["amount_cents"]
-    duration_properties = schema["$defs"]["MeasuredDurationComponent"]["properties"]\n    assert "default" not in duration_properties["duration_seconds"]
+    cost_properties = schema["$defs"]["MeasuredCostComponent"]["properties"]
+    duration_properties = schema["$defs"]["MeasuredDurationComponent"]["properties"]
+    assert "default" not in cost_properties["amount_cents"]
+    assert "default" not in duration_properties["duration_seconds"]
