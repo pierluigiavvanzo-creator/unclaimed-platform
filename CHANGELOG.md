@@ -5,6 +5,10 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Persisted non-PII evidence for the consumed second NY OSC bounded attempt.
+- Byte-level quote-aware pipe record parsing with synthetic privacy regression coverage.
+- Pre-download PowerShell checks that reject consumed second-attempt approvals.
+- Blocked-result structural diagnostics using existing non-PII contract fields.
 - M2 deterministic workflow state whitelist and A00 orchestrator skeleton.
 - Fail-closed policy engine and budget ledger skeletons.
 - Append-only SHA-256 audit hash-chain writer.

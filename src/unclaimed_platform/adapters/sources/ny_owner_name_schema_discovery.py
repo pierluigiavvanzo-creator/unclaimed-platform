@@ -41,6 +41,51 @@ _ASCII_ALNUM = re.compile(rb"^[A-Za-z0-9]+$")
 _UTF8_BOM = b"\xef\xbb\xbf"
 
 
+def _split_quoted_pipe_record(record: bytes) -> tuple[list[bytes], bool]:
+    """Split one byte record without treating pipes inside double quotes as delimiters.
+
+    The parser deliberately stays at byte level: owner fields are not decoded, logged,
+    normalized, or returned. A doubled double quote inside a quoted field is preserved.
+    The boolean reports whether every opened quote was closed.
+    """
+
+    fields: list[bytes] = []
+    current = bytearray()
+    in_quotes = False
+    index = 0
+
+    while index < len(record):
+        value = record[index]
+
+        if value == ord('"'):
+            if in_quotes:
+                current.append(value)
+                if index + 1 < len(record) and record[index + 1] == value:
+                    current.append(value)
+                    index += 2
+                    continue
+                in_quotes = False
+                index += 1
+                continue
+            if not bytes(current).strip():
+                current.append(value)
+                in_quotes = True
+                index += 1
+                continue
+
+        if value == ord("|") and not in_quotes:
+            fields.append(bytes(current))
+            current.clear()
+            index += 1
+            continue
+
+        current.append(value)
+        index += 1
+
+    fields.append(bytes(current))
+    return fields, not in_quotes
+
+
 def _normalize_ascii_token(value: bytes, *, strip_bom: bool = False) -> bytes:
     token = value.strip()
     if strip_bom and token.startswith(_UTF8_BOM):
@@ -138,6 +183,17 @@ def _blocked(
     archive_member_count: int | None = None,
     selected_text_member_present: bool | None = None,
     selected_member_uncompressed_bytes: int | None = None,
+    observed_delimiter: Literal["|"] | None = None,
+    observed_data_field_count: int | None = None,
+    observed_header_state: Literal[
+        "EXACT_DOCUMENTED_HEADER",
+        "NORMALIZED_DOCUMENTED_HEADER",
+        "NO_HEADER_OBSERVED",
+        "NOT_EVALUATED",
+    ] = "NOT_EVALUATED",
+    physical_header_names: tuple[str, ...] = (),
+    aggregate_complete_record_count: int | None = None,
+    property_type_ascii_record_count: int | None = None,
 ) -> NyOwnerNameSchemaDiscoveryResult:
     return NyOwnerNameSchemaDiscoveryResult(
         status="BLOCKED",
@@ -147,8 +203,12 @@ def _blocked(
         archive_member_count=archive_member_count,
         selected_text_member_present=selected_text_member_present,
         selected_member_uncompressed_bytes=selected_member_uncompressed_bytes,
-        observed_header_state="NOT_EVALUATED",
-        physical_header_names=(),
+        observed_delimiter=observed_delimiter,
+        observed_data_field_count=observed_data_field_count,
+        observed_header_state=observed_header_state,
+        physical_header_names=physical_header_names,
+        aggregate_complete_record_count=aggregate_complete_record_count,
+        property_type_ascii_record_count=property_type_ascii_record_count,
         nature_of_property_mapping_state="NOT_CONFIRMED",
         encoding_state="NOT_EVALUATED_BYTE_LEVEL_DISCOVERY_ONLY",
     )
@@ -245,7 +305,30 @@ def discover_ny_owner_name_schema(
                 if not line:
                     continue
 
-                fields = line.split(b"|")
+                fields, quoted_record_well_formed = _split_quoted_pipe_record(line)
+
+                if not quoted_record_well_formed:
+                    return _blocked(
+                        authorization,
+                        reason_code="MALFORMED_QUOTED_RECORD",
+                        archive_byte_count=archive_byte_count,
+                        archive_member_count=member_count,
+                        selected_text_member_present=True,
+                        selected_member_uncompressed_bytes=selected.file_size,
+                        observed_delimiter=("|" if b"|" in line else None),
+                        observed_header_state=header_state,
+                        physical_header_names=(
+                            NY_DOCUMENTED_FIELDS
+                            if header_state
+                            in {
+                                "EXACT_DOCUMENTED_HEADER",
+                                "NORMALIZED_DOCUMENTED_HEADER",
+                            }
+                            else ()
+                        ),
+                        aggregate_complete_record_count=record_count,
+                        property_type_ascii_record_count=property_type_ascii_count,
+                    )
 
                 if not first_nonblank_seen:
                     first_nonblank_seen = True
@@ -268,6 +351,20 @@ def discover_ny_owner_name_schema(
                         archive_member_count=member_count,
                         selected_text_member_present=True,
                         selected_member_uncompressed_bytes=selected.file_size,
+                        observed_delimiter=("|" if b"|" in line else None),
+                        observed_data_field_count=field_count,
+                        observed_header_state=header_state,
+                        physical_header_names=(
+                            NY_DOCUMENTED_FIELDS
+                            if header_state
+                            in {
+                                "EXACT_DOCUMENTED_HEADER",
+                                "NORMALIZED_DOCUMENTED_HEADER",
+                            }
+                            else ()
+                        ),
+                        aggregate_complete_record_count=record_count,
+                        property_type_ascii_record_count=property_type_ascii_count,
                     )
 
                 property_type_raw = _normalize_ascii_token(
@@ -281,6 +378,20 @@ def discover_ny_owner_name_schema(
                         archive_member_count=member_count,
                         selected_text_member_present=True,
                         selected_member_uncompressed_bytes=selected.file_size,
+                        observed_delimiter="|",
+                        observed_data_field_count=field_count,
+                        observed_header_state=header_state,
+                        physical_header_names=(
+                            NY_DOCUMENTED_FIELDS
+                            if header_state
+                            in {
+                                "EXACT_DOCUMENTED_HEADER",
+                                "NORMALIZED_DOCUMENTED_HEADER",
+                            }
+                            else ()
+                        ),
+                        aggregate_complete_record_count=record_count,
+                        property_type_ascii_record_count=property_type_ascii_count,
                     )
 
                 property_type_ascii_count += 1

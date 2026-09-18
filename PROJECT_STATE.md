@@ -2,6 +2,51 @@
 
 Last updated: 2026-09-18
 
+## Superseding Current Event — Second NY Attempt Consumed Fail-Closed
+
+Repository package inspected from checkpoint:
+
+`61a533e035dfba45d0c1359b8eee0fdbba41d7d8`
+
+The second bounded NY OSC attempt was executed once and is now consumed.
+
+Result:
+
+`BLOCKED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Persisted non-PII execution metadata:
+
+- compressed archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local raw ZIP logically deleted: yes;
+- physical secure erasure guaranteed: no;
+- no raw path returned;
+- no owner values persisted or returned.
+
+Both second-attempt approvals are:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`
+
+No third download is authorized.
+
+Offline root-cause work found that the discovery parser used a raw byte `split` on every
+pipe. That parser cannot distinguish a structural delimiter from a pipe inside a quoted
+field. The observed failure is consistent with that limitation, but the deleted real row
+prevents claiming it as proven real-file causality.
+
+The offline repair candidate now:
+
+- performs byte-level quote-aware pipe splitting without decoding owner fields;
+- fails closed on an unclosed quoted record;
+- preserves only already-authorized non-PII structural counters on blocked outcomes;
+- checks approval consumption in PowerShell before creating the download directory or
+  asking the Product Owner to download;
+- records the second execution result and both approvals as consumed;
+- includes synthetic regression and contract tests.
+
+Source activation, production classification and a third real execution remain blocked.
+
 ## Current Product Objective
 
 `MVP-1 — First Economically Actionable Case`
@@ -629,10 +674,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`REVIEW_AND_INTEGRATE_NY_OSC_QUOTE_AWARE_OFFLINE_REPAIR`
 
-Classification: `A — Product Critical / Human Authorization Gate`.
+Classification: `A — Product Critical / Offline Safety Repair`.
 
-Review the verified offline remediation and the fresh second-attempt proposal.
-
-Do not execute a second download until both new single-use approvals are explicitly granted and the secure-transfer listing is freshly verified.
+Do not perform another OSC download. After repository integration and CI success, any
+third bounded attempt requires a new proposal and fresh explicit single-use approvals.
