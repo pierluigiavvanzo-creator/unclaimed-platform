@@ -5,8 +5,10 @@ import pytest
 from unclaimed_platform.api.reviewer import synthetic_operations_snapshot
 from unclaimed_platform.ui.streamlit_console import (
     load_safe_mvp1_case,
+    load_safe_mvp1_economics,
     load_safe_snapshot,
     validate_safe_mvp1_case,
+    validate_safe_mvp1_economics,
     validate_safe_snapshot,
 )
 
@@ -60,6 +62,27 @@ def test_streamlit_mvp1_case_fails_closed_on_real_source_access() -> None:
         validate_safe_mvp1_case(unsafe_case)
 
 
+
+
+def test_streamlit_mvp1_economics_preserves_precontact_fail_closed_state() -> None:
+    evidence = load_safe_mvp1_economics()
+
+    assert evidence.mode == "OFFLINE_PRECONTACT_EVIDENCE"
+    assert evidence.exact_recoverable_value_cents is None
+    assert evidence.owner_file_discloses_amount is False
+    assert evidence.statutory_fee_cap_bps == 1500
+    assert evidence.actual_fee_bps is None
+    assert evidence.expected_follow_up_cost_cents is None
+    assert evidence.commercial_actionability == "NOT_COMPUTABLE_PRE_CONTACT"
+
+
+def test_streamlit_mvp1_economics_fails_closed_on_invented_value() -> None:
+    evidence = load_safe_mvp1_economics()
+    unsafe = evidence.model_copy(update={"exact_recoverable_value_cents": 100_000})
+
+    with pytest.raises(RuntimeError, match="exact recoverable value"):
+        validate_safe_mvp1_economics(unsafe)
+
 def test_streamlit_console_preserves_verified_visual_language() -> None:
     app_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "streamlit_app.py"
     theme_path = _REPO_ROOT / "apps" / "reviewer-streamlit" / "theme.css"
@@ -70,7 +93,8 @@ def test_streamlit_console_preserves_verified_visual_language() -> None:
     assert "theme.css" in app_source
     assert "authoritative typed Python read model" in app_source
     assert "MVP-1 SYNTHETIC CASE" in app_source
-    assert "CASE ECONOMICS" in app_source
+    assert "NY PRE-CONTACT ECONOMICS" in app_source
+    assert "Statutory fee cap" in app_source
     assert "st.metric" not in app_source
     assert "st.info" not in app_source
     assert "st.html(page_html)" in app_source
