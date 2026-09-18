@@ -180,3 +180,55 @@ def test_result_model_rejects_owner_value_return_flag_change() -> None:
 
     with pytest.raises(ValidationError):
         NyOwnerNameSchemaDiscoveryResult.model_validate(result)
+
+
+def test_utf8_bom_documented_header_is_recognized() -> None:
+    row = _row("1001", "IN03", "Synthetic Owner Alpha", "1 Synthetic Street")
+    payload = (
+        b"\xef\xbb\xbf"
+        + "|".join(NY_DOCUMENTED_FIELDS).encode("utf-8")
+        + b"\n"
+        + row.encode("utf-8")
+        + b"\n"
+    )
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("owner_names.txt", payload)
+
+    result = discover_ny_owner_name_schema(_authorization(), buffer.getvalue())
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_header_state == "UTF8_BOM_DOCUMENTED_HEADER"
+    assert result.physical_header_names == NY_DOCUMENTED_FIELDS
+    assert result.aggregate_complete_record_count == 1
+
+
+@pytest.mark.parametrize("property_type_code", ["IN-03", "IN 03", ""])
+def test_property_type_shape_is_aggregate_diagnostic_not_schema_blocker(
+    property_type_code: str,
+) -> None:
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(
+            include_header=False,
+            rows=[
+                _row(
+                    "1001",
+                    property_type_code,
+                    "Synthetic Owner Alpha",
+                    "1 Synthetic Street",
+                )
+            ],
+        ),
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == (
+        1 if property_type_code.isalnum() and property_type_code else 0
+    )
+    assert result.nature_of_property_mapping_state == (
+        "DETERMINISTIC_DOCUMENTED_POSITION_REQUIRES_LATER_CODE_VALIDATION"
+    )
