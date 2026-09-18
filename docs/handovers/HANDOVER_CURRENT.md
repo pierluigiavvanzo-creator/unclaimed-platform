@@ -689,6 +689,30 @@ Execution script:
 
 Both v2 approvals are granted/not consumed. Fresh listing preflight is mandatory; any drift stops before download.
 
+## 16. Third bounded attempt — offline proposal only
+
+Prepared:
+
+`sources/proposals/ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json`
+
+Schema:
+
+`schemas/common/ny_osc_third_attempt_authorization_proposal.schema.json`
+
+Audit:
+
+`docs/audits/NY_OSC_THIRD_ATTEMPT_OFFLINE_PROPOSAL.md`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO_SOURCE_ACCESS`
+
+The proposal references integrated repair checkpoint
+`85d5f0c1101e5d66add27b9e1f445e7bba54a3b0` and CI
+`35381899112 — SUCCESS`. Bounds remain one download, zero retries and unchanged caps.
+Both second-attempt approvals remain consumed and non-reusable. No third-attempt runner or
+granted approval artifacts exist.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -725,11 +749,11 @@ Offline:
 
 Execute exclusively:
 
-`REVIEW_AND_INTEGRATE_NY_OSC_QUOTE_AWARE_OFFLINE_REPAIR`
+`HUMAN_REVIEW_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL`
 
 Classification:
 
-`A — Product Critical / Offline Safety Repair`
+`A — Product Critical / Human Authorization Gate`
 
-No source/network request is authorized. Run repository tests and CI first. Any future
-third attempt requires a new proposal and fresh explicit single-use approvals.
+No source/network request, runner implementation, approval grant, or download is authorized
+by the offline proposal.
