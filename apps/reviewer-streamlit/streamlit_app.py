@@ -16,6 +16,7 @@ if _SRC_PATH not in sys.path:
 
 from unclaimed_platform.ui.streamlit_console import (  # noqa: E402
     load_safe_mvp1_case,
+    load_safe_mvp1_economics,
     load_safe_snapshot,
 )
 
@@ -46,6 +47,7 @@ st.set_page_config(page_title="M3 Operations Console", layout="wide")
 try:
     snapshot = load_safe_snapshot()
     mvp1_case = load_safe_mvp1_case()
+    mvp1_economics = load_safe_mvp1_economics()
 except RuntimeError as exc:
     st.error("Safety boundary violation. Reviewer console stopped.")
     st.code(str(exc))
@@ -107,15 +109,24 @@ mvp1_case_rows = "".join(
 
 mvp1_economics_rows = "".join(
     [
-        _row("Recoverable value", mvp1_case.economics.recoverable_value_state.replace("_", " ")),
-        _row("Fee basis", mvp1_case.economics.fee_basis_state.replace("_", " ")),
+        _row(
+            "Recoverable value",
+            mvp1_economics.recoverable_value_state.replace("_", " "),
+        ),
+        _row("Owner file amount", "NOT DISCLOSED"),
+        _row(
+            "Statutory fee cap",
+            f"{mvp1_economics.statutory_fee_cap_bps / 100:.0f}% MAXIMUM — APL 1416 SCOPE",
+        ),
+        _row("Actual fee rate", "NOT ESTABLISHED"),
+        _row("Follow-up cost", mvp1_economics.cost_measurement_state.replace("_", " ")),
         _row(
             "Economic actionability",
-            mvp1_case.economics.economic_actionability.replace("_", " "),
+            mvp1_economics.commercial_actionability.replace("_", " "),
         ),
         _row(
             "Reviewer decision",
-            mvp1_case.reviewer_decision_required.replace("_", " "),
+            mvp1_economics.reviewer_decision_required.replace("_", " "),
         ),
     ]
 )
@@ -152,8 +163,8 @@ page_html = f"""
     </article>
 
     <article class="uip-card uip-feature-card">
-      <p class="uip-eyebrow">CASE ECONOMICS</p>
-      <h2>Value evidence is the next commercial blocker</h2>
+      <p class="uip-eyebrow">NY PRE-CONTACT ECONOMICS</p>
+      <h2>Fail-closed value, fee and cost evidence</h2>
       <div class="uip-list">{mvp1_economics_rows}</div>
     </article>
   </section>
