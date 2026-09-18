@@ -40,12 +40,18 @@ def test_second_attempt_approvals_are_single_use_and_bounded() -> None:
     Draft202012Validator(local_schema).validate(local)
     Draft202012Validator(pii_schema).validate(pii)
 
-    assert local["status"] == "GRANTED_NOT_CONSUMED"
+    assert local["status"] in {
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE",
+    }
     assert local["single_use"] is True
     assert local["reusable"] is False
     assert local["retry_authorized"] is False
 
-    assert pii["status"] == "GRANTED_NOT_CONSUMED"
+    assert pii["status"] in {
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE",
+    }
     assert pii["single_use"] is True
     assert pii["reusable"] is False
     assert pii["retry_authorized"] is False
@@ -54,3 +60,10 @@ def test_second_attempt_approvals_are_single_use_and_bounded() -> None:
     assert pii["execution_bounds"]["max_download_bytes"] == 450_000_000
     assert pii["authorization_does_not_grant"]["beneficiary_matching"] is False
     assert pii["authorization_does_not_grant"]["outreach"] is False
+    if local["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE":
+        assert local["consumed_on"]
+        assert local["execution_result"] == "RAW_FILE_LOGICALLY_DELETED"
+    if pii["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE":
+        assert pii["consumed_on"]
+        assert pii["execution_result"] == "BLOCKED_FAIL_CLOSED"
+        assert pii["execution_reason_code"] == "UNEXPECTED_DATA_FIELD_COUNT"
