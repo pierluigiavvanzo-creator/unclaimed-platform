@@ -646,6 +646,22 @@ State:
 
 Fresh preflight remains mandatory before the second download.
 
+### 15. Second-attempt execution package verified
+
+Checkpoint:
+
+`d157046c9cdf375fe88918ddaf41f97422de70a4`
+
+CI:
+
+`35364955860 — SUCCESS`
+
+Execution script:
+
+`scripts/ny_osc_gate2_retry_transient_local.ps1`
+
+Both v2 approvals are granted/not consumed. Fresh listing preflight is mandatory; any drift stops before download.
+
 ## Current Product State
 
 - approved real sources: `0`;

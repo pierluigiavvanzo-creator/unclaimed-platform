@@ -270,6 +270,18 @@ The Product Owner approved a single-use transient-local-file retention exception
 
 No real file was used.
 
+### NY second bounded attempt — approved / ready
+
+Checkpoint:
+
+`d157046c9cdf375fe88918ddaf41f97422de70a4`
+
+CI:
+
+`35364955860 — SUCCESS`
+
+Both v2 approvals are granted/not consumed. Fresh preflight remains mandatory before the single authorized download.
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions DONE / current listing size OBSERVED / Gate 2 v1 CONSUMED_FAIL_CLOSED / transient-local runner VERIFIED / ONE REAL EXECUTION NEXT / schema-discovery harness READY`

@@ -584,6 +584,24 @@ Safety bounds remain unchanged from the consumed first attempt. Second-attempt a
 
 Fresh preflight is mandatory immediately before any execution.
 
+## NY OSC Second Attempt — Approved / Verified Ready
+
+Both second-attempt approvals are granted and not consumed.
+
+Verified execution branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Verified checkpoint:
+
+`d157046c9cdf375fe88918ddaf41f97422de70a4`
+
+CI:
+
+`35364955860 — SUCCESS`
+
+The second attempt remains single-use and zero-retry. Fresh remote-listing preflight is mandatory immediately before download.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
