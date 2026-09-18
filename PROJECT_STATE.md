@@ -2,6 +2,31 @@
 
 Last updated: 2026-09-18
 
+## Superseding Current Event — Third Attempt Offline Proposal
+
+The quote-aware offline repair is integrated at:
+
+`85d5f0c1101e5d66add27b9e1f445e7bba54a3b0`
+
+Verification CI:
+
+`35381899112 — SUCCESS`
+
+A bounded third-attempt proposal now exists:
+
+`sources/proposals/ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO_SOURCE_ACCESS`
+
+The proposal preserves one-download/zero-retry limits, does not widen byte or archive bounds,
+does not reuse the consumed second-attempt approvals or runner, and requires two new explicit
+single-use human approvals plus a fresh listing preflight before any future execution.
+
+No third-attempt runner or approval artifacts exist. No source access, download, owner-file
+opening, or owner-PII processing occurred.
+
 ## Superseding Current Event — Second NY Attempt Consumed Fail-Closed
 
 Repository package inspected from checkpoint:
@@ -674,9 +699,10 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`REVIEW_AND_INTEGRATE_NY_OSC_QUOTE_AWARE_OFFLINE_REPAIR`
+`HUMAN_REVIEW_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL`
 
-Classification: `A — Product Critical / Offline Safety Repair`.
+Classification: `A — Product Critical / Human Authorization Gate`.
 
-Do not perform another OSC download. After repository integration and CI success, any
-third bounded attempt requires a new proposal and fresh explicit single-use approvals.
+Review the repository-only proposal. Do not access the source, implement an executable
+third-attempt runner, create granted approval artifacts, or download the Owner Name File
+unless the Product Owner later provides the two exact new approval phrases separately.
