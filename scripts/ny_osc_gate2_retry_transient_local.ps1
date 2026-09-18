@@ -50,7 +50,7 @@ try {
 
     Push-Location $RepoRoot
     try {
-        python -m unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution --archive $Archive --local-approval $LocalApproval --gate2-approval $Gate2Approval
+        python -m unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution --archive $Archive --local-approval $LocalApproval --gate2-approval $Gate2Approval --expected-attempt-number 2
         if ($LASTEXITCODE -ne 0) {
             throw "NY OSC second bounded attempt stopped fail-closed."
         }

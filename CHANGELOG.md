@@ -5,6 +5,9 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Fail-closed NY OSC third-attempt runner bound to attempt-specific approvals.
+- Third-attempt approval schemas and `NOT_GRANTED` templates with unchanged bounds.
+- Runtime checks for matching attempt numbers, distinct approval refs and zero-retry policy.
 - Versioned NY OSC third-attempt offline proposal with explicit `PROPOSED_NOT_AUTHORIZED` state.
 - Contract tests preventing source access, approval reuse, automatic retry, or silent bound widening.
 - Persisted non-PII evidence for the consumed second NY OSC bounded attempt.

@@ -713,6 +713,32 @@ The proposal references integrated repair checkpoint
 Both second-attempt approvals remain consumed and non-reusable. No third-attempt runner or
 granted approval artifacts exist.
 
+## 17. Third-attempt execution package — offline candidate
+
+Runner:
+
+`scripts/ny_osc_gate3_transient_local.ps1`
+
+Approval templates:
+
+- `sources/evidence/ny_osc_owner_name_file_third_attempt_transient_local_approval.v1.json`;
+- `sources/evidence/ny_osc_owner_name_file_third_attempt_transient_pii_approval.v1.json`.
+
+State:
+
+`READY_OFFLINE / CI_35384965991_SUCCESS / BOTH APPROVALS NOT_GRANTED`
+
+Runner verification checkpoint: `5aa606f9f79dc05508628d8a97f514cce7e4f770`.
+
+CI: `35384965991 — SUCCESS`.
+
+The runtime bridge now supports exact attempt-number binding. The historical second runner
+binds to attempt 2 and the new runner binds to attempt 3. The third runner checks both grants,
+attempt number, exact phrases, single-use/no-reuse/no-retry policy, and successful runner CI
+before creating a temp directory.
+
+No source access, listing preflight, download, owner-file opening, or PII processing occurred.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -749,11 +775,10 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_THIRD_BOUNDED_ATTEMPT_PROPOSAL`
+`REVIEW_AND_INTEGRATE_NY_OSC_THIRD_ATTEMPT_RUNNER_OFFLINE`
 
 Classification:
 
-`A — Product Critical / Human Authorization Gate`
+`A — Product Critical / Offline Safety Implementation`
 
-No source/network request, runner implementation, approval grant, or download is authorized
-by the offline proposal.
+Run CI and review the package. Do not grant approvals or access the source.

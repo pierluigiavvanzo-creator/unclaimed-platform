@@ -39,6 +39,7 @@ class NyTransientLocalExecutionAuthorization(BaseModel):
 
     contract_version: Literal["1.0.0"] = "1.0.0"
     mode: Literal["SYNTHETIC_TEST", "AUTHORIZED_REAL_ONCE"]
+    attempt_number: int = Field(default=1, ge=1)
     local_file_approval_ref: str = Field(min_length=1)
     gate2_approval_ref: str = Field(min_length=1)
     local_file_approval_granted: Literal[True]
@@ -82,6 +83,8 @@ def _load_json(path: Path) -> dict[str, Any]:
 def build_real_execution_authorization(
     local_approval_path: Path,
     gate2_approval_path: Path,
+    *,
+    expected_attempt_number: int | None = None,
 ) -> NyTransientLocalExecutionAuthorization:
     """Build the runtime envelope only when both single-use approvals are granted."""
 
@@ -102,14 +105,48 @@ def build_real_execution_authorization(
     if gate2.get("single_use") is not True or gate2.get("reusable") is not False:
         raise ValueError("Gate 2 approval reuse policy mismatch")
 
+    local_attempt = local.get("attempt_number")
+    gate2_attempt = gate2.get("attempt_number")
+    if not isinstance(local_attempt, int) or not isinstance(gate2_attempt, int):
+        raise ValueError("approval attempt number is missing")
+    if local_attempt != gate2_attempt:
+        raise ValueError("approval attempt numbers do not match")
+    if (
+        expected_attempt_number is not None
+        and gate2_attempt != expected_attempt_number
+    ):
+        raise ValueError("approval attempt number does not match the requested attempt")
+    if local.get("retry_authorized") is not False:
+        raise ValueError("transient-local-file retry policy mismatch")
+    if gate2.get("retry_authorized") is not False:
+        raise ValueError("Gate 2 retry policy mismatch")
+
+    local_ref = local.get("execution_approval_ref")
+    gate2_ref = gate2.get("execution_approval_ref")
+    if not isinstance(local_ref, str) or not local_ref:
+        raise ValueError("transient-local-file execution approval ref is missing")
+    if not isinstance(gate2_ref, str) or not gate2_ref:
+        raise ValueError("Gate 2 execution approval ref is missing")
+    if local_ref == gate2_ref:
+        raise ValueError("local and Gate 2 approvals must have distinct refs")
+
     bounds = gate2.get("execution_bounds")
     if not isinstance(bounds, dict):
         raise ValueError("Gate 2 execution bounds are missing")
+    if bounds.get("downloads_max") != 1 or bounds.get("retries_max") != 0:
+        raise ValueError("Gate 2 single-download zero-retry bounds mismatch")
+
+    local_scope = local.get("scope")
+    if not isinstance(local_scope, dict):
+        raise ValueError("transient-local-file scope is missing")
+    if local_scope.get("max_download_bytes") != bounds.get("max_download_bytes"):
+        raise ValueError("approval download byte caps do not match")
 
     return NyTransientLocalExecutionAuthorization(
         mode="AUTHORIZED_REAL_ONCE",
-        local_file_approval_ref=str(local["execution_approval_ref"]),
-        gate2_approval_ref=str(gate2["execution_approval_ref"]),
+        attempt_number=gate2_attempt,
+        local_file_approval_ref=local_ref,
+        gate2_approval_ref=gate2_ref,
         local_file_approval_granted=True,
         gate2_approval_granted=True,
         max_download_bytes=int(bounds["max_download_bytes"]),
@@ -211,6 +248,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--archive", type=Path, required=True)
     parser.add_argument("--local-approval", type=Path, required=True)
     parser.add_argument("--gate2-approval", type=Path, required=True)
+    parser.add_argument("--expected-attempt-number", type=int)
     return parser.parse_args()
 
 
@@ -219,6 +257,7 @@ def main() -> int:
     authorization = build_real_execution_authorization(
         args.local_approval,
         args.gate2_approval,
+        expected_attempt_number=args.expected_attempt_number,
     )
     result = execute_transient_local_file_discovery(authorization, args.archive)
     print(result.model_dump_json())
