@@ -9,7 +9,7 @@ Last updated: 2026-09-18
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
 | M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence |
 | M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | reviewer surface verified |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; STREAMLIT DEPLOYMENT CANDIDATE READY OFFLINE | CI `35344178149` |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; REMOTE STREAMLIT REVIEWER VERIFIED | remote URL + CI `35345560301` |
 
 ## Product Priority
 
@@ -193,13 +193,40 @@ Prepared:
 
 Remote deployment is not yet performed.
 
+### Remote Streamlit deployment
+
+Completed:
+
+`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
+
+Remote URL:
+
+`https://unclaimed-platform-mvp1-reviewer.streamlit.app/`
+
+Verified from Product Owner remote screenshots plus green deployment-trigger CI:
+
+- MVP-1 title and synthetic/test-only banner;
+- READY integrated economics card;
+- FAIL-CLOSED integrated economics card;
+- no visible runtime error;
+- approved real sources = 0;
+- real acquisition blocked;
+- beneficiary matching blocked;
+- no real PII.
+
+State:
+
+`VERIFIED_REMOTE_SYNTHETIC_ONLY`
+
+Non-blocking debt: legacy synthetic M3 raw-artifact label remains visible in the lower audit card.
+
 ## MVP-1 Remaining Product Path
 
 `OSC access instructions / Gate 2 / schema discovery`
 
 in parallel with:
 
-`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness DONE -> remote deploy TRIGGERED -> remote verification NEXT -> commercial measurement capture`
+`follow-up cost contract DONE -> case-economics integration DONE -> reviewer exposure DONE -> deployment-candidate readiness DONE -> remote deploy VERIFIED -> commercial measurement capture when real source is authorized`
 
 then, once a lawful real source is available:
 
@@ -209,8 +236,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
-Classification: `A — Product Critical / Remote Verification Gate`.
+Classification: `A — Product Critical / External Dependency`.
 
-The verified candidate has been pushed to the historical Streamlit-tracked branch to trigger auto-redeploy. Verify the real hosted page before marking deployment complete.
+The frontend deployment milestone is closed. Resume the real-source critical path only when OSC access instructions arrive.

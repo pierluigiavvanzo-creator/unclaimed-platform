@@ -34,7 +34,7 @@ Current lifecycle has two bounded tracks:
 
 and, while that external dependency is pending:
 
-`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> INTEGRATED_ECONOMICS_REVIEWER_VERIFIED -> STREAMLIT_DEPLOYMENT_CANDIDATE_READY_OFFLINE`
+`SYNTHETIC_DOWNSTREAM_SLICE_VERIFIED -> INTEGRATED_ECONOMICS_REVIEWER_VERIFIED -> STREAMLIT_REMOTE_DEPLOYMENT_VERIFIED`
 
 ## California State
 
@@ -372,6 +372,51 @@ Rollback baseline:
 
 No remote deployment has been performed or claimed.
 
+## NY MVP-1 Streamlit Remote Deployment Verification
+
+Completed:
+
+`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
+
+Remote URL:
+
+`https://unclaimed-platform-mvp1-reviewer.streamlit.app/`
+
+Verification basis:
+
+- Product Owner supplied remote screenshots from the deployed Streamlit app;
+- GitHub deployment-trigger CI `35345560301` was SUCCESS;
+- the deployed page loaded without a visible runtime error.
+
+Observed remote criteria:
+
+- page title: `MVP-1 Reviewer Console`;
+- visible banner: `Synthetic/test-only deployment candidate`;
+- `MVP-1 SYNTHETIC CASE` card rendered;
+- `NY PRE-CONTACT ECONOMICS` card rendered;
+- READY integrated economics card rendered;
+- FAIL-CLOSED integrated economics card rendered;
+- READY state showed `READY FOR EXPLICIT ECONOMICS`;
+- blocked state showed `BLOCKED FOLLOW UP COST UNAVAILABLE`;
+- blocked machine/data cost remained explicitly `NOT FULLY LOADED`;
+- automatic recommendation remained `NONE — HUMAN DECISION REQUIRED`;
+- Source Registry showed `0` approved real sources;
+- real acquisition remained `BLOCKED`;
+- beneficiary matching remained `BLOCKED`;
+- governance showed `PASS SYNTHETIC ONLY`;
+- PII mode showed `NO REAL PII`.
+
+Deployment state:
+
+`VERIFIED_REMOTE_SYNTHETIC_ONLY`
+
+Non-blocking presentation debt observed:
+
+- the lower synthetic raw-artifact card still uses the legacy fixture label `synthetic:m3-operations-console-demo` / `synthetic://m3/operations-console`;
+- the historical M3 milestone card remains visible as provenance/history.
+
+These do not affect the verified MVP-1 reviewer logic or safety boundary, but may be cleaned up later as presentation work.
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -386,9 +431,9 @@ No remote deployment has been performed or claimed.
 - follow-up cost measurement contract: `READY / VERIFIED`;
 - follow-up cost → case economics integration: `READY / VERIFIED`;
 - integrated economics reviewer/API/Streamlit: `READY / VERIFIED`;
-- Streamlit deployment candidate: `READY_OFFLINE`;
-- remote Streamlit deployment trigger: `PUSHED_TO_TRACKED_BRANCH_PENDING_REMOTE_VERIFICATION`;
-- remote deployment evidence for current MVP-1 branch: `HISTORICAL_URL_KNOWN_NOT_REVERIFIED`;
+- Streamlit deployment candidate: `DEPLOYED / VERIFIED_REMOTE_SYNTHETIC_ONLY`;
+- remote Streamlit URL: `https://unclaimed-platform-mvp1-reviewer.streamlit.app/`;
+- remote deployment evidence: `PRODUCT_OWNER_SCREENSHOTS + CI_35345560301_SUCCESS`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -396,24 +441,17 @@ No remote deployment has been performed or claimed.
 
 Execute exclusively:
 
-`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
-Classification: `A — Product Critical / Remote Verification Gate`.
+Classification: `A — Product Critical / External Dependency`.
 
-Deployment trigger evidence:
+The MVP-1 synthetic reviewer is now remotely deployed and verified. The remaining critical path to a real economically actionable case is the NY OSC source-access track.
 
-- historical tracked branch: `m2-state-governance-core`;
-- branch fast-forwarded non-destructively from `e97c1f62959f603bdd3df79538d4b70255594c70` to the verified MVP-1 candidate;
-- an explicit deploy-trigger audit commit was then pushed to generate a real GitHub push event;
-- historical Streamlit URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`.
+When access instructions arrive:
 
-Required verification before marking deployed:
+1. inspect only non-content access/download constraints;
+2. do not download or inspect the Owner Name File under Gate 1;
+3. define explicit `max_download_bytes`;
+4. prepare `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION` for separate review.
 
-1. remote URL loads;
-2. page title is `MVP-1 Reviewer Console`;
-3. `Synthetic/test-only deployment candidate` banner is visible;
-4. READY and FAIL-CLOSED integrated economics cards render;
-5. no runtime error appears;
-6. real sources remain zero/blocked and no real PII is shown.
-
-Do not enable Gate 2, Owner Name File download, real PII, outreach, fee agreements, representation or claim activity.
+Optional non-blocking UI cleanup may later replace the visible legacy synthetic M3 fixture label, but this must not displace the NY OSC critical path.

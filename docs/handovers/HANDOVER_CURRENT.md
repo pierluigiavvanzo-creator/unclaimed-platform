@@ -418,6 +418,51 @@ Rollback:
 
 Remote deployment is not yet claimed and no current MVP-1 `streamlit.app` URL is recorded.
 
+### 8. Remote Streamlit deployment verification
+
+Completed:
+
+`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
+
+Verified remote URL:
+
+`https://unclaimed-platform-mvp1-reviewer.streamlit.app/`
+
+Evidence:
+
+- Product Owner supplied screenshots of the live deployed page;
+- deployment-trigger GitHub CI `35345560301` — SUCCESS.
+
+Remote screenshots confirm:
+
+- `MVP-1 Reviewer Console`;
+- `Synthetic/test-only deployment candidate`;
+- `MVP-1 SYNTHETIC CASE`;
+- `NY PRE-CONTACT ECONOMICS`;
+- READY integrated economics card;
+- FAIL-CLOSED integrated economics card;
+- READY state `READY FOR EXPLICIT ECONOMICS`;
+- blocked state `BLOCKED FOLLOW UP COST UNAVAILABLE`;
+- direct machine/data cost remains `NOT FULLY LOADED`;
+- `NONE — HUMAN DECISION REQUIRED`;
+- approved real sources `0`;
+- real acquisition `BLOCKED`;
+- beneficiary matching `BLOCKED`;
+- governance `PASS SYNTHETIC ONLY`;
+- PII mode `NO REAL PII`;
+- no visible runtime error.
+
+Deployment status:
+
+`VERIFIED_REMOTE_SYNTHETIC_ONLY`
+
+Non-blocking presentation debt:
+
+- `synthetic:m3-operations-console-demo` remains visible in the synthetic raw-artifact card;
+- historical M3 milestone remains visible.
+
+These are legacy synthetic labels/history only and do not invalidate the MVP-1 deployment.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -431,8 +476,9 @@ Remote deployment is not yet claimed and no current MVP-1 `streamlit.app` URL is
 - follow-up cost measurement contract: `READY / VERIFIED`;
 - follow-up cost → case economics integration: `READY / VERIFIED`;
 - integrated economics reviewer/API/Streamlit: `READY / VERIFIED`;
-- Streamlit deployment candidate: `READY_OFFLINE_NOT_REMOTELY_DEPLOYED`;
-- current MVP-1 remote deployment URL/evidence: `NOT RECORDED`;
+- Streamlit deployment candidate: `DEPLOYED / VERIFIED_REMOTE_SYNTHETIC_ONLY`;
+- current MVP-1 remote URL: `https://unclaimed-platform-mvp1-reviewer.streamlit.app/`;
+- remote evidence: `PRODUCT_OWNER_SCREENSHOTS + CI_35345560301_SUCCESS`;
 - real measured candidate costs: `0`;
 - real MVP-1 candidates: `0`.
 
@@ -444,31 +490,25 @@ External:
 
 Offline:
 
-`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate DONE -> remote deploy TRIGGERED -> remote verification NEXT`
+`synthetic downstream slice DONE -> value-evidence contract DONE -> follow-up cost measurement DONE -> economics integration DONE -> integrated reviewer exposure DONE -> deployment candidate DONE -> remote deploy VERIFIED`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`VERIFY_NY_MVP1_STREAMLIT_REMOTE_DEPLOYMENT`
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
 Classification:
 
-`A — Product Critical / Remote Verification Gate`
+`A — Product Critical / External Dependency`
 
-Deployment trigger:
+The remote MVP-1 reviewer deployment is verified. The remaining critical path is NY OSC source access.
 
-- `m2-state-governance-core` was a pure fast-forward to the verified MVP-1 deployment candidate;
-- an explicit deploy-trigger audit commit was pushed afterward to create an unambiguous push event for connected deployment automation;
-- historical hosted URL: `https://unclaimed-platform-hlirhsqfxbfwjs7jhbsxn6.streamlit.app/`.
+When OSC instructions arrive:
 
-Remote verification must confirm:
+1. inspect only non-content access/download constraints;
+2. do not download or inspect the Owner Name File under Gate 1;
+3. establish evidence-based `max_download_bytes`;
+4. prepare the separate Gate 2 proposal.
 
-- `MVP-1 Reviewer Console`;
-- visible synthetic/test-only deployment banner;
-- READY integrated economics card;
-- FAIL-CLOSED integrated economics card;
-- no runtime error;
-- no real source / no real owner PII.
-
-No Gate 2, real acquisition, Owner Name File download, outreach, fee agreement, representation or claim activity is authorized.
+Optional later presentation cleanup: replace the visible legacy synthetic M3 raw-artifact label without changing audit semantics.
