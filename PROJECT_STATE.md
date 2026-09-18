@@ -16,7 +16,7 @@ Guiding metric:
 
 Branch:
 
-`mvp1-ny-first-real-schema-discovery-blocked`
+`mvp1-ny-second-schema-discovery-rerun-proposal`
 
 Latest verified product implementation checkpoint:
 
@@ -556,6 +556,36 @@ Audit:
 
 `docs/audits/NY_OSC_PROPERTY_TYPE_FIELD_SHAPE_ROOT_CAUSE_REMEDIATION.md`
 
+## NY OSC Schema-Discovery Remediation Verification
+
+Offline remediation checkpoint:
+
+`57c881aec082ebb2b7c187f7cb8e9d2a443e5e13`
+
+CI:
+
+`35362395868` — SUCCESS.
+
+Verified:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint/typecheck/build.
+
+A second bounded rerun proposal is prepared but not granted.
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_second_schema_discovery_rerun_authorization.v1.json`
+
+Audit:
+
+`docs/audits/NY_OSC_SECOND_SCHEMA_DISCOVERY_RERUN_PROPOSAL.md`
+
 ## Current Product / Source State
 
 - approved real sources: `0`;
@@ -583,12 +613,14 @@ Audit:
 
 Execute exclusively:
 
-`VERIFY_NY_PROPERTY_TYPE_FIELD_SHAPE_REMEDIATION_OFFLINE`
+`HUMAN_NY_OSC_SECOND_SCHEMA_DISCOVERY_RERUN_AUTHORIZATION_REVIEW`
 
 Classification: `A — Product Critical / Offline Diagnostic Remediation`.
 
 Do not reacquire or rerun the real Owner Name File.
 
-Run the full CI against the remediated schema-discovery harness. If green, prepare a fresh bounded rerun proposal for separate human review.
+Remediation verification is complete: CI `35362395868` — SUCCESS.
 
-Any later real rerun requires new explicit Product Owner authorization.
+A fresh rerun proposal is prepared at `sources/proposals/ny_osc_owner_name_file_second_schema_discovery_rerun_authorization.v1.json`.
+
+No second real download is authorized yet. Review the new one-shot local-retention and Gate 2 rerun approvals separately.
