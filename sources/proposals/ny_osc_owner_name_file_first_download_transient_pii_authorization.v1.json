@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "artifact_id": "ny.osc.owner_name_file.first_download_transient_pii_authorization",
   "artifact_version": "1.0.0",
-  "status": "GRANTED_NOT_CONSUMED",
+  "status": "CONSUMED_BLOCKED_FAIL_CLOSED",
   "prepared_on": "2026-09-18",
   "gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
   "approval_ref": "APPROVE_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE",
@@ -89,7 +89,18 @@
     "representation_authorized": false,
     "claim_activity_authorized": false
   },
-  "next_gate": "EXECUTE_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE",
+  "next_gate": "OFFLINE_NY_PROPERTY_TYPE_FIELD_SHAPE_ROOT_CAUSE_REMEDIATION",
   "gate2_approval_path": "sources/evidence/ny_osc_owner_name_file_first_download_transient_pii_approval.v1.json",
-  "gate2_execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1"
+  "gate2_execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1",
+  "execution_outcome": {
+    "status": "BLOCKED",
+    "reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+    "archive_byte_count": 409477526,
+    "archive_member_count": 1,
+    "selected_text_member_present": true,
+    "selected_member_uncompressed_bytes": 1939569781,
+    "local_file_deleted": true,
+    "no_owner_values_returned": true,
+    "retry_authorized": false
+  }
 }
