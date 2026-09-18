@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-owner-name-row-shape-diagnostic-authorization:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "source_id",
+    "approval_id",
+    "max_download_bytes",
+    "max_uncompressed_bytes",
+    "max_archive_members",
+    "max_physical_lines_to_scan",
+    "persist_raw_bytes",
+    "persist_owner_rows",
+    "owner_field_logging",
+    "row_specific_human_inspection"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "mode": {
+      "enum": [
+        "SYNTHETIC_TEST",
+        "AUTHORIZED_TRANSIENT_MEMORY_ONLY"
+      ]
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "approval_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "max_download_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_uncompressed_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_archive_members": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_physical_lines_to_scan": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "persist_raw_bytes": {
+      "const": false
+    },
+    "persist_owner_rows": {
+      "const": false
+    },
+    "owner_field_logging": {
+      "const": false
+    },
+    "row_specific_human_inspection": {
+      "const": false
+    }
+  }
+}

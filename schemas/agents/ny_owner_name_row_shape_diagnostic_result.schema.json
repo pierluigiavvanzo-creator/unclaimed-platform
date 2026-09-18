@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-owner-name-row-shape-diagnostic-result:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "status",
+    "reason_code",
+    "source_id",
+    "approval_id",
+    "archive_byte_count",
+    "archive_member_count",
+    "selected_text_member_present",
+    "selected_member_uncompressed_bytes",
+    "physical_lines_scanned",
+    "raw_field_count_histogram",
+    "quote_aware_field_count_histogram",
+    "trailing_delimiter_line_count",
+    "unbalanced_double_quote_line_count",
+    "exact_14_raw_line_count",
+    "exact_14_quote_aware_line_count",
+    "member_names_persisted",
+    "raw_file_persisted",
+    "owner_rows_persisted",
+    "owner_field_logging",
+    "row_specific_human_inspection",
+    "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "status": {
+      "enum": [
+        "DIAGNOSED",
+        "BLOCKED"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "minLength": 3
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "approval_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "archive_byte_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "archive_member_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "selected_text_member_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "selected_member_uncompressed_bytes": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "physical_lines_scanned": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "raw_field_count_histogram": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "quote_aware_field_count_histogram": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "trailing_delimiter_line_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unbalanced_double_quote_line_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exact_14_raw_line_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exact_14_quote_aware_line_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "member_names_persisted": {
+      "const": false
+    },
+    "raw_file_persisted": {
+      "const": false
+    },
+    "owner_rows_persisted": {
+      "const": false
+    },
+    "owner_field_logging": {
+      "const": false
+    },
+    "row_specific_human_inspection": {
+      "const": false
+    },
+    "no_owner_values_returned": {
+      "const": true
+    }
+  }
+}

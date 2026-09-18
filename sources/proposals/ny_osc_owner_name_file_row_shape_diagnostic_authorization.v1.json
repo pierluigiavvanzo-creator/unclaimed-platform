@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.row_shape_diagnostic_authorization_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-18",
+  "status": "PENDING_HUMAN_AUTHORIZATION_PARAMETERS",
+  "purpose": "ROOT_CAUSE_DIAGNOSTIC_ONLY",
+  "prior_attempts_consumed": 2,
+  "parser_activation_allowed": false,
+  "classification_activation_allowed": false,
+  "proposed_fixed_bounds": {
+    "downloads_max": 1,
+    "retries_max": 0,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1
+  },
+  "required_human_parameter": {
+    "max_physical_lines_to_scan": null,
+    "rationale": "Must be explicitly bounded at authorization time; no arbitrary production default is invented."
+  },
+  "allowed_persisted_outputs": [
+    "archive byte count",
+    "archive member count",
+    "selected text member uncompressed byte count",
+    "physical lines scanned",
+    "aggregate raw field-count histogram",
+    "aggregate double-quote-aware field-count histogram",
+    "aggregate trailing-delimiter line count",
+    "aggregate unbalanced-double-quote line count",
+    "aggregate exact-14 counts"
+  ],
+  "prohibited_outputs": [
+    "raw file bytes",
+    "owner name",
+    "owner address",
+    "complete row",
+    "row-specific field values",
+    "row-specific human inspection"
+  ],
+  "next_gate": "HUMAN_NY_OSC_ROW_SHAPE_DIAGNOSTIC_AUTHORIZATION_REVIEW"
+}
