@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-result:1.0.0",
+  "title": "NY MVP-1 Explicit Case Economics Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "recoverable_value_cents",
+    "agreed_fee_bps",
+    "statutory_fee_cap_bps",
+    "gross_fee_cents",
+    "measured_follow_up_cost_cents",
+    "contribution_before_overhead_cents",
+    "fee_cap_compliant",
+    "legal_scope_assumption",
+    "no_commercial_recommendation",
+    "value_evidence_ref",
+    "fee_evidence_ref",
+    "cost_evidence_ref"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "recoverable_value_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "agreed_fee_bps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1500
+    },
+    "statutory_fee_cap_bps": {
+      "const": 1500
+    },
+    "gross_fee_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "measured_follow_up_cost_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "contribution_before_overhead_cents": {
+      "type": "integer"
+    },
+    "fee_cap_compliant": {
+      "const": true
+    },
+    "legal_scope_assumption": {
+      "const": "ABP_1416_LOCATION_SERVICE"
+    },
+    "no_commercial_recommendation": {
+      "const": true
+    },
+    "value_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cost_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

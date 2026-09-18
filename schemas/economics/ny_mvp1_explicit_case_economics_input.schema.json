@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-input:1.0.0",
+  "title": "NY MVP-1 Explicit Case Economics Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "recoverable_value_cents",
+    "agreed_fee_bps",
+    "measured_follow_up_cost_cents",
+    "value_evidence_ref",
+    "fee_evidence_ref",
+    "cost_evidence_ref",
+    "fee_rule_scope_confirmed"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "recoverable_value_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "agreed_fee_bps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1500
+    },
+    "measured_follow_up_cost_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "value_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cost_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_rule_scope_confirmed": {
+      "const": true
+    }
+  }
+}
