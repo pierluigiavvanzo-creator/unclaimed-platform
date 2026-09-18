@@ -662,6 +662,24 @@ Execution script:
 
 Both v2 approvals are granted/not consumed. Fresh listing preflight is mandatory; any drift stops before download.
 
+### 16. Second real bounded execution — consumed fail-closed
+
+Result:
+
+`BLOCKED_FAIL_CLOSED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Persisted non-PII metadata:
+
+- archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- local raw file logically deleted: yes;
+- no owner values returned or persisted.
+
+Both v2 approvals are consumed and non-reusable. No retry is authorized.
+
+The current fail-closed receipt does not retain how many valid rows were scanned before the mismatch, so the next step is a metadata-only nonconforming-row policy proposal rather than another blind retry.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -698,14 +716,10 @@ Offline:
 
 Execute exclusively:
 
-`EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`PREPARE_NY_OSC_NONCONFORMING_ROW_HANDLING_POLICY_PROPOSAL`
 
 Classification:
 
-`A — Product Critical / Single-Use Real Execution`
+`A — Product Critical / Offline Policy Proposal`
 
-Use:
-
-`scripts/ny_osc_gate2_retry_transient_local.ps1`
-
-Before download, freshly verify the secure-transfer listing. Any name/size/last-modified drift stops before download.
+Prepare only the proposal for metadata-only row defer/continuation. Do not perform a third download, do not reuse consumed approvals, and do not modify runtime source-continuation behavior before explicit human approval.
