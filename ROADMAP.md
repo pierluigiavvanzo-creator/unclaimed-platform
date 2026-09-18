@@ -289,9 +289,29 @@ Offline remediation now decouples physical 14-field schema discovery from semant
 
 No real rerun is authorized.
 
+### Property-type shape remediation verified
+
+Checkpoint:
+
+`57c881aec082ebb2b7c187f7cb8e9d2a443e5e13`
+
+CI:
+
+`35362395868` — SUCCESS.
+
+The physical schema discovery is now decoupled from semantic Property Type Code value-shape validation, with UTF-8 BOM header support and regression tests.
+
+Second bounded rerun proposal:
+
+`sources/proposals/ny_osc_owner_name_file_second_schema_discovery_rerun_authorization.v1.json`
+
+Status:
+
+`PENDING_HUMAN_AUTHORIZATION`
+
 ## MVP-1 Remaining Product Path
 
-`OSC access instructions DONE / first real bounded execution BLOCKED_FAIL_CLOSED / Gate 2 CONSUMED / offline remediation IMPLEMENTED / CI verification NEXT`
+`OSC access instructions DONE / first real bounded execution BLOCKED_FAIL_CLOSED / Gate 2 CONSUMED / remediation VERIFIED / second bounded rerun proposal PREPARED / human review NEXT`
 
 in parallel with:
 
@@ -305,8 +325,8 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`VERIFY_NY_PROPERTY_TYPE_FIELD_SHAPE_REMEDIATION_OFFLINE`
+`HUMAN_NY_OSC_SECOND_SCHEMA_DISCOVERY_RERUN_AUTHORIZATION_REVIEW`
 
 Classification: `A — Product Critical / Offline Diagnostic Remediation`.
 
-Run full CI on the remediated schema-discovery harness. Only after a green result may a fresh bounded rerun proposal be prepared for separate human authorization.
+Remediation CI `35362395868` is green. A fresh second-rerun proposal is prepared. No second download is authorized until new explicit human approvals are granted.
