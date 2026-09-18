@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 
 ## Repository
 
@@ -10,13 +10,19 @@ GitHub is the canonical technical source of truth.
 
 ## Current Working Branch
 
-`mvp1-ny-osc-request-submitted`
+`mvp1-ny-offline-vertical-slice-integrated`
+
+Current verified HEAD:
+
+`d94a86f8d774d40c9170f9da2234dd53eb3feff9`
+
+Latest cumulative CI:
+
+`35318092067` — SUCCESS.
 
 Always verify remote HEAD and latest CI before any new modification.
 
 ## Priority Product Strategy
-
-Priority objective:
 
 `MVP-1 — First Economically Actionable Case`
 
@@ -26,8 +32,6 @@ Guiding metric:
 
 ## Canonical Read Order
 
-Before any new change read, in order:
-
 1. `AGENTS.md`
 2. `PRODUCT_STRATEGY_MVP1.md`
 3. `PROJECT_STATE.md`
@@ -35,54 +39,43 @@ Before any new change read, in order:
 5. `DECISIONS.md`
 6. `docs/handovers/HANDOVER_CURRENT.md`
 
+Then inspect task-relevant artifacts.
+
 ## California Path
 
-Latest California live run:
+Latest bounded live run:
 
-`35255228459` — attempt `1` — SUCCESS.
+`35255228459` — SUCCESS.
 
 Result:
 
-- rows examined: `1024` (`256/member`);
+- rows examined: `1024`;
 - `DEFER_UNCLASSIFIABLE`: `1024`;
 - recognized insurance rows: `0`;
 - `IN03`: `0`;
-- source response bytes: `524288`;
-- no stop.
+- source response bytes: `524288`.
 
-California source remains `HELD / NOT YET APPROVED`, not rejected. The current CA SCO `PROPERTY_TYPE` discovery path is frozen for MVP-1 absent genuinely new evidence. Consumed CA approvals are non-reusable.
+California remains `HELD / NOT YET APPROVED`, not rejected. The current CA `PROPERTY_TYPE` path is frozen for MVP-1 absent genuinely new evidence.
 
-## New York Source Selection / Offline Contract
+## New York Real-Source Track
 
-Selected candidate:
-
-`New York Office of the State Comptroller — Owner Name File`
-
-Source id:
+Selected source:
 
 `ny.osc.unclaimed_funds.owner_name_file`
 
-Offline source-contract/privacy package:
-
-`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
-
-Implementation base checkpoint:
-
-`198821ff41abb103b6c56876a075abb6c28c9c8f`
-
-Base CI:
-
-`35258809399` — SUCCESS.
-
-Source remains:
+State:
 
 `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`
 
-Physical schema remains `UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE`; production parser/classification remains inactive.
+Physical schema:
 
-## Gate 1 — Request Access Only
+`UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE`
 
-Gate:
+Primary target:
+
+`IN03 — Proceeds Due Beneficiaries`
+
+### Gate 1
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
 
@@ -90,57 +83,21 @@ Approval ref:
 
 `OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
 
-Machine evidence:
-
-`sources/evidence/ny_osc_owner_name_file_request_link_authorization.v1.json`
-
-Current approval state:
+State:
 
 `CONSUMED_SINGLE_USE_NON_REUSABLE`
 
-Single-use: yes. Reusable: no. Retry authorized: no.
+The Product Owner confirmed one manual official-form submission on 2026-09-17. This is recorded as Product Owner attestation, not independent repository verification. Requester contact values are not persisted.
 
-### Submission evidence
+Latest Gmail check on 2026-09-18 found no matching OSC access-instructions email.
 
-On 2026-09-17 the Product Owner explicitly confirmed in chat that the official OSC Owner Name File request form had been manually submitted once.
+### External dependency
 
-This repository records that Product Owner attestation. The external submission was not independently verified by repository tooling, and the exact external submit timestamp is not independently known.
+`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
 
-Requester contact values are intentionally not persisted in GitHub.
+When instructions arrive, inspect only what is needed to determine non-content access/download constraints. Do not download or inspect the Owner Name File under Gate 1.
 
-### Gate 1 scope after consumption
-
-Gate 1 is exhausted and cannot be reused. It does not authorize any additional request submission or retry.
-
-Gate 1 never authorized and still does not authorize:
-
-- Owner Name File download;
-- processing of owner name/address or other real owner PII;
-- raw file persistence;
-- schema parsing;
-- identity resolution;
-- beneficiary matching;
-- outreach;
-- representation;
-- fee agreement;
-- claim activity.
-
-## External Dependency — OSC Access Instructions
-
-OSC states that after receiving the request it will email a secure FTP link and instructions for downloading a zipped delimited `.txt` file.
-
-Current state:
-
-- request submitted: yes, Product Owner confirmed;
-- access instructions received: no;
-- Owner Name File downloaded: no;
-- real owner PII processed: no.
-
-No polling or retry is authorized by the consumed Gate 1 approval.
-
-## Gate 2 — Later Bounded First Download
-
-Gate:
+### Gate 2
 
 `HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
 
@@ -148,39 +105,138 @@ State:
 
 `NOT GRANTED / NOT READY`
 
-Before requesting Gate 2:
+Prerequisites:
 
-1. receive OSC access instructions;
-2. determine observable access/download constraints without processing Owner Name File contents;
-3. define explicit `max_download_bytes`;
-4. prepare a separately reviewed bounded first-download/transient-PII proposal.
+1. access instructions received;
+2. non-content download constraints observed;
+3. explicit `max_download_bytes` defined;
+4. separately reviewed single-use transient-PII authorization.
 
-No default byte cap may be invented.
+No real owner PII, raw file persistence, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity is currently authorized.
 
-When later separately authorized, Gate 2 may cover exactly one bounded download plus memory-only schema discovery with transient owner PII. It remains single-use, non-reusable and no retry/rerun is implicitly authorized.
+## Completed Offline Product Work
 
-## Source / Product State
+### 1. Synthetic downstream MVP-1 slice
+
+Reused the already verified implementation from `mvp1-synthetic-vertical-slice-offline` rather than rewriting it.
+
+Integrated files include:
+
+- `src/unclaimed_platform/domain/mvp1_vertical_slice.py`;
+- `schemas/ui/mvp1_synthetic_case_review.schema.json`;
+- reviewer API route;
+- Streamlit MVP-1 case surface;
+- unit/contract/smoke tests;
+- `docs/audits/MVP1_SYNTHETIC_VERTICAL_SLICE_OFFLINE.md`.
+
+Path:
+
+`SYNTHETIC_POST_SCHEMA_MAPPING -> exact NY insurance classification -> IN03 candidate -> economics -> reviewer`
+
+Integration commit:
+
+`75156c5419616b67eff658c8c3c8d6775849546c`
+
+CI:
+
+`35317313977` — SUCCESS.
+
+No real source or PII was accessed.
+
+### 2. NY recoverable-value / fee / cost evidence benchmark
+
+Audit:
+
+`docs/audits/NY_MVP1_RECOVERABLE_VALUE_EVIDENCE_BENCHMARK_OFFLINE.md`
+
+Official-source conclusion encoded in the product:
+
+- Owner Name File does not disclose exact item amount;
+- exact recoverable value remains unknown pre-claim-review;
+- APL §1416 15% location-service figure is represented only as a statutory maximum for its scoped rule and is not an assumed actual revenue rate;
+- actual fee requires explicit evidence and legal-scope confirmation;
+- expected follow-up cost remains unmeasured until evidence exists;
+- pre-contact commercial actionability is therefore `NOT_COMPUTABLE_PRE_CONTACT`.
+
+Implemented:
+
+- `src/unclaimed_platform/domain/ny_mvp1_value_evidence.py`;
+- `schemas/economics/ny_mvp1_precontact_evidence.schema.json`;
+- `schemas/economics/ny_mvp1_explicit_case_economics_input.schema.json`;
+- `schemas/economics/ny_mvp1_explicit_case_economics_result.schema.json`;
+- unit + contract tests.
+
+Explicit later calculations use integer cents and basis points plus evidence refs. They perform arithmetic only and return no commercial recommendation.
+
+A transient CI failure `35317731747` was caused solely by duplicate Python test-module basenames. The contract test was renamed; repair CI `35317814189` was SUCCESS.
+
+### 3. Economics reviewer integration
+
+Added:
+
+- `GET /api/reviewer/mvp1/economics/precontact`;
+- fail-closed Streamlit economics adapter;
+- `NY PRE-CONTACT ECONOMICS` reviewer card;
+- API and Streamlit smoke coverage.
+
+Latest cumulative CI:
+
+`35318092067` — SUCCESS.
+
+Verified:
+
+- Ruff PASS;
+- mypy PASS;
+- contract tests PASS;
+- smoke tests PASS;
+- full pytest PASS;
+- Streamlit safety smoke PASS;
+- Streamlit startup smoke PASS;
+- frontend lint PASS;
+- frontend typecheck PASS;
+- frontend build PASS.
+
+## Current Product State
 
 - approved real sources: `0`;
-- California source: `HELD`;
-- CA `PROPERTY_TYPE` discovery: `FROZEN FOR MVP-1`;
-- NY OSC Owner Name File: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
-- NY Gate 1: `CONSUMED / NON-REUSABLE`;
-- NY request submitted: yes, Product Owner confirmed manual submission;
-- NY access instructions obtained: no;
-- NY real owner PII processed: no;
+- CA source: `HELD`;
+- NY source: `REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`;
+- NY Gate 1: consumed/non-reusable;
+- NY access instructions: pending;
 - NY Gate 2: not granted;
-- production parser/classification: inactive;
+- synthetic IN03 classification-to-reviewer path: `READY / VERIFIED`;
+- NY pre-contact economics contract + reviewer exposure: `READY / VERIFIED`;
 - real MVP-1 candidates: `0`.
+
+## Parallel Critical Paths
+
+External:
+
+`OSC email -> download constraints -> max_download_bytes -> Gate 2 -> bounded schema discovery`
+
+Offline:
+
+`synthetic downstream slice DONE -> value-evidence contract DONE -> reviewer integration DONE -> measured follow-up-cost contract NEXT`
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
+`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
 
-Classification: `A — Product Critical / External Dependency`.
+Classification:
 
-When the OSC email/access instructions arrive, provide or expose only the access instructions needed to determine non-content download constraints. Do not download or inspect the Owner Name File and do not process owner PII under the consumed Gate 1 approval.
+`A — Product Critical`
 
-After those non-content constraints are known, prepare the separate Gate 2 bounded first-download/transient-PII authorization proposal with an explicit `max_download_bytes`.
+Goal:
+
+Create a deterministic, provenance-bearing contract for the commercial measurements already required by MVP-1:
+
+- automated processing cost per candidate;
+- source/data cost per candidate where applicable;
+- human review time per candidate;
+- additional manual research effort.
+
+Use synthetic/test inputs only. Do not invent default monetary/time assumptions. The contract may accept measured values later but must keep them absent/unknown until real measurement evidence exists.
+
+Do not access the Owner Name File, process real owner PII, perform outreach, create fee agreements or submit claims.

@@ -1,15 +1,15 @@
 # ROADMAP.md
 
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 
 | Milestone | Status | Exit evidence |
 |---|---|---|
 | M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
 | M1 — Machine Contracts | VERIFIED | Versioned schemas and validation green |
 | M2 — State & Governance Core | VERIFIED | Deterministic governance core verified |
-| M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence v1 |
-| M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | Streamlit active |
-| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY OSC REQUEST SUBMITTED; ACCESS INSTRUCTIONS PENDING | Gate 1 consumed after Product Owner-confirmed manual submission |
+| M3 — California Data Spike | COMPLETE FOR CURRENT MVP-1 HYPOTHESIS; CA PROPERTY_TYPE PATH FROZEN | run `35255228459` + derived evidence |
+| M3 Product Visibility — Operations Console | STREAMLIT ACTIVE | reviewer surface verified |
+| MVP-1 — First Economically Actionable Case | IN PROGRESS — NY ACCESS PENDING; OFFLINE DOWNSTREAM + ECONOMICS EVIDENCE VERIFIED | CI `35318092067` |
 
 ## Product Priority
 
@@ -19,94 +19,96 @@ Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-## California Outcome
+## External Real-Source Track
 
-Latest deeper live execution:
-
-`35255228459` — attempt `1` — SUCCESS.
-
-It examined `1024` rows (`256/member`) under the unchanged `524288`-byte source-response envelope. All `1024` were deferred as unclassifiable and no authority-backed insurance code was observed.
-
-California remains held rather than rejected. Repeating/widening the same `PROPERTY_TYPE` discovery pattern is not on the MVP-1 critical path without genuinely new evidence.
-
-## Alternative Source Decision
-
-Selected:
+Selected candidate:
 
 `New York OSC Owner Name File`
 
-Source id:
+State:
 
-`ny.osc.unclaimed_funds.owner_name_file`
+`REGISTERED CANDIDATE / DISABLED / NOT APPROVED / NOT ACQUIRED`
 
-## New York Source Contract / Privacy Gate
-
-Completed offline:
-
-`IMPLEMENT_NY_OSC_OWNER_NAME_FILE_SOURCE_CONTRACT_AND_PRIVACY_GATE_OFFLINE`
-
-CI:
-
-`35258809399` — SUCCESS.
-
-The source remains disabled/unapproved and the first real schema discovery remains memory-only with raw owner-file and owner-row persistence forbidden.
-
-## NY OSC Gate 1
-
-Gate:
-
-`HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION`
-
-Approval ref:
-
-`OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71`
-
-Current state:
+Gate 1:
 
 `CONSUMED / SINGLE USE / NON-REUSABLE`
 
-On 2026-09-17 the Product Owner confirmed that the official request form had been manually submitted once. Requester contact values are not persisted in the repository.
+Official request submission:
 
-## MVP-1 Critical Path
+`PRODUCT OWNER CONFIRMED COMPLETE`
 
 Current sequence:
 
-`NY source contract/privacy gate — DONE`
+`receive OSC access instructions — PENDING`
 
-`-> NY request-link authorization — CONSUMED`
-
-`-> official request submission — PRODUCT OWNER CONFIRMED COMPLETE`
-
-`-> receive access instructions — PENDING`
-
-`-> determine observable download constraints without processing file contents`
+`-> observe non-content download constraints`
 
 `-> define explicit max_download_bytes`
 
 `-> HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION`
 
-`-> exactly one bounded first-file memory-only schema discovery`
+`-> one bounded first-file memory-only schema discovery`
 
 `-> source/schema decision`
 
-`-> insurance classification using observed mapping + NY authority semantics`
+`-> real classification/candidate integration`
 
-`-> candidate creation`
+No real download or owner PII processing is authorized before Gate 2.
 
-`-> provenance/evidence`
+## Offline Product Track — Completed
 
-`-> economics`
+### Synthetic downstream vertical slice
 
-`-> Streamlit reviewer`
+`SYNTHETIC_POST_SCHEMA_MAPPING -> exact classification -> IN03 candidate -> economics -> reviewer`
 
-`-> human continue/stop decision`
+Integration commit:
+
+`75156c5419616b67eff658c8c3c8d6775849546c`
+
+CI:
+
+`35317313977` — SUCCESS.
+
+### Recoverable-value / economics evidence
+
+Implemented fail-closed NY pre-contact economics contract:
+
+- exact value remains unknown before permitted claim review/ownership verification;
+- statutory 15% location-service cap is not treated as an assumed actual fee;
+- actual fee rate requires evidence;
+- follow-up cost requires measurement;
+- explicit later calculations use cents/basis-points and evidence refs;
+- no automatic commercial recommendation.
+
+Reviewer exposure:
+
+- API `/api/reviewer/mvp1/economics/precontact`;
+- Streamlit `NY PRE-CONTACT ECONOMICS` card.
+
+Latest cumulative CI:
+
+`35318092067` — SUCCESS.
+
+## MVP-1 Remaining Product Path
+
+`OSC access instructions / Gate 2 / schema discovery`
+
+in parallel with:
+
+`measured candidate-cost contract -> commercial measurement capture`
+
+then, once a lawful real source is available:
+
+`real schema mapping -> insurance classification -> candidate -> evidence/provenance -> economics -> reviewer -> human continue/stop`
 
 ## Next Product Work
 
 Execute exclusively:
 
-`AWAIT_NY_OSC_ACCESS_INSTRUCTIONS`
+`IMPLEMENT_NY_MVP1_FOLLOW_UP_COST_MEASUREMENT_CONTRACT_OFFLINE`
 
-Classification: `A — Product Critical / External Dependency`.
+Classification: `A — Product Critical`.
 
-When instructions arrive, capture only non-content access/download constraints required to prepare Gate 2. Do not download or inspect the Owner Name File and do not process owner PII before separate Gate 2 authorization.
+Purpose:
+
+Prepare deterministic measurement of automated processing cost, source/data cost, human review time and additional manual research effort per candidate, with provenance and without invented assumptions or real PII.
