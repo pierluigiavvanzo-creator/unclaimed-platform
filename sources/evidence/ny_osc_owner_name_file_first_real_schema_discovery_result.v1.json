@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.first_real_schema_discovery_result",
+  "observed_on": "2026-09-18",
+  "evidence_source": "PRODUCT_OWNER_POWERSHELL_OUTPUT_IN_CHAT",
+  "status": "BLOCKED",
+  "reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+  "archive_byte_count": 409477526,
+  "archive_member_count": 1,
+  "selected_text_member_present": true,
+  "selected_member_uncompressed_bytes": 1939569781,
+  "local_file_deleted": true,
+  "logical_deletion_only": true,
+  "physical_secure_erasure_guaranteed": false,
+  "raw_file_persisted": false,
+  "owner_rows_persisted": false,
+  "owner_field_logging": false,
+  "row_specific_human_inspection": false,
+  "no_owner_values_returned": true,
+  "retry_authorized": false
+}

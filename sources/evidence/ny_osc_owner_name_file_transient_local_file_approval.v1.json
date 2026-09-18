@@ -4,7 +4,7 @@
   "owner_authorization": "APPROVO NY OSC FIRST DOWNLOAD TRANSIENT LOCAL FILE BOUNDED ONCE",
   "granted_on": "2026-09-18",
   "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_6F2C91A4",
-  "status": "GRANTED_NOT_CONSUMED",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -34,5 +34,7 @@
     "fee_agreement": false,
     "representation": false,
     "claim_activity": false
-  }
+  },
+  "consumed_on": "2026-09-18",
+  "execution_outcome": "LOCAL_FILE_DELETED_LOGICALLY"
 }

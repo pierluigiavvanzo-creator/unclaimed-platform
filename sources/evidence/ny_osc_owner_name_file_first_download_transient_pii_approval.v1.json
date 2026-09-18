@@ -4,7 +4,7 @@
   "owner_authorization": "APPROVO NY OSC OWNER NAME FILE FIRST DOWNLOAD TRANSIENT PII BOUNDED ONCE",
   "granted_on": "2026-09-18",
   "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1",
-  "status": "GRANTED_NOT_CONSUMED",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -55,5 +55,8 @@
     "fee_agreement": false,
     "representation": false,
     "claim_activity": false
-  }
+  },
+  "consumed_on": "2026-09-18",
+  "execution_outcome": "BLOCKED_FAIL_CLOSED",
+  "execution_reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
 }
