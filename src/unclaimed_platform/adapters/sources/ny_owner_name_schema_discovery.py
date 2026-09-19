@@ -396,12 +396,9 @@ def _iter_quoted_pipe_record_shapes(
                     index += 1
                     continue
 
+                can_open_quote = not scanner.field_has_nonspace
                 scanner.consume_field_byte(value)
-                if not scanner.field_has_nonspace or (
-                    scanner.field_has_nonspace
-                    and value == ord('"')
-                    and _only_leading_space_before_quote(scanner)
-                ):
+                if can_open_quote:
                     in_quotes = True
                 index += 1
                 continue
@@ -419,14 +416,6 @@ def _iter_quoted_pipe_record_shapes(
 
     if scanner.has_content:
         yield scanner.finish()
-
-
-def _only_leading_space_before_quote(scanner: _LogicalRecordScanner) -> bool:
-    """The quote just consumed may open only at the start of a trimmed field."""
-
-    # consume_field_byte marks the quote as non-space, so this helper recognizes the
-    # start position from the absence of any earlier non-space byte.
-    return scanner.field_has_nonspace
 
 
 class NyOwnerNameSchemaDiscoveryAuthorization(BaseModel):
