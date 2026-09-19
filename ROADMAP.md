@@ -2,6 +2,27 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Fourth Attempt Consumed / Structural Telemetry Candidate
+
+Completed real execution:
+
+`EXECUTE_NY_OSC_FOURTH_BOUNDED_ATTEMPT_ONCE_AFTER_PASSED_FRESH_LISTING_PREFLIGHT`
+
+Result:
+
+`BLOCKED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Both fourth approvals are consumed and non-reusable; zero retry remains binding. The raw ZIP
+was logically deleted and no owner values were returned or persisted.
+
+Current offline implementation candidate:
+
+`IMPLEMENT_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
+
+It distinguishes raw delimiters from parser-structural delimiters using non-PII counters only,
+while preserving the existing 14-field fail-closed rule. CI `35444131105` verified both `quality` and `streamlit-candidate` as SUCCESS on the
+isolated candidate branch. No fifth download is authorized.
+
 ## Current Override — Fourth Attempt Approvals Granted Offline
 
 Completed:

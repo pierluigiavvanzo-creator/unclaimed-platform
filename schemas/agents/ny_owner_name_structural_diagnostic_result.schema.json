@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0",
+  "title": "NY Owner Name Structural Diagnostic Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version", "source_id", "diagnostic_scope", "reason_code",
+    "classification", "expected_field_count", "structural_field_count",
+    "raw_pipe_count", "structural_pipe_count", "suppressed_pipe_count",
+    "quote_byte_count", "quote_open_event_count", "quote_close_event_count",
+    "doubled_quote_pair_count", "physical_line_breaks_inside_quotes",
+    "ended_inside_quote", "no_raw_record_returned", "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+    "diagnostic_scope": {"const": "STRUCTURAL_ONLY"},
+    "reason_code": {"const": "UNEXPECTED_DATA_FIELD_COUNT"},
+    "classification": {"enum": [
+      "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED",
+      "QUOTE_SUPPRESSED_DELIMITER_OBSERVED",
+      "QUOTED_DELIMITER_INTERACTION_AMBIGUOUS",
+      "STRUCTURAL_MISMATCH_UNCLASSIFIED"
+    ]},
+    "expected_field_count": {"const": 14},
+    "structural_field_count": {"type": "integer", "minimum": 0},
+    "raw_pipe_count": {"type": "integer", "minimum": 0},
+    "structural_pipe_count": {"type": "integer", "minimum": 0},
+    "suppressed_pipe_count": {"type": "integer", "minimum": 0},
+    "quote_byte_count": {"type": "integer", "minimum": 0},
+    "quote_open_event_count": {"type": "integer", "minimum": 0},
+    "quote_close_event_count": {"type": "integer", "minimum": 0},
+    "doubled_quote_pair_count": {"type": "integer", "minimum": 0},
+    "physical_line_breaks_inside_quotes": {"type": "integer", "minimum": 0},
+    "ended_inside_quote": {"const": false},
+    "no_raw_record_returned": {"const": true},
+    "no_owner_values_returned": {"const": true}
+  }
+}
