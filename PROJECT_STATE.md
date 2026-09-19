@@ -2,6 +2,23 @@
 
 Last updated: 2026-09-18
 
+## Superseding Current Event — Third Attempt Authorized, Not Yet Consumed
+
+The Product Owner supplied both exact third-attempt approval phrases on 2026-09-18.
+
+State:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+The grants are bound to integrated runner checkpoint
+`2d871ee041abe9cccc0e0fa32b849bbe223bdfa2` and CI `35385157576 — SUCCESS`. Bounds remain one download,
+zero retries, 450,000,000 compressed bytes, 2,000,000,000 uncompressed bytes and one
+archive member. Fresh exact listing preflight remains mandatory.
+
+This repository change performed no source access, remote preflight, download, archive
+opening or owner-PII processing. Execution may occur only after this authorization package
+passes CI and is integrated.
+
 ## Superseding Current Event — Third Attempt Runner Prepared Offline
 
 The Product Owner authorized technical preparation only and explicitly did not authorize

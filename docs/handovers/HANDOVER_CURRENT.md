@@ -739,6 +739,27 @@ before creating a temp directory.
 
 No source access, listing preflight, download, owner-file opening, or PII processing occurred.
 
+## 18. Third bounded attempt — approvals granted, not consumed
+
+Product Owner authorization phrases:
+
+- `APPROVO NY OSC THIRD TRANSIENT LOCAL FILE BOUNDED ONCE`;
+- `APPROVO NY OSC OWNER NAME FILE THIRD BOUNDED TRANSIENT PII ATTEMPT ONCE`.
+
+State:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+Runner binding:
+
+- checkpoint: `2d871ee041abe9cccc0e0fa32b849bbe223bdfa2`;
+- CI: `35385157576 — SUCCESS`;
+- script: `scripts/ny_osc_gate3_transient_local.ps1`.
+
+All download, archive, privacy and deletion bounds remain unchanged. Fresh exact listing
+preflight is mandatory. This authorization-package change performed no source access,
+preflight, download or owner-PII processing.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -773,12 +794,13 @@ Offline:
 
 ## SINGLE NEXT ACTION
 
-Execute exclusively:
+Execute exclusively after this package is CI-verified and integrated:
 
-`REVIEW_AND_INTEGRATE_NY_OSC_THIRD_ATTEMPT_RUNNER_OFFLINE`
+`EXECUTE_NY_OSC_THIRD_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
 
 Classification:
 
-`A — Product Critical / Offline Safety Implementation`
+`A — Product Critical / Human-Controlled Real-Source Execution`
 
-Run CI and review the package. Do not grant approvals or access the source.
+Use `scripts/ny_osc_gate3_transient_local.ps1`. Any drift or failed precheck stops before
+download. Both approvals are single-use and authorize zero retries.

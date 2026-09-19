@@ -2,6 +2,21 @@
 
 Last updated: 2026-09-18
 
+## Current Override — Third Attempt Authorized, Awaiting Verified Integration
+
+Approved:
+
+`AUTHORIZE_NY_OSC_THIRD_BOUNDED_ATTEMPT_ONCE`
+
+State:
+
+`GRANTED_NOT_CONSUMED / ONE DOWNLOAD / ZERO RETRY`
+
+The exact local-file and transient-PII grants are bound to runner checkpoint
+`2d871ee041abe9cccc0e0fa32b849bbe223bdfa2` and CI `35385157576 — SUCCESS`. All byte/member caps remain
+unchanged and a fresh exact listing preflight is required before download. Repository
+preparation performed zero source access.
+
 ## Current Override — Third Attempt Proposal Prepared Offline
 
 Completed:
