@@ -785,6 +785,31 @@ Both third approvals are
 The evidence does not distinguish source corruption from a parser-dialect mismatch such as an
 embedded line break inside a quoted field.
 
+## 20. MALFORMED_QUOTED_RECORD offline analysis
+
+Completed:
+
+`ANALYZE_NY_OSC_MALFORMED_QUOTED_RECORD_OFFLINE`
+
+Decision:
+
+`ANALYZED_OFFLINE_REMEDIATION_FEASIBLE_NOT_IMPLEMENTED`
+
+Confirmed code mechanism: each physical line is currently parsed as a complete record, so an
+open quote at a physical line boundary fails immediately. A quoted embedded newline is a
+compatible but unconfirmed explanation for the deleted real record.
+
+Selected remediation: byte-level streaming logical-record state machine with constant
+auxiliary memory, no owner-field decoding or buffering, and existing caps preserved.
+
+Artifacts:
+
+- `sources/proposals/ny_osc_multiline_quoted_record_offline_remediation.v1.json`;
+- `schemas/common/ny_osc_multiline_quoted_record_offline_remediation.schema.json`;
+- `docs/audits/NY_OSC_MALFORMED_QUOTED_RECORD_OFFLINE_ANALYSIS.md`.
+
+No parser or runner changed. No fourth attempt is prepared or authorized.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -821,12 +846,11 @@ Offline:
 
 Execute exclusively:
 
-`ANALYZE_NY_OSC_MALFORMED_QUOTED_RECORD_OFFLINE`
+`IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE`
 
 Classification:
 
-`A — Product Critical / Offline Safety Diagnosis`
+`A — Product Critical / Offline Safety Implementation`
 
-Use synthetic byte fixtures only. Do not access NY OSC, download the file, reconstruct owner
-rows, or prepare a fourth real attempt. Determine whether bounded multi-line quoted-record
-handling can be implemented without weakening privacy and fail-closed guarantees.
+Use synthetic byte fixtures only. Preserve byte-level privacy, constant auxiliary memory,
+existing input caps and fail-closed behavior. Do not access NY OSC or prepare a fourth attempt.
