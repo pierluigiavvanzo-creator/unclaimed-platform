@@ -13,11 +13,11 @@ from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution
 
 ROOT = Path(__file__).resolve().parents[2]
 LOCAL_SCHEMA = ROOT / "schemas/common/ny_osc_fifth_attempt_transient_local_approval.schema.json"
-LOCAL_APPROVAL = ROOT / "sources/evidence/ny_osc_owner_name_file_fifth_attempt_transient_local_approval.v1.json"
+LOCAL_APPROVAL = (\n    ROOT\n    / "sources/evidence"\n    / "ny_osc_owner_name_file_fifth_attempt_transient_local_approval.v1.json"\n)
 PII_SCHEMA = ROOT / "schemas/common/ny_osc_fifth_attempt_transient_pii_approval.schema.json"
-PII_APPROVAL = ROOT / "sources/evidence/ny_osc_owner_name_file_fifth_attempt_transient_pii_approval.v1.json"
+PII_APPROVAL = (\n    ROOT\n    / "sources/evidence"\n    / "ny_osc_owner_name_file_fifth_attempt_transient_pii_approval.v1.json"\n)
 
-PROPOSAL_REF = "sources/proposals/ny_osc_owner_name_file_fifth_bounded_attempt_authorization.v1.json"
+PROPOSAL_REF = (\n    "sources/proposals/"\n    "ny_osc_owner_name_file_fifth_bounded_attempt_authorization.v1.json"\n)
 PROPOSAL_CHECKPOINT = "8ce856ddbeac5d2300f808729a887803e212b240"
 PROPOSAL_CI = 35460348569
 
@@ -99,7 +99,7 @@ def test_runtime_bridge_accepts_attempt_five_only_after_new_distinct_grants(
     )
     pii.update(
         status="GRANTED_NOT_CONSUMED",
-        owner_authorization="APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+        owner_authorization=(\n            "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE"\n        ),
         granted_on="2026-09-20",
         execution_approval_ref="synthetic-fifth-pii-ref",
         runner_checkpoint="a" * 40,
