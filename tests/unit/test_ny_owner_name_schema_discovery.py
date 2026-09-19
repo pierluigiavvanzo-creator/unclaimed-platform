@@ -393,9 +393,9 @@ def test_multiline_quoted_pipe_and_doubled_quote_remain_non_structural() -> None
 
 def test_eof_inside_multiline_quote_still_fails_closed() -> None:
     payload = (
-        '1001|IN03|Synthetic description|1|"Synthetic Owner\n'
-        "continuation without closing quote"
-    ).encode("utf-8")
+        b'1001|IN03|Synthetic description|1|"Synthetic Owner\n'
+        b"continuation without closing quote"
+    )
 
     result = discover_ny_owner_name_schema(
         _authorization(),
@@ -412,9 +412,9 @@ def test_eof_inside_multiline_quote_still_fails_closed() -> None:
 
 def test_wrong_field_count_after_multiline_assembly_fails_closed() -> None:
     payload = (
-        '1001|IN03|Synthetic description|1|"Synthetic Owner\n'
-        'Continuation"|too|few\n'
-    ).encode("utf-8")
+        b'1001|IN03|Synthetic description|1|"Synthetic Owner\n'
+        b'Continuation"|too|few\n'
+    )
 
     result = discover_ny_owner_name_schema(
         _authorization(),
