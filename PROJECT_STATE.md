@@ -2,6 +2,32 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Fourth Attempt Runner Prepared Offline
+
+Authorized and completed:
+
+`PREPARE_NY_OSC_FOURTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+State:
+
+`READY_OFFLINE / APPROVALS_NOT_GRANTED / ZERO SOURCE ACCESS / ZERO RETRY`
+
+Prepared:
+
+- `scripts/ny_osc_gate4_transient_local.ps1`;
+- fourth-attempt transient-local and transient-PII approval schemas;
+- two approval templates with status `NOT_GRANTED`;
+- contract and static fail-closed tests;
+- offline technical-preparation audit.
+
+The runner binds attempt 4 to the reviewed proposal, two distinct future approval references, one
+shared verified runner checkpoint and CI run, unchanged byte/member/field limits, and the
+65,536-byte streaming parser. All approval checks occur before the temporary directory is
+created. The runner contains no network client.
+
+No NY OSC access, remote preflight, download, archive opening or real owner-PII processing
+occurred. Operational approval remains a separate human gate.
+
 ## Superseding Current Event — Fourth Attempt Proposed Offline
 
 Prepared:
