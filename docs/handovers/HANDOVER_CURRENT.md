@@ -32,7 +32,7 @@ Current task:
 
 Candidate state:
 
-`IMPLEMENTED_OFFLINE / CI_PENDING / ZERO SOURCE ACCESS`
+`IMPLEMENTED_OFFLINE / CI_35444131105_SUCCESS / ZERO SOURCE ACCESS`
 
 The candidate adds structural-only delimiter/quote telemetry and a separate v1 JSON Schema.
 It does not relax the 14-field fail-closed rule and does not authorize a fifth attempt.

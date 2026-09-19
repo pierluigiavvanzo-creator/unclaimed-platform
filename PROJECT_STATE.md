@@ -28,7 +28,7 @@ Candidate branch:
 
 Verification state at this commit:
 
-`IMPLEMENTED_OFFLINE_CANDIDATE / CI_PENDING`
+`IMPLEMENTED_OFFLINE / CI_35444131105_SUCCESS`
 
 ## Superseding Current Event — Fourth Attempt Approvals Granted Offline
 

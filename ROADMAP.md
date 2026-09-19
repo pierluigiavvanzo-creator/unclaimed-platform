@@ -20,7 +20,7 @@ Current offline implementation candidate:
 `IMPLEMENT_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
 
 It distinguishes raw delimiters from parser-structural delimiters using non-PII counters only,
-while preserving the existing 14-field fail-closed rule. CI verification is pending on the
+while preserving the existing 14-field fail-closed rule. CI `35444131105` verified both `quality` and `streamlit-candidate` as SUCCESS on the
 isolated candidate branch. No fifth download is authorized.
 
 ## Current Override — Fourth Attempt Approvals Granted Offline

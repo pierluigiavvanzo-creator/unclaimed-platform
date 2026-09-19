@@ -82,3 +82,23 @@ preflight, download, owner-file opening or new PII processing.
 
 The fourth-attempt execution evidence is recorded from the Product Owner-supplied runtime
 output. No fifth attempt is authorized.
+
+
+## Verification
+
+GitHub Actions run:
+
+`35444131105 — SUCCESS`
+
+Passed:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety smoke;
+- Streamlit startup smoke;
+- frontend lint;
+- frontend typecheck;
+- frontend build.
