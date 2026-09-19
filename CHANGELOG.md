@@ -5,6 +5,9 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Persisted non-PII evidence for the consumed third NY OSC bounded attempt.
+- Marked both third-attempt approvals consumed and non-reusable after fail-closed execution.
+- Recorded the bounded offline diagnosis for `MALFORMED_QUOTED_RECORD` without claiming source corruption.
 - Registered both exact NY OSC third-attempt approvals as granted and not consumed.
 - Bound the single-use zero-retry grants to the integrated runner checkpoint and successful CI.
 - Added policy, contract tests and audit evidence for the human-controlled third execution.
