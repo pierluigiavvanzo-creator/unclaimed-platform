@@ -2,6 +2,54 @@
 
 Last updated: 2026-09-19
 
+## AUTHORITATIVE CURRENT STATE — FIFTH ATTEMPT PROPOSAL PREPARED OFFLINE
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Proposal branch:
+
+`mvp1-ny-fifth-bounded-attempt-proposal-offline`
+
+Canonical baseline:
+
+`326b2ba91f30adb80faf816d85a5d707fde4eaee`
+
+Current task result:
+
+`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE = COMPLETED_CANDIDATE`
+
+Proposal state:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Diagnostic objective:
+
+`RAW_DELIMITER_SHORTAGE_VS_QUOTE_SUPPRESSED_DELIMITER`
+
+Bounds remain unchanged: one download maximum, zero retries, 450,000,000 compressed bytes,
+2,000,000,000 uncompressed bytes, one archive member, exactly one text member, pipe delimiter,
+14 documented fields and 65,536-byte parser chunks.
+
+Required future receipt contracts:
+
+- transient-local execution result v1.1.0;
+- structural diagnostic v1.0.0 on `UNEXPECTED_DATA_FIELD_COUNT`.
+
+Safety state:
+
+- OSC source access: `NOT AUTHORIZED`;
+- fifth listing preflight: `NOT AUTHORIZED`;
+- fifth download: `NOT AUTHORIZED`;
+- fifth execution: `NOT AUTHORIZED`;
+- fifth approvals: `NOT_GRANTED`;
+- fifth runner: `NOT_IMPLEMENTED`;
+- fourth approvals: `CONSUMED / NON-REUSABLE`;
+- automatic repair/row skip/widening/retry: `FORBIDDEN`.
+
+This section supersedes conflicting historical current-state entries below.
+
 ## AUTHORITATIVE CURRENT STATE — POST-PR12 MERGE
 
 Repository:
@@ -1002,28 +1050,8 @@ Offline:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL`
 
-Classification:
-
-`A — Product Critical / Offline Governance Preparation`
-
-Purpose:
-
-Use the merged structural-diagnostic telemetry and v1.1.0 execution bridge to define the
-smallest bounded fifth-attempt proposal capable of distinguishing a true delimiter shortage
-from quote-suppressed delimiter behavior.
-
-Hard limits for this next action:
-
-- repository-only;
-- no OSC access;
-- no fresh listing preflight;
-- no download;
-- no real owner-file opening;
-- no granted approvals;
-- no execution;
-- no retry authorization;
-- no widening of existing byte/member/privacy bounds unless separately justified and reviewed.
-
-A fifth attempt remains unapproved until later explicit human gates.
+Review the proposal, schema, contract test and audit only. Do not prepare a runner, grant
+approvals, access OSC, perform a fresh listing preflight, download the Owner Name File or
+execute a fifth attempt until later separate human gates.

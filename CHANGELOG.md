@@ -5,6 +5,9 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Versioned NY OSC fifth-attempt offline proposal with unchanged one-download/zero-retry bounds.
+- Contract test preventing fourth-approval reuse, source access, automatic repair/row skip/widening, or implicit fifth execution.
+- Diagnostic objective binding future field-count blocks to execution receipt v1.1.0 and structural diagnostic v1.0.0.
 - Structural-only NY OSC diagnostic telemetry for raw/structural/suppressed pipe and quote-state counts.
 - Versioned transient-local execution result v1.1.0 carrying sanitized structural diagnostics end-to-end.
 - Separate v1 JSON Schema for non-PII NY Owner Name structural diagnostics.

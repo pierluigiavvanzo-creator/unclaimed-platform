@@ -2,6 +2,31 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Fifth Attempt Proposal Prepared Offline
+
+Completed:
+
+`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / ONE DOWNLOAD MAX / ZERO RETRY / ZERO SOURCE ACCESS`
+
+The proposal preserves all current limits and uses the merged structural-diagnostic capability
+as its only new diagnostic objective. It does not modify parser acceptance behavior.
+
+Before any real fifth attempt, separate future work would still be required for:
+
+1. human review of this proposal;
+2. offline preparation and CI verification of the fifth runner and approval templates;
+3. two explicit single-use approvals;
+4. a separately authorized fresh exact listing preflight;
+5. a separately authorized one-time execution.
+
+Current next gate:
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL`
+
 ## Current Override — PR #12 Merged / Fifth-Attempt Preparation Is Offline Only
 
 PR #12 is merged into the canonical development branch at:
