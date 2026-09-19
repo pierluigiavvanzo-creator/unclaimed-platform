@@ -463,3 +463,52 @@ def test_invalid_property_type_after_multiline_record_fails_closed() -> None:
     assert result.aggregate_complete_record_count == 1
     assert result.property_type_ascii_record_count == 1
     assert "Synthetic Owner" not in result.model_dump_json()
+
+
+
+def _synthetic_tail_after_owner() -> bytes:
+    return b"|1 Synthetic Street|||Albany|NY|12207|USA|Synthetic Holder|2026\n"
+
+
+def test_doubled_quote_across_stream_chunk_boundary() -> None:
+    prefix = b'1001|IN03|Synthetic description|1|"'
+    padding = b"A" * ((64 * 1024 - 1) - len(prefix))
+    payload = (
+        prefix
+        + padding
+        + b'""continuation"'
+        + _synthetic_tail_after_owner()
+    )
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == 1
+    assert "continuation" not in result.model_dump_json()
+
+
+def test_crlf_inside_quotes_across_stream_chunk_boundary() -> None:
+    prefix = b'1001|IN03|Synthetic description|1|"'
+    padding = b"A" * ((64 * 1024 - 1) - len(prefix))
+    payload = (
+        prefix
+        + padding
+        + b"\r\ncontinuation\""
+        + _synthetic_tail_after_owner()
+    )
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == 1
+    assert "continuation" not in result.model_dump_json()
