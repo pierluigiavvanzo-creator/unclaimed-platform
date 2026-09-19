@@ -118,3 +118,67 @@ and the single download remain separate explicit human gates.
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+
+## Repository verification
+
+Initial implementation checkpoint:
+
+`17a89dc9a44c4bb8e6403092964b7a12d24d7eaa`
+
+Initial CI:
+
+`35474348294 — FAILED_RUFF_ONLY`
+
+The only findings were four E501 line-length violations in
+`tests/contract/test_ny_osc_fifth_attempt_approvals.py`. No runner, schema, privacy or domain
+behavior failed.
+
+First corrective checkpoint:
+
+`88aa210111f2f2427d7e62b9b133bb0b9ea7371d`
+
+CI:
+
+`35474384505 — FAILED_RUFF_SYNTAX`
+
+The first formatting correction inserted literal escaped `\\n` sequences into the Python
+test file. This was a connector-side patching defect, not a runner or domain defect. No runner,
+approval schema/template, privacy rule or execution bound changed.
+
+Functional verification checkpoint:
+
+`64b25f350fc2b7fc80fd3d518bd5c8aabd06a178`
+
+CI:
+
+`35474454565 — SUCCESS`
+
+Passed:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint;
+- frontend typecheck;
+- frontend build.
+
+The corrective loop closed after two corrective commits. No third corrective patch was needed.
+
+## Final offline state
+
+`READY_OFFLINE / VERIFIED_CI / APPROVALS_NOT_GRANTED / ZERO SOURCE ACCESS / ZERO RETRY`
+
+Approval templates intentionally retain null runner checkpoint/CI fields while `NOT_GRANTED`.
+A later explicit grant step, if authorized, must bind them to a reviewed/integrated runner
+checkpoint and successful CI; this preparation does not grant them.
+
+No OSC access, listing preflight, download, real Owner Name File opening, owner-PII processing
+or fifth execution occurred.
+
+## Review gate
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`

@@ -1,8 +1,39 @@
 # ROADMAP.md
 
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 
-## Current Override — Fifth Attempt Proposal Merged / Runner Preparation Offline
+## Current Override — Fifth Runner Prepared / CI Verified / Review Pending
+
+Completed:
+
+`PREPARE_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+Verified checkpoint:
+
+`64b25f350fc2b7fc80fd3d518bd5c8aabd06a178`
+
+CI:
+
+`35474454565 — SUCCESS`
+
+State:
+
+`READY_OFFLINE / APPROVALS_NOT_GRANTED / ZERO SOURCE ACCESS / ZERO RETRY`
+
+The dedicated attempt-5 runner and approval contracts/templates are prepared. Both templates
+remain `NOT_GRANTED` and cannot build a real execution authorization. The runner requires
+attempt 5, exact fifth phrases, distinct approval refs, proposal checkpoint/CI, shared runner
+checkpoint/CI SUCCESS, unchanged execution/privacy bounds and diagnostic contract versions
+before it can create a temp directory.
+
+Current next gate:
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+Review only. Do not grant approvals, access OSC, run a fresh listing preflight, download the
+Owner Name File or execute attempt 5.
+
+## Historical Override — Fifth Attempt Proposal Merged / Runner Preparation Offline
 
 PR #14 is merged at:
 

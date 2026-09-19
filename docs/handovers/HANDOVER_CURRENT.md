@@ -1,8 +1,81 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 
-## AUTHORITATIVE CURRENT STATE — POST-PR14 MERGE
+## AUTHORITATIVE CURRENT STATE — FIFTH RUNNER VERIFIED OFFLINE / REVIEW PENDING
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`mvp1-ny-fifth-attempt-runner-contracts-offline`
+
+Canonical base at task start:
+
+`0efab7f2a7040c75bf6401cd08fd7057dd9eb578`
+
+Current verified runner checkpoint:
+
+`64b25f350fc2b7fc80fd3d518bd5c8aabd06a178`
+
+Current verified runner CI:
+
+`35474454565 — SUCCESS`
+
+Runner package state:
+
+`READY_OFFLINE / VERIFIED_CI / APPROVALS_NOT_GRANTED / ZERO SOURCE ACCESS / ZERO RETRY`
+
+Prepared artifacts:
+
+- `scripts/ny_osc_gate5_transient_local.ps1`;
+- `schemas/common/ny_osc_fifth_attempt_transient_local_approval.schema.json`;
+- `schemas/common/ny_osc_fifth_attempt_transient_pii_approval.schema.json`;
+- `sources/evidence/ny_osc_owner_name_file_fifth_attempt_transient_local_approval.v1.json`;
+- `sources/evidence/ny_osc_owner_name_file_fifth_attempt_transient_pii_approval.v1.json`;
+- `tests/contract/test_ny_osc_fifth_attempt_approvals.py`;
+- `tests/contract/test_ny_osc_gate5_runner_static.py`;
+- `docs/audits/NY_OSC_FIFTH_ATTEMPT_OFFLINE_TECHNICAL_PREPARATION.md`.
+
+Both fifth approval templates remain:
+
+`NOT_GRANTED`
+
+and retain null owner authorization, execution approval ref, runner checkpoint and runner CI
+fields. Operational grants require a later explicit human gate and must bind to a reviewed,
+integrated runner checkpoint/CI.
+
+The runner preserves one download maximum, zero retries, 450,000,000 compressed bytes,
+2,000,000,000 uncompressed bytes, one archive member, exactly one text member, pipe delimiter,
+14 documented fields, 65,536-byte chunks, execution result v1.1.0 and structural diagnostic
+v1.0.0. It contains no network client and performs all authorization/bounds/privacy checks
+before temp-directory creation.
+
+CI provenance:
+
+- `35474348294`: Ruff E501 only;
+- `35474384505`: Ruff syntax failure from literal escaped `\\n` inserted by the first
+  formatting correction;
+- `35474454565`: complete SUCCESS after clean test-file replacement.
+
+No parser/domain/privacy behavior changed during the two corrections. No third corrective patch
+was required.
+
+Safety state:
+
+- OSC source access: `NOT AUTHORIZED`;
+- fifth listing preflight: `NOT AUTHORIZED`;
+- fifth download: `NOT AUTHORIZED`;
+- fifth approvals: `NOT_GRANTED`;
+- fifth execution: `NOT AUTHORIZED`;
+- retries: `0`;
+- automatic repair/row skip/widening: `FORBIDDEN`.
+
+This section supersedes conflicting historical current-state and next-action entries below.
+
+## HISTORICAL CURRENT STATE — POST-PR14 MERGE (PRE-RUNNER)
 
 Repository:
 
@@ -1109,31 +1182,10 @@ Offline:
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
 
-Classification:
+Review the attempt-5 runner, approval schemas/templates, tests and technical audit against
+checkpoint `64b25f350fc2b7fc80fd3d518bd5c8aabd06a178` and CI `35474454565 — SUCCESS`.
 
-`A — Product Critical / Offline Execution Preparation`
-
-Prepare only the dedicated fifth-attempt runner, attempt-5 approval schemas/templates,
-contract/static tests and technical audit.
-
-Hard limits:
-
-- repository-only;
-- attempt number fixed to 5;
-- exact fifth approval phrases;
-- both approval templates initially `NOT_GRANTED`;
-- distinct approval refs required;
-- fourth runner and fourth approvals non-reusable;
-- shared schema-discovery parser and transient execution bridge v1.1 may be reused;
-- one download maximum;
-- zero retries;
-- unchanged byte/member/field/chunk/privacy limits;
-- all authorization checks before temp-directory creation;
-- no OSC access;
-- no fresh listing preflight;
-- no download;
-- no owner-file opening;
-- no approval grant;
-- no fifth execution.
+Do not grant either fifth approval, access OSC, perform a fresh listing preflight, download the
+Owner Name File, process real owner PII or execute attempt 5 during this review.
