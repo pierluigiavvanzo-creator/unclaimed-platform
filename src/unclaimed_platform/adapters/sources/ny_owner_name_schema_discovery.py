@@ -9,7 +9,8 @@ from __future__ import annotations
 import io
 import re
 import zipfile
-from typing import Literal
+from dataclasses import dataclass
+from typing import BinaryIO, Iterator, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -41,72 +42,391 @@ _ASCII_ALNUM = re.compile(rb"^[A-Za-z0-9]+$")
 _UTF8_BOM = b"\xef\xbb\xbf"
 
 
-def _split_quoted_pipe_record(record: bytes) -> tuple[list[bytes], bool]:
-    """Split one byte record without treating pipes inside double quotes as delimiters.
+def _is_ascii_space(value: int) -> bool:
+    return value in {9, 10, 11, 12, 13, 32}
 
-    The parser deliberately stays at byte level: owner fields are not decoded, logged,
-    normalized, or returned. A doubled double quote inside a quoted field is preserved.
-    The boolean reports whether every opened quote was closed.
-    """
 
-    fields: list[bytes] = []
-    current = bytearray()
+def _is_ascii_alnum(value: int) -> bool:
+    return (
+        ord("0") <= value <= ord("9")
+        or ord("A") <= value <= ord("Z")
+        or ord("a") <= value <= ord("z")
+    )
+
+
+def _ascii_lower(value: int) -> int:
+    if ord("A") <= value <= ord("Z"):
+        return value + 32
+    return value
+
+
+class _NormalizedAsciiAlnumMatcher:
+    """Validate a wrapped ASCII token without retaining its bytes."""
+
+    def __init__(self) -> None:
+        self._state = "LEADING"
+        self._wrapper: int | None = None
+        self._seen_alnum = False
+        self._valid = True
+
+    def consume(self, value: int) -> None:
+        if not self._valid:
+            return
+
+        if self._state == "LEADING":
+            if _is_ascii_space(value):
+                return
+            if value in {ord('"'), ord("'")}:
+                self._wrapper = value
+                self._state = "INNER_LEADING"
+                return
+            if _is_ascii_alnum(value):
+                self._seen_alnum = True
+                self._state = "TOKEN"
+                return
+            self._valid = False
+            return
+
+        if self._state == "INNER_LEADING":
+            if _is_ascii_space(value):
+                return
+            if _is_ascii_alnum(value):
+                self._seen_alnum = True
+                self._state = "TOKEN"
+                return
+            self._valid = False
+            return
+
+        if self._state == "TOKEN":
+            if _is_ascii_alnum(value):
+                self._seen_alnum = True
+                return
+            if self._wrapper is not None and value == self._wrapper:
+                self._state = "CLOSED"
+                return
+            if _is_ascii_space(value):
+                self._state = (
+                    "INNER_TRAILING"
+                    if self._wrapper is not None
+                    else "TRAILING"
+                )
+                return
+            self._valid = False
+            return
+
+        if self._state == "INNER_TRAILING":
+            if _is_ascii_space(value):
+                return
+            if value == self._wrapper:
+                self._state = "CLOSED"
+                return
+            self._valid = False
+            return
+
+        if self._state in {"TRAILING", "CLOSED"}:
+            if not _is_ascii_space(value):
+                self._valid = False
+            return
+
+        self._valid = False
+
+    def matches(self) -> bool:
+        if not self._valid or not self._seen_alnum:
+            return False
+        if self._wrapper is None:
+            return self._state in {"TOKEN", "TRAILING"}
+        return self._state == "CLOSED"
+
+
+class _ExpectedHeaderFieldMatcher:
+    """Incrementally match one normalized documented header field."""
+
+    def __init__(self, expected: bytes, *, allow_utf8_bom: bool) -> None:
+        self._expected = expected.lower()
+        self._expected_index = 0
+        self._state = "LEADING"
+        self._wrapper: int | None = None
+        self._valid = True
+        self._allow_utf8_bom = allow_utf8_bom
+
+    def consume(self, value: int) -> None:
+        if not self._valid:
+            return
+
+        if self._state == "BOM_2":
+            if value == _UTF8_BOM[1]:
+                self._state = "BOM_3"
+            else:
+                self._valid = False
+            return
+
+        if self._state == "BOM_3":
+            if value == _UTF8_BOM[2]:
+                self._state = "LEADING"
+                self._allow_utf8_bom = False
+            else:
+                self._valid = False
+            return
+
+        if self._state == "LEADING":
+            if _is_ascii_space(value):
+                return
+            if self._allow_utf8_bom and value == _UTF8_BOM[0]:
+                self._state = "BOM_2"
+                return
+            self._allow_utf8_bom = False
+            if value in {ord('"'), ord("'")}:
+                self._wrapper = value
+                self._state = "INNER_LEADING"
+                return
+            self._consume_expected(value)
+            return
+
+        if self._state == "INNER_LEADING":
+            if _is_ascii_space(value):
+                return
+            self._consume_expected(value)
+            return
+
+        if self._state == "MATCHING":
+            self._consume_expected(value)
+            return
+
+        if self._state == "AFTER_EXPECTED":
+            if self._wrapper is not None and value == self._wrapper:
+                self._state = "CLOSED"
+                return
+            if _is_ascii_space(value):
+                return
+            self._valid = False
+            return
+
+        if self._state == "CLOSED":
+            if not _is_ascii_space(value):
+                self._valid = False
+            return
+
+        self._valid = False
+
+    def _consume_expected(self, value: int) -> None:
+        if (
+            self._expected_index >= len(self._expected)
+            or _ascii_lower(value) != self._expected[self._expected_index]
+        ):
+            self._valid = False
+            return
+
+        self._expected_index += 1
+        self._state = (
+            "AFTER_EXPECTED"
+            if self._expected_index == len(self._expected)
+            else "MATCHING"
+        )
+
+    def matches(self) -> bool:
+        if not self._valid or self._expected_index != len(self._expected):
+            return False
+        if self._wrapper is None:
+            return self._state == "AFTER_EXPECTED"
+        return self._state == "CLOSED"
+
+
+@dataclass(frozen=True)
+class _QuotedPipeRecordShape:
+    field_count: int
+    property_type_ascii: bool
+    exact_documented_header: bool
+    normalized_documented_header: bool
+    observed_delimiter: Literal["|"] | None
+
+
+class _MalformedQuotedRecordError(ValueError):
+    def __init__(self, observed_delimiter: Literal["|"] | None) -> None:
+        super().__init__("quoted record reached EOF before its closing quote")
+        self.observed_delimiter = observed_delimiter
+
+
+class _LogicalRecordScanner:
+    """Collect structural state for one record without retaining owner fields."""
+
+    def __init__(self, *, track_header: bool) -> None:
+        self.track_header = track_header
+        self.field_index = 0
+        self.field_count = 1
+        self.field_has_nonspace = False
+        self.has_content = False
+        self.has_pipe = False
+        self._property_matcher = _NormalizedAsciiAlnumMatcher()
+        self._property_type_ascii = False
+        self._property_field_finished = False
+        self._header_matches = True
+        self._header_matcher = self._new_header_matcher()
+        self._documented_header = NY_DOCUMENTED_DELIMITER.join(
+            NY_DOCUMENTED_FIELDS
+        ).encode("ascii")
+        self._exact_header_index = 0
+        self._exact_header_matches = track_header
+
+    @property
+    def observed_delimiter(self) -> Literal["|"] | None:
+        return "|" if self.has_pipe else None
+
+    def consume_field_byte(self, value: int) -> None:
+        self.has_content = True
+        if value == ord("|"):
+            self.has_pipe = True
+        if not _is_ascii_space(value):
+            self.field_has_nonspace = True
+
+        self._consume_exact_header_byte(value)
+        if self._header_matcher is not None:
+            self._header_matcher.consume(value)
+        if self.field_index == NY_PROPERTY_TYPE_CODE_INDEX:
+            self._property_matcher.consume(value)
+
+    def consume_delimiter(self) -> None:
+        self.has_content = True
+        self.has_pipe = True
+        self._consume_exact_header_byte(ord("|"))
+        self._finish_field()
+        self.field_index += 1
+        self.field_count += 1
+        self.field_has_nonspace = False
+        self._header_matcher = self._new_header_matcher()
+
+    def finish(self) -> _QuotedPipeRecordShape:
+        self._finish_field()
+        return _QuotedPipeRecordShape(
+            field_count=self.field_count,
+            property_type_ascii=(
+                self._property_field_finished and self._property_type_ascii
+            ),
+            exact_documented_header=(
+                self.track_header
+                and self._exact_header_matches
+                and self._exact_header_index == len(self._documented_header)
+            ),
+            normalized_documented_header=(
+                self.track_header
+                and self._header_matches
+                and self.field_count == len(NY_DOCUMENTED_FIELDS)
+            ),
+            observed_delimiter=self.observed_delimiter,
+        )
+
+    def _new_header_matcher(self) -> _ExpectedHeaderFieldMatcher | None:
+        if not self.track_header or self.field_index >= len(NY_DOCUMENTED_FIELDS):
+            return None
+        return _ExpectedHeaderFieldMatcher(
+            NY_DOCUMENTED_FIELDS[self.field_index].encode("ascii"),
+            allow_utf8_bom=self.field_index == 0,
+        )
+
+    def _consume_exact_header_byte(self, value: int) -> None:
+        if not self._exact_header_matches:
+            return
+        if (
+            self._exact_header_index >= len(self._documented_header)
+            or value != self._documented_header[self._exact_header_index]
+        ):
+            self._exact_header_matches = False
+            return
+        self._exact_header_index += 1
+
+    def _finish_field(self) -> None:
+        if self._header_matcher is None or not self._header_matcher.matches():
+            self._header_matches = False
+        if (
+            self.field_index == NY_PROPERTY_TYPE_CODE_INDEX
+            and not self._property_field_finished
+        ):
+            self._property_type_ascii = self._property_matcher.matches()
+            self._property_field_finished = True
+
+
+def _iter_quoted_pipe_record_shapes(
+    stream: BinaryIO,
+) -> Iterator[_QuotedPipeRecordShape]:
+    """Yield logical record shapes while discarding all owner-field bytes."""
+
+    track_header = True
+    scanner = _LogicalRecordScanner(track_header=track_header)
     in_quotes = False
-    index = 0
 
-    while index < len(record):
-        value = record[index]
+    for physical_line in stream:
+        index = 0
+        while index < len(physical_line):
+            value = physical_line[index]
 
-        if value == ord('"'):
-            if in_quotes:
-                current.append(value)
-                if index + 1 < len(record) and record[index + 1] == value:
-                    current.append(value)
-                    index += 2
+            if value == ord("\r") and (
+                index + 1 < len(physical_line)
+                and physical_line[index + 1] == ord("\n")
+            ):
+                if in_quotes:
+                    scanner.consume_field_byte(value)
+                    scanner.consume_field_byte(ord("\n"))
+                elif scanner.has_content:
+                    yield scanner.finish()
+                    track_header = False
+                    scanner = _LogicalRecordScanner(track_header=track_header)
+                index += 2
+                continue
+
+            if value == ord("\n"):
+                if in_quotes:
+                    scanner.consume_field_byte(value)
+                elif scanner.has_content:
+                    yield scanner.finish()
+                    track_header = False
+                    scanner = _LogicalRecordScanner(track_header=track_header)
+                index += 1
+                continue
+
+            if value == ord('"'):
+                if in_quotes:
+                    scanner.consume_field_byte(value)
+                    if (
+                        index + 1 < len(physical_line)
+                        and physical_line[index + 1] == value
+                    ):
+                        scanner.consume_field_byte(value)
+                        index += 2
+                        continue
+                    in_quotes = False
+                    index += 1
                     continue
-                in_quotes = False
-                index += 1
-                continue
-            if not bytes(current).strip():
-                current.append(value)
-                in_quotes = True
+
+                scanner.consume_field_byte(value)
+                if not scanner.field_has_nonspace or (
+                    scanner.field_has_nonspace
+                    and value == ord('"')
+                    and _only_leading_space_before_quote(scanner)
+                ):
+                    in_quotes = True
                 index += 1
                 continue
 
-        if value == ord("|") and not in_quotes:
-            fields.append(bytes(current))
-            current.clear()
+            if value == ord("|") and not in_quotes:
+                scanner.consume_delimiter()
+                index += 1
+                continue
+
+            scanner.consume_field_byte(value)
             index += 1
-            continue
 
-        current.append(value)
-        index += 1
+    if in_quotes:
+        raise _MalformedQuotedRecordError(scanner.observed_delimiter)
 
-    fields.append(bytes(current))
-    return fields, not in_quotes
-
-
-def _normalize_ascii_token(value: bytes, *, strip_bom: bool = False) -> bytes:
-    token = value.strip()
-    if strip_bom and token.startswith(_UTF8_BOM):
-        token = token[len(_UTF8_BOM):].lstrip()
-
-    if len(token) >= 2 and token[:1] == token[-1:] and token[:1] in {b'"', b"'"}:
-        token = token[1:-1].strip()
-
-    return token
+    if scanner.has_content:
+        yield scanner.finish()
 
 
-def _normalized_documented_header(fields: list[bytes]) -> bool:
-    if len(fields) != len(NY_DOCUMENTED_FIELDS):
-        return False
+def _only_leading_space_before_quote(scanner: _LogicalRecordScanner) -> bool:
+    """The quote just consumed may open only at the start of a trimmed field."""
 
-    documented = [field.encode("ascii").lower() for field in NY_DOCUMENTED_FIELDS]
-    observed = [
-        _normalize_ascii_token(field, strip_bom=index == 0).lower()
-        for index, field in enumerate(fields)
-    ]
-    return observed == documented
+    # consume_field_byte marks the quote as non-space, so this helper recognizes the
+    # start position from the absence of any earlier non-space byte.
+    return scanner.field_has_nonspace
 
 
 class NyOwnerNameSchemaDiscoveryAuthorization(BaseModel):
@@ -299,38 +619,96 @@ def discover_ny_owner_name_schema(
         observed_data_field_count: int | None = None
         first_nonblank_seen = False
 
-        with archive.open(selected, "r") as stream:
-            for raw_line in stream:
-                line = raw_line.rstrip(b"\r\n")
-                if not line:
-                    continue
+        try:
+            with archive.open(selected, "r") as stream:
+                for record in _iter_quoted_pipe_record_shapes(stream):
+                    if not first_nonblank_seen:
+                        first_nonblank_seen = True
+                        if record.exact_documented_header:
+                            header_state = "EXACT_DOCUMENTED_HEADER"
+                            continue
+                        if record.normalized_documented_header:
+                            header_state = "NORMALIZED_DOCUMENTED_HEADER"
+                            continue
 
-                fields, quoted_record_well_formed = _split_quoted_pipe_record(line)
+                    field_count = record.field_count
+                    if observed_data_field_count is None:
+                        observed_data_field_count = field_count
 
-                if not quoted_record_well_formed:
-                    return _blocked(
-                        authorization,
-                        reason_code="MALFORMED_QUOTED_RECORD",
-                        archive_byte_count=archive_byte_count,
-                        archive_member_count=member_count,
-                        selected_text_member_present=True,
-                        selected_member_uncompressed_bytes=selected.file_size,
-                        observed_delimiter=("|" if b"|" in line else None),
-                        observed_header_state=header_state,
-                        physical_header_names=(
-                            NY_DOCUMENTED_FIELDS
-                            if header_state
-                            in {
-                                "EXACT_DOCUMENTED_HEADER",
-                                "NORMALIZED_DOCUMENTED_HEADER",
-                            }
-                            else ()
-                        ),
-                        aggregate_complete_record_count=record_count,
-                        property_type_ascii_record_count=property_type_ascii_count,
-                    )
+                    if field_count != expected_field_count:
+                        return _blocked(
+                            authorization,
+                            reason_code="UNEXPECTED_DATA_FIELD_COUNT",
+                            archive_byte_count=archive_byte_count,
+                            archive_member_count=member_count,
+                            selected_text_member_present=True,
+                            selected_member_uncompressed_bytes=selected.file_size,
+                            observed_delimiter=record.observed_delimiter,
+                            observed_data_field_count=field_count,
+                            observed_header_state=header_state,
+                            physical_header_names=(
+                                NY_DOCUMENTED_FIELDS
+                                if header_state
+                                in {
+                                    "EXACT_DOCUMENTED_HEADER",
+                                    "NORMALIZED_DOCUMENTED_HEADER",
+                                }
+                                else ()
+                            ),
+                            aggregate_complete_record_count=record_count,
+                            property_type_ascii_record_count=property_type_ascii_count,
+                        )
 
-                if not first_nonblank_seen:
+                    if not record.property_type_ascii:
+                        return _blocked(
+                            authorization,
+                            reason_code="PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+                            archive_byte_count=archive_byte_count,
+                            archive_member_count=member_count,
+                            selected_text_member_present=True,
+                            selected_member_uncompressed_bytes=selected.file_size,
+                            observed_delimiter=record.observed_delimiter,
+                            observed_data_field_count=field_count,
+                            observed_header_state=header_state,
+                            physical_header_names=(
+                                NY_DOCUMENTED_FIELDS
+                                if header_state
+                                in {
+                                    "EXACT_DOCUMENTED_HEADER",
+                                    "NORMALIZED_DOCUMENTED_HEADER",
+                                }
+                                else ()
+                            ),
+                            aggregate_complete_record_count=record_count,
+                            property_type_ascii_record_count=property_type_ascii_count,
+                        )
+
+                    property_type_ascii_count += 1
+                    record_count += 1
+        except _MalformedQuotedRecordError as exc:
+            return _blocked(
+                authorization,
+                reason_code="MALFORMED_QUOTED_RECORD",
+                archive_byte_count=archive_byte_count,
+                archive_member_count=member_count,
+                selected_text_member_present=True,
+                selected_member_uncompressed_bytes=selected.file_size,
+                observed_delimiter=exc.observed_delimiter,
+                observed_header_state=header_state,
+                physical_header_names=(
+                    NY_DOCUMENTED_FIELDS
+                    if header_state
+                    in {
+                        "EXACT_DOCUMENTED_HEADER",
+                        "NORMALIZED_DOCUMENTED_HEADER",
+                    }
+                    else ()
+                ),
+                aggregate_complete_record_count=record_count,
+                property_type_ascii_record_count=property_type_ascii_count,
+            )
+
+        if not first_nonblank_seen:
                     first_nonblank_seen = True
                     if line == documented_header:
                         header_state = "EXACT_DOCUMENTED_HEADER"
