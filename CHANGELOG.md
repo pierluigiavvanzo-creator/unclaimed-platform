@@ -5,6 +5,8 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Versioned NY OSC fourth-attempt offline proposal with unchanged one-download/zero-retry bounds.
+- Contract and audit gates preventing prior approval reuse, source access or implicit fourth execution.
 - Byte-level streaming NY OSC parser for multiline quoted records without owner-field buffering.
 - Synthetic LF/CRLF, quoted-pipe, doubled-quote and fail-closed multiline regression coverage.
 - Offline NY OSC multiline quoted-record root-cause analysis and bounded remediation design.
