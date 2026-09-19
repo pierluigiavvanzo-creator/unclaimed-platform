@@ -2,6 +2,29 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Multiline Quoted-Record Analysis Complete
+
+Completed:
+
+`ANALYZE_NY_OSC_MALFORMED_QUOTED_RECORD_OFFLINE`
+
+Decision:
+
+`ANALYZED_OFFLINE_REMEDIATION_FEASIBLE_NOT_IMPLEMENTED`
+
+The current parser treats every physical line as a complete record. It therefore blocks a
+logical record that contains an embedded newline inside a quoted field. This mechanism is
+confirmed from code; whether the deleted real record actually used that dialect remains
+unconfirmed.
+
+A byte-level streaming state machine can support logical multiline records with constant
+auxiliary memory while retaining only structural state and never decoding or buffering owner
+fields. Python's text-based `csv` reader was not selected because it would decode and
+materialize owner fields.
+
+No parser, runner, approval or execution contract changed. No source access occurred and no
+fourth attempt is prepared or authorized.
+
 ## Superseding Current Event — Third Attempt Consumed Fail-Closed
 
 The third bounded NY OSC attempt executed once and stopped:
