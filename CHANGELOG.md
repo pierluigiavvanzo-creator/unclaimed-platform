@@ -5,6 +5,8 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Byte-level streaming NY OSC parser for multiline quoted records without owner-field buffering.
+- Synthetic LF/CRLF, quoted-pipe, doubled-quote and fail-closed multiline regression coverage.
 - Offline NY OSC multiline quoted-record root-cause analysis and bounded remediation design.
 - Machine-readable streaming-parser proposal, schema and contract tests with no fourth-attempt authorization.
 - Persisted non-PII evidence for the consumed third NY OSC bounded attempt.
