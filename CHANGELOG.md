@@ -5,6 +5,8 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Offline fourth-attempt NY OSC runner with pre-directory fail-closed authorization checks.
+- Fourth-attempt approval contracts, ungranted templates, static tests and preparation audit.
 - Versioned NY OSC fourth-attempt offline proposal with unchanged one-download/zero-retry bounds.
 - Contract and audit gates preventing prior approval reuse, source access or implicit fourth execution.
 - Byte-level streaming NY OSC parser for multiline quoted records without owner-field buffering.
