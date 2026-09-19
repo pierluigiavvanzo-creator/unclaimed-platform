@@ -6,6 +6,7 @@ All notable development changes are tracked here.
 
 ### Added
 - Structural-only NY OSC diagnostic telemetry for raw/structural/suppressed pipe and quote-state counts.
+- Versioned transient-local execution result v1.1.0 carrying sanitized structural diagnostics end-to-end.
 - Separate v1 JSON Schema for non-PII NY Owner Name structural diagnostics.
 - Persisted non-PII fourth-attempt fail-closed execution evidence and consumed both fourth approvals.
 - Synthetic regressions distinguishing true delimiter shortage from quote-suppressed delimiters.

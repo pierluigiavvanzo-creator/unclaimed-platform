@@ -32,14 +32,14 @@ Current task:
 
 Candidate state:
 
-`IMPLEMENTED_OFFLINE / CI_35444131105_SUCCESS / ZERO SOURCE ACCESS`
+`REMEDIATED_EXECUTION_BRIDGE / CI_35446786002_SUCCESS / ZERO SOURCE ACCESS`
 
 The candidate adds structural-only delimiter/quote telemetry and a separate v1 JSON Schema.
 It does not relax the 14-field fail-closed rule and does not authorize a fifth attempt.
 
 Next action after CI:
 
-`HUMAN_REVIEW_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
+`HUMAN_APPROVE_MERGE_PR_12_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
 
 ## Superseding Current Event — Fourth Attempt Approvals Granted Offline
 

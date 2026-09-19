@@ -102,3 +102,22 @@ Passed:
 - frontend lint;
 - frontend typecheck;
 - frontend build.
+
+
+## Execution bridge remediation
+
+Review identified that parser-side telemetry was not initially carried through the transient-local execution bridge.
+
+Remediation:
+- historical execution receipt v1.0.0 remains unchanged;
+- new execution receipt v1.1.0 carries structural diagnostics;
+- UNEXPECTED_DATA_FIELD_COUNT requires a structural diagnostic;
+- other outcomes require structural_diagnostic = null;
+- synthetic unit and contract tests cover both blocked and valid input;
+- existing fail-closed and privacy bounds are unchanged.
+
+Initial remediation CI 35446723423 failed because two bridge return paths still instantiated v1.0.0. That constructor-only defect was corrected without changing parser or policy logic.
+
+Final remediation checkpoint: 03c1e2fb6a3b24e4afd9a4dff12b713a57b3390e
+
+Final remediation CI: 35446786002 — SUCCESS
