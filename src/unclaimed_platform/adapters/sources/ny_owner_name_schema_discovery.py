@@ -8,8 +8,9 @@ from __future__ import annotations
 
 import io
 import zipfile
+from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import BinaryIO, Iterator, Literal
+from typing import BinaryIO, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
