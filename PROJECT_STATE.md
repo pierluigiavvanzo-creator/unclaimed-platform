@@ -2,6 +2,25 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Streaming Multiline Parser Implemented Offline
+
+Completed:
+
+`IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE`
+
+The byte-level discovery parser now recognizes `LF` and `CRLF` as record boundaries only
+outside double quotes. Newlines inside quoted fields are consumed without retaining owner
+field bytes. EOF inside an open quote and all existing structural violations remain
+fail-closed.
+
+The state machine retains constant-size structural state rather than complete logical records.
+Existing archive, uncompressed-size, member-count, 14-field and privacy bounds remain
+unchanged. Synthetic coverage includes multiline LF/CRLF, quoted pipes, doubled quotes,
+following records and negative fail-closed cases.
+
+No NY OSC access, real-file processing, runner change, approval creation or fourth-attempt
+preparation occurred.
+
 ## Superseding Current Event — Multiline Quoted-Record Analysis Complete
 
 Completed:
