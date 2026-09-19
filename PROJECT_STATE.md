@@ -2,6 +2,40 @@
 
 Last updated: 2026-09-19
 
+## Current Authoritative State — Fifth Bounded Attempt Proposal Prepared Offline
+
+This section supersedes conflicting historical current-state entries below.
+
+Canonical baseline before this proposal:
+
+`326b2ba91f30adb80faf816d85a5d707fde4eaee`
+
+Prepared:
+
+- `sources/proposals/ny_osc_owner_name_file_fifth_bounded_attempt_authorization.v1.json`;
+- `schemas/common/ny_osc_fifth_attempt_authorization_proposal.schema.json`;
+- `tests/contract/test_ny_osc_fifth_attempt_proposal.py`;
+- `docs/audits/NY_OSC_FIFTH_ATTEMPT_OFFLINE_PROPOSAL.md`.
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The proposal preserves one download, zero retries and all existing byte/member/privacy bounds.
+It requires transient execution receipt v1.1.0 and structural diagnostic v1.0.0 if
+`UNEXPECTED_DATA_FIELD_COUNT` recurs. No diagnostic classification authorizes automatic
+repair, row skip, parser widening, source acceptance or retry.
+
+Both fourth-attempt approvals remain consumed and non-reusable. The two proposed fifth
+approval phrases remain `NOT_GRANTED`. The fifth runner and fifth approval artifacts are
+not implemented or created.
+
+No OSC access, fresh preflight, download, owner-file opening or owner-PII processing occurred.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL`
+
 ## Current Authoritative State — PR #12 Merged / Structural Diagnostic Telemetry Integrated
 
 This section is authoritative for the current repository state and supersedes conflicting
