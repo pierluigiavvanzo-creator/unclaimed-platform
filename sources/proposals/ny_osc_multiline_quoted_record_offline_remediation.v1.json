@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.multiline_quoted_record_offline_remediation",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-19",
+  "status": "ANALYZED_OFFLINE_REMEDIATION_FEASIBLE_NOT_IMPLEMENTED",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "scope": {
+    "repository_only": true,
+    "synthetic_fixtures_only": true,
+    "source_network_access_performed": false,
+    "download_performed": false,
+    "real_owner_file_opened": false,
+    "owner_pii_processed": false,
+    "fourth_attempt_prepared": false,
+    "fourth_attempt_authorized": false
+  },
+  "evidence": {
+    "third_attempt_result_path": "sources/evidence/ny_osc_owner_name_file_third_attempt_execution_result.v1.json",
+    "third_attempt_reason_code": "MALFORMED_QUOTED_RECORD",
+    "aggregate_complete_record_count_before_block": 165438,
+    "property_type_ascii_record_count_before_block": 165438,
+    "raw_file_retained": false,
+    "offending_record_retained": false,
+    "exact_real_file_cause_confirmed": false
+  },
+  "root_cause_analysis": {
+    "confirmed_implementation_fact": "CURRENT_PARSER_TREATS_EACH_PHYSICAL_LINE_AS_A_COMPLETE_RECORD",
+    "confirmed_failure_mechanism": "OPEN_QUOTE_AT_PHYSICAL_LINE_END_RETURNS_MALFORMED_QUOTED_RECORD",
+    "compatible_unconfirmed_hypothesis": "QUOTED_FIELD_CONTAINS_EMBEDDED_LINE_BREAK",
+    "source_corruption_claimed": false,
+    "alternative_dialects_still_possible": true
+  },
+  "reuse_first_evaluation": {
+    "python_csv_status": "NOT_SELECTED",
+    "reason": "TEXT_API_WOULD_DECODE_AND_MATERIALIZE_OWNER_FIELDS_CONTRARY_TO_CURRENT_BYTE_LEVEL_PRIVACY_CONTRACT",
+    "third_party_parser_status": "NOT_JUSTIFIED_FOR_THIS_NARROW_DISCOVERY_TASK",
+    "selected_approach": "SMALL_BYTE_LEVEL_STREAMING_STATE_MACHINE_USING_STANDARD_STREAM_PRIMITIVES"
+  },
+  "remediation_design": {
+    "implementation_state": "NOT_IMPLEMENTED",
+    "logical_record_boundary": "CRLF_OR_LF_ONLY_WHEN_OUTSIDE_QUOTES",
+    "quoted_newline_behavior": "CONSUME_AS_FIELD_CONTENT_WITHOUT_PERSISTING_FIELD_BYTES",
+    "doubled_quote_behavior": "TREAT_AS_ESCAPED_QUOTE_WHILE_INSIDE_QUOTES",
+    "eof_inside_quote_behavior": "BLOCK_MALFORMED_QUOTED_RECORD_AT_EOF",
+    "auxiliary_memory_target": "CONSTANT_WITH_RESPECT_TO_LOGICAL_RECORD_LENGTH",
+    "owner_field_decoding_allowed": false,
+    "owner_field_buffering_allowed": false,
+    "owner_row_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "retained_state": [
+      "quote_state",
+      "field_index",
+      "field_count",
+      "property_type_nonempty_ascii_alnum_state",
+      "documented_header_incremental_match_state",
+      "aggregate_record_counters"
+    ],
+    "existing_bounds_preserved": [
+      "max_download_bytes",
+      "max_uncompressed_bytes",
+      "max_archive_members",
+      "exactly_one_text_member",
+      "expected_14_fields"
+    ]
+  },
+  "required_synthetic_acceptance_cases": [
+    "multiline_quoted_owner_field_lf",
+    "multiline_quoted_owner_field_crlf",
+    "quoted_pipe_and_multiline_combination",
+    "doubled_quote_inside_multiline_field",
+    "multiple_logical_records_after_multiline_record",
+    "no_header_layout",
+    "exact_documented_header",
+    "eof_inside_open_quote_fails_closed",
+    "wrong_field_count_after_logical_record_assembly_fails_closed",
+    "non_ascii_or_non_alphanumeric_property_type_fails_closed",
+    "privacy_serialization_contains_no_synthetic_owner_values"
+  ],
+  "implementation_gate": {
+    "production_parser_change_allowed_by_this_analysis": false,
+    "execution_runner_change_allowed_by_this_analysis": false,
+    "new_approval_artifacts_allowed": false,
+    "real_execution_allowed": false,
+    "required_next_action": "IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE"
+  }
+}

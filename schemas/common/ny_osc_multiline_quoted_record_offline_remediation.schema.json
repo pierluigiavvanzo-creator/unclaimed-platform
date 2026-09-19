@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-multiline-quoted-record-offline-remediation:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "source_id",
+    "scope",
+    "evidence",
+    "root_cause_analysis",
+    "reuse_first_evaluation",
+    "remediation_design",
+    "required_synthetic_acceptance_cases",
+    "implementation_gate"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.osc.owner_name_file.multiline_quoted_record_offline_remediation"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "const": "ANALYZED_OFFLINE_REMEDIATION_FEASIBLE_NOT_IMPLEMENTED"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_only",
+        "synthetic_fixtures_only",
+        "source_network_access_performed",
+        "download_performed",
+        "real_owner_file_opened",
+        "owner_pii_processed",
+        "fourth_attempt_prepared",
+        "fourth_attempt_authorized"
+      ],
+      "properties": {
+        "repository_only": {
+          "const": true
+        },
+        "synthetic_fixtures_only": {
+          "const": true
+        },
+        "source_network_access_performed": {
+          "const": false
+        },
+        "download_performed": {
+          "const": false
+        },
+        "real_owner_file_opened": {
+          "const": false
+        },
+        "owner_pii_processed": {
+          "const": false
+        },
+        "fourth_attempt_prepared": {
+          "const": false
+        },
+        "fourth_attempt_authorized": {
+          "const": false
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "third_attempt_reason_code",
+        "raw_file_retained",
+        "offending_record_retained",
+        "exact_real_file_cause_confirmed"
+      ],
+      "properties": {
+        "third_attempt_reason_code": {
+          "const": "MALFORMED_QUOTED_RECORD"
+        },
+        "raw_file_retained": {
+          "const": false
+        },
+        "offending_record_retained": {
+          "const": false
+        },
+        "exact_real_file_cause_confirmed": {
+          "const": false
+        }
+      }
+    },
+    "root_cause_analysis": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "confirmed_implementation_fact",
+        "confirmed_failure_mechanism",
+        "source_corruption_claimed"
+      ],
+      "properties": {
+        "confirmed_implementation_fact": {
+          "const": "CURRENT_PARSER_TREATS_EACH_PHYSICAL_LINE_AS_A_COMPLETE_RECORD"
+        },
+        "confirmed_failure_mechanism": {
+          "const": "OPEN_QUOTE_AT_PHYSICAL_LINE_END_RETURNS_MALFORMED_QUOTED_RECORD"
+        },
+        "source_corruption_claimed": {
+          "const": false
+        }
+      }
+    },
+    "reuse_first_evaluation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "python_csv_status",
+        "selected_approach"
+      ],
+      "properties": {
+        "python_csv_status": {
+          "const": "NOT_SELECTED"
+        },
+        "selected_approach": {
+          "const": "SMALL_BYTE_LEVEL_STREAMING_STATE_MACHINE_USING_STANDARD_STREAM_PRIMITIVES"
+        }
+      }
+    },
+    "remediation_design": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "implementation_state",
+        "auxiliary_memory_target",
+        "owner_field_decoding_allowed",
+        "owner_field_buffering_allowed",
+        "owner_row_persistence_allowed",
+        "owner_field_logging_allowed",
+        "row_specific_human_inspection_allowed",
+        "retained_state",
+        "existing_bounds_preserved"
+      ],
+      "properties": {
+        "implementation_state": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "auxiliary_memory_target": {
+          "const": "CONSTANT_WITH_RESPECT_TO_LOGICAL_RECORD_LENGTH"
+        },
+        "owner_field_decoding_allowed": {
+          "const": false
+        },
+        "owner_field_buffering_allowed": {
+          "const": false
+        },
+        "owner_row_persistence_allowed": {
+          "const": false
+        },
+        "owner_field_logging_allowed": {
+          "const": false
+        },
+        "row_specific_human_inspection_allowed": {
+          "const": false
+        },
+        "retained_state": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "existing_bounds_preserved": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "required_synthetic_acceptance_cases": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "implementation_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_parser_change_allowed_by_this_analysis",
+        "execution_runner_change_allowed_by_this_analysis",
+        "new_approval_artifacts_allowed",
+        "real_execution_allowed",
+        "required_next_action"
+      ],
+      "properties": {
+        "production_parser_change_allowed_by_this_analysis": {
+          "const": false
+        },
+        "execution_runner_change_allowed_by_this_analysis": {
+          "const": false
+        },
+        "new_approval_artifacts_allowed": {
+          "const": false
+        },
+        "real_execution_allowed": {
+          "const": false
+        },
+        "required_next_action": {
+          "const": "IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE"
+        }
+      }
+    }
+  }
+}

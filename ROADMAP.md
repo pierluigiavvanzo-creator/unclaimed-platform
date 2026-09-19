@@ -2,6 +2,24 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Multiline Parser Remediation Is Feasible Offline
+
+Completed:
+
+`ANALYZE_NY_OSC_MALFORMED_QUOTED_RECORD_OFFLINE`
+
+State:
+
+`FEASIBLE / NOT IMPLEMENTED / SYNTHETIC ONLY / NO FOURTH ATTEMPT`
+
+The selected design is a byte-level streaming state machine that recognizes record boundaries
+only outside quotes and retains no owner-field bytes. Existing archive, uncompressed-size,
+member-count and 14-field bounds remain unchanged.
+
+Next bounded task:
+
+`IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE`
+
 ## Current Override — Third Attempt Consumed Fail-Closed
 
 Completed once:

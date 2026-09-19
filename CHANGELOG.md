@@ -5,6 +5,8 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Offline NY OSC multiline quoted-record root-cause analysis and bounded remediation design.
+- Machine-readable streaming-parser proposal, schema and contract tests with no fourth-attempt authorization.
 - Persisted non-PII evidence for the consumed third NY OSC bounded attempt.
 - Marked both third-attempt approvals consumed and non-reusable after fail-closed execution.
 - Recorded the bounded offline diagnosis for `MALFORMED_QUOTED_RECORD` without claiming source corruption.
