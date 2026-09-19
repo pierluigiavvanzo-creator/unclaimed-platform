@@ -12,9 +12,17 @@ from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution
 
 ROOT = Path(__file__).resolve().parents[2]
 LOCAL_SCHEMA = ROOT / "schemas/common/ny_osc_fourth_attempt_transient_local_approval.schema.json"
-LOCAL_APPROVAL = (\n    ROOT\n    / "sources/evidence"\n    / "ny_osc_owner_name_file_fourth_attempt_transient_local_approval.v1.json"\n)
+LOCAL_APPROVAL = (
+    ROOT
+    / "sources/evidence"
+    / "ny_osc_owner_name_file_fourth_attempt_transient_local_approval.v1.json"
+)
 PII_SCHEMA = ROOT / "schemas/common/ny_osc_fourth_attempt_transient_pii_approval.schema.json"
-PII_APPROVAL = (\n    ROOT\n    / "sources/evidence"\n    / "ny_osc_owner_name_file_fourth_attempt_transient_pii_approval.v1.json"\n)
+PII_APPROVAL = (
+    ROOT
+    / "sources/evidence"
+    / "ny_osc_owner_name_file_fourth_attempt_transient_pii_approval.v1.json"
+)
 
 
 def _load(path: Path) -> dict[str, object]:
