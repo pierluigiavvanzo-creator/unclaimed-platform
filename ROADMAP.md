@@ -2,7 +2,33 @@
 
 Last updated: 2026-09-19
 
-## Current Override — Fourth Attempt Consumed / Structural Telemetry Candidate
+## Current Override — PR #12 Merged / Fifth-Attempt Preparation Is Offline Only
+
+PR #12 is merged into the canonical development branch at:
+
+`dc603d68ff6aeb234c2ad793b85fa1bb2f4805c8`
+
+The merged package contains structural-only NY OSC diagnostics, the remediated transient-local
+execution bridge, and the additive v1.1.0 execution-result contract while preserving historical
+v1.0.0 receipts.
+
+Verified PR CI:
+
+`35446925652 — SUCCESS`
+
+No separate post-merge CI run was observed during reconciliation.
+
+Fourth-attempt approvals are consumed and non-reusable; zero retry remains binding. No fifth
+source access, preflight, download or execution is authorized.
+
+Current bounded task:
+
+`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+
+This task is repository-only governance preparation. It must not create granted approvals or
+perform source access.
+
+## Historical Override — Fourth Attempt Consumed / Structural Telemetry Candidate (Pre-Merge)
 
 Completed real execution:
 

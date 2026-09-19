@@ -2,7 +2,65 @@
 
 Last updated: 2026-09-19
 
-## Superseding Current Event — Fourth Attempt Consumed / Structural Telemetry Candidate
+## AUTHORITATIVE CURRENT STATE — POST-PR12 MERGE
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Canonical development branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Canonical merge HEAD:
+
+`dc603d68ff6aeb234c2ad793b85fa1bb2f4805c8`
+
+PR #12:
+
+`MERGED / CLOSED`
+
+Fourth bounded attempt:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / BLOCKED / UNEXPECTED_DATA_FIELD_COUNT / ZERO RETRY`
+
+Non-PII execution evidence:
+
+- archive bytes: `409,477,526`;
+- selected text member bytes: `1,939,569,781`;
+- structural field count: `13`;
+- complete records before block: `213,454`;
+- ASCII-valid Property Type Code records before block: `213,454`;
+- local raw ZIP logically deleted;
+- no owner values returned or persisted.
+
+Merged diagnostic capability:
+
+- structural-only raw/structural/suppressed delimiter counters;
+- quote-state counters without owner-field persistence;
+- transient-local execution bridge remediated end-to-end;
+- historical execution receipt v1.0.0 preserved;
+- future execution receipt v1.1.0 carries sanitized structural diagnostics.
+
+Final verified PR CI:
+
+`35446925652 — SUCCESS`
+
+No separate post-merge CI run on `dc603d68...` was observed at reconciliation time.
+
+Safety state:
+
+- OSC source access: `NOT AUTHORIZED`;
+- fifth listing preflight: `NOT AUTHORIZED`;
+- fifth download: `NOT AUTHORIZED`;
+- fifth execution: `NOT AUTHORIZED`;
+- fourth approvals: `CONSUMED / NON-REUSABLE`;
+- automatic retry: `FORBIDDEN`;
+- 14-field validation: `FAIL-CLOSED`.
+
+This section supersedes conflicting historical status and next-action entries below.
+
+## Historical Event — Fourth Attempt Consumed / Structural Telemetry Candidate (Pre-Merge)
 
 Fourth execution result:
 
@@ -41,7 +99,7 @@ Next action after CI:
 
 `HUMAN_APPROVE_MERGE_PR_12_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
 
-## Superseding Current Event — Fourth Attempt Approvals Granted Offline
+## Historical Event — Fourth Attempt Approvals Granted Offline (Consumed Later)
 
 Approval state:
 
@@ -942,13 +1000,30 @@ Offline:
 
 ## SINGLE NEXT ACTION
 
-Product Owner review required:
+Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_FOURTH_BOUNDED_ATTEMPT_PROPOSAL`
+`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
 
 Classification:
 
-`A — Product Critical / Human Authorization Gate`
+`A — Product Critical / Offline Governance Preparation`
 
-The proposal itself grants no source access, preflight or download. Do not create a runner,
-approval artifacts or execute a fourth attempt without a separate Product Owner instruction.
+Purpose:
+
+Use the merged structural-diagnostic telemetry and v1.1.0 execution bridge to define the
+smallest bounded fifth-attempt proposal capable of distinguishing a true delimiter shortage
+from quote-suppressed delimiter behavior.
+
+Hard limits for this next action:
+
+- repository-only;
+- no OSC access;
+- no fresh listing preflight;
+- no download;
+- no real owner-file opening;
+- no granted approvals;
+- no execution;
+- no retry authorization;
+- no widening of existing byte/member/privacy bounds unless separately justified and reviewed.
+
+A fifth attempt remains unapproved until later explicit human gates.
