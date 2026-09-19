@@ -315,3 +315,151 @@ def test_property_type_code_still_rejects_non_alphanumeric_internal_shape() -> N
 
     assert result.status == "BLOCKED"
     assert result.reason_code == "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+
+
+
+@pytest.mark.parametrize("newline", ["\n", "\r\n"])
+def test_multiline_quoted_owner_field_is_one_logical_record(newline: str) -> None:
+    values = [
+        "1001",
+        "IN03",
+        "Synthetic property description",
+        "1",
+        f'"Synthetic Owner Alpha{newline}Synthetic Owner Continuation"',
+        "1 Synthetic Street",
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        "Synthetic Holder",
+        "2026",
+    ]
+    payload = ("|".join(values) + newline).encode("utf-8")
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == 1
+    assert result.observed_header_state == "NO_HEADER_OBSERVED"
+    assert "Synthetic Owner" not in result.model_dump_json()
+
+
+def test_multiline_quoted_pipe_and_doubled_quote_remain_non_structural() -> None:
+    first = [
+        "1001",
+        "IN03",
+        "Synthetic property description",
+        "1",
+        '"Synthetic | Owner\nwith ""quoted"" continuation"',
+        "1 Synthetic Street",
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        "Synthetic Holder",
+        "2026",
+    ]
+    second = _row(
+        "1002",
+        "IN01",
+        "Synthetic Owner Beta",
+        "2 Synthetic Street",
+    )
+    payload = ("|".join(first) + "\n" + second + "\n").encode("utf-8")
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 2
+    assert result.property_type_ascii_record_count == 2
+    serialized = result.model_dump_json()
+    assert "Synthetic | Owner" not in serialized
+    assert "quoted" not in serialized
+
+
+def test_eof_inside_multiline_quote_still_fails_closed() -> None:
+    payload = (
+        '1001|IN03|Synthetic description|1|"Synthetic Owner\n'
+        "continuation without closing quote"
+    ).encode("utf-8")
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "MALFORMED_QUOTED_RECORD"
+    assert result.aggregate_complete_record_count == 0
+    assert result.property_type_ascii_record_count == 0
+    assert result.observed_delimiter == "|"
+    assert "Synthetic Owner" not in result.model_dump_json()
+
+
+def test_wrong_field_count_after_multiline_assembly_fails_closed() -> None:
+    payload = (
+        '1001|IN03|Synthetic description|1|"Synthetic Owner\n'
+        'Continuation"|too|few\n'
+    ).encode("utf-8")
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_data_field_count == 7
+    assert result.aggregate_complete_record_count == 0
+    assert "Synthetic Owner" not in result.model_dump_json()
+
+
+def test_invalid_property_type_after_multiline_record_fails_closed() -> None:
+    first = [
+        "1001",
+        "IN03",
+        "Synthetic description",
+        "1",
+        '"Synthetic Owner\nContinuation"',
+        "1 Synthetic Street",
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        "Synthetic Holder",
+        "2026",
+    ]
+    second = _row(
+        "1002",
+        "IN 03",
+        "Synthetic Owner Beta",
+        "2 Synthetic Street",
+    )
+    payload = ("|".join(first) + "\n" + second + "\n").encode("utf-8")
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == 1
+    assert "Synthetic Owner" not in result.model_dump_json()
