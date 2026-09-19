@@ -2,6 +2,23 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Streaming Multiline Parser Implemented Offline
+
+Completed:
+
+`IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE`
+
+State:
+
+`IMPLEMENTED_SYNTHETIC_ONLY / NO SOURCE ACCESS / NO FOURTH ATTEMPT`
+
+The parser assembles logical records across physical lines using bounded structural state,
+without decoding or buffering owner fields. All existing caps and fail-closed conditions are
+preserved.
+
+A fourth attempt remains a separate Product Owner decision and would require an offline
+proposal, independently verified tooling, two new approvals and a fresh preflight.
+
 ## Current Override — Multiline Parser Remediation Is Feasible Offline
 
 Completed:
