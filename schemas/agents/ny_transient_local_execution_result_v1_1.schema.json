@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-transient-local-execution-result:1.1.0",
+  "title": "NY OSC Transient Local File Execution Result v1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "status",
+    "reason_code",
+    "local_file_deleted",
+    "logical_deletion_only",
+    "physical_secure_erasure_guaranteed",
+    "archive_byte_count",
+    "schema_result",
+    "structural_diagnostic",
+    "no_raw_path_returned",
+    "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.1.0"},
+    "status": {"enum": ["DISCOVERED", "BLOCKED"]},
+    "reason_code": {"type": "string", "minLength": 3},
+    "local_file_deleted": {"const": true},
+    "logical_deletion_only": {"const": true},
+    "physical_secure_erasure_guaranteed": {"const": false},
+    "archive_byte_count": {"type": "integer", "minimum": 0},
+    "schema_result": {
+      "anyOf": [
+        {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"},
+        {"type": "null"}
+      ]
+    },
+    "structural_diagnostic": {
+      "anyOf": [
+        {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0"},
+        {"type": "null"}
+      ]
+    },
+    "no_raw_path_returned": {"const": true},
+    "no_owner_values_returned": {"const": true}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "reason_code": {"const": "UNEXPECTED_DATA_FIELD_COUNT"}
+        },
+        "required": ["reason_code"]
+      },
+      "then": {
+        "properties": {
+          "status": {"const": "BLOCKED"},
+          "structural_diagnostic": {
+            "$ref": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "structural_diagnostic": {"type": "null"}
+        }
+      }
+    }
+  ]
+}

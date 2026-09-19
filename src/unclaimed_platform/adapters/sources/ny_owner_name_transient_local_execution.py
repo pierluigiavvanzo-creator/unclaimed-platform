@@ -14,13 +14,14 @@ import argparse
 import json
 import tempfile
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from unclaimed_platform.adapters.sources.ny_owner_name_schema_discovery import (
     NyOwnerNameSchemaDiscoveryAuthorization,
     NyOwnerNameSchemaDiscoveryResult,
+    NyOwnerNameStructuralDiagnosticResult,
     discover_ny_owner_name_schema,
 )
 
@@ -57,7 +58,7 @@ class NyTransientLocalExecutionAuthorization(BaseModel):
 
 
 class NyTransientLocalExecutionResult(BaseModel):
-    """Persistable non-PII receipt for the transient local-file bridge."""
+    """Historical v1.0.0 non-PII receipt retained for persisted execution evidence."""
 
     model_config = ConfigDict(frozen=True)
 
@@ -71,6 +72,44 @@ class NyTransientLocalExecutionResult(BaseModel):
     schema_result: NyOwnerNameSchemaDiscoveryResult | None = None
     no_raw_path_returned: Literal[True] = True
     no_owner_values_returned: Literal[True] = True
+
+
+class NyTransientLocalExecutionResultV1_1(BaseModel):
+    """Current non-PII execution receipt with structural diagnostic telemetry."""
+
+    model_config = ConfigDict(frozen=True)
+
+    contract_version: Literal["1.1.0"] = "1.1.0"
+    status: Literal["DISCOVERED", "BLOCKED"]
+    reason_code: str = Field(min_length=3)
+    local_file_deleted: Literal[True]
+    logical_deletion_only: Literal[True] = True
+    physical_secure_erasure_guaranteed: Literal[False] = False
+    archive_byte_count: int = Field(ge=0)
+    schema_result: NyOwnerNameSchemaDiscoveryResult | None = None
+    structural_diagnostic: NyOwnerNameStructuralDiagnosticResult | None = None
+    no_raw_path_returned: Literal[True] = True
+    no_owner_values_returned: Literal[True] = True
+
+    @model_validator(mode="after")
+    def validate_structural_diagnostic_binding(self) -> Self:
+        expects_diagnostic = self.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+        has_diagnostic = self.structural_diagnostic is not None
+        if expects_diagnostic != has_diagnostic:
+            raise ValueError(
+                "structural diagnostic must be present only for unexpected field count"
+            )
+        if expects_diagnostic and self.status != "BLOCKED":
+            raise ValueError("unexpected field count must remain fail-closed")
+        if self.structural_diagnostic is not None:
+            if (
+                self.schema_result is None
+                or self.schema_result.reason_code != "UNEXPECTED_DATA_FIELD_COUNT"
+            ):
+                raise ValueError(
+                    "structural diagnostic requires matching schema-discovery result"
+                )
+        return self
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -167,7 +206,7 @@ def _is_authorized_temp_path(path: Path) -> bool:
 def execute_transient_local_file_discovery(
     authorization: NyTransientLocalExecutionAuthorization,
     archive_path: Path,
-) -> NyTransientLocalExecutionResult:
+) -> NyTransientLocalExecutionResultV1_1:
     """Process one already-downloaded temp ZIP and delete it immediately afterward."""
 
     if archive_path.name.lower() != authorization.expected_local_filename.lower():
@@ -181,7 +220,7 @@ def execute_transient_local_file_discovery(
 
     try:
         if archive_byte_count > authorization.max_download_bytes:
-            return NyTransientLocalExecutionResult(
+            return NyTransientLocalExecutionResultV1_1(
                 status="BLOCKED",
                 reason_code="LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
                 local_file_deleted=True,
@@ -216,7 +255,17 @@ def execute_transient_local_file_discovery(
             owner_field_logging=False,
             row_specific_human_inspection=False,
         )
-        schema_result = discover_ny_owner_name_schema(schema_auth, archive_bytes)
+        structural_diagnostics: list[NyOwnerNameStructuralDiagnosticResult] = []
+        schema_result = discover_ny_owner_name_schema(
+            schema_auth,
+            archive_bytes,
+            structural_diagnostic_sink=structural_diagnostics.append,
+        )
+        if len(structural_diagnostics) > 1:
+            raise RuntimeError("schema discovery emitted multiple structural diagnostics")
+        structural_diagnostic = (
+            structural_diagnostics[0] if structural_diagnostics else None
+        )
         status: Literal["DISCOVERED", "BLOCKED"] = (
             "DISCOVERED" if schema_result.status == "DISCOVERED" else "BLOCKED"
         )
@@ -226,6 +275,7 @@ def execute_transient_local_file_discovery(
             local_file_deleted=True,
             archive_byte_count=archive_byte_count,
             schema_result=schema_result,
+            structural_diagnostic=structural_diagnostic,
         )
     finally:
         if archive_path.exists():

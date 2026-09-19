@@ -137,3 +137,27 @@ The reviewer UI consumes this contract; it is not an authorization surface and c
 source, enable real acquisition, perform matching, or write claimant data. FastAPI/domain governance
 remains authoritative. Repository-side deployment-provider configuration is separately protected by
 `tests/contract/test_no_vercel_runtime_integration.py`.
+
+
+## NY OSC transient-local execution result v1.1
+
+The historical NY transient-local execution result contract remains immutable at version
+`1.0.0`:
+
+- `schemas/agents/ny_transient_local_execution_result.schema.json`.
+
+Version `1.1.0` is additive for future executions and is defined separately at:
+
+- `schemas/agents/ny_transient_local_execution_result_v1_1.schema.json`.
+
+The v1.1 result adds one required boundary field, `structural_diagnostic`, whose value is
+either the strict non-PII structural diagnostic contract or `null`. When the execution
+reason is `UNEXPECTED_DATA_FIELD_COUNT`, the diagnostic must be present. For every other
+reason it must be `null`.
+
+The diagnostic may contain only structural counters already defined by
+`ny_owner_name_structural_diagnostic_result.schema.json`; it cannot contain record bytes,
+record excerpts, field values, offsets, hashes, Property IDs, owner/holder values or raw paths.
+
+The v1.1 execution bridge does not relax the existing 14-field fail-closed rule, authorize
+retry, or expand any source/privacy scope.

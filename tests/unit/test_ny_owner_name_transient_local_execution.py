@@ -69,7 +69,9 @@ def test_success_deletes_local_file_and_returns_no_owner_values() -> None:
 
     result = execute_transient_local_file_discovery(_auth(), path)
 
+    assert result.contract_version == "1.1.0"
     assert result.status == "DISCOVERED"
+    assert result.structural_diagnostic is None
     assert result.local_file_deleted is True
     assert result.logical_deletion_only is True
     assert result.physical_secure_erasure_guaranteed is False
@@ -87,9 +89,11 @@ def test_oversize_file_is_blocked_and_deleted_before_schema_discovery() -> None:
         path,
     )
 
+    assert result.contract_version == "1.1.0"
     assert result.status == "BLOCKED"
     assert result.reason_code == "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP"
     assert result.schema_result is None
+    assert result.structural_diagnostic is None
     assert path.exists() is False
 
 
@@ -201,3 +205,47 @@ def test_missing_gate2_approval_blocks_runner_construction(tmp_path: Path) -> No
 
     with pytest.raises(ValueError, match="Gate 2 approval is not available"):
         build_real_execution_authorization(local, gate2)
+
+
+def test_field_count_block_carries_non_pii_structural_diagnostic() -> None:
+    values = [
+        "1",
+        "IN03",
+        "Synthetic description",
+        "1",
+        '"Synthetic Owner Alpha',
+        '1 Synthetic Street"',
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        "Synthetic Holder",
+        "2026",
+    ]
+    payload = ("|".join(values) + "\n").encode("utf-8")
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("owner_names.txt", payload)
+    path = _dedicated_temp_file(buffer.getvalue())
+
+    result = execute_transient_local_file_discovery(_auth(), path)
+
+    assert result.contract_version == "1.1.0"
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.schema_result is not None
+    assert result.schema_result.observed_data_field_count == 13
+    assert result.structural_diagnostic is not None
+    diagnostic = result.structural_diagnostic
+    assert diagnostic.classification == "QUOTE_SUPPRESSED_DELIMITER_OBSERVED"
+    assert diagnostic.raw_pipe_count == 13
+    assert diagnostic.structural_pipe_count == 12
+    assert diagnostic.suppressed_pipe_count == 1
+    assert path.exists() is False
+
+    serialized = result.model_dump_json()
+    assert "Synthetic Owner Alpha" not in serialized
+    assert "Synthetic Street" not in serialized
+    assert "Synthetic Holder" not in serialized
