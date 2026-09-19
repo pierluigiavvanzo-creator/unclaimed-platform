@@ -344,78 +344,109 @@ class _LogicalRecordScanner:
             self._property_field_finished = True
 
 
+class _QuotedPipeStreamScanner:
+    """Scan fixed-size byte chunks into logical records with bounded state."""
+
+    def __init__(self) -> None:
+        self._track_header = True
+        self._scanner = _LogicalRecordScanner(track_header=True)
+        self._in_quotes = False
+        self._pending_quote = False
+        self._pending_cr = False
+
+    @property
+    def observed_delimiter(self) -> Literal["|"] | None:
+        return self._scanner.observed_delimiter
+
+    def consume(self, value: int) -> _QuotedPipeRecordShape | None:
+        if self._pending_quote:
+            self._scanner.consume_field_byte(ord('"'))
+            self._pending_quote = False
+            if value == ord('"'):
+                self._scanner.consume_field_byte(value)
+                return None
+            self._in_quotes = False
+
+        if self._pending_cr:
+            self._pending_cr = False
+            if value == ord("\n"):
+                if self._in_quotes:
+                    self._scanner.consume_field_byte(ord("\r"))
+                    self._scanner.consume_field_byte(value)
+                    return None
+                return self._finish_boundary()
+            self._scanner.consume_field_byte(ord("\r"))
+
+        if value == ord("\r"):
+            self._pending_cr = True
+            return None
+
+        if value == ord("\n"):
+            if self._in_quotes:
+                self._scanner.consume_field_byte(value)
+                return None
+            return self._finish_boundary()
+
+        if value == ord('"'):
+            if self._in_quotes:
+                self._pending_quote = True
+                return None
+
+            can_open_quote = not self._scanner.field_has_nonspace
+            self._scanner.consume_field_byte(value)
+            if can_open_quote:
+                self._in_quotes = True
+            return None
+
+        if value == ord("|") and not self._in_quotes:
+            self._scanner.consume_delimiter()
+            return None
+
+        self._scanner.consume_field_byte(value)
+        return None
+
+    def finish(self) -> _QuotedPipeRecordShape | None:
+        if self._pending_quote:
+            self._scanner.consume_field_byte(ord('"'))
+            self._pending_quote = False
+            self._in_quotes = False
+
+        if self._pending_cr:
+            self._scanner.consume_field_byte(ord("\r"))
+            self._pending_cr = False
+
+        if self._in_quotes:
+            raise _MalformedQuotedRecordError(self.observed_delimiter)
+
+        if self._scanner.has_content:
+            return self._finish_boundary()
+        return None
+
+    def _finish_boundary(self) -> _QuotedPipeRecordShape | None:
+        if not self._scanner.has_content:
+            return None
+
+        record = self._scanner.finish()
+        self._track_header = False
+        self._scanner = _LogicalRecordScanner(track_header=self._track_header)
+        return record
+
+
 def _iter_quoted_pipe_record_shapes(
     stream: BinaryIO,
 ) -> Iterator[_QuotedPipeRecordShape]:
-    """Yield logical record shapes while discarding all owner-field bytes."""
+    """Yield logical record shapes without retaining owner fields or whole records."""
 
-    track_header = True
-    scanner = _LogicalRecordScanner(track_header=track_header)
-    in_quotes = False
+    scanner = _QuotedPipeStreamScanner()
+    while chunk := stream.read(64 * 1024):
+        for value in chunk:
+            record = scanner.consume(value)
+            if record is not None:
+                yield record
 
-    for physical_line in stream:
-        index = 0
-        while index < len(physical_line):
-            value = physical_line[index]
-
-            if value == ord("\r") and (
-                index + 1 < len(physical_line)
-                and physical_line[index + 1] == ord("\n")
-            ):
-                if in_quotes:
-                    scanner.consume_field_byte(value)
-                    scanner.consume_field_byte(ord("\n"))
-                elif scanner.has_content:
-                    yield scanner.finish()
-                    track_header = False
-                    scanner = _LogicalRecordScanner(track_header=track_header)
-                index += 2
-                continue
-
-            if value == ord("\n"):
-                if in_quotes:
-                    scanner.consume_field_byte(value)
-                elif scanner.has_content:
-                    yield scanner.finish()
-                    track_header = False
-                    scanner = _LogicalRecordScanner(track_header=track_header)
-                index += 1
-                continue
-
-            if value == ord('"'):
-                if in_quotes:
-                    scanner.consume_field_byte(value)
-                    if (
-                        index + 1 < len(physical_line)
-                        and physical_line[index + 1] == value
-                    ):
-                        scanner.consume_field_byte(value)
-                        index += 2
-                        continue
-                    in_quotes = False
-                    index += 1
-                    continue
-
-                can_open_quote = not scanner.field_has_nonspace
-                scanner.consume_field_byte(value)
-                if can_open_quote:
-                    in_quotes = True
-                index += 1
-                continue
-
-            if value == ord("|") and not in_quotes:
-                scanner.consume_delimiter()
-                index += 1
-                continue
-
-            scanner.consume_field_byte(value)
-            index += 1
-
-    if in_quotes:
-        raise _MalformedQuotedRecordError(scanner.observed_delimiter)
-
-    if scanner.has_content:
-        yield scanner.finish()
+    final_record = scanner.finish()
+    if final_record is not None:
+        yield final_record
 
 
 class NyOwnerNameSchemaDiscoveryAuthorization(BaseModel):
