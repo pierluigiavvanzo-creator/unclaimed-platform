@@ -2,7 +2,51 @@
 
 Last updated: 2026-09-19
 
-## Superseding Current Event — Fourth Attempt Consumed / Structural Telemetry Candidate
+## Current Authoritative State — PR #12 Merged / Structural Diagnostic Telemetry Integrated
+
+This section is authoritative for the current repository state and supersedes conflicting
+historical status/next-action entries below.
+
+PR #12:
+
+`MERGED / CLOSED`
+
+Merge commit:
+
+`dc603d68ff6aeb234c2ad793b85fa1bb2f4805c8`
+
+Canonical development branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Fourth bounded NY OSC attempt:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / BLOCKED / UNEXPECTED_DATA_FIELD_COUNT / ZERO RETRY`
+
+Persisted non-PII evidence:
+
+- archive bytes: `409,477,526`;
+- selected text member bytes: `1,939,569,781`;
+- observed structural field count: `13`;
+- complete records before block: `213,454`;
+- ASCII-valid Property Type Code records before block: `213,454`;
+- local raw ZIP logically deleted;
+- no owner values returned or persisted.
+
+Structural diagnostic telemetry and its transient-local execution bridge are integrated.
+Historical execution receipt v1.0.0 remains intact; future bridge executions use the separate
+v1.1.0 result contract with sanitized `structural_diagnostic` telemetry.
+
+Final verified PR CI:
+
+`35446925652 — SUCCESS`
+
+A separate post-merge CI run on merge commit `dc603d68...` was not observed at reconciliation
+time; do not invent one.
+
+No fifth source access, preflight, download, execution approval or retry is authorized.
+
+## Historical Event — Fourth Attempt Consumed / Structural Telemetry Candidate (Pre-Merge)
 
 The fourth bounded NY OSC attempt executed once after the passed fresh-listing preflight and
 stopped fail-closed:
@@ -906,9 +950,12 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`REVIEW_AND_INTEGRATE_NY_OSC_THIRD_ATTEMPT_RUNNER_OFFLINE`
+`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
 
-Classification: `A — Product Critical / Offline Safety Implementation`.
+Classification: `A — Product Critical / Offline Governance Preparation`.
 
-Run repository CI and review the runner/contracts. Do not grant either approval, perform a
-remote preflight, access the source, or download the Owner Name File.
+Prepare a fifth-attempt proposal only. Reuse the merged structural-diagnostic telemetry and
+execution-result v1.1.0 contract as the diagnostic basis. Do not access OSC, perform a fresh
+listing preflight, download the Owner Name File, create granted approvals, or execute a fifth
+attempt. Preserve one-download/zero-retry governance unless a separately reviewed proposal
+explicitly changes it.
