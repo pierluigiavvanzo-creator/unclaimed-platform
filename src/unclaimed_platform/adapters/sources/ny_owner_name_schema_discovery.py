@@ -7,7 +7,6 @@ Raw archive bytes and owner-row values are never part of the serializable contra
 from __future__ import annotations
 
 import io
-import re
 import zipfile
 from dataclasses import dataclass
 from typing import BinaryIO, Iterator, Literal
@@ -38,7 +37,6 @@ NY_DOCUMENTED_FIELDS: tuple[str, ...] = (
     "Holder Report Year",
 )
 NY_PROPERTY_TYPE_CODE_INDEX = 1
-_ASCII_ALNUM = re.compile(rb"^[A-Za-z0-9]+$")
 _UTF8_BOM = b"\xef\xbb\xbf"
 
 
@@ -625,9 +623,6 @@ def discover_ny_owner_name_schema(
                 selected_member_uncompressed_bytes=selected.file_size,
             )
 
-        documented_header = NY_DOCUMENTED_DELIMITER.join(NY_DOCUMENTED_FIELDS).encode(
-            "ascii"
-        )
         expected_field_count = len(NY_DOCUMENTED_FIELDS)
         record_count = 0
         property_type_ascii_count = 0
@@ -727,73 +722,6 @@ def discover_ny_owner_name_schema(
                 aggregate_complete_record_count=record_count,
                 property_type_ascii_record_count=property_type_ascii_count,
             )
-
-        if not first_nonblank_seen:
-                    first_nonblank_seen = True
-                    if line == documented_header:
-                        header_state = "EXACT_DOCUMENTED_HEADER"
-                        continue
-                    if _normalized_documented_header(fields):
-                        header_state = "NORMALIZED_DOCUMENTED_HEADER"
-                        continue
-
-                field_count = len(fields)
-                if observed_data_field_count is None:
-                    observed_data_field_count = field_count
-
-                if field_count != expected_field_count:
-                    return _blocked(
-                        authorization,
-                        reason_code="UNEXPECTED_DATA_FIELD_COUNT",
-                        archive_byte_count=archive_byte_count,
-                        archive_member_count=member_count,
-                        selected_text_member_present=True,
-                        selected_member_uncompressed_bytes=selected.file_size,
-                        observed_delimiter=("|" if b"|" in line else None),
-                        observed_data_field_count=field_count,
-                        observed_header_state=header_state,
-                        physical_header_names=(
-                            NY_DOCUMENTED_FIELDS
-                            if header_state
-                            in {
-                                "EXACT_DOCUMENTED_HEADER",
-                                "NORMALIZED_DOCUMENTED_HEADER",
-                            }
-                            else ()
-                        ),
-                        aggregate_complete_record_count=record_count,
-                        property_type_ascii_record_count=property_type_ascii_count,
-                    )
-
-                property_type_raw = _normalize_ascii_token(
-                    fields[NY_PROPERTY_TYPE_CODE_INDEX]
-                )
-                if not property_type_raw or _ASCII_ALNUM.fullmatch(property_type_raw) is None:
-                    return _blocked(
-                        authorization,
-                        reason_code="PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
-                        archive_byte_count=archive_byte_count,
-                        archive_member_count=member_count,
-                        selected_text_member_present=True,
-                        selected_member_uncompressed_bytes=selected.file_size,
-                        observed_delimiter="|",
-                        observed_data_field_count=field_count,
-                        observed_header_state=header_state,
-                        physical_header_names=(
-                            NY_DOCUMENTED_FIELDS
-                            if header_state
-                            in {
-                                "EXACT_DOCUMENTED_HEADER",
-                                "NORMALIZED_DOCUMENTED_HEADER",
-                            }
-                            else ()
-                        ),
-                        aggregate_complete_record_count=record_count,
-                        property_type_ascii_record_count=property_type_ascii_count,
-                    )
-
-                property_type_ascii_count += 1
-                record_count += 1
 
         if not first_nonblank_seen:
             return _blocked(
