@@ -5,6 +5,8 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Registered both exact fourth-attempt NY OSC approvals offline as single-use, non-reusable and zero-retry.
+- Bound the fourth-attempt grants to integrated runner `1c4be944...` and successful CI `35428062292`.
 - Offline fourth-attempt NY OSC runner with pre-directory fail-closed authorization checks.
 - Fourth-attempt approval contracts, ungranted templates, static tests and preparation audit.
 - Versioned NY OSC fourth-attempt offline proposal with unchanged one-download/zero-retry bounds.

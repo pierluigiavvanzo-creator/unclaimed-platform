@@ -2,6 +2,20 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Fourth Attempt Approvals Granted Offline
+
+Completed:
+
+`REGISTER_NY_OSC_FOURTH_ATTEMPT_APPROVALS_OFFLINE`
+
+State:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / ZERO RETRY / NO SOURCE ACCESS`
+
+Both exact approvals are bound to the integrated runner and successful CI. No preflight or
+execution occurred. The next required gate is separate authorization for one fresh exact
+listing preflight.
+
 ## Current Override — Fourth Attempt Runner Prepared Offline
 
 Completed:

@@ -2,6 +2,24 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Fourth Attempt Approvals Granted Offline
+
+The Product Owner supplied both exact approval phrases on 2026-09-19.
+
+State:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+The grants are bound to integrated runner checkpoint
+`1c4be944004c85936d53506a5998b9aeffc9aed0` and CI
+`35428062292 — SUCCESS`. Limits remain one download, zero retries, 450,000,000
+compressed bytes, 2,000,000,000 uncompressed bytes, one archive member, 14 fields and a
+65,536-byte streaming-parser chunk.
+
+This repository action performed no source access, fresh listing preflight, download, archive
+opening or owner-PII processing. Fresh listing preflight requires a later, separate explicit
+authorization.
+
 ## Superseding Current Event — Fourth Attempt Runner Prepared Offline
 
 Authorized and completed:

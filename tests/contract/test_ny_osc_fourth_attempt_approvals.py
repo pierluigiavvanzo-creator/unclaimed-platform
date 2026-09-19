@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
 from jsonschema import Draft202012Validator
 
 from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution import (
@@ -29,7 +28,7 @@ def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_fourth_attempt_templates_are_valid_and_not_granted() -> None:
+def test_fourth_attempt_approvals_are_valid_granted_and_not_consumed() -> None:
     local = _load(LOCAL_APPROVAL)
     pii = _load(PII_APPROVAL)
 
@@ -37,17 +36,25 @@ def test_fourth_attempt_templates_are_valid_and_not_granted() -> None:
     Draft202012Validator(_load(PII_SCHEMA)).validate(pii)
 
     for approval in (local, pii):
-        assert approval["status"] == "NOT_GRANTED"
-        assert approval["owner_authorization"] is None
-        assert approval["granted_on"] is None
-        assert approval["execution_approval_ref"] is None
+        assert approval["status"] == "GRANTED_NOT_CONSUMED"
+        assert approval["granted_on"] == "2026-09-19"
         assert approval["attempt_number"] == 4
         assert approval["single_use"] is True
         assert approval["reusable"] is False
         assert approval["retry_authorized"] is False
-        assert approval["runner_checkpoint"] is None
-        assert approval["runner_ci_run_id"] is None
-        assert approval["runner_ci_conclusion"] is None
+        assert approval["runner_checkpoint"] == (
+            "1c4be944004c85936d53506a5998b9aeffc9aed0"
+        )
+        assert approval["runner_ci_run_id"] == 35428062292
+        assert approval["runner_ci_conclusion"] == "SUCCESS"
+
+    assert local["owner_authorization"] == (
+        "APPROVO NY OSC FOURTH TRANSIENT LOCAL FILE BOUNDED ONCE"
+    )
+    assert pii["owner_authorization"] == (
+        "APPROVO NY OSC OWNER NAME FILE FOURTH BOUNDED TRANSIENT PII ATTEMPT ONCE"
+    )
+    assert local["execution_approval_ref"] != pii["execution_approval_ref"]
 
     bounds = pii["execution_bounds"]
     assert bounds["downloads_max"] == 1
@@ -68,13 +75,21 @@ def test_fourth_attempt_templates_are_valid_and_not_granted() -> None:
     assert processing["row_specific_human_inspection_allowed"] is False
 
 
-def test_not_granted_fourth_attempt_cannot_build_authorization() -> None:
-    with pytest.raises(ValueError, match="approval is not available"):
-        build_real_execution_authorization(
-            LOCAL_APPROVAL,
-            PII_APPROVAL,
-            expected_attempt_number=4,
-        )
+def test_granted_fourth_attempt_builds_bound_authorization() -> None:
+    authorization = build_real_execution_authorization(
+        LOCAL_APPROVAL,
+        PII_APPROVAL,
+        expected_attempt_number=4,
+    )
+
+    assert authorization.mode == "AUTHORIZED_REAL_ONCE"
+    assert authorization.attempt_number == 4
+    assert authorization.local_file_approval_ref.endswith("1C4BE944")
+    assert authorization.gate2_approval_ref.endswith("35428062")
+    assert authorization.max_download_bytes == 450_000_000
+    assert authorization.max_uncompressed_bytes == 2_000_000_000
+    assert authorization.max_archive_members == 1
+    assert authorization.delete_local_file_immediately is True
 
 
 def test_consumed_third_attempt_artifacts_are_not_referenced() -> None:
@@ -82,5 +97,7 @@ def test_consumed_third_attempt_artifacts_are_not_referenced() -> None:
     pii = _load(PII_APPROVAL)
     for approval in (local, pii):
         assert "third_attempt" not in approval["proposal_ref"]
-        assert approval["proposal_checkpoint"] == "bec3e23325f9d565428e1f7cdeac401010884827"
+        assert approval["proposal_checkpoint"] == (
+            "bec3e23325f9d565428e1f7cdeac401010884827"
+        )
         assert approval["proposal_ci_run_id"] == 35426399366
