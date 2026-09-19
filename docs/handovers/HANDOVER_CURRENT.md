@@ -1,6 +1,25 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-18
+Last updated: 2026-09-19
+
+## Superseding Current Event — Fourth Attempt Approvals Granted Offline
+
+Approval state:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+Bindings:
+
+- runner checkpoint: `1c4be944004c85936d53506a5998b9aeffc9aed0`;
+- runner CI: `35428062292 — SUCCESS`;
+- attempt number: `4`;
+- approval references: distinct.
+
+No NY OSC access, fresh listing preflight, download, archive opening or PII processing occurred.
+
+Next action:
+
+`HUMAN_AUTHORIZE_NY_OSC_FOURTH_FRESH_LISTING_PREFLIGHT`
 
 ## Superseding Event — Second NY Attempt Consumed Fail-Closed
 
