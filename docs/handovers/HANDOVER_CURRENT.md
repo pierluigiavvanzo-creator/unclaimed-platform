@@ -810,6 +810,26 @@ Artifacts:
 
 No parser or runner changed. No fourth attempt is prepared or authorized.
 
+## 21. Streaming multiline quoted-record parser — offline implementation
+
+Completed:
+
+`IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE`
+
+Implemented byte-level logical-record streaming:
+
+- LF/CRLF terminate records only outside double quotes;
+- quoted newlines do not create false record boundaries;
+- owner fields are not decoded or buffered;
+- exact and normalized header matching remains incremental;
+- Property Type Code shape is validated without retaining its value;
+- EOF inside an open quote remains fail-closed;
+- existing byte/member/field/privacy bounds remain unchanged.
+
+Synthetic LF, CRLF, quoted-pipe, doubled-quote, following-record and negative cases were added.
+
+No runner, approval or fourth-attempt artifact exists.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -844,13 +864,13 @@ Offline:
 
 ## SINGLE NEXT ACTION
 
-Execute exclusively:
+Product Owner decision required:
 
-`IMPLEMENT_NY_OSC_STREAMING_MULTILINE_QUOTED_RECORD_PARSER_OFFLINE`
+`DECIDE_WHETHER_TO_PREPARE_NY_OSC_FOURTH_ATTEMPT_PROPOSAL_OFFLINE`
 
 Classification:
 
-`A — Product Critical / Offline Safety Implementation`
+`A — Product Critical / Human Authorization Gate`
 
-Use synthetic byte fixtures only. Preserve byte-level privacy, constant auxiliary memory,
-existing input caps and fail-closed behavior. Do not access NY OSC or prepare a fourth attempt.
+Do not access NY OSC, create a runner or grant approvals unless the Product Owner separately
+authorizes an offline-only fourth-attempt proposal.
