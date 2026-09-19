@@ -2,7 +2,40 @@
 
 Last updated: 2026-09-19
 
-## Current Override — Fifth Attempt Proposal Prepared Offline
+## Current Override — Fifth Attempt Proposal Merged / Runner Preparation Offline
+
+PR #14 is merged at:
+
+`289aabfc69a363683d978391623716fe13bb7b5b`
+
+Verified proposal CI:
+
+`35460348569 — SUCCESS`
+
+No separate post-merge CI run was observed during this reconciliation.
+
+The fifth proposal remains governance-only and does not authorize OSC access or execution.
+Operational fifth-attempt artifacts are not yet prepared.
+
+Current bounded task:
+
+`PREPARE_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+Required scope:
+
+- prepare a dedicated attempt-5 runner;
+- prepare fifth transient-local and transient-PII approval schemas;
+- prepare both approval templates with status `NOT_GRANTED`;
+- bind attempt number 5 and exact fifth approval phrases;
+- require distinct approval refs;
+- preserve one-download/zero-retry and unchanged caps;
+- require successful runner checkpoint/CI before any approval can become operational;
+- perform all authorization checks before creating the temp directory;
+- reuse the shared schema-discovery parser and verified v1.1 transient execution bridge;
+- do not reuse fourth runner or fourth approvals;
+- no OSC access, preflight, download, owner-file opening, approval grant or execution.
+
+## Historical Override — Fifth Attempt Proposal Prepared Offline (Pre-Review/Merge)
 
 Completed:
 

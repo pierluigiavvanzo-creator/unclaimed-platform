@@ -2,7 +2,53 @@
 
 Last updated: 2026-09-19
 
-## Current Authoritative State — Fifth Bounded Attempt Proposal Prepared Offline
+## Current Authoritative State — Fifth Attempt Proposal Reviewed and Merged
+
+This section supersedes conflicting historical current-state entries below.
+
+PR #14:
+
+`MERGED / CLOSED`
+
+Merge commit:
+
+`289aabfc69a363683d978391623716fe13bb7b5b`
+
+Canonical development branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Proposal verification CI:
+
+`35460348569 — SUCCESS`
+
+A separate post-merge CI run on merge commit `289aabfc...` was not observed at reconciliation
+time; do not invent one.
+
+The fifth bounded-attempt proposal is now integrated as governance-only material. It preserves
+one download maximum, zero retries, existing byte/member/privacy caps, execution receipt v1.1.0
+and structural diagnostic v1.0.0 on `UNEXPECTED_DATA_FIELD_COUNT`.
+
+Fifth-attempt operational state remains:
+
+- runner: `NOT_IMPLEMENTED`;
+- approval artifacts: `NOT_CREATED`;
+- approvals: `NOT_GRANTED`;
+- source access: `NOT AUTHORIZED`;
+- fresh listing preflight: `NOT AUTHORIZED`;
+- download: `NOT AUTHORIZED`;
+- execution: `NOT AUTHORIZED`;
+- automatic repair/row skip/widening/retry: `FORBIDDEN`.
+
+Next action:
+
+`PREPARE_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+This next action is offline only and may prepare runner code, attempt-5 approval schemas/templates,
+tests and audit material. It must not grant approvals or perform OSC access, preflight, download,
+owner-file opening or fifth execution.
+
+## Historical Current State — Fifth Bounded Attempt Proposal Prepared Offline (Pre-Review/Merge)
 
 This section supersedes conflicting historical current-state entries below.
 

@@ -2,7 +2,66 @@
 
 Last updated: 2026-09-19
 
-## AUTHORITATIVE CURRENT STATE — FIFTH ATTEMPT PROPOSAL PREPARED OFFLINE
+## AUTHORITATIVE CURRENT STATE — POST-PR14 MERGE
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Canonical development branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Canonical merge HEAD:
+
+`289aabfc69a363683d978391623716fe13bb7b5b`
+
+PR #14:
+
+`MERGED / CLOSED`
+
+Proposal review result:
+
+`PASS`
+
+Verified proposal CI:
+
+`35460348569 — SUCCESS`
+
+No separate post-merge CI run on `289aabfc...` was observed at reconciliation time.
+
+Integrated fifth proposal state:
+
+`PROPOSED_NOT_AUTHORIZED / REVIEWED / MERGED / ZERO SOURCE ACCESS`
+
+Diagnostic objective remains:
+
+`RAW_DELIMITER_SHORTAGE_VS_QUOTE_SUPPRESSED_DELIMITER`
+
+Execution bounds remain unchanged: one download maximum, zero retries, 450,000,000 compressed
+bytes, 2,000,000,000 uncompressed bytes, one archive member, exactly one text member, pipe
+delimiter, 14 documented fields and 65,536-byte parser chunks.
+
+Required future execution contracts remain:
+
+- transient-local execution result v1.1.0;
+- structural diagnostic v1.0.0 on `UNEXPECTED_DATA_FIELD_COUNT`.
+
+Operational state:
+
+- fifth runner: `NOT_IMPLEMENTED`;
+- fifth approval schemas/templates: `NOT_CREATED`;
+- fifth approvals: `NOT_GRANTED`;
+- OSC source access: `NOT AUTHORIZED`;
+- fifth listing preflight: `NOT AUTHORIZED`;
+- fifth download: `NOT AUTHORIZED`;
+- fifth execution: `NOT AUTHORIZED`;
+- fourth approvals: `CONSUMED / NON-REUSABLE`;
+- automatic repair/row skip/widening/retry: `FORBIDDEN`.
+
+This section supersedes conflicting historical current-state and next-action entries below.
+
+## HISTORICAL CURRENT STATE — FIFTH ATTEMPT PROPOSAL PREPARED OFFLINE (PRE-REVIEW/MERGE)
 
 Repository:
 
@@ -1050,8 +1109,31 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL`
+`PREPARE_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
 
-Review the proposal, schema, contract test and audit only. Do not prepare a runner, grant
-approvals, access OSC, perform a fresh listing preflight, download the Owner Name File or
-execute a fifth attempt until later separate human gates.
+Classification:
+
+`A — Product Critical / Offline Execution Preparation`
+
+Prepare only the dedicated fifth-attempt runner, attempt-5 approval schemas/templates,
+contract/static tests and technical audit.
+
+Hard limits:
+
+- repository-only;
+- attempt number fixed to 5;
+- exact fifth approval phrases;
+- both approval templates initially `NOT_GRANTED`;
+- distinct approval refs required;
+- fourth runner and fourth approvals non-reusable;
+- shared schema-discovery parser and transient execution bridge v1.1 may be reused;
+- one download maximum;
+- zero retries;
+- unchanged byte/member/field/chunk/privacy limits;
+- all authorization checks before temp-directory creation;
+- no OSC access;
+- no fresh listing preflight;
+- no download;
+- no owner-file opening;
+- no approval grant;
+- no fifth execution.
