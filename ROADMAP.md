@@ -2,6 +2,20 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Fourth Attempt Proposal Prepared Offline
+
+Completed:
+
+`PREPARE_NY_OSC_FOURTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / ONE DOWNLOAD / ZERO RETRY`
+
+No limits are widened. The proposal requires a fresh exact listing preflight, a separately
+prepared and verified fourth runner, and two new exact single-use approvals. No source access,
+preflight or download occurred.
+
 ## Current Override — Streaming Multiline Parser Implemented Offline
 
 Completed:

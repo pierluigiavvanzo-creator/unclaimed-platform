@@ -830,6 +830,26 @@ Synthetic LF, CRLF, quoted-pipe, doubled-quote, following-record and negative ca
 
 No runner, approval or fourth-attempt artifact exists.
 
+## 22. Fourth bounded attempt — offline proposal only
+
+Prepared:
+
+- `sources/proposals/ny_osc_owner_name_file_fourth_bounded_attempt_authorization.v1.json`;
+- `schemas/common/ny_osc_fourth_attempt_authorization_proposal.schema.json`;
+- `docs/audits/NY_OSC_FOURTH_ATTEMPT_OFFLINE_PROPOSAL.md`.
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The proposal is bound to streaming-parser checkpoint
+`3e58eeb27b47ca89d01f6b45159c8a01bef94bf0` and CI
+`35425632178 — SUCCESS`. Bounds remain one download, zero retries, 450,000,000 compressed
+bytes, 2,000,000,000 uncompressed bytes, one archive member and 14 fields.
+
+Both third approvals remain consumed. No fourth runner or approval artifact exists. The two
+fourth approval phrases remain `NOT_GRANTED`.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -864,13 +884,13 @@ Offline:
 
 ## SINGLE NEXT ACTION
 
-Product Owner decision required:
+Product Owner review required:
 
-`DECIDE_WHETHER_TO_PREPARE_NY_OSC_FOURTH_ATTEMPT_PROPOSAL_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_FOURTH_BOUNDED_ATTEMPT_PROPOSAL`
 
 Classification:
 
 `A — Product Critical / Human Authorization Gate`
 
-Do not access NY OSC, create a runner or grant approvals unless the Product Owner separately
-authorizes an offline-only fourth-attempt proposal.
+The proposal itself grants no source access, preflight or download. Do not create a runner,
+approval artifacts or execute a fourth attempt without a separate Product Owner instruction.

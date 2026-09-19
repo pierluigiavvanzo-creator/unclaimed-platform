@@ -2,6 +2,25 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Fourth Attempt Proposed Offline
+
+Prepared:
+
+`sources/proposals/ny_osc_owner_name_file_fourth_bounded_attempt_authorization.v1.json`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The proposal references integrated streaming-parser checkpoint
+`3e58eeb27b47ca89d01f6b45159c8a01bef94bf0` and CI
+`35425632178 — SUCCESS`. It preserves one download, zero retries and all existing byte,
+member, field and privacy bounds.
+
+Both third-attempt approvals remain consumed and non-reusable. The fourth runner and approval
+artifacts do not exist, the two proposed approval phrases remain `NOT_GRANTED`, and no source
+access or preflight occurred.
+
 ## Superseding Current Event — Streaming Multiline Parser Implemented Offline
 
 Completed:
