@@ -232,7 +232,7 @@ def execute_transient_local_file_discovery(
             archive_bytes = stream.read(authorization.max_download_bytes + 1)
 
         if len(archive_bytes) > authorization.max_download_bytes:
-            return NyTransientLocalExecutionResult(
+            return NyTransientLocalExecutionResultV1_1(
                 status="BLOCKED",
                 reason_code="LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP",
                 local_file_deleted=True,
@@ -269,7 +269,7 @@ def execute_transient_local_file_discovery(
         status: Literal["DISCOVERED", "BLOCKED"] = (
             "DISCOVERED" if schema_result.status == "DISCOVERED" else "BLOCKED"
         )
-        return NyTransientLocalExecutionResult(
+        return NyTransientLocalExecutionResultV1_1(
             status=status,
             reason_code=schema_result.reason_code,
             local_file_deleted=True,
