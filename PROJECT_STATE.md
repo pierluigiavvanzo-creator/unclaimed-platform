@@ -2,6 +2,34 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Fourth Attempt Consumed / Structural Telemetry Candidate
+
+The fourth bounded NY OSC attempt executed once after the passed fresh-listing preflight and
+stopped fail-closed:
+
+`BLOCKED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Persisted non-PII evidence records 13 structural fields after 213,454 complete records and
+213,454 ASCII-valid Property Type Code records. The archive was 409,477,526 bytes compressed,
+the selected text member was 1,939,569,781 bytes, the local raw ZIP was logically deleted,
+and no owner values were returned or persisted.
+
+Both fourth-attempt approvals are now:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`
+
+The offline structural-telemetry candidate adds raw/structural/suppressed pipe and quote-state
+counters without storing record content. The existing fail-closed 14-field rule is unchanged.
+No fifth source access or download is authorized.
+
+Candidate branch:
+
+`mvp1-ny-structural-diagnostic-telemetry-offline`
+
+Verification state at this commit:
+
+`IMPLEMENTED_OFFLINE_CANDIDATE / CI_PENDING`
+
 ## Superseding Current Event — Fourth Attempt Approvals Granted Offline
 
 The Product Owner supplied both exact approval phrases on 2026-09-19.

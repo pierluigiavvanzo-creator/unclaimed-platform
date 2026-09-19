@@ -8,8 +8,8 @@ from __future__ import annotations
 
 import io
 import zipfile
-from collections.abc import Iterator
-from dataclasses import dataclass
+from collections.abc import Callable, Iterator
+from dataclasses import dataclass, replace
 from typing import BinaryIO, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -237,6 +237,13 @@ class _QuotedPipeRecordShape:
     exact_documented_header: bool
     normalized_documented_header: bool
     observed_delimiter: Literal["|"] | None
+    raw_pipe_count: int
+    structural_pipe_count: int
+    quote_byte_count: int = 0
+    quote_open_event_count: int = 0
+    quote_close_event_count: int = 0
+    doubled_quote_pair_count: int = 0
+    physical_line_breaks_inside_quotes: int = 0
 
 
 class _MalformedQuotedRecordError(ValueError):
@@ -255,6 +262,8 @@ class _LogicalRecordScanner:
         self.field_has_nonspace = False
         self.has_content = False
         self.has_pipe = False
+        self.raw_pipe_count = 0
+        self.structural_pipe_count = 0
         self._property_matcher = _NormalizedAsciiAlnumMatcher()
         self._property_type_ascii = False
         self._property_field_finished = False
@@ -274,6 +283,7 @@ class _LogicalRecordScanner:
         self.has_content = True
         if value == ord("|"):
             self.has_pipe = True
+            self.raw_pipe_count += 1
         if not _is_ascii_space(value):
             self.field_has_nonspace = True
 
@@ -286,6 +296,8 @@ class _LogicalRecordScanner:
     def consume_delimiter(self) -> None:
         self.has_content = True
         self.has_pipe = True
+        self.raw_pipe_count += 1
+        self.structural_pipe_count += 1
         self._consume_exact_header_byte(ord("|"))
         self._finish_field()
         self.field_index += 1
@@ -311,6 +323,8 @@ class _LogicalRecordScanner:
                 and self.field_count == len(NY_DOCUMENTED_FIELDS)
             ),
             observed_delimiter=self.observed_delimiter,
+            raw_pipe_count=self.raw_pipe_count,
+            structural_pipe_count=self.structural_pipe_count,
         )
 
     def _new_header_matcher(self) -> _ExpectedHeaderFieldMatcher | None:
@@ -352,6 +366,14 @@ class _QuotedPipeStreamScanner:
         self._in_quotes = False
         self._pending_quote = False
         self._pending_cr = False
+        self._reset_record_diagnostics()
+
+    def _reset_record_diagnostics(self) -> None:
+        self._quote_byte_count = 0
+        self._quote_open_event_count = 0
+        self._quote_close_event_count = 0
+        self._doubled_quote_pair_count = 0
+        self._physical_line_breaks_inside_quotes = 0
 
     @property
     def observed_delimiter(self) -> Literal["|"] | None:
@@ -362,18 +384,24 @@ class _QuotedPipeStreamScanner:
             self._scanner.consume_field_byte(ord('"'))
             self._pending_quote = False
             if value == ord('"'):
+                self._quote_byte_count += 1
+                self._doubled_quote_pair_count += 1
                 self._scanner.consume_field_byte(value)
                 return None
+            self._quote_close_event_count += 1
             self._in_quotes = False
 
         if self._pending_cr:
             self._pending_cr = False
             if value == ord("\n"):
                 if self._in_quotes:
+                    self._physical_line_breaks_inside_quotes += 1
                     self._scanner.consume_field_byte(ord("\r"))
                     self._scanner.consume_field_byte(value)
                     return None
                 return self._finish_boundary()
+            if self._in_quotes:
+                self._physical_line_breaks_inside_quotes += 1
             self._scanner.consume_field_byte(ord("\r"))
 
         if value == ord("\r"):
@@ -382,11 +410,13 @@ class _QuotedPipeStreamScanner:
 
         if value == ord("\n"):
             if self._in_quotes:
+                self._physical_line_breaks_inside_quotes += 1
                 self._scanner.consume_field_byte(value)
                 return None
             return self._finish_boundary()
 
         if value == ord('"'):
+            self._quote_byte_count += 1
             if self._in_quotes:
                 self._pending_quote = True
                 return None
@@ -394,6 +424,7 @@ class _QuotedPipeStreamScanner:
             can_open_quote = not self._scanner.field_has_nonspace
             self._scanner.consume_field_byte(value)
             if can_open_quote:
+                self._quote_open_event_count += 1
                 self._in_quotes = True
             return None
 
@@ -408,9 +439,12 @@ class _QuotedPipeStreamScanner:
         if self._pending_quote:
             self._scanner.consume_field_byte(ord('"'))
             self._pending_quote = False
+            self._quote_close_event_count += 1
             self._in_quotes = False
 
         if self._pending_cr:
+            if self._in_quotes:
+                self._physical_line_breaks_inside_quotes += 1
             self._scanner.consume_field_byte(ord("\r"))
             self._pending_cr = False
 
@@ -425,9 +459,19 @@ class _QuotedPipeStreamScanner:
         if not self._scanner.has_content:
             return None
 
-        record = self._scanner.finish()
+        record = replace(
+            self._scanner.finish(),
+            quote_byte_count=self._quote_byte_count,
+            quote_open_event_count=self._quote_open_event_count,
+            quote_close_event_count=self._quote_close_event_count,
+            doubled_quote_pair_count=self._doubled_quote_pair_count,
+            physical_line_breaks_inside_quotes=(
+                self._physical_line_breaks_inside_quotes
+            ),
+        )
         self._track_header = False
         self._scanner = _LogicalRecordScanner(track_header=self._track_header)
+        self._reset_record_diagnostics()
         return record
 
 
@@ -469,6 +513,88 @@ class NyOwnerNameSchemaDiscoveryAuthorization(BaseModel):
     persist_owner_rows: Literal[False] = False
     owner_field_logging: Literal[False] = False
     row_specific_human_inspection: Literal[False] = False
+
+
+class NyOwnerNameStructuralDiagnosticResult(BaseModel):
+    """Persistable structural-only telemetry for one blocked logical record."""
+
+    model_config = ConfigDict(frozen=True)
+
+    contract_version: Literal["1.0.0"] = "1.0.0"
+    source_id: Literal[
+        "ny.osc.unclaimed_funds.owner_name_file"
+    ] = NY_OWNER_NAME_SOURCE_ID
+    diagnostic_scope: Literal["STRUCTURAL_ONLY"] = "STRUCTURAL_ONLY"
+    reason_code: Literal["UNEXPECTED_DATA_FIELD_COUNT"] = (
+        "UNEXPECTED_DATA_FIELD_COUNT"
+    )
+    classification: Literal[
+        "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED",
+        "QUOTE_SUPPRESSED_DELIMITER_OBSERVED",
+        "QUOTED_DELIMITER_INTERACTION_AMBIGUOUS",
+        "STRUCTURAL_MISMATCH_UNCLASSIFIED",
+    ]
+    expected_field_count: Literal[14] = len(NY_DOCUMENTED_FIELDS)
+    structural_field_count: int = Field(ge=0)
+    raw_pipe_count: int = Field(ge=0)
+    structural_pipe_count: int = Field(ge=0)
+    suppressed_pipe_count: int = Field(ge=0)
+    quote_byte_count: int = Field(ge=0)
+    quote_open_event_count: int = Field(ge=0)
+    quote_close_event_count: int = Field(ge=0)
+    doubled_quote_pair_count: int = Field(ge=0)
+    physical_line_breaks_inside_quotes: int = Field(ge=0)
+    ended_inside_quote: Literal[False] = False
+    no_raw_record_returned: Literal[True] = True
+    no_owner_values_returned: Literal[True] = True
+
+
+def _build_structural_diagnostic(
+    record: _QuotedPipeRecordShape,
+) -> NyOwnerNameStructuralDiagnosticResult:
+    expected_pipe_count = len(NY_DOCUMENTED_FIELDS) - 1
+    suppressed_pipe_count = record.raw_pipe_count - record.structural_pipe_count
+
+    classification: Literal[
+        "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED",
+        "QUOTE_SUPPRESSED_DELIMITER_OBSERVED",
+        "QUOTED_DELIMITER_INTERACTION_AMBIGUOUS",
+        "STRUCTURAL_MISMATCH_UNCLASSIFIED",
+    ]
+    if (
+        record.raw_pipe_count < expected_pipe_count
+        and suppressed_pipe_count == 0
+    ):
+        classification = "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED"
+    elif (
+        record.raw_pipe_count == expected_pipe_count
+        and record.structural_pipe_count < expected_pipe_count
+        and suppressed_pipe_count > 0
+    ):
+        classification = "QUOTE_SUPPRESSED_DELIMITER_OBSERVED"
+    elif (
+        record.raw_pipe_count > expected_pipe_count
+        and record.structural_pipe_count < expected_pipe_count
+        and suppressed_pipe_count > 0
+    ):
+        classification = "QUOTED_DELIMITER_INTERACTION_AMBIGUOUS"
+    else:
+        classification = "STRUCTURAL_MISMATCH_UNCLASSIFIED"
+
+    return NyOwnerNameStructuralDiagnosticResult(
+        classification=classification,
+        structural_field_count=record.field_count,
+        raw_pipe_count=record.raw_pipe_count,
+        structural_pipe_count=record.structural_pipe_count,
+        suppressed_pipe_count=suppressed_pipe_count,
+        quote_byte_count=record.quote_byte_count,
+        quote_open_event_count=record.quote_open_event_count,
+        quote_close_event_count=record.quote_close_event_count,
+        doubled_quote_pair_count=record.doubled_quote_pair_count,
+        physical_line_breaks_inside_quotes=(
+            record.physical_line_breaks_inside_quotes
+        ),
+    )
 
 
 class NyOwnerNameSchemaDiscoveryResult(BaseModel):
@@ -556,6 +682,10 @@ def _blocked(
 def discover_ny_owner_name_schema(
     authorization: NyOwnerNameSchemaDiscoveryAuthorization,
     archive_bytes: bytes,
+    *,
+    structural_diagnostic_sink: (
+        Callable[[NyOwnerNameStructuralDiagnosticResult], None] | None
+    ) = None,
 ) -> NyOwnerNameSchemaDiscoveryResult:
     """Inspect one ZIP entirely in memory and return only non-owner schema metadata.
 
@@ -652,6 +782,10 @@ def discover_ny_owner_name_schema(
                         observed_data_field_count = field_count
 
                     if field_count != expected_field_count:
+                        if structural_diagnostic_sink is not None:
+                            structural_diagnostic_sink(
+                                _build_structural_diagnostic(record)
+                            )
                         return _blocked(
                             authorization,
                             reason_code="UNEXPECTED_DATA_FIELD_COUNT",

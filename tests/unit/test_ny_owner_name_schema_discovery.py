@@ -11,6 +11,7 @@ from unclaimed_platform.adapters.sources.ny_owner_name_schema_discovery import (
     NY_DOCUMENTED_FIELDS,
     NyOwnerNameSchemaDiscoveryAuthorization,
     NyOwnerNameSchemaDiscoveryResult,
+    NyOwnerNameStructuralDiagnosticResult,
     discover_ny_owner_name_schema,
 )
 
@@ -512,3 +513,86 @@ def test_crlf_inside_quotes_across_stream_chunk_boundary() -> None:
     assert result.aggregate_complete_record_count == 1
     assert result.property_type_ascii_record_count == 1
     assert "continuation" not in result.model_dump_json()
+
+
+def test_structural_diagnostic_true_13_field_row_reports_raw_shortage() -> None:
+    row = _row("1001", "IN03", "Synthetic Owner Alpha", "1 Synthetic Street")
+    thirteen_fields = "|".join(row.split("|")[:-1])
+    diagnostics: list[NyOwnerNameStructuralDiagnosticResult] = []
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=[thirteen_fields]),
+        structural_diagnostic_sink=diagnostics.append,
+    )
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_data_field_count == 13
+    diagnostic = diagnostics[0]
+    assert diagnostic.classification == "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED"
+    assert diagnostic.raw_pipe_count == 12
+    assert diagnostic.structural_pipe_count == 12
+    assert diagnostic.suppressed_pipe_count == 0
+    assert diagnostic.quote_byte_count == 0
+
+
+def test_structural_diagnostic_detects_quote_suppressed_separator() -> None:
+    values = [
+        "1001", "IN03", "Synthetic property description", "1",
+        '"Synthetic Owner Alpha', '1 Synthetic Street"', "", "",
+        "Albany", "NY", "12207-0000", "USA", "Synthetic Holder", "2026",
+    ]
+    diagnostics: list[NyOwnerNameStructuralDiagnosticResult] = []
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=["|".join(values)]),
+        structural_diagnostic_sink=diagnostics.append,
+    )
+    assert result.status == "BLOCKED"
+    assert result.observed_data_field_count == 13
+    diagnostic = diagnostics[0]
+    assert diagnostic.classification == "QUOTE_SUPPRESSED_DELIMITER_OBSERVED"
+    assert diagnostic.raw_pipe_count == 13
+    assert diagnostic.structural_pipe_count == 12
+    assert diagnostic.suppressed_pipe_count == 1
+    assert diagnostic.quote_open_event_count == 1
+    assert diagnostic.quote_close_event_count == 1
+    serialized = diagnostic.model_dump_json()
+    assert "Synthetic Owner Alpha" not in serialized
+    assert "Synthetic Street" not in serialized
+
+
+def test_structural_diagnostic_not_emitted_for_valid_quoted_pipe() -> None:
+    values = [
+        "1001", "IN03", "Synthetic property description", "1",
+        '"Synthetic | Owner"', "1 Synthetic Street", "", "",
+        "Albany", "NY", "12207-0000", "USA", "Synthetic Holder", "2026",
+    ]
+    diagnostics: list[NyOwnerNameStructuralDiagnosticResult] = []
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=["|".join(values)]),
+        structural_diagnostic_sink=diagnostics.append,
+    )
+    assert result.status == "DISCOVERED"
+    assert result.observed_data_field_count == 14
+    assert diagnostics == []
+
+
+def test_structural_diagnostic_counts_multiline_quote_without_values() -> None:
+    payload = (
+        b'1001|IN03|Synthetic description|1|"Synthetic Owner\n'
+        b'Continuation"|1 Synthetic Street|||Albany|NY|12207|USA|Holder\n'
+    )
+    diagnostics: list[NyOwnerNameStructuralDiagnosticResult] = []
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+        structural_diagnostic_sink=diagnostics.append,
+    )
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    diagnostic = diagnostics[0]
+    assert diagnostic.physical_line_breaks_inside_quotes == 1
+    assert diagnostic.quote_open_event_count == 1
+    assert diagnostic.quote_close_event_count == 1
+    assert "Synthetic Owner" not in diagnostic.model_dump_json()

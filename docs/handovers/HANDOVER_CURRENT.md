@@ -2,6 +2,45 @@
 
 Last updated: 2026-09-19
 
+## Superseding Current Event — Fourth Attempt Consumed / Structural Telemetry Candidate
+
+Fourth execution result:
+
+`BLOCKED / UNEXPECTED_DATA_FIELD_COUNT`
+
+Non-PII evidence:
+
+- archive bytes: `409,477,526`;
+- selected text member bytes: `1,939,569,781`;
+- observed structural field count: `13`;
+- complete records before block: `213,454`;
+- ASCII-valid Property Type Code records before block: `213,454`;
+- raw ZIP logically deleted;
+- no owner values returned or persisted.
+
+Both fourth-attempt approvals are:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`
+
+Current candidate branch:
+
+`mvp1-ny-structural-diagnostic-telemetry-offline`
+
+Current task:
+
+`IMPLEMENT_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
+
+Candidate state:
+
+`IMPLEMENTED_OFFLINE / CI_PENDING / ZERO SOURCE ACCESS`
+
+The candidate adds structural-only delimiter/quote telemetry and a separate v1 JSON Schema.
+It does not relax the 14-field fail-closed rule and does not authorize a fifth attempt.
+
+Next action after CI:
+
+`HUMAN_REVIEW_NY_OSC_STRUCTURAL_DIAGNOSTIC_TELEMETRY_OFFLINE`
+
 ## Superseding Current Event — Fourth Attempt Approvals Granted Offline
 
 Approval state:

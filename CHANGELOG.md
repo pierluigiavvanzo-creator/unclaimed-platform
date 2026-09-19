@@ -5,6 +5,10 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Structural-only NY OSC diagnostic telemetry for raw/structural/suppressed pipe and quote-state counts.
+- Separate v1 JSON Schema for non-PII NY Owner Name structural diagnostics.
+- Persisted non-PII fourth-attempt fail-closed execution evidence and consumed both fourth approvals.
+- Synthetic regressions distinguishing true delimiter shortage from quote-suppressed delimiters.
 - Registered both exact fourth-attempt NY OSC approvals offline as single-use, non-reusable and zero-retry.
 - Bound the fourth-attempt grants to integrated runner `1c4be944...` and successful CI `35428062292`.
 - Offline fourth-attempt NY OSC runner with pre-directory fail-closed authorization checks.

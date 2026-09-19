@@ -11,12 +11,16 @@ from jsonschema import Draft202012Validator, ValidationError
 from unclaimed_platform.adapters.sources.ny_owner_name_schema_discovery import (
     NY_DOCUMENTED_FIELDS,
     NyOwnerNameSchemaDiscoveryAuthorization,
+    NyOwnerNameStructuralDiagnosticResult,
     discover_ny_owner_name_schema,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
 AUTH_SCHEMA = ROOT / "schemas/agents/ny_owner_name_schema_discovery_authorization.schema.json"
 RESULT_SCHEMA = ROOT / "schemas/agents/ny_owner_name_schema_discovery_result.schema.json"
+DIAGNOSTIC_SCHEMA = (
+    ROOT / "schemas/agents/ny_owner_name_structural_diagnostic_result.schema.json"
+)
 
 
 def _load(path: Path) -> dict[str, object]:
@@ -94,3 +98,30 @@ def test_serialized_contract_has_no_raw_bytes_or_owner_value_fields() -> None:
     assert "raw_bytes" not in result_schema["properties"]
     assert "owner_name" not in result_schema["properties"]
     assert "owner_address" not in result_schema["properties"]
+
+
+def test_structural_diagnostic_contract_is_non_pii_and_strict() -> None:
+    diagnostic = NyOwnerNameStructuralDiagnosticResult(
+        classification="QUOTE_SUPPRESSED_DELIMITER_OBSERVED",
+        structural_field_count=13,
+        raw_pipe_count=13,
+        structural_pipe_count=12,
+        suppressed_pipe_count=1,
+        quote_byte_count=2,
+        quote_open_event_count=1,
+        quote_close_event_count=1,
+        doubled_quote_pair_count=0,
+        physical_line_breaks_inside_quotes=0,
+    )
+    schema = _load(DIAGNOSTIC_SCHEMA)
+    payload = diagnostic.model_dump(mode="json")
+    Draft202012Validator(schema).validate(payload)
+    properties = schema["properties"]
+    for forbidden in (
+        "raw_record", "record_excerpt", "record_offset", "field_lengths",
+        "property_id", "owner_name", "owner_address", "holder_name",
+    ):
+        assert forbidden not in properties
+    payload["owner_name"] = "Synthetic Owner"
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(payload)
