@@ -1,6 +1,21 @@
 # ROADMAP.md
 
-Last updated: 2026-09-18
+Last updated: 2026-09-19
+
+## Current Override — Third Attempt Consumed Fail-Closed
+
+Completed once:
+
+`EXECUTE_NY_OSC_THIRD_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+
+Result:
+
+`BLOCKED / MALFORMED_QUOTED_RECORD`
+
+Both approvals are consumed and non-reusable. The raw ZIP was logically deleted; no owner
+values were returned or persisted. No fourth attempt is authorized. The next bounded task is
+synthetic offline analysis of parser-dialect handling, without source access or new execution
+preparation.
 
 ## Current Override — Third Attempt Authorized, Awaiting Verified Integration
 
