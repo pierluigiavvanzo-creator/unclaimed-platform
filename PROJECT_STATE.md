@@ -1,6 +1,32 @@
 # PROJECT_STATE.md
 
-Last updated: 2026-09-18
+Last updated: 2026-09-19
+
+## Superseding Current Event — Third Attempt Consumed Fail-Closed
+
+The third bounded NY OSC attempt executed once and stopped:
+
+`BLOCKED / MALFORMED_QUOTED_RECORD`
+
+Persisted non-PII evidence:
+
+- compressed archive bytes: `409,477,526`;
+- one archive member;
+- selected text member uncompressed bytes: `1,939,569,781`;
+- `165,438` complete records and ASCII property-type tokens before the block;
+- delimiter observed: pipe;
+- header: not observed;
+- local raw ZIP logically deleted;
+- no raw path or owner values returned or persisted.
+
+Both third-attempt approvals are now
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`. No fourth download is authorized.
+
+The result does not prove source corruption. The retained evidence is also consistent with a
+parser-dialect mismatch such as an embedded line break inside a quoted field. Exact causality
+cannot be confirmed because the raw file and offending row were intentionally not retained.
+
+Next work is restricted to synthetic offline diagnosis and remediation design.
 
 ## Superseding Current Event — Third Attempt Authorized, Not Yet Consumed
 

@@ -760,6 +760,31 @@ All download, archive, privacy and deletion bounds remain unchanged. Fresh exact
 preflight is mandatory. This authorization-package change performed no source access,
 preflight, download or owner-PII processing.
 
+## 19. Third bounded attempt — consumed fail-closed
+
+Executed once.
+
+Result:
+
+`BLOCKED / MALFORMED_QUOTED_RECORD`
+
+Retained aggregate evidence:
+
+- archive bytes: `409,477,526`;
+- archive members: `1`;
+- uncompressed text bytes: `1,939,569,781`;
+- complete records before block: `165,438`;
+- ASCII property-type records before block: `165,438`;
+- observed delimiter: pipe;
+- observed header state: `NO_HEADER_OBSERVED`;
+- local file logically deleted;
+- no owner values or raw path returned.
+
+Both third approvals are
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`. No fourth download is authorized.
+The evidence does not distinguish source corruption from a parser-dialect mismatch such as an
+embedded line break inside a quoted field.
+
 ## Current Product State
 
 - approved real sources: `0`;
@@ -794,13 +819,14 @@ Offline:
 
 ## SINGLE NEXT ACTION
 
-Execute exclusively after this package is CI-verified and integrated:
+Execute exclusively:
 
-`EXECUTE_NY_OSC_THIRD_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT`
+`ANALYZE_NY_OSC_MALFORMED_QUOTED_RECORD_OFFLINE`
 
 Classification:
 
-`A — Product Critical / Human-Controlled Real-Source Execution`
+`A — Product Critical / Offline Safety Diagnosis`
 
-Use `scripts/ny_osc_gate3_transient_local.ps1`. Any drift or failed precheck stops before
-download. Both approvals are single-use and authorize zero retries.
+Use synthetic byte fixtures only. Do not access NY OSC, download the file, reconstruct owner
+rows, or prepare a fourth real attempt. Determine whether bounded multi-line quoted-record
+handling can be implemented without weakening privacy and fail-closed guarantees.

@@ -164,7 +164,7 @@
       "execution_reason_code": "UNEXPECTED_DATA_FIELD_COUNT"
     },
     "third_attempt_transient_local_raw_file_exception": {
-      "status": "GRANTED_NOT_CONSUMED",
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
       "approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_THIRD_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_2D871EE0",
       "attempt_number": 3,
       "single_use": true,
@@ -176,7 +176,9 @@
       "durable_raw_persistence_allowed": false,
       "runner_checkpoint": "2d871ee041abe9cccc0e0fa32b849bbe223bdfa2",
       "runner_ci_run_id": 35385157576,
-      "runner_ci_conclusion": "SUCCESS"
+      "runner_ci_conclusion": "SUCCESS",
+      "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_third_attempt_execution_result.v1.json",
+      "execution_reason_code": "MALFORMED_QUOTED_RECORD"
     }
   },
   "authorization_gates": {
@@ -225,7 +227,7 @@
       "execution_reason_code": "UNEXPECTED_DATA_FIELD_COUNT"
     },
     "third_attempt_transient_pii_gate": {
-      "status": "GRANTED_NOT_CONSUMED",
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
       "approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_THIRD_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35385157",
       "attempt_number": 3,
       "single_use": true,
@@ -239,7 +241,9 @@
       "max_archive_members": 1,
       "runner_checkpoint": "2d871ee041abe9cccc0e0fa32b849bbe223bdfa2",
       "runner_ci_run_id": 35385157576,
-      "runner_ci_conclusion": "SUCCESS"
+      "runner_ci_conclusion": "SUCCESS",
+      "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_third_attempt_execution_result.v1.json",
+      "execution_reason_code": "MALFORMED_QUOTED_RECORD"
     }
   },
   "first_file_schema_discovery": {
