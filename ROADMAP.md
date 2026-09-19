@@ -2,6 +2,20 @@
 
 Last updated: 2026-09-19
 
+## Current Override — Fourth Attempt Runner Prepared Offline
+
+Completed:
+
+`PREPARE_NY_OSC_FOURTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+State:
+
+`READY_OFFLINE / NOT AUTHORIZED FOR PREFLIGHT OR EXECUTION`
+
+The fourth runner, approval contracts, ungranted templates and fail-closed tests are prepared.
+No limits were widened. The next gate is human review of this offline package; preflight,
+download and source access remain unauthorized.
+
 ## Current Override — Fourth Attempt Proposal Prepared Offline
 
 Completed:
