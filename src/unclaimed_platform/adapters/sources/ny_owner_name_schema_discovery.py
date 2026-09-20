@@ -914,6 +914,12 @@ def discover_ny_owner_name_schema(
     is opened. Owner name/address fields are never decoded, logged, or returned.
     """
 
+    if quote_dialect_mode not in {
+        "MULTILINE_LEGACY",
+        "LINE_LOCAL_ARBITRATION",
+    }:
+        raise ValueError("unsupported quote dialect mode")
+
     archive_byte_count = len(archive_bytes)
     if archive_byte_count > authorization.max_download_bytes:
         return _blocked(

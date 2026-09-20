@@ -723,3 +723,73 @@ def test_line_local_true_13_field_row_still_uses_field_count_fail_closed() -> No
     assert len(structural) == 1
     assert structural[0].classification == "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED"
     assert quote_dialect == []
+
+
+
+def test_line_local_unknown_mode_fails_closed_before_archive_processing() -> None:
+    with pytest.raises(ValueError, match="unsupported quote dialect mode"):
+        discover_ny_owner_name_schema(
+            _authorization(max_download_bytes=1),
+            b"not-a-zip",
+            quote_dialect_mode="LINE_LOCAL_ARBITRATON",  # type: ignore[arg-type]
+        )
+
+
+def test_line_local_crlf_split_across_stream_chunk_boundary() -> None:
+    chunk_size = 64 * 1024
+    prefix = b"1001|IN03|Synthetic description|1|"
+    tail = (
+        b"|1 Synthetic Street|||Albany|NY|12207|USA|"
+        b"Synthetic Holder|2026"
+    )
+    padding = b"A" * ((chunk_size - 1) - len(prefix) - len(tail))
+    first = prefix + padding + tail
+    assert len(first) == chunk_size - 1
+
+    second = (
+        _row(
+            "1002",
+            "IN01",
+            "Synthetic Owner Beta",
+            "2 Synthetic Street",
+        )
+        + "\r\n"
+    ).encode("utf-8")
+    payload = first + b"\r\n" + second
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+        quote_dialect_mode="LINE_LOCAL_ARBITRATION",
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 2
+    assert result.property_type_ascii_record_count == 2
+
+
+def test_line_local_doubled_quote_split_across_stream_chunk_boundary() -> None:
+    chunk_size = 64 * 1024
+    prefix = b'1001|IN03|Synthetic description|1|"'
+    padding = b"A" * ((chunk_size - 1) - len(prefix))
+    tail = (
+        b"|1 Synthetic Street|||Albany|NY|12207|USA|"
+        b"Synthetic Holder|2026\n"
+    )
+    payload = prefix + padding + b'""continuation"' + tail
+
+    assert payload[chunk_size - 1 : chunk_size + 1] == b'""'
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+        quote_dialect_mode="LINE_LOCAL_ARBITRATION",
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+    assert result.property_type_ascii_record_count == 1
