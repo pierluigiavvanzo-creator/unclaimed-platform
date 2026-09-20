@@ -2,6 +2,43 @@
 
 Last updated: 2026-09-20
 
+## Current Candidate State — Fifth Approvals Granted Offline / Review Pending
+
+This section supersedes conflicting current-state entries below for this candidate branch.
+
+Canonical baseline:
+
+`53418f40120a81a43809e0f8559d57886556813f`
+
+Candidate branch:
+
+`mvp1-ny-fifth-attempt-approvals-granted-offline`
+
+Human approvals supplied on 2026-09-20:
+
+- `APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+- `APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+Candidate state:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+Bindings:
+
+- runner checkpoint: `4a8412911b3b9ae59525dee3a0565951e2722528`;
+- runner CI: `35474594533 — SUCCESS`;
+- local approval ref: `OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_4A841291`;
+- PII approval ref: `OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35474594`.
+
+All byte/member/field/chunk/privacy/diagnostic-contract bounds remain unchanged.
+
+No OSC access, fresh listing preflight, download, Owner Name File opening, owner-PII processing
+or fifth execution occurred.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_APPROVAL_GRANT_OFFLINE`
+
 ## Current Authoritative State — Fifth Runner Reviewed and Merged / Approvals Pending
 
 This section supersedes conflicting historical current-state entries below.
@@ -1153,21 +1190,10 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_APPROVAL_GRANT_OFFLINE`
 
-Classification: `A — Product Critical / Offline Human Authorization Gate`.
+Review the two granted/not-consumed approval artifacts, updated contract tests and audit against
+runner checkpoint `4a8412911b3b9ae59525dee3a0565951e2722528` and CI `35474594533 — SUCCESS`.
 
-This action requires both exact Product Owner phrases:
-
-`APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
-
-`APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
-
-Only after both exact phrases are supplied may the two fifth-attempt approval artifacts be
-updated offline to `GRANTED_NOT_CONSUMED`, with distinct execution approval refs and binding
-to reviewed/integrated runner checkpoint
-`4a8412911b3b9ae59525dee3a0565951e2722528` and CI
-`35474594533 — SUCCESS`.
-
-This grant does not authorize OSC access, fresh listing preflight, download, Owner Name File
-opening, real owner-PII processing or fifth execution. Those remain later separate gates.
+Do not access OSC, perform a fresh listing preflight, download the Owner Name File, process real
+owner PII or execute attempt 5 during this review.

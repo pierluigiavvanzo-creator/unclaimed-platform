@@ -2,6 +2,45 @@
 
 Last updated: 2026-09-20
 
+## AUTHORITATIVE CANDIDATE STATE — FIFTH APPROVALS GRANTED OFFLINE / REVIEW PENDING
+
+Canonical baseline:
+
+`53418f40120a81a43809e0f8559d57886556813f`
+
+Candidate branch:
+
+`mvp1-ny-fifth-attempt-approvals-granted-offline`
+
+Both exact Product Owner phrases were supplied on 2026-09-20.
+
+Approval state:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+Local approval ref:
+
+`OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_4A841291`
+
+Transient-PII approval ref:
+
+`OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35474594`
+
+Runner binding:
+
+- checkpoint: `4a8412911b3b9ae59525dee3a0565951e2722528`;
+- CI: `35474594533 — SUCCESS`.
+
+Proposal binding remains:
+
+- checkpoint: `8ce856ddbeac5d2300f808729a887803e212b240`;
+- CI: `35460348569 — SUCCESS`.
+
+No OSC access, fresh listing preflight, download, owner-file opening, real owner-PII processing
+or fifth execution occurred.
+
+This candidate must be reviewed and merged before any later fresh-listing preflight gate.
+
 ## AUTHORITATIVE CURRENT STATE — POST-PR16 MERGE / FIFTH APPROVALS PENDING
 
 Repository:
@@ -1254,38 +1293,19 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_APPROVAL_GRANT_OFFLINE`
 
-This action requires the Product Owner to provide both exact phrases:
+Review only:
 
-`APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+- both exact approval phrases;
+- both distinct execution approval refs;
+- status `GRANTED_NOT_CONSUMED`;
+- attempt number 5;
+- proposal checkpoint/CI;
+- reviewed runner checkpoint/CI;
+- single-use/non-reusable/zero-retry policy;
+- unchanged execution/privacy/diagnostic limits;
+- updated contract tests and audit.
 
-`APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
-
-Only after both exact phrases are supplied may the two attempt-5 approval artifacts be updated
-offline from `NOT_GRANTED` to `GRANTED_NOT_CONSUMED`.
-
-Required grant binding:
-
-- attempt number: `5`;
-- proposal checkpoint: `8ce856ddbeac5d2300f808729a887803e212b240`;
-- proposal CI: `35460348569 — SUCCESS`;
-- reviewed/integrated runner checkpoint: `4a8412911b3b9ae59525dee3a0565951e2722528`;
-- runner CI: `35474594533 — SUCCESS`;
-- two distinct execution approval refs;
-- single use;
-- non-reusable;
-- zero retry;
-- all existing byte/member/field/chunk/privacy/diagnostic-contract limits unchanged.
-
-Hard limits for the grant step:
-
-- repository-only;
-- no OSC access;
-- no fresh listing preflight;
-- no download;
-- no Owner Name File opening;
-- no real owner-PII processing;
-- no fifth execution.
-
-Fresh listing preflight and one-time execution remain separate later explicit human gates.
+Do not access OSC, perform a listing preflight, download the Owner Name File, process real owner
+PII or execute attempt 5.
