@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution import (
@@ -39,6 +40,10 @@ PROPOSAL_CHECKPOINT = "8ce856ddbeac5d2300f808729a887803e212b240"
 PROPOSAL_CI = 35460348569
 RUNNER_CHECKPOINT = "4a8412911b3b9ae59525dee3a0565951e2722528"
 RUNNER_CI = 35474594533
+RESULT_REF = (
+    "sources/evidence/"
+    "ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json"
+)
 LOCAL_REF = (
     "OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_TRANSIENT_LOCAL_FILE_"
     "BOUNDED_ONCE_4A841291"
@@ -53,7 +58,7 @@ def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_fifth_attempt_approvals_validate_and_are_granted_not_consumed() -> None:
+def test_fifth_attempt_approvals_are_valid_consumed_and_non_reusable() -> None:
     local = _load(LOCAL_APPROVAL)
     pii = _load(PII_APPROVAL)
 
@@ -61,8 +66,10 @@ def test_fifth_attempt_approvals_validate_and_are_granted_not_consumed() -> None
     Draft202012Validator(_load(PII_SCHEMA)).validate(pii)
 
     for approval in (local, pii):
-        assert approval["status"] == "GRANTED_NOT_CONSUMED"
+        assert approval["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE"
         assert approval["granted_on"] == "2026-09-20"
+        assert approval["consumed_on"] == "2026-09-20"
+        assert approval["execution_result_ref"] == RESULT_REF
         assert approval["attempt_number"] == 5
         assert approval["proposal_ref"] == PROPOSAL_REF
         assert approval["proposal_checkpoint"] == PROPOSAL_CHECKPOINT
@@ -74,13 +81,6 @@ def test_fifth_attempt_approvals_validate_and_are_granted_not_consumed() -> None
         assert approval["reusable"] is False
         assert approval["retry_authorized"] is False
 
-    assert local["owner_authorization"] == (
-        "APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE"
-    )
-    assert pii["owner_authorization"] == (
-        "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII "
-        "ATTEMPT ONCE"
-    )
     assert local["execution_approval_ref"] == LOCAL_REF
     assert pii["execution_approval_ref"] == PII_REF
     assert LOCAL_REF != PII_REF
@@ -100,28 +100,24 @@ def test_fifth_attempt_approvals_validate_and_are_granted_not_consumed() -> None
     assert bounds["automatic_widening_allowed"] is False
     assert bounds["automatic_retry_allowed"] is False
 
-    scope = pii["processing_scope"]
-    assert scope["owner_rows_persistence_allowed"] is False
-    assert scope["owner_field_decoding_allowed"] is False
-    assert scope["owner_field_buffering_allowed"] is False
-    assert scope["owner_field_logging_allowed"] is False
-    assert scope["row_specific_human_inspection_allowed"] is False
-    assert scope["structural_diagnostic_persistence_allowed"] is True
+
+def test_consumed_fifth_attempt_cannot_build_authorization() -> None:
+    with pytest.raises(ValueError, match="approval is not available"):
+        build_real_execution_authorization(
+            LOCAL_APPROVAL,
+            PII_APPROVAL,
+            expected_attempt_number=5,
+        )
 
 
-def test_granted_fifth_approvals_build_runtime_authorization() -> None:
-    authorization = build_real_execution_authorization(
-        LOCAL_APPROVAL,
-        PII_APPROVAL,
-        expected_attempt_number=5,
-    )
-    assert authorization.attempt_number == 5
-    assert authorization.local_file_approval_ref == LOCAL_REF
-    assert authorization.gate2_approval_ref == PII_REF
-    assert authorization.local_file_approval_ref != authorization.gate2_approval_ref
-    assert authorization.max_download_bytes == 450_000_000
-    assert authorization.max_uncompressed_bytes == 2_000_000_000
-    assert authorization.max_archive_members == 1
+def test_fifth_approval_refs_bind_to_execution_receipt() -> None:
+    result = _load(ROOT / RESULT_REF)
+    local = _load(LOCAL_APPROVAL)
+    pii = _load(PII_APPROVAL)
+
+    assert result["schema_result"]["approval_id"] == PII_REF
+    assert local["execution_result_ref"] == RESULT_REF
+    assert pii["execution_result_ref"] == RESULT_REF
 
 
 def test_fourth_attempt_artifacts_are_not_referenced() -> None:
