@@ -2,7 +2,46 @@
 
 Last updated: 2026-09-20
 
-## Current Override — Fifth Runner Prepared / CI Verified / Review Pending
+## Current Override — Fifth Runner Merged / Human Approval Grant Pending
+
+PR #16:
+
+`MERGED / CLOSED`
+
+Merge commit:
+
+`3307bafd72422ff70b8b953da1cc954a8e1252b8`
+
+Reviewed PR head / CI:
+
+- `4a8412911b3b9ae59525dee3a0565951e2722528`;
+- `35474594533 — SUCCESS`.
+
+Review:
+
+`PASS`
+
+State:
+
+`RUNNER_INTEGRATED / BOTH APPROVALS NOT_GRANTED / ZERO SOURCE ACCESS / ZERO RETRY`
+
+Current next gate:
+
+`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
+
+Required exact owner phrases:
+
+- `APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+- `APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+If and only if both phrases are explicitly supplied, the approval artifacts may be updated
+offline to `GRANTED_NOT_CONSUMED`, with distinct approval refs and binding to reviewed runner
+checkpoint `4a8412911...` and CI `35474594533 — SUCCESS`.
+
+This grant step must not access OSC, run a listing preflight, download the Owner Name File or
+execute attempt 5. Fresh preflight and one-time execution remain separate later human gates.
+
+## Historical Override — Fifth Runner Prepared / CI Verified / Review Pending
 
 Completed:
 

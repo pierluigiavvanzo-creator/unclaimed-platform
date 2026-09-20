@@ -2,7 +2,71 @@
 
 Last updated: 2026-09-20
 
-## Current Authoritative State — Fifth Attempt Runner Prepared and CI Verified Offline
+## Current Authoritative State — Fifth Runner Reviewed and Merged / Approvals Pending
+
+This section supersedes conflicting historical current-state entries below.
+
+PR #16:
+
+`MERGED / CLOSED`
+
+Merge commit:
+
+`3307bafd72422ff70b8b953da1cc954a8e1252b8`
+
+Canonical development branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Reviewed PR head:
+
+`4a8412911b3b9ae59525dee3a0565951e2722528`
+
+Current-head verification CI:
+
+`35474594533 — SUCCESS`
+
+Functional runner checkpoint / CI:
+
+- `64b25f350fc2b7fc80fd3d518bd5c8aabd06a178`;
+- `35474454565 — SUCCESS`.
+
+A separate post-merge CI run on merge commit `3307bafd...` was not observed at reconciliation
+time; do not invent one.
+
+Review result:
+
+`PASS`
+
+Integrated state:
+
+`RUNNER_INTEGRATED / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS / ZERO_RETRY`
+
+The reviewed runner remains fail-closed and contains no network client. It requires attempt 5,
+the exact fifth approval phrases, distinct approval refs, proposal checkpoint/CI, matching
+runner checkpoint/CI SUCCESS, unchanged execution/privacy bounds, execution receipt v1.1.0 and
+structural diagnostic v1.0.0 before temp-directory creation.
+
+Both fifth approval templates remain `NOT_GRANTED` with null owner authorization,
+execution approval ref, runner checkpoint and runner CI fields.
+
+No OSC access, fresh listing preflight, download, Owner Name File opening, owner-PII processing,
+approval grant or fifth execution occurred.
+
+Next human gate:
+
+`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
+
+This gate requires both exact owner phrases and must bind the two approval artifacts to the
+reviewed/integrated runner evidence:
+
+- runner checkpoint: `4a8412911b3b9ae59525dee3a0565951e2722528`;
+- runner CI: `35474594533 — SUCCESS`.
+
+Granting the two repository approval artifacts would still not authorize OSC access, fresh
+listing preflight, download or fifth execution. Those remain later separate gates.
+
+## Historical Current State — Fifth Attempt Runner Prepared and CI Verified Offline (Pre-Review/Merge)
 
 This section supersedes conflicting historical current-state entries below.
 
@@ -1089,12 +1153,21 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
 
-Classification: `A — Product Critical / Offline Governance Preparation`.
+Classification: `A — Product Critical / Offline Human Authorization Gate`.
 
-Prepare a fifth-attempt proposal only. Reuse the merged structural-diagnostic telemetry and
-execution-result v1.1.0 contract as the diagnostic basis. Do not access OSC, perform a fresh
-listing preflight, download the Owner Name File, create granted approvals, or execute a fifth
-attempt. Preserve one-download/zero-retry governance unless a separately reviewed proposal
-explicitly changes it.
+This action requires both exact Product Owner phrases:
+
+`APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+`APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+Only after both exact phrases are supplied may the two fifth-attempt approval artifacts be
+updated offline to `GRANTED_NOT_CONSUMED`, with distinct execution approval refs and binding
+to reviewed/integrated runner checkpoint
+`4a8412911b3b9ae59525dee3a0565951e2722528` and CI
+`35474594533 — SUCCESS`.
+
+This grant does not authorize OSC access, fresh listing preflight, download, Owner Name File
+opening, real owner-PII processing or fifth execution. Those remain later separate gates.
