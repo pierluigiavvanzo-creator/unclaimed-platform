@@ -1,0 +1,378 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-fifth-attempt-transient-pii-approval:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "required_owner_authorization",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "attempt_number",
+    "proposal_ref",
+    "proposal_checkpoint",
+    "proposal_ci_run_id",
+    "runner_checkpoint",
+    "runner_ci_run_id",
+    "runner_ci_conclusion",
+    "authorization_does_not_grant",
+    "source_identity",
+    "execution_bounds",
+    "processing_scope"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION"
+    },
+    "required_owner_authorization": {
+      "const": "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE"
+    },
+    "owner_authorization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "granted_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "execution_approval_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "NOT_GRANTED",
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "attempt_number": {
+      "const": 5
+    },
+    "proposal_ref": {
+      "const": "sources/proposals/ny_osc_owner_name_file_fifth_bounded_attempt_authorization.v1.json"
+    },
+    "proposal_checkpoint": {
+      "const": "8ce856ddbeac5d2300f808729a887803e212b240"
+    },
+    "proposal_ci_run_id": {
+      "const": 35460348569
+    },
+    "runner_checkpoint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "runner_ci_run_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "runner_ci_conclusion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "consumed_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "execution_result_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "source_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "expected_remote_name",
+        "historical_size_display_for_preflight_only",
+        "historical_last_modified_display_for_preflight_only",
+        "fresh_preflight_required"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "ny.osc.unclaimed_funds.owner_name_file"
+        },
+        "expected_remote_name": {
+          "const": "FINDERS.zip"
+        },
+        "historical_size_display_for_preflight_only": {
+          "const": "390.51 MB"
+        },
+        "historical_last_modified_display_for_preflight_only": {
+          "const": "9/16/2026, 1:33:31 PM"
+        },
+        "fresh_preflight_required": {
+          "const": true
+        }
+      }
+    },
+    "execution_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "downloads_max",
+        "retries_max",
+        "max_download_bytes",
+        "max_uncompressed_bytes",
+        "max_archive_members",
+        "text_members_required_exactly",
+        "expected_delimiter",
+        "expected_documented_field_count",
+        "required_execution_result_contract_version",
+        "required_structural_diagnostic_contract_version",
+        "automatic_widening_allowed",
+        "automatic_retry_allowed",
+        "parser_chunk_bytes"
+      ],
+      "properties": {
+        "downloads_max": {
+          "const": 1
+        },
+        "retries_max": {
+          "const": 0
+        },
+        "max_download_bytes": {
+          "const": 450000000
+        },
+        "max_uncompressed_bytes": {
+          "const": 2000000000
+        },
+        "max_archive_members": {
+          "const": 1
+        },
+        "text_members_required_exactly": {
+          "const": 1
+        },
+        "expected_delimiter": {
+          "const": "|"
+        },
+        "expected_documented_field_count": {
+          "const": 14
+        },
+        "automatic_widening_allowed": {
+          "const": false
+        },
+        "automatic_retry_allowed": {
+          "const": false
+        },
+        "parser_chunk_bytes": {
+          "const": 65536
+        },
+        "required_execution_result_contract_version": {
+          "const": "1.1.0"
+        },
+        "required_structural_diagnostic_contract_version": {
+          "const": "1.0.0"
+        }
+      }
+    },
+    "processing_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transient_owner_pii_in_memory_allowed",
+        "owner_rows_persistence_allowed",
+        "owner_field_logging_allowed",
+        "row_specific_human_inspection_allowed",
+        "derived_non_pii_schema_metadata_persistence_allowed",
+        "owner_field_decoding_allowed",
+        "owner_field_buffering_allowed",
+        "structural_diagnostic_persistence_allowed"
+      ],
+      "properties": {
+        "transient_owner_pii_in_memory_allowed": {
+          "const": true
+        },
+        "owner_rows_persistence_allowed": {
+          "const": false
+        },
+        "owner_field_logging_allowed": {
+          "const": false
+        },
+        "row_specific_human_inspection_allowed": {
+          "const": false
+        },
+        "derived_non_pii_schema_metadata_persistence_allowed": {
+          "const": true
+        },
+        "owner_field_decoding_allowed": {
+          "const": false
+        },
+        "owner_field_buffering_allowed": {
+          "const": false
+        },
+        "structural_diagnostic_persistence_allowed": {
+          "const": true
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "NOT_GRANTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": null
+          },
+          "granted_on": {
+            "const": null
+          },
+          "execution_approval_ref": {
+            "const": null
+          },
+          "runner_checkpoint": {
+            "const": null
+          },
+          "runner_ci_run_id": {
+            "const": null
+          },
+          "runner_ci_conclusion": {
+            "const": null
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "GRANTED_NOT_CONSUMED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE"
+          },
+          "granted_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "execution_approval_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runner_checkpoint": {
+            "type": "string",
+            "minLength": 40
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
+          }
+        },
+        "required": [
+          "owner_authorization",
+          "granted_on",
+          "execution_approval_ref",
+          "runner_checkpoint",
+          "runner_ci_run_id",
+          "runner_ci_conclusion"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE"
+          },
+          "granted_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "execution_approval_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runner_checkpoint": {
+            "type": "string",
+            "minLength": 40
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
+          }
+        },
+        "required": [
+          "owner_authorization",
+          "granted_on",
+          "execution_approval_ref",
+          "runner_checkpoint",
+          "runner_ci_run_id",
+          "runner_ci_conclusion",
+          "consumed_on",
+          "execution_result_ref"
+        ]
+      }
+    }
+  ]
+}

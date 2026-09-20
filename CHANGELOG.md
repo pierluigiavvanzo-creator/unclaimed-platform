@@ -5,6 +5,10 @@ All notable development changes are tracked here.
 ## Unreleased
 
 ### Added
+- Offline fifth-attempt NY OSC runner with pre-directory fail-closed authorization, bounds,
+  privacy and diagnostic-contract checks.
+- Fifth-attempt transient-local and transient-PII approval schemas/templates, both retained as
+  `NOT_GRANTED`, plus attempt-5 authorization/static contract tests.
 - Versioned NY OSC fifth-attempt offline proposal with unchanged one-download/zero-retry bounds.
 - Contract test preventing fourth-approval reuse, source access, automatic repair/row skip/widening, or implicit fifth execution.
 - Diagnostic objective binding future field-count blocks to execution receipt v1.1.0 and structural diagnostic v1.0.0.

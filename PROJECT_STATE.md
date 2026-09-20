@@ -1,8 +1,67 @@
 # PROJECT_STATE.md
 
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 
-## Current Authoritative State — Fifth Attempt Proposal Reviewed and Merged
+## Current Authoritative State — Fifth Attempt Runner Prepared and CI Verified Offline
+
+This section supersedes conflicting historical current-state entries below.
+
+Authorized task:
+
+`PREPARE_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+Candidate branch:
+
+`mvp1-ny-fifth-attempt-runner-contracts-offline`
+
+Functional verification checkpoint:
+
+`64b25f350fc2b7fc80fd3d518bd5c8aabd06a178`
+
+Functional CI:
+
+`35474454565 — SUCCESS`
+
+State:
+
+`READY_OFFLINE / VERIFIED_CI / APPROVALS_NOT_GRANTED / ZERO SOURCE ACCESS / ZERO RETRY`
+
+Prepared:
+
+- `scripts/ny_osc_gate5_transient_local.ps1`;
+- fifth transient-local and transient-PII approval schemas;
+- two fifth approval templates with status `NOT_GRANTED`;
+- fifth approval and runner static contract tests;
+- technical preparation audit.
+
+The runner binds attempt 5 to proposal checkpoint
+`8ce856ddbeac5d2300f808729a887803e212b240` and proposal CI
+`35460348569 — SUCCESS`. It requires distinct approval refs, a shared non-empty runner
+checkpoint, successful shared runner CI, unchanged one-download/zero-retry bounds, execution
+result contract v1.1.0, structural diagnostic contract v1.0.0 and the existing privacy scope.
+All checks occur before temporary-directory creation. The runner contains no network client.
+
+Both approval templates remain `NOT_GRANTED`. Their owner authorization, approval ref,
+runner checkpoint, runner CI id and runner CI conclusion remain null. This preparation does
+not itself grant either approval.
+
+CI provenance:
+
+- `35474348294` failed only on four Ruff E501 line-length findings in the new contract test;
+- `35474384505` failed on Ruff because the first formatting correction inserted literal
+  escaped `\\n` sequences into that test file; no runner, schema, privacy or domain behavior
+  changed;
+- the test file was replaced cleanly and `35474454565` passed the complete pipeline.
+  The two-patch correction loop closed successfully; no third corrective patch was required.
+
+No OSC access, fresh listing preflight, download, Owner Name File opening, owner-PII processing,
+approval grant or fifth execution occurred.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+
+## Historical Current State — Fifth Attempt Proposal Reviewed and Merged (Pre-Runner)
 
 This section supersedes conflicting historical current-state entries below.
 
