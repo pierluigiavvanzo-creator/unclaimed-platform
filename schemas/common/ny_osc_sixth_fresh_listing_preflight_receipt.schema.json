@@ -1,0 +1,292 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-sixth-fresh-listing-preflight-receipt:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "attempt_number",
+    "source_id",
+    "proposal_ref",
+    "proposal_checkpoint",
+    "proposal_ci_run_id",
+    "runner_checkpoint",
+    "status",
+    "remote_preflight_performed",
+    "preflight_authorization_ref",
+    "performed_at_utc",
+    "freshness_window_seconds",
+    "expected_listing",
+    "observed_listing",
+    "download_performed",
+    "owner_file_opened",
+    "owner_pii_processed",
+    "contains_owner_pii"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.osc.owner_name_file.sixth_fresh_listing_preflight_receipt"
+    },
+    "attempt_number": {
+      "const": 6
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "proposal_ref": {
+      "const": "sources/proposals/ny_osc_owner_name_file_sixth_bounded_attempt_authorization.v1.json"
+    },
+    "proposal_checkpoint": {
+      "const": "ac5a84a9523c5e99c79f41d0203f349e41be56c7"
+    },
+    "proposal_ci_run_id": {
+      "const": 35531762748
+    },
+    "runner_checkpoint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "NOT_PERFORMED",
+        "EXACT_MATCH",
+        "DRIFTED"
+      ]
+    },
+    "remote_preflight_performed": {
+      "type": "boolean"
+    },
+    "preflight_authorization_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "performed_at_utc": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        }
+      ]
+    },
+    "freshness_window_seconds": {
+      "const": 900
+    },
+    "expected_listing": {
+      "const": {
+        "remote_name": "FINDERS.zip",
+        "size_display": "390.51 MB",
+        "last_modified_display": "9/16/2026, 1:33:31 PM"
+      }
+    },
+    "observed_listing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "remote_name",
+        "size_display",
+        "last_modified_display"
+      ],
+      "properties": {
+        "remote_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size_display": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_modified_display": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "download_performed": {
+      "const": false
+    },
+    "owner_file_opened": {
+      "const": false
+    },
+    "owner_pii_processed": {
+      "const": false
+    },
+    "contains_owner_pii": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "NOT_PERFORMED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "remote_preflight_performed": {
+            "const": false
+          },
+          "preflight_authorization_ref": {
+            "const": null
+          },
+          "performed_at_utc": {
+            "const": null
+          },
+          "runner_checkpoint": {
+            "const": null
+          },
+          "observed_listing": {
+            "const": {
+              "remote_name": null,
+              "size_display": null,
+              "last_modified_display": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "EXACT_MATCH"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "remote_preflight_performed": {
+            "const": true
+          },
+          "preflight_authorization_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "performed_at_utc": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "Z$"
+          },
+          "runner_checkpoint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "observed_listing": {
+            "const": {
+              "remote_name": "FINDERS.zip",
+              "size_display": "390.51 MB",
+              "last_modified_display": "9/16/2026, 1:33:31 PM"
+            }
+          }
+        },
+        "required": [
+          "preflight_authorization_ref",
+          "performed_at_utc",
+          "runner_checkpoint"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "DRIFTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "remote_preflight_performed": {
+                "const": true
+              },
+              "preflight_authorization_ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "performed_at_utc": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "Z$"
+              },
+              "runner_checkpoint": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "observed_listing": {
+                "type": "object",
+                "required": [
+                  "remote_name",
+                  "size_display",
+                  "last_modified_display"
+                ],
+                "properties": {
+                  "remote_name": {
+                    "type": "string"
+                  },
+                  "size_display": {
+                    "type": "string"
+                  },
+                  "last_modified_display": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "not": {
+              "properties": {
+                "observed_listing": {
+                  "const": {
+                    "remote_name": "FINDERS.zip",
+                    "size_display": "390.51 MB",
+                    "last_modified_display": "9/16/2026, 1:33:31 PM"
+                  }
+                }
+              },
+              "required": [
+                "observed_listing"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
