@@ -1153,12 +1153,21 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`PREPARE_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL_OFFLINE`
+`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
 
-Classification: `A — Product Critical / Offline Governance Preparation`.
+Classification: `A — Product Critical / Offline Human Authorization Gate`.
 
-Prepare a fifth-attempt proposal only. Reuse the merged structural-diagnostic telemetry and
-execution-result v1.1.0 contract as the diagnostic basis. Do not access OSC, perform a fresh
-listing preflight, download the Owner Name File, create granted approvals, or execute a fifth
-attempt. Preserve one-download/zero-retry governance unless a separately reviewed proposal
-explicitly changes it.
+This action requires both exact Product Owner phrases:
+
+`APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+`APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+Only after both exact phrases are supplied may the two fifth-attempt approval artifacts be
+updated offline to `GRANTED_NOT_CONSUMED`, with distinct execution approval refs and binding
+to reviewed/integrated runner checkpoint
+`4a8412911b3b9ae59525dee3a0565951e2722528` and CI
+`35474594533 — SUCCESS`.
+
+This grant does not authorize OSC access, fresh listing preflight, download, Owner Name File
+opening, real owner-PII processing or fifth execution. Those remain later separate gates.
