@@ -14,7 +14,7 @@ import argparse
 import json
 import tempfile
 from pathlib import Path
-from typing import Any, Literal, Self
+from typing import Any, Literal, Self, cast
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -138,6 +138,52 @@ class NyTransientLocalExecutionAuthorizationV1_1(BaseModel):
     quote_dialect_mode: Literal["LINE_LOCAL_ARBITRATION"]
 
 
+
+NyTransientLocalExecutionReasonV1_2 = Literal[
+    "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+    "LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP",
+    "ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+    "NOT_A_ZIP_ARCHIVE",
+    "ARCHIVE_HAS_NO_FILES",
+    "ARCHIVE_MEMBER_COUNT_EXCEEDS_CAP",
+    "AMBIGUOUS_TEXT_MEMBER_LAYOUT",
+    "UNCOMPRESSED_TEXT_EXCEEDS_CAP",
+    "QUOTE_DIALECT_AMBIGUOUS",
+    "UNEXPECTED_DATA_FIELD_COUNT",
+    "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+    "MALFORMED_QUOTED_RECORD",
+    "TEXT_MEMBER_EMPTY",
+    "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED",
+]
+
+_NY_TRANSIENT_LOCAL_EXECUTION_REASONS_V1_2 = frozenset(
+    {
+        "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+        "LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP",
+        "ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+        "NOT_A_ZIP_ARCHIVE",
+        "ARCHIVE_HAS_NO_FILES",
+        "ARCHIVE_MEMBER_COUNT_EXCEEDS_CAP",
+        "AMBIGUOUS_TEXT_MEMBER_LAYOUT",
+        "UNCOMPRESSED_TEXT_EXCEEDS_CAP",
+        "QUOTE_DIALECT_AMBIGUOUS",
+        "UNEXPECTED_DATA_FIELD_COUNT",
+        "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+        "MALFORMED_QUOTED_RECORD",
+        "TEXT_MEMBER_EMPTY",
+        "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED",
+    }
+)
+
+
+def _coerce_execution_reason_v1_2(
+    reason_code: str,
+) -> NyTransientLocalExecutionReasonV1_2:
+    if reason_code not in _NY_TRANSIENT_LOCAL_EXECUTION_REASONS_V1_2:
+        raise RuntimeError("unsupported NY OSC transient execution v1.2 reason code")
+    return cast(NyTransientLocalExecutionReasonV1_2, reason_code)
+
+
 class NyTransientLocalExecutionResultV1_2(BaseModel):
     """Line-local execution receipt with mutually exclusive bounded diagnostics."""
 
@@ -145,7 +191,7 @@ class NyTransientLocalExecutionResultV1_2(BaseModel):
 
     contract_version: Literal["1.2.0"] = "1.2.0"
     status: Literal["DISCOVERED", "BLOCKED"]
-    reason_code: str = Field(min_length=3)
+    reason_code: NyTransientLocalExecutionReasonV1_2
     local_file_deleted: Literal[True]
     logical_deletion_only: Literal[True] = True
     physical_secure_erasure_guaranteed: Literal[False] = False
@@ -161,10 +207,21 @@ class NyTransientLocalExecutionResultV1_2(BaseModel):
 
     @model_validator(mode="after")
     def validate_diagnostic_bindings(self) -> Self:
+        local_only_reasons = {
+            "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+            "LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP",
+        }
+        discovered_reason = "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
         expects_structural = self.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
         expects_quote = self.reason_code == "QUOTE_DIALECT_AMBIGUOUS"
         has_structural = self.structural_diagnostic is not None
         has_quote = self.quote_dialect_diagnostic is not None
+
+        expected_status = (
+            "DISCOVERED" if self.reason_code == discovered_reason else "BLOCKED"
+        )
+        if self.status != expected_status:
+            raise ValueError("execution status does not match v1.2 reason code")
 
         if has_structural and has_quote:
             raise ValueError("execution receipt diagnostics must be mutually exclusive")
@@ -176,38 +233,27 @@ class NyTransientLocalExecutionResultV1_2(BaseModel):
             raise ValueError(
                 "quote dialect diagnostic must be present only for quote dialect ambiguity"
             )
-        if (expects_structural or expects_quote) and self.status != "BLOCKED":
-            raise ValueError("diagnostic execution result must remain fail-closed")
-        if self.status == "DISCOVERED" and self.schema_result is None:
-            raise ValueError("discovered execution result requires schema-discovery result")
-        if self.status == "DISCOVERED" and (has_structural or has_quote):
-            raise ValueError("discovered execution result cannot carry diagnostics")
 
-        if self.schema_result is not None:
-            expected_status = (
+        if self.schema_result is None:
+            if self.reason_code not in local_only_reasons:
+                raise ValueError(
+                    "schema-discovery result is required for discovery-origin reasons"
+                )
+        else:
+            if self.reason_code in local_only_reasons:
+                raise ValueError(
+                    "local archive cap reasons cannot carry schema-discovery result"
+                )
+            schema_status = (
                 "DISCOVERED"
                 if self.schema_result.status == "DISCOVERED"
                 else "BLOCKED"
             )
-            if self.status != expected_status:
+            if self.status != schema_status:
                 raise ValueError("execution status must match schema-discovery status")
             if self.reason_code != self.schema_result.reason_code:
                 raise ValueError("execution reason must match schema-discovery reason")
 
-        if has_structural and (
-            self.schema_result is None
-            or self.schema_result.reason_code != "UNEXPECTED_DATA_FIELD_COUNT"
-        ):
-            raise ValueError(
-                "structural diagnostic requires matching schema-discovery result"
-            )
-        if has_quote and (
-            self.schema_result is None
-            or self.schema_result.reason_code != "QUOTE_DIALECT_AMBIGUOUS"
-        ):
-            raise ValueError(
-                "quote dialect diagnostic requires matching schema-discovery result"
-            )
         return self
 
 
@@ -546,7 +592,7 @@ def execute_transient_local_file_discovery_v1_2(
         )
         return NyTransientLocalExecutionResultV1_2(
             status=status,
-            reason_code=schema_result.reason_code,
+            reason_code=_coerce_execution_reason_v1_2(schema_result.reason_code),
             local_file_deleted=True,
             archive_byte_count=archive_byte_count,
             schema_result=schema_result,

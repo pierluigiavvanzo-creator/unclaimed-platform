@@ -237,3 +237,35 @@ def test_real_v1_1_builder_requires_versioned_line_local_bindings(
             gate2,
             expected_attempt_number=99,
         )
+
+def test_v1_2_model_rejects_non_special_reason_mismatch() -> None:
+    path = _temp_archive(b"not-a-zip")
+    result = execute_transient_local_file_discovery_v1_2(_auth(), path)
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "NOT_A_ZIP_ARCHIVE"
+    payload = result.model_dump()
+    payload["reason_code"] = "ARCHIVE_HAS_NO_FILES"
+
+    with pytest.raises(PydanticValidationError, match="execution reason must match"):
+        type(result).model_validate(payload)
+
+
+def test_v1_2_model_rejects_local_cap_with_schema_result() -> None:
+    not_zip = _temp_archive(b"not-a-zip")
+    discovery_result = execute_transient_local_file_discovery_v1_2(
+        _auth(),
+        not_zip,
+    )
+    assert discovery_result.schema_result is not None
+
+    payload = discovery_result.model_dump()
+    payload["reason_code"] = "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP"
+    payload["schema_result"] = discovery_result.schema_result.model_dump()
+
+    with pytest.raises(
+        PydanticValidationError,
+        match="local archive cap reasons cannot carry schema-discovery result",
+    ):
+        type(discovery_result).model_validate(payload)
+
