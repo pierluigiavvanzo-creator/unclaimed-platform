@@ -65,3 +65,28 @@ No runtime operational activation.
 ## State at commit
 
 `REMEDIATION_IMPLEMENTED / NOT_RUNTIME_ACTIVATED / CI_PENDING`
+
+## First remediation CI feedback
+
+Run `35524403552` reached the newly added targeted mypy step and failed there
+before pytest/frontend stages.
+
+The targeted check exposed four static-typing issues in the runtime file:
+
+- two Literal assignment issues for the shared FINDERS.zip constant;
+- two loop-variable type conflicts caused by reusing the same `expected` name
+  across string and heterogeneous/bool validation dictionaries.
+
+The follow-up correction:
+
+- types `EXPECTED_LOCAL_NAME` as `Literal["FINDERS.zip"]`;
+- uses distinct loop variables for binding, local-scope and processing-scope
+  validation.
+
+No runtime behavior, parser algorithm, approval semantics or operational scope
+is changed by this static-typing correction.
+
+## State after targeted mypy correction
+
+`REMEDIATION_IMPLEMENTED / MYPY_FIX_COMMITTED / CI_RETRY_PENDING`
+

@@ -30,7 +30,7 @@ LOCAL_APPROVAL_GATE = (
     "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION"
 )
 GATE2_ID = "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION"
-EXPECTED_LOCAL_NAME = "FINDERS.zip"
+EXPECTED_LOCAL_NAME: Literal["FINDERS.zip"] = "FINDERS.zip"
 TEMP_DIR_PREFIX = "unclaimed-ny-osc-gate2-"
 
 
@@ -366,8 +366,8 @@ def build_real_execution_authorization_v1_1(
         "required_structural_diagnostic_contract_version": "1.0.0",
         "required_quote_dialect_diagnostic_contract_version": "1.0.0",
     }
-    for key, expected in required_bindings.items():
-        if bounds.get(key) != expected:
+    for key, expected_binding in required_bindings.items():
+        if bounds.get(key) != expected_binding:
             raise ValueError(f"Gate 2 line-local runtime binding mismatch: {key}")
 
     local_scope = local.get("scope")
@@ -384,8 +384,8 @@ def build_real_execution_authorization_v1_1(
         "chat_upload_allowed": False,
         "physical_secure_erasure_guaranteed": False,
     }
-    for key, expected in required_local_scope.items():
-        if local_scope.get(key) != expected:
+    for key, expected_local in required_local_scope.items():
+        if local_scope.get(key) != expected_local:
             raise ValueError(f"transient-local-file scope mismatch: {key}")
 
     processing_scope = gate2.get("processing_scope")
@@ -402,8 +402,8 @@ def build_real_execution_authorization_v1_1(
         "structural_diagnostic_persistence_allowed": True,
         "quote_dialect_diagnostic_persistence_allowed": True,
     }
-    for key, expected in required_processing_scope.items():
-        if processing_scope.get(key) != expected:
+    for key, expected_processing in required_processing_scope.items():
+        if processing_scope.get(key) != expected_processing:
             raise ValueError(f"Gate 2 processing scope mismatch: {key}")
 
     return NyTransientLocalExecutionAuthorizationV1_1(
