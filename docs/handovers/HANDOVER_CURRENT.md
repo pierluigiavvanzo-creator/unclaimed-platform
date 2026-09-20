@@ -2,7 +2,79 @@
 
 Last updated: 2026-09-20
 
-## AUTHORITATIVE CURRENT STATE — FIFTH RUNNER VERIFIED OFFLINE / REVIEW PENDING
+## AUTHORITATIVE CURRENT STATE — POST-PR16 MERGE / FIFTH APPROVALS PENDING
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Canonical development branch:
+
+`mvp1-ny-second-attempt-approved-ready-execution`
+
+Canonical merge HEAD:
+
+`3307bafd72422ff70b8b953da1cc954a8e1252b8`
+
+PR #16:
+
+`MERGED / CLOSED`
+
+Runner review:
+
+`PASS`
+
+Reviewed PR head:
+
+`4a8412911b3b9ae59525dee3a0565951e2722528`
+
+Current-head CI:
+
+`35474594533 — SUCCESS`
+
+Functional runner checkpoint / CI:
+
+- `64b25f350fc2b7fc80fd3d518bd5c8aabd06a178`;
+- `35474454565 — SUCCESS`.
+
+No separate post-merge CI run on `3307bafd...` was observed at reconciliation time.
+
+Integrated runner state:
+
+`READY / REVIEWED / MERGED / APPROVALS_NOT_GRANTED / ZERO_SOURCE_ACCESS / ZERO_RETRY`
+
+The runner preserves one download maximum, zero retries, 450,000,000 compressed bytes,
+2,000,000,000 uncompressed bytes, one archive member, exactly one text member, pipe delimiter,
+14 documented fields, 65,536-byte chunks, execution result v1.1.0 and structural diagnostic
+v1.0.0. It contains no network client and checks authorization, proposal binding, runner
+binding, bounds and privacy before temp-directory creation.
+
+Both fifth approval templates remain:
+
+`NOT_GRANTED`
+
+with null owner authorization, execution approval ref, runner checkpoint and runner CI fields.
+
+Safety state:
+
+- OSC source access: `NOT AUTHORIZED`;
+- fifth listing preflight: `NOT AUTHORIZED`;
+- fifth download: `NOT AUTHORIZED`;
+- fifth approvals: `NOT_GRANTED`;
+- fifth execution: `NOT AUTHORIZED`;
+- retries: `0`;
+- automatic repair/row skip/widening: `FORBIDDEN`.
+
+Non-blocking hardening note retained from review:
+
+the shared Python authorization builder validates the core approval envelope, while the stricter
+proposal/checkpoint/runner-CI/exact-phrase/privacy bindings are enforced by the reviewed
+PowerShell runner. Any future operational execution must therefore remain runner-mediated unless
+a separately reviewed defense-in-depth change is made.
+
+This section supersedes conflicting historical current-state and next-action entries below.
+
+## HISTORICAL CURRENT STATE — FIFTH RUNNER VERIFIED OFFLINE / REVIEW PENDING
 
 Repository:
 
@@ -1182,10 +1254,38 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_RUNNER_AND_CONTRACTS_OFFLINE`
+`HUMAN_GRANT_NY_OSC_FIFTH_ATTEMPT_APPROVALS_OFFLINE`
 
-Review the attempt-5 runner, approval schemas/templates, tests and technical audit against
-checkpoint `64b25f350fc2b7fc80fd3d518bd5c8aabd06a178` and CI `35474454565 — SUCCESS`.
+This action requires the Product Owner to provide both exact phrases:
 
-Do not grant either fifth approval, access OSC, perform a fresh listing preflight, download the
-Owner Name File, process real owner PII or execute attempt 5 during this review.
+`APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+`APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+Only after both exact phrases are supplied may the two attempt-5 approval artifacts be updated
+offline from `NOT_GRANTED` to `GRANTED_NOT_CONSUMED`.
+
+Required grant binding:
+
+- attempt number: `5`;
+- proposal checkpoint: `8ce856ddbeac5d2300f808729a887803e212b240`;
+- proposal CI: `35460348569 — SUCCESS`;
+- reviewed/integrated runner checkpoint: `4a8412911b3b9ae59525dee3a0565951e2722528`;
+- runner CI: `35474594533 — SUCCESS`;
+- two distinct execution approval refs;
+- single use;
+- non-reusable;
+- zero retry;
+- all existing byte/member/field/chunk/privacy/diagnostic-contract limits unchanged.
+
+Hard limits for the grant step:
+
+- repository-only;
+- no OSC access;
+- no fresh listing preflight;
+- no download;
+- no Owner Name File opening;
+- no real owner-PII processing;
+- no fifth execution.
+
+Fresh listing preflight and one-time execution remain separate later explicit human gates.
