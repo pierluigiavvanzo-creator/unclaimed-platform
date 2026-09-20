@@ -5,7 +5,7 @@
   "owner_authorization": "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
   "granted_on": "2026-09-20",
   "execution_approval_ref": "OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35474594",
-  "status": "GRANTED_NOT_CONSUMED",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -60,5 +60,7 @@
     "fee_agreement": false,
     "representation": false,
     "claim_activity": false
-  }
+  },
+  "consumed_on": "2026-09-20",
+  "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json"
 }
