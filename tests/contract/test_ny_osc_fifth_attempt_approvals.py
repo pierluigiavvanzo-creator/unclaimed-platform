@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import copy
 import json
 from pathlib import Path
 
-import pytest
 from jsonschema import Draft202012Validator
 
 from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution import (
@@ -39,13 +37,23 @@ PROPOSAL_REF = (
 )
 PROPOSAL_CHECKPOINT = "8ce856ddbeac5d2300f808729a887803e212b240"
 PROPOSAL_CI = 35460348569
+RUNNER_CHECKPOINT = "4a8412911b3b9ae59525dee3a0565951e2722528"
+RUNNER_CI = 35474594533
+LOCAL_REF = (
+    "OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_TRANSIENT_LOCAL_FILE_"
+    "BOUNDED_ONCE_4A841291"
+)
+PII_REF = (
+    "OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_BOUNDED_TRANSIENT_PII_"
+    "ATTEMPT_ONCE_35474594"
+)
 
 
 def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_fifth_attempt_templates_validate_and_remain_not_granted() -> None:
+def test_fifth_attempt_approvals_validate_and_are_granted_not_consumed() -> None:
     local = _load(LOCAL_APPROVAL)
     pii = _load(PII_APPROVAL)
 
@@ -53,20 +61,29 @@ def test_fifth_attempt_templates_validate_and_remain_not_granted() -> None:
     Draft202012Validator(_load(PII_SCHEMA)).validate(pii)
 
     for approval in (local, pii):
-        assert approval["status"] == "NOT_GRANTED"
-        assert approval["owner_authorization"] is None
-        assert approval["granted_on"] is None
-        assert approval["execution_approval_ref"] is None
+        assert approval["status"] == "GRANTED_NOT_CONSUMED"
+        assert approval["granted_on"] == "2026-09-20"
         assert approval["attempt_number"] == 5
         assert approval["proposal_ref"] == PROPOSAL_REF
         assert approval["proposal_checkpoint"] == PROPOSAL_CHECKPOINT
         assert approval["proposal_ci_run_id"] == PROPOSAL_CI
-        assert approval["runner_checkpoint"] is None
-        assert approval["runner_ci_run_id"] is None
-        assert approval["runner_ci_conclusion"] is None
+        assert approval["runner_checkpoint"] == RUNNER_CHECKPOINT
+        assert approval["runner_ci_run_id"] == RUNNER_CI
+        assert approval["runner_ci_conclusion"] == "SUCCESS"
         assert approval["single_use"] is True
         assert approval["reusable"] is False
         assert approval["retry_authorized"] is False
+
+    assert local["owner_authorization"] == (
+        "APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE"
+    )
+    assert pii["owner_authorization"] == (
+        "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII "
+        "ATTEMPT ONCE"
+    )
+    assert local["execution_approval_ref"] == LOCAL_REF
+    assert pii["execution_approval_ref"] == PII_REF
+    assert LOCAL_REF != PII_REF
 
     bounds = pii["execution_bounds"]
     assert bounds["downloads_max"] == 1
@@ -92,58 +109,16 @@ def test_fifth_attempt_templates_validate_and_remain_not_granted() -> None:
     assert scope["structural_diagnostic_persistence_allowed"] is True
 
 
-def test_not_granted_fifth_templates_cannot_build_authorization() -> None:
-    with pytest.raises(ValueError, match="approval is not available"):
-        build_real_execution_authorization(
-            LOCAL_APPROVAL,
-            PII_APPROVAL,
-            expected_attempt_number=5,
-        )
-
-
-def test_runtime_bridge_accepts_attempt_five_only_after_new_distinct_grants(
-    tmp_path: Path,
-) -> None:
-    local = copy.deepcopy(_load(LOCAL_APPROVAL))
-    pii = copy.deepcopy(_load(PII_APPROVAL))
-
-    local.update(
-        status="GRANTED_NOT_CONSUMED",
-        owner_authorization=(
-            "APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE"
-        ),
-        granted_on="2026-09-20",
-        execution_approval_ref="synthetic-fifth-local-ref",
-        runner_checkpoint="a" * 40,
-        runner_ci_run_id=999999,
-        runner_ci_conclusion="SUCCESS",
-    )
-    pii.update(
-        status="GRANTED_NOT_CONSUMED",
-        owner_authorization=(
-            "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII "
-            "ATTEMPT ONCE"
-        ),
-        granted_on="2026-09-20",
-        execution_approval_ref="synthetic-fifth-pii-ref",
-        runner_checkpoint="a" * 40,
-        runner_ci_run_id=999999,
-        runner_ci_conclusion="SUCCESS",
-    )
-
-    local_path = tmp_path / "local.json"
-    pii_path = tmp_path / "pii.json"
-    local_path.write_text(json.dumps(local), encoding="utf-8")
-    pii_path.write_text(json.dumps(pii), encoding="utf-8")
-
+def test_granted_fifth_approvals_build_runtime_authorization() -> None:
     authorization = build_real_execution_authorization(
-        local_path,
-        pii_path,
+        LOCAL_APPROVAL,
+        PII_APPROVAL,
         expected_attempt_number=5,
     )
     assert authorization.attempt_number == 5
-    assert authorization.local_file_approval_ref == "synthetic-fifth-local-ref"
-    assert authorization.gate2_approval_ref == "synthetic-fifth-pii-ref"
+    assert authorization.local_file_approval_ref == LOCAL_REF
+    assert authorization.gate2_approval_ref == PII_REF
+    assert authorization.local_file_approval_ref != authorization.gate2_approval_ref
     assert authorization.max_download_bytes == 450_000_000
     assert authorization.max_uncompressed_bytes == 2_000_000_000
     assert authorization.max_archive_members == 1

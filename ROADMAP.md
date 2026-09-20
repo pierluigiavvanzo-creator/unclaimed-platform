@@ -2,6 +2,28 @@
 
 Last updated: 2026-09-20
 
+## Current Override — Fifth Approval Grant Candidate / Review Pending
+
+Human grant phrases received on 2026-09-20.
+
+Candidate state:
+
+`GRANTED_NOT_CONSUMED / SINGLE USE / NON-REUSABLE / ZERO RETRY`
+
+Approval refs:
+
+- `OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_4A841291`
+- `OWNER_APPROVAL_2026-09-20_NY_OSC_FIFTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35474594`
+
+Both bind to runner checkpoint `4a8412911b3b9ae59525dee3a0565951e2722528` and CI
+`35474594533 — SUCCESS`.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_APPROVAL_GRANT_OFFLINE`
+
+No source access, preflight, download or fifth execution is authorized by this candidate grant.
+
 ## Current Override — Fifth Runner Merged / Human Approval Grant Pending
 
 PR #16:
