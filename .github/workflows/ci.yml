@@ -16,6 +16,11 @@ jobs:
       - run: python -m pip install -e ".[dev]"
       - run: python -m ruff check .
       - run: python -m mypy src/unclaimed_platform/core src/unclaimed_platform/api src/unclaimed_platform/adapters/storage src/unclaimed_platform/ui
+      - name: Mypy NY OSC line-local runtime
+        run: >-
+          python -m mypy
+          src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution.py
+          src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution_v1_2.py
       - run: python -m pytest -q tests/contract
       - run: python -m pytest -q tests/smoke
       - run: python -m pytest -q
