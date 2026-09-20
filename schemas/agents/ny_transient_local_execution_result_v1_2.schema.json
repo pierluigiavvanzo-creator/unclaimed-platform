@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-transient-local-execution-result:1.2.0",
+  "title": "NY OSC Transient Local File Execution Result v1.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "status",
+    "reason_code",
+    "local_file_deleted",
+    "logical_deletion_only",
+    "physical_secure_erasure_guaranteed",
+    "archive_byte_count",
+    "schema_result",
+    "schema_discovery_quote_dialect_mode",
+    "structural_diagnostic",
+    "quote_dialect_diagnostic",
+    "no_raw_path_returned",
+    "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.2.0"},
+    "status": {"enum": ["DISCOVERED", "BLOCKED"]},
+    "reason_code": {"type": "string", "minLength": 3},
+    "local_file_deleted": {"const": true},
+    "logical_deletion_only": {"const": true},
+    "physical_secure_erasure_guaranteed": {"const": false},
+    "archive_byte_count": {"type": "integer", "minimum": 0},
+    "schema_result": {
+      "anyOf": [
+        {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"},
+        {"type": "null"}
+      ]
+    },
+    "schema_discovery_quote_dialect_mode": {"const": "LINE_LOCAL_ARBITRATION"},
+    "structural_diagnostic": {
+      "anyOf": [
+        {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0"},
+        {"type": "null"}
+      ]
+    },
+    "quote_dialect_diagnostic": {
+      "anyOf": [
+        {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-quote-dialect-diagnostic-result:1.0.0"},
+        {"type": "null"}
+      ]
+    },
+    "no_raw_path_returned": {"const": true},
+    "no_owner_values_returned": {"const": true}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"reason_code": {"const": "UNEXPECTED_DATA_FIELD_COUNT"}},
+        "required": ["reason_code"]
+      },
+      "then": {
+        "properties": {
+          "status": {"const": "BLOCKED"},
+          "structural_diagnostic": {
+            "$ref": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0"
+          },
+          "quote_dialect_diagnostic": {"type": "null"},
+          "schema_result": {
+            "allOf": [
+              {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"},
+              {
+                "properties": {
+                  "reason_code": {"const": "UNEXPECTED_DATA_FIELD_COUNT"}
+                },
+                "required": ["reason_code"]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"reason_code": {"const": "QUOTE_DIALECT_AMBIGUOUS"}},
+        "required": ["reason_code"]
+      },
+      "then": {
+        "properties": {
+          "status": {"const": "BLOCKED"},
+          "structural_diagnostic": {"type": "null"},
+          "quote_dialect_diagnostic": {
+            "$ref": "urn:unclaimed-platform:schema:ny-owner-name-quote-dialect-diagnostic-result:1.0.0"
+          },
+          "schema_result": {
+            "allOf": [
+              {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"},
+              {
+                "properties": {
+                  "reason_code": {"const": "QUOTE_DIALECT_AMBIGUOUS"}
+                },
+                "required": ["reason_code"]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {"const": "DISCOVERED"}
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "schema_result": {
+            "allOf": [
+              {"$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"},
+              {
+                "properties": {"status": {"const": "DISCOVERED"}},
+                "required": ["status"]
+              }
+            ]
+          },
+          "structural_diagnostic": {"type": "null"},
+          "quote_dialect_diagnostic": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reason_code": {
+            "not": {
+              "enum": [
+                "UNEXPECTED_DATA_FIELD_COUNT",
+                "QUOTE_DIALECT_AMBIGUOUS"
+              ]
+            }
+          }
+        },
+        "required": ["reason_code"]
+      },
+      "then": {
+        "properties": {
+          "structural_diagnostic": {"type": "null"},
+          "quote_dialect_diagnostic": {"type": "null"}
+        }
+      }
+    }
+  ]
+}
