@@ -9,6 +9,7 @@ from pydantic import ValidationError
 
 from unclaimed_platform.adapters.sources.ny_owner_name_schema_discovery import (
     NY_DOCUMENTED_FIELDS,
+    NyOwnerNameQuoteDialectDiagnosticResult,
     NyOwnerNameSchemaDiscoveryAuthorization,
     NyOwnerNameSchemaDiscoveryResult,
     NyOwnerNameStructuralDiagnosticResult,
@@ -596,3 +597,129 @@ def test_structural_diagnostic_counts_multiline_quote_without_values() -> None:
     assert diagnostic.quote_open_event_count == 1
     assert diagnostic.quote_close_event_count == 1
     assert "Synthetic Owner" not in diagnostic.model_dump_json()
+
+
+
+def test_line_local_arbitration_never_carries_open_quote_across_lines() -> None:
+    first = _row(
+        "1001",
+        "IN03",
+        '"Synthetic Owner Alpha',
+        "1 Synthetic Street",
+    )
+    second = _row(
+        "1002",
+        "IN01",
+        "Synthetic Owner Beta",
+        "2 Synthetic Street",
+    )
+    payload = (first + "\n" + second + "\n").encode("utf-8")
+    diagnostics: list[NyOwnerNameQuoteDialectDiagnosticResult] = []
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+        quote_dialect_mode="LINE_LOCAL_ARBITRATION",
+        quote_dialect_diagnostic_sink=diagnostics.append,
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "QUOTE_DIALECT_AMBIGUOUS"
+    assert result.aggregate_complete_record_count == 0
+    assert result.observed_data_field_count is None
+    assert len(diagnostics) == 1
+    diagnostic = diagnostics[0]
+    assert diagnostic.ended_inside_quote is True
+    assert diagnostic.raw_pipe_count == 13
+    assert diagnostic.raw_field_count == 14
+    assert diagnostic.quote_aware_structural_pipe_count == 4
+    assert diagnostic.quote_aware_field_count == 5
+    assert diagnostic.suppressed_pipe_count == 9
+    assert "Synthetic Owner" not in diagnostic.model_dump_json()
+    assert "Synthetic Street" not in diagnostic.model_dump_json()
+
+
+def test_line_local_arbitration_blocks_same_line_quoted_pipe_as_ambiguous() -> None:
+    values = [
+        "1001",
+        "IN03",
+        "Synthetic property description",
+        "1",
+        '"Synthetic | Owner"',
+        "1 Synthetic Street",
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        "Synthetic Holder",
+        "2026",
+    ]
+    diagnostics: list[NyOwnerNameQuoteDialectDiagnosticResult] = []
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=["|".join(values)]),
+        quote_dialect_mode="LINE_LOCAL_ARBITRATION",
+        quote_dialect_diagnostic_sink=diagnostics.append,
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "QUOTE_DIALECT_AMBIGUOUS"
+    assert result.observed_data_field_count is None
+    diagnostic = diagnostics[0]
+    assert diagnostic.classification == (
+        "RAW_AND_QUOTE_AWARE_FIELD_COUNTS_DIVERGE"
+    )
+    assert diagnostic.ended_inside_quote is False
+    assert diagnostic.raw_pipe_count == 14
+    assert diagnostic.raw_field_count == 15
+    assert diagnostic.quote_aware_structural_pipe_count == 13
+    assert diagnostic.quote_aware_field_count == 14
+    assert diagnostic.suppressed_pipe_count == 1
+
+
+def test_line_local_arbitration_accepts_balanced_quotes_without_pipe() -> None:
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(
+            include_header=False,
+            rows=[
+                _row(
+                    "1001",
+                    "IN03",
+                    '"Synthetic Owner Alpha"',
+                    "1 Synthetic Street",
+                )
+            ],
+        ),
+        quote_dialect_mode="LINE_LOCAL_ARBITRATION",
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 1
+
+
+def test_line_local_true_13_field_row_still_uses_field_count_fail_closed() -> None:
+    row = _row("1001", "IN03", "Synthetic Owner Alpha", "1 Synthetic Street")
+    thirteen_fields = "|".join(row.split("|")[:-1])
+    structural: list[NyOwnerNameStructuralDiagnosticResult] = []
+    quote_dialect: list[NyOwnerNameQuoteDialectDiagnosticResult] = []
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=[thirteen_fields]),
+        structural_diagnostic_sink=structural.append,
+        quote_dialect_mode="LINE_LOCAL_ARBITRATION",
+        quote_dialect_diagnostic_sink=quote_dialect.append,
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_data_field_count == 13
+    assert len(structural) == 1
+    assert structural[0].classification == "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED"
+    assert quote_dialect == []

@@ -39,6 +39,7 @@ NY_DOCUMENTED_FIELDS: tuple[str, ...] = (
 )
 NY_PROPERTY_TYPE_CODE_INDEX = 1
 _UTF8_BOM = b"\xef\xbb\xbf"
+QuoteDialectMode = Literal["MULTILINE_LEGACY", "LINE_LOCAL_ARBITRATION"]
 
 
 def _is_ascii_space(value: int) -> bool:
@@ -244,6 +245,8 @@ class _QuotedPipeRecordShape:
     quote_close_event_count: int = 0
     doubled_quote_pair_count: int = 0
     physical_line_breaks_inside_quotes: int = 0
+    quote_dialect_ambiguous: bool = False
+    ended_inside_quote: bool = False
 
 
 class _MalformedQuotedRecordError(ValueError):
@@ -475,12 +478,161 @@ class _QuotedPipeStreamScanner:
         return record
 
 
+
+class _LineLocalQuoteArbitrationScanner:
+    """Compare raw-pipe and quote-aware structure without crossing physical lines.
+
+    This scanner is intentionally separate from the historical multiline scanner.
+    It never lets quote state survive LF/CRLF. When the two interpretations
+    disagree, or a quote is still open at the physical line boundary, the record
+    is marked ambiguous instead of silently selecting one dialect.
+    """
+
+    def __init__(self) -> None:
+        self._track_header = True
+        self._raw_scanner = _LogicalRecordScanner(track_header=False)
+        self._quote_scanner = _LogicalRecordScanner(track_header=True)
+        self._in_quotes = False
+        self._pending_quote = False
+        self._pending_cr = False
+        self._reset_line_diagnostics()
+
+    def _reset_line_diagnostics(self) -> None:
+        self._quote_byte_count = 0
+        self._quote_open_event_count = 0
+        self._quote_close_event_count = 0
+        self._doubled_quote_pair_count = 0
+
+    @property
+    def observed_delimiter(self) -> Literal["|"] | None:
+        return self._raw_scanner.observed_delimiter
+
+    def _consume_both_field_byte(self, value: int) -> None:
+        self._raw_scanner.consume_field_byte(value)
+        self._quote_scanner.consume_field_byte(value)
+
+    def consume(self, value: int) -> _QuotedPipeRecordShape | None:
+        if self._pending_quote:
+            self._pending_quote = False
+            if value == ord('"'):
+                self._quote_byte_count += 1
+                self._doubled_quote_pair_count += 1
+                self._consume_both_field_byte(value)
+                return None
+            self._quote_close_event_count += 1
+            self._in_quotes = False
+
+        if self._pending_cr:
+            self._pending_cr = False
+            if value == ord("\n"):
+                return self._finish_boundary()
+            self._consume_both_field_byte(ord("\r"))
+
+        if value == ord("\r"):
+            self._pending_cr = True
+            return None
+
+        if value == ord("\n"):
+            return self._finish_boundary()
+
+        if value == ord('"'):
+            self._quote_byte_count += 1
+            can_open_quote = not self._quote_scanner.field_has_nonspace
+            self._consume_both_field_byte(value)
+            if self._in_quotes:
+                self._pending_quote = True
+            elif can_open_quote:
+                self._quote_open_event_count += 1
+                self._in_quotes = True
+            return None
+
+        if value == ord("|"):
+            self._raw_scanner.consume_delimiter()
+            if self._in_quotes:
+                self._quote_scanner.consume_field_byte(value)
+            else:
+                self._quote_scanner.consume_delimiter()
+            return None
+
+        self._consume_both_field_byte(value)
+        return None
+
+    def finish(self) -> _QuotedPipeRecordShape | None:
+        if self._pending_cr:
+            self._consume_both_field_byte(ord("\r"))
+            self._pending_cr = False
+        if self._raw_scanner.has_content:
+            return self._finish_boundary()
+        return None
+
+    def _finish_boundary(self) -> _QuotedPipeRecordShape | None:
+        if self._pending_quote:
+            self._pending_quote = False
+            self._quote_close_event_count += 1
+            self._in_quotes = False
+
+        if not self._raw_scanner.has_content:
+            self._reset_line_state()
+            return None
+
+        ended_inside_quote = self._in_quotes
+        raw_record = self._raw_scanner.finish()
+        quote_record = self._quote_scanner.finish()
+        quote_dialect_ambiguous = (
+            ended_inside_quote
+            or raw_record.field_count != quote_record.field_count
+        )
+
+        record = replace(
+            quote_record,
+            raw_pipe_count=raw_record.raw_pipe_count,
+            structural_pipe_count=quote_record.structural_pipe_count,
+            quote_byte_count=self._quote_byte_count,
+            quote_open_event_count=self._quote_open_event_count,
+            quote_close_event_count=self._quote_close_event_count,
+            doubled_quote_pair_count=self._doubled_quote_pair_count,
+            physical_line_breaks_inside_quotes=0,
+            quote_dialect_ambiguous=quote_dialect_ambiguous,
+            ended_inside_quote=ended_inside_quote,
+        )
+
+        self._track_header = False
+        self._reset_line_state()
+        return record
+
+    def _reset_line_state(self) -> None:
+        self._raw_scanner = _LogicalRecordScanner(track_header=False)
+        self._quote_scanner = _LogicalRecordScanner(track_header=self._track_header)
+        self._in_quotes = False
+        self._pending_quote = False
+        self._pending_cr = False
+        self._reset_line_diagnostics()
+
+
 def _iter_quoted_pipe_record_shapes(
     stream: BinaryIO,
 ) -> Iterator[_QuotedPipeRecordShape]:
     """Yield logical record shapes without retaining owner fields or whole records."""
 
     scanner = _QuotedPipeStreamScanner()
+    while chunk := stream.read(64 * 1024):
+        for value in chunk:
+            record = scanner.consume(value)
+            if record is not None:
+                yield record
+
+    final_record = scanner.finish()
+    if final_record is not None:
+        yield final_record
+
+
+
+def _iter_line_local_quote_arbitrated_shapes(
+    stream: BinaryIO,
+) -> Iterator[_QuotedPipeRecordShape]:
+    """Yield physical-line records with bounded raw-vs-quote-aware arbitration."""
+
+    scanner = _LineLocalQuoteArbitrationScanner()
     while chunk := stream.read(64 * 1024):
         for value in chunk:
             record = scanner.consume(value)
@@ -547,6 +699,70 @@ class NyOwnerNameStructuralDiagnosticResult(BaseModel):
     ended_inside_quote: Literal[False] = False
     no_raw_record_returned: Literal[True] = True
     no_owner_values_returned: Literal[True] = True
+
+
+
+class NyOwnerNameQuoteDialectDiagnosticResult(BaseModel):
+    """Persistable non-PII telemetry when line-local dialects disagree."""
+
+    model_config = ConfigDict(frozen=True)
+
+    contract_version: Literal["1.0.0"] = "1.0.0"
+    source_id: Literal[
+        "ny.osc.unclaimed_funds.owner_name_file"
+    ] = NY_OWNER_NAME_SOURCE_ID
+    diagnostic_scope: Literal["QUOTE_DIALECT_STRUCTURAL_ONLY"] = (
+        "QUOTE_DIALECT_STRUCTURAL_ONLY"
+    )
+    reason_code: Literal["QUOTE_DIALECT_AMBIGUOUS"] = "QUOTE_DIALECT_AMBIGUOUS"
+    classification: Literal[
+        "LINE_ENDED_INSIDE_QUOTE",
+        "RAW_AND_QUOTE_AWARE_FIELD_COUNTS_DIVERGE",
+        "LINE_END_AND_FIELD_COUNT_DIVERGENCE",
+    ]
+    expected_field_count: Literal[14] = len(NY_DOCUMENTED_FIELDS)
+    raw_field_count: int = Field(ge=1)
+    quote_aware_field_count: int = Field(ge=1)
+    raw_pipe_count: int = Field(ge=0)
+    quote_aware_structural_pipe_count: int = Field(ge=0)
+    suppressed_pipe_count: int = Field(ge=0)
+    quote_byte_count: int = Field(ge=0)
+    quote_open_event_count: int = Field(ge=0)
+    quote_close_event_count: int = Field(ge=0)
+    doubled_quote_pair_count: int = Field(ge=0)
+    ended_inside_quote: bool
+    no_raw_record_returned: Literal[True] = True
+    no_owner_values_returned: Literal[True] = True
+
+
+def _build_quote_dialect_diagnostic(
+    record: _QuotedPipeRecordShape,
+) -> NyOwnerNameQuoteDialectDiagnosticResult:
+    field_counts_diverge = (
+        record.raw_pipe_count != record.structural_pipe_count
+    )
+    if record.ended_inside_quote and field_counts_diverge:
+        classification = "LINE_END_AND_FIELD_COUNT_DIVERGENCE"
+    elif record.ended_inside_quote:
+        classification = "LINE_ENDED_INSIDE_QUOTE"
+    else:
+        classification = "RAW_AND_QUOTE_AWARE_FIELD_COUNTS_DIVERGE"
+
+    return NyOwnerNameQuoteDialectDiagnosticResult(
+        classification=classification,
+        raw_field_count=record.raw_pipe_count + 1,
+        quote_aware_field_count=record.field_count,
+        raw_pipe_count=record.raw_pipe_count,
+        quote_aware_structural_pipe_count=record.structural_pipe_count,
+        suppressed_pipe_count=(
+            record.raw_pipe_count - record.structural_pipe_count
+        ),
+        quote_byte_count=record.quote_byte_count,
+        quote_open_event_count=record.quote_open_event_count,
+        quote_close_event_count=record.quote_close_event_count,
+        doubled_quote_pair_count=record.doubled_quote_pair_count,
+        ended_inside_quote=record.ended_inside_quote,
+    )
 
 
 def _build_structural_diagnostic(
@@ -686,6 +902,10 @@ def discover_ny_owner_name_schema(
     structural_diagnostic_sink: (
         Callable[[NyOwnerNameStructuralDiagnosticResult], None] | None
     ) = None,
+    quote_dialect_mode: QuoteDialectMode = "MULTILINE_LEGACY",
+    quote_dialect_diagnostic_sink: (
+        Callable[[NyOwnerNameQuoteDialectDiagnosticResult], None] | None
+    ) = None,
 ) -> NyOwnerNameSchemaDiscoveryResult:
     """Inspect one ZIP entirely in memory and return only non-owner schema metadata.
 
@@ -767,7 +987,43 @@ def discover_ny_owner_name_schema(
 
         try:
             with archive.open(selected, "r") as stream:
-                for record in _iter_quoted_pipe_record_shapes(stream):
+                records = (
+                    _iter_line_local_quote_arbitrated_shapes(stream)
+                    if quote_dialect_mode == "LINE_LOCAL_ARBITRATION"
+                    else _iter_quoted_pipe_record_shapes(stream)
+                )
+                for record in records:
+                    if (
+                        quote_dialect_mode == "LINE_LOCAL_ARBITRATION"
+                        and record.quote_dialect_ambiguous
+                    ):
+                        if quote_dialect_diagnostic_sink is not None:
+                            quote_dialect_diagnostic_sink(
+                                _build_quote_dialect_diagnostic(record)
+                            )
+                        return _blocked(
+                            authorization,
+                            reason_code="QUOTE_DIALECT_AMBIGUOUS",
+                            archive_byte_count=archive_byte_count,
+                            archive_member_count=member_count,
+                            selected_text_member_present=True,
+                            selected_member_uncompressed_bytes=selected.file_size,
+                            observed_delimiter=record.observed_delimiter,
+                            observed_data_field_count=None,
+                            observed_header_state=header_state,
+                            physical_header_names=(
+                                NY_DOCUMENTED_FIELDS
+                                if header_state
+                                in {
+                                    "EXACT_DOCUMENTED_HEADER",
+                                    "NORMALIZED_DOCUMENTED_HEADER",
+                                }
+                                else ()
+                            ),
+                            aggregate_complete_record_count=record_count,
+                            property_type_ascii_record_count=property_type_ascii_count,
+                        )
+
                     if not first_nonblank_seen:
                         first_nonblank_seen = True
                         if record.exact_documented_header:
