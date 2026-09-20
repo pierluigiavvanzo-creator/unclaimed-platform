@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-owner-name-quote-dialect-diagnostic-result:1.0.0",
+  "title": "NY Owner Name Quote Dialect Diagnostic Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "source_id",
+    "diagnostic_scope",
+    "reason_code",
+    "classification",
+    "expected_field_count",
+    "raw_field_count",
+    "quote_aware_field_count",
+    "raw_pipe_count",
+    "quote_aware_structural_pipe_count",
+    "suppressed_pipe_count",
+    "quote_byte_count",
+    "quote_open_event_count",
+    "quote_close_event_count",
+    "doubled_quote_pair_count",
+    "ended_inside_quote",
+    "no_raw_record_returned",
+    "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+    "diagnostic_scope": {"const": "QUOTE_DIALECT_STRUCTURAL_ONLY"},
+    "reason_code": {"const": "QUOTE_DIALECT_AMBIGUOUS"},
+    "classification": {
+      "enum": [
+        "LINE_ENDED_INSIDE_QUOTE",
+        "RAW_AND_QUOTE_AWARE_FIELD_COUNTS_DIVERGE",
+        "LINE_END_AND_FIELD_COUNT_DIVERGENCE"
+      ]
+    },
+    "expected_field_count": {"const": 14},
+    "raw_field_count": {"type": "integer", "minimum": 1},
+    "quote_aware_field_count": {"type": "integer", "minimum": 1},
+    "raw_pipe_count": {"type": "integer", "minimum": 0},
+    "quote_aware_structural_pipe_count": {"type": "integer", "minimum": 0},
+    "suppressed_pipe_count": {"type": "integer", "minimum": 0},
+    "quote_byte_count": {"type": "integer", "minimum": 0},
+    "quote_open_event_count": {"type": "integer", "minimum": 0},
+    "quote_close_event_count": {"type": "integer", "minimum": 0},
+    "doubled_quote_pair_count": {"type": "integer", "minimum": 0},
+    "ended_inside_quote": {"type": "boolean"},
+    "no_raw_record_returned": {"const": true},
+    "no_owner_values_returned": {"const": true}
+  }
+}
