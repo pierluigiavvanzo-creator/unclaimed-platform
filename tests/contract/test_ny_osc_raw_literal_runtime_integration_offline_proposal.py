@@ -55,6 +55,7 @@ def test_remediated_runtime_integration_proposal_validates() -> None:
     proposal = _load(PROPOSAL)
     _validator().validate(proposal)
 
+    assert proposal["schema_version"] == "1.1.0"
     assert proposal["artifact_version"] == "1.1.0"
     assert proposal["status"] == "REMEDIATED_PROPOSED_NOT_IMPLEMENTED"
     assert proposal["baseline"]["checkpoint"] == (
