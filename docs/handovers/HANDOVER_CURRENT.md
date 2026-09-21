@@ -2,6 +2,49 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME INTEGRATION PROPOSAL REMEDIATED
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-proposal-remediation-offline`
+
+Reviewed proposal baseline:
+
+`056a10cd810d88b362082ff3a28e0d0bdc5f554f / CI 35597978522 — SUCCESS`
+
+Review result:
+
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+Remediation:
+
+- proposal/schema version `1.1.0`;
+- future authorization wire value exactly `SYNTHETIC_TEST`;
+- allowed mode list exactly `["SYNTHETIC_TEST"]`;
+- forbidden real mode exactly `["AUTHORIZED_REAL_ONCE"]`;
+- synthetic-only semantics enforced by allow-list, not a new protocol token;
+- implementation-boundary schema closed;
+- synthetic acceptance matrix exact;
+- seven future real-activation gates exact.
+
+Historical sixth runtime remains protected and line-local. No runtime code/schema, real builder,
+runner, approval, source access or seventh-attempt artifact was created.
+
+Remediation audit:
+
+`docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE.md`
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME INTEGRATION PROPOSAL
 
 Repository:
@@ -1578,16 +1621,15 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
 Review:
 
-- version-additive contract evolution;
-- synthetic-only v1.2 authorization;
-- v1.3 result reason/diagnostic bindings;
-- historical sixth runtime immutability;
-- no real authorization builder;
-- no runner/approval/source access;
-- future seventh attempt remains a separate gated process.
+- `SYNTHETIC_TEST` wire-value consistency;
+- exclusion of `AUTHORIZED_REAL_ONCE`;
+- schema closure against silent drift;
+- exact synthetic matrix and future gate list;
+- preservation of v1.1/v1.2/Gate 6;
+- no real runtime path created.
 
-Do not implement or execute the candidate during this review.
+Do not implement or execute the runtime candidate during this review.
