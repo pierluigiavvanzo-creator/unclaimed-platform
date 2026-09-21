@@ -35,7 +35,9 @@ Current gate:
 
 `HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `8b2ad3a8392ac39b4da71a84de0156fd065b830a`.
+
+Candidate CI: `35587589987 — SUCCESS`.
 
 
 ## Current Override — Documented-Width Quote Arbitration Proposal

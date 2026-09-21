@@ -47,7 +47,9 @@ Remediation audit:
 No parser/runtime/runner was modified. No full-file statistical scan is authorized. No source
 access, approval creation, sixth retry or seventh-attempt preparation/execution occurred.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `8b2ad3a8392ac39b4da71a84de0156fd065b830a`.
+
+Candidate CI: `35587589987 — SUCCESS`.
 
 Next gate:
 

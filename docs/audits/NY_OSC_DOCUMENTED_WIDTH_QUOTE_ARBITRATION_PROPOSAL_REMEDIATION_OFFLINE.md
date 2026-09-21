@@ -195,3 +195,27 @@ unchanged.
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+
+## Verification
+
+Functional verification checkpoint:
+
+`8b2ad3a8392ac39b4da71a84de0156fd065b830a`
+
+GitHub CI:
+
+`35587589987 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtime: 2 source files PASS;
+- contract tests: 379 passed;
+- smoke tests: 16 passed;
+- full pytest: 542 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+No parser/runtime/runner/source behavior was changed by the remediation package.

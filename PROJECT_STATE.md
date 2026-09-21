@@ -50,7 +50,9 @@ Current proposed behavior:
 No parser/runtime/runner is modified. No statistical scan, source access, approval creation or
 seventh attempt is authorized.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `8b2ad3a8392ac39b4da71a84de0156fd065b830a`.
+
+Candidate CI: `35587589987 — SUCCESS`.
 
 Next gate:
 
