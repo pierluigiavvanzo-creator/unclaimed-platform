@@ -2,6 +2,42 @@
 
 Last updated: 2026-09-21
 
+## Current Override — Quote Arbitration Proposal Remediated
+
+Completed offline:
+
+`REMEDIATE_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_OFFLINE`
+
+Candidate branch:
+
+`ny-osc-documented-width-quote-arbitration-proposal-remediation-offline`
+
+State:
+
+`REMEDIATED_PROPOSED_NOT_IMPLEMENTED / ZERO SOURCE ACCESS`
+
+The prior unique-14 auto-selection finding is remediated by separating structural
+classification from interpretation policy.
+
+D-011 records the Product Owner decision threshold `0.66` and RAW-literal fallback.
+Current retained discriminating evidence is only one record. Although its point estimate is
+100% RAW support, its Wilson 95% lower bound is about 20.65%, so the threshold is not treated
+as robustly met. Current owner-policy resolution is therefore:
+
+`RAW_PIPE_WITH_DOUBLE_QUOTE_LITERAL`
+
+This is not represented as OSC source truth.
+
+No parser/runtime/runner, source access, scan, retry, approval or seventh-attempt work is
+authorized.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — Documented-Width Quote Arbitration Proposal
 
 Prepared offline:
@@ -701,9 +737,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
-Classification: `A — Product Critical / Offline Proposal Review`.
+Classification: `A — Product Critical / Offline Proposal Remediation Review`.
 
-Do not implement or activate the proposed parser mode, access OSC, download, retry attempt 6,
+Do not implement the parser, run a real/source statistical scan, access OSC, retry attempt 6,
 or prepare/execute attempt 7 during this review.
