@@ -1,6 +1,71 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-20
+Last updated: 2026-09-21
+
+## AUTHORITATIVE CURRENT STATE — SIXTH ATTEMPT CONSUMED FAIL-CLOSED
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Branch:
+
+`ny-osc-sixth-approval-grants`
+
+Runner binding:
+
+- checkpoint: `c08c791b22d266af6ef69b1529ff20732aa76b77`;
+- CI: `35566615242 — SUCCESS`.
+
+Sixth execution:
+
+`BLOCKED / QUOTE_DIALECT_AMBIGUOUS`
+
+Fresh preflight:
+
+`EXACT_MATCH`
+
+Observed listing:
+
+- `FINDERS.zip`;
+- `390.51 MB`;
+- `9/16/2026, 1:33:31 PM`.
+
+Execution evidence:
+
+- archive bytes: `409,477,526`;
+- one archive member;
+- selected text member bytes: `1,939,569,781`;
+- complete records before block: `165,438`;
+- ASCII-valid Property Type Code records before block: `165,438`;
+- diagnostic classification: `LINE_END_AND_FIELD_COUNT_DIVERGENCE`;
+- raw field count: `14`;
+- quote-aware field count: `6`;
+- local raw ZIP logically deleted;
+- no raw path returned;
+- no owner values returned or persisted.
+
+Both sixth approvals:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`
+
+Execution result:
+
+`sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json`
+
+Audit:
+
+`docs/audits/NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_OFFLINE.md`
+
+No sixth retry or seventh attempt is authorized. No parser, runner, schema or bounds were
+changed by the recording action.
+
+Repository validation CI for this recording: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
+
 
 ## AUTHORITATIVE CANDIDATE STATE — FIFTH APPROVALS GRANTED OFFLINE / REVIEW PENDING
 
@@ -1293,19 +1358,16 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_APPROVAL_GRANT_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
 
 Review only:
 
-- both exact approval phrases;
-- both distinct execution approval refs;
-- status `GRANTED_NOT_CONSUMED`;
-- attempt number 5;
-- proposal checkpoint/CI;
-- reviewed runner checkpoint/CI;
-- single-use/non-reusable/zero-retry policy;
-- unchanged execution/privacy/diagnostic limits;
-- updated contract tests and audit.
+- execution result `BLOCKED / QUOTE_DIALECT_AMBIGUOUS`;
+- exact-match fresh-preflight receipt;
+- both sixth approvals consumed and non-reusable;
+- zero-retry state;
+- execution-result and approval lifecycle tests;
+- audit consistency;
+- unchanged parser/runner/schema/bounds.
 
-Do not access OSC, perform a listing preflight, download the Owner Name File, process real owner
-PII or execute attempt 5.
+Do not access OSC, download again, retry attempt 6 or prepare/execute attempt 7.
