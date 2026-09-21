@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "artifact_id": "ny.osc.owner_name_file.raw_literal_runtime_integration_offline_proposal",
-  "artifact_version": "1.0.0",
+  "artifact_version": "1.1.0",
   "prepared_on": "2026-09-21",
-  "status": "PROPOSED_NOT_IMPLEMENTED",
+  "status": "REMEDIATED_PROPOSED_NOT_IMPLEMENTED",
   "source_id": "ny.osc.unclaimed_funds.owner_name_file",
   "baseline": {
     "branch": "ny-osc-documented-width-raw-literal-policy-mode-offline",
@@ -34,10 +34,17 @@
     "authorization_contract": {
       "proposed_path": "schemas/agents/ny_transient_local_execution_authorization_v1_2.schema.json",
       "proposed_version": "1.2.0",
-      "mode": "SYNTHETIC_TEST_ONLY",
+      "mode": "SYNTHETIC_TEST",
       "quote_dialect_mode": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
       "real_execution_mode_allowed": false,
-      "existing_bounds_and_privacy_fields_preserved": true
+      "existing_bounds_and_privacy_fields_preserved": true,
+      "allowed_mode_values": [
+        "SYNTHETIC_TEST"
+      ],
+      "forbidden_mode_values": [
+        "AUTHORIZED_REAL_ONCE"
+      ],
+      "synthetic_only_semantics": "ENFORCED_BY_SCHEMA_ENUM_NOT_BY_NEW_WIRE_VALUE"
     },
     "result_contract": {
       "proposed_path": "schemas/agents/ny_transient_local_execution_result_v1_3.schema.json",
@@ -144,7 +151,10 @@
     "source_network_access": false,
     "remote_preflight": false,
     "download": false,
-    "owner_pii_processing": false
+    "owner_pii_processing": false,
+    "proposal_schema_additional_properties_closed": true,
+    "synthetic_matrix_schema_closed": true,
+    "future_prerequisites_schema_exact": true
   },
   "future_real_activation_prerequisites": [
     "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS",
@@ -174,5 +184,17 @@
     "representation": false,
     "claim_activity": false
   },
-  "next_action": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL"
+  "next_action": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE",
+  "review_remediation": {
+    "reviewed_gate": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL",
+    "reviewed_result": "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION",
+    "findings": [
+      "AUTHORIZATION_MODE_WIRE_VALUE_AMBIGUOUS",
+      "PROPOSAL_SCHEMA_DRIFT_HARDENING_REQUIRED"
+    ],
+    "remediation_summary": [
+      "USE_EXISTING_WIRE_VALUE_SYNTHETIC_TEST_AND_EXCLUDE_AUTHORIZED_REAL_ONCE",
+      "CLOSE_SYNTHETIC_MATRIX_IMPLEMENTATION_BOUNDARIES_AND_FUTURE_PREREQUISITES"
+    ]
+  }
 }
