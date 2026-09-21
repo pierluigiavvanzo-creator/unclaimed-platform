@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:unclaimed-platform:schema:ny-osc-raw-literal-runtime-integration-offline-proposal:1.0.0",
-  "title": "NY OSC RAW-Literal Runtime Integration Offline Proposal v1",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-raw-literal-runtime-integration-offline-proposal:1.1.0",
+  "title": "NY OSC RAW-Literal Runtime Integration Offline Proposal v1.1",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -19,6 +19,7 @@
     "implementation_boundaries",
     "future_real_activation_prerequisites",
     "authorization_does_not_grant",
+    "review_remediation",
     "next_action"
   ],
   "properties": {
@@ -29,13 +30,13 @@
       "const": "ny.osc.owner_name_file.raw_literal_runtime_integration_offline_proposal"
     },
     "artifact_version": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "prepared_on": {
       "const": "2026-09-21"
     },
     "status": {
-      "const": "PROPOSED_NOT_IMPLEMENTED"
+      "const": "REMEDIATED_PROPOSED_NOT_IMPLEMENTED"
     },
     "source_id": {
       "const": "ny.osc.unclaimed_funds.owner_name_file"
@@ -158,7 +159,10 @@
             "mode",
             "quote_dialect_mode",
             "real_execution_mode_allowed",
-            "existing_bounds_and_privacy_fields_preserved"
+            "existing_bounds_and_privacy_fields_preserved",
+            "allowed_mode_values",
+            "forbidden_mode_values",
+            "synthetic_only_semantics"
           ],
           "properties": {
             "proposed_path": {
@@ -168,7 +172,7 @@
               "const": "1.2.0"
             },
             "mode": {
-              "const": "SYNTHETIC_TEST_ONLY"
+              "const": "SYNTHETIC_TEST"
             },
             "quote_dialect_mode": {
               "const": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
@@ -178,6 +182,19 @@
             },
             "existing_bounds_and_privacy_fields_preserved": {
               "const": true
+            },
+            "allowed_mode_values": {
+              "const": [
+                "SYNTHETIC_TEST"
+              ]
+            },
+            "forbidden_mode_values": {
+              "const": [
+                "AUTHORIZED_REAL_ONCE"
+              ]
+            },
+            "synthetic_only_semantics": {
+              "const": "ENFORCED_BY_SCHEMA_ENUM_NOT_BY_NEW_WIRE_VALUE"
             }
           }
         },
@@ -318,28 +335,54 @@
       }
     },
     "synthetic_acceptance_matrix": {
-      "type": "array",
-      "minItems": 8,
-      "maxItems": 8,
-      "items": {
-        "type": "object",
-        "required": [
-          "case_id"
-        ],
-        "properties": {
-          "case_id": {
-            "type": "string",
-            "minLength": 1
-          }
+      "const": [
+        {
+          "case_id": "RAW_LITERAL_SIXTH_SHAPE_DISCOVERS",
+          "expected_status": "DISCOVERED",
+          "expected_reason": "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED",
+          "expected_mode": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
         },
-        "additionalProperties": true
-      }
+        {
+          "case_id": "RAW_15_QUOTED_PIPE_BLOCKS",
+          "expected_status": "BLOCKED",
+          "expected_reason": "UNEXPECTED_DATA_FIELD_COUNT",
+          "structural_diagnostic_required": true
+        },
+        {
+          "case_id": "RAW_13_BLOCKS",
+          "expected_status": "BLOCKED",
+          "expected_reason": "UNEXPECTED_DATA_FIELD_COUNT",
+          "structural_diagnostic_required": true
+        },
+        {
+          "case_id": "LOCAL_ARCHIVE_CAP_BLOCKS_BEFORE_SCHEMA",
+          "expected_status": "BLOCKED",
+          "expected_reason": "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+          "schema_result_required": false
+        },
+        {
+          "case_id": "TEMP_FILE_ALWAYS_LOGICALLY_DELETED",
+          "expected_local_file_deleted": true,
+          "physical_secure_erasure_guaranteed": false
+        },
+        {
+          "case_id": "OWNER_VALUES_NEVER_RETURNED",
+          "expected_no_owner_values_returned": true,
+          "expected_no_raw_path_returned": true
+        },
+        {
+          "case_id": "QUOTE_DIAGNOSTIC_CANNOT_APPEAR",
+          "quote_dialect_diagnostic_required_null": true
+        },
+        {
+          "case_id": "REAL_MODE_REJECTED_IN_OFFLINE_CANDIDATE",
+          "authorized_real_once_allowed": false
+        }
+      ]
     },
     "implementation_boundaries": {
       "type": "object",
-      "additionalProperties": {
-        "type": "boolean"
-      },
+      "additionalProperties": false,
       "required": [
         "proposal_only",
         "runtime_code_modified",
@@ -356,7 +399,10 @@
         "source_network_access",
         "remote_preflight",
         "download",
-        "owner_pii_processing"
+        "owner_pii_processing",
+        "proposal_schema_additional_properties_closed",
+        "synthetic_matrix_schema_closed",
+        "future_prerequisites_schema_exact"
       ],
       "properties": {
         "proposal_only": {
@@ -406,18 +452,28 @@
         },
         "owner_pii_processing": {
           "const": false
+        },
+        "proposal_schema_additional_properties_closed": {
+          "const": true
+        },
+        "synthetic_matrix_schema_closed": {
+          "const": true
+        },
+        "future_prerequisites_schema_exact": {
+          "const": true
         }
       }
     },
     "future_real_activation_prerequisites": {
-      "type": "array",
-      "minItems": 7,
-      "maxItems": 7,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "minLength": 1
-      }
+      "const": [
+        "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS",
+        "IMPLEMENT_AND_REVIEW_SYNTHETIC_RAW_LITERAL_RUNTIME_INTEGRATION",
+        "SEPARATE_SEVENTH_ATTEMPT_PROPOSAL",
+        "SEPARATE_FRESH_TRANSIENT_LOCAL_APPROVAL",
+        "SEPARATE_FRESH_TRANSIENT_PII_APPROVAL",
+        "SEPARATE_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+        "SEPARATE_EXPLICIT_SEVENTH_EXECUTION_AUTHORIZATION"
+      ]
     },
     "authorization_does_not_grant": {
       "type": "object",
@@ -496,7 +552,21 @@
       }
     },
     "next_action": {
-      "const": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL"
+      "const": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE"
+    },
+    "review_remediation": {
+      "const": {
+        "reviewed_gate": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL",
+        "reviewed_result": "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION",
+        "findings": [
+          "AUTHORIZATION_MODE_WIRE_VALUE_AMBIGUOUS",
+          "PROPOSAL_SCHEMA_DRIFT_HARDENING_REQUIRED"
+        ],
+        "remediation_summary": [
+          "USE_EXISTING_WIRE_VALUE_SYNTHETIC_TEST_AND_EXCLUDE_AUTHORIZED_REAL_ONCE",
+          "CLOSE_SYNTHETIC_MATRIX_IMPLEMENTATION_BOUNDARIES_AND_FUTURE_PREREQUISITES"
+        ]
+      }
     }
   }
 }
