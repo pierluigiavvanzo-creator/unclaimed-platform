@@ -40,7 +40,9 @@ Protected historical runtime remains unchanged:
 
 No runtime code or runtime schema under `schemas/agents/` is created by this remediation.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `474c79009e4cd624988baa26dd4d580c2b44cd9f`.
+
+Candidate CI: `35600737160 — SUCCESS`.
 
 Next gate:
 

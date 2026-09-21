@@ -127,3 +127,28 @@ No seventh-attempt preparation or execution.
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+
+## Verification
+
+Functional verification checkpoint:
+
+`474c79009e4cd624988baa26dd4d580c2b44cd9f`
+
+GitHub CI:
+
+`35600737160 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtime: 2 source files PASS;
+- contract tests: 389 passed;
+- smoke tests: 16 passed;
+- full pytest: 558 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+The verification confirms that no runtime schema under `schemas/agents/`, no runtime v1.3
+implementation, no Gate 7, no approval artifact and no real execution path were created.

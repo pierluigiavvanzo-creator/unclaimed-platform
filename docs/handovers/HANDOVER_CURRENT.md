@@ -38,7 +38,9 @@ Remediation audit:
 
 `docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE.md`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `474c79009e4cd624988baa26dd4d580c2b44cd9f`.
+
+Candidate CI: `35600737160 — SUCCESS`.
 
 Next gate:
 
