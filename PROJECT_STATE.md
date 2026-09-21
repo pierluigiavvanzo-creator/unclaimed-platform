@@ -2,6 +2,49 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — Seventh Attempt Execution Authorization Binding Remediated / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-seventh-attempt-execution-auth-binding-remediation-offline`
+
+Reviewed baseline:
+
+- branch: `ny-osc-seventh-attempt-offline-proposal`;
+- checkpoint: `954e3c0ae93bd1454f68a1083292a785de736b5c`;
+- CI: `35646354748 — SUCCESS`;
+- review result: `CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`.
+
+Remediation state:
+
+`REMEDIATED_PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Resolved findings:
+
+- final seventh execution authorization is now a mandatory machine binding of future
+  authorization v1.3 and Gate 7;
+- future authorization v1.3 must bind local approval, PII approval, fresh preflight receipt and
+  explicit execution authorization;
+- all four refs must agree on attempt 7, reviewed proposal checkpoint and verified runner checkpoint;
+- preflight must be `EXACT_MATCH` and at most 900 seconds old;
+- local/PII/preflight gates explicitly grant no download;
+- the final execution authorization alone grants one manual download to dedicated OS temp plus
+  one bound Gate 7 execution;
+- Gate 7 must verify the explicit execution authorization before temp creation and before download;
+- result v1.4 must retain non-PII execution-authorization provenance;
+- proposal/schema version is now `1.1.0`.
+
+No real runtime v1.4, Gate 7, approval schema/artifact, preflight or OSC access is created here.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
+
+
 ## Current Candidate State — NY OSC Seventh Attempt Offline Proposal / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1638,9 +1681,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
 
-Review only the seventh proposal: version-additive real-runtime design, preserved caps/privacy,
-sixth non-reuse, fresh approvals/preflight/execution gates and zero-source-access boundary.
-Do not implement runtime v1.4, create Gate 7 or approvals, perform preflight, access OSC,
-download, or execute attempt 7.
+Review only the remediated execution-authorization binding, explicit single-download semantics,
+four-reference checkpoint binding, result provenance, sixth non-reuse and zero-source-access
+boundary. Do not implement runtime v1.4, create Gate 7 or approvals, perform preflight, access
+OSC, download or execute attempt 7.
