@@ -2,6 +2,46 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — RAW-Literal Runtime Review Prerequisite Remediated / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-review-prerequisite-remediation-offline`
+
+Reviewed baseline:
+
+- branch: `ny-osc-raw-literal-runtime-integration-proposal-remediation-offline`;
+- checkpoint: `89f9b0a65ec5fcabd3ae96b0b3a5422492ab54d7`;
+- CI: `35600957416 — SUCCESS`;
+- review result: `CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`.
+
+Remediation state:
+
+`REMEDIATED_PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Corrected governance defect:
+
+- removed impossible prerequisite
+  `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS`;
+- replacement prerequisite:
+  `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS`;
+- remaining six future activation prerequisites unchanged;
+- proposal/schema version advanced to `1.1.1`.
+
+The synthetic-only runtime architecture, `SYNTHETIC_TEST` wire value, exclusion of
+`AUTHORIZED_REAL_ONCE`, schema hardening and historical Gate 6 protection are unchanged.
+
+No runtime code or schema under `schemas/agents/` was modified or created.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
+
+
 ## Current Candidate State — RAW-Literal Runtime Integration Proposal Remediated / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1490,8 +1530,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
 
-Review only the remediated proposal wire value, schema-drift hardening, exact future gate list,
-historical Gate 6 preservation and zero-real-execution boundary. Do not implement runtime v1.3,
-create runtime schemas, create approvals, access OSC or prepare/execute attempt 7.
+Review only the corrected prerequisite lineage, proposal/schema/test alignment, preservation of
+the six unchanged future gates, historical Gate 6 immutability and zero-real-execution boundary.
+Do not implement runtime v1.3, create runtime schemas, create approvals, access OSC or
+prepare/execute attempt 7.
