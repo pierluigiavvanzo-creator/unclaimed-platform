@@ -160,7 +160,7 @@ def test_current_synthetic_runtime_cannot_be_silently_retargeted() -> None:
     assert implementation["synthetic_v1_3_runtime_retarget_allowed"] is False
 
 
-def test_proposed_real_package_is_version_additive_and_not_materialized() -> None:
+def test_reviewed_proposal_preserves_version_additive_real_package_design() -> None:
     proposal = _load(PROPOSAL)
     package = proposal["proposed_real_runtime_package"]
 
@@ -181,12 +181,13 @@ def test_proposed_real_package_is_version_additive_and_not_materialized() -> Non
     )
     assert package["runtime"]["current_v1_3_runtime_retarget_allowed"] is False
 
-    assert FUTURE_REAL_AUTH_V1_3.exists() is False
-    assert FUTURE_REAL_RESULT_V1_4.exists() is False
-    assert FUTURE_REAL_RUNTIME_V1_4.exists() is False
-    assert FUTURE_GATE7.exists() is False
-    for path in FUTURE_SEVENTH_APPROVAL_SCHEMAS:
-        assert path.exists() is False
+    implementation = proposal["implementation_gate"]
+    assert implementation["seventh_attempt_real_runtime_status"] == "NOT_CREATED"
+    assert implementation["seventh_attempt_runner_status"] == "NOT_CREATED"
+    assert implementation["seventh_attempt_approval_contract_status"] == "NOT_CREATED"
+    assert implementation["seventh_attempt_approval_artifacts_status"] == "NOT_CREATED"
+    assert implementation["final_execution_authorization_contract_status"] == "NOT_CREATED"
+    assert implementation["final_execution_authorization_artifact_status"] == "NOT_CREATED"
 
 
 def test_seventh_execution_bounds_preserve_caps_and_raw_literal_policy() -> None:
