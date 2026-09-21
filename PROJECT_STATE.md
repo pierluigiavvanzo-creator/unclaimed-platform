@@ -2,6 +2,51 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — RAW-Literal Runtime Integration Proposal Remediated / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-proposal-remediation-offline`
+
+Reviewed proposal baseline:
+
+- branch: `ny-osc-raw-literal-runtime-integration-offline-proposal`;
+- checkpoint: `056a10cd810d88b362082ff3a28e0d0bdc5f554f`;
+- CI: `35597978522 — SUCCESS`;
+- review result: `CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`.
+
+Remediation state:
+
+`REMEDIATED_PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Resolved findings:
+
+- future authorization v1.2 wire value is now exactly `SYNTHETIC_TEST`;
+- `AUTHORIZED_REAL_ONCE` remains explicitly excluded;
+- no new `SYNTHETIC_TEST_ONLY` wire value is introduced;
+- proposal/schema contract version is `1.1.0`;
+- implementation boundaries reject unknown properties;
+- synthetic acceptance matrix is exact/fail-closed;
+- all seven future real-activation prerequisites are exact/fail-closed.
+
+Protected historical runtime remains unchanged:
+
+- authorization v1.1 -> `LINE_LOCAL_ARBITRATION`;
+- result v1.2 -> `LINE_LOCAL_ARBITRATION`;
+- Gate 6 -> `LINE_LOCAL_ARBITRATION`;
+- sixth approvals consumed/non-reusable.
+
+No runtime code or runtime schema under `schemas/agents/` is created by this remediation.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+
 ## Current Candidate State — RAW-Literal Runtime Integration Proposal / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1443,9 +1488,8 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
-Review only the version-additive runtime design, synthetic-only authorization boundary,
-v1.3 result/reason contract, historical Gate 6 preservation and no-real-execution guarantees.
-Do not implement runtime v1.3, create runtime schemas, change Gate 6, create approvals, access
-OSC or prepare/execute attempt 7.
+Review only the remediated proposal wire value, schema-drift hardening, exact future gate list,
+historical Gate 6 preservation and zero-real-execution boundary. Do not implement runtime v1.3,
+create runtime schemas, create approvals, access OSC or prepare/execute attempt 7.
