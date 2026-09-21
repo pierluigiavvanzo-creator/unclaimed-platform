@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:unclaimed-platform:schema:ny-osc-documented-width-quote-arbitration-offline-proposal:1.0.0",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-documented-width-quote-arbitration-offline-proposal:1.1.0",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -19,7 +19,9 @@
     "synthetic_acceptance_matrix",
     "implementation_boundary",
     "authorization_does_not_grant",
-    "next_action"
+    "next_action",
+    "review_remediation",
+    "statistical_resolution_policy"
   ],
   "properties": {
     "schema_version": {
@@ -29,515 +31,287 @@
       "const": "ny.osc.owner_name_file.documented_width_quote_arbitration_offline_proposal"
     },
     "artifact_version": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "prepared_on": {
       "const": "2026-09-21"
     },
     "status": {
-      "const": "PROPOSED_NOT_IMPLEMENTED"
+      "const": "REMEDIATED_PROPOSED_NOT_IMPLEMENTED"
     },
     "source_id": {
       "const": "ny.osc.unclaimed_funds.owner_name_file"
     },
     "request_scope": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "repository_only",
-        "source_network_access_performed",
-        "remote_preflight_performed",
-        "download_performed",
-        "owner_file_opened",
-        "owner_pii_processed",
-        "parser_modified",
-        "runtime_activated",
-        "seventh_attempt_prepared"
-      ],
-      "properties": {
-        "repository_only": {
-          "const": true
-        },
-        "source_network_access_performed": {
-          "const": false
-        },
-        "remote_preflight_performed": {
-          "const": false
-        },
-        "download_performed": {
-          "const": false
-        },
-        "owner_file_opened": {
-          "const": false
-        },
-        "owner_pii_processed": {
-          "const": false
-        },
-        "parser_modified": {
-          "const": false
-        },
-        "runtime_activated": {
-          "const": false
-        },
-        "seventh_attempt_prepared": {
-          "const": false
-        }
+      "const": {
+        "repository_only": true,
+        "source_network_access_performed": false,
+        "remote_preflight_performed": false,
+        "download_performed": false,
+        "owner_file_opened": false,
+        "owner_pii_processed": false,
+        "parser_modified": false,
+        "runtime_activated": false,
+        "seventh_attempt_prepared": false
       }
     },
     "baseline": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "branch",
-        "checkpoint",
-        "ci_run_id",
-        "ci_conclusion",
-        "sixth_execution_result_path",
-        "sixth_attempt_state",
-        "sixth_retry_authorized"
-      ],
-      "properties": {
-        "branch": {
-          "const": "ny-osc-sixth-approval-grants"
-        },
-        "checkpoint": {
-          "const": "a8203a8c0d4e741424c68e171b2f5e4e956207a5"
-        },
-        "ci_run_id": {
-          "const": 35578442808
-        },
-        "ci_conclusion": {
-          "const": "SUCCESS"
-        },
-        "sixth_execution_result_path": {
-          "const": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json"
-        },
-        "sixth_attempt_state": {
-          "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
-        },
-        "sixth_retry_authorized": {
-          "const": false
-        }
+      "const": {
+        "branch": "ny-osc-sixth-approval-grants",
+        "checkpoint": "a8203a8c0d4e741424c68e171b2f5e4e956207a5",
+        "ci_run_id": 35578442808,
+        "ci_conclusion": "SUCCESS",
+        "sixth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json",
+        "sixth_attempt_state": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+        "sixth_retry_authorized": false
       }
     },
     "evidence_basis": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "documented_layout_audit_path",
-        "documented_delimiter",
-        "documented_field_count",
-        "fifth_execution_result_path",
-        "fifth_physical_line_breaks_inside_quotes",
-        "fifth_raw_pipe_count",
-        "fifth_verified_identity",
-        "sixth_execution_result_path",
-        "sixth_reason_code",
-        "sixth_aggregate_complete_record_count_before_block",
-        "sixth_raw_field_count",
-        "sixth_quote_aware_field_count",
-        "sixth_raw_pipe_count",
-        "sixth_quote_aware_structural_pipe_count",
-        "sixth_suppressed_pipe_count",
-        "sixth_quote_byte_count",
-        "sixth_quote_open_event_count",
-        "sixth_quote_close_event_count",
-        "sixth_ended_inside_quote",
-        "parser_path"
-      ],
-      "properties": {
-        "documented_layout_audit_path": {
-          "const": "docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md"
-        },
-        "documented_delimiter": {
-          "const": "|"
-        },
-        "documented_field_count": {
-          "const": 14
-        },
-        "fifth_execution_result_path": {
-          "const": "sources/evidence/ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json"
-        },
-        "fifth_physical_line_breaks_inside_quotes": {
-          "const": 17543
-        },
-        "fifth_raw_pipe_count": {
-          "const": 228072
-        },
-        "fifth_verified_identity": {
-          "const": "(17543 + 1) * 13 = 228072"
-        },
-        "sixth_execution_result_path": {
-          "const": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json"
-        },
-        "sixth_reason_code": {
-          "const": "QUOTE_DIALECT_AMBIGUOUS"
-        },
-        "sixth_aggregate_complete_record_count_before_block": {
-          "const": 165438
-        },
-        "sixth_raw_field_count": {
-          "const": 14
-        },
-        "sixth_quote_aware_field_count": {
-          "const": 6
-        },
-        "sixth_raw_pipe_count": {
-          "const": 13
-        },
-        "sixth_quote_aware_structural_pipe_count": {
-          "const": 5
-        },
-        "sixth_suppressed_pipe_count": {
-          "const": 8
-        },
-        "sixth_quote_byte_count": {
-          "const": 1
-        },
-        "sixth_quote_open_event_count": {
-          "const": 1
-        },
-        "sixth_quote_close_event_count": {
-          "const": 0
-        },
-        "sixth_ended_inside_quote": {
-          "const": true
-        },
-        "parser_path": {
-          "const": "src/unclaimed_platform/adapters/sources/ny_owner_name_schema_discovery.py"
-        }
+      "const": {
+        "documented_layout_audit_path": "docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md",
+        "documented_delimiter": "|",
+        "documented_field_count": 14,
+        "fifth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json",
+        "fifth_physical_line_breaks_inside_quotes": 17543,
+        "fifth_raw_pipe_count": 228072,
+        "fifth_verified_identity": "(17543 + 1) * 13 = 228072",
+        "sixth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json",
+        "sixth_reason_code": "QUOTE_DIALECT_AMBIGUOUS",
+        "sixth_aggregate_complete_record_count_before_block": 165438,
+        "sixth_raw_field_count": 14,
+        "sixth_quote_aware_field_count": 6,
+        "sixth_raw_pipe_count": 13,
+        "sixth_quote_aware_structural_pipe_count": 5,
+        "sixth_suppressed_pipe_count": 8,
+        "sixth_quote_byte_count": 1,
+        "sixth_quote_open_event_count": 1,
+        "sixth_quote_close_event_count": 0,
+        "sixth_ended_inside_quote": true,
+        "parser_path": "src/unclaimed_platform/adapters/sources/ny_owner_name_schema_discovery.py"
       }
     },
     "analysis_conclusions": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "global_multiline_quote_state_supported_by_evidence",
-        "every_double_quote_is_structural_supported_by_evidence",
-        "every_double_quote_is_literal_supported_by_evidence",
-        "sixth_blocking_physical_line_has_documented_width_under_raw_pipe_interpretation",
-        "authoritative_osc_quote_escape_specification_present_in_repository",
-        "seventh_download_required_to_design_offline_candidate"
-      ],
-      "properties": {
-        "global_multiline_quote_state_supported_by_evidence": {
-          "const": false
-        },
-        "every_double_quote_is_structural_supported_by_evidence": {
-          "const": false
-        },
-        "every_double_quote_is_literal_supported_by_evidence": {
-          "const": false
-        },
-        "sixth_blocking_physical_line_has_documented_width_under_raw_pipe_interpretation": {
-          "const": true
-        },
-        "authoritative_osc_quote_escape_specification_present_in_repository": {
-          "const": false
-        },
-        "seventh_download_required_to_design_offline_candidate": {
-          "const": false
-        }
+      "const": {
+        "global_multiline_quote_state_supported_by_evidence": false,
+        "every_double_quote_is_structural_supported_by_evidence": false,
+        "every_double_quote_is_literal_supported_by_evidence": false,
+        "sixth_blocking_physical_line_has_documented_width_under_raw_pipe_interpretation": true,
+        "authoritative_osc_quote_escape_specification_present_in_repository": false,
+        "seventh_download_required_to_design_offline_candidate": false
       }
     },
     "proposed_algorithm": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "mode_name",
-        "physical_record_boundary",
-        "quote_state_may_cross_physical_record_boundary",
-        "expected_field_count",
-        "raw_interpretation",
-        "quote_aware_interpretation",
-        "decision_matrix",
-        "quote_aware_may_only_suppress_raw_pipe_delimiters",
-        "automatic_row_skip_allowed",
-        "automatic_row_repair_allowed",
-        "automatic_parser_widening_allowed",
-        "source_wide_quote_dialect_inference_allowed"
-      ],
-      "properties": {
-        "mode_name": {
-          "const": "DOCUMENTED_WIDTH_ARBITRATION"
-        },
-        "physical_record_boundary": {
-          "const": "LF_OR_CRLF_HARD_BOUNDARY"
-        },
-        "quote_state_may_cross_physical_record_boundary": {
-          "const": false
-        },
-        "expected_field_count": {
-          "const": 14
-        },
-        "raw_interpretation": {
-          "const": "EVERY_PIPE_BYTE_IS_STRUCTURAL"
-        },
-        "quote_aware_interpretation": {
-          "const": "SAME_LINE_ONLY_CURRENT_QUOTE_AWARE_RULES"
-        },
-        "decision_matrix": {
-          "type": "array",
-          "minItems": 4,
-          "maxItems": 4,
-          "prefixItems": [
-            {
-              "const": {
-                "case_id": "STRUCTURE_EQUIVALENT",
-                "condition": "RAW_14_AND_QUOTE_AWARE_14",
-                "outcome": "ACCEPT_EQUIVALENT_STRUCTURE",
-                "selected_interpretation": "STRUCTURALLY_EQUIVALENT"
-              }
-            },
-            {
-              "const": {
-                "case_id": "RAW_UNIQUE_DOCUMENTED_WIDTH",
-                "condition": "RAW_14_AND_QUOTE_AWARE_NOT_14",
-                "outcome": "ACCEPT_RAW_UNIQUE_DOCUMENTED_WIDTH",
-                "selected_interpretation": "RAW_PIPE"
-              }
-            },
-            {
-              "const": {
-                "case_id": "QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
-                "condition": "RAW_NOT_14_AND_QUOTE_AWARE_14_AND_QUOTE_CLOSED_WITHIN_LINE",
-                "outcome": "ACCEPT_QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
-                "selected_interpretation": "SAME_LINE_QUOTE_AWARE"
-              }
-            },
-            {
-              "const": {
-                "case_id": "NO_UNIQUE_DOCUMENTED_WIDTH",
-                "condition": "ALL_OTHER_CASES",
-                "outcome": "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH",
-                "selected_interpretation": "NONE"
-              }
-            }
-          ],
-          "items": false
-        },
-        "quote_aware_may_only_suppress_raw_pipe_delimiters": {
-          "const": true
-        },
-        "automatic_row_skip_allowed": {
-          "const": false
-        },
-        "automatic_row_repair_allowed": {
-          "const": false
-        },
-        "automatic_parser_widening_allowed": {
-          "const": false
-        },
-        "source_wide_quote_dialect_inference_allowed": {
-          "const": false
-        }
+      "const": {
+        "mode_name": "DOCUMENTED_WIDTH_ARBITRATION",
+        "physical_record_boundary": "LF_OR_CRLF_HARD_BOUNDARY",
+        "quote_state_may_cross_physical_record_boundary": false,
+        "expected_field_count": 14,
+        "raw_interpretation": "EVERY_PIPE_BYTE_IS_STRUCTURAL",
+        "quote_aware_interpretation": "CANDIDATE_SAME_LINE_QUOTE_INTERPRETATION_NOT_OSC_SOURCE_TRUTH",
+        "decision_matrix": [
+          {
+            "case_id": "STRUCTURE_EQUIVALENT",
+            "condition": "RAW_14_AND_CANDIDATE_QUOTE_AWARE_14",
+            "structural_classification": "EQUIVALENT_DOCUMENTED_WIDTH",
+            "policy_resolution": "ACCEPT_EQUIVALENT_STRUCTURE"
+          },
+          {
+            "case_id": "RAW_WIDTH_ONLY",
+            "condition": "RAW_14_AND_CANDIDATE_QUOTE_AWARE_NOT_14",
+            "structural_classification": "RAW_WIDTH_ONLY_DIALECT_UNRESOLVED",
+            "policy_resolution": "ACCEPT_RAW_UNDER_CURRENT_OWNER_FALLBACK"
+          },
+          {
+            "case_id": "QUOTE_WIDTH_ONLY",
+            "condition": "RAW_NOT_14_AND_CANDIDATE_QUOTE_AWARE_14_AND_QUOTE_CLOSED_WITHIN_LINE",
+            "structural_classification": "QUOTE_WIDTH_ONLY_DIALECT_UNRESOLVED",
+            "policy_resolution": "BLOCK_UNDER_CURRENT_RAW_OWNER_FALLBACK"
+          },
+          {
+            "case_id": "NO_DOCUMENTED_WIDTH",
+            "condition": "ALL_OTHER_CASES",
+            "structural_classification": "NO_DOCUMENTED_WIDTH_INTERPRETATION",
+            "policy_resolution": "BLOCK_FAIL_CLOSED"
+          }
+        ],
+        "quote_aware_may_only_suppress_raw_pipe_delimiters": true,
+        "automatic_row_skip_allowed": false,
+        "automatic_row_repair_allowed": false,
+        "automatic_parser_widening_allowed": false,
+        "source_wide_quote_dialect_inference_allowed": false,
+        "owner_policy_fallback_may_select_raw": true,
+        "owner_policy_fallback_source_truth_claimed": false
       }
     },
     "proposed_non_pii_observability": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "persistence_not_authorized_by_this_proposal",
-        "candidate_aggregate_counters",
-        "raw_record_bytes_allowed",
-        "owner_values_allowed",
-        "row_offsets_allowed",
-        "row_hashes_allowed"
-      ],
-      "properties": {
-        "persistence_not_authorized_by_this_proposal": {
-          "const": true
-        },
-        "candidate_aggregate_counters": {
-          "const": [
-            "structure_equivalent_record_count",
-            "raw_unique_documented_width_record_count",
-            "quote_aware_unique_documented_width_record_count",
-            "blocked_no_unique_documented_width_record_count"
-          ]
-        },
-        "raw_record_bytes_allowed": {
-          "const": false
-        },
-        "owner_values_allowed": {
-          "const": false
-        },
-        "row_offsets_allowed": {
-          "const": false
-        },
-        "row_hashes_allowed": {
-          "const": false
-        }
+      "const": {
+        "persistence_not_authorized_by_this_proposal": true,
+        "candidate_aggregate_counters": [
+          "equivalent_documented_width_record_count",
+          "raw_width_only_dialect_unresolved_record_count",
+          "quote_width_only_dialect_unresolved_record_count",
+          "no_documented_width_interpretation_record_count"
+        ],
+        "raw_record_bytes_allowed": false,
+        "owner_values_allowed": false,
+        "row_offsets_allowed": false,
+        "row_hashes_allowed": false,
+        "future_full_file_structural_scan_proposed_not_authorized": true,
+        "future_scan_purpose": "MEASURE_DIALECT_DISCRIMINATING_STRUCTURAL_FREQUENCIES_WITHOUT_OWNER_VALUES",
+        "future_scan_execution_authorized": false
       }
     },
     "synthetic_acceptance_matrix": {
-      "type": "array",
-      "minItems": 8,
-      "maxItems": 8,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "case_id",
-          "raw_field_count",
-          "quote_aware_field_count",
-          "ended_inside_quote",
-          "expected_outcome"
-        ],
-        "properties": {
-          "case_id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "raw_field_count": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "quote_aware_field_count": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "ended_inside_quote": {
-            "type": "boolean"
-          },
-          "expected_outcome": {
-            "enum": [
-              "ACCEPT_EQUIVALENT_STRUCTURE",
-              "ACCEPT_RAW_UNIQUE_DOCUMENTED_WIDTH",
-              "ACCEPT_QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
-              "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH",
-              "NO_OWNER_VALUE_OR_RAW_RECORD_SERIALIZED"
-            ]
-          }
+      "const": [
+        {
+          "case_id": "PLAIN_14_FIELDS",
+          "raw_field_count": 14,
+          "quote_aware_field_count": 14,
+          "ended_inside_quote": false,
+          "structural_classification": "EQUIVALENT_DOCUMENTED_WIDTH",
+          "current_policy_outcome": "ACCEPT_EQUIVALENT_STRUCTURE"
+        },
+        {
+          "case_id": "BALANCED_QUOTES_NO_PIPE",
+          "raw_field_count": 14,
+          "quote_aware_field_count": 14,
+          "ended_inside_quote": false,
+          "structural_classification": "EQUIVALENT_DOCUMENTED_WIDTH",
+          "current_policy_outcome": "ACCEPT_EQUIVALENT_STRUCTURE"
+        },
+        {
+          "case_id": "SIXTH_SHAPE_OPEN_QUOTE_RAW_14",
+          "raw_field_count": 14,
+          "quote_aware_field_count": 6,
+          "ended_inside_quote": true,
+          "structural_classification": "RAW_WIDTH_ONLY_DIALECT_UNRESOLVED",
+          "current_policy_outcome": "ACCEPT_RAW_UNDER_CURRENT_OWNER_FALLBACK"
+        },
+        {
+          "case_id": "SAME_LINE_QUOTED_PIPE",
+          "raw_field_count": 15,
+          "quote_aware_field_count": 14,
+          "ended_inside_quote": false,
+          "structural_classification": "QUOTE_WIDTH_ONLY_DIALECT_UNRESOLVED",
+          "current_policy_outcome": "BLOCK_UNDER_CURRENT_RAW_OWNER_FALLBACK"
+        },
+        {
+          "case_id": "TRUE_13_FIELD_ROW",
+          "raw_field_count": 13,
+          "quote_aware_field_count": 13,
+          "ended_inside_quote": false,
+          "structural_classification": "NO_DOCUMENTED_WIDTH_INTERPRETATION",
+          "current_policy_outcome": "BLOCK_FAIL_CLOSED"
+        },
+        {
+          "case_id": "RAW_15_QUOTE_15",
+          "raw_field_count": 15,
+          "quote_aware_field_count": 15,
+          "ended_inside_quote": false,
+          "structural_classification": "NO_DOCUMENTED_WIDTH_INTERPRETATION",
+          "current_policy_outcome": "BLOCK_FAIL_CLOSED"
+        },
+        {
+          "case_id": "QUOTE_AWARE_14_BUT_OPEN_AT_EOL",
+          "raw_field_count": 15,
+          "quote_aware_field_count": 14,
+          "ended_inside_quote": true,
+          "structural_classification": "NO_DOCUMENTED_WIDTH_INTERPRETATION",
+          "current_policy_outcome": "BLOCK_FAIL_CLOSED"
+        },
+        {
+          "case_id": "PRIVACY_SERIALIZATION",
+          "raw_field_count": 14,
+          "quote_aware_field_count": 6,
+          "ended_inside_quote": true,
+          "structural_classification": "RAW_WIDTH_ONLY_DIALECT_UNRESOLVED",
+          "current_policy_outcome": "NO_OWNER_VALUE_OR_RAW_RECORD_SERIALIZED"
         }
-      }
+      ]
     },
     "implementation_boundary": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "implementation_status",
-        "historical_multiline_mode_must_remain_unchanged",
-        "historical_line_local_mode_must_remain_unchanged",
-        "existing_default_mode_must_remain_unchanged",
-        "implementation_may_add_new_explicit_mode_only",
-        "runtime_bridge_change_authorized",
-        "execution_result_contract_change_authorized",
-        "runner_change_authorized",
-        "approval_artifact_creation_authorized",
-        "seventh_attempt_proposal_authorized",
-        "source_access_allowed"
-      ],
-      "properties": {
-        "implementation_status": {
-          "const": "NOT_IMPLEMENTED"
-        },
-        "historical_multiline_mode_must_remain_unchanged": {
-          "const": true
-        },
-        "historical_line_local_mode_must_remain_unchanged": {
-          "const": true
-        },
-        "existing_default_mode_must_remain_unchanged": {
-          "const": true
-        },
-        "implementation_may_add_new_explicit_mode_only": {
-          "const": true
-        },
-        "runtime_bridge_change_authorized": {
-          "const": false
-        },
-        "execution_result_contract_change_authorized": {
-          "const": false
-        },
-        "runner_change_authorized": {
-          "const": false
-        },
-        "approval_artifact_creation_authorized": {
-          "const": false
-        },
-        "seventh_attempt_proposal_authorized": {
-          "const": false
-        },
-        "source_access_allowed": {
-          "const": false
-        }
+      "const": {
+        "implementation_status": "NOT_IMPLEMENTED",
+        "historical_multiline_mode_must_remain_unchanged": true,
+        "historical_line_local_mode_must_remain_unchanged": true,
+        "existing_default_mode_must_remain_unchanged": true,
+        "implementation_may_add_new_explicit_mode_only": true,
+        "runtime_bridge_change_authorized": false,
+        "execution_result_contract_change_authorized": false,
+        "runner_change_authorized": false,
+        "approval_artifact_creation_authorized": false,
+        "seventh_attempt_proposal_authorized": false,
+        "source_access_allowed": false,
+        "statistical_policy_implementation_authorized": false,
+        "full_file_structural_scan_authorized": false
       }
     },
     "authorization_does_not_grant": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "parser_implementation",
-        "runtime_activation",
-        "source_network_access",
-        "remote_preflight",
-        "download",
-        "transient_owner_pii_processing",
-        "seventh_attempt_preparation",
-        "seventh_attempt_execution",
-        "source_activation",
-        "production_classification_activation",
-        "identity_resolution",
-        "beneficiary_matching",
-        "outreach",
-        "fee_agreement",
-        "representation",
-        "claim_activity"
-      ],
-      "properties": {
-        "parser_implementation": {
-          "const": false
-        },
-        "runtime_activation": {
-          "const": false
-        },
-        "source_network_access": {
-          "const": false
-        },
-        "remote_preflight": {
-          "const": false
-        },
-        "download": {
-          "const": false
-        },
-        "transient_owner_pii_processing": {
-          "const": false
-        },
-        "seventh_attempt_preparation": {
-          "const": false
-        },
-        "seventh_attempt_execution": {
-          "const": false
-        },
-        "source_activation": {
-          "const": false
-        },
-        "production_classification_activation": {
-          "const": false
-        },
-        "identity_resolution": {
-          "const": false
-        },
-        "beneficiary_matching": {
-          "const": false
-        },
-        "outreach": {
-          "const": false
-        },
-        "fee_agreement": {
-          "const": false
-        },
-        "representation": {
-          "const": false
-        },
-        "claim_activity": {
-          "const": false
-        }
+      "const": {
+        "parser_implementation": false,
+        "runtime_activation": false,
+        "source_network_access": false,
+        "remote_preflight": false,
+        "download": false,
+        "transient_owner_pii_processing": false,
+        "seventh_attempt_preparation": false,
+        "seventh_attempt_execution": false,
+        "source_activation": false,
+        "production_classification_activation": false,
+        "identity_resolution": false,
+        "beneficiary_matching": false,
+        "outreach": false,
+        "fee_agreement": false,
+        "representation": false,
+        "claim_activity": false,
+        "statistical_scan_execution": false
       }
     },
     "next_action": {
-      "const": "HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL"
+      "const": "HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE"
+    },
+    "review_remediation": {
+      "const": {
+        "reviewed_gate": "HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL",
+        "reviewed_result": "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION",
+        "critical_finding": "DOCUMENTED_WIDTH_ALONE_MUST_NOT_BE_MISREPRESENTED_AS_SOURCE_DIALECT_PROOF",
+        "remediation": "SEPARATE_STRUCTURAL_CLASSIFICATION_FROM_POLICY_BASED_INTERPRETATION_SELECTION",
+        "candidate_quote_interpretation_label": "CANDIDATE_SAME_LINE_QUOTE_INTERPRETATION_NOT_OSC_SOURCE_TRUTH",
+        "source_authoritative_quote_semantics_still_unknown": true
+      }
+    },
+    "statistical_resolution_policy": {
+      "const": {
+        "policy_source": "PRODUCT_OWNER",
+        "policy_is_source_authority": false,
+        "decision_threshold": 0.66,
+        "threshold_semantics": "MINIMUM_SUPPORT_REQUIRED_BEFORE_TREATING_A_CANDIDATE_INTERPRETATION_AS_STATISTICALLY_PREFERRED",
+        "conservative_support_method": "WILSON_SCORE_TWO_SIDED_95_PERCENT_LOWER_BOUND",
+        "discriminating_record_definition": "EXACTLY_ONE_OF_RAW_OR_CANDIDATE_QUOTE_AWARE_HAS_DOCUMENTED_14_FIELD_WIDTH",
+        "non_discriminating_records_excluded_from_dialect_probability": true,
+        "current_retained_evidence": {
+          "discriminating_record_count": 1,
+          "raw_supported_record_count": 1,
+          "candidate_quote_aware_supported_record_count": 0,
+          "raw_point_estimate": 1,
+          "candidate_quote_aware_point_estimate": 0,
+          "raw_wilson_95_lower_bound": 0.2065432915,
+          "decision_threshold_met_robustly": false,
+          "statistical_probability_claim_about_osc_dialect_allowed": false
+        },
+        "selection_rule": {
+          "if_one_candidate_robust_support_exceeds_threshold": "SELECT_THAT_CANDIDATE_FOR_FUTURE_OFFLINE_IMPLEMENTATION_REVIEW",
+          "if_threshold_not_met": "APPLY_PRODUCT_OWNER_RAW_LITERAL_FALLBACK",
+          "tie_behavior": "APPLY_PRODUCT_OWNER_RAW_LITERAL_FALLBACK"
+        },
+        "current_resolution": {
+          "threshold_met_robustly": false,
+          "fallback_applied": true,
+          "selected_candidate_interpretation": "RAW_PIPE_WITH_DOUBLE_QUOTE_LITERAL",
+          "basis": "PRODUCT_OWNER_FALLBACK_DUE_INSUFFICIENT_STATISTICAL_CONFIDENCE",
+          "source_truth_claimed": false
+        }
+      }
     }
   }
 }
