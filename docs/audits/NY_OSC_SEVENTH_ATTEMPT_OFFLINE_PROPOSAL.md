@@ -257,6 +257,22 @@ or claim activity.
 - `tests/contract/test_ny_osc_seventh_attempt_offline_proposal.py`;
 - this audit.
 
+## Execution authorization binding remediation status
+
+The human review of this proposal returned:
+
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+because the final execution authorization was not yet machine-bound to the future authorization
+v1.3/Gate 7 package and download authority was implicit.
+
+Those findings are superseded by:
+
+`docs/audits/NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE.md`
+
+The version-additive architecture, bounds, privacy scope, sixth non-reuse and zero-source-access
+boundaries remain unchanged.
+
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
