@@ -34,9 +34,26 @@ def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _granted_pair() -> tuple[dict[str, object], dict[str, object]]:
+def _not_granted_pair() -> tuple[dict[str, object], dict[str, object]]:
     local = deepcopy(_load(LOCAL_APPROVAL))
     pii = deepcopy(_load(PII_APPROVAL))
+
+    for approval in (local, pii):
+        approval["status"] = "NOT_GRANTED"
+        approval["owner_authorization"] = None
+        approval["granted_on"] = None
+        approval["execution_approval_ref"] = None
+        approval["runner_checkpoint"] = None
+        approval["runner_ci_run_id"] = None
+        approval["runner_ci_conclusion"] = None
+        approval.pop("consumed_on", None)
+        approval.pop("execution_result_ref", None)
+
+    return local, pii
+
+
+def _granted_pair() -> tuple[dict[str, object], dict[str, object]]:
+    local, pii = _not_granted_pair()
     runner_checkpoint = "a" * 40
 
     local.update(
@@ -45,7 +62,7 @@ def _granted_pair() -> tuple[dict[str, object], dict[str, object]]:
             "owner_authorization": (
                 "APPROVO NY OSC SIXTH TRANSIENT LOCAL FILE BOUNDED ONCE"
             ),
-            "granted_on": "2026-09-20",
+            "granted_on": "2026-09-21",
             "execution_approval_ref": "SIXTH_LOCAL_APPROVAL_REF",
             "runner_checkpoint": runner_checkpoint,
             "runner_ci_run_id": 123456,
@@ -59,7 +76,7 @@ def _granted_pair() -> tuple[dict[str, object], dict[str, object]]:
                 "APPROVO NY OSC OWNER NAME FILE SIXTH BOUNDED "
                 "TRANSIENT PII ATTEMPT ONCE"
             ),
-            "granted_on": "2026-09-20",
+            "granted_on": "2026-09-21",
             "execution_approval_ref": "SIXTH_PII_APPROVAL_REF",
             "runner_checkpoint": runner_checkpoint,
             "runner_ci_run_id": 123456,
@@ -69,9 +86,13 @@ def _granted_pair() -> tuple[dict[str, object], dict[str, object]]:
     return local, pii
 
 
-def test_sixth_not_granted_approvals_validate_and_are_fail_closed() -> None:
-    local = _load(LOCAL_APPROVAL)
-    pii = _load(PII_APPROVAL)
+def test_current_sixth_approval_artifacts_validate_against_contracts() -> None:
+    Draft202012Validator(_load(LOCAL_SCHEMA)).validate(_load(LOCAL_APPROVAL))
+    Draft202012Validator(_load(PII_SCHEMA)).validate(_load(PII_APPROVAL))
+
+
+def test_sixth_not_granted_fixture_validates_and_is_fail_closed() -> None:
+    local, pii = _not_granted_pair()
 
     Draft202012Validator(_load(LOCAL_SCHEMA)).validate(local)
     Draft202012Validator(_load(PII_SCHEMA)).validate(pii)
@@ -112,7 +133,7 @@ def test_sixth_consumed_approvals_validate_but_cannot_build_runtime(
     local, pii = _granted_pair()
     for approval in (local, pii):
         approval["status"] = "CONSUMED_SINGLE_USE_NON_REUSABLE"
-        approval["consumed_on"] = "2026-09-20"
+        approval["consumed_on"] = "2026-09-21"
         approval["execution_result_ref"] = (
             "sources/evidence/"
             "ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json"
@@ -142,15 +163,15 @@ def test_sixth_granted_approval_rejects_non_git_runner_checkpoint() -> None:
         Draft202012Validator(_load(LOCAL_SCHEMA)).validate(local)
 
 
-def test_sixth_not_granted_rejects_grant_or_consumption_fields() -> None:
-    local = deepcopy(_load(LOCAL_APPROVAL))
+def test_sixth_not_granted_fixture_rejects_grant_or_consumption_fields() -> None:
+    local, pii = _not_granted_pair()
+
     local["owner_authorization"] = (
         "APPROVO NY OSC SIXTH TRANSIENT LOCAL FILE BOUNDED ONCE"
     )
     with pytest.raises(ValidationError):
         Draft202012Validator(_load(LOCAL_SCHEMA)).validate(local)
 
-    pii = deepcopy(_load(PII_APPROVAL))
-    pii["consumed_on"] = "2026-09-20"
+    pii["consumed_on"] = "2026-09-21"
     with pytest.raises(ValidationError):
         Draft202012Validator(_load(PII_SCHEMA)).validate(pii)
