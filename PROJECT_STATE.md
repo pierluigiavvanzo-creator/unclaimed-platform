@@ -2,6 +2,48 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — RAW-Literal Runtime Integration Proposal / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-offline-proposal`
+
+Baseline reviewed parser mode:
+
+- branch: `ny-osc-documented-width-raw-literal-policy-mode-offline`;
+- checkpoint: `fc162aa0d938ec7a5560d115631bcc762694e244`;
+- CI: `35594727577 — SUCCESS`;
+- human review: `PASS`.
+
+Prepared proposal:
+
+`sources/proposals/ny_osc_raw_literal_runtime_integration_offline_proposal.v1.json`
+
+State:
+
+`PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Integration design:
+
+- preserve historical authorization v1.1 + result v1.2 + Gate 6 as `LINE_LOCAL_ARBITRATION`;
+- propose authorization v1.2 for `SYNTHETIC_TEST` only;
+- bind proposed authorization v1.2 to `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- propose result v1.3 with RAW-literal mode provenance;
+- keep `quote_dialect_diagnostic` required-null in v1.3;
+- exclude `QUOTE_DIALECT_AMBIGUOUS` and `MALFORMED_QUOTED_RECORD` from the RAW-literal reason surface;
+- propose `execute_transient_local_file_discovery_v1_3` with no real authorization builder, CLI change or runner wiring.
+
+No runtime schema or runtime code is created by this proposal. No seventh-attempt artifact is created.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+
+
 ## Current Candidate State — RAW-Literal Policy Mode Implemented Offline / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1399,8 +1441,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
 
-Review only the new explicit RAW-literal parser mode, synthetic regression coverage, unchanged
-default/historical modes, privacy boundaries and CI. Do not wire the mode into real execution,
-change runners/contracts/defaults, access OSC, create approvals or prepare/execute attempt 7.
+Review only the version-additive runtime design, synthetic-only authorization boundary,
+v1.3 result/reason contract, historical Gate 6 preservation and no-real-execution guarantees.
+Do not implement runtime v1.3, create runtime schemas, change Gate 6, create approvals, access
+OSC or prepare/execute attempt 7.
