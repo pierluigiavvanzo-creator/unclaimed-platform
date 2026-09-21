@@ -60,7 +60,7 @@ Audit:
 No sixth retry or seventh attempt is authorized. No parser, runner, schema or bounds were
 changed by the recording action.
 
-Repository validation CI for this recording: `PENDING`.
+Repository validation: checkpoint `2519119c626e2bc92706d26afdd8d174283136aa`; CI `35578276607 — SUCCESS`.
 
 Next gate:
 
