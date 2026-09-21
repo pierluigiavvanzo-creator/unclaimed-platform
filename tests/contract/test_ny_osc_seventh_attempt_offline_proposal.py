@@ -73,7 +73,9 @@ def test_seventh_attempt_proposal_validates_and_is_not_authorized() -> None:
     proposal = _load(PROPOSAL)
     Draft202012Validator(_load(SCHEMA)).validate(proposal)
 
-    assert proposal["status"] == "PROPOSED_NOT_AUTHORIZED"
+    assert proposal["schema_version"] == "1.1.0"
+    assert proposal["artifact_version"] == "1.1.0"
+    assert proposal["status"] == "REMEDIATED_PROPOSED_NOT_AUTHORIZED"
     assert proposal["request_scope"] == {
         "repository_only": True,
         "source_network_access_performed": False,
@@ -86,7 +88,8 @@ def test_seventh_attempt_proposal_validates_and_is_not_authorized() -> None:
         "real_runtime_created": False,
     }
     assert proposal["next_action"] == (
-        "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL"
+        "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_"
+        "REMEDIATION_OFFLINE"
     )
 
 
@@ -228,7 +231,10 @@ def test_future_human_gates_are_separate_and_ungranted() -> None:
     gates = _load(PROPOSAL)["future_human_gates"]
 
     assert [item["sequence"] for item in gates] == [1, 2, 3, 4, 5, 6]
-    assert gates[0]["gate"] == "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL"
+    assert gates[0]["gate"] == (
+        "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_"
+        "REMEDIATION_OFFLINE"
+    )
     assert gates[0]["status"] == "PENDING"
     assert gates[1]["status"] == "NOT_STARTED"
 
@@ -261,3 +267,89 @@ def test_proposal_does_not_grant_source_or_execution_authority() -> None:
     no_grant = _load(PROPOSAL)["authorization_does_not_grant"]
 
     assert all(value is False for value in no_grant.values())
+
+
+
+def test_final_execution_authorization_is_machine_bound_and_explicit() -> None:
+    proposal = _load(PROPOSAL)
+    package = proposal["proposed_real_runtime_package"]
+    auth = package["authorization_contract"]
+    result = package["result_contract"]
+    runtime = package["runtime"]
+    gate7 = package["gate7_runner"]
+
+    expected_refs = [
+        "seventh_transient_local_approval_ref",
+        "seventh_transient_pii_approval_ref",
+        "seventh_fresh_preflight_receipt_ref",
+        "seventh_execution_authorization_ref",
+    ]
+    assert auth["required_binding_refs"] == expected_refs
+    assert auth["all_bindings_same_attempt_required"] is True
+    assert auth["all_bindings_same_proposal_checkpoint_required"] is True
+    assert auth["all_bindings_same_runner_checkpoint_required"] is True
+    assert auth["all_approvals_granted_not_consumed_at_start_required"] is True
+    assert auth["fresh_preflight_status_required"] == "EXACT_MATCH"
+    assert auth["fresh_preflight_max_age_seconds"] == 900
+
+    assert runtime["real_authorization_builder_required_inputs"] == expected_refs
+
+    assert gate7["must_verify_explicit_execution_authorization"] is True
+    assert gate7["must_verify_explicit_execution_authorization_before_temp_creation"] is True
+    assert gate7["must_verify_explicit_execution_authorization_before_download"] is True
+    assert gate7["must_verify_all_bound_refs_attempt_7"] is True
+    assert gate7["must_verify_all_bound_refs_same_proposal_checkpoint"] is True
+    assert gate7["must_verify_all_bound_refs_same_runner_checkpoint"] is True
+    assert gate7["download_mode"] == "MANUAL_TO_DEDICATED_OS_TEMP"
+    assert gate7["download_authority_source"] == "SEVENTH_EXECUTION_AUTHORIZATION"
+    assert gate7["downloads_max"] == 1
+    assert gate7["retries_max"] == 0
+
+    assert result["execution_authorization_ref_required"] is True
+    assert result["execution_authorization_consumption_provenance_required"] is True
+    assert result["execution_authorization_provenance_owner_pii_allowed"] is False
+
+
+def test_final_execution_gate_grants_one_manual_download_and_one_bound_execution() -> None:
+    proposal = _load(PROPOSAL)
+    gates = proposal["future_human_gates"]
+    local = gates[2]
+    pii = gates[3]
+    preflight = gates[4]
+    execution = gates[5]
+
+    assert local["grants"] == "TRANSIENT_LOCAL_RETENTION_SCOPE_ONLY_NO_DOWNLOAD"
+    assert pii["grants"] == "TRANSIENT_PII_PROCESSING_SCOPE_ONLY_NO_DOWNLOAD"
+    assert preflight["grants"] == "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN"
+
+    assert execution["gate"] == "HUMAN_NY_OSC_SEVENTH_EXECUTION_AUTHORIZATION"
+    assert execution["status"] == "NOT_GRANTED"
+    assert execution["single_use"] is True
+    assert execution["reusable"] is False
+    assert execution["retry_authorized"] is False
+    assert execution["requires_exact_match_fresh_preflight"] is True
+    assert execution["download_authority"] == (
+        "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP"
+    )
+    assert execution["execution_authority"] == "ONE_BOUND_GATE7_EXECUTION"
+    assert execution["grants"] == (
+        "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP_PLUS_ONE_BOUND_"
+        "GATE7_EXECUTION_AFTER_EXACT_MATCH_FRESH_PREFLIGHT"
+    )
+
+
+def test_review_remediation_records_original_review_failure_without_granting_authority() -> None:
+    proposal = _load(PROPOSAL)
+    remediation = proposal["review_remediation"]
+
+    assert remediation["reviewed_gate"] == (
+        "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL"
+    )
+    assert remediation["reviewed_result"] == "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION"
+    assert remediation["findings"] == [
+        "FINAL_EXECUTION_AUTHORIZATION_NOT_MACHINE_BOUND_TO_FUTURE_"
+        "AUTHORIZATION_AND_GATE7",
+        "DOWNLOAD_AUTHORITY_SEMANTICS_AMBIGUOUS",
+    ]
+    assert proposal["authorization_does_not_grant"]["download"] is False
+    assert proposal["authorization_does_not_grant"]["seventh_attempt_execution"] is False
