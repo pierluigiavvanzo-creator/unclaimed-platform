@@ -1,0 +1,543 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-documented-width-quote-arbitration-offline-proposal:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "source_id",
+    "request_scope",
+    "baseline",
+    "evidence_basis",
+    "analysis_conclusions",
+    "proposed_algorithm",
+    "proposed_non_pii_observability",
+    "synthetic_acceptance_matrix",
+    "implementation_boundary",
+    "authorization_does_not_grant",
+    "next_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.osc.owner_name_file.documented_width_quote_arbitration_offline_proposal"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "const": "2026-09-21"
+    },
+    "status": {
+      "const": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "request_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_only",
+        "source_network_access_performed",
+        "remote_preflight_performed",
+        "download_performed",
+        "owner_file_opened",
+        "owner_pii_processed",
+        "parser_modified",
+        "runtime_activated",
+        "seventh_attempt_prepared"
+      ],
+      "properties": {
+        "repository_only": {
+          "const": true
+        },
+        "source_network_access_performed": {
+          "const": false
+        },
+        "remote_preflight_performed": {
+          "const": false
+        },
+        "download_performed": {
+          "const": false
+        },
+        "owner_file_opened": {
+          "const": false
+        },
+        "owner_pii_processed": {
+          "const": false
+        },
+        "parser_modified": {
+          "const": false
+        },
+        "runtime_activated": {
+          "const": false
+        },
+        "seventh_attempt_prepared": {
+          "const": false
+        }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "branch",
+        "checkpoint",
+        "ci_run_id",
+        "ci_conclusion",
+        "sixth_execution_result_path",
+        "sixth_attempt_state",
+        "sixth_retry_authorized"
+      ],
+      "properties": {
+        "branch": {
+          "const": "ny-osc-sixth-approval-grants"
+        },
+        "checkpoint": {
+          "const": "a8203a8c0d4e741424c68e171b2f5e4e956207a5"
+        },
+        "ci_run_id": {
+          "const": 35578442808
+        },
+        "ci_conclusion": {
+          "const": "SUCCESS"
+        },
+        "sixth_execution_result_path": {
+          "const": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json"
+        },
+        "sixth_attempt_state": {
+          "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+        },
+        "sixth_retry_authorized": {
+          "const": false
+        }
+      }
+    },
+    "evidence_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "documented_layout_audit_path",
+        "documented_delimiter",
+        "documented_field_count",
+        "fifth_execution_result_path",
+        "fifth_physical_line_breaks_inside_quotes",
+        "fifth_raw_pipe_count",
+        "fifth_verified_identity",
+        "sixth_execution_result_path",
+        "sixth_reason_code",
+        "sixth_aggregate_complete_record_count_before_block",
+        "sixth_raw_field_count",
+        "sixth_quote_aware_field_count",
+        "sixth_raw_pipe_count",
+        "sixth_quote_aware_structural_pipe_count",
+        "sixth_suppressed_pipe_count",
+        "sixth_quote_byte_count",
+        "sixth_quote_open_event_count",
+        "sixth_quote_close_event_count",
+        "sixth_ended_inside_quote",
+        "parser_path"
+      ],
+      "properties": {
+        "documented_layout_audit_path": {
+          "const": "docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md"
+        },
+        "documented_delimiter": {
+          "const": "|"
+        },
+        "documented_field_count": {
+          "const": 14
+        },
+        "fifth_execution_result_path": {
+          "const": "sources/evidence/ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json"
+        },
+        "fifth_physical_line_breaks_inside_quotes": {
+          "const": 17543
+        },
+        "fifth_raw_pipe_count": {
+          "const": 228072
+        },
+        "fifth_verified_identity": {
+          "const": "(17543 + 1) * 13 = 228072"
+        },
+        "sixth_execution_result_path": {
+          "const": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json"
+        },
+        "sixth_reason_code": {
+          "const": "QUOTE_DIALECT_AMBIGUOUS"
+        },
+        "sixth_aggregate_complete_record_count_before_block": {
+          "const": 165438
+        },
+        "sixth_raw_field_count": {
+          "const": 14
+        },
+        "sixth_quote_aware_field_count": {
+          "const": 6
+        },
+        "sixth_raw_pipe_count": {
+          "const": 13
+        },
+        "sixth_quote_aware_structural_pipe_count": {
+          "const": 5
+        },
+        "sixth_suppressed_pipe_count": {
+          "const": 8
+        },
+        "sixth_quote_byte_count": {
+          "const": 1
+        },
+        "sixth_quote_open_event_count": {
+          "const": 1
+        },
+        "sixth_quote_close_event_count": {
+          "const": 0
+        },
+        "sixth_ended_inside_quote": {
+          "const": true
+        },
+        "parser_path": {
+          "const": "src/unclaimed_platform/adapters/sources/ny_owner_name_schema_discovery.py"
+        }
+      }
+    },
+    "analysis_conclusions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "global_multiline_quote_state_supported_by_evidence",
+        "every_double_quote_is_structural_supported_by_evidence",
+        "every_double_quote_is_literal_supported_by_evidence",
+        "sixth_blocking_physical_line_has_documented_width_under_raw_pipe_interpretation",
+        "authoritative_osc_quote_escape_specification_present_in_repository",
+        "seventh_download_required_to_design_offline_candidate"
+      ],
+      "properties": {
+        "global_multiline_quote_state_supported_by_evidence": {
+          "const": false
+        },
+        "every_double_quote_is_structural_supported_by_evidence": {
+          "const": false
+        },
+        "every_double_quote_is_literal_supported_by_evidence": {
+          "const": false
+        },
+        "sixth_blocking_physical_line_has_documented_width_under_raw_pipe_interpretation": {
+          "const": true
+        },
+        "authoritative_osc_quote_escape_specification_present_in_repository": {
+          "const": false
+        },
+        "seventh_download_required_to_design_offline_candidate": {
+          "const": false
+        }
+      }
+    },
+    "proposed_algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode_name",
+        "physical_record_boundary",
+        "quote_state_may_cross_physical_record_boundary",
+        "expected_field_count",
+        "raw_interpretation",
+        "quote_aware_interpretation",
+        "decision_matrix",
+        "quote_aware_may_only_suppress_raw_pipe_delimiters",
+        "automatic_row_skip_allowed",
+        "automatic_row_repair_allowed",
+        "automatic_parser_widening_allowed",
+        "source_wide_quote_dialect_inference_allowed"
+      ],
+      "properties": {
+        "mode_name": {
+          "const": "DOCUMENTED_WIDTH_ARBITRATION"
+        },
+        "physical_record_boundary": {
+          "const": "LF_OR_CRLF_HARD_BOUNDARY"
+        },
+        "quote_state_may_cross_physical_record_boundary": {
+          "const": false
+        },
+        "expected_field_count": {
+          "const": 14
+        },
+        "raw_interpretation": {
+          "const": "EVERY_PIPE_BYTE_IS_STRUCTURAL"
+        },
+        "quote_aware_interpretation": {
+          "const": "SAME_LINE_ONLY_CURRENT_QUOTE_AWARE_RULES"
+        },
+        "decision_matrix": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            {
+              "const": {
+                "case_id": "STRUCTURE_EQUIVALENT",
+                "condition": "RAW_14_AND_QUOTE_AWARE_14",
+                "outcome": "ACCEPT_EQUIVALENT_STRUCTURE",
+                "selected_interpretation": "STRUCTURALLY_EQUIVALENT"
+              }
+            },
+            {
+              "const": {
+                "case_id": "RAW_UNIQUE_DOCUMENTED_WIDTH",
+                "condition": "RAW_14_AND_QUOTE_AWARE_NOT_14",
+                "outcome": "ACCEPT_RAW_UNIQUE_DOCUMENTED_WIDTH",
+                "selected_interpretation": "RAW_PIPE"
+              }
+            },
+            {
+              "const": {
+                "case_id": "QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
+                "condition": "RAW_NOT_14_AND_QUOTE_AWARE_14_AND_QUOTE_CLOSED_WITHIN_LINE",
+                "outcome": "ACCEPT_QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
+                "selected_interpretation": "SAME_LINE_QUOTE_AWARE"
+              }
+            },
+            {
+              "const": {
+                "case_id": "NO_UNIQUE_DOCUMENTED_WIDTH",
+                "condition": "ALL_OTHER_CASES",
+                "outcome": "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH",
+                "selected_interpretation": "NONE"
+              }
+            }
+          ],
+          "items": false
+        },
+        "quote_aware_may_only_suppress_raw_pipe_delimiters": {
+          "const": true
+        },
+        "automatic_row_skip_allowed": {
+          "const": false
+        },
+        "automatic_row_repair_allowed": {
+          "const": false
+        },
+        "automatic_parser_widening_allowed": {
+          "const": false
+        },
+        "source_wide_quote_dialect_inference_allowed": {
+          "const": false
+        }
+      }
+    },
+    "proposed_non_pii_observability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "persistence_not_authorized_by_this_proposal",
+        "candidate_aggregate_counters",
+        "raw_record_bytes_allowed",
+        "owner_values_allowed",
+        "row_offsets_allowed",
+        "row_hashes_allowed"
+      ],
+      "properties": {
+        "persistence_not_authorized_by_this_proposal": {
+          "const": true
+        },
+        "candidate_aggregate_counters": {
+          "const": [
+            "structure_equivalent_record_count",
+            "raw_unique_documented_width_record_count",
+            "quote_aware_unique_documented_width_record_count",
+            "blocked_no_unique_documented_width_record_count"
+          ]
+        },
+        "raw_record_bytes_allowed": {
+          "const": false
+        },
+        "owner_values_allowed": {
+          "const": false
+        },
+        "row_offsets_allowed": {
+          "const": false
+        },
+        "row_hashes_allowed": {
+          "const": false
+        }
+      }
+    },
+    "synthetic_acceptance_matrix": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "raw_field_count",
+          "quote_aware_field_count",
+          "ended_inside_quote",
+          "expected_outcome"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "raw_field_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "quote_aware_field_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "ended_inside_quote": {
+            "type": "boolean"
+          },
+          "expected_outcome": {
+            "enum": [
+              "ACCEPT_EQUIVALENT_STRUCTURE",
+              "ACCEPT_RAW_UNIQUE_DOCUMENTED_WIDTH",
+              "ACCEPT_QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
+              "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH",
+              "NO_OWNER_VALUE_OR_RAW_RECORD_SERIALIZED"
+            ]
+          }
+        }
+      }
+    },
+    "implementation_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implementation_status",
+        "historical_multiline_mode_must_remain_unchanged",
+        "historical_line_local_mode_must_remain_unchanged",
+        "existing_default_mode_must_remain_unchanged",
+        "implementation_may_add_new_explicit_mode_only",
+        "runtime_bridge_change_authorized",
+        "execution_result_contract_change_authorized",
+        "runner_change_authorized",
+        "approval_artifact_creation_authorized",
+        "seventh_attempt_proposal_authorized",
+        "source_access_allowed"
+      ],
+      "properties": {
+        "implementation_status": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "historical_multiline_mode_must_remain_unchanged": {
+          "const": true
+        },
+        "historical_line_local_mode_must_remain_unchanged": {
+          "const": true
+        },
+        "existing_default_mode_must_remain_unchanged": {
+          "const": true
+        },
+        "implementation_may_add_new_explicit_mode_only": {
+          "const": true
+        },
+        "runtime_bridge_change_authorized": {
+          "const": false
+        },
+        "execution_result_contract_change_authorized": {
+          "const": false
+        },
+        "runner_change_authorized": {
+          "const": false
+        },
+        "approval_artifact_creation_authorized": {
+          "const": false
+        },
+        "seventh_attempt_proposal_authorized": {
+          "const": false
+        },
+        "source_access_allowed": {
+          "const": false
+        }
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parser_implementation",
+        "runtime_activation",
+        "source_network_access",
+        "remote_preflight",
+        "download",
+        "transient_owner_pii_processing",
+        "seventh_attempt_preparation",
+        "seventh_attempt_execution",
+        "source_activation",
+        "production_classification_activation",
+        "identity_resolution",
+        "beneficiary_matching",
+        "outreach",
+        "fee_agreement",
+        "representation",
+        "claim_activity"
+      ],
+      "properties": {
+        "parser_implementation": {
+          "const": false
+        },
+        "runtime_activation": {
+          "const": false
+        },
+        "source_network_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "transient_owner_pii_processing": {
+          "const": false
+        },
+        "seventh_attempt_preparation": {
+          "const": false
+        },
+        "seventh_attempt_execution": {
+          "const": false
+        },
+        "source_activation": {
+          "const": false
+        },
+        "production_classification_activation": {
+          "const": false
+        },
+        "identity_resolution": {
+          "const": false
+        },
+        "beneficiary_matching": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "fee_agreement": {
+          "const": false
+        },
+        "representation": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        }
+      }
+    },
+    "next_action": {
+      "const": "HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL"
+    }
+  }
+}
