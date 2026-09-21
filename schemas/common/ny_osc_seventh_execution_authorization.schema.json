@@ -1,0 +1,356 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-seventh-execution-authorization:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "required_owner_authorization",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "attempt_number",
+    "proposal_ref",
+    "proposal_checkpoint",
+    "proposal_ci_run_id",
+    "runner_checkpoint",
+    "runner_ci_run_id",
+    "runner_ci_conclusion",
+    "fresh_preflight_receipt_ref",
+    "fresh_preflight_status",
+    "download_authority",
+    "execution_authority",
+    "authorization_scope"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_SEVENTH_EXECUTION_AUTHORIZATION"
+    },
+    "required_owner_authorization": {
+      "const": "AUTHORIZE_NY_OSC_SEVENTH_BOUNDED_EXECUTION_ONCE"
+    },
+    "owner_authorization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "granted_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "execution_approval_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "NOT_GRANTED",
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "attempt_number": {
+      "const": 7
+    },
+    "proposal_ref": {
+      "const": "sources/proposals/ny_osc_owner_name_file_seventh_bounded_attempt_authorization.v1.json"
+    },
+    "proposal_checkpoint": {
+      "const": "18c270bd89d7c4e0c37a5bc046a1f09e49dc672e"
+    },
+    "proposal_ci_run_id": {
+      "const": 35653220457
+    },
+    "runner_checkpoint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      ]
+    },
+    "runner_ci_run_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "runner_ci_conclusion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "consumed_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "execution_result_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fresh_preflight_receipt_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fresh_preflight_status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "download_authority": {
+      "const": "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP"
+    },
+    "execution_authority": {
+      "const": "ONE_BOUND_GATE7_EXECUTION"
+    },
+    "authorization_scope": {
+      "const": {
+        "manual_download_allowed": true,
+        "direct_network_client_allowed": false,
+        "downloads_max": 1,
+        "gate7_executions_max": 1,
+        "retries_max": 0,
+        "source_activation": false,
+        "production_classification_activation": false,
+        "identity_resolution": false,
+        "beneficiary_matching": false,
+        "outreach": false,
+        "fee_agreement": false,
+        "representation": false,
+        "claim_activity": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "NOT_GRANTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "owner_authorization": {
+                "const": null
+              },
+              "granted_on": {
+                "const": null
+              },
+              "execution_approval_ref": {
+                "const": null
+              },
+              "runner_checkpoint": {
+                "const": null
+              },
+              "runner_ci_run_id": {
+                "const": null
+              },
+              "runner_ci_conclusion": {
+                "const": null
+              },
+              "fresh_preflight_receipt_ref": {
+                "const": null
+              },
+              "fresh_preflight_status": {
+                "const": null
+              }
+            }
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "consumed_on"
+                  ]
+                },
+                {
+                  "required": [
+                    "execution_result_ref"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "GRANTED_NOT_CONSUMED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "owner_authorization": {
+                "const": "AUTHORIZE_NY_OSC_SEVENTH_BOUNDED_EXECUTION_ONCE"
+              },
+              "granted_on": {
+                "type": "string",
+                "format": "date"
+              },
+              "execution_approval_ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "runner_checkpoint": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "runner_ci_run_id": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "runner_ci_conclusion": {
+                "const": "SUCCESS"
+              },
+              "fresh_preflight_receipt_ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "fresh_preflight_status": {
+                "const": "EXACT_MATCH"
+              }
+            },
+            "required": [
+              "owner_authorization",
+              "granted_on",
+              "execution_approval_ref",
+              "runner_checkpoint",
+              "runner_ci_run_id",
+              "runner_ci_conclusion",
+              "fresh_preflight_receipt_ref",
+              "fresh_preflight_status"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "consumed_on"
+                  ]
+                },
+                {
+                  "required": [
+                    "execution_result_ref"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "owner_authorization": {
+            "const": "AUTHORIZE_NY_OSC_SEVENTH_BOUNDED_EXECUTION_ONCE"
+          },
+          "granted_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "execution_approval_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runner_checkpoint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
+          },
+          "consumed_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "execution_result_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fresh_preflight_receipt_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fresh_preflight_status": {
+            "const": "EXACT_MATCH"
+          }
+        },
+        "required": [
+          "owner_authorization",
+          "granted_on",
+          "execution_approval_ref",
+          "runner_checkpoint",
+          "runner_ci_run_id",
+          "runner_ci_conclusion",
+          "consumed_on",
+          "execution_result_ref",
+          "fresh_preflight_receipt_ref",
+          "fresh_preflight_status"
+        ]
+      }
+    }
+  ]
+}
