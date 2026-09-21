@@ -224,3 +224,28 @@ No runtime schema v1.2/v1.3 or runtime implementation is created in this task.
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+
+
+## Verification
+
+Functional verification checkpoint:
+
+`af7bcfa0cdbef31c8c46aeacdb4cf5c82fb9da77`
+
+GitHub CI:
+
+`35597775042 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtime: 2 source files PASS;
+- contract tests: 386 passed;
+- smoke tests: 16 passed;
+- full pytest: 555 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+The verification includes contract tests asserting that the future runtime schema files do
+not yet exist and that Gate 6 remains line-local. No runtime implementation was created.

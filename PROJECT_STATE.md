@@ -37,7 +37,9 @@ Integration design:
 
 No runtime schema or runtime code is created by this proposal. No seventh-attempt artifact is created.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `af7bcfa0cdbef31c8c46aeacdb4cf5c82fb9da77`.
+
+Candidate CI: `35597775042 — SUCCESS`.
 
 Next gate:
 

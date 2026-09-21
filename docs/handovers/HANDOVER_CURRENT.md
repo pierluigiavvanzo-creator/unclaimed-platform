@@ -43,7 +43,9 @@ Artifacts:
 - `tests/contract/test_ny_osc_raw_literal_runtime_integration_offline_proposal.py`;
 - `docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL.md`.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `af7bcfa0cdbef31c8c46aeacdb4cf5c82fb9da77`.
+
+Candidate CI: `35597775042 — SUCCESS`.
 
 Next gate:
 

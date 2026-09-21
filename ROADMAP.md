@@ -32,7 +32,9 @@ Current gate:
 
 `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `af7bcfa0cdbef31c8c46aeacdb4cf5c82fb9da77`.
+
+Candidate CI: `35597775042 — SUCCESS`.
 
 
 ## Current Override — RAW-Literal Policy Mode Implemented Offline
