@@ -2,6 +2,64 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — DOCUMENTED-WIDTH QUOTE ARBITRATION PROPOSAL
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-documented-width-quote-arbitration-offline-proposal`
+
+Baseline:
+
+- branch: `ny-osc-sixth-approval-grants`;
+- checkpoint: `a8203a8c0d4e741424c68e171b2f5e4e956207a5`;
+- CI: `35578442808 — SUCCESS`.
+
+Sixth execution review:
+
+`PASS`
+
+Sixth lifecycle remains:
+
+`BLOCKED / QUOTE_DIALECT_AMBIGUOUS / APPROVALS CONSUMED / ZERO RETRY`
+
+Prepared candidate:
+
+`DOCUMENTED_WIDTH_ARBITRATION`
+
+Proposal artifacts:
+
+- `sources/proposals/ny_osc_documented_width_quote_arbitration_offline_proposal.v1.json`;
+- `schemas/common/ny_osc_documented_width_quote_arbitration_offline_proposal.schema.json`;
+- `tests/contract/test_ny_osc_documented_width_quote_arbitration_offline_proposal.py`;
+- `docs/audits/NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL.md`.
+
+Decision model:
+
+- hard physical LF/CRLF record boundaries;
+- raw-pipe and same-line quote-aware structural counts;
+- raw 14 + quote-aware 14 -> structurally equivalent;
+- raw 14 + quote-aware !=14 -> raw unique documented width;
+- raw !=14 + quote-aware 14 + quote closed in line -> quote-aware unique documented width;
+- all other cases -> fail closed.
+
+Synthetic proposal coverage includes the retained sixth shape `14 / 6 / open`, same-line
+quoted pipe `15 / 14 / closed`, true 13-field rows, invalid 15/15 rows, an open-at-EOL
+quote-aware-14 case and privacy serialization.
+
+No parser is modified. No runtime bridge/result contract/runner is modified. No approvals or
+seventh-attempt artifacts are created. No source access occurs.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+
+
 ## AUTHORITATIVE CURRENT STATE — SIXTH ATTEMPT CONSUMED FAIL-CLOSED
 
 Repository:
@@ -1358,16 +1416,16 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
 
-Review only:
+Review:
 
-- execution result `BLOCKED / QUOTE_DIALECT_AMBIGUOUS`;
-- exact-match fresh-preflight receipt;
-- both sixth approvals consumed and non-reusable;
-- zero-retry state;
-- execution-result and approval lifecycle tests;
-- audit consistency;
-- unchanged parser/runner/schema/bounds.
+- evidence basis from attempts 5 and 6;
+- documented-width decision matrix;
+- hard physical-line boundary;
+- synthetic acceptance matrix;
+- non-PII observability proposal;
+- additive-only implementation boundary;
+- no seventh-attempt or source-access authorization.
 
-Do not access OSC, download again, retry attempt 6 or prepare/execute attempt 7.
+Do not implement the parser or runtime changes during this review.
