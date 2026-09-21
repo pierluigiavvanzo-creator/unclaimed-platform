@@ -260,3 +260,37 @@ or claim activity.
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+
+
+## Verification
+
+Functional verification checkpoint:
+
+`3b66affcba80a53009cf8fa0b4339eb220e8d44e`
+
+GitHub CI:
+
+`35646092380 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtimes: 3 source files PASS;
+- contract tests: 408 passed;
+- smoke tests: 16 passed;
+- full pytest: 585 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+The contract verification confirms that:
+
+- the seventh proposal validates;
+- it remains `PROPOSED_NOT_AUTHORIZED`;
+- no seventh real-runtime package exists yet;
+- no Gate 7 runner exists;
+- no seventh approval schema/artifact exists;
+- the synthetic v1.2/v1.3 package remains synthetic-only;
+- sixth approvals remain consumed/non-reusable;
+- Gate 6 remains line-local;
+- this proposal grants no source/preflight/download/execution authority.

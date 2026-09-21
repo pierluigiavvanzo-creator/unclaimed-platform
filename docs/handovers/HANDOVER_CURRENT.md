@@ -57,7 +57,9 @@ Audit:
 
 `docs/audits/NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL.md`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `3b66affcba80a53009cf8fa0b4339eb220e8d44e`.
+
+Candidate CI: `35646092380 — SUCCESS`.
 
 Next gate:
 

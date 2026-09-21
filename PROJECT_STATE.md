@@ -41,7 +41,9 @@ Critical design:
 
 No real runtime v1.4, Gate 7, approval schema/artifact, preflight or source access is created here.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `3b66affcba80a53009cf8fa0b4339eb220e8d44e`.
+
+Candidate CI: `35646092380 — SUCCESS`.
 
 Next gate:
 

@@ -32,7 +32,9 @@ Current gate:
 
 `HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `3b66affcba80a53009cf8fa0b4339eb220e8d44e`.
+
+Candidate CI: `35646092380 — SUCCESS`.
 
 
 ## Current Override — RAW-Literal Runtime v1.3 Implemented Synthetic-Only
