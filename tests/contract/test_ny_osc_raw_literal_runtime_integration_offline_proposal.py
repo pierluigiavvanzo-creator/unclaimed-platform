@@ -33,7 +33,7 @@ FUTURE_RESULT_V1_3 = (
 GATE6 = ROOT / "scripts/ny_osc_gate6_transient_local.ps1"
 
 EXPECTED_FUTURE_PREREQUISITES = [
-    "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS",
+    "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS",
     "IMPLEMENT_AND_REVIEW_SYNTHETIC_RAW_LITERAL_RUNTIME_INTEGRATION",
     "SEPARATE_SEVENTH_ATTEMPT_PROPOSAL",
     "SEPARATE_FRESH_TRANSIENT_LOCAL_APPROVAL",
@@ -55,8 +55,8 @@ def test_remediated_runtime_integration_proposal_validates() -> None:
     proposal = _load(PROPOSAL)
     _validator().validate(proposal)
 
-    assert proposal["schema_version"] == "1.1.0"
-    assert proposal["artifact_version"] == "1.1.0"
+    assert proposal["schema_version"] == "1.1.1"
+    assert proposal["artifact_version"] == "1.1.1"
     assert proposal["status"] == "REMEDIATED_PROPOSED_NOT_IMPLEMENTED"
     assert proposal["baseline"]["checkpoint"] == (
         "fc162aa0d938ec7a5560d115631bcc762694e244"
@@ -83,6 +83,30 @@ def test_review_remediation_uses_existing_synthetic_wire_value() -> None:
         "ENFORCED_BY_SCHEMA_ENUM_NOT_BY_NEW_WIRE_VALUE"
     )
     assert auth["quote_dialect_mode"] == "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
+
+
+def test_review_prerequisite_remediation_replaces_impossible_gate() -> None:
+    proposal = _load(PROPOSAL)
+    remediation = proposal["review_prerequisite_remediation"]
+    prerequisites = proposal["future_real_activation_prerequisites"]
+
+    old_gate = (
+        "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS"
+    )
+    new_gate = (
+        "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_"
+        "REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS"
+    )
+
+    assert remediation["reviewed_result"] == "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION"
+    assert remediation["previous_impossible_prerequisite"] == old_gate
+    assert remediation["replacement_prerequisite"] == new_gate
+    assert old_gate not in prerequisites
+    assert prerequisites[0] == new_gate
+    assert proposal["next_action"] == (
+        "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_"
+        "REVIEW_PREREQUISITE_REMEDIATION_OFFLINE"
+    )
 
 
 def test_historical_runtime_contracts_remain_line_local() -> None:
