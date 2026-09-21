@@ -21,6 +21,7 @@ jobs:
           python -m mypy
           src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution.py
           src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution_v1_2.py
+          src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution_v1_3.py
       - run: python -m pytest -q tests/contract
       - run: python -m pytest -q tests/smoke
       - run: python -m pytest -q
