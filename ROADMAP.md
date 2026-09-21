@@ -23,7 +23,7 @@ Current gate:
 
 `HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
 
-Repository validation CI for this recording: `PENDING`.
+Repository validation: checkpoint `2519119c626e2bc92706d26afdd8d174283136aa`; CI `35578276607 — SUCCESS`.
 
 
 ## Current Override — Fifth Approval Grant Candidate / Review Pending
