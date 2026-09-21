@@ -8,6 +8,19 @@ Status:
 
 `PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
 
+## Remediation status
+
+Human review returned:
+
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+The original proposal is superseded on the remediation branch by:
+
+`docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE.md`
+
+The remediation standardizes the future authorization wire value to `SYNTHETIC_TEST`
+and closes the proposal schema against silent matrix/boundary/gate drift.
+
 ## Requested action
 
 `PREPARE_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
