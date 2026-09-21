@@ -124,6 +124,18 @@ No real owner-PII processing.
 No sixth retry.
 No seventh-attempt preparation or execution.
 
+## Review prerequisite remediation status
+
+The proposal/schema hardening in this audit remains valid. A later human review found one
+governance defect in the exact future prerequisite list: it referenced a superseded review that
+had returned `CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`.
+
+That prerequisite-only defect is superseded by:
+
+`docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE.md`
+
+No runtime finding from this audit is reversed.
+
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
