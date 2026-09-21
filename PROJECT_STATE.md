@@ -2,6 +2,61 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — Quote Arbitration Proposal Remediated / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-documented-width-quote-arbitration-proposal-remediation-offline`
+
+Baseline proposal HEAD:
+
+`c271302e9304f96208b267c347868d7e5a6c45db`
+
+Prior review:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL = CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+Remediation state:
+
+`REMEDIATED_PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The remediation separates structural classification from quote-dialect selection.
+
+Retained discriminating evidence:
+
+- discriminating physical records: `1`;
+- RAW documented-width support: `1`;
+- candidate quote-aware documented-width support: `0`;
+- RAW point estimate: `100%`;
+- Wilson 95% lower bound: approximately `20.65%`;
+- Product Owner threshold: `66%`;
+- threshold robustly met: `false`.
+
+Product Owner fallback under D-011:
+
+`RAW_PIPE_WITH_DOUBLE_QUOTE_LITERAL`
+
+This is explicitly a Product Owner policy, not OSC source truth.
+
+Current proposed behavior:
+
+- RAW 14 / candidate quote-aware 14 -> accept structurally equivalent;
+- RAW 14 / candidate quote-aware !=14 -> classify unresolved, then accept RAW under current owner fallback;
+- RAW !=14 / candidate quote-aware 14 -> classify unresolved, then block under current RAW fallback;
+- all other width cases -> block fail-closed.
+
+No parser/runtime/runner is modified. No statistical scan, source access, approval creation or
+seventh attempt is authorized.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+
 ## Current Candidate State — Documented-Width Quote Arbitration Proposal / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1291,8 +1346,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
-Review only the proposal, schema, synthetic acceptance matrix, evidence binding and offline
-safety boundaries. Do not implement the parser, change runtime contracts/runners, access OSC,
-download again, create approvals or prepare/execute attempt 7.
+Review only the remediated proposal, D-011 statistical fallback policy, Wilson-bound evidence
+calculation, structural classification matrix, synthetic contract tests and preserved
+zero-source-access boundaries. Do not implement or activate the parser, run a statistical
+source scan, access OSC, create approvals or prepare/execute attempt 7.
