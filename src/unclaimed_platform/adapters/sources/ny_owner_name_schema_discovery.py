@@ -39,7 +39,11 @@ NY_DOCUMENTED_FIELDS: tuple[str, ...] = (
 )
 NY_PROPERTY_TYPE_CODE_INDEX = 1
 _UTF8_BOM = b"\xef\xbb\xbf"
-QuoteDialectMode = Literal["MULTILINE_LEGACY", "LINE_LOCAL_ARBITRATION"]
+QuoteDialectMode = Literal[
+    "MULTILINE_LEGACY",
+    "LINE_LOCAL_ARBITRATION",
+    "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+]
 
 
 def _is_ascii_space(value: int) -> bool:
@@ -609,6 +613,80 @@ class _LineLocalQuoteArbitrationScanner:
         self._reset_line_diagnostics()
 
 
+class _RawLiteralPhysicalLineScanner:
+    """Scan physical lines using RAW pipe structure and literal double quotes.
+
+    This mode implements Product Owner decision D-011 without claiming OSC source
+    semantics. LF and CRLF are hard physical-record boundaries. Every pipe byte is
+    structural, while double quotes are ordinary field bytes for record structure.
+    """
+
+    def __init__(self) -> None:
+        self._track_header = True
+        self._scanner = _LogicalRecordScanner(track_header=True)
+        self._pending_cr = False
+
+    def consume(self, value: int) -> _QuotedPipeRecordShape | None:
+        if self._pending_cr:
+            self._pending_cr = False
+            if value == ord("\n"):
+                return self._finish_boundary()
+            self._scanner.consume_field_byte(ord("\r"))
+
+        if value == ord("\r"):
+            self._pending_cr = True
+            return None
+
+        if value == ord("\n"):
+            return self._finish_boundary()
+
+        if value == ord("|"):
+            self._scanner.consume_delimiter()
+            return None
+
+        self._scanner.consume_field_byte(value)
+        return None
+
+    def finish(self) -> _QuotedPipeRecordShape | None:
+        if self._pending_cr:
+            self._scanner.consume_field_byte(ord("\r"))
+            self._pending_cr = False
+        if self._scanner.has_content:
+            return self._finish_boundary()
+        return None
+
+    def _finish_boundary(self) -> _QuotedPipeRecordShape | None:
+        if not self._scanner.has_content:
+            self._reset_line_state()
+            return None
+
+        record = self._scanner.finish()
+        self._track_header = False
+        self._reset_line_state()
+        return record
+
+    def _reset_line_state(self) -> None:
+        self._scanner = _LogicalRecordScanner(track_header=self._track_header)
+        self._pending_cr = False
+
+
+def _iter_raw_literal_physical_line_shapes(
+    stream: BinaryIO,
+) -> Iterator[_QuotedPipeRecordShape]:
+    """Yield RAW pipe shapes with literal quotes and physical-line boundaries."""
+
+    scanner = _RawLiteralPhysicalLineScanner()
+    while chunk := stream.read(64 * 1024):
+        for value in chunk:
+            record = scanner.consume(value)
+            if record is not None:
+                yield record
+
+    final_record = scanner.finish()
+    if final_record is not None:
+        yield final_record
+
+
 def _iter_quoted_pipe_record_shapes(
     stream: BinaryIO,
 ) -> Iterator[_QuotedPipeRecordShape]:
@@ -917,6 +995,7 @@ def discover_ny_owner_name_schema(
     if quote_dialect_mode not in {
         "MULTILINE_LEGACY",
         "LINE_LOCAL_ARBITRATION",
+        "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
     }:
         raise ValueError("unsupported quote dialect mode")
 
@@ -993,11 +1072,12 @@ def discover_ny_owner_name_schema(
 
         try:
             with archive.open(selected, "r") as stream:
-                records = (
-                    _iter_line_local_quote_arbitrated_shapes(stream)
-                    if quote_dialect_mode == "LINE_LOCAL_ARBITRATION"
-                    else _iter_quoted_pipe_record_shapes(stream)
-                )
+                if quote_dialect_mode == "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY":
+                    records = _iter_raw_literal_physical_line_shapes(stream)
+                elif quote_dialect_mode == "LINE_LOCAL_ARBITRATION":
+                    records = _iter_line_local_quote_arbitrated_shapes(stream)
+                else:
+                    records = _iter_quoted_pipe_record_shapes(stream)
                 for record in records:
                     if (
                         quote_dialect_mode == "LINE_LOCAL_ARBITRATION"
