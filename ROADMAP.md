@@ -2,6 +2,38 @@
 
 Last updated: 2026-09-21
 
+## Current Override — RAW-Literal Runtime v1.3 Implemented Synthetic-Only
+
+Completed:
+
+`IMPLEMENT_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-synthetic-offline`
+
+State:
+
+`IMPLEMENTED_SYNTHETIC_ONLY / VERIFIED_OFFLINE / ZERO SOURCE ACCESS`
+
+Materialized:
+
+- authorization v1.2, accepting only `SYNTHETIC_TEST`;
+- result v1.3;
+- `execute_transient_local_file_discovery_v1_3`;
+- RAW-literal synthetic unit/contract tests.
+
+No real builder, CLI, Gate 7, approval or source path exists.
+
+Functional verification:
+
+`cbc30509eb8a97859cd5f1752c46dacaa91e5e8c / CI 35641940057 — SUCCESS / 575 pytest passed`
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+
+
 ## Current Override — RAW-Literal Runtime Review Prerequisite Remediated
 
 Completed offline:
@@ -868,9 +900,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
 
-Classification: `A — Product Critical / Governance Remediation Review`.
+Classification: `A — Product Critical / Synthetic Runtime Integration Review`.
 
-Do not implement or activate runtime v1.3, access OSC, create approvals, retry attempt 6 or
+Do not activate the runtime for a real source, create Gate 7 or approvals, access OSC or
 prepare/execute attempt 7 during this review.

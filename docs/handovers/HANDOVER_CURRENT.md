@@ -2,6 +2,66 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME v1.3 IMPLEMENTED SYNTHETIC-ONLY
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-synthetic-offline`
+
+Baseline:
+
+`713023f80d06f8539038adad6dda370eb7198a10 / CI 35602806376 — SUCCESS / HUMAN REVIEW PASS`
+
+Implemented contracts:
+
+- `schemas/agents/ny_transient_local_execution_authorization_v1_2.schema.json`;
+- `schemas/agents/ny_transient_local_execution_result_v1_3.schema.json`.
+
+Implemented runtime:
+
+`src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution_v1_3.py`
+
+Runtime guarantees:
+
+- authorization mode exactly `SYNTHETIC_TEST`;
+- parser mode exactly `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- no `AUTHORIZED_REAL_ONCE`;
+- no CLI/main;
+- no real builder;
+- quote-dialect diagnostic always null;
+- quote-specific reason codes unsupported/fail-closed;
+- temp-file logical deletion preserved;
+- no owner values/raw path returned.
+
+Historical v1.1/v1.2 and Gate 6 remain line-local and unchanged.
+
+Functional checkpoint:
+
+`cbc30509eb8a97859cd5f1752c46dacaa91e5e8c`
+
+CI:
+
+`35641940057 — SUCCESS`
+
+Results:
+
+`398 contract / 16 smoke / 575 full pytest / Ruff + mypy(19 core + 3 NY runtime) + Streamlit + frontend PASS`
+
+Audit:
+
+`docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE.md`
+
+No real execution path, Gate 7, approvals, OSC access or seventh-attempt artifact exists.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME REVIEW PREREQUISITE REMEDIATED
 
 Repository:
@@ -1675,14 +1735,16 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
 
 Review:
 
-- corrected review prerequisite is historically satisfiable;
-- exact prerequisite list still contains seven gates;
-- proposal/schema/test all bind the same corrected first gate;
-- prior synthetic-only and fail-closed protections remain intact;
-- no runtime or real execution path has been created.
+- v1.2 authorization is genuinely synthetic-only;
+- v1.3 result reason/diagnostic invariants;
+- sixth-shaped RAW-14 succeeds synthetically;
+- RAW-15/RAW-13 remain fail-closed;
+- deletion/privacy guarantees;
+- historical sixth runtime remains untouched;
+- no real builder/CLI/Gate 7/source path exists.
 
-Do not implement or execute the runtime candidate during this review.
+Do not activate or execute against OSC during this review.

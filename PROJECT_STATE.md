@@ -2,6 +2,64 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — RAW-Literal Runtime v1.3 Implemented Synthetic-Only / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-synthetic-offline`
+
+Baseline:
+
+- branch: `ny-osc-raw-literal-runtime-integration-review-prerequisite-remediation-offline`;
+- checkpoint: `713023f80d06f8539038adad6dda370eb7198a10`;
+- CI: `35602806376 — SUCCESS`;
+- prerequisite remediation human review: `PASS`.
+
+Implementation state:
+
+`IMPLEMENTED_SYNTHETIC_ONLY / VERIFIED_OFFLINE / ZERO SOURCE ACCESS / NOT REAL-ACTIVATED`
+
+Implemented:
+
+- authorization schema v1.2: `SYNTHETIC_TEST` only;
+- parser binding: `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- result schema v1.3 with quote diagnostic required-null;
+- runtime `execute_transient_local_file_discovery_v1_3`;
+- synthetic unit and contract coverage;
+- CI mypy coverage extended to the v1.3 runtime.
+
+Explicitly absent:
+
+- `AUTHORIZED_REAL_ONCE` in authorization v1.2;
+- real authorization builder;
+- CLI entry point;
+- Gate 7/seventh runner;
+- source access/preflight/download/real PII.
+
+Historical v1.1/v1.2 runtime and Gate 6 remain unchanged and line-local.
+
+Functional checkpoint:
+
+`cbc30509eb8a97859cd5f1752c46dacaa91e5e8c`
+
+CI:
+
+`35641940057 — SUCCESS`
+
+Tests:
+
+- contract: `398 passed`;
+- smoke: `16 passed`;
+- full pytest: `575 passed`;
+- Ruff/mypy/Streamlit/frontend: PASS.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+
+
 ## Current Candidate State — RAW-Literal Runtime Review Prerequisite Remediated / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1532,9 +1590,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
 
-Review only the corrected prerequisite lineage, proposal/schema/test alignment, preservation of
-the six unchanged future gates, historical Gate 6 immutability and zero-real-execution boundary.
-Do not implement runtime v1.3, create runtime schemas, create approvals, access OSC or
-prepare/execute attempt 7.
+Review only authorization v1.2 synthetic-only enforcement, result v1.3 bindings, runtime v1.3
+RAW-literal execution, synthetic privacy/deletion behavior, historical Gate 6 immutability and
+absence of any real execution path. Do not create Gate 7, real builders, approvals, source
+preflight/download or attempt 7 during this review.
