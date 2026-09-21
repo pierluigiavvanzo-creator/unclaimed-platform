@@ -22,8 +22,27 @@ def _load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _exact_match_receipt() -> dict[str, object]:
+def _not_performed_receipt() -> dict[str, object]:
     receipt = deepcopy(_load(RECEIPT))
+    receipt.update(
+        {
+            "runner_checkpoint": None,
+            "status": "NOT_PERFORMED",
+            "remote_preflight_performed": False,
+            "preflight_authorization_ref": None,
+            "performed_at_utc": None,
+            "observed_listing": {
+                "remote_name": None,
+                "size_display": None,
+                "last_modified_display": None,
+            },
+        }
+    )
+    return receipt
+
+
+def _exact_match_receipt() -> dict[str, object]:
+    receipt = _not_performed_receipt()
     receipt.update(
         {
             "runner_checkpoint": "a" * 40,
@@ -41,8 +60,12 @@ def _exact_match_receipt() -> dict[str, object]:
     return receipt
 
 
-def test_initial_sixth_preflight_receipt_is_not_performed_and_non_pii() -> None:
-    receipt = _load(RECEIPT)
+def test_current_sixth_preflight_receipt_validates_against_contract() -> None:
+    Draft202012Validator(_load(SCHEMA)).validate(_load(RECEIPT))
+
+
+def test_not_performed_fixture_is_fail_closed_and_non_pii() -> None:
+    receipt = _not_performed_receipt()
     Draft202012Validator(_load(SCHEMA)).validate(receipt)
 
     assert receipt["status"] == "NOT_PERFORMED"
@@ -90,3 +113,13 @@ def test_exact_match_requires_git_runner_checkpoint_and_authorization_ref() -> N
     receipt["preflight_authorization_ref"] = ""
     with pytest.raises(ValidationError):
         Draft202012Validator(_load(SCHEMA)).validate(receipt)
+
+
+def test_current_sixth_preflight_is_exact_match_non_pii() -> None:
+    receipt = _load(RECEIPT)
+    assert receipt["status"] == "EXACT_MATCH"
+    assert receipt["remote_preflight_performed"] is True
+    assert receipt["download_performed"] is False
+    assert receipt["owner_file_opened"] is False
+    assert receipt["owner_pii_processed"] is False
+    assert receipt["contains_owner_pii"] is False
