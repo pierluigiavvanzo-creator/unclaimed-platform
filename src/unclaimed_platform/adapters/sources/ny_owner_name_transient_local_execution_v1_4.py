@@ -32,7 +32,7 @@ EXPECTED_PROPOSAL_REF = (
     "sources/proposals/"
     "ny_osc_owner_name_file_seventh_bounded_attempt_authorization.v1.json"
 )
-EXPECTED_PROPOSAL_CHECKPOINT = "18c270bd89d7c4e0c37a5bc046a1f09e49dc672e"
+EXPECTED_PROPOSAL_CHECKPOINT: Literal[\n    "18c270bd89d7c4e0c37a5bc046a1f09e49dc672e"\n] = "18c270bd89d7c4e0c37a5bc046a1f09e49dc672e"
 EXPECTED_PROPOSAL_CI_RUN_ID = 35653220457
 EXPECTED_PREFLIGHT_FRESHNESS_SECONDS = 900
 
