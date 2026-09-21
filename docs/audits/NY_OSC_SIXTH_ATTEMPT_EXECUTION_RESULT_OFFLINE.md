@@ -107,7 +107,25 @@ No new OSC access during this repository recording action.
 
 Repository evidence and lifecycle tests updated.
 
-Authoritative GitHub CI: `PENDING`.
+Initial recording CI `35578097490` failed only because the preflight contract test
+assumed the repository receipt would remain permanently `NOT_PERFORMED`. The test was
+made lifecycle-safe by separating current artifact validation from synthetic
+`NOT_PERFORMED`, `EXACT_MATCH` and `DRIFTED` fixtures. No parser, runner, schema,
+privacy rule or execution bound changed.
+
+Final validation:
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtime: 2 source files PASS;
+- contract tests: 372 passed;
+- smoke tests: 16 passed;
+- full pytest: 535 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+Authoritative verification checkpoint: `2519119c626e2bc92706d26afdd8d174283136aa`.
+
+Authoritative GitHub CI: `35578276607 — SUCCESS`.
 
 ## Next gate
 
