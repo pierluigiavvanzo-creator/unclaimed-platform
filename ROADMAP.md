@@ -2,6 +2,36 @@
 
 Last updated: 2026-09-21
 
+## Current Override — RAW-Literal Runtime Integration Proposal Remediated
+
+Completed offline:
+
+`REMEDIATE_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-proposal-remediation-offline`
+
+State:
+
+`REMEDIATED_PROPOSED_NOT_IMPLEMENTED / ZERO SOURCE ACCESS`
+
+The review findings are remediated:
+
+- future authorization v1.2 uses the existing `SYNTHETIC_TEST` wire value;
+- `AUTHORIZED_REAL_ONCE` is excluded by contract;
+- proposal schema v1.1 closes implementation boundaries, synthetic matrix and future gate list
+  against silent drift.
+
+Historical v1.1/v1.2 runtime and Gate 6 remain line-local and untouched.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — RAW-Literal Runtime Integration Proposal
 
 Prepared:
@@ -804,9 +834,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
-Classification: `A — Product Critical / Offline Runtime Integration Proposal Review`.
+Classification: `A — Product Critical / Offline Runtime Proposal Remediation Review`.
 
-Do not implement or activate the runtime candidate, access OSC, create approvals, retry attempt
-6 or prepare/execute attempt 7 during this review.
+Do not implement or activate runtime v1.3, access OSC, create approvals, retry attempt 6,
+or prepare/execute attempt 7 during this review.
