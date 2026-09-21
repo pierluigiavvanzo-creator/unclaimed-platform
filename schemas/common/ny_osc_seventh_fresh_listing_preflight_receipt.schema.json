@@ -13,6 +13,8 @@
     "proposal_checkpoint",
     "proposal_ci_run_id",
     "runner_checkpoint",
+    "runner_ci_run_id",
+    "runner_ci_conclusion",
     "status",
     "remote_preflight_performed",
     "preflight_authorization_ref",
@@ -138,6 +140,18 @@
     },
     "contains_owner_pii": {
       "const": false
+    },
+    "runner_ci_run_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "runner_ci_conclusion": {
+      "type": [
+        "string",
+        "null"
+      ]
     }
   },
   "allOf": [
@@ -170,6 +184,12 @@
             "const": null
           },
           "observed_listing": {
+            "const": null
+          },
+          "runner_ci_run_id": {
+            "const": null
+          },
+          "runner_ci_conclusion": {
             "const": null
           }
         }
@@ -213,6 +233,13 @@
               "size_display": "390.51 MB",
               "last_modified_display": "9/16/2026, 1:33:31 PM"
             }
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
           }
         }
       }
@@ -251,6 +278,13 @@
           },
           "observed_listing": {
             "type": "object"
+          },
+          "runner_ci_run_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runner_ci_conclusion": {
+            "const": "SUCCESS"
           }
         }
       }
