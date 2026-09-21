@@ -28,7 +28,9 @@ Current gate:
 
 `HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `0b659ab9c6429e6f265753f2817d63c8303ac2e2`.
+
+Candidate CI: `35582725552 — SUCCESS`.
 
 
 ## Current Override — Sixth Attempt Consumed Fail-Closed

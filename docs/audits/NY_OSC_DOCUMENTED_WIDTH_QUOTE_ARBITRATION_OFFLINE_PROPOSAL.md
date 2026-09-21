@@ -207,3 +207,27 @@ This proposal does not authorize:
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+
+
+## Verification
+
+Functional verification checkpoint:
+
+`0b659ab9c6429e6f265753f2817d63c8303ac2e2`
+
+GitHub CI:
+
+`35582725552 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtime: 2 source files PASS;
+- contract tests: 377 passed;
+- smoke tests: 16 passed;
+- full pytest: 540 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+No parser/runtime/runner/source behavior was changed by this proposal package.

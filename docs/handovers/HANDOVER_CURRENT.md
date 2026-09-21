@@ -53,7 +53,9 @@ quote-aware-14 case and privacy serialization.
 No parser is modified. No runtime bridge/result contract/runner is modified. No approvals or
 seventh-attempt artifacts are created. No source access occurs.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `0b659ab9c6429e6f265753f2817d63c8303ac2e2`.
+
+Candidate CI: `35582725552 — SUCCESS`.
 
 Next gate:
 

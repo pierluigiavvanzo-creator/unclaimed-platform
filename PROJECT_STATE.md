@@ -46,7 +46,9 @@ execution contracts or runners and does not prepare or authorize attempt 7.
 
 Sixth approvals remain `CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `0b659ab9c6429e6f265753f2817d63c8303ac2e2`.
+
+Candidate CI: `35582725552 — SUCCESS`.
 
 Next gate:
 
