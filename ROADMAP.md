@@ -2,6 +2,39 @@
 
 Last updated: 2026-09-21
 
+## Current Override — RAW-Literal Runtime Integration Proposal
+
+Prepared:
+
+`PREPARE_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-offline-proposal`
+
+State:
+
+`PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The proposed integration is version-additive. Historical v1.1/v1.2 contracts and Gate 6
+remain line-local. The new offline candidate is intentionally synthetic-only:
+
+- proposed authorization v1.2: `SYNTHETIC_TEST` only;
+- parser mode: `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- proposed result v1.3;
+- quote-dialect diagnostic required null;
+- quote-specific failure reasons excluded;
+- no real authorization builder or runner wiring.
+
+No runtime implementation or seventh-attempt preparation is part of this task.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — RAW-Literal Policy Mode Implemented Offline
 
 Completed:
@@ -769,9 +802,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
 
-Classification: `A — Product Critical / Offline Implementation Review`.
+Classification: `A — Product Critical / Offline Runtime Integration Proposal Review`.
 
-Do not activate the mode in runtime execution, access OSC, retry attempt 6, create approvals,
-or prepare/execute attempt 7 during this review.
+Do not implement or activate the runtime candidate, access OSC, create approvals, retry attempt
+6 or prepare/execute attempt 7 during this review.
