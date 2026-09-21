@@ -43,7 +43,7 @@ Both sixth-attempt approvals are now:
 No sixth retry is authorized. No seventh attempt is prepared or authorized. Parser, runner,
 schemas and execution/privacy bounds are unchanged.
 
-Repository validation CI for this recording: `PENDING`.
+Repository validation: checkpoint `2519119c626e2bc92706d26afdd8d174283136aa`; CI `35578276607 — SUCCESS`.
 
 Next gate:
 
