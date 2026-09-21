@@ -1,0 +1,502 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-raw-literal-runtime-integration-offline-proposal:1.0.0",
+  "title": "NY OSC RAW-Literal Runtime Integration Offline Proposal v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "source_id",
+    "baseline",
+    "protected_historical_runtime",
+    "proposed_offline_runtime_candidate",
+    "proposed_reason_contract",
+    "synthetic_acceptance_matrix",
+    "implementation_boundaries",
+    "future_real_activation_prerequisites",
+    "authorization_does_not_grant",
+    "next_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.osc.owner_name_file.raw_literal_runtime_integration_offline_proposal"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "const": "2026-09-21"
+    },
+    "status": {
+      "const": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "branch",
+        "checkpoint",
+        "ci_run_id",
+        "ci_conclusion",
+        "parser_mode",
+        "parser_mode_review_result",
+        "policy_decision",
+        "source_truth_about_double_quote"
+      ],
+      "properties": {
+        "branch": {
+          "const": "ny-osc-documented-width-raw-literal-policy-mode-offline"
+        },
+        "checkpoint": {
+          "const": "fc162aa0d938ec7a5560d115631bcc762694e244"
+        },
+        "ci_run_id": {
+          "const": 35594727577
+        },
+        "ci_conclusion": {
+          "const": "SUCCESS"
+        },
+        "parser_mode": {
+          "const": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
+        },
+        "parser_mode_review_result": {
+          "const": "PASS"
+        },
+        "policy_decision": {
+          "const": "D-011"
+        },
+        "source_truth_about_double_quote": {
+          "const": "UNKNOWN"
+        }
+      }
+    },
+    "protected_historical_runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_contract_path",
+        "authorization_contract_version",
+        "authorization_quote_dialect_mode",
+        "result_contract_path",
+        "result_contract_version",
+        "result_quote_dialect_mode",
+        "runtime_function",
+        "gate6_runner_path",
+        "gate6_required_quote_dialect_mode",
+        "sixth_approvals_state",
+        "sixth_retry_authorized",
+        "must_remain_behaviorally_unchanged"
+      ],
+      "properties": {
+        "authorization_contract_path": {
+          "const": "schemas/agents/ny_transient_local_execution_authorization_v1_1.schema.json"
+        },
+        "authorization_contract_version": {
+          "const": "1.1.0"
+        },
+        "authorization_quote_dialect_mode": {
+          "const": "LINE_LOCAL_ARBITRATION"
+        },
+        "result_contract_path": {
+          "const": "schemas/agents/ny_transient_local_execution_result_v1_2.schema.json"
+        },
+        "result_contract_version": {
+          "const": "1.2.0"
+        },
+        "result_quote_dialect_mode": {
+          "const": "LINE_LOCAL_ARBITRATION"
+        },
+        "runtime_function": {
+          "const": "execute_transient_local_file_discovery_v1_2"
+        },
+        "gate6_runner_path": {
+          "const": "scripts/ny_osc_gate6_transient_local.ps1"
+        },
+        "gate6_required_quote_dialect_mode": {
+          "const": "LINE_LOCAL_ARBITRATION"
+        },
+        "sixth_approvals_state": {
+          "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+        },
+        "sixth_retry_authorized": {
+          "const": false
+        },
+        "must_remain_behaviorally_unchanged": {
+          "const": true
+        }
+      }
+    },
+    "proposed_offline_runtime_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phase",
+        "authorization_contract",
+        "result_contract",
+        "runtime_function"
+      ],
+      "properties": {
+        "phase": {
+          "const": "SYNTHETIC_ONLY_RUNTIME_INTEGRATION"
+        },
+        "authorization_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "proposed_path",
+            "proposed_version",
+            "mode",
+            "quote_dialect_mode",
+            "real_execution_mode_allowed",
+            "existing_bounds_and_privacy_fields_preserved"
+          ],
+          "properties": {
+            "proposed_path": {
+              "const": "schemas/agents/ny_transient_local_execution_authorization_v1_2.schema.json"
+            },
+            "proposed_version": {
+              "const": "1.2.0"
+            },
+            "mode": {
+              "const": "SYNTHETIC_TEST_ONLY"
+            },
+            "quote_dialect_mode": {
+              "const": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
+            },
+            "real_execution_mode_allowed": {
+              "const": false
+            },
+            "existing_bounds_and_privacy_fields_preserved": {
+              "const": true
+            }
+          }
+        },
+        "result_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "proposed_path",
+            "proposed_version",
+            "schema_discovery_quote_dialect_mode",
+            "schema_result_contract_version",
+            "structural_diagnostic_contract_version",
+            "quote_dialect_diagnostic_field_policy",
+            "quote_dialect_diagnostic_contract_used"
+          ],
+          "properties": {
+            "proposed_path": {
+              "const": "schemas/agents/ny_transient_local_execution_result_v1_3.schema.json"
+            },
+            "proposed_version": {
+              "const": "1.3.0"
+            },
+            "schema_discovery_quote_dialect_mode": {
+              "const": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
+            },
+            "schema_result_contract_version": {
+              "const": "1.0.0"
+            },
+            "structural_diagnostic_contract_version": {
+              "const": "1.0.0"
+            },
+            "quote_dialect_diagnostic_field_policy": {
+              "const": "REQUIRED_NULL_FOR_ENVELOPE_COMPATIBILITY"
+            },
+            "quote_dialect_diagnostic_contract_used": {
+              "const": false
+            }
+          }
+        },
+        "runtime_function": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "proposed_name",
+            "authorization_type",
+            "result_type",
+            "real_authorization_builder_included",
+            "cli_entrypoint_change_allowed",
+            "runner_wiring_allowed"
+          ],
+          "properties": {
+            "proposed_name": {
+              "const": "execute_transient_local_file_discovery_v1_3"
+            },
+            "authorization_type": {
+              "const": "NyTransientLocalExecutionAuthorizationV1_2"
+            },
+            "result_type": {
+              "const": "NyTransientLocalExecutionResultV1_3"
+            },
+            "real_authorization_builder_included": {
+              "const": false
+            },
+            "cli_entrypoint_change_allowed": {
+              "const": false
+            },
+            "runner_wiring_allowed": {
+              "const": false
+            }
+          }
+        }
+      }
+    },
+    "proposed_reason_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_reason_codes",
+        "forbidden_unreachable_reason_codes",
+        "discovered_reason_code",
+        "unexpected_field_count_requires_structural_diagnostic",
+        "all_other_reasons_require_structural_diagnostic_null",
+        "quote_dialect_diagnostic_always_null",
+        "local_cap_reasons_require_schema_result_null",
+        "discovery_origin_reasons_require_matching_schema_result",
+        "unknown_reason_codes_fail_closed"
+      ],
+      "properties": {
+        "allowed_reason_codes": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+              "LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP",
+              "ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+              "NOT_A_ZIP_ARCHIVE",
+              "ARCHIVE_HAS_NO_FILES",
+              "ARCHIVE_MEMBER_COUNT_EXCEEDS_CAP",
+              "AMBIGUOUS_TEXT_MEMBER_LAYOUT",
+              "UNCOMPRESSED_TEXT_EXCEEDS_CAP",
+              "UNEXPECTED_DATA_FIELD_COUNT",
+              "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+              "TEXT_MEMBER_EMPTY",
+              "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+            ]
+          }
+        },
+        "forbidden_unreachable_reason_codes": {
+          "const": [
+            "QUOTE_DIALECT_AMBIGUOUS",
+            "MALFORMED_QUOTED_RECORD"
+          ]
+        },
+        "discovered_reason_code": {
+          "const": "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+        },
+        "unexpected_field_count_requires_structural_diagnostic": {
+          "const": true
+        },
+        "all_other_reasons_require_structural_diagnostic_null": {
+          "const": true
+        },
+        "quote_dialect_diagnostic_always_null": {
+          "const": true
+        },
+        "local_cap_reasons_require_schema_result_null": {
+          "const": true
+        },
+        "discovery_origin_reasons_require_matching_schema_result": {
+          "const": true
+        },
+        "unknown_reason_codes_fail_closed": {
+          "const": true
+        }
+      }
+    },
+    "synthetic_acceptance_matrix": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "implementation_boundaries": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "required": [
+        "proposal_only",
+        "runtime_code_modified",
+        "runtime_schema_files_created",
+        "gate6_runner_modified",
+        "current_default_mode_modified",
+        "current_v1_1_authorization_modified",
+        "current_v1_2_result_modified",
+        "current_v1_2_runtime_modified",
+        "real_authorization_builder_created",
+        "seventh_attempt_proposal_created",
+        "seventh_runner_created",
+        "approval_artifacts_created",
+        "source_network_access",
+        "remote_preflight",
+        "download",
+        "owner_pii_processing"
+      ],
+      "properties": {
+        "proposal_only": {
+          "const": true
+        },
+        "runtime_code_modified": {
+          "const": false
+        },
+        "runtime_schema_files_created": {
+          "const": false
+        },
+        "gate6_runner_modified": {
+          "const": false
+        },
+        "current_default_mode_modified": {
+          "const": false
+        },
+        "current_v1_1_authorization_modified": {
+          "const": false
+        },
+        "current_v1_2_result_modified": {
+          "const": false
+        },
+        "current_v1_2_runtime_modified": {
+          "const": false
+        },
+        "real_authorization_builder_created": {
+          "const": false
+        },
+        "seventh_attempt_proposal_created": {
+          "const": false
+        },
+        "seventh_runner_created": {
+          "const": false
+        },
+        "approval_artifacts_created": {
+          "const": false
+        },
+        "source_network_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "owner_pii_processing": {
+          "const": false
+        }
+      }
+    },
+    "future_real_activation_prerequisites": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_implementation",
+        "real_runtime_activation",
+        "source_network_access",
+        "remote_preflight",
+        "download",
+        "owner_pii_processing",
+        "sixth_retry",
+        "seventh_attempt_preparation",
+        "seventh_attempt_execution",
+        "source_activation",
+        "production_classification_activation",
+        "identity_resolution",
+        "beneficiary_matching",
+        "outreach",
+        "fee_agreement",
+        "representation",
+        "claim_activity"
+      ],
+      "properties": {
+        "runtime_implementation": {
+          "const": false
+        },
+        "real_runtime_activation": {
+          "const": false
+        },
+        "source_network_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "owner_pii_processing": {
+          "const": false
+        },
+        "sixth_retry": {
+          "const": false
+        },
+        "seventh_attempt_preparation": {
+          "const": false
+        },
+        "seventh_attempt_execution": {
+          "const": false
+        },
+        "source_activation": {
+          "const": false
+        },
+        "production_classification_activation": {
+          "const": false
+        },
+        "identity_resolution": {
+          "const": false
+        },
+        "beneficiary_matching": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "fee_agreement": {
+          "const": false
+        },
+        "representation": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        }
+      }
+    },
+    "next_action": {
+      "const": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL"
+    }
+  }
+}
