@@ -2,6 +2,35 @@
 
 Last updated: 2026-09-21
 
+## Current Override — Documented-Width Quote Arbitration Proposal
+
+Prepared offline:
+
+`PREPARE_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+
+Candidate branch:
+
+`ny-osc-documented-width-quote-arbitration-offline-proposal`
+
+State:
+
+`PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The proposal uses the documented 14-field width as the arbitration invariant while preserving
+physical LF/CRLF boundaries. Raw and same-line quote-aware interpretations are evaluated per
+physical line. A unique 14-field interpretation may be selected; absence of a safe documented-
+width result blocks fail-closed. No source-wide quote dialect is inferred.
+
+No parser/runtime/runner change, retry, approval creation or seventh-attempt preparation is
+included.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — Sixth Attempt Consumed Fail-Closed
 
 Sixth bounded execution completed once.
@@ -670,9 +699,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
 
-Classification: `A — Product Critical / Offline Evidence Review`.
+Classification: `A — Product Critical / Offline Proposal Review`.
 
-Review only the sixth execution evidence and lifecycle recording. No source/network request,
-download, retry, parser change, bound widening or seventh-attempt preparation is authorized.
+Do not implement or activate the proposed parser mode, access OSC, download, retry attempt 6,
+or prepare/execute attempt 7 during this review.
