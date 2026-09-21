@@ -185,6 +185,9 @@ def test_v1_3_rejects_non_temp_archive_without_deleting_it(tmp_path: Path) -> No
 
 
 def test_v1_3_no_real_builder_or_cli_surface() -> None:
-    from unclaimed_platform.adapters.sources import (\n        ny_owner_name_transient_local_execution_v1_3 as runtime,\n    )\n
+    from unclaimed_platform.adapters.sources import (
+        ny_owner_name_transient_local_execution_v1_3 as runtime,
+    )
+
     assert not hasattr(runtime, "build_real_execution_authorization_v1_2")
     assert not hasattr(runtime, "main")
