@@ -24,7 +24,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "artifact_id": {
       "const": "ny.osc.owner_name_file.raw_literal_runtime_integration_offline_proposal"
