@@ -175,3 +175,32 @@ def test_sixth_not_granted_fixture_rejects_grant_or_consumption_fields() -> None
     pii["consumed_on"] = "2026-09-21"
     with pytest.raises(ValidationError):
         Draft202012Validator(_load(PII_SCHEMA)).validate(pii)
+
+
+def test_current_sixth_approvals_are_consumed_and_non_reusable(
+    tmp_path: Path,
+) -> None:
+    local = _load(LOCAL_APPROVAL)
+    pii = _load(PII_APPROVAL)
+
+    for approval in (local, pii):
+        assert approval["status"] == "CONSUMED_SINGLE_USE_NON_REUSABLE"
+        assert approval["reusable"] is False
+        assert approval["retry_authorized"] is False
+        assert approval["consumed_on"] == "2026-09-21"
+        assert approval["execution_result_ref"] == (
+            "sources/evidence/"
+            "ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json"
+        )
+
+    local_path = tmp_path / "local.json"
+    pii_path = tmp_path / "pii.json"
+    local_path.write_text(json.dumps(local), encoding="utf-8")
+    pii_path.write_text(json.dumps(pii), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="approval is not available"):
+        build_real_execution_authorization_v1_1(
+            local_path,
+            pii_path,
+            expected_attempt_number=6,
+        )
