@@ -310,3 +310,12 @@ def test_v1_3_runtime_has_no_cli_or_real_builder() -> None:
     assert "def main(" not in source
     assert "build_real_execution_authorization" not in source
     assert "AUTHORIZED_REAL_ONCE" not in source
+
+
+
+def test_ci_typechecks_v1_3_runtime() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    assert (
+        "src/unclaimed_platform/adapters/sources/"
+        "ny_owner_name_transient_local_execution_v1_3.py"
+    ) in workflow
