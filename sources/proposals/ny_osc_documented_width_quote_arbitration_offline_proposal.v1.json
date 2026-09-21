@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.documented_width_quote_arbitration_offline_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-21",
+  "status": "PROPOSED_NOT_IMPLEMENTED",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "request_scope": {
+    "repository_only": true,
+    "source_network_access_performed": false,
+    "remote_preflight_performed": false,
+    "download_performed": false,
+    "owner_file_opened": false,
+    "owner_pii_processed": false,
+    "parser_modified": false,
+    "runtime_activated": false,
+    "seventh_attempt_prepared": false
+  },
+  "baseline": {
+    "branch": "ny-osc-sixth-approval-grants",
+    "checkpoint": "a8203a8c0d4e741424c68e171b2f5e4e956207a5",
+    "ci_run_id": 35578442808,
+    "ci_conclusion": "SUCCESS",
+    "sixth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json",
+    "sixth_attempt_state": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+    "sixth_retry_authorized": false
+  },
+  "evidence_basis": {
+    "documented_layout_audit_path": "docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md",
+    "documented_delimiter": "|",
+    "documented_field_count": 14,
+    "fifth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json",
+    "fifth_physical_line_breaks_inside_quotes": 17543,
+    "fifth_raw_pipe_count": 228072,
+    "fifth_verified_identity": "(17543 + 1) * 13 = 228072",
+    "sixth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_sixth_attempt_execution_result.v1.json",
+    "sixth_reason_code": "QUOTE_DIALECT_AMBIGUOUS",
+    "sixth_aggregate_complete_record_count_before_block": 165438,
+    "sixth_raw_field_count": 14,
+    "sixth_quote_aware_field_count": 6,
+    "sixth_raw_pipe_count": 13,
+    "sixth_quote_aware_structural_pipe_count": 5,
+    "sixth_suppressed_pipe_count": 8,
+    "sixth_quote_byte_count": 1,
+    "sixth_quote_open_event_count": 1,
+    "sixth_quote_close_event_count": 0,
+    "sixth_ended_inside_quote": true,
+    "parser_path": "src/unclaimed_platform/adapters/sources/ny_owner_name_schema_discovery.py"
+  },
+  "analysis_conclusions": {
+    "global_multiline_quote_state_supported_by_evidence": false,
+    "every_double_quote_is_structural_supported_by_evidence": false,
+    "every_double_quote_is_literal_supported_by_evidence": false,
+    "sixth_blocking_physical_line_has_documented_width_under_raw_pipe_interpretation": true,
+    "authoritative_osc_quote_escape_specification_present_in_repository": false,
+    "seventh_download_required_to_design_offline_candidate": false
+  },
+  "proposed_algorithm": {
+    "mode_name": "DOCUMENTED_WIDTH_ARBITRATION",
+    "physical_record_boundary": "LF_OR_CRLF_HARD_BOUNDARY",
+    "quote_state_may_cross_physical_record_boundary": false,
+    "expected_field_count": 14,
+    "raw_interpretation": "EVERY_PIPE_BYTE_IS_STRUCTURAL",
+    "quote_aware_interpretation": "SAME_LINE_ONLY_CURRENT_QUOTE_AWARE_RULES",
+    "decision_matrix": [
+      {
+        "case_id": "STRUCTURE_EQUIVALENT",
+        "condition": "RAW_14_AND_QUOTE_AWARE_14",
+        "outcome": "ACCEPT_EQUIVALENT_STRUCTURE",
+        "selected_interpretation": "STRUCTURALLY_EQUIVALENT"
+      },
+      {
+        "case_id": "RAW_UNIQUE_DOCUMENTED_WIDTH",
+        "condition": "RAW_14_AND_QUOTE_AWARE_NOT_14",
+        "outcome": "ACCEPT_RAW_UNIQUE_DOCUMENTED_WIDTH",
+        "selected_interpretation": "RAW_PIPE"
+      },
+      {
+        "case_id": "QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
+        "condition": "RAW_NOT_14_AND_QUOTE_AWARE_14_AND_QUOTE_CLOSED_WITHIN_LINE",
+        "outcome": "ACCEPT_QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH",
+        "selected_interpretation": "SAME_LINE_QUOTE_AWARE"
+      },
+      {
+        "case_id": "NO_UNIQUE_DOCUMENTED_WIDTH",
+        "condition": "ALL_OTHER_CASES",
+        "outcome": "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH",
+        "selected_interpretation": "NONE"
+      }
+    ],
+    "quote_aware_may_only_suppress_raw_pipe_delimiters": true,
+    "automatic_row_skip_allowed": false,
+    "automatic_row_repair_allowed": false,
+    "automatic_parser_widening_allowed": false,
+    "source_wide_quote_dialect_inference_allowed": false
+  },
+  "proposed_non_pii_observability": {
+    "persistence_not_authorized_by_this_proposal": true,
+    "candidate_aggregate_counters": [
+      "structure_equivalent_record_count",
+      "raw_unique_documented_width_record_count",
+      "quote_aware_unique_documented_width_record_count",
+      "blocked_no_unique_documented_width_record_count"
+    ],
+    "raw_record_bytes_allowed": false,
+    "owner_values_allowed": false,
+    "row_offsets_allowed": false,
+    "row_hashes_allowed": false
+  },
+  "synthetic_acceptance_matrix": [
+    {
+      "case_id": "PLAIN_14_FIELDS",
+      "raw_field_count": 14,
+      "quote_aware_field_count": 14,
+      "ended_inside_quote": false,
+      "expected_outcome": "ACCEPT_EQUIVALENT_STRUCTURE"
+    },
+    {
+      "case_id": "BALANCED_QUOTES_NO_PIPE",
+      "raw_field_count": 14,
+      "quote_aware_field_count": 14,
+      "ended_inside_quote": false,
+      "expected_outcome": "ACCEPT_EQUIVALENT_STRUCTURE"
+    },
+    {
+      "case_id": "SIXTH_SHAPE_OPEN_QUOTE_RAW_14",
+      "raw_field_count": 14,
+      "quote_aware_field_count": 6,
+      "ended_inside_quote": true,
+      "expected_outcome": "ACCEPT_RAW_UNIQUE_DOCUMENTED_WIDTH"
+    },
+    {
+      "case_id": "SAME_LINE_QUOTED_PIPE",
+      "raw_field_count": 15,
+      "quote_aware_field_count": 14,
+      "ended_inside_quote": false,
+      "expected_outcome": "ACCEPT_QUOTE_AWARE_UNIQUE_DOCUMENTED_WIDTH"
+    },
+    {
+      "case_id": "TRUE_13_FIELD_ROW",
+      "raw_field_count": 13,
+      "quote_aware_field_count": 13,
+      "ended_inside_quote": false,
+      "expected_outcome": "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH"
+    },
+    {
+      "case_id": "RAW_15_QUOTE_15",
+      "raw_field_count": 15,
+      "quote_aware_field_count": 15,
+      "ended_inside_quote": false,
+      "expected_outcome": "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH"
+    },
+    {
+      "case_id": "QUOTE_AWARE_14_BUT_OPEN_AT_EOL",
+      "raw_field_count": 15,
+      "quote_aware_field_count": 14,
+      "ended_inside_quote": true,
+      "expected_outcome": "BLOCK_NO_UNIQUE_DOCUMENTED_WIDTH"
+    },
+    {
+      "case_id": "PRIVACY_SERIALIZATION",
+      "raw_field_count": 14,
+      "quote_aware_field_count": 6,
+      "ended_inside_quote": true,
+      "expected_outcome": "NO_OWNER_VALUE_OR_RAW_RECORD_SERIALIZED"
+    }
+  ],
+  "implementation_boundary": {
+    "implementation_status": "NOT_IMPLEMENTED",
+    "historical_multiline_mode_must_remain_unchanged": true,
+    "historical_line_local_mode_must_remain_unchanged": true,
+    "existing_default_mode_must_remain_unchanged": true,
+    "implementation_may_add_new_explicit_mode_only": true,
+    "runtime_bridge_change_authorized": false,
+    "execution_result_contract_change_authorized": false,
+    "runner_change_authorized": false,
+    "approval_artifact_creation_authorized": false,
+    "seventh_attempt_proposal_authorized": false,
+    "source_access_allowed": false
+  },
+  "authorization_does_not_grant": {
+    "parser_implementation": false,
+    "runtime_activation": false,
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "transient_owner_pii_processing": false,
+    "seventh_attempt_preparation": false,
+    "seventh_attempt_execution": false,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "next_action": "HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL"
+}
