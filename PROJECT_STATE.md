@@ -2,6 +2,57 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — Documented-Width Quote Arbitration Proposal / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-documented-width-quote-arbitration-offline-proposal`
+
+Baseline:
+
+- branch: `ny-osc-sixth-approval-grants`;
+- checkpoint: `a8203a8c0d4e741424c68e171b2f5e4e956207a5`;
+- CI: `35578442808 — SUCCESS`.
+
+Prior gate result:
+
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE = PASS`
+
+Prepared proposal:
+
+`sources/proposals/ny_osc_documented_width_quote_arbitration_offline_proposal.v1.json`
+
+State:
+
+`PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Candidate algorithm:
+
+`DOCUMENTED_WIDTH_ARBITRATION`
+
+Core rule:
+
+- LF/CRLF is a hard physical-record boundary;
+- evaluate raw-pipe and same-line quote-aware structures;
+- if both produce 14 fields, accept structurally equivalent;
+- if only raw produces 14, select raw;
+- if only quote-aware produces 14 and the quote closes within the same line, select quote-aware;
+- otherwise block fail-closed.
+
+The proposal does not infer a source-wide quote dialect. It does not modify parser, runtime,
+execution contracts or runners and does not prepare or authorize attempt 7.
+
+Sixth approvals remain `CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+
+
 ## Current Authoritative State — Sixth Attempt Consumed Fail-Closed
 
 This section supersedes conflicting current-state entries below.
@@ -1238,8 +1289,8 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
 
-Review the recorded execution result, exact-match preflight provenance, consumed/non-reusable
-sixth approvals, contract tests and audit. Do not access OSC, download again, retry attempt 6,
-modify parser/runner/bounds, or prepare/execute attempt 7 during this review.
+Review only the proposal, schema, synthetic acceptance matrix, evidence binding and offline
+safety boundaries. Do not implement the parser, change runtime contracts/runners, access OSC,
+download again, create approvals or prepare/execute attempt 7.
