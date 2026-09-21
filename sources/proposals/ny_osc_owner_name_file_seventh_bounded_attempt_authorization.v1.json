@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "artifact_id": "ny.osc.owner_name_file.seventh_bounded_attempt_authorization_proposal",
-  "artifact_version": "1.0.0",
+  "artifact_version": "1.1.0",
   "prepared_on": "2026-09-21",
-  "status": "PROPOSED_NOT_AUTHORIZED",
+  "status": "REMEDIATED_PROPOSED_NOT_AUTHORIZED",
   "source_id": "ny.osc.unclaimed_funds.owner_name_file",
   "request_scope": {
     "repository_only": true,
@@ -97,7 +97,19 @@
       "attempt_number": 7,
       "quote_dialect_mode": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
       "approval_binding_required": true,
-      "synthetic_mode_allowed": false
+      "synthetic_mode_allowed": false,
+      "required_binding_refs": [
+        "seventh_transient_local_approval_ref",
+        "seventh_transient_pii_approval_ref",
+        "seventh_fresh_preflight_receipt_ref",
+        "seventh_execution_authorization_ref"
+      ],
+      "all_bindings_same_attempt_required": true,
+      "all_bindings_same_proposal_checkpoint_required": true,
+      "all_bindings_same_runner_checkpoint_required": true,
+      "all_approvals_granted_not_consumed_at_start_required": true,
+      "fresh_preflight_status_required": "EXACT_MATCH",
+      "fresh_preflight_max_age_seconds": 900
     },
     "result_contract": {
       "proposed_path": "schemas/agents/ny_transient_local_execution_result_v1_4.schema.json",
@@ -107,7 +119,10 @@
       "schema_discovery_quote_dialect_mode": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
       "quote_dialect_diagnostic_policy": "REQUIRED_NULL",
       "structural_diagnostic_contract_version": "1.0.0",
-      "unknown_reason_codes_fail_closed": true
+      "unknown_reason_codes_fail_closed": true,
+      "execution_authorization_ref_required": true,
+      "execution_authorization_consumption_provenance_required": true,
+      "execution_authorization_provenance_owner_pii_allowed": false
     },
     "runtime": {
       "proposed_path": "src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution_v1_4.py",
@@ -115,7 +130,13 @@
       "proposed_real_authorization_builder": "build_real_execution_authorization_v1_3",
       "cli_allowed": false,
       "direct_network_client_allowed": false,
-      "current_v1_3_runtime_retarget_allowed": false
+      "current_v1_3_runtime_retarget_allowed": false,
+      "real_authorization_builder_required_inputs": [
+        "seventh_transient_local_approval_ref",
+        "seventh_transient_pii_approval_ref",
+        "seventh_fresh_preflight_receipt_ref",
+        "seventh_execution_authorization_ref"
+      ]
     },
     "gate7_runner": {
       "proposed_path": "scripts/ny_osc_gate7_transient_local.ps1",
@@ -124,7 +145,17 @@
       "must_be_bound_to_verified_runtime_checkpoint": true,
       "must_verify_fresh_single_use_approvals": true,
       "must_verify_fresh_preflight_receipt": true,
-      "direct_network_client_allowed": false
+      "direct_network_client_allowed": false,
+      "must_verify_explicit_execution_authorization": true,
+      "must_verify_explicit_execution_authorization_before_temp_creation": true,
+      "must_verify_explicit_execution_authorization_before_download": true,
+      "must_verify_all_bound_refs_attempt_7": true,
+      "must_verify_all_bound_refs_same_proposal_checkpoint": true,
+      "must_verify_all_bound_refs_same_runner_checkpoint": true,
+      "download_mode": "MANUAL_TO_DEDICATED_OS_TEMP",
+      "download_authority_source": "SEVENTH_EXECUTION_AUTHORIZATION",
+      "downloads_max": 1,
+      "retries_max": 0
     }
   },
   "execution_objective": {
@@ -198,9 +229,9 @@
   "future_human_gates": [
     {
       "sequence": 1,
-      "gate": "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL",
+      "gate": "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE",
       "status": "PENDING",
-      "grants": "PROPOSAL_ACCEPTANCE_ONLY"
+      "grants": "REMEDIATED_PROPOSAL_ACCEPTANCE_ONLY"
     },
     {
       "sequence": 2,
@@ -215,7 +246,8 @@
       "status": "NOT_GRANTED",
       "single_use": true,
       "reusable": false,
-      "retry_authorized": false
+      "retry_authorized": false,
+      "grants": "TRANSIENT_LOCAL_RETENTION_SCOPE_ONLY_NO_DOWNLOAD"
     },
     {
       "sequence": 4,
@@ -224,14 +256,16 @@
       "status": "NOT_GRANTED",
       "single_use": true,
       "reusable": false,
-      "retry_authorized": false
+      "retry_authorized": false,
+      "grants": "TRANSIENT_PII_PROCESSING_SCOPE_ONLY_NO_DOWNLOAD"
     },
     {
       "sequence": 5,
       "gate": "HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
       "approval_phrase": "AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT",
       "status": "NOT_GRANTED",
-      "scope": "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN"
+      "scope": "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN",
+      "grants": "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN"
     },
     {
       "sequence": 6,
@@ -241,7 +275,10 @@
       "single_use": true,
       "reusable": false,
       "retry_authorized": false,
-      "grants": "ONE_BOUND_EXECUTION_AFTER_EXACT_MATCH_FRESH_PREFLIGHT"
+      "requires_exact_match_fresh_preflight": true,
+      "download_authority": "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP",
+      "execution_authority": "ONE_BOUND_GATE7_EXECUTION",
+      "grants": "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP_PLUS_ONE_BOUND_GATE7_EXECUTION_AFTER_EXACT_MATCH_FRESH_PREFLIGHT"
     }
   ],
   "implementation_gate": {
@@ -257,7 +294,11 @@
     "synthetic_v1_3_result_retarget_allowed": false,
     "synthetic_v1_3_runtime_retarget_allowed": false,
     "shared_raw_literal_schema_discovery_reuse_allowed": true,
-    "source_access_allowed": false
+    "source_access_allowed": false,
+    "execution_authorization_machine_binding_required": true,
+    "explicit_download_authority_required": true,
+    "final_execution_authorization_contract_status": "NOT_CREATED",
+    "final_execution_authorization_artifact_status": "NOT_CREATED"
   },
   "authorization_does_not_grant": {
     "real_runtime_implementation": false,
@@ -277,5 +318,17 @@
     "representation": false,
     "claim_activity": false
   },
-  "next_action": "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL"
+  "next_action": "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE",
+  "review_remediation": {
+    "reviewed_gate": "HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL",
+    "reviewed_result": "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION",
+    "findings": [
+      "FINAL_EXECUTION_AUTHORIZATION_NOT_MACHINE_BOUND_TO_FUTURE_AUTHORIZATION_AND_GATE7",
+      "DOWNLOAD_AUTHORITY_SEMANTICS_AMBIGUOUS"
+    ],
+    "remediation_summary": [
+      "BIND_ALL_FOUR_SEVENTH_REFERENCES_TO_REAL_AUTHORIZATION_V1_3_AND_GATE7",
+      "MAKE_FINAL_EXECUTION_AUTHORIZATION_THE_EXPLICIT_SINGLE_MANUAL_DOWNLOAD_AND_BOUND_EXECUTION_GRANT"
+    ]
+  }
 }
