@@ -2,6 +2,52 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — NY OSC Seventh Attempt Offline Proposal / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-seventh-attempt-offline-proposal`
+
+Reviewed baseline:
+
+- branch: `ny-osc-raw-literal-runtime-integration-synthetic-offline`;
+- checkpoint: `c03f2af4a0fc97232ac5be0abcfe3dd6ae47340a`;
+- CI: `35642325234 — SUCCESS`;
+- human review: `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE = PASS`.
+
+Proposal state:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+Prepared:
+
+- seventh bounded-attempt proposal;
+- exact proposal schema;
+- proposal contract tests;
+- proposal audit.
+
+Critical design:
+
+- synthetic authorization v1.2/result v1.3/runtime v1.3 remain immutable and synthetic-only;
+- attempt 7 cannot reuse or retarget them for real execution;
+- a separate real-capable package is required first:
+  authorization v1.3 / result v1.4 / runtime v1.4 / Gate 7;
+- sixth approvals remain consumed and non-reusable;
+- fresh seventh local + PII approvals are separate future gates;
+- fresh listing preflight is separately authorized and required immediately before execution;
+- explicit seventh execution authorization remains a final separate gate.
+
+No real runtime v1.4, Gate 7, approval schema/artifact, preflight or source access is created here.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+
+
 ## Current Candidate State — RAW-Literal Runtime v1.3 Implemented Synthetic-Only / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1590,9 +1636,9 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
 
-Review only authorization v1.2 synthetic-only enforcement, result v1.3 bindings, runtime v1.3
-RAW-literal execution, synthetic privacy/deletion behavior, historical Gate 6 immutability and
-absence of any real execution path. Do not create Gate 7, real builders, approvals, source
-preflight/download or attempt 7 during this review.
+Review only the seventh proposal: version-additive real-runtime design, preserved caps/privacy,
+sixth non-reuse, fresh approvals/preflight/execution gates and zero-source-access boundary.
+Do not implement runtime v1.4, create Gate 7 or approvals, perform preflight, access OSC,
+download, or execute attempt 7.
