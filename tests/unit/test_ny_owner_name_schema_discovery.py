@@ -793,3 +793,185 @@ def test_line_local_doubled_quote_split_across_stream_chunk_boundary() -> None:
     assert result.observed_data_field_count == 14
     assert result.aggregate_complete_record_count == 1
     assert result.property_type_ascii_record_count == 1
+
+
+
+def test_raw_literal_policy_accepts_sixth_shape_without_quote_carry() -> None:
+    first = _row(
+        "1001",
+        "IN03",
+        '"Synthetic Owner Alpha',
+        "1 Synthetic Street",
+    )
+    second = _row(
+        "1002",
+        "IN01",
+        "Synthetic Owner Beta",
+        "2 Synthetic Street",
+    )
+    quote_diagnostics: list[NyOwnerNameQuoteDialectDiagnosticResult] = []
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=[first, second]),
+        quote_dialect_mode="DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+        quote_dialect_diagnostic_sink=quote_diagnostics.append,
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 2
+    assert result.property_type_ascii_record_count == 2
+    assert quote_diagnostics == []
+    serialized = result.model_dump_json()
+    assert "Synthetic Owner Alpha" not in serialized
+    assert "Synthetic Owner Beta" not in serialized
+
+
+def test_raw_literal_policy_blocks_same_line_quoted_pipe_as_raw_15_fields() -> None:
+    values = [
+        "1001",
+        "IN03",
+        "Synthetic property description",
+        "1",
+        '"Synthetic | Owner"',
+        "1 Synthetic Street",
+        "",
+        "",
+        "Albany",
+        "NY",
+        "12207-0000",
+        "USA",
+        "Synthetic Holder",
+        "2026",
+    ]
+    structural: list[NyOwnerNameStructuralDiagnosticResult] = []
+    quote_diagnostics: list[NyOwnerNameQuoteDialectDiagnosticResult] = []
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=["|".join(values)]),
+        structural_diagnostic_sink=structural.append,
+        quote_dialect_mode="DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+        quote_dialect_diagnostic_sink=quote_diagnostics.append,
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_data_field_count == 15
+    assert len(structural) == 1
+    diagnostic = structural[0]
+    assert diagnostic.classification == "STRUCTURAL_MISMATCH_UNCLASSIFIED"
+    assert diagnostic.raw_pipe_count == 14
+    assert diagnostic.structural_pipe_count == 14
+    assert diagnostic.suppressed_pipe_count == 0
+    assert diagnostic.quote_byte_count == 0
+    assert quote_diagnostics == []
+    serialized = result.model_dump_json()
+    assert "Synthetic | Owner" not in serialized
+    assert "Synthetic Street" not in serialized
+
+
+def test_raw_literal_policy_true_13_field_row_still_fails_closed() -> None:
+    row = _row("1001", "IN03", "Synthetic Owner Alpha", "1 Synthetic Street")
+    thirteen_fields = "|".join(row.split("|")[:-1])
+    structural: list[NyOwnerNameStructuralDiagnosticResult] = []
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_bytes(include_header=False, rows=[thirteen_fields]),
+        structural_diagnostic_sink=structural.append,
+        quote_dialect_mode="DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+    )
+
+    assert result.status == "BLOCKED"
+    assert result.reason_code == "UNEXPECTED_DATA_FIELD_COUNT"
+    assert result.observed_data_field_count == 13
+    assert len(structural) == 1
+    assert structural[0].classification == "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED"
+    assert structural[0].suppressed_pipe_count == 0
+
+
+def test_raw_literal_policy_crlf_is_hard_boundary_with_open_quote() -> None:
+    first = _row(
+        "1001",
+        "IN03",
+        '"Synthetic Owner Alpha',
+        "1 Synthetic Street",
+    )
+    second = _row(
+        "1002",
+        "IN01",
+        "Synthetic Owner Beta",
+        "2 Synthetic Street",
+    )
+    payload = (first + "\r\n" + second + "\r\n").encode("utf-8")
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+        quote_dialect_mode="DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 2
+    assert result.property_type_ascii_record_count == 2
+
+
+def test_raw_literal_policy_crlf_split_across_stream_chunk_boundary() -> None:
+    chunk_size = 64 * 1024
+    prefix = b'1001|IN03|Synthetic description|1|"'
+    tail = (
+        b"|1 Synthetic Street|||Albany|NY|12207|USA|"
+        b"Synthetic Holder|2026"
+    )
+    padding = b"A" * ((chunk_size - 1) - len(prefix) - len(tail))
+    first = prefix + padding + tail
+    assert len(first) == chunk_size - 1
+
+    second = (
+        _row(
+            "1002",
+            "IN01",
+            "Synthetic Owner Beta",
+            "2 Synthetic Street",
+        )
+        + "\r\n"
+    ).encode("utf-8")
+    payload = first + b"\r\n" + second
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        _zip_raw_payload(payload),
+        quote_dialect_mode="DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.reason_code == "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+    assert result.observed_data_field_count == 14
+    assert result.aggregate_complete_record_count == 2
+    assert result.property_type_ascii_record_count == 2
+
+
+def test_raw_literal_policy_preserves_quoted_header_normalization() -> None:
+    quoted_header = "|".join(f'"{field}"' for field in NY_DOCUMENTED_FIELDS) + "\n"
+    row = _row(
+        "1001",
+        "IN03",
+        '"Synthetic Owner Alpha',
+        "1 Synthetic Street",
+    ) + "\n"
+    archive = _zip_raw_payload((quoted_header + row).encode("utf-8"))
+
+    result = discover_ny_owner_name_schema(
+        _authorization(),
+        archive,
+        quote_dialect_mode="DOCUMENTED_WIDTH_RAW_LITERAL_POLICY",
+    )
+
+    assert result.status == "DISCOVERED"
+    assert result.observed_header_state == "NORMALIZED_DOCUMENTED_HEADER"
+    assert result.physical_header_names == NY_DOCUMENTED_FIELDS
+    assert result.aggregate_complete_record_count == 1
