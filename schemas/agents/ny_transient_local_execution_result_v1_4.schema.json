@@ -1,0 +1,621 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-transient-local-execution-result:1.4.0",
+  "title": "NY OSC Transient Local File Execution Result v1.4 Seventh Real RAW-Literal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "execution_mode",
+    "attempt_number",
+    "proposal_checkpoint",
+    "runner_checkpoint",
+    "status",
+    "reason_code",
+    "local_file_deleted",
+    "logical_deletion_only",
+    "physical_secure_erasure_guaranteed",
+    "archive_byte_count",
+    "schema_result",
+    "schema_discovery_quote_dialect_mode",
+    "structural_diagnostic",
+    "quote_dialect_diagnostic",
+    "execution_authorization_ref",
+    "execution_authorization_consumption_provenance",
+    "no_raw_path_returned",
+    "no_owner_values_returned"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.4.0"
+    },
+    "status": {
+      "enum": [
+        "DISCOVERED",
+        "BLOCKED"
+      ]
+    },
+    "reason_code": {
+      "enum": [
+        "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+        "LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP",
+        "ARCHIVE_EXCEEDS_DOWNLOAD_CAP",
+        "NOT_A_ZIP_ARCHIVE",
+        "ARCHIVE_HAS_NO_FILES",
+        "ARCHIVE_MEMBER_COUNT_EXCEEDS_CAP",
+        "AMBIGUOUS_TEXT_MEMBER_LAYOUT",
+        "UNCOMPRESSED_TEXT_EXCEEDS_CAP",
+        "UNEXPECTED_DATA_FIELD_COUNT",
+        "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+        "TEXT_MEMBER_EMPTY",
+        "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+      ]
+    },
+    "local_file_deleted": {
+      "const": true
+    },
+    "logical_deletion_only": {
+      "const": true
+    },
+    "physical_secure_erasure_guaranteed": {
+      "const": false
+    },
+    "archive_byte_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "schema_result": {
+      "anyOf": [
+        {
+          "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schema_discovery_quote_dialect_mode": {
+      "const": "DOCUMENTED_WIDTH_RAW_LITERAL_POLICY"
+    },
+    "structural_diagnostic": {
+      "anyOf": [
+        {
+          "$ref": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "quote_dialect_diagnostic": {
+      "type": "null"
+    },
+    "no_raw_path_returned": {
+      "const": true
+    },
+    "no_owner_values_returned": {
+      "const": true
+    },
+    "execution_mode": {
+      "const": "AUTHORIZED_REAL_ONCE"
+    },
+    "attempt_number": {
+      "const": 7
+    },
+    "proposal_checkpoint": {
+      "const": "18c270bd89d7c4e0c37a5bc046a1f09e49dc672e"
+    },
+    "runner_checkpoint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "execution_authorization_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_authorization_consumption_provenance": {
+      "const": {
+        "single_use": true,
+        "reusable": false,
+        "retry_authorized": false,
+        "consumed_by_execution": true,
+        "status_after_execution": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+        "owner_pii_included": false
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "reason_code": {
+          "const": "LOCAL_ARCHIVE_EXCEEDS_DOWNLOAD_CAP"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "type": "null"
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "LOCAL_ARCHIVE_READ_EXCEEDS_DOWNLOAD_CAP"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "type": "null"
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "ARCHIVE_EXCEEDS_DOWNLOAD_CAP"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "ARCHIVE_EXCEEDS_DOWNLOAD_CAP"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "NOT_A_ZIP_ARCHIVE"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "NOT_A_ZIP_ARCHIVE"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "ARCHIVE_HAS_NO_FILES"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "ARCHIVE_HAS_NO_FILES"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "ARCHIVE_MEMBER_COUNT_EXCEEDS_CAP"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "ARCHIVE_MEMBER_COUNT_EXCEEDS_CAP"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "AMBIGUOUS_TEXT_MEMBER_LAYOUT"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "AMBIGUOUS_TEXT_MEMBER_LAYOUT"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "UNCOMPRESSED_TEXT_EXCEEDS_CAP"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "UNCOMPRESSED_TEXT_EXCEEDS_CAP"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "UNEXPECTED_DATA_FIELD_COUNT"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "UNEXPECTED_DATA_FIELD_COUNT"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "$ref": "urn:unclaimed-platform:schema:ny-owner-name-structural-diagnostic-result:1.0.0"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "TEXT_MEMBER_EMPTY"
+        },
+        "status": {
+          "const": "BLOCKED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "TEXT_MEMBER_EMPTY"
+                },
+                "status": {
+                  "const": "BLOCKED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    },
+    {
+      "properties": {
+        "reason_code": {
+          "const": "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+        },
+        "status": {
+          "const": "DISCOVERED"
+        },
+        "schema_result": {
+          "allOf": [
+            {
+              "$ref": "urn:unclaimed-platform:schema:ny-owner-name-schema-discovery-result:1.0.0"
+            },
+            {
+              "properties": {
+                "reason_code": {
+                  "const": "DOCUMENTED_14_FIELD_LAYOUT_CONFIRMED"
+                },
+                "status": {
+                  "const": "DISCOVERED"
+                }
+              },
+              "required": [
+                "reason_code",
+                "status"
+              ]
+            }
+          ]
+        },
+        "structural_diagnostic": {
+          "type": "null"
+        },
+        "quote_dialect_diagnostic": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "reason_code",
+        "status",
+        "schema_result",
+        "structural_diagnostic",
+        "quote_dialect_diagnostic"
+      ]
+    }
+  ]
+}
