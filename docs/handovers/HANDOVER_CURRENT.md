@@ -2,6 +2,81 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — SEVENTH REAL RUNTIME PACKAGE REVIEWED PASS
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Branch:
+
+`ny-osc-seventh-real-runtime-package-offline`
+
+Baseline:
+
+`18c270bd89d7c4e0c37a5bc046a1f09e49dc672e / CI 35653220457 — SUCCESS / HUMAN REVIEW PASS`
+
+Completed gate:
+
+`IMPLEMENT_AND_REVIEW_NY_OSC_SEVENTH_REAL_RUNTIME_PACKAGE_OFFLINE = PASS`
+
+Implemented:
+
+- seventh local/PII/preflight/execution authorization schemas;
+- authorization v1.3, real-only, attempt 7;
+- result v1.4 with non-PII execution-auth consumption provenance;
+- `build_real_execution_authorization_v1_3`;
+- `execute_transient_local_file_discovery_v1_4`;
+- `scripts/ny_osc_gate7_transient_local.ps1`;
+- synthetic unit, schema and Gate 7 static tests.
+
+Security/governance:
+
+- all four refs required and distinct;
+- same attempt/proposal/runner lineage required;
+- fresh preflight `EXACT_MATCH`, <=900 seconds;
+- one manual download / zero retries;
+- no direct network client;
+- Gate 7 self-binds protected package before temp creation;
+- RAW-literal parser mode only;
+- no quote diagnostic;
+- owner values/raw path never returned;
+- logical temp-file deletion preserved;
+- synthetic v1.2/v1.3 and Gate 6 unchanged.
+
+Functional checkpoint:
+
+`1d842ec70f24ef9192fc3ef6cfae58121cec87ea`
+
+CI:
+
+`35657403979 — SUCCESS`
+
+Results:
+
+`421 contract / 16 smoke / 604 full pytest / Ruff + mypy(19 core + 4 NY runtime) + Streamlit + frontend PASS`
+
+Audit:
+
+`docs/audits/NY_OSC_SEVENTH_REAL_RUNTIME_PACKAGE_OFFLINE.md`
+
+Still absent:
+
+- seventh local approval artifact;
+- seventh PII approval artifact;
+- seventh preflight receipt;
+- seventh execution authorization;
+- OSC access/download/execution.
+
+Next gate:
+
+`HUMAN_NY_OSC_SEVENTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION`
+
+Exact phrase:
+
+`APPROVO NY OSC SEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — SEVENTH EXECUTION AUTHORIZATION BINDING REMEDIATED
 
 Repository:
@@ -1852,16 +1927,11 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
+`HUMAN_NY_OSC_SEVENTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION`
 
-Review:
+Required owner phrase:
 
-- explicit execution authorization is machine-required by future authorization v1.3 and Gate 7;
-- download authority is exactly one manual download to dedicated OS temp;
-- execution authority is exactly one bound Gate 7 execution;
-- local/PII/preflight gates grant no download;
-- all four refs bind attempt/proposal/runner consistently;
-- result provenance is non-PII and auditable;
-- no real runtime, Gate 7, approval, source access or seventh execution has been created.
+`APPROVO NY OSC SEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
 
-Do not perform downstream implementation or source actions during this review.
+On grant, bind the local-retention approval to the reviewed Gate 7 package. Do not infer or grant
+the PII, preflight or execution gates.

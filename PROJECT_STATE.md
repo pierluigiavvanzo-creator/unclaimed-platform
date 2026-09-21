@@ -2,6 +2,67 @@
 
 Last updated: 2026-09-21
 
+## Current Authoritative State — Seventh Real Runtime Package Implemented and Reviewed PASS
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-seventh-real-runtime-package-offline`
+
+Baseline:
+
+- branch: `ny-osc-seventh-attempt-execution-auth-binding-remediation-offline`;
+- checkpoint: `18c270bd89d7c4e0c37a5bc046a1f09e49dc672e`;
+- CI: `35653220457 — SUCCESS`;
+- remediation review: `PASS`.
+
+Package state:
+
+`IMPLEMENTED_AND_REVIEWED_OFFLINE / PASS / REAL_CAPABLE_NOT_AUTHORIZED / ZERO SOURCE ACCESS`
+
+Implemented and reviewed:
+
+- seventh transient-local approval schema;
+- seventh transient-PII approval schema;
+- seventh fresh-preflight receipt schema;
+- seventh execution-authorization schema;
+- real authorization v1.3: `AUTHORIZED_REAL_ONCE`, attempt 7;
+- result v1.4 with execution-authorization consumption provenance;
+- runtime `build_real_execution_authorization_v1_3`;
+- runtime `execute_transient_local_file_discovery_v1_4`;
+- Gate 7 protected/self-bound manual-download runner;
+- synthetic unit/contract/static tests;
+- CI mypy coverage extended to four NY OSC runtime sources.
+
+Gate 7 verifies all four refs, proposal/runner binding and <=900-second EXACT_MATCH preflight
+before temp-directory creation. It contains no network client.
+
+Functional verification:
+
+`1d842ec70f24ef9192fc3ef6cfae58121cec87ea / CI 35657403979 — SUCCESS`
+
+Tests:
+
+- contract: `421 passed`;
+- smoke: `16 passed`;
+- full pytest: `604 passed`;
+- Ruff/mypy/Streamlit/frontend: PASS.
+
+No seventh approval/evidence artifact exists. No source access, preflight, download or real PII
+processing occurred.
+
+Next human gate:
+
+`HUMAN_NY_OSC_SEVENTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION`
+
+Required phrase:
+
+`APPROVO NY OSC SEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+This future approval grants retention scope only and no download.
+
+
 ## Current Candidate State — Seventh Attempt Execution Authorization Binding Remediated / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1683,9 +1744,12 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
+`HUMAN_NY_OSC_SEVENTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION`
 
-Review only the remediated execution-authorization binding, explicit single-download semantics,
-four-reference checkpoint binding, result provenance, sixth non-reuse and zero-source-access
-boundary. Do not implement runtime v1.4, create Gate 7 or approvals, perform preflight, access
-OSC, download or execute attempt 7.
+Required Product Owner phrase:
+
+`APPROVO NY OSC SEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+If granted, create only the single-use seventh transient-local approval artifact bound to the
+reviewed Gate 7 package. Do not create the PII approval, perform preflight, access OSC, download
+or execute attempt 7.
