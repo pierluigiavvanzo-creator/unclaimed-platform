@@ -2,6 +2,58 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — QUOTE ARBITRATION PROPOSAL REMEDIATED
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-documented-width-quote-arbitration-proposal-remediation-offline`
+
+Baseline proposal HEAD:
+
+`c271302e9304f96208b267c347868d7e5a6c45db`
+
+Prior proposal review:
+
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+Remediation:
+
+- documented width now classifies evidence before policy selection;
+- same-line quote logic is explicitly a candidate interpretation, not OSC source truth;
+- Product Owner decision threshold: `0.66`;
+- conservative proposal support check: Wilson two-sided 95% lower bound;
+- retained discriminating sample: `n=1`;
+- RAW point estimate: `1.0`;
+- RAW Wilson lower bound: `0.2065432915`;
+- threshold robustly met: `false`;
+- current Product Owner fallback: `RAW_PIPE_WITH_DOUBLE_QUOTE_LITERAL`.
+
+Decision record:
+
+`D-011 — NY OSC quote interpretation statistical fallback policy`
+
+Remediated proposal:
+
+`sources/proposals/ny_osc_documented_width_quote_arbitration_offline_proposal.v1.json`
+
+Remediation audit:
+
+`docs/audits/NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE.md`
+
+No parser/runtime/runner was modified. No full-file statistical scan is authorized. No source
+access, approval creation, sixth retry or seventh-attempt preparation/execution occurred.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — DOCUMENTED-WIDTH QUOTE ARBITRATION PROPOSAL
 
 Repository:
@@ -1418,16 +1470,15 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
 
 Review:
 
-- evidence basis from attempts 5 and 6;
-- documented-width decision matrix;
-- hard physical-line boundary;
-- synthetic acceptance matrix;
-- non-PII observability proposal;
-- additive-only implementation boundary;
-- no seventh-attempt or source-access authorization.
+- remediation of the prior unique-width selection finding;
+- D-011 owner statistical/fallback policy;
+- distinction between point estimate and robust support;
+- RAW-literal current fallback as policy, not source fact;
+- structural classification and synthetic test coverage;
+- no parser/runtime/source execution authorization.
 
-Do not implement the parser or runtime changes during this review.
+Do not implement or execute the candidate during this review.
