@@ -2,6 +2,57 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — SEVENTH EXECUTION AUTHORIZATION BINDING REMEDIATED
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-seventh-attempt-execution-auth-binding-remediation-offline`
+
+Reviewed baseline:
+
+`954e3c0ae93bd1454f68a1083292a785de736b5c / CI 35646354748 — SUCCESS`
+
+Review result:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL = CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+Remediation:
+
+- proposal/schema version `1.1.0`;
+- status `REMEDIATED_PROPOSED_NOT_AUTHORIZED`;
+- first gate now points to this remediation review;
+- future authorization v1.3 requires four bound refs:
+  local approval, PII approval, fresh preflight receipt, execution authorization;
+- refs must share attempt 7, proposal checkpoint and runner checkpoint;
+- preflight must be `EXACT_MATCH` and <=900 seconds old;
+- local/PII/preflight gates explicitly grant no download;
+- final execution authorization grants exactly one manual download to dedicated OS temp plus one
+  bound Gate 7 execution;
+- Gate 7 must verify execution authorization before temp creation and before download;
+- result v1.4 must preserve non-PII execution-authorization provenance.
+
+Preserved:
+
+- synthetic v1.2/v1.3 package unchanged;
+- Gate 6 unchanged and line-local;
+- sixth approvals consumed/non-reusable;
+- no runtime v1.4, Gate 7, seventh approval schema/artifact, preflight or source access exists.
+
+Audit:
+
+`docs/audits/NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE.md`
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — NY OSC SEVENTH ATTEMPT OFFLINE PROPOSAL
 
 Repository:
@@ -1799,15 +1850,16 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
 
 Review:
 
-- real runtime must be version-additive, not a retarget of synthetic v1.3;
-- sixth result/approvals remain historical and non-reusable;
-- attempt-7 caps and privacy scope remain bounded;
-- fresh preflight is separately authorized, time-bounded and exact-match-or-stop;
-- fresh local/PII/execution approvals remain ungranted;
-- no real runtime, Gate 7, source access or execution exists yet.
+- explicit execution authorization is machine-required by future authorization v1.3 and Gate 7;
+- download authority is exactly one manual download to dedicated OS temp;
+- execution authority is exactly one bound Gate 7 execution;
+- local/PII/preflight gates grant no download;
+- all four refs bind attempt/proposal/runner consistently;
+- result provenance is non-PII and auditable;
+- no real runtime, Gate 7, approval, source access or seventh execution has been created.
 
 Do not perform downstream implementation or source actions during this review.
