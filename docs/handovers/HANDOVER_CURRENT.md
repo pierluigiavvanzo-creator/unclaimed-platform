@@ -2,6 +2,54 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME INTEGRATION PROPOSAL
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-offline-proposal`
+
+Baseline reviewed parser mode:
+
+`fc162aa0d938ec7a5560d115631bcc762694e244 / CI 35594727577 — SUCCESS / HUMAN REVIEW PASS`
+
+Proposal:
+
+`sources/proposals/ny_osc_raw_literal_runtime_integration_offline_proposal.v1.json`
+
+Proposal design:
+
+- keep historical authorization v1.1 exactly line-local;
+- keep historical result v1.2 exactly line-local;
+- keep Gate 6 exactly line-local and consumed;
+- propose authorization v1.2 as `SYNTHETIC_TEST_ONLY`;
+- require `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- propose result v1.3 with mode provenance;
+- structural diagnostic remains v1.0 for unexpected field count;
+- quote-dialect diagnostic is retained as an envelope field but must be null;
+- `QUOTE_DIALECT_AMBIGUOUS` and `MALFORMED_QUOTED_RECORD` are forbidden/unreachable;
+- propose `execute_transient_local_file_discovery_v1_3`;
+- no real builder, CLI change or runner wiring.
+
+Future real use remains separately gated behind a seventh-attempt proposal and fresh approvals.
+
+Artifacts:
+
+- `sources/proposals/ny_osc_raw_literal_runtime_integration_offline_proposal.v1.json`;
+- `schemas/common/ny_osc_raw_literal_runtime_integration_offline_proposal.schema.json`;
+- `tests/contract/test_ny_osc_raw_literal_runtime_integration_offline_proposal.py`;
+- `docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL.md`.
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL POLICY MODE IMPLEMENTED OFFLINE
 
 Repository:
@@ -1528,17 +1576,16 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL`
 
 Review:
 
-- additive explicit mode only;
-- hard LF/CRLF boundary;
-- RAW pipe / literal-double-quote record structure;
-- exact 14-field fail-closed requirement;
-- sixth-shape synthetic regression;
-- quoted-pipe RAW-15 blocking regression;
-- unchanged defaults/historical modes;
-- zero real-source access and no runtime wiring.
+- version-additive contract evolution;
+- synthetic-only v1.2 authorization;
+- v1.3 result reason/diagnostic bindings;
+- historical sixth runtime immutability;
+- no real authorization builder;
+- no runner/approval/source access;
+- future seventh attempt remains a separate gated process.
 
-Do not activate or execute the mode during this review.
+Do not implement or execute the candidate during this review.
