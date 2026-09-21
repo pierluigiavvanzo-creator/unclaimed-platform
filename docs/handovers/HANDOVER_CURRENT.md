@@ -2,6 +2,56 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME REVIEW PREREQUISITE REMEDIATED
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-review-prerequisite-remediation-offline`
+
+Reviewed baseline:
+
+`89f9b0a65ec5fcabd3ae96b0b3a5422492ab54d7 / CI 35600957416 — SUCCESS`
+
+Review result:
+
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`
+
+Prerequisite correction:
+
+- removed:
+  `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS`;
+- replacement:
+  `HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS`;
+- other six future activation prerequisites unchanged.
+
+Proposal/schema version:
+
+`1.1.1`
+
+Preserved:
+
+- authorization v1.2 candidate remains `SYNTHETIC_TEST` only;
+- `AUTHORIZED_REAL_ONCE` excluded;
+- parser mode remains `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- future result remains v1.3 proposal only;
+- historical authorization v1.1/result v1.2/Gate 6 remain line-local and consumed;
+- no runtime schema/code/runner/approval/source access/seventh attempt created.
+
+Audit:
+
+`docs/audits/NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE.md`
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME INTEGRATION PROPOSAL REMEDIATED
 
 Repository:
@@ -1623,15 +1673,14 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
 
 Review:
 
-- `SYNTHETIC_TEST` wire-value consistency;
-- exclusion of `AUTHORIZED_REAL_ONCE`;
-- schema closure against silent drift;
-- exact synthetic matrix and future gate list;
-- preservation of v1.1/v1.2/Gate 6;
-- no real runtime path created.
+- corrected review prerequisite is historically satisfiable;
+- exact prerequisite list still contains seven gates;
+- proposal/schema/test all bind the same corrected first gate;
+- prior synthetic-only and fail-closed protections remain intact;
+- no runtime or real execution path has been created.
 
 Do not implement or execute the runtime candidate during this review.
