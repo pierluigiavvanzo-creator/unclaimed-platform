@@ -255,7 +255,12 @@ def _write(path: Path, payload: dict[str, object]) -> Path:
     return path
 
 
-def _build(tmp_path: Path, *, performed_at: datetime, now: datetime) -> NyTransientLocalExecutionAuthorizationV1_3:
+def _build(
+    tmp_path: Path,
+    *,
+    performed_at: datetime,
+    now: datetime,
+) -> NyTransientLocalExecutionAuthorizationV1_3:
     return build_real_execution_authorization_v1_3(
         _write(tmp_path / "local.json", _local()),
         _write(tmp_path / "pii.json", _pii()),
@@ -377,7 +382,9 @@ def test_v1_4_real_capable_runtime_raw15_stays_fail_closed(tmp_path: Path) -> No
 
 
 def test_v1_4_module_has_no_cli_or_network_client() -> None:
-    import unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution_v1_4 as runtime
+    from unclaimed_platform.adapters.sources import (
+        ny_owner_name_transient_local_execution_v1_4 as runtime,
+    )
 
     source = Path(runtime.__file__).read_text(encoding="utf-8").lower()
 
