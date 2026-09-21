@@ -1,6 +1,30 @@
 # ROADMAP.md
 
-Last updated: 2026-09-20
+Last updated: 2026-09-21
+
+## Current Override — Sixth Attempt Consumed Fail-Closed
+
+Sixth bounded execution completed once.
+
+State:
+
+`BLOCKED / QUOTE_DIALECT_AMBIGUOUS / APPROVALS CONSUMED / ZERO RETRY`
+
+The fresh listing preflight was an exact match for `FINDERS.zip`, `390.51 MB`,
+`9/16/2026, 1:33:31 PM`. The runner stopped after `165,438` complete records when
+raw-pipe structure reported 14 fields and quote-aware structure reported 6 fields on the
+blocking physical record. The local raw ZIP was logically deleted and no owner values or
+raw path were returned.
+
+No automatic dialect choice, repair, widening, retry or seventh attempt is authorized.
+Parser, runner and bounds remain unchanged.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
+
+Repository validation CI for this recording: `PENDING`.
+
 
 ## Current Override — Fifth Approval Grant Candidate / Review Pending
 
@@ -646,8 +670,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`REVIEW_AND_INTEGRATE_NY_OSC_THIRD_ATTEMPT_RUNNER_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
 
-Classification: `A — Product Critical / Offline Safety Implementation`.
+Classification: `A — Product Critical / Offline Evidence Review`.
 
-No source/network request, remote preflight, approval grant, or download is authorized.
+Review only the sixth execution evidence and lifecycle recording. No source/network request,
+download, retry, parser change, bound widening or seventh-attempt preparation is authorized.
