@@ -169,3 +169,32 @@ Historical synthetic v1.2/v1.3 and Gate 6 remain unchanged.
 ## Next gate
 
 `HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
+
+
+## Verification
+
+Functional verification checkpoint:
+
+`c796e10a0be0dab25c03ee2ef082484e334f423d`
+
+GitHub CI:
+
+`35652952877 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtimes: 3 source files PASS;
+- contract tests: 411 passed;
+- smoke tests: 16 passed;
+- full pytest: 588 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+The verification confirms that the remediated proposal/schema/test agree on the four-reference
+binding, explicit single manual download authority, one bound Gate 7 execution, exact-match
+fresh preflight requirement and non-PII execution-authorization provenance.
+
+No runtime v1.4, Gate 7, seventh approval schema/artifact, preflight, source access, download or
+seventh execution was created or performed.

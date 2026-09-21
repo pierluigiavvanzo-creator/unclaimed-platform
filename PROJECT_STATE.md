@@ -38,7 +38,9 @@ Resolved findings:
 
 No real runtime v1.4, Gate 7, approval schema/artifact, preflight or OSC access is created here.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `c796e10a0be0dab25c03ee2ef082484e334f423d`.
+
+Candidate CI: `35652952877 — SUCCESS`.
 
 Next gate:
 

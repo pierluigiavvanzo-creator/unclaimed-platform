@@ -46,7 +46,9 @@ Audit:
 
 `docs/audits/NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE.md`
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `c796e10a0be0dab25c03ee2ef082484e334f423d`.
+
+Candidate CI: `35652952877 — SUCCESS`.
 
 Next gate:
 
