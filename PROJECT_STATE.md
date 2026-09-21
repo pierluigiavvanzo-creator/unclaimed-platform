@@ -1,6 +1,54 @@
 # PROJECT_STATE.md
 
-Last updated: 2026-09-20
+Last updated: 2026-09-21
+
+## Current Authoritative State — Sixth Attempt Consumed Fail-Closed
+
+This section supersedes conflicting current-state entries below.
+
+Repository branch:
+
+`ny-osc-sixth-approval-grants`
+
+Sixth bounded execution completed once after an exact-match fresh listing preflight.
+
+Result:
+
+`BLOCKED / QUOTE_DIALECT_AMBIGUOUS`
+
+Persisted non-PII evidence:
+
+- execution result contract: `1.2.0`;
+- archive bytes: `409,477,526`;
+- archive members: `1`;
+- selected text member bytes: `1,939,569,781`;
+- complete records before block: `165,438`;
+- ASCII-valid Property Type Code records before block: `165,438`;
+- quote diagnostic: `LINE_END_AND_FIELD_COUNT_DIVERGENCE`;
+- raw fields: `14`;
+- quote-aware fields: `6`;
+- local raw ZIP logically deleted;
+- no raw path or owner values returned or persisted.
+
+Fresh preflight receipt:
+
+`EXACT_MATCH`
+
+for `FINDERS.zip / 390.51 MB / 9/16/2026, 1:33:31 PM`.
+
+Both sixth-attempt approvals are now:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO RETRY`
+
+No sixth retry is authorized. No seventh attempt is prepared or authorized. Parser, runner,
+schemas and execution/privacy bounds are unchanged.
+
+Repository validation CI for this recording: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
+
 
 ## Current Candidate State — Fifth Approvals Granted Offline / Review Pending
 
@@ -1190,10 +1238,8 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_FIFTH_ATTEMPT_APPROVAL_GRANT_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_SIXTH_ATTEMPT_EXECUTION_RESULT_AND_CONSUMPTION_OFFLINE`
 
-Review the two granted/not-consumed approval artifacts, updated contract tests and audit against
-runner checkpoint `4a8412911b3b9ae59525dee3a0565951e2722528` and CI `35474594533 — SUCCESS`.
-
-Do not access OSC, perform a fresh listing preflight, download the Owner Name File, process real
-owner PII or execute attempt 5 during this review.
+Review the recorded execution result, exact-match preflight provenance, consumed/non-reusable
+sixth approvals, contract tests and audit. Do not access OSC, download again, retry attempt 6,
+modify parser/runner/bounds, or prepare/execute attempt 7 during this review.
