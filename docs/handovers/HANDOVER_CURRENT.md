@@ -2,6 +2,68 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — NY OSC SEVENTH ATTEMPT OFFLINE PROPOSAL
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-seventh-attempt-offline-proposal`
+
+Baseline:
+
+`c03f2af4a0fc97232ac5be0abcfe3dd6ae47340a / CI 35642325234 — SUCCESS`
+
+Preceding human review:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE = PASS`
+
+Proposal:
+
+`sources/proposals/ny_osc_owner_name_file_seventh_bounded_attempt_authorization.v1.json`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / ZERO SOURCE ACCESS`
+
+Key architecture:
+
+- v1.2 authorization remains `SYNTHETIC_TEST` only;
+- v1.3 result/runtime remain synthetic and are not retargeted;
+- proposed real authorization: v1.3, `AUTHORIZED_REAL_ONCE`, attempt 7;
+- proposed real result: v1.4 with execution-mode/attempt provenance;
+- proposed runtime: `execute_transient_local_file_discovery_v1_4`;
+- proposed real builder: `build_real_execution_authorization_v1_3`;
+- proposed runner: `scripts/ny_osc_gate7_transient_local.ps1`;
+- parser: `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- one download / zero retries / existing byte and archive caps;
+- quote-dialect diagnostic required null;
+- sixth approvals and Gate 6 cannot be reused.
+
+Future gates remain separate:
+
+1. review this proposal;
+2. implement + review real runtime package;
+3. fresh seventh transient-local approval;
+4. fresh seventh transient-PII approval;
+5. fresh seventh listing-preflight authorization;
+6. explicit seventh execution authorization.
+
+No item after gate 1 is granted by proposal preparation.
+
+Audit:
+
+`docs/audits/NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL.md`
+
+Candidate CI: `PENDING`.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL RUNTIME v1.3 IMPLEMENTED SYNTHETIC-ONLY
 
 Repository:
@@ -1735,16 +1797,15 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
 
 Review:
 
-- v1.2 authorization is genuinely synthetic-only;
-- v1.3 result reason/diagnostic invariants;
-- sixth-shaped RAW-14 succeeds synthetically;
-- RAW-15/RAW-13 remain fail-closed;
-- deletion/privacy guarantees;
-- historical sixth runtime remains untouched;
-- no real builder/CLI/Gate 7/source path exists.
+- real runtime must be version-additive, not a retarget of synthetic v1.3;
+- sixth result/approvals remain historical and non-reusable;
+- attempt-7 caps and privacy scope remain bounded;
+- fresh preflight is separately authorized, time-bounded and exact-match-or-stop;
+- fresh local/PII/execution approvals remain ungranted;
+- no real runtime, Gate 7, source access or execution exists yet.
 
-Do not activate or execute against OSC during this review.
+Do not perform downstream implementation or source actions during this review.
