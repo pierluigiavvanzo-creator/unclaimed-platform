@@ -134,7 +134,7 @@ def test_historical_runtime_contracts_remain_line_local() -> None:
     assert protected["sixth_retry_authorized"] is False
 
 
-def test_future_candidate_is_synthetic_only_and_not_materialized() -> None:
+def test_reviewed_proposal_preserves_synthetic_only_design_after_materialization() -> None:
     proposal = _load(PROPOSAL)
     candidate = proposal["proposed_offline_runtime_candidate"]
     auth = candidate["authorization_contract"]
@@ -162,8 +162,8 @@ def test_future_candidate_is_synthetic_only_and_not_materialized() -> None:
     assert runtime["cli_entrypoint_change_allowed"] is False
     assert runtime["runner_wiring_allowed"] is False
 
-    assert FUTURE_AUTH_V1_2.exists() is False
-    assert FUTURE_RESULT_V1_3.exists() is False
+    assert proposal["implementation_boundaries"]["runtime_schema_files_created"] is False
+    assert proposal["implementation_boundaries"]["runtime_code_modified"] is False
 
 
 def test_raw_literal_reason_contract_removes_quote_specific_failures() -> None:
