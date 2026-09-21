@@ -35,7 +35,9 @@ The synthetic-only runtime architecture, `SYNTHETIC_TEST` wire value, exclusion 
 
 No runtime code or schema under `schemas/agents/` was modified or created.
 
-Candidate CI: `PENDING`.
+Candidate verification checkpoint: `488e44f16b8e0b6070aa6c4c998a9232e179f266`.
+
+Candidate CI: `35602591671 — SUCCESS`.
 
 Next gate:
 
