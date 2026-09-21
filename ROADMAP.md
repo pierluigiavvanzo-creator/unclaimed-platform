@@ -2,6 +2,41 @@
 
 Last updated: 2026-09-21
 
+## Current Override — Seventh Attempt Execution Authorization Binding Remediated
+
+Completed offline:
+
+`REMEDIATE_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_OFFLINE`
+
+Candidate branch:
+
+`ny-osc-seventh-attempt-execution-auth-binding-remediation-offline`
+
+State:
+
+`REMEDIATED_PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The future real authorization v1.3/Gate 7 package must now bind and verify all four refs:
+
+`local approval + PII approval + fresh preflight + explicit execution authorization`
+
+The final execution authorization is the sole proposed authority for:
+
+`ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP + ONE_BOUND_GATE7_EXECUTION`
+
+after an exact-match fresh preflight.
+
+Local, PII and preflight gates grant no download.
+
+No real package or source action is created by this remediation.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — NY OSC Seventh Attempt Offline Proposal
 
 Prepared:
@@ -935,9 +970,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_EXECUTION_AUTH_BINDING_REMEDIATION_OFFLINE`
 
-Classification: `A — Product Critical / Seventh Attempt Proposal Review`.
+Classification: `A — Product Critical / Seventh Attempt Governance Remediation Review`.
 
 Do not implement the real runtime package, create Gate 7/approvals, perform remote preflight,
 access OSC, download or execute attempt 7 during this review.
