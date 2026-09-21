@@ -2,6 +2,36 @@
 
 Last updated: 2026-09-21
 
+## Current Override — RAW-Literal Runtime Review Prerequisite Remediated
+
+Completed offline:
+
+`REMEDIATE_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_OFFLINE`
+
+Candidate branch:
+
+`ny-osc-raw-literal-runtime-integration-review-prerequisite-remediation-offline`
+
+State:
+
+`REMEDIATED_PROPOSED_NOT_IMPLEMENTED / ZERO SOURCE ACCESS`
+
+The exact future activation list no longer depends on a superseded review that returned
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`.
+
+First prerequisite is now:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS`
+
+The remaining six prerequisites are unchanged. Proposal/schema version is `1.1.1`.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — RAW-Literal Runtime Integration Proposal Remediated
 
 Completed offline:
@@ -836,9 +866,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE`
 
-Classification: `A — Product Critical / Offline Runtime Proposal Remediation Review`.
+Classification: `A — Product Critical / Governance Remediation Review`.
 
-Do not implement or activate runtime v1.3, access OSC, create approvals, retry attempt 6,
-or prepare/execute attempt 7 during this review.
+Do not implement or activate runtime v1.3, access OSC, create approvals, retry attempt 6 or
+prepare/execute attempt 7 during this review.
