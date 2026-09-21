@@ -285,3 +285,46 @@ Consequences:
 - source approval is not granted by this decision;
 - a fresh bounded real-source execution must validate row-defer continuation and insurance discovery before source activation;
 - after source approval, priority moves immediately to candidate generation, case economics and reviewer decision rather than further PROPERTY_TYPE diagnostics.
+
+
+---
+
+## D-011 — NY OSC quote interpretation statistical fallback policy
+
+Date: 2026-09-21
+
+Status: Accepted as Product Owner policy for the offline parser proposal; runtime implementation and source execution remain separately gated
+
+Context:
+NY OSC Owner Name File attempts 5 and 6 produced non-PII structural evidence showing that unrestricted multiline quote carry is unsafe and that raw-pipe and same-line quote-aware interpretations can diverge. The repository does not contain authoritative OSC documentation defining double-quote escaping or multiline record semantics. The reviewed documented-width proposal was therefore found to overstate schema conformity as dialect proof.
+
+Decision:
+Keep LF/CRLF as a hard physical-record boundary and separate structural classification from interpretation selection.
+
+When authoritative OSC quote semantics remain unavailable:
+- compare RAW pipe and the explicitly non-authoritative candidate same-line quote interpretation;
+- treat only records where exactly one candidate has the documented 14-field width as dialect-discriminating evidence;
+- use a Product Owner decision threshold of `0.66`;
+- do not call a sample-derived frequency a source-dialect probability without adequate statistical support;
+- use the Wilson two-sided 95% lower confidence bound as the conservative support check for the proposal;
+- if one candidate's robust support exceeds `0.66`, that candidate may be proposed for a separate future implementation review;
+- if the threshold is not robustly met, the Product Owner fallback is `RAW_PIPE_WITH_DOUBLE_QUOTE_LITERAL`.
+
+Current retained discriminating evidence is one sixth-attempt record: RAW has 14 fields and the candidate quote-aware interpretation has 6. The point estimate is 1/1 RAW support, but the Wilson 95% lower bound is approximately `0.2065432915`, below the 0.66 threshold. Therefore the current proposal uses the Product Owner RAW-literal fallback while explicitly recording that this is not OSC source truth.
+
+Reason:
+This avoids silently using documented width as proof of quote semantics, preserves deterministic progress, and makes the unresolved source-authority gap explicit. The fallback favors a simple literal-character interpretation while still blocking rows whose RAW width does not match the documented 14-field layout.
+
+Alternatives considered:
+- Continue fail-closed on every raw/quote-aware divergence indefinitely.
+- Automatically select whichever interpretation alone produces 14 fields.
+- Treat same-line quote-aware parsing as authoritative without OSC documentation.
+- Carry quote state across physical lines.
+- Require a seventh real download before any further offline design.
+
+Consequences:
+- `"` literal / RAW is the current Product Owner fallback, not an OSC-documented fact.
+- A RAW 14 / candidate quote-aware !=14 record may be proposed for acceptance under the owner fallback in a future separately reviewed implementation.
+- A RAW !=14 / candidate quote-aware 14 record remains blocked under the current fallback unless later authoritative or statistically robust evidence changes the policy.
+- A future non-PII full-file structural scan may be proposed to enlarge the discriminating sample, but no such scan is authorized by D-011.
+- No parser/runtime/runner change, source access, retry, approval creation, seventh attempt, source activation, matching or outreach is authorized by this decision.
