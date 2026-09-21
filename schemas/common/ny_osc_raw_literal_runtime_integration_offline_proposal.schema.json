@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:unclaimed-platform:schema:ny-osc-raw-literal-runtime-integration-offline-proposal:1.1.0",
-  "title": "NY OSC RAW-Literal Runtime Integration Offline Proposal v1.1",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-raw-literal-runtime-integration-offline-proposal:1.1.1",
+  "title": "NY OSC RAW-Literal Runtime Integration Offline Proposal v1.1.1",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,17 +20,18 @@
     "future_real_activation_prerequisites",
     "authorization_does_not_grant",
     "review_remediation",
+    "review_prerequisite_remediation",
     "next_action"
   ],
   "properties": {
     "schema_version": {
-      "const": "1.1.0"
+      "const": "1.1.1"
     },
     "artifact_id": {
       "const": "ny.osc.owner_name_file.raw_literal_runtime_integration_offline_proposal"
     },
     "artifact_version": {
-      "const": "1.1.0"
+      "const": "1.1.1"
     },
     "prepared_on": {
       "const": "2026-09-21"
@@ -466,7 +467,7 @@
     },
     "future_real_activation_prerequisites": {
       "const": [
-        "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS",
+        "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS",
         "IMPLEMENT_AND_REVIEW_SYNTHETIC_RAW_LITERAL_RUNTIME_INTEGRATION",
         "SEPARATE_SEVENTH_ATTEMPT_PROPOSAL",
         "SEPARATE_FRESH_TRANSIENT_LOCAL_APPROVAL",
@@ -552,7 +553,7 @@
       }
     },
     "next_action": {
-      "const": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE"
+      "const": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE"
     },
     "review_remediation": {
       "const": {
@@ -566,6 +567,16 @@
           "USE_EXISTING_WIRE_VALUE_SYNTHETIC_TEST_AND_EXCLUDE_AUTHORIZED_REAL_ONCE",
           "CLOSE_SYNTHETIC_MATRIX_IMPLEMENTATION_BOUNDARIES_AND_FUTURE_PREREQUISITES"
         ]
+      }
+    },
+    "review_prerequisite_remediation": {
+      "const": {
+        "reviewed_gate": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_PROPOSAL_REMEDIATION_OFFLINE",
+        "reviewed_result": "CHANGES_REQUIRED_BEFORE_IMPLEMENTATION",
+        "finding": "FUTURE_REVIEW_PREREQUISITE_REFERENCED_NON_PASSING_SUPERSEDED_REVIEW",
+        "previous_impossible_prerequisite": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_OFFLINE_PROPOSAL_PASS",
+        "replacement_prerequisite": "HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_REVIEW_PREREQUISITE_REMEDIATION_OFFLINE_PASS",
+        "rationale": "THE_SUPERSEDED_PROPOSAL_REVIEW_RETURNED_CHANGES_REQUIRED;_ONLY_THE_CURRENT_PREREQUISITE_REMEDIATION_REVIEW_CAN_PRODUCE_THE_PASS_REQUIRED_FOR_FUTURE_ACTIVATION"
       }
     }
   }
