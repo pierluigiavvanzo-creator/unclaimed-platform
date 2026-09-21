@@ -2,6 +2,39 @@
 
 Last updated: 2026-09-21
 
+## Current Override — NY OSC Seventh Attempt Offline Proposal
+
+Prepared:
+
+`PREPARE_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+
+Candidate branch:
+
+`ny-osc-seventh-attempt-offline-proposal`
+
+State:
+
+`PROPOSED_NOT_AUTHORIZED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
+
+The reviewed RAW-literal v1.3 runtime is synthetic-only and is not retargeted.
+
+Attempt 7 proposes a separate real-capable package before any real approval/preflight:
+
+`authorization v1.3 -> runtime v1.4 -> result v1.4 -> Gate 7`
+
+with `AUTHORIZED_REAL_ONCE`, attempt 7 and
+`DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`.
+
+Sixth approvals remain consumed/non-reusable. Fresh local, PII, preflight and execution gates
+remain separate and ungranted.
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
+
+Candidate CI: `PENDING`.
+
+
 ## Current Override — RAW-Literal Runtime v1.3 Implemented Synthetic-Only
 
 Completed:
@@ -900,9 +933,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_RAW_LITERAL_RUNTIME_INTEGRATION_SYNTHETIC_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_SEVENTH_ATTEMPT_OFFLINE_PROPOSAL`
 
-Classification: `A — Product Critical / Synthetic Runtime Integration Review`.
+Classification: `A — Product Critical / Seventh Attempt Proposal Review`.
 
-Do not activate the runtime for a real source, create Gate 7 or approvals, access OSC or
-prepare/execute attempt 7 during this review.
+Do not implement the real runtime package, create Gate 7/approvals, perform remote preflight,
+access OSC, download or execute attempt 7 during this review.
