@@ -2,6 +2,57 @@
 
 Last updated: 2026-09-21
 
+## Current Candidate State — RAW-Literal Policy Mode Implemented Offline / Review Pending
+
+This section supersedes conflicting current-state entries below.
+
+Candidate branch:
+
+`ny-osc-documented-width-raw-literal-policy-mode-offline`
+
+Baseline:
+
+- remediation branch: `ny-osc-documented-width-quote-arbitration-proposal-remediation-offline`;
+- checkpoint: `d16d36307202cc386c6c391f656b4239cf017165`;
+- CI: `35587779920 — SUCCESS`.
+
+Implementation:
+
+`DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`
+
+State:
+
+`IMPLEMENTED_OFFLINE / SYNTHETIC_ONLY / NOT RUNTIME-ACTIVATED / ZERO SOURCE ACCESS`
+
+Structural policy:
+
+- LF/CRLF hard physical-record boundary;
+- every `|` is structural;
+- `"` is literal for record structure;
+- exactly 14 fields required;
+- !=14 fails closed;
+- default remains `MULTILINE_LEGACY`;
+- historical `MULTILINE_LEGACY` and `LINE_LOCAL_ARBITRATION` behavior remains unchanged.
+
+Functional verification checkpoint:
+
+`5a6bc104ff4f5b34bf57b4f0cbd41e069c150f59`
+
+CI:
+
+`35594503935 — SUCCESS`
+
+Full pytest:
+
+`548 passed`
+
+No runtime bridge, runner, approval, source access or seventh-attempt artifact was changed or created.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+
+
 ## Current Candidate State — Quote Arbitration Proposal Remediated / Review Pending
 
 This section supersedes conflicting current-state entries below.
@@ -1348,9 +1399,8 @@ The second attempt remains single-use and zero-retry. Fresh remote-listing prefl
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
 
-Review only the remediated proposal, D-011 statistical fallback policy, Wilson-bound evidence
-calculation, structural classification matrix, synthetic contract tests and preserved
-zero-source-access boundaries. Do not implement or activate the parser, run a statistical
-source scan, access OSC, create approvals or prepare/execute attempt 7.
+Review only the new explicit RAW-literal parser mode, synthetic regression coverage, unchanged
+default/historical modes, privacy boundaries and CI. Do not wire the mode into real execution,
+change runners/contracts/defaults, access OSC, create approvals or prepare/execute attempt 7.

@@ -2,6 +2,36 @@
 
 Last updated: 2026-09-21
 
+## Current Override — RAW-Literal Policy Mode Implemented Offline
+
+Completed:
+
+`IMPLEMENT_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+
+Candidate branch:
+
+`ny-osc-documented-width-raw-literal-policy-mode-offline`
+
+Implemented explicit mode:
+
+`DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`
+
+The mode applies D-011 only to record structure: physical LF/CRLF boundaries, RAW pipe
+delimiters and literal double quotes. Exactly 14 fields are required; other widths stop
+fail-closed.
+
+Existing defaults and historical modes remain unchanged. The mode is not wired to any real
+execution runner.
+
+Verification:
+
+`5a6bc104ff4f5b34bf57b4f0cbd41e069c150f59 / CI 35594503935 — SUCCESS / 548 pytest passed`
+
+Current gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+
+
 ## Current Override — Quote Arbitration Proposal Remediated
 
 Completed offline:
@@ -739,9 +769,9 @@ then, once a lawful real source is available:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
 
-Classification: `A — Product Critical / Offline Proposal Remediation Review`.
+Classification: `A — Product Critical / Offline Implementation Review`.
 
-Do not implement the parser, run a real/source statistical scan, access OSC, retry attempt 6,
+Do not activate the mode in runtime execution, access OSC, retry attempt 6, create approvals,
 or prepare/execute attempt 7 during this review.

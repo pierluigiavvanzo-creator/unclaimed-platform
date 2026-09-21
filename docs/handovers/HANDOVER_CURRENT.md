@@ -2,6 +2,62 @@
 
 Last updated: 2026-09-21
 
+## AUTHORITATIVE CANDIDATE STATE — RAW-LITERAL POLICY MODE IMPLEMENTED OFFLINE
+
+Repository:
+
+`pierluigiavvanzo-creator/unclaimed-platform`
+
+Candidate branch:
+
+`ny-osc-documented-width-raw-literal-policy-mode-offline`
+
+Baseline remediation:
+
+`d16d36307202cc386c6c391f656b4239cf017165 / CI 35587779920 — SUCCESS`
+
+Implemented mode:
+
+`DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`
+
+Semantics:
+
+- LF/CRLF hard physical-record boundaries;
+- every pipe byte structural;
+- double quote literal for record structure;
+- exactly 14 fields required;
+- field-count mismatch fail-closed;
+- existing header and Property Type Code validators unchanged.
+
+Historical modes:
+
+- `MULTILINE_LEGACY` unchanged and still default;
+- `LINE_LOCAL_ARBITRATION` unchanged.
+
+Implementation files:
+
+- `src/unclaimed_platform/adapters/sources/ny_owner_name_schema_discovery.py`;
+- `tests/unit/test_ny_owner_name_schema_discovery.py`;
+- `docs/audits/NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE.md`.
+
+Functional checkpoint:
+
+`5a6bc104ff4f5b34bf57b4f0cbd41e069c150f59`
+
+CI:
+
+`35594503935 — SUCCESS`
+
+Results include `548 passed` full pytest plus Ruff/mypy/frontend/Streamlit PASS.
+
+No runtime bridge, runner, execution contract or approval changed. No OSC access or seventh
+attempt occurred.
+
+Next gate:
+
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
+
+
 ## AUTHORITATIVE CANDIDATE STATE — QUOTE ARBITRATION PROPOSAL REMEDIATED
 
 Repository:
@@ -1472,15 +1528,17 @@ Offline:
 
 Execute exclusively:
 
-`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE`
+`HUMAN_REVIEW_NY_OSC_DOCUMENTED_WIDTH_RAW_LITERAL_POLICY_MODE_OFFLINE`
 
 Review:
 
-- remediation of the prior unique-width selection finding;
-- D-011 owner statistical/fallback policy;
-- distinction between point estimate and robust support;
-- RAW-literal current fallback as policy, not source fact;
-- structural classification and synthetic test coverage;
-- no parser/runtime/source execution authorization.
+- additive explicit mode only;
+- hard LF/CRLF boundary;
+- RAW pipe / literal-double-quote record structure;
+- exact 14-field fail-closed requirement;
+- sixth-shape synthetic regression;
+- quoted-pipe RAW-15 blocking regression;
+- unchanged defaults/historical modes;
+- zero real-source access and no runtime wiring.
 
-Do not implement or execute the candidate during this review.
+Do not activate or execute the mode during this review.
