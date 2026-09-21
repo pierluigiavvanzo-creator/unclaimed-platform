@@ -8,6 +8,18 @@ Status:
 
 `PROPOSED_NOT_IMPLEMENTED / REPOSITORY_ONLY / ZERO SOURCE ACCESS`
 
+## Remediation status
+
+The original decision matrix in this document was reviewed as
+`CHANGES_REQUIRED_BEFORE_IMPLEMENTATION`.
+
+On this remediation branch, its automatic unique-width selection semantics are superseded by:
+
+`docs/audits/NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_PROPOSAL_REMEDIATION_OFFLINE.md`
+
+The remediated proposal separates structural classification from interpretation policy and
+records the Product Owner statistical/RAW-literal fallback in D-011.
+
 ## Requested action
 
 `PREPARE_NY_OSC_DOCUMENTED_WIDTH_QUOTE_ARBITRATION_OFFLINE_PROPOSAL`
