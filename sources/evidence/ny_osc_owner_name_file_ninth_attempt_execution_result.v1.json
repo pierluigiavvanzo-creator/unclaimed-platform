@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.ninth_attempt_execution_result",
+  "recorded_on": "2026-09-22",
+  "attempt_number": 9,
+  "contract_version": "1.6.0",
+  "execution_mode": "AUTHORIZED_REAL_ONCE",
+  "proposal_checkpoint": "9170f27480ccd49eafd040346fa80e0fe9ab078f",
+  "runner_checkpoint": "b13136db50bbafaaf91a326a538521c254771bf5",
+  "status": "BLOCKED",
+  "reason_code": "TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED",
+  "archive_byte_count": 409477526,
+  "diagnostic": {
+    "complete_records": 14994489,
+    "records_with_exactly_14_pipes": 12,
+    "records_ending_with_pipe": 0,
+    "records_with_nonempty_15th_field": 12,
+    "records_with_other_pipe_count": 14994477,
+    "classification": "TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED",
+    "structural_normalization_allowed": false
+  },
+  "interpretation_bounds": {
+    "trailing_empty_field_hypothesis_rejected": true,
+    "records_with_other_pipe_count_must_not_be_assumed_to_have_13_pipes": true,
+    "row_specific_values_persisted": false,
+    "owner_values_returned": false
+  },
+  "local_file_deleted": true,
+  "logical_deletion_only": true,
+  "physical_secure_erasure_guaranteed": false,
+  "execution_authorization_ref": "OWNER_APPROVAL_2026-09-22T192535Z_NY_OSC_NINTH_BOUNDED_EXECUTION_ONCE_B13136DB",
+  "authorized_download_started_at_utc": "2026-09-22T19:27:06.086336Z",
+  "freshness_bound_to_download_start": true,
+  "authorization_state_after_execution": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "retry_authorized": false,
+  "no_raw_path_returned": true,
+  "no_raw_record_returned": true,
+  "no_owner_values_returned": true
+}
