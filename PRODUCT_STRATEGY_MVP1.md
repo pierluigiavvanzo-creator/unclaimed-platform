@@ -1,208 +1,140 @@
 # PRODUCT_STRATEGY_MVP1.md
 
-Version: 1.0  
-Date: 2026-09-17  
-Status: PRIORITY PRODUCT STRATEGY SOURCE  
+Version: 2.0  
+Date: 2026-09-22  
+Status: AUTHORITATIVE PRODUCT-VALIDATION PRIORITY  
 Owner: Product Owner
 
-## 1. Purpose
+## 1. Strategic command
 
-This document is a priority strategic source for the Unclaimed Insurance Platform.
+Until MVP-1 is validated, the project optimizes for exactly this transition:
 
-Its purpose is to keep development aligned to economic validation and usable product value while preserving all existing legal, privacy, authorization, provenance and fail-closed controls.
+`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-It does not weaken or bypass any source, privacy, legal, security or human-approval gate.
+This is the product milestone. Governance completeness, test volume, diagnostic depth, architecture breadth and source-specific investigation are not substitutes for it.
 
-## 2. Strategic objective
+The broader economic objective remains EUR 2,000,000 of additional economic/patrimonial value within 5 years.
 
-The project must contribute measurably to the broader objective of creating EUR 2,000,000 of additional economic/patrimonial value within 5 years.
-
-The guiding optimization metric is:
+Guiding metric:
 
 `ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
 
-Code volume, test count, milestone count, infrastructure depth and diagnostic depth are not goals by themselves.
+## 2. Definition of MVP-1
 
-## 3. Product priority rule
+MVP-1 is complete only when one lawful real source reaches one complete bounded product slice:
 
-Every substantial work package must state how it reduces the distance to the first economically actionable real case.
-
-If a task does not materially improve at least one of the following, it should normally be deprioritized, frozen or stopped:
-
-- expected economic contribution;
-- usable product value;
-- reliability strictly necessary for the product;
-- reduction of Product Owner manual work;
-- validated knowledge required for a Product Critical decision.
-
-## 4. Work classification
-
-All significant work is classified as:
-
-- `A — Product Critical`
-- `B — Material Upgrade`
-- `C — Optimization`
-- `D — Diagnostic / Technical`
-
-Current project interpretation:
-
-- first approved real source: `A`;
-- first real ingestion through classification and economics: `A`;
-- first economically actionable reviewer case: `A`;
-- source/privacy/legal controls necessary to make those steps lawful and safe: `A/B`;
-- additional governance, infrastructure or diagnostics not required for the vertical slice: `C/D`;
-- repeated manual Product Owner involvement in technical diagnostics: disfavored unless required to control an `A` risk.
-
-## 5. MVP-1 — First Economically Actionable Case
-
-### Objective
-
-Demonstrate that the platform can transform a lawful, approved real source into a human-reviewable case with enough provenance and economic information to decide whether further investigation is commercially justified.
-
-### Minimum vertical slice
-
-`APPROVED REAL SOURCE`
-
+`AUTHORIZED REAL SOURCE`
 `-> bounded acquisition`
-
 `-> normalization`
-
 `-> insurance classification`
-
-`-> candidate case creation`
-
+`-> candidate case or documented zero-candidate outcome`
 `-> provenance / evidence package`
-
-`-> case economics`
-
+`-> reproducible case economics`
 `-> reviewer console`
+`-> bounded human GO / REVISE / STOP decision`
 
-`-> human continue / stop decision`
+A green CI run, a reviewed parser, a new approval schema, a source diagnostic or a synthetic candidate is supporting evidence only.
 
-### MVP-1 exit evidence
+## 3. Current real-source critical path
 
-MVP-1 is not complete merely because tests pass. It requires evidence of all of the following:
+Current source candidate: NY OSC Owner Name File.
 
-1. at least one real source has passed the required source, legal/privacy and technical gates;
-2. real source data has traversed the authorized vertical slice without bypassing deterministic controls;
-3. at least one real candidate case can be rendered in the reviewer surface, or the real source produces a documented zero-candidate result through the complete pipeline;
-4. provenance and relevant evidence are visible to the reviewer;
-5. the case economics stage produces a reproducible economic assessment using explicit inputs and assumptions;
-6. the Product Owner can make a bounded human decision without acting as repetitive QA, debugger or log transporter;
-7. the following commercial measurements are captured from real execution where available.
+Completed:
 
-## 6. Commercial measurements to collect
+- real-capable authorization/runtime/result/Gate 7 package: implemented and reviewed PASS;
+- transient-local retention approval for attempt 7: `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE`.
 
-No commercial threshold is invented in advance. The first real vertical slice must collect enough evidence to establish a baseline for:
+Still required, in order and without inference between gates:
+
+1. `HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`;
+2. fresh listing preflight authorization and exact-match receipt;
+3. final single-use execution authorization;
+4. one bounded real execution;
+5. real output mapped directly into normalization/classification/candidate/economics/reviewer;
+6. commercial baseline and Product Owner GO / REVISE / STOP decision.
+
+The current local-retention grant does not authorize any later step.
+
+## 4. Freeze rule — governance and source diagnostics
+
+Governance and source diagnostics are considered **over-implemented relative to current product validation**.
+
+Effective immediately, do not start new governance, parser, source-diagnostic, attempt-design, framework, agent, database, graph, multi-state or UI-polish work unless all of the following are true:
+
+1. it blocks the current real MVP-1 vertical slice;
+2. it tests a genuinely new hypothesis or satisfies a legally/privacy-required gate;
+3. the blocker cannot be resolved inside the largest safe bounded execution package already available;
+4. the work has a direct exit criterion tied to one real reviewer/economic result.
+
+Historical governance artifacts remain valid as controls and provenance; they are not the forward roadmap.
+
+## 5. Post-execution rule
+
+As soon as one authorized real execution produces usable output, priority moves immediately downstream.
+
+Do not return to source diagnostics unless the real output demonstrates a concrete blocker.
+
+The default next work after acquisition is:
+
+`real mapping -> insurance classification -> candidate creation -> provenance/evidence -> economics -> reviewer`
+
+The existing synthetic MVP-1 slice should be reused and adapted rather than replaced.
+
+## 6. Commercial evidence to capture
+
+The first real slice must capture, where available:
 
 - records examined;
 - records surviving insurance classification;
 - candidate cases produced;
-- candidate-to-review conversion rate;
+- candidate-to-review conversion;
+- processing cost per candidate;
+- source/data cost per candidate;
 - human review time per candidate;
-- automated processing cost per candidate;
-- data/source cost per candidate where applicable;
-- estimated recoverable value or value band where lawfully and evidentially supportable;
-- expected fee/revenue basis where legally supportable;
-- principal failure/drop-off reasons;
-- false-positive or unresolved-case signals discovered during review;
-- additional manual research effort required before commercial action.
+- estimated recoverable value or value band only where evidentially supportable;
+- expected fee/revenue basis only where legally supportable;
+- unresolved/manual research burden;
+- main drop-off/failure reasons;
+- documented zero-candidate result if no candidate survives.
 
-These measurements are intended to support a later explicit go / revise / stop commercial decision. They are not permission for outreach, claimant contact, legal representation, fee contracting or claim submission.
+No commercial threshold is invented before the real baseline exists.
 
-## 7. Critical-path interpretation of M3
+## 7. Work priority
 
-The California M3 source work is retained only as a critical-path enabler to MVP-1.
+`A — Product Critical`
 
-The immediate purpose of transport/archive-layout work is therefore not to maximize diagnostic completeness. It is to establish the smallest safe, deterministic and reviewable path that can lead to one approved real source and then to the MVP-1 vertical slice.
+Only work that directly advances the current real slice or is legally/privacy required to execute it.
 
-The existing California controls remain unchanged unless separately reviewed and authorized:
+`B — Material Upgrade`
 
+Work required to make the completed real slice reproducible or usable by the Product Owner.
+
+`C/D — Frozen by default before MVP-1`
+
+Additional governance, broad diagnostics, infrastructure, platform expansion, agent expansion, multi-state coverage, genealogy automation, graph systems, UI polish and refactors without direct vertical-slice value.
+
+## 8. Product Owner involvement
+
+The Product Owner remains responsible for explicit material human gates and final product/commercial decisions.
+
+The Product Owner should not be used as repetitive QA, log transporter, debugger or operator of unnecessary micro-gates.
+
+Use the largest safe bounded package practical while preserving legal/privacy/source authorization boundaries.
+
+## 9. Safety and authority boundaries
+
+This strategy does not weaken:
+
+- law, privacy or security controls;
+- explicit source authorization;
+- single-use approval semantics;
 - fail-closed behavior;
-- D-008 `WHOLE_SOURCE_STOP` design;
-- versioned contracts;
-- consumed single-use approvals remain non-reusable;
-- no unauthorized retry;
-- no privacy expansion;
-- no silent parser/projector/regex/normalization change;
-- no source/registry activation without the required gate.
+- deterministic state/policy/budget/audit controls;
+- versioned machine contracts;
+- prohibition on invented source semantics or data;
+- prohibition on outreach, representation or claim activity without later explicit gates.
 
-## 8. Repository-first / reuse-first
-
-Before substantial custom implementation of downstream modules, perform explicit reuse scouting and record the outcome.
-
-Preferred order:
-
-`REUSE > WRAP > INSPIRE > CUSTOM`
-
-For important capabilities such as entity resolution, record linkage, evidence graphs, genealogy support, orchestration and reviewer tooling, a candidate is not considered reused merely because it was listed.
-
-Reuse state must progress through:
-
-`DISCOVERED -> BENCHMARKED -> ADOPTED or REJECTED -> INTEGRATED -> USED`
-
-Evaluation must include at least licensing/terms, maintenance, maturity, compatibility, security/privacy, integration cost and commercial fitness.
-
-## 9. Product Owner role
-
-The Product Owner is the approver and final product tester.
-
-The workflow should minimize use of the Product Owner as:
-
-- repetitive QA;
-- log transporter;
-- debugger;
-- dataset annotator;
-- executor of long technical command sequences.
-
-Agents should operate in the largest safe bounded package practical:
-
-`precheck -> backup/isolation -> implementation -> test -> diagnostic -> repair -> smoke -> report`
-
-Escalate only material product, commercial, legal/privacy, security or irreversible architecture gates.
-
-## 10. Anti-goals before MVP-1
-
-Unless they are required to unblock an `A` risk, do not prioritize:
-
-- broad platform expansion;
-- full multi-state coverage;
-- fully automated genealogy;
-- automatic outreach;
-- automatic claim submission;
-- contracts automation;
-- infrastructure refactors without vertical-slice benefit;
-- additional agent complexity without demonstrated product need;
-- repeated diagnostics that do not test a new hypothesis or unblock the real-source path.
-
-## 11. Decision discipline
-
-Before starting a substantial task, answer:
-
-1. What class is this task: A, B, C or D?
-2. What specific MVP-1 blocker or exit criterion does it address?
-3. Can a mature external component remove or reduce custom work?
-4. What evidence will show that the task materially advanced product or commercial validation?
-5. What Product Owner involvement is truly necessary?
-
-If these questions cannot be answered credibly, the task should not become the next priority.
-
-## 12. Current strategic sequence
-
-The intended sequence is:
-
-1. resolve the current California transport/archive-layout blocker with the minimum bounded and safe work required;
-2. obtain a separately reviewed and freshly authorized real-source verification path when required;
-3. achieve one approved real source;
-4. immediately shift from source/governance expansion to the MVP-1 vertical slice;
-5. measure the commercial baseline from real execution;
-6. make an explicit product/commercial decision using the measured evidence before broadening scope.
-
-## 13. Source priority and precedence
-
-For future project work, this document must be read immediately after `AGENTS.md` and before `PROJECT_STATE.md`.
-
-Canonical read order becomes:
+## 10. Canonical read order
 
 1. `AGENTS.md`
 2. `PRODUCT_STRATEGY_MVP1.md`
@@ -211,9 +143,4 @@ Canonical read order becomes:
 5. `DECISIONS.md`
 6. `docs/handovers/HANDOVER_CURRENT.md`
 
-Precedence rule:
-
-- law, privacy, security, source authorization and explicit safety controls always prevail;
-- accepted architectural decisions and machine contracts remain binding unless explicitly superseded;
-- within those constraints, this product strategy governs prioritization and definition of useful progress;
-- project execution should optimize for the shortest safe path to MVP-1 rather than maximum infrastructure or governance completeness.
+Within existing safety/legal constraints, this file governs prioritization and the definition of useful progress.
