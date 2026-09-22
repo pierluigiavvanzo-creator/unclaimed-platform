@@ -94,6 +94,30 @@ This grant created only:
 
 No OSC access, preflight, download, owner-file open, real owner-PII processing or seventh execution occurred.
 
+## Verification
+
+Grant checkpoint before this documentation-only CI recording:
+
+`1b85274fde1af56d8b545c2e3aefa83e4f3c993e`
+
+GitHub CI:
+
+`35692409551 — SUCCESS`
+
+Results:
+
+- Ruff: PASS;
+- mypy core: 19 source files PASS;
+- mypy NY OSC runtimes: 4 source files PASS;
+- contract tests: 424 passed;
+- smoke tests: 16 passed;
+- full pytest: 607 passed;
+- Streamlit safety/startup: PASS;
+- frontend lint/typecheck/build: PASS.
+
+The new approval contract tests passed and confirm that the local-retention grant is single-use,
+non-reusable, zero-retry and grants neither download nor owner-PII processing.
+
 ## Next human gate
 
 `HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
