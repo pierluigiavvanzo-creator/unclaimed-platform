@@ -2,138 +2,64 @@
 
 Last updated: 2026-09-22
 
-## AUTHORITATIVE CURRENT STATE — SEVENTH TRANSIENT-LOCAL APPROVAL GRANTED
+## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION MODE
 
 Repository:
 
 `pierluigiavvanzo-creator/unclaimed-platform`
 
-Current branch:
+Canonical integration branch after this owner-authorized reconciliation:
 
-`ny-osc-seventh-transient-local-approval-grant-offline`
+`main`
+
+Current product objective:
+
+`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
+
+Governance and source diagnostics are considered over-implemented relative to product validation and are frozen unless they directly block this path.
+
+## Current NY OSC state
 
 Reviewed seventh real-runtime package baseline:
 
 `96d58f6c5e0c54c59ad1b9b4606d34eb1b050f72`
 
-Baseline CI:
+Package CI:
 
 `35657861859 — SUCCESS`
 
-Reviewed implementation gate:
+Package state:
 
 `IMPLEMENT_AND_REVIEW_NY_OSC_SEVENTH_REAL_RUNTIME_PACKAGE_OFFLINE = PASS`
 
-## Current grant
+Seventh transient-local approval:
 
-Product Owner supplied exactly:
-
-`APPROVO NY OSC SEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
-
-Human gate:
-
-`HUMAN_NY_OSC_SEVENTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION`
+`GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE / ZERO RETRY`
 
 Approval artifact:
 
 `sources/evidence/ny_osc_owner_name_file_seventh_attempt_transient_local_approval.v1.json`
 
-Approval ref:
+Verified grant branch HEAD before product-focus reconciliation:
 
-`OWNER_APPROVAL_2026-09-22_NY_OSC_SEVENTH_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_96D58F6C`
+`4cd3070a35bed3822922811422302aa145f37c34`
 
-State:
+Grant CI:
 
-`GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE / ZERO RETRY`
+`35692570391 — SUCCESS`
 
-Binding:
+## What is NOT yet authorized
 
-- attempt: `7`;
-- proposal checkpoint: `18c270bd89d7c4e0c37a5bc046a1f09e49dc672e`;
-- proposal CI: `35653220457 — SUCCESS`;
-- runner checkpoint: `96d58f6c5e0c54c59ad1b9b4606d34eb1b050f72`;
-- runner CI: `35657861859 — SUCCESS`.
-
-Grant verification checkpoint:
-
-`1b85274fde1af56d8b545c2e3aefa83e4f3c993e`
-
-Grant verification CI:
-
-`35692409551 — SUCCESS`
-
-Results:
-
-- Ruff: PASS;
-- mypy core: 19 source files PASS;
-- mypy NY OSC runtimes: 4 source files PASS;
-- contract tests: 424 passed;
-- smoke tests: 16 passed;
-- full pytest: 607 passed;
-- Streamlit safety/startup: PASS;
-- frontend lint/typecheck/build: PASS.
-
-Audit:
-
-`docs/audits/NY_OSC_SEVENTH_TRANSIENT_LOCAL_APPROVAL_GRANT_OFFLINE.md`
-
-## What this grant allows
-
-Only the bounded transient local-retention exception:
-
-- expected filename `FINDERS.zip`;
-- maximum local archive size `450000000` bytes;
-- dedicated OS-temp directory;
-- immediate logical deletion;
-- no durable raw persistence;
-- no repository persistence;
-- no cloud sync;
-- no chat upload;
-- no claim of physical secure erasure.
-
-## What remains ungranted
-
-The current local-retention approval does not authorize:
-
-- OSC/source network access;
-- remote listing preflight;
+- transient owner-PII processing;
+- fresh remote listing preflight;
 - download;
-- owner-PII processing;
+- final seventh execution;
 - source activation;
 - identity resolution;
 - beneficiary matching;
-- outreach;
-- fee agreement;
-- representation;
-- claim activity.
+- outreach, contracts, representation or claims.
 
-The following seventh artifacts remain absent/ungranted:
-
-- transient-PII approval artifact;
-- fresh listing preflight receipt;
-- final execution authorization artifact.
-
-No OSC access, preflight, download, owner-file open, owner-PII processing or seventh execution has occurred.
-
-## Protected runtime state
-
-The reviewed seventh package remains:
-
-`authorization v1.3 -> Gate 7 -> runtime v1.4 -> result v1.4`
-
-with:
-
-- `AUTHORIZED_REAL_ONCE`;
-- attempt `7`;
-- four machine-bound references required before execution;
-- `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
-- one manual download maximum;
-- zero retries;
-- no direct network client;
-- fresh preflight `EXACT_MATCH` and <=900 seconds before execution;
-- execution-authorization consumption provenance required in result v1.4.
-
-Historical synthetic v1.2/v1.3, Gate 6 and consumed sixth approvals remain unchanged and non-reusable.
+No OSC access, preflight, download, owner-file open, owner-PII processing or seventh execution has occurred under the current local-retention grant.
 
 ## SINGLE NEXT ACTION
 
@@ -141,10 +67,50 @@ Execute exclusively:
 
 `HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
 
-Required Product Owner phrase:
+Required exact Product Owner phrase:
 
 `APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
 
-If and only if that exact phrase is supplied, create one fresh seventh transient-PII approval artifact bound to the same reviewed runner checkpoint.
+If and only if that exact phrase is supplied, create the fresh seventh transient-PII approval artifact bound to the reviewed Gate 7 package.
 
-Do **not** infer or grant fresh listing preflight authority, download authority, or final seventh execution authority from the PII grant.
+Do not infer fresh listing preflight authority, download authority or final execution authority from the PII grant.
+
+## Product work immediately after real execution
+
+If the bounded real execution succeeds, do not open another source-diagnostic phase by default.
+
+Move directly to:
+
+`real mapping -> normalization -> insurance classification -> candidate -> provenance/evidence -> economics -> reviewer`
+
+Reuse the existing synthetic MVP-1 slice, reviewer API/Streamlit surface and existing contracts.
+
+Target output:
+
+- one real human-reviewable case with reproducible economics; or
+- one documented zero-candidate result after the complete vertical slice.
+
+Then capture the commercial baseline and ask the Product Owner for `GO / REVISE / STOP`.
+
+## Git health reconciliation
+
+Before this work package:
+
+- `main` was at `b5a27ff1428b969286c798cc52385ced9fc59eda`;
+- the verified product line was 675 commits ahead and 6 behind;
+- the six main-only commits had no net tree delta versus the common ancestor.
+
+The Product Owner explicitly authorized a history-preserving merge to restore `main` as the source-of-truth integration branch. After reconciliation, verified milestone work should be merged back into `main` promptly instead of allowing long-lived branch divergence.
+
+## Strategic freeze before MVP-1
+
+Do not prioritize new:
+
+- governance layers or micro-gates beyond legally/privacy-required controls;
+- source diagnostics or parser experiments not proven necessary by the current real slice;
+- multi-state expansion;
+- agent frameworks;
+- graph infrastructure;
+- broad genealogy automation;
+- non-critical UI polish;
+- infrastructure refactors without direct MVP-1 impact.
