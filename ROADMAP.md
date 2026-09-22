@@ -4,66 +4,100 @@ Last updated: 2026-09-22
 
 ## Product validation critical path
 
-The roadmap is intentionally narrow:
-
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
 No broad platform expansion is scheduled before this is complete.
 
-## Stage 1 — Complete authorization for one real source
+## Stage 1 — Real-source authorization and first execution
 
-Current source path: NY OSC attempt 7.
+NY OSC attempt 8 completed the first bounded real download/execution under single-use authorization.
 
-Done:
+Result:
 
-- synthetic RAW-literal integration implemented and reviewed PASS;
-- real-capable package reviewed PASS;
-- local transient-retention approval granted and unconsumed;
-- transient-PII approval granted and unconsumed.
+- authorization consumed;
+- freshness correctly bound to download start;
+- real archive processed transiently and deleted;
+- execution blocked on `UNEXPECTED_DATA_FIELD_COUNT`;
+- documented fields: `14`;
+- observed fields: `15`;
+- raw/structural pipes: `14`;
+- complete records: `2490891`;
+- quote bytes: `0`;
+- no owner values returned or persisted.
 
-Next:
+Exit criterion for this stage: ACHIEVED AS A BOUNDED REAL EXECUTION WITH A SPECIFIC STRUCTURAL BLOCKER.
 
-`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
+## Stage 2 — Attempt 9: resolve the proven blocker once
 
-Required phrase:
+Attempt 9 is the only active source-diagnostic exception because attempt 8 produced a concrete blocker.
 
-`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
+Offline package branch:
 
-Then, as separate gates only:
+`mvp1-ny-ninth-trailing-delimiter-bounded-offline`
 
-1. perform the fresh listing preflight;
-2. require an `EXACT_MATCH` receipt within the configured freshness window;
-3. obtain final single-use execution authorization.
+PR:
 
-Exit criterion: all legally/privacy-required execution prerequisites are satisfied without inferring one gate from another.
+`#27`
 
-## Stage 2 — One bounded real execution
+Pre-documentation package CI:
 
-Use the existing reviewed Gate 7 package.
+`35771193204 — SUCCESS`
 
-Constraints:
+Attempt-9 execution hypothesis:
 
-- one manual download maximum;
+`14 documented fields + terminal | -> empty 15th structural field`
+
+Bounded real execution must emit aggregate counters only:
+
+- complete records;
+- records with exactly 14 pipes;
+- records ending with `|`;
+- records with a non-empty 15th field;
+- records with any other pipe count;
+- classification.
+
+Continuation rule:
+
+If and only if every complete record has exactly 14 pipes, every record ends with `|`, the 15th field contains zero bytes, and no record has another pipe count, classify:
+
+`DOCUMENTED_14_FIELDS_WITH_TERMINAL_DELIMITER`
+
+and allow structural normalization to documented width `14` in that same execution result.
+
+Any exception returns `BLOCKED` / `TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`.
+
+Runner fix:
+
+- no inline `python -c` status wrapper;
+- dedicated Python entrypoint;
+- one download maximum;
+- one execution maximum;
 - zero retries;
-- dedicated OS-temp file;
-- documented byte/archive caps;
-- no direct network client in Gate 7;
-- `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
-- fail closed on unsupported structure;
-- logical deletion after execution;
-- no owner values/raw path in result artifacts.
+- no direct network client;
+- dedicated OS temp;
+- immediate logical deletion;
+- no raw/owner values returned.
 
-Exit criterion: one real execution result exists, or a bounded documented failure provides a specific blocker that directly prevents the product slice.
+Next gates, only after final package CI is green:
+
+1. `APPROVO NY OSC NINTH TRANSIENT LOCAL FILE BOUNDED ONCE`;
+2. `APPROVO NY OSC OWNER NAME FILE NINTH BOUNDED TRANSIENT PII ATTEMPT ONCE`;
+3. `AUTHORIZE_NY_OSC_NINTH_FRESH_LISTING_PREFLIGHT`;
+4. fresh `EXACT_MATCH` receipt;
+5. `AUTHORIZE_NY_OSC_NINTH_BOUNDED_EXECUTION_ONCE`;
+6. one Gate 9 execution.
+
+No attempt-8 grant is reusable.
 
 ## Stage 3 — Immediate downstream product slice
 
-On successful acquisition, move directly to:
+If attempt 9 confirms the terminal-empty-field hypothesis, stop parser/source-diagnostic work and move directly toward:
 
-`real mapping -> normalization -> insurance classification -> candidate case -> provenance/evidence -> case economics -> reviewer`
+`normalized real mapping -> insurance classification -> candidate or documented zero-candidate -> provenance/evidence -> economics -> reviewer`
 
-Reuse the existing synthetic MVP-1 path and contracts. Do not create another source-diagnostic program unless the real result proves it necessary.
+Reuse the existing synthetic MVP-1 path/contracts rather than building a parallel framework.
 
-Exit criterion: at least one real reviewer case, or a documented zero-candidate full-pipeline result.
+Exit criterion: at least one real reviewer case or one documented zero-candidate full-pipeline result.
 
 ## Stage 4 — Economic baseline
 
@@ -96,8 +130,8 @@ Only after this decision should the project consider multi-state expansion, grap
 Unless a direct blocker is demonstrated:
 
 - new governance layers;
-- new source diagnostics;
-- parser research beyond the active bounded execution;
+- new source diagnostics beyond attempt 9;
+- parser research unrelated to the real blocker;
 - new agent frameworks;
 - graph databases/evidence-graph infrastructure;
 - multi-state expansion;
@@ -108,4 +142,4 @@ Unless a direct blocker is demonstrated:
 
 ## Git health
 
-`main` is the canonical integration branch. Verified product-critical milestone branches should return promptly to `main` after CI/review so product validation does not diverge into long-lived governance/source branches.
+`main` remains the canonical integration branch. PR #27 isolates the attempt-9 delta from the attempt-8 package. No merge is authorized by the offline preparation itself.
