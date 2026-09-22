@@ -12,79 +12,103 @@ Objective:
 
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-## Attempt 8 result
+## Real-source state through Attempt 9
 
-Attempt 8 completed one bounded real execution and is consumed/non-reusable/zero-retry.
+Attempt 9 completed one bounded whole-file structural scan and is consumed/non-reusable/zero-retry.
 
-Authoritative non-sensitive result artifact:
+Authoritative non-sensitive result:
 
-`sources/evidence/ny_osc_owner_name_file_eighth_attempt_execution_result.v1.json`
+`sources/evidence/ny_osc_owner_name_file_ninth_attempt_execution_result.v1.json`
 
-Observed structural result:
+Observed aggregate result:
 
 - status `BLOCKED`;
-- reason `UNEXPECTED_DATA_FIELD_COUNT`;
-- complete records `2490891`;
-- documented field count `14`;
-- observed field count `15`;
-- raw and structural pipe count `14`;
-- quote-byte count `0`;
-- local archive deleted after processing.
+- reason `TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`;
+- archive bytes `409477526`;
+- physical records `14994489`;
+- exactly-14-pipe records `12`;
+- records ending with `|`: `0`;
+- non-empty data after the 14th pipe: `12`;
+- records with any other pipe count: `14994477`;
+- raw archive logically deleted;
+- no owner/raw values returned.
 
-The download-start freshness remediation worked. A later wrapper-only `NameError` occurred after the structured result was already emitted; Gate 9 removes that wrapper pattern.
+The empty-terminal-field hypothesis is rejected. The `14994477` aggregate bucket must not be silently interpreted as all 13-pipe records.
 
-## Attempt 9 offline package
+## Attempt 10 offline product-slice package
 
 Branch:
 
-`mvp1-ny-ninth-trailing-delimiter-bounded-offline`
+`mvp1-ny-tenth-product-slice-offline`
 
 PR:
 
-`#27`
+`#28`
 
-The package tests one exact hypothesis:
+Purpose:
 
-`14 documented fields + terminal | -> empty 15th structural field`
+`REAL PHYSICAL RECORDS -> STRUCTURAL DEFER/ACCEPT -> PROPERTY TYPE CODE -> INSURANCE CLASSIFICATION -> AGGREGATE CANDIDATE OR ZERO-CANDIDATE -> ECONOMIC ACTIONABILITY`
 
-It does not assume the hypothesis. It counts only aggregate structure and returns no raw records.
+Implemented:
 
-If every complete record has exactly 14 pipes, every record ends with `|`, and there are zero bytes after the 14th pipe, the result is:
+- exactly `13` pipes is the only accepted physical width for the documented `14` fields;
+- all other physical shapes are deferred metadata-only, not repaired;
+- only Property Type Code at documented field index `1` is buffered/decoded;
+- owner name/address bytes are not buffered, decoded, logged or returned;
+- classification reuses existing authority-backed `NY_INSURANCE_CODES` with exact matching only;
+- `IN03` remains the existing MVP-1 primary target;
+- result exposes aggregate counts only and does not materialize candidate PII;
+- economics remain `UNKNOWN_FROM_SOURCE` / fail-closed;
+- dedicated Python entrypoint and Gate 10 PowerShell runner;
+- one download / one execution / zero retry;
+- archive logical deletion after execution;
+- versioned product-slice result schema and unit tests.
 
-`DISCOVERED / DOCUMENTED_14_FIELDS_WITH_TERMINAL_DELIMITER_CONFIRMED`
+Package checkpoint before these canonical-document updates:
 
-and structural width `14` is allowed.
+`b34a2a283cf45a2e205af4d8944a0b35cb74e6b2`
 
-Otherwise the result is:
+CI:
 
-`BLOCKED / TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`
+`35777375233 — SUCCESS`
 
-Gate 9 uses a dedicated Python entrypoint instead of inline `python -c`.
+Passed Ruff, mypy, contract/smoke/full pytest, Streamlit checks, frontend lint/typecheck/build.
 
-Pre-documentation package CI:
-
-`35771193204 — SUCCESS`
-
-No remote source operation occurred during this offline preparation.
+No NY OSC source access, preflight, download or real PII processing occurred while preparing Attempt 10 offline.
 
 ## SINGLE NEXT ACTION
 
-Wait for CI on the final documented Attempt-9 checkpoint.
+Wait for CI on the final documented Attempt-10 checkpoint.
 
-If green, request only the first two Attempt-9 grants:
+If and only if green, request the first two new Attempt-10 grants together:
 
-`APPROVO NY OSC NINTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+`APPROVO NY OSC TENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
 
-`APPROVO NY OSC OWNER NAME FILE NINTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`APPROVO NY OSC OWNER NAME FILE TENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
 
-Later source/preflight/execution gates remain separate and must not be inferred.
+Do not infer fresh-preflight or execution authority from these grants. Those remain separate later gates.
 
-No Attempt-8 authorization may be reused.
+No Attempt-9 authorization may be reused.
 
-## After Attempt 9
+## Expected real Attempt-10 output
 
-If the terminal-empty-field hypothesis is confirmed, do not start another parser-diagnostic loop. Move directly toward normalized mapping, insurance classification, candidate or documented zero-candidate outcome, evidence, economics, and reviewer.
+The execution should return only non-owner aggregate product metrics:
+
+- total records;
+- structurally conforming/deferred counts;
+- authority-backed insurance count;
+- primary `IN03` aggregate candidate count;
+- other-insurance count;
+- no-authority-match and unclassifiable counts;
+- candidate-present or documented zero-candidate outcome;
+- fail-closed economic actionability state.
+
+If candidates are present, the next product step is evidence/value work required for reviewer actionability, not another parser loop. If zero candidates are found, record the real zero-candidate product result and reassess source/product fit.
+
+## Safety boundaries
+
+Attempt 10 does not authorize source activation, candidate PII persistence, identity resolution, beneficiary matching, outreach, fee agreement, representation or claim activity.
 
 ## Git health
 
-`main` remains canonical. PR #27 is open and not merged. No merge is authorized by this handover.
+`main` remains canonical. PR #28 is open and not merged. No merge is authorized by this handover.
