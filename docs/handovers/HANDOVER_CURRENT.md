@@ -8,7 +8,7 @@ Repository:
 
 `pierluigiavvanzo-creator/unclaimed-platform`
 
-Canonical integration branch after this owner-authorized reconciliation:
+Canonical integration branch:
 
 `main`
 
@@ -19,6 +19,10 @@ Current product objective:
 Governance and source diagnostics are considered over-implemented relative to product validation and are frozen unless they directly block this path.
 
 ## Current NY OSC state
+
+Synthetic RAW-literal runtime integration:
+
+`IMPLEMENTED + REVIEWED PASS`
 
 Reviewed seventh real-runtime package baseline:
 
@@ -36,21 +40,26 @@ Seventh transient-local approval:
 
 `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE / ZERO RETRY`
 
-Approval artifact:
+Local approval artifact:
 
 `sources/evidence/ny_osc_owner_name_file_seventh_attempt_transient_local_approval.v1.json`
 
-Verified grant branch HEAD before product-focus reconciliation:
+Seventh transient-PII approval:
 
-`4cd3070a35bed3822922811422302aa145f37c34`
+`GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE / ZERO RETRY`
 
-Grant CI:
+PII approval artifact:
 
-`35692570391 — SUCCESS`
+`sources/evidence/ny_osc_owner_name_file_seventh_attempt_transient_pii_approval.v1.json`
+
+Both approvals are bound to the reviewed Gate 7 package checkpoint:
+
+`96d58f6c5e0c54c59ad1b9b4606d34eb1b050f72`
+
+Neither approval grants source access, preflight, download or final execution.
 
 ## What is NOT yet authorized
 
-- transient owner-PII processing;
 - fresh remote listing preflight;
 - download;
 - final seventh execution;
@@ -59,21 +68,21 @@ Grant CI:
 - beneficiary matching;
 - outreach, contracts, representation or claims.
 
-No OSC access, preflight, download, owner-file open, owner-PII processing or seventh execution has occurred under the current local-retention grant.
+No OSC access, preflight, download, owner-file open, real owner-PII processing or seventh execution has occurred under the current approvals.
 
 ## SINGLE NEXT ACTION
 
 Execute exclusively:
 
-`HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
+`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
 
 Required exact Product Owner phrase:
 
-`APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
 
-If and only if that exact phrase is supplied, create the fresh seventh transient-PII approval artifact bound to the reviewed Gate 7 package.
+If and only if that exact phrase is supplied, perform only the bounded fresh listing preflight and record its non-PII receipt.
 
-Do not infer fresh listing preflight authority, download authority or final execution authority from the PII grant.
+The preflight must not download or open the owner file and must not be interpreted as final seventh execution authority.
 
 ## Product work immediately after real execution
 
@@ -92,15 +101,9 @@ Target output:
 
 Then capture the commercial baseline and ask the Product Owner for `GO / REVISE / STOP`.
 
-## Git health reconciliation
+## Git health
 
-Before this work package:
-
-- `main` was at `b5a27ff1428b969286c798cc52385ced9fc59eda`;
-- the verified product line was 675 commits ahead and 6 behind;
-- the six main-only commits had no net tree delta versus the common ancestor.
-
-The Product Owner explicitly authorized a history-preserving merge to restore `main` as the source-of-truth integration branch. After reconciliation, verified milestone work should be merged back into `main` promptly instead of allowing long-lived branch divergence.
+`main` is the canonical source-of-truth integration branch after the owner-authorized history-preserving reconciliation. Product-critical milestone branches should merge back promptly after verification.
 
 ## Strategic freeze before MVP-1
 
