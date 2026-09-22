@@ -14,7 +14,9 @@ from unclaimed_platform.adapters.sources.ny_owner_name_transient_local_execution
 )
 
 RUNNER = "b" * 40
-PROPOSAL_REF = "sources/proposals/ny_osc_owner_name_file_tenth_product_slice_authorization.v1.json"
+PROPOSAL_REF = (
+    "sources/proposals/ny_osc_owner_name_file_tenth_product_slice_authorization.v1.json"
+)
 
 
 def _stamp(value: datetime) -> str:
@@ -39,8 +41,16 @@ def _write(path: Path, payload: dict[str, object]) -> Path:
 def _build(tmp_path: Path, *, start_offset_seconds: int = 60):
     performed = datetime(2026, 9, 22, 19, 24, 12, tzinfo=UTC)
     started = performed + timedelta(seconds=start_offset_seconds)
-    local = {**_common(), "status": "GRANTED_NOT_CONSUMED", "execution_approval_ref": "local-ref"}
-    pii = {**_common(), "status": "GRANTED_NOT_CONSUMED", "execution_approval_ref": "pii-ref"}
+    local = {
+        **_common(),
+        "status": "GRANTED_NOT_CONSUMED",
+        "execution_approval_ref": "local-ref",
+    }
+    pii = {
+        **_common(),
+        "status": "GRANTED_NOT_CONSUMED",
+        "execution_approval_ref": "pii-ref",
+    }
     preflight = {
         **_common(),
         "receipt_ref": "preflight-ref",
@@ -73,7 +83,22 @@ def _build(tmp_path: Path, *, start_offset_seconds: int = 60):
 
 
 def _archive(tmp_path: Path) -> Path:
-    fields = [b"ID", b"IN03", b"DESC", b"1", b"OWNER", b"ADDR", b"", b"", b"CITY", b"NY", b"ZIP", b"USA", b"HOLDER", b"2026"]
+    fields = [
+        b"ID",
+        b"IN03",
+        b"DESC",
+        b"1",
+        b"OWNER",
+        b"ADDR",
+        b"",
+        b"",
+        b"CITY",
+        b"NY",
+        b"ZIP",
+        b"USA",
+        b"HOLDER",
+        b"2026",
+    ]
     path = tmp_path / "FINDERS.zip"
     with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         archive.writestr("owners.txt", b"|".join(fields) + b"\r\n")
@@ -88,12 +113,16 @@ def test_builder_binds_freshness_to_download_start(tmp_path: Path) -> None:
     assert auth.tenth_execution_authorization_ref == "execution-ref"
 
 
-def test_builder_rejects_download_start_after_freshness_window(tmp_path: Path) -> None:
+def test_builder_rejects_download_start_after_freshness_window(
+    tmp_path: Path,
+) -> None:
     with pytest.raises(ValueError, match="outside fresh preflight window"):
         _build(tmp_path, start_offset_seconds=901)
 
 
-def test_runtime_completes_product_slice_and_deletes_archive(tmp_path: Path) -> None:
+def test_runtime_completes_product_slice_and_deletes_archive(
+    tmp_path: Path,
+) -> None:
     auth = _build(tmp_path)
     archive = _archive(tmp_path)
 
