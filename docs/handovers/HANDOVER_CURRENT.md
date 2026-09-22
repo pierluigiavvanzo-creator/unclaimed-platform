@@ -4,116 +4,87 @@ Last updated: 2026-09-22
 
 ## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION MODE
 
-Repository:
+Repository: `pierluigiavvanzo-creator/unclaimed-platform`
 
-`pierluigiavvanzo-creator/unclaimed-platform`
+Canonical integration branch: `main`
 
-Canonical integration branch:
-
-`main`
-
-Current product objective:
+Objective:
 
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-Governance and source diagnostics are considered over-implemented relative to product validation and are frozen unless they directly block this path.
+## Attempt 8 result
 
-## Current NY OSC state
+Attempt 8 completed one bounded real execution and is consumed/non-reusable/zero-retry.
 
-Synthetic RAW-literal runtime integration:
+Authoritative non-sensitive result artifact:
 
-`IMPLEMENTED + REVIEWED PASS`
+`sources/evidence/ny_osc_owner_name_file_eighth_attempt_execution_result.v1.json`
 
-Reviewed seventh real-runtime package baseline:
+Observed structural result:
 
-`96d58f6c5e0c54c59ad1b9b4606d34eb1b050f72`
+- status `BLOCKED`;
+- reason `UNEXPECTED_DATA_FIELD_COUNT`;
+- complete records `2490891`;
+- documented field count `14`;
+- observed field count `15`;
+- raw and structural pipe count `14`;
+- quote-byte count `0`;
+- local archive deleted after processing.
 
-Package CI:
+The download-start freshness remediation worked. A later wrapper-only `NameError` occurred after the structured result was already emitted; Gate 9 removes that wrapper pattern.
 
-`35657861859 — SUCCESS`
+## Attempt 9 offline package
 
-Package state:
+Branch:
 
-`IMPLEMENT_AND_REVIEW_NY_OSC_SEVENTH_REAL_RUNTIME_PACKAGE_OFFLINE = PASS`
+`mvp1-ny-ninth-trailing-delimiter-bounded-offline`
 
-Seventh transient-local approval:
+PR:
 
-`GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE / ZERO RETRY`
+`#27`
 
-Local approval artifact:
+The package tests one exact hypothesis:
 
-`sources/evidence/ny_osc_owner_name_file_seventh_attempt_transient_local_approval.v1.json`
+`14 documented fields + terminal | -> empty 15th structural field`
 
-Seventh transient-PII approval:
+It does not assume the hypothesis. It counts only aggregate structure and returns no raw records.
 
-`GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE / ZERO RETRY`
+If every complete record has exactly 14 pipes, every record ends with `|`, and there are zero bytes after the 14th pipe, the result is:
 
-PII approval artifact:
+`DISCOVERED / DOCUMENTED_14_FIELDS_WITH_TERMINAL_DELIMITER_CONFIRMED`
 
-`sources/evidence/ny_osc_owner_name_file_seventh_attempt_transient_pii_approval.v1.json`
+and structural width `14` is allowed.
 
-Both approvals are bound to the reviewed Gate 7 package checkpoint:
+Otherwise the result is:
 
-`96d58f6c5e0c54c59ad1b9b4606d34eb1b050f72`
+`BLOCKED / TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`
 
-Neither approval grants source access, preflight, download or final execution.
+Gate 9 uses a dedicated Python entrypoint instead of inline `python -c`.
 
-## What is NOT yet authorized
+Pre-documentation package CI:
 
-- fresh remote listing preflight;
-- download;
-- final seventh execution;
-- source activation;
-- identity resolution;
-- beneficiary matching;
-- outreach, contracts, representation or claims.
+`35771193204 — SUCCESS`
 
-No OSC access, preflight, download, owner-file open, real owner-PII processing or seventh execution has occurred under the current approvals.
+No remote source operation occurred during this offline preparation.
 
 ## SINGLE NEXT ACTION
 
-Execute exclusively:
+Wait for CI on the final documented Attempt-9 checkpoint.
 
-`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
+If green, request only the first two Attempt-9 grants:
 
-Required exact Product Owner phrase:
+`APPROVO NY OSC NINTH TRANSIENT LOCAL FILE BOUNDED ONCE`
 
-`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
+`APPROVO NY OSC OWNER NAME FILE NINTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
 
-If and only if that exact phrase is supplied, perform only the bounded fresh listing preflight and record its non-PII receipt.
+Later source/preflight/execution gates remain separate and must not be inferred.
 
-The preflight must not download or open the owner file and must not be interpreted as final seventh execution authority.
+No Attempt-8 authorization may be reused.
 
-## Product work immediately after real execution
+## After Attempt 9
 
-If the bounded real execution succeeds, do not open another source-diagnostic phase by default.
-
-Move directly to:
-
-`real mapping -> normalization -> insurance classification -> candidate -> provenance/evidence -> economics -> reviewer`
-
-Reuse the existing synthetic MVP-1 slice, reviewer API/Streamlit surface and existing contracts.
-
-Target output:
-
-- one real human-reviewable case with reproducible economics; or
-- one documented zero-candidate result after the complete vertical slice.
-
-Then capture the commercial baseline and ask the Product Owner for `GO / REVISE / STOP`.
+If the terminal-empty-field hypothesis is confirmed, do not start another parser-diagnostic loop. Move directly toward normalized mapping, insurance classification, candidate or documented zero-candidate outcome, evidence, economics, and reviewer.
 
 ## Git health
 
-`main` is the canonical source-of-truth integration branch after the owner-authorized history-preserving reconciliation. Product-critical milestone branches should merge back promptly after verification.
-
-## Strategic freeze before MVP-1
-
-Do not prioritize new:
-
-- governance layers or micro-gates beyond legally/privacy-required controls;
-- source diagnostics or parser experiments not proven necessary by the current real slice;
-- multi-state expansion;
-- agent frameworks;
-- graph infrastructure;
-- broad genealogy automation;
-- non-critical UI polish;
-- infrastructure refactors without direct MVP-1 impact.
+`main` remains canonical. PR #27 is open and not merged. No merge is authorized by this handover.
