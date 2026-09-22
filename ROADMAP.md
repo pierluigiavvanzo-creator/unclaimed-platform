@@ -4,7 +4,7 @@ Last updated: 2026-09-22
 
 ## Product validation critical path
 
-The roadmap is now intentionally narrow:
+The roadmap is intentionally narrow:
 
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
@@ -16,22 +16,24 @@ Current source path: NY OSC attempt 7.
 
 Done:
 
+- synthetic RAW-literal integration implemented and reviewed PASS;
 - real-capable package reviewed PASS;
-- local transient-retention approval granted and unconsumed.
+- local transient-retention approval granted and unconsumed;
+- transient-PII approval granted and unconsumed.
 
 Next:
 
-`HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
+`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
 
 Required phrase:
 
-`APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
 
 Then, as separate gates only:
 
-1. fresh listing preflight authorization;
-2. exact-match fresh preflight receipt;
-3. final single-use execution authorization.
+1. perform the fresh listing preflight;
+2. require an `EXACT_MATCH` receipt within the configured freshness window;
+3. obtain final single-use execution authorization.
 
 Exit criterion: all legally/privacy-required execution prerequisites are satisfied without inferring one gate from another.
 
@@ -106,4 +108,4 @@ Unless a direct blocker is demonstrated:
 
 ## Git health
 
-`main` is restored as the canonical integration branch through the owner-authorized history-preserving reconciliation in this work package. Future verified milestone branches should merge back into `main` promptly to prevent another 600+ commit divergence.
+`main` is the canonical integration branch. Verified product-critical milestone branches should return promptly to `main` after CI/review so product validation does not diverge into long-lived governance/source branches.
