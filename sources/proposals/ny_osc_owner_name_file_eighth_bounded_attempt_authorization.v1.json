@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.eighth_bounded_attempt_authorization_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-22",
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "attempt_number": 8,
+  "problem_statement": {
+    "attempt7_runtime_behavior": "FRESH_PREFLIGHT_AGE_REVALIDATED_AT_POST_DOWNLOAD_RUNTIME_INVOCATION",
+    "risk": "A_MANUAL_DOWNLOAD_STARTED_INSIDE_THE_900_SECOND_WINDOW_CAN_FINISH_AFTER_THE_WINDOW_AND_BE_REJECTED_RETROACTIVELY",
+    "attempt8_remediation": "BIND_FRESHNESS_TO_RUNNER_CONFIRMED_DOWNLOAD_START_MARKER_CAPTURED_ONLY_AFTER_THE_OPERATOR_CONFIRMS_TRANSFER_HAS_STARTED",
+    "post_download_runtime_may_start_after_freshness_deadline": true,
+    "freshness_window_extension_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "implementation_target": {
+    "freshness_helper": "src/unclaimed_platform/adapters/sources/ny_owner_name_attempt8_freshness.py",
+    "runtime": "src/unclaimed_platform/adapters/sources/ny_owner_name_transient_local_execution_v1_5.py",
+    "authorization_contract_version": "1.4.0",
+    "result_contract_version": "1.5.0",
+    "runner": "scripts/ny_osc_gate8_transient_local.ps1",
+    "direct_network_client_allowed": false,
+    "download_mode": "MANUAL_TO_DEDICATED_OS_TEMP",
+    "downloads_max": 1,
+    "retries_max": 0
+  },
+  "freshness_semantics": {
+    "fresh_preflight_required": true,
+    "fresh_preflight_required_status": "EXACT_MATCH",
+    "freshness_window_seconds": 900,
+    "runner_must_validate_preflight_is_fresh_before_download_prompt": true,
+    "runner_must_capture_download_start_marker_only_after_operator_confirms_transfer_started": true,
+    "download_start_marker_must_not_predate_preflight": true,
+    "download_start_marker_must_not_exceed_preflight_deadline": true,
+    "download_start_marker_must_not_be_future_dated_at_runtime_validation": true,
+    "post_download_processing_time_is_not_used_to_retroactively_invalidate_a_valid_start": true
+  },
+  "privacy_and_execution_bounds": {
+    "transient_local_file_only": true,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "human_gates": [
+    {
+      "sequence": 1,
+      "gate": "HUMAN_NY_OSC_EIGHTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC EIGHTH TRANSIENT LOCAL FILE BOUNDED ONCE",
+      "status": "NOT_GRANTED"
+    },
+    {
+      "sequence": 2,
+      "gate": "HUMAN_NY_OSC_EIGHTH_TRANSIENT_PII_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC OWNER NAME FILE EIGHTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+      "status": "NOT_GRANTED"
+    },
+    {
+      "sequence": 3,
+      "gate": "HUMAN_NY_OSC_EIGHTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+      "approval_phrase": "AUTHORIZE_NY_OSC_EIGHTH_FRESH_LISTING_PREFLIGHT",
+      "status": "NOT_GRANTED",
+      "scope": "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN"
+    },
+    {
+      "sequence": 4,
+      "gate": "HUMAN_NY_OSC_EIGHTH_EXECUTION_AUTHORIZATION",
+      "approval_phrase": "AUTHORIZE_NY_OSC_EIGHTH_BOUNDED_EXECUTION_ONCE",
+      "status": "NOT_GRANTED",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "requires_exact_match_fresh_preflight": true,
+      "download_authority": "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP",
+      "execution_authority": "ONE_BOUND_GATE8_EXECUTION"
+    }
+  ],
+  "request_scope": {
+    "repository_only": true,
+    "source_network_access_performed": false,
+    "remote_preflight_performed": false,
+    "download_performed": false,
+    "owner_file_opened": false,
+    "owner_pii_processed": false
+  },
+  "authorization_does_not_grant": {
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "owner_pii_processing": false,
+    "eighth_attempt_execution": false,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  }
+}
