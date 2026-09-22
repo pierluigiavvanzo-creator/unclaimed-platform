@@ -4,7 +4,7 @@ Last updated: 2026-09-22
 
 ## Authoritative product state
 
-The project is now in **PRODUCT VALIDATION MODE**.
+The project is in **PRODUCT VALIDATION MODE**.
 
 Primary objective:
 
@@ -16,16 +16,7 @@ Governance and source diagnostics are no longer roadmap objectives. They remain 
 
 `main`
 
-This work package performs the owner-authorized history-preserving reconciliation of the previously divergent `main` history with the verified development line.
-
-Pre-reconciliation state:
-
-- `main`: `b5a27ff1428b969286c798cc52385ced9fc59eda`;
-- verified product branch: `ny-osc-seventh-transient-local-approval-grant-offline`;
-- verified branch HEAD: `4cd3070a35bed3822922811422302aa145f37c34`;
-- verified CI: `35692570391 — SUCCESS`;
-- compare: product branch 675 commits ahead / 6 behind `main`;
-- the six `main`-only commits have no net tree delta versus the common ancestor, so reconciliation is history-preserving rather than a choice between competing product trees.
+`main` is the canonical source-of-truth integration branch after the owner-authorized history-preserving reconciliation completed on 2026-09-22.
 
 ## Real-source readiness
 
@@ -33,28 +24,30 @@ NY OSC attempt 7 is the current real-source path.
 
 Completed:
 
+- synthetic RAW-literal runtime integration: IMPLEMENTED + REVIEWED PASS;
 - real-capable authorization v1.3 / Gate 7 / runtime v1.4 / result v1.4: IMPLEMENTED + REVIEWED PASS;
-- transient-local approval artifact: GRANTED_NOT_CONSUMED;
-- local approval semantics: SINGLE_USE / NON_REUSABLE / ZERO RETRY;
-- no source access or download has been performed under that grant.
+- transient-local approval artifact: `GRANTED_NOT_CONSUMED`;
+- transient-PII approval artifact: `GRANTED_NOT_CONSUMED`;
+- both approvals are SINGLE_USE / NON_REUSABLE / ZERO RETRY;
+- no source access or download has been performed under those grants.
 
 Still ungranted/unperformed:
 
-- transient-PII approval;
-- fresh listing preflight;
+- fresh listing preflight authorization;
+- fresh listing preflight receipt;
 - final execution authorization;
 - real download/execution;
 - real candidate/economics/reviewer result.
 
 ## Current single next action
 
-`HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
+`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
 
 Required exact Product Owner phrase:
 
-`APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
 
-That approval must remain separate from preflight, download and final execution authority.
+That authorization is preflight-only. It must not be interpreted as download authority, owner-file-open authority or final execution authority.
 
 ## Product exit criteria
 
@@ -93,4 +86,4 @@ Do not prioritize:
 - Streamlit reviewer;
 - candidate/economics/provenance contracts and tests.
 
-The next engineering work after a successful real acquisition should connect the real output to these existing product components rather than expand source governance.
+After a successful bounded real acquisition, move directly downstream into the existing MVP-1 product slice rather than opening another source-diagnostic phase unless the real result proves a concrete blocker.
