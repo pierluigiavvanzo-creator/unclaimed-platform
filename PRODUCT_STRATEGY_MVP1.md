@@ -1,6 +1,6 @@
 # PRODUCT_STRATEGY_MVP1.md
 
-Version: 2.0  
+Version: 2.1  
 Date: 2026-09-22  
 Status: AUTHORITATIVE PRODUCT-VALIDATION PRIORITY  
 Owner: Product Owner
@@ -41,19 +41,21 @@ Current source candidate: NY OSC Owner Name File.
 
 Completed:
 
+- synthetic RAW-literal runtime integration: implemented and reviewed PASS;
 - real-capable authorization/runtime/result/Gate 7 package: implemented and reviewed PASS;
-- transient-local retention approval for attempt 7: `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE`.
+- transient-local retention approval for attempt 7: `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE`;
+- transient-PII approval for attempt 7: `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE`.
 
 Still required, in order and without inference between gates:
 
-1. `HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`;
-2. fresh listing preflight authorization and exact-match receipt;
+1. `HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`;
+2. fresh listing preflight with `EXACT_MATCH` receipt;
 3. final single-use execution authorization;
 4. one bounded real execution;
 5. real output mapped directly into normalization/classification/candidate/economics/reviewer;
 6. commercial baseline and Product Owner GO / REVISE / STOP decision.
 
-The current local-retention grant does not authorize any later step.
+The current local-retention and transient-PII grants do not authorize any later step.
 
 ## 4. Freeze rule — governance and source diagnostics
 
