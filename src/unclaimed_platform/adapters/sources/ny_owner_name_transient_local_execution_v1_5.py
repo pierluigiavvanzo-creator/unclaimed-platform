@@ -224,7 +224,12 @@ def build_real_execution_authorization_v1_4(
         raise ValueError("fresh preflight was not performed")
     if preflight.get("freshness_window_seconds") != EXPECTED_PREFLIGHT_FRESHNESS_SECONDS:
         raise ValueError("fresh preflight freshness policy mismatch")
-    for key in ("download_performed", "owner_file_opened", "owner_pii_processed", "contains_owner_pii"):
+    for key in (
+        "download_performed",
+        "owner_file_opened",
+        "owner_pii_processed",
+        "contains_owner_pii",
+    ):
         if preflight.get(key) is not False:
             raise ValueError("fresh preflight privacy boundary mismatch")
 
