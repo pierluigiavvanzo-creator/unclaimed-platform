@@ -90,7 +90,10 @@ class NyTransientLocalExecutionResultV1_7(BaseModel):
     @model_validator(mode="after")
     def validate_state(self) -> Self:
         if self.status == "COMPLETED":
-            if self.reason_code != "PRODUCT_SLICE_COMPLETED" or self.product_slice is None:
+            if (
+                self.reason_code != "PRODUCT_SLICE_COMPLETED"
+                or self.product_slice is None
+            ):
                 raise ValueError("completed result requires product slice")
         elif self.product_slice is not None:
             raise ValueError("blocked result cannot expose product slice")
@@ -101,7 +104,9 @@ def _load(path: Path) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ValueError(f"unable to read authorization artifact: {path.name}") from exc
+        raise ValueError(
+            f"unable to read authorization artifact: {path.name}"
+        ) from exc
     if not isinstance(value, dict):
         raise ValueError("authorization artifact must be a JSON object")
     return value
@@ -156,15 +161,31 @@ def build_real_execution_authorization_v1_6(
         raise ValueError("PII approval is not granted/not-consumed")
     if execution.get("status") != "GRANTED_NOT_CONSUMED":
         raise ValueError("execution authorization is not granted/not-consumed")
-    if preflight.get("status") != "EXACT_MATCH" or preflight.get("remote_preflight_performed") is not True:
+    if (
+        preflight.get("status") != "EXACT_MATCH"
+        or preflight.get("remote_preflight_performed") is not True
+    ):
         raise ValueError("preflight is not an exact match")
-    for key in ("download_performed", "owner_file_opened", "owner_pii_processed", "contains_owner_pii"):
+    privacy_keys = (
+        "download_performed",
+        "owner_file_opened",
+        "owner_pii_processed",
+        "contains_owner_pii",
+    )
+    for key in privacy_keys:
         if preflight.get(key) is not False:
             raise ValueError("preflight privacy boundary mismatch")
-    if preflight.get("freshness_window_seconds") != EXPECTED_PREFLIGHT_FRESHNESS_SECONDS:
+    if (
+        preflight.get("freshness_window_seconds")
+        != EXPECTED_PREFLIGHT_FRESHNESS_SECONDS
+    ):
         raise ValueError("preflight freshness policy mismatch")
     started = validate_authorized_download_started_at(
-        preflight_performed_at_utc=_string(preflight, "performed_at_utc", "preflight"),
+        preflight_performed_at_utc=_string(
+            preflight,
+            "performed_at_utc",
+            "preflight",
+        ),
         authorized_download_started_at_utc=authorized_download_started_at_utc,
         freshness_window_seconds=EXPECTED_PREFLIGHT_FRESHNESS_SECONDS,
         observed_now_utc=(now_utc or datetime.now(UTC)),
@@ -172,16 +193,31 @@ def build_real_execution_authorization_v1_6(
     preflight_ref = _string(preflight, "receipt_ref", "preflight")
     if execution.get("fresh_preflight_receipt_ref") != preflight_ref:
         raise ValueError("execution/preflight binding mismatch")
-    if execution.get("download_authority") != "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP":
+    expected_download_authority = "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP"
+    if execution.get("download_authority") != expected_download_authority:
         raise ValueError("download authority mismatch")
     if execution.get("execution_authority") != "ONE_BOUND_GATE10_EXECUTION":
         raise ValueError("Gate 10 execution authority mismatch")
     return NyTransientLocalExecutionAuthorizationV1_6(
-        tenth_transient_local_approval_ref=_string(local, "execution_approval_ref", "local approval"),
-        tenth_transient_pii_approval_ref=_string(pii, "execution_approval_ref", "PII approval"),
+        tenth_transient_local_approval_ref=_string(
+            local,
+            "execution_approval_ref",
+            "local approval",
+        ),
+        tenth_transient_pii_approval_ref=_string(
+            pii,
+            "execution_approval_ref",
+            "PII approval",
+        ),
         tenth_fresh_preflight_receipt_ref=preflight_ref,
-        tenth_execution_authorization_ref=_string(execution, "execution_approval_ref", "execution authorization"),
-        authorized_download_started_at_utc=started.isoformat().replace("+00:00", "Z"),
+        tenth_execution_authorization_ref=_string(
+            execution,
+            "execution_approval_ref",
+            "execution authorization",
+        ),
+        authorized_download_started_at_utc=(
+            started.isoformat().replace("+00:00", "Z")
+        ),
         runner_checkpoint=expected_runner_checkpoint,
     )
 
@@ -204,8 +240,12 @@ def execute_transient_local_product_slice_v1_7(
             local_file_deleted=True,
             archive_byte_count=archive_size,
             product_slice=product_slice,
-            execution_authorization_ref=authorization.tenth_execution_authorization_ref,
-            authorized_download_started_at_utc=authorization.authorized_download_started_at_utc,
+            execution_authorization_ref=(
+                authorization.tenth_execution_authorization_ref
+            ),
+            authorized_download_started_at_utc=(
+                authorization.authorized_download_started_at_utc
+            ),
             runner_checkpoint=authorization.runner_checkpoint,
         )
     except Exception:
@@ -215,8 +255,12 @@ def execute_transient_local_product_slice_v1_7(
             local_file_deleted=True,
             archive_byte_count=archive_size,
             product_slice=None,
-            execution_authorization_ref=authorization.tenth_execution_authorization_ref,
-            authorized_download_started_at_utc=authorization.authorized_download_started_at_utc,
+            execution_authorization_ref=(
+                authorization.tenth_execution_authorization_ref
+            ),
+            authorized_download_started_at_utc=(
+                authorization.authorized_download_started_at_utc
+            ),
             runner_checkpoint=authorization.runner_checkpoint,
         )
     finally:
