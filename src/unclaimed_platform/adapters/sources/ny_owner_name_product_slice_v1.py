@@ -65,7 +65,10 @@ class NyOwnerNameProductSliceResultV1(BaseModel):
 
     @model_validator(mode="after")
     def validate_counts(self) -> Self:
-        if self.structurally_conforming_records + self.deferred_structural_records != self.total_records:
+        structural_total = (
+            self.structurally_conforming_records + self.deferred_structural_records
+        )
+        if structural_total != self.total_records:
             raise ValueError("structural counts do not sum to total records")
         classified = (
             self.authority_backed_insurance_records
@@ -74,10 +77,16 @@ class NyOwnerNameProductSliceResultV1(BaseModel):
         )
         if classified != self.structurally_conforming_records:
             raise ValueError("classification counts do not sum to conforming records")
-        if self.primary_in03_candidate_records + self.other_insurance_records != self.authority_backed_insurance_records:
+        insurance_total = (
+            self.primary_in03_candidate_records + self.other_insurance_records
+        )
+        if insurance_total != self.authority_backed_insurance_records:
             raise ValueError("insurance subtype counts do not sum")
         has_candidates = self.primary_in03_candidate_records > 0
-        if has_candidates != (self.candidate_outcome == "CANDIDATES_PRESENT_AGGREGATE_ONLY"):
+        expected_candidate_state = (
+            self.candidate_outcome == "CANDIDATES_PRESENT_AGGREGATE_ONLY"
+        )
+        if has_candidates != expected_candidate_state:
             raise ValueError("candidate outcome mismatch")
         return self
 
@@ -189,7 +198,9 @@ def run_ny_owner_name_product_slice(
         members = [info for info in archive.infolist() if not info.is_dir()]
         if len(members) != max_archive_members:
             raise ValueError("archive member count mismatch")
-        text_members = [info for info in members if info.filename.lower().endswith(".txt")]
+        text_members = [
+            info for info in members if info.filename.lower().endswith(".txt")
+        ]
         if len(text_members) != 1:
             raise ValueError("expected exactly one TXT member")
         selected = text_members[0]
@@ -203,6 +214,21 @@ def run_ny_owner_name_product_slice(
             counter.finish()
 
     has_candidates = counter.primary > 0
+    candidate_outcome = (
+        "CANDIDATES_PRESENT_AGGREGATE_ONLY"
+        if has_candidates
+        else "ZERO_CANDIDATE_DOCUMENTED"
+    )
+    materialization_state = (
+        "NOT_AUTHORIZED_AGGREGATE_ONLY"
+        if has_candidates
+        else "NOT_APPLICABLE_ZERO_CANDIDATE"
+    )
+    economic_actionability = (
+        "VALUE_EVIDENCE_REQUIRED"
+        if has_candidates
+        else "ZERO_CANDIDATE_NO_CASE_ECONOMICS"
+    )
     return NyOwnerNameProductSliceResultV1(
         total_records=counter.total,
         structurally_conforming_records=counter.conforming,
@@ -212,13 +238,7 @@ def run_ny_owner_name_product_slice(
         other_insurance_records=counter.other_insurance,
         no_authority_backed_insurance_match_records=counter.no_match,
         property_type_unclassifiable_records=counter.unclassifiable,
-        candidate_outcome=(
-            "CANDIDATES_PRESENT_AGGREGATE_ONLY" if has_candidates else "ZERO_CANDIDATE_DOCUMENTED"
-        ),
-        candidate_materialization_state=(
-            "NOT_AUTHORIZED_AGGREGATE_ONLY" if has_candidates else "NOT_APPLICABLE_ZERO_CANDIDATE"
-        ),
-        economic_actionability=(
-            "VALUE_EVIDENCE_REQUIRED" if has_candidates else "ZERO_CANDIDATE_NO_CASE_ECONOMICS"
-        ),
+        candidate_outcome=candidate_outcome,
+        candidate_materialization_state=materialization_state,
+        economic_actionability=economic_actionability,
     )
