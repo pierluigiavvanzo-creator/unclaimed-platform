@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-first-download-transient-pii-approval:1.0.0",
+  "title": "NY OSC First Download Transient PII Approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "source_identity",
+    "execution_bounds",
+    "transient_local_file_exception",
+    "processing_scope",
+    "authorization_does_not_grant"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION"
+    },
+    "owner_authorization": {
+      "const": "APPROVO NY OSC OWNER NAME FILE FIRST DOWNLOAD TRANSIENT PII BOUNDED ONCE"
+    },
+    "granted_on": {
+      "const": "2026-09-18"
+    },
+    "execution_approval_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "source_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_remote_listing_name",
+        "expected_size_display",
+        "expected_last_modified_display",
+        "preflight_identity_match_required",
+        "identity_drift_behavior"
+      ],
+      "properties": {
+        "expected_remote_listing_name": {
+          "const": "FINDERS.zip"
+        },
+        "expected_size_display": {
+          "const": "390.51 MB"
+        },
+        "expected_last_modified_display": {
+          "const": "9/16/2026, 1:33:31 PM"
+        },
+        "preflight_identity_match_required": {
+          "const": true
+        },
+        "identity_drift_behavior": {
+          "const": "STOP_BEFORE_DOWNLOAD_REQUIRE_FRESH_REVIEW"
+        }
+      }
+    },
+    "execution_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "downloads_max",
+        "retries_max",
+        "max_download_bytes",
+        "max_uncompressed_bytes",
+        "max_archive_members",
+        "text_members_required_exactly",
+        "expected_delimiter",
+        "expected_documented_field_count"
+      ],
+      "properties": {
+        "downloads_max": {
+          "const": 1
+        },
+        "retries_max": {
+          "const": 0
+        },
+        "max_download_bytes": {
+          "const": 450000000
+        },
+        "max_uncompressed_bytes": {
+          "const": 2000000000
+        },
+        "max_archive_members": {
+          "const": 1
+        },
+        "text_members_required_exactly": {
+          "const": 1
+        },
+        "expected_delimiter": {
+          "const": "|"
+        },
+        "expected_documented_field_count": {
+          "const": 14
+        }
+      }
+    },
+    "transient_local_file_exception": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "approval_path",
+        "approval_status_required",
+        "expected_filename",
+        "dedicated_temp_directory_prefix",
+        "durable_raw_persistence_allowed",
+        "repository_persistence_allowed",
+        "cloud_sync_allowed",
+        "chat_upload_allowed",
+        "immediate_logical_deletion_required",
+        "physical_secure_erasure_guaranteed"
+      ],
+      "properties": {
+        "required": {
+          "const": true
+        },
+        "approval_path": {
+          "const": "sources/evidence/ny_osc_owner_name_file_transient_local_file_approval.v1.json"
+        },
+        "approval_status_required": {
+          "const": "GRANTED_NOT_CONSUMED"
+        },
+        "expected_filename": {
+          "const": "FINDERS.zip"
+        },
+        "dedicated_temp_directory_prefix": {
+          "const": "unclaimed-ny-osc-gate2-"
+        },
+        "durable_raw_persistence_allowed": {
+          "const": false
+        },
+        "repository_persistence_allowed": {
+          "const": false
+        },
+        "cloud_sync_allowed": {
+          "const": false
+        },
+        "chat_upload_allowed": {
+          "const": false
+        },
+        "immediate_logical_deletion_required": {
+          "const": true
+        },
+        "physical_secure_erasure_guaranteed": {
+          "const": false
+        }
+      }
+    },
+    "processing_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transient_owner_pii_in_memory_allowed",
+        "raw_file_persistence_beyond_temp_execution_allowed",
+        "owner_rows_persistence_allowed",
+        "owner_field_logging_allowed",
+        "row_specific_human_inspection_allowed",
+        "derived_non_pii_schema_metadata_persistence_allowed"
+      ],
+      "properties": {
+        "transient_owner_pii_in_memory_allowed": {
+          "const": true
+        },
+        "raw_file_persistence_beyond_temp_execution_allowed": {
+          "const": false
+        },
+        "owner_rows_persistence_allowed": {
+          "const": false
+        },
+        "owner_field_logging_allowed": {
+          "const": false
+        },
+        "row_specific_human_inspection_allowed": {
+          "const": false
+        },
+        "derived_non_pii_schema_metadata_persistence_allowed": {
+          "const": true
+        }
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_activation",
+        "production_classification_activation",
+        "beneficiary_matching",
+        "identity_resolution",
+        "outreach",
+        "fee_agreement",
+        "representation",
+        "claim_activity"
+      ],
+      "properties": {
+        "source_activation": {
+          "const": false
+        },
+        "production_classification_activation": {
+          "const": false
+        },
+        "beneficiary_matching": {
+          "const": false
+        },
+        "identity_resolution": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "fee_agreement": {
+          "const": false
+        },
+        "representation": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        }
+      }
+    },
+    "consumed_on": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_result": {
+      "enum": [
+        "BLOCKED_FAIL_CLOSED",
+        "DISCOVERED"
+      ]
+    },
+    "execution_reason_code": {
+      "type": "string",
+      "minLength": 3
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "consumed_on",
+          "execution_result",
+          "execution_reason_code"
+        ]
+      }
+    }
+  ]
+}

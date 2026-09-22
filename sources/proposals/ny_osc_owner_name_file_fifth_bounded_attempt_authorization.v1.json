@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.fifth_bounded_attempt_authorization_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-19",
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "request_scope": {
+    "repository_only": true,
+    "source_network_access_performed": false,
+    "remote_preflight_performed": false,
+    "download_performed": false,
+    "owner_file_opened": false,
+    "owner_pii_processed": false
+  },
+  "canonical_baseline": {
+    "branch": "mvp1-ny-second-attempt-approved-ready-execution",
+    "checkpoint": "326b2ba91f30adb80faf816d85a5d707fde4eaee",
+    "state_reconciliation_pull_request_number": 13,
+    "state_reconciliation_ci_run_id": 35459156574,
+    "state_reconciliation_ci_conclusion": "SUCCESS"
+  },
+  "preceding_attempt": {
+    "attempt_number": 4,
+    "execution_result_path": "sources/evidence/ny_osc_owner_name_file_fourth_attempt_execution_result.v1.json",
+    "status": "BLOCKED",
+    "execution_semantics": "FAIL_CLOSED",
+    "reason_code": "UNEXPECTED_DATA_FIELD_COUNT",
+    "documented_layout_field_count": 14,
+    "observed_data_field_count": 13,
+    "aggregate_complete_record_count_before_block": 213454,
+    "property_type_ascii_record_count_before_block": 213454,
+    "transient_local_approval_consumed": true,
+    "transient_pii_approval_consumed": true,
+    "approvals_reusable": false,
+    "retry_authorized": false,
+    "raw_file_logically_deleted": true,
+    "physical_secure_erasure_guaranteed": false,
+    "owner_values_returned": false,
+    "structural_diagnostic_present_in_preceding_receipt": false
+  },
+  "verified_diagnostic_capability": {
+    "integrated_branch": "mvp1-ny-second-attempt-approved-ready-execution",
+    "implementation_merge_checkpoint": "dc603d68ff6aeb234c2ad793b85fa1bb2f4805c8",
+    "pull_request_number": 12,
+    "verification_ci_run_id": 35446925652,
+    "verification_ci_conclusion": "SUCCESS",
+    "execution_result_contract_path": "schemas/agents/ny_transient_local_execution_result_v1_1.schema.json",
+    "execution_result_contract_version": "1.1.0",
+    "structural_diagnostic_contract_path": "schemas/agents/ny_owner_name_structural_diagnostic_result.schema.json",
+    "structural_diagnostic_contract_version": "1.0.0",
+    "real_owner_file_used_for_remediation": false,
+    "changes": [
+      "count raw pipe bytes separately from structural delimiters",
+      "count quote-state events without retaining owner-field content",
+      "emit sanitized structural diagnostics on UNEXPECTED_DATA_FIELD_COUNT",
+      "carry structural diagnostics through the transient-local execution bridge",
+      "preserve historical execution receipt v1.0.0",
+      "preserve 14-field fail-closed validation and all existing byte/member/privacy bounds"
+    ]
+  },
+  "diagnostic_objective": {
+    "primary_question": "RAW_DELIMITER_SHORTAGE_VS_QUOTE_SUPPRESSED_DELIMITER",
+    "trigger_reason_code": "UNEXPECTED_DATA_FIELD_COUNT",
+    "structural_diagnostic_required_when_triggered": true,
+    "allowed_classifications": [
+      "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED",
+      "QUOTE_SUPPRESSED_DELIMITER_OBSERVED",
+      "QUOTED_DELIMITER_INTERACTION_AMBIGUOUS",
+      "STRUCTURAL_MISMATCH_UNCLASSIFIED"
+    ],
+    "classification_interpretation": {
+      "RAW_DELIMITER_COUNT_BELOW_DOCUMENTED": "PARSER_OBSERVED_FEWER_RAW_PIPE_BYTES_THAN_DOCUMENTED_NO_AUTOMATIC_REPAIR",
+      "QUOTE_SUPPRESSED_DELIMITER_OBSERVED": "PARSER_OBSERVED_RAW_PIPE_SUPPRESSED_BY_QUOTE_STATE_NO_AUTOMATIC_REPAIR",
+      "QUOTED_DELIMITER_INTERACTION_AMBIGUOUS": "QUOTE_DELIMITER_INTERACTION_REMAINS_AMBIGUOUS",
+      "STRUCTURAL_MISMATCH_UNCLASSIFIED": "ROOT_CAUSE_REMAINS_UNCLASSIFIED"
+    },
+    "automatic_row_repair_allowed": false,
+    "automatic_row_skip_allowed": false,
+    "automatic_parser_widening_allowed": false,
+    "automatic_source_acceptance_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "fresh_preflight": {
+    "required_immediately_before_execution": true,
+    "performed_for_this_proposal": false,
+    "remote_access_authorized_by_this_proposal": false,
+    "historical_listing_for_comparison_only": {
+      "remote_listing_name": "FINDERS.zip",
+      "size_display": "390.51 MB",
+      "last_modified_display": "9/16/2026, 1:33:31 PM",
+      "evidence_path": "sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v1.json"
+    },
+    "required_result": "EXACT_MATCH_OR_STOP",
+    "drift_behavior": "STOP_BEFORE_DOWNLOAD_AND_REFRESH_PROPOSAL"
+  },
+  "proposed_execution_bounds": {
+    "attempt_number": 5,
+    "downloads_max": 1,
+    "retries_max": 0,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "text_members_required_exactly": 1,
+    "expected_delimiter": "|",
+    "expected_documented_field_count": 14,
+    "parser_chunk_bytes": 65536,
+    "required_execution_result_contract_version": "1.1.0",
+    "required_structural_diagnostic_contract_version": "1.0.0",
+    "automatic_widening_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "proposed_privacy_scope": {
+    "transient_local_file_only": true,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_decoding_allowed": false,
+    "owner_field_buffering_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true,
+    "structural_diagnostic_persistence_allowed": true,
+    "physical_secure_erasure_guaranteed": false
+  },
+  "required_human_authorizations": [
+    {
+      "gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC FIFTH TRANSIENT LOCAL FILE BOUNDED ONCE",
+      "status": "NOT_GRANTED",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false
+    },
+    {
+      "gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC OWNER NAME FILE FIFTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+      "status": "NOT_GRANTED",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false
+    }
+  ],
+  "implementation_gate": {
+    "fifth_attempt_runner_status": "NOT_IMPLEMENTED",
+    "fifth_attempt_approval_artifacts_status": "NOT_CREATED",
+    "execution_status": "BLOCKED_PROPOSAL_ONLY",
+    "fourth_attempt_runner_reuse_allowed": false,
+    "fourth_attempt_approval_reuse_allowed": false,
+    "shared_schema_discovery_parser_reuse_allowed": true,
+    "shared_transient_execution_bridge_v1_1_reuse_allowed": true,
+    "source_access_allowed": false
+  },
+  "authorization_does_not_grant": {
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "next_action": "HUMAN_REVIEW_NY_OSC_FIFTH_BOUNDED_ATTEMPT_PROPOSAL"
+}

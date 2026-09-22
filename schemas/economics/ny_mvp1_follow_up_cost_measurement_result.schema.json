@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-follow-up-cost-measurement-result:1.0.0",
+  "title": "NY MVP-1 Follow-Up Cost Measurement Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "measurement_id",
+    "candidate_case_id",
+    "currency",
+    "automated_processing_cost_cents",
+    "source_data_cost_cents",
+    "direct_machine_and_data_cost_cents",
+    "human_review_seconds",
+    "manual_research_seconds",
+    "total_human_seconds",
+    "human_labor_rate_state",
+    "human_labor_rate_cents_per_hour",
+    "human_labor_cost_state",
+    "human_labor_cost_cents",
+    "fully_loaded_follow_up_cost_state",
+    "fully_loaded_follow_up_cost_cents",
+    "evidence_refs",
+    "owner_pii_included",
+    "no_commercial_recommendation"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "measurement_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "candidate_case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "currency": {
+      "const": "USD"
+    },
+    "automated_processing_cost_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source_data_cost_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "direct_machine_and_data_cost_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "human_review_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "manual_research_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "total_human_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "human_labor_rate_state": {
+      "enum": [
+        "NOT_PROVIDED",
+        "DOCUMENTED"
+      ]
+    },
+    "human_labor_rate_cents_per_hour": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "human_labor_cost_state": {
+      "enum": [
+        "NOT_COMPUTED_NO_RATE",
+        "COMPUTED_FROM_DOCUMENTED_RATE"
+      ]
+    },
+    "human_labor_cost_cents": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "fully_loaded_follow_up_cost_state": {
+      "enum": [
+        "NOT_COMPUTABLE_NO_LABOR_RATE",
+        "COMPUTED_FROM_MEASURED_COMPONENTS"
+      ]
+    },
+    "fully_loaded_follow_up_cost_cents": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 4,
+      "uniqueItems": true
+    },
+    "owner_pii_included": {
+      "const": false
+    },
+    "no_commercial_recommendation": {
+      "const": true
+    }
+  }
+}

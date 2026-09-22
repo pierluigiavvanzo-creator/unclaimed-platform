@@ -1,0 +1,21 @@
+{
+  "diagnostic_class": "ASCII_STRUCTURAL_MISMATCH",
+  "diagnostic_result_status": "DIAGNOSTIC_CLASSIFIED",
+  "fail_closed_reason_code": null,
+  "head_requests": 1,
+  "http_requests_total": 2,
+  "range_requests": 1,
+  "safety_flags": {
+    "exact_property_type_persisted": false,
+    "full_archive_downloaded": false,
+    "full_row_persisted": false,
+    "owner_holder_values_persisted": false,
+    "property_id_persisted": false,
+    "property_type_derivative_persisted": false,
+    "raw_body_persisted": false,
+    "remediation_performed": false
+  },
+  "source_identity_verified": true,
+  "source_response_body_bytes_read": 131072,
+  "transient_rows_examined": 1
+}

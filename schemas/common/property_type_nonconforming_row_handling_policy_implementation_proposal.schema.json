@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-nonconforming-row-handling-policy-implementation-proposal:1.0.0",
+  "title": "PropertyTypeNonconformingRowHandlingPolicyImplementationProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "proposal_id", "proposal_version", "proposal_status", "prepared_on",
+    "jurisdiction", "source_id", "source_segment_id", "base_state", "current_runtime_observation",
+    "accepted_design_contract", "minimal_implementation_plan", "validation_boundary",
+    "continuation_boundary", "privacy_and_persistence_boundary", "planned_regression_coverage",
+    "rollback_plan", "reuse_and_scope", "implementation_authorization_boundary", "preparation_state",
+    "safety_state", "acceptance_criteria", "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "proposal_id": {"const": "ca.sco.segment_500_plus.property_type_nonconforming_row_handling_policy_implementation"},
+    "proposal_version": {"const": "1.0.0"},
+    "proposal_status": {"const": "PROPOSAL_ONLY_NOT_AUTHORIZED"},
+    "prepared_on": {"const": "2026-09-16"},
+    "jurisdiction": {"const": "CA"},
+    "source_id": {"const": "ca.sco.unclaimed_property.bulk"},
+    "source_segment_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus"},
+    "base_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["branch", "head_sha", "head_ci_run", "review_decision", "decision_record", "accepted_design_policy"],
+      "properties": {
+        "branch": {"const": "m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal-review"},
+        "head_sha": {"const": "63a6b09cf129202021c80a1c04a479ca2186fe4b"},
+        "head_ci_run": {"const": "35096424256"},
+        "review_decision": {"const": "PASS_POLICY_DECISION_ACCEPTED_AS_DESIGN_IMPLEMENTATION_NOT_AUTHORIZED"},
+        "decision_record": {"const": "D-008"},
+        "accepted_design_policy": {"const": "WHOLE_SOURCE_STOP"}
+      }
+    },
+    "current_runtime_observation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["runner_path", "runner_blob_sha", "execution_schema_v1_1_path", "execution_schema_v1_1_blob_sha", "current_schema_version", "current_mismatch_result_status", "current_mismatch_stop_reason", "current_runner_already_stops_before_later_members_after_trigger"],
+      "properties": {
+        "runner_path": {"const": "scripts/ca_sco_property_type_semantic_verification.py"},
+        "runner_blob_sha": {"const": "ae4d3f0ce3fffd6e2e6f45d5611abd1aa4ced30d"},
+        "execution_schema_v1_1_path": {"const": "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json"},
+        "execution_schema_v1_1_blob_sha": {"const": "33c829116eea0b568cfe16c664ffbeee9d00e013"},
+        "current_schema_version": {"const": "1.1.0"},
+        "current_mismatch_result_status": {"const": "STOPPED_FAIL_CLOSED"},
+        "current_mismatch_stop_reason": {"const": "PROPERTY_TYPE_FORMAT_UNEXPECTED"},
+        "current_runner_already_stops_before_later_members_after_trigger": {"const": true}
+      }
+    },
+    "accepted_design_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_id", "control_status_code", "control_reason_code", "source_continuation_after_trigger", "later_rows_processed_after_trigger", "metadata_only", "real_row_or_field_retention"],
+      "properties": {
+        "policy_id": {"const": "WHOLE_SOURCE_STOP"},
+        "control_status_code": {"const": "PROPERTY_TYPE_NONCONFORMING_STOPPED"},
+        "control_reason_code": {"const": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE"},
+        "source_continuation_after_trigger": {"const": false},
+        "later_rows_processed_after_trigger": {"const": false},
+        "metadata_only": {"const": true},
+        "real_row_or_field_retention": {"const": false}
+      }
+    },
+    "minimal_implementation_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["strategy", "planned_runtime_files_modified", "planned_new_contract_files", "planned_existing_contract_files_modified", "historical_v1_1_schema_remains_immutable", "future_execution_schema_version", "runner_delta", "future_control_disposition_shape", "legacy_compatibility"],
+      "properties": {
+        "strategy": {"const": "ADDITIVE_VERSIONED_CONTROL_DISPOSITION"},
+        "planned_runtime_files_modified": {"const": ["scripts/ca_sco_property_type_semantic_verification.py"]},
+        "planned_new_contract_files": {"const": ["schemas/common/property_type_semantic_verification_execution.v1_2.schema.json"]},
+        "planned_existing_contract_files_modified": {"const": []},
+        "historical_v1_1_schema_remains_immutable": {"const": true},
+        "future_execution_schema_version": {"const": "1.2.0"},
+        "runner_delta": {
+          "type": "object", "additionalProperties": false,
+          "required": ["set_execution_schema_version_to_1_2_0", "initialize_control_disposition_to_null", "map_only_property_type_format_unexpected", "mapped_control_status_code", "mapped_control_reason_code", "all_other_stop_reasons_keep_control_disposition_null", "successful_results_keep_control_disposition_null", "property_type_projection_change", "property_type_regex_change", "normalization_change", "network_budget_change", "row_budget_change", "source_continuation_change"],
+          "properties": {
+            "set_execution_schema_version_to_1_2_0": {"const": true},
+            "initialize_control_disposition_to_null": {"const": true},
+            "map_only_property_type_format_unexpected": {"const": true},
+            "mapped_control_status_code": {"const": "PROPERTY_TYPE_NONCONFORMING_STOPPED"},
+            "mapped_control_reason_code": {"const": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE"},
+            "all_other_stop_reasons_keep_control_disposition_null": {"const": true},
+            "successful_results_keep_control_disposition_null": {"const": true},
+            "property_type_projection_change": {"const": false},
+            "property_type_regex_change": {"const": false},
+            "normalization_change": {"const": false},
+            "network_budget_change": {"const": false},
+            "row_budget_change": {"const": false},
+            "source_continuation_change": {"const": false}
+          }
+        },
+        "future_control_disposition_shape": {
+          "type": "object", "additionalProperties": false,
+          "required": ["nullable", "allowed_persisted_fields", "status_code", "reason_code", "source_value_bearing_fields_allowed"],
+          "properties": {
+            "nullable": {"const": true},
+            "allowed_persisted_fields": {"const": ["status_code", "reason_code"]},
+            "status_code": {"const": "PROPERTY_TYPE_NONCONFORMING_STOPPED"},
+            "reason_code": {"const": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE"},
+            "source_value_bearing_fields_allowed": {"const": false}
+          }
+        },
+        "legacy_compatibility": {
+          "type": "object", "additionalProperties": false,
+          "required": ["semantic_result_status_preserved", "stop_reason_preserved", "property_type_format_unexpected_preserved_as_legacy_stop_reason", "historical_v1_1_evidence_remains_valid_against_v1_1_schema", "no_existing_field_removed_or_reinterpreted"],
+          "properties": {
+            "semantic_result_status_preserved": {"const": true},
+            "stop_reason_preserved": {"const": true},
+            "property_type_format_unexpected_preserved_as_legacy_stop_reason": {"const": true},
+            "historical_v1_1_evidence_remains_valid_against_v1_1_schema": {"const": true},
+            "no_existing_field_removed_or_reinterpreted": {"const": true}
+          }
+        }
+      }
+    },
+    "validation_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["property_type_zero_based_index", "regex", "trim_before_validation", "ascii_uppercase_before_validation", "unicode_normalization_before_validation", "alternate_token_acceptance", "parser_or_projector_change"],
+      "properties": {
+        "property_type_zero_based_index": {"const": 1},
+        "regex": {"const": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$"},
+        "trim_before_validation": {"const": false},
+        "ascii_uppercase_before_validation": {"const": false},
+        "unicode_normalization_before_validation": {"const": false},
+        "alternate_token_acceptance": {"const": false},
+        "parser_or_projector_change": {"const": false}
+      }
+    },
+    "continuation_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["continue_after_nonconforming_row", "later_rows_processed_after_trigger", "silent_row_skip_allowed", "silent_source_continuation_allowed", "continuation_state_persisted_in_control_disposition", "continuation_enforced_by_existing_fail_closed_control_flow_and_regression_tests"],
+      "properties": {
+        "continue_after_nonconforming_row": {"const": false},
+        "later_rows_processed_after_trigger": {"const": false},
+        "silent_row_skip_allowed": {"const": false},
+        "silent_source_continuation_allowed": {"const": false},
+        "continuation_state_persisted_in_control_disposition": {"const": false},
+        "continuation_enforced_by_existing_fail_closed_control_flow_and_regression_tests": {"const": true}
+      }
+    },
+    "privacy_and_persistence_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["may_persist_control_status_code", "may_persist_control_reason_code", "may_persist_exact_property_type", "may_persist_property_type_derivative", "may_persist_row_or_field_hash", "may_persist_exact_row_or_field_length", "may_persist_property_id", "may_persist_owner_holder_values", "may_persist_source_derived_free_text", "may_persist_real_row_or_field_content", "row_specific_human_inspection", "privacy_expansion_required_by_plan"],
+      "properties": {
+        "may_persist_control_status_code": {"const": true},
+        "may_persist_control_reason_code": {"const": true},
+        "may_persist_exact_property_type": {"const": false},
+        "may_persist_property_type_derivative": {"const": false},
+        "may_persist_row_or_field_hash": {"const": false},
+        "may_persist_exact_row_or_field_length": {"const": false},
+        "may_persist_property_id": {"const": false},
+        "may_persist_owner_holder_values": {"const": false},
+        "may_persist_source_derived_free_text": {"const": false},
+        "may_persist_real_row_or_field_content": {"const": false},
+        "row_specific_human_inspection": {"const": false},
+        "privacy_expansion_required_by_plan": {"const": false}
+      }
+    },
+    "planned_regression_coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["synthetic_only", "tests", "real_source_test_required_for_implementation_acceptance", "real_source_execution_remains_separate_gate"],
+      "properties": {
+        "synthetic_only": {"const": true},
+        "tests": {"type": "array", "minItems": 8, "maxItems": 8, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "real_source_test_required_for_implementation_acceptance": {"const": false},
+        "real_source_execution_remains_separate_gate": {"const": true}
+      }
+    },
+    "rollback_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rollback_unit", "database_migration_required", "source_state_migration_required", "historical_evidence_migration_required", "rollback_restores_runner_output_schema_version", "rollback_removes_future_v1_2_control_disposition_emission", "v1_1_historical_contract_remains_available"],
+      "properties": {
+        "rollback_unit": {"const": "IMPLEMENTATION_COMMIT_OR_COMMITS_ONLY"},
+        "database_migration_required": {"const": false},
+        "source_state_migration_required": {"const": false},
+        "historical_evidence_migration_required": {"const": false},
+        "rollback_restores_runner_output_schema_version": {"const": "1.1.0"},
+        "rollback_removes_future_v1_2_control_disposition_emission": {"const": true},
+        "v1_1_historical_contract_remains_available": {"const": true}
+      }
+    },
+    "reuse_and_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reuse_existing_runner_control_flow", "reuse_existing_runner_stop_reason", "new_external_dependency_required", "new_parser_required", "new_persistence_layer_required", "new_network_workflow_required"],
+      "properties": {
+        "reuse_existing_runner_control_flow": {"const": true},
+        "reuse_existing_runner_stop_reason": {"const": true},
+        "new_external_dependency_required": {"const": false},
+        "new_parser_required": {"const": false},
+        "new_persistence_layer_required": {"const": false},
+        "new_network_workflow_required": {"const": false}
+      }
+    },
+    "implementation_authorization_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["proposal_preparation_authorized", "runtime_code_change_authorized", "new_execution_schema_creation_authorized", "real_source_execution_authorized", "source_or_authority_network_access_authorized", "privacy_expansion_authorized", "source_continuation_authorized", "parser_change_authorized", "regex_change_authorized", "normalization_change_authorized", "source_activation_authorized", "registry_activation_authorized", "production_classification_activation_authorized", "approval_token_defined_by_this_proposal"],
+      "properties": {
+        "proposal_preparation_authorized": {"const": true},
+        "runtime_code_change_authorized": {"const": false},
+        "new_execution_schema_creation_authorized": {"const": false},
+        "real_source_execution_authorized": {"const": false},
+        "source_or_authority_network_access_authorized": {"const": false},
+        "privacy_expansion_authorized": {"const": false},
+        "source_continuation_authorized": {"const": false},
+        "parser_change_authorized": {"const": false},
+        "regex_change_authorized": {"const": false},
+        "normalization_change_authorized": {"const": false},
+        "source_activation_authorized": {"const": false},
+        "registry_activation_authorized": {"const": false},
+        "production_classification_activation_authorized": {"const": false},
+        "approval_token_defined_by_this_proposal": {"const": false}
+      }
+    },
+    "preparation_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["runtime_code_modified", "execution_schema_v1_1_modified", "execution_schema_v1_2_created", "network_request_performed", "real_row_or_field_access_performed", "source_policy_modified", "registry_modified"],
+      "properties": {
+        "runtime_code_modified": {"const": false},
+        "execution_schema_v1_1_modified": {"const": false},
+        "execution_schema_v1_2_created": {"const": false},
+        "network_request_performed": {"const": false},
+        "real_row_or_field_access_performed": {"const": false},
+        "source_policy_modified": {"const": false},
+        "registry_modified": {"const": false}
+      }
+    },
+    "safety_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_policy_status", "registry_enabled", "registry_approved_for_use", "approved_real_sources", "semantic_compatibility_resolved", "production_classification_active", "downstream_gates_remain_closed", "historical_approvals_remain_consumed_and_non_reusable"],
+      "properties": {
+        "source_policy_status": {"const": "PROPOSED"},
+        "registry_enabled": {"const": false},
+        "registry_approved_for_use": {"const": false},
+        "approved_real_sources": {"const": 0},
+        "semantic_compatibility_resolved": {"const": false},
+        "production_classification_active": {"const": false},
+        "downstream_gates_remain_closed": {"const": true},
+        "historical_approvals_remain_consumed_and_non_reusable": {"const": true}
+      }
+    },
+    "acceptance_criteria": {"type": "array", "minItems": 13, "items": {"type": "string", "minLength": 1}},
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW"}
+  }
+}

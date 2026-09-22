@@ -11,6 +11,7 @@ htmlcov/
 # Environment / secrets
 .env
 *.log
+.streamlit/secrets.toml
 
 # Editors / OS
 .idea/

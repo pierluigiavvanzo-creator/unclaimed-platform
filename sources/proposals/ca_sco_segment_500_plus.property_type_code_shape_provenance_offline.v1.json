@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ca.sco.segment.500_plus.property_type_code_shape_provenance_offline",
+  "proposal_version": "1.0.0",
+  "proposal_status": "PROPOSAL_ONLY_OFFLINE_NOT_EXECUTED",
+  "prepared_on": "2026-09-15",
+  "jurisdiction": "CA",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "review_base": {
+    "branch": "m3-ca-sco-property-type-second-semantic-execution",
+    "sha": "9d0243987c843172fe46c971ead0bf3947098336",
+    "second_execution_run": "34995672539",
+    "second_execution_schema_version": "1.1.0"
+  },
+  "canonical_runner_base": {
+    "branch": "m2-state-governance-core",
+    "sha": "e97c1f62959f603bdd3df79538d4b70255594c70",
+    "runner_path": "scripts/ca_sco_property_type_semantic_verification.py",
+    "execution_schema_path": "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json"
+  },
+  "evidence_inputs": {
+    "second_execution_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_1.second.json",
+    "second_execution_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION.md",
+    "second_authorization_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_second_semantic_execution_approval.v1.json",
+    "offline_diagnosis_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md",
+    "offline_diagnosis_test": "tests/unit/test_ca_sco_property_type_offline_diagnosis.py",
+    "semantic_verification_proposal": "sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json",
+    "source_readiness_audit": "docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md",
+    "data_scope_evidence": "sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json"
+  },
+  "historical_execution_state": {
+    "second_result": "STOPPED_FAIL_CLOSED",
+    "second_stop_reason": "PROPERTY_TYPE_FORMAT_UNEXPECTED",
+    "narrow_interpretation": "DECODED_NON_EMPTY_25_COLUMN_PROPERTY_TYPE_FAILED_UNCHANGED_REGEX",
+    "offending_source_value_persisted": false,
+    "offending_source_bytes_persisted": false,
+    "semantic_compatibility_resolved": false,
+    "third_execution_authorized": false
+  },
+  "consumed_authorizations": {
+    "execution_approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED",
+    "privacy_approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED",
+    "single_use": true,
+    "consumed": true,
+    "reusable": false
+  },
+  "offline_review_scope": {
+    "repository_only": true,
+    "sco_network_access_allowed": false,
+    "sco_source_body_access_allowed": false,
+    "authority_document_download_allowed": false,
+    "new_external_authority_lookup_allowed": false,
+    "source_value_reconstruction_allowed": false,
+    "synthetic_tests_allowed": true,
+    "repository_artifact_comparison_allowed": true,
+    "goal": "CLASSIFY_RETAINED_PROVENANCE_FOR_PROPERTY_TYPE_CODE_SHAPE_ASSUMPTIONS"
+  },
+  "provenance_classification": {
+    "allowed_statuses": [
+      "SUPPORTED_BY_REPOSITORY_EVIDENCE",
+      "REPOSITORY_ASSERTION_WITH_EXTERNAL_REFERENCE_NOT_ARCHIVED",
+      "PROVENANCE_INSUFFICIENT"
+    ],
+    "unknown_must_fail_closed_to": "PROVENANCE_INSUFFICIENT",
+    "external_reference_without_retained_content_counts_as_direct_offline_proof": false
+  },
+  "assumptions_under_review": [
+    {
+      "assumption_id": "PROPERTY_TYPE_FIELD_IS_COLUMN_INDEX_1",
+      "statement": "PROPERTY_TYPE is the second field in the retained canonical 25-column header.",
+      "required_review": "VERIFY_AGAINST_RETAINED_DATA_SCOPE_EVIDENCE_AND_RUNNER"
+    },
+    {
+      "assumption_id": "GENERAL_CODE_SHAPE_AA99",
+      "statement": "Every non-ZZZZ PROPERTY_TYPE value must be exactly two uppercase ASCII letters followed by two digits.",
+      "required_review": "IDENTIFY_RETAINED_REPOSITORY_PROVENANCE_OR_CLASSIFY_INSUFFICIENT"
+    },
+    {
+      "assumption_id": "SPECIAL_CODE_ZZZZ",
+      "statement": "ZZZZ is a valid special PROPERTY_TYPE token.",
+      "required_review": "IDENTIFY_RETAINED_REPOSITORY_PROVENANCE_OR_CLASSIFY_INSUFFICIENT"
+    },
+    {
+      "assumption_id": "CALIFORNIA_INSURANCE_CODE_SET",
+      "statement": "California uses insurance PROPERTY_TYPE codes IN01-IN08 and IN99 as recorded by the semantic proposal.",
+      "required_review": "DISTINGUISH_RETAINED_EVIDENCE_FROM_EXTERNAL_REFERENCE_ONLY"
+    },
+    {
+      "assumption_id": "CUSTOM_PROJECTOR_STANDARD_CSV_COMPATIBILITY",
+      "statement": "The custom PROPERTY_TYPE projector matches csv.reader on the committed deterministic standard-CSV matrix only.",
+      "required_review": "PRESERVE_TEST_BOUNDARY_AND_DO_NOT_GENERALIZE_BEYOND_COMMITTED_MATRIX"
+    }
+  ],
+  "forbidden_changes": {
+    "regex_change_authorized": false,
+    "regex_relaxation_authorized": false,
+    "trimming_authorized": false,
+    "uppercasing_authorized": false,
+    "normalization_authorized": false,
+    "parser_change_authorized": false,
+    "logging_expansion_authorized": false,
+    "privacy_expansion_authorized": false,
+    "third_real_execution_authorized": false,
+    "source_approval_authorized": false,
+    "registry_activation_authorized": false,
+    "production_classification_authorized": false
+  },
+  "implementation_state": {
+    "proposal_branch": "m3-ca-sco-property-type-code-shape-provenance-offline-proposal",
+    "network_workflow_present": false,
+    "proposal_performed_sco_request": false,
+    "proposal_performed_source_body_access": false,
+    "proposal_downloaded_authority_document": false,
+    "proposal_modified_runner": false,
+    "proposal_modified_regex": false,
+    "proposal_executed_provenance_review": false
+  },
+  "safety_state": {
+    "source_policy_status": "PROPOSED",
+    "registry_enabled": false,
+    "registry_approved_for_use": false,
+    "approved_real_sources": 0,
+    "semantic_compatibility_resolved": false,
+    "production_classification_active": false,
+    "identity_resolution_allowed": false,
+    "genealogy_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false,
+    "claim_submission_allowed": false
+  },
+  "acceptance_criteria": [
+    "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
+    "BASE_PINNED_TO_SECOND_EXECUTION_CLOSURE_HEAD",
+    "CONSUMED_EXECUTION_AND_PRIVACY_APPROVALS_NOT_REUSED",
+    "NO_SCO_OR_AUTHORITY_NETWORK_ACCESS",
+    "UNCHANGED_REGEX_RECORDED_BUT_NOT_ASSUMED_PROVEN",
+    "ASSUMPTIONS_CLASSIFIED_ONLY_FROM_RETAINED_REPOSITORY_PROVENANCE",
+    "EXTERNAL_REFERENCE_WITHOUT_RETAINED_CONTENT_NOT_TREATED_AS_DIRECT_OFFLINE_PROOF",
+    "NO_RUNNER_PARSER_REGEX_PRIVACY_OR_LOGGING_CHANGE",
+    "NETWORK_WORKFLOW_REMAINS_ABSENT",
+    "DOWNSTREAM_GATES_REMAIN_CLOSED"
+  ],
+  "next_gate": "HUMAN_PROPERTY_TYPE_CODE_SHAPE_PROVENANCE_OFFLINE_PROPOSAL_REVIEW"
+}

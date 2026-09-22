@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-authority-provenance-acquisition-proposal:1.0.0",
+  "title": "PropertyTypeAuthorityProvenanceAcquisitionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "proposal_version",
+    "proposal_status",
+    "prepared_on",
+    "jurisdiction",
+    "source_id",
+    "source_segment_id",
+    "base_state",
+    "unresolved_provenance_claims",
+    "authority_targets",
+    "network_boundary",
+    "archival_contract",
+    "legal_privacy_boundary",
+    "semantic_boundary",
+    "consumed_authorizations",
+    "forbidden_actions",
+    "implementation_state",
+    "safety_state",
+    "acceptance_criteria",
+    "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "proposal_id": {"const": "ca.sco.segment.500_plus.property_type_authority_provenance_acquisition"},
+    "proposal_version": {"const": "1.0.0"},
+    "proposal_status": {"const": "PROPOSAL_ONLY_NOT_AUTHORIZED"},
+    "prepared_on": {"type": "string", "format": "date", "const": "2026-09-15"},
+    "jurisdiction": {"const": "CA"},
+    "source_id": {"const": "ca.sco.unclaimed_property.bulk"},
+    "source_segment_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus"},
+    "base_state": {
+      "const": {
+        "branch": "m3-ca-sco-property-type-code-shape-provenance-offline-review",
+        "head_sha": "dba496d254e94a68f7f74e0b53090cfef972a969",
+        "offline_review_result_sha": "b274e9db0a28dae1c9f6a1a25c657978dd27d7b4",
+        "offline_review_ci": "35003900554",
+        "offline_review_decision": "NO_SEMANTIC_CHANGE_JUSTIFIED_FROM_RETAINED_PROVENANCE",
+        "offline_review_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_code_shape_provenance_offline.review.v1.json"
+      }
+    },
+    "unresolved_provenance_claims": {
+      "const": [
+        {
+          "assumption_id": "GENERAL_CODE_SHAPE_AA99",
+          "current_status": "PROVENANCE_INSUFFICIENT",
+          "authority_question": "Does the official California SCO authority establish that PROPERTY_TYPE codes are universally limited to exactly two uppercase ASCII letters followed by two digits, apart from explicitly documented special tokens?"
+        },
+        {
+          "assumption_id": "SPECIAL_CODE_ZZZZ",
+          "current_status": "PROVENANCE_INSUFFICIENT",
+          "authority_question": "Does the official California SCO authority define ZZZZ as a valid special PROPERTY_TYPE token?"
+        },
+        {
+          "assumption_id": "CALIFORNIA_INSURANCE_CODE_SET",
+          "current_status": "REPOSITORY_ASSERTION_WITH_EXTERNAL_REFERENCE_NOT_ARCHIVED",
+          "authority_question": "Does the official California SCO authority list IN01 through IN08 and IN99 as California insurance property-type codes, with the meanings already attributed by the repository?"
+        }
+      ]
+    },
+    "authority_targets": {
+      "const": [
+        {
+          "authority_id": "CA_SCO_NAUPA_II_CODES_DORMANCY_PERIODS",
+          "authority_owner": "California State Controller's Office",
+          "canonical_url": "https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf",
+          "scheme": "https",
+          "host": "www.sco.ca.gov",
+          "path": "/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf",
+          "document_scope": "SINGLE_PDF_ONLY",
+          "page_scope": "ALL_PAGES_OF_SINGLE_PDF",
+          "retrieval_method": "GET",
+          "claims_intended_to_evaluate": [
+            "GENERAL_CODE_SHAPE_AA99",
+            "SPECIAL_CODE_ZZZZ",
+            "CALIFORNIA_INSURANCE_CODE_SET"
+          ],
+          "source_of_target_reference": "sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json"
+        }
+      ]
+    },
+    "network_boundary": {
+      "const": {
+        "authority_network_access_authorized_by_this_proposal": false,
+        "allowed_hosts_if_later_approved": ["www.sco.ca.gov"],
+        "allowed_methods_if_later_approved": ["GET"],
+        "exact_url_only": true,
+        "redirects_allowed": false,
+        "query_parameters_allowed": false,
+        "authentication_allowed": false,
+        "cookies_required_or_allowed": false,
+        "requests_max_total": 1,
+        "retries_max": 0,
+        "response_body_bytes_max": 16777216,
+        "response_body_bytes_cap_basis": "PROJECT_SAFETY_CAP_NOT_SOURCE_FACT",
+        "network_inactivity_timeout_seconds": 15,
+        "sco_dataset_hosts_allowed": [],
+        "claimit_ca_gov_access_allowed": false,
+        "source_data_access_allowed": false
+      }
+    },
+    "archival_contract": {
+      "const": {
+        "raw_authority_document_persistence_required_if_later_approved": true,
+        "raw_document_immutable": true,
+        "hash_algorithm": "SHA-256",
+        "archive_path_template": "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/{sha256}.pdf",
+        "metadata_path": "sources/evidence/ca_sco_property_type_authority_archive.v1.json",
+        "required_metadata": [
+          "authority_id",
+          "requested_url",
+          "final_url",
+          "retrieved_at_utc",
+          "http_status",
+          "content_type",
+          "response_body_bytes",
+          "sha256",
+          "archive_path",
+          "retrieval_method",
+          "redirect_count"
+        ],
+        "allowed_response_headers_to_retain": ["ETag", "Last-Modified", "Content-Type", "Content-Length"],
+        "pdf_magic_required": true,
+        "semantic_extraction_during_retrieval_allowed": false,
+        "runtime_contract_change_during_retrieval_allowed": false,
+        "post_archive_review_required_before_semantic_use": true
+      }
+    },
+    "legal_privacy_boundary": {
+      "const": {
+        "purpose": "ARCHIVE_OFFICIAL_PUBLIC_AUTHORITY_DOCUMENT_FOR_PROVENANCE_REVIEW_ONLY",
+        "existing_readiness_audit": "docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md",
+        "personal_record_acquisition_allowed": false,
+        "unclaimed_property_row_access_allowed": false,
+        "property_id_access_allowed": false,
+        "owner_holder_value_access_allowed": false,
+        "beneficiary_or_claimant_data_access_allowed": false,
+        "form_submission_allowed": false,
+        "search_ui_automation_allowed": false,
+        "crawler_or_link_following_allowed": false,
+        "terms_or_privacy_boundary_expansion_authorized": false
+      }
+    },
+    "semantic_boundary": {
+      "const": {
+        "authority_archive_itself_proves_claims": false,
+        "claims_require_post_archive_human_review": true,
+        "regex_change_after_retrieval_automatic": false,
+        "parser_change_after_retrieval_automatic": false,
+        "normalization_change_after_retrieval_automatic": false,
+        "source_semantic_compatibility_automatic": false,
+        "production_classification_activation_automatic": false
+      }
+    },
+    "consumed_authorizations": {
+      "const": {
+        "execution_approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED",
+        "privacy_approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED",
+        "consumed": true,
+        "reusable": false,
+        "used_by_authority_acquisition": false
+      }
+    },
+    "forbidden_actions": {
+      "const": {
+        "authority_retrieval_before_human_review": true,
+        "additional_authority_discovery": true,
+        "sco_dataset_access": true,
+        "third_semantic_execution": true,
+        "source_value_reconstruction": true,
+        "runner_change": true,
+        "parser_change": true,
+        "regex_change": true,
+        "regex_relaxation": true,
+        "trimming": true,
+        "uppercasing": true,
+        "normalization": true,
+        "logging_expansion": true,
+        "privacy_expansion": true,
+        "source_approval": true,
+        "registry_activation": true,
+        "production_classification_activation": true,
+        "identity_resolution": true,
+        "genealogy": true,
+        "beneficiary_matching": true,
+        "outreach": true,
+        "claim_submission": true
+      }
+    },
+    "implementation_state": {
+      "const": {
+        "proposal_branch": "m3-ca-sco-property-type-authority-provenance-acquisition-proposal",
+        "proposal_only": true,
+        "authority_request_performed": false,
+        "authority_document_downloaded": false,
+        "authority_archive_created": false,
+        "network_workflow_created": false,
+        "runner_modified": false,
+        "parser_modified": false,
+        "regex_modified": false,
+        "semantic_execution_performed": false
+      }
+    },
+    "safety_state": {
+      "const": {
+        "source_policy_status": "PROPOSED",
+        "registry_enabled": false,
+        "registry_approved_for_use": false,
+        "approved_real_sources": 0,
+        "semantic_compatibility_resolved": false,
+        "production_classification_active": false,
+        "identity_resolution_allowed": false,
+        "genealogy_allowed": false,
+        "beneficiary_matching_allowed": false,
+        "outreach_allowed": false,
+        "claim_submission_allowed": false
+      }
+    },
+    "acceptance_criteria": {
+      "const": [
+        "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
+        "BASE_PINNED_TO_VERIFIED_OFFLINE_PROVENANCE_REVIEW_STATE",
+        "EXACTLY_ONE_PREEXISTING_REPOSITORY_REFERENCED_AUTHORITY_TARGET",
+        "FULL_SINGLE_PDF_PAGE_SCOPE_DEFINED",
+        "ONE_HOST_ONE_GET_NO_REDIRECT_NO_RETRY_BOUNDARY_DEFINED",
+        "RAW_IMMUTABLE_ARCHIVE_AND_SHA256_PROVENANCE_CONTRACT_DEFINED",
+        "NO_AUTHORITY_ACCESS_OR_DOWNLOAD_DURING_PROPOSAL_PREPARATION",
+        "NO_SCO_DATASET_OR_CLAIMIT_ACCESS",
+        "CONSUMED_EXECUTION_PRIVACY_APPROVALS_NOT_REUSED",
+        "NO_RUNTIME_REGEX_PARSER_NORMALIZATION_PRIVACY_OR_LOGGING_CHANGE",
+        "POST_ARCHIVE_HUMAN_REVIEW_REQUIRED_BEFORE_ANY_SEMANTIC_USE",
+        "DOWNSTREAM_GATES_REMAIN_CLOSED"
+      ]
+    },
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_AUTHORITY_PROVENANCE_ACQUISITION_PROPOSAL_REVIEW"}
+  }
+}

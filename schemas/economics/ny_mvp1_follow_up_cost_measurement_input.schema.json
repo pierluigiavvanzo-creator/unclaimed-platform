@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-follow-up-cost-measurement-input:1.0.0",
+  "title": "NY MVP-1 Follow-Up Cost Measurement Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "measurement_id",
+    "candidate_case_id",
+    "owner_pii_included",
+    "automated_processing",
+    "source_data",
+    "human_review",
+    "manual_research",
+    "human_labor_rate"
+  ],
+  "$defs": {
+    "measured_cost_component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amount_cents",
+        "currency",
+        "measurement_method",
+        "allocation_basis",
+        "evidence_ref",
+        "observed_at"
+      ],
+      "properties": {
+        "amount_cents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "currency": {
+          "const": "USD"
+        },
+        "measurement_method": {
+          "enum": [
+            "SYSTEM_METERED",
+            "INVOICE_ALLOCATED",
+            "RATE_CARD_ALLOCATED",
+            "ZERO_DIRECT_COST_DOCUMENTED",
+            "OTHER_DOCUMENTED"
+          ]
+        },
+        "allocation_basis": {
+          "enum": [
+            "PER_CANDIDATE_DIRECT",
+            "BATCH_ALLOCATED_PER_CANDIDATE",
+            "ZERO_DIRECT_COST_PER_CANDIDATE"
+          ]
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "measured_duration_component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duration_seconds",
+        "measurement_method",
+        "evidence_ref",
+        "observed_at"
+      ],
+      "properties": {
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "measurement_method": {
+          "enum": [
+            "SYSTEM_TIMER",
+            "REVIEWER_TIMER",
+            "MANUAL_TIMER",
+            "OTHER_DOCUMENTED"
+          ]
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "documented_human_labor_rate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cents_per_hour",
+        "currency",
+        "evidence_ref",
+        "observed_at"
+      ],
+      "properties": {
+        "cents_per_hour": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "currency": {
+          "const": "USD"
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "mode": {
+      "enum": [
+        "SYNTHETIC_TEST",
+        "MEASURED_WORKFLOW"
+      ]
+    },
+    "measurement_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "candidate_case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "owner_pii_included": {
+      "const": false
+    },
+    "automated_processing": {
+      "$ref": "#/$defs/measured_cost_component"
+    },
+    "source_data": {
+      "$ref": "#/$defs/measured_cost_component"
+    },
+    "human_review": {
+      "$ref": "#/$defs/measured_duration_component"
+    },
+    "manual_research": {
+      "$ref": "#/$defs/measured_duration_component"
+    },
+    "human_labor_rate": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/documented_human_labor_rate"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

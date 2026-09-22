@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_AUTHORIZATION",
+  "authorized_on": "2026-09-17",
+  "owner_authorization": "APPROVO D010 LIVE VALIDATION + TRANSIENT-ROW PRIVACY",
+  "repository": "pierluigiavvanzo-creator/unclaimed-platform",
+  "authorization_base_branch": "mvp1-ca-property-type-authority-row-defer",
+  "authorization_base_head": "a15346a95cc293a1db3cd849b852d5be8846538d",
+  "authorization_base_ci_run": "35234190191",
+  "authorization_base_ci_conclusion": "SUCCESS",
+  "execution_branch": "mvp1-ca-property-type-row-defer-live-validation-once",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_REAL_SOURCE_VALIDATION_BOUNDED_B2AF7877",
+  "privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_MVP1_PROPERTY_TYPE_ROW_DEFER_TRANSIENT_ROW_PRIVACY_BOUNDED_B2AF7877",
+  "approval_state": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "runner": {
+    "path": "scripts/ca_sco_mvp1_property_type_validation.py",
+    "blob_sha": "8e952a80105d56a8e84e6fb9feb5524dd01625d0"
+  },
+  "classifier": {
+    "path": "src/unclaimed_platform/adapters/sources/california_property_type.py",
+    "blob_sha": "05e8637e42070dd6f04218592d20d4a230ab948e"
+  },
+  "policy": {
+    "path": "policies/states/CA/ca_sco_property_type_classification.v1.json",
+    "blob_sha": "840d09d87187c53d26f4d562527dcb92d810a9f3",
+    "policy_id": "ROW_DEFER_CONTINUE_METADATA_ONLY"
+  },
+  "authorized_bounds": {
+    "head_requests_max": 1,
+    "range_requests_max": 4,
+    "http_requests_max_total": 5,
+    "range_response_bytes_max_each": 131072,
+    "source_response_body_bytes_max_total": 524288,
+    "rows_max_per_member": 4,
+    "rows_max_total": 16,
+    "full_body_fallback_allowed": false,
+    "additional_range_allowed": false,
+    "normalization_allowed": false,
+    "regex_relaxation_allowed": false,
+    "raw_row_persistence_allowed": false,
+    "per_row_property_type_persistence_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "aggregate_deferred_count_persistence_allowed": true,
+    "authority_backed_insurance_codes_persistence_allowed": true
+  },
+  "consumed_at_utc": "2026-09-17T15:03:56.989400Z",
+  "execution_run_id": "35237721059",
+  "execution_run_attempt": 1
+}

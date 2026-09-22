@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0.0",
+  "review_id": "ca.sco.segment.500_plus.property_type_authority_archive_provenance",
+  "review_version": "1.0.0",
+  "review_status": "COMPLETED_OFFLINE_ARCHIVE_PROVENANCE_REVIEW_FAIL_CLOSED",
+  "reviewed_on": "2026-09-15",
+  "jurisdiction": "CA",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "review_scope": {
+    "archived_authority_only": true,
+    "authority_network_access_performed": false,
+    "authority_retrieval_performed": false,
+    "sco_dataset_access_performed": false,
+    "claimit_access_performed": false,
+    "source_row_access_performed": false,
+    "source_value_reconstructed_or_inferred": false,
+    "runner_modified": false,
+    "parser_modified": false,
+    "regex_modified": false,
+    "normalization_modified": false,
+    "third_real_execution_performed": false
+  },
+  "authority_archive": {
+    "authority_id": "CA_SCO_NAUPA_II_CODES_DORMANCY_PERIODS",
+    "archive_path": "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf",
+    "sha256": "7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5",
+    "body_bytes": 329585,
+    "page_count": 4,
+    "archive_provenance_path": "sources/evidence/ca_sco_property_type_authority_archive.v1.json",
+    "archival_run_id": 35012019831,
+    "one_shot_approval_state": "CONSUMED_NON_REUSABLE"
+  },
+  "review_method": {
+    "archive_sha256_verified": true,
+    "archive_size_verified": true,
+    "text_extraction_used_as_helper": true,
+    "all_pages_rendered": true,
+    "all_pages_visually_reviewed": true,
+    "pages_reviewed": [1, 2, 3, 4],
+    "offline_extractor_run_id": 35013189623
+  },
+  "classifications": [
+    {
+      "assumption_id": "GENERAL_CODE_SHAPE_AA99",
+      "original_statement": "Every non-ZZZZ PROPERTY_TYPE value must be exactly two uppercase ASCII letters followed by two digits.",
+      "authority_supported_statement": "Across the Property Type Codes enumerated by the archived California SCO NAUPA II table, every listed code other than ZZZZ consists of two uppercase Latin letters followed by two digits.",
+      "status": "SUPPORTED_BY_ARCHIVED_AUTHORITY_WITH_SCOPE_BOUNDARY",
+      "authority_pages": [1, 2, 3],
+      "evidence_refs": [
+        "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf#pages=1-3",
+        "sources/evidence/ca_sco_property_type_authority_archive.v1.json",
+        "sources/evidence/ca_sco_segment_500_plus.property_type_code_shape_provenance_offline.review.v1.json"
+      ],
+      "rationale": "The authority identifies its tables as NAUPA standard codes used by California, labels the section Property Type Codes, continues that section across the first three pages, and every enumerated property type code other than ZZZZ visually follows the two-uppercase-letter plus two-digit shape. This resolves the prior absence of authority provenance for the enumerated shape.",
+      "proof_boundary": "The authority provides an enumeration-based necessary shape observation, not an abstract encoding grammar and not permission to treat any arbitrary AA99 token as semantically valid. It does not authorize trimming, uppercasing, normalization, parser changes, regex relaxation, or inference about the unretained offending source value. The term ASCII in the original implementation statement is therefore not elevated beyond the concrete Latin-letter and digit tokens visible in the authority table."
+    },
+    {
+      "assumption_id": "SPECIAL_CODE_ZZZZ",
+      "original_statement": "ZZZZ is a valid special PROPERTY_TYPE token.",
+      "authority_supported_statement": "The California SCO authority lists ZZZZ under All Others as Properties Not Identified Above with a three-year dormancy period.",
+      "status": "SUPPORTED_BY_ARCHIVED_AUTHORITY",
+      "authority_pages": [3],
+      "evidence_refs": [
+        "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf#page=3",
+        "sources/evidence/ca_sco_property_type_authority_archive.v1.json"
+      ],
+      "rationale": "Page 3 directly includes ZZZZ inside the continued property-type table under the All Others heading and describes it as Properties Not Identified Above.",
+      "proof_boundary": "This proves ZZZZ is represented by this archived California SCO authority as a property type code. It does not authorize any other four-letter special token or any source-value normalization."
+    },
+    {
+      "assumption_id": "CALIFORNIA_INSURANCE_CODE_SET",
+      "original_statement": "California uses insurance PROPERTY_TYPE codes IN01-IN08 and IN99 as recorded by the semantic proposal.",
+      "authority_supported_statement": "The California SCO authority Insurance section directly enumerates IN01, IN02, IN03, IN04, IN05, IN06, IN07, IN08, and IN99.",
+      "status": "SUPPORTED_BY_ARCHIVED_AUTHORITY",
+      "authority_pages": [1],
+      "evidence_refs": [
+        "sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods/7884f765e66d59526d530c0e90ee952a5ca7a70a99eaa060e5fc775f35a721e5.pdf#page=1",
+        "sources/evidence/ca_sco_property_type_authority_archive.v1.json",
+        "sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json"
+      ],
+      "rationale": "Page 1 contains a dedicated Insurance section within Property Type Codes and visibly enumerates the exact nine codes IN01 through IN08 plus IN99. The previously external-only repository assertion is therefore now backed by the immutable archived authority.",
+      "proof_boundary": "This establishes the insurance codes enumerated by this archived authority. It does not prove that an arbitrary AA99 token is valid, does not classify any unretained source value, and does not authorize source approval or production use."
+    }
+  ],
+  "summary": {
+    "supported_by_archived_authority": 2,
+    "supported_by_archived_authority_with_scope_boundary": 1,
+    "target_provenance_resolved": true,
+    "source_semantic_mismatch_resolved": false
+  },
+  "decision": {
+    "result": "ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS",
+    "authority_provenance_resolved": true,
+    "semantic_compatibility_resolved": false,
+    "current_shape_regex_contradicted_by_authority": false,
+    "regex_change_authorized": false,
+    "regex_relaxation_authorized": false,
+    "trimming_authorized": false,
+    "uppercasing_authorized": false,
+    "normalization_authorized": false,
+    "parser_change_authorized": false,
+    "source_value_classification_authorized": false,
+    "third_real_execution_authorized": false,
+    "additional_authority_retrieval_authorized": false,
+    "source_approval_authorized": false
+  },
+  "safety_state": {
+    "source_policy_status": "PROPOSED",
+    "registry_enabled": false,
+    "registry_approved_for_use": false,
+    "production_classification_active": false,
+    "identity_resolution_allowed": false,
+    "genealogy_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false,
+    "claim_submission_allowed": false,
+    "authority_archival_approval_reusable": false,
+    "prior_execution_privacy_approvals_reusable": false
+  },
+  "next_step": {
+    "status": "SEPARATE_HUMAN_DECISION_REQUIRED",
+    "recommended_action": "DECIDE_WHETHER_TO_PREPARE_BOUNDED_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL",
+    "proposal_preparation_authorized_by_this_review": false,
+    "diagnostic_execution_authorized_by_this_review": false,
+    "runtime_change_authorized_by_this_review": false,
+    "approval_token_defined_by_this_review": false
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ca.sco.segment_500_plus.property_type_nonconforming_row_handling_policy_implementation",
+  "proposal_version": "1.0.0",
+  "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+  "prepared_on": "2026-09-16",
+  "jurisdiction": "CA",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "base_state": {
+    "branch": "m3-ca-sco-property-type-nonconforming-row-handling-policy-decision-proposal-review",
+    "head_sha": "63a6b09cf129202021c80a1c04a479ca2186fe4b",
+    "head_ci_run": "35096424256",
+    "review_decision": "PASS_POLICY_DECISION_ACCEPTED_AS_DESIGN_IMPLEMENTATION_NOT_AUTHORIZED",
+    "decision_record": "D-008",
+    "accepted_design_policy": "WHOLE_SOURCE_STOP"
+  },
+  "current_runtime_observation": {
+    "runner_path": "scripts/ca_sco_property_type_semantic_verification.py",
+    "runner_blob_sha": "ae4d3f0ce3fffd6e2e6f45d5611abd1aa4ced30d",
+    "execution_schema_v1_1_path": "schemas/common/property_type_semantic_verification_execution.v1_1.schema.json",
+    "execution_schema_v1_1_blob_sha": "33c829116eea0b568cfe16c664ffbeee9d00e013",
+    "current_schema_version": "1.1.0",
+    "current_mismatch_result_status": "STOPPED_FAIL_CLOSED",
+    "current_mismatch_stop_reason": "PROPERTY_TYPE_FORMAT_UNEXPECTED",
+    "current_runner_already_stops_before_later_members_after_trigger": true
+  },
+  "accepted_design_contract": {
+    "policy_id": "WHOLE_SOURCE_STOP",
+    "control_status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED",
+    "control_reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+    "source_continuation_after_trigger": false,
+    "later_rows_processed_after_trigger": false,
+    "metadata_only": true,
+    "real_row_or_field_retention": false
+  },
+  "minimal_implementation_plan": {
+    "strategy": "ADDITIVE_VERSIONED_CONTROL_DISPOSITION",
+    "planned_runtime_files_modified": [
+      "scripts/ca_sco_property_type_semantic_verification.py"
+    ],
+    "planned_new_contract_files": [
+      "schemas/common/property_type_semantic_verification_execution.v1_2.schema.json"
+    ],
+    "planned_existing_contract_files_modified": [],
+    "historical_v1_1_schema_remains_immutable": true,
+    "future_execution_schema_version": "1.2.0",
+    "runner_delta": {
+      "set_execution_schema_version_to_1_2_0": true,
+      "initialize_control_disposition_to_null": true,
+      "map_only_property_type_format_unexpected": true,
+      "mapped_control_status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED",
+      "mapped_control_reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+      "all_other_stop_reasons_keep_control_disposition_null": true,
+      "successful_results_keep_control_disposition_null": true,
+      "property_type_projection_change": false,
+      "property_type_regex_change": false,
+      "normalization_change": false,
+      "network_budget_change": false,
+      "row_budget_change": false,
+      "source_continuation_change": false
+    },
+    "future_control_disposition_shape": {
+      "nullable": true,
+      "allowed_persisted_fields": [
+        "status_code",
+        "reason_code"
+      ],
+      "status_code": "PROPERTY_TYPE_NONCONFORMING_STOPPED",
+      "reason_code": "PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE",
+      "source_value_bearing_fields_allowed": false
+    },
+    "legacy_compatibility": {
+      "semantic_result_status_preserved": true,
+      "stop_reason_preserved": true,
+      "property_type_format_unexpected_preserved_as_legacy_stop_reason": true,
+      "historical_v1_1_evidence_remains_valid_against_v1_1_schema": true,
+      "no_existing_field_removed_or_reinterpreted": true
+    }
+  },
+  "validation_boundary": {
+    "property_type_zero_based_index": 1,
+    "regex": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$",
+    "trim_before_validation": false,
+    "ascii_uppercase_before_validation": false,
+    "unicode_normalization_before_validation": false,
+    "alternate_token_acceptance": false,
+    "parser_or_projector_change": false
+  },
+  "continuation_boundary": {
+    "continue_after_nonconforming_row": false,
+    "later_rows_processed_after_trigger": false,
+    "silent_row_skip_allowed": false,
+    "silent_source_continuation_allowed": false,
+    "continuation_state_persisted_in_control_disposition": false,
+    "continuation_enforced_by_existing_fail_closed_control_flow_and_regression_tests": true
+  },
+  "privacy_and_persistence_boundary": {
+    "may_persist_control_status_code": true,
+    "may_persist_control_reason_code": true,
+    "may_persist_exact_property_type": false,
+    "may_persist_property_type_derivative": false,
+    "may_persist_row_or_field_hash": false,
+    "may_persist_exact_row_or_field_length": false,
+    "may_persist_property_id": false,
+    "may_persist_owner_holder_values": false,
+    "may_persist_source_derived_free_text": false,
+    "may_persist_real_row_or_field_content": false,
+    "row_specific_human_inspection": false,
+    "privacy_expansion_required_by_plan": false
+  },
+  "planned_regression_coverage": {
+    "synthetic_only": true,
+    "tests": [
+      "SYNTHETIC_STRUCTURAL_MISMATCH_PRESERVES_STOPPED_FAIL_CLOSED_AND_LEGACY_STOP_REASON",
+      "SYNTHETIC_STRUCTURAL_MISMATCH_EMITS_EXACT_D008_CONTROL_STATUS_AND_REASON",
+      "SYNTHETIC_STRUCTURAL_MISMATCH_DOES_NOT_REQUEST_LATER_MEMBER_AFTER_TRIGGER",
+      "NON_PROPERTY_TYPE_RUNNER_STOP_LEAVES_CONTROL_DISPOSITION_NULL",
+      "SUCCESS_RESULT_LEAVES_CONTROL_DISPOSITION_NULL",
+      "V1_2_SCHEMA_REJECTS_SOURCE_VALUE_BEARING_CONTROL_FIELDS",
+      "V1_1_HISTORICAL_SCHEMA_AND_EVIDENCE_REMAIN_UNCHANGED",
+      "REGEX_PROJECTOR_AND_NO_NORMALIZATION_GUARDS_REMAIN_GREEN"
+    ],
+    "real_source_test_required_for_implementation_acceptance": false,
+    "real_source_execution_remains_separate_gate": true
+  },
+  "rollback_plan": {
+    "rollback_unit": "IMPLEMENTATION_COMMIT_OR_COMMITS_ONLY",
+    "database_migration_required": false,
+    "source_state_migration_required": false,
+    "historical_evidence_migration_required": false,
+    "rollback_restores_runner_output_schema_version": "1.1.0",
+    "rollback_removes_future_v1_2_control_disposition_emission": true,
+    "v1_1_historical_contract_remains_available": true
+  },
+  "reuse_and_scope": {
+    "reuse_existing_runner_control_flow": true,
+    "reuse_existing_runner_stop_reason": true,
+    "new_external_dependency_required": false,
+    "new_parser_required": false,
+    "new_persistence_layer_required": false,
+    "new_network_workflow_required": false
+  },
+  "implementation_authorization_boundary": {
+    "proposal_preparation_authorized": true,
+    "runtime_code_change_authorized": false,
+    "new_execution_schema_creation_authorized": false,
+    "real_source_execution_authorized": false,
+    "source_or_authority_network_access_authorized": false,
+    "privacy_expansion_authorized": false,
+    "source_continuation_authorized": false,
+    "parser_change_authorized": false,
+    "regex_change_authorized": false,
+    "normalization_change_authorized": false,
+    "source_activation_authorized": false,
+    "registry_activation_authorized": false,
+    "production_classification_activation_authorized": false,
+    "approval_token_defined_by_this_proposal": false
+  },
+  "preparation_state": {
+    "runtime_code_modified": false,
+    "execution_schema_v1_1_modified": false,
+    "execution_schema_v1_2_created": false,
+    "network_request_performed": false,
+    "real_row_or_field_access_performed": false,
+    "source_policy_modified": false,
+    "registry_modified": false
+  },
+  "safety_state": {
+    "source_policy_status": "PROPOSED",
+    "registry_enabled": false,
+    "registry_approved_for_use": false,
+    "approved_real_sources": 0,
+    "semantic_compatibility_resolved": false,
+    "production_classification_active": false,
+    "downstream_gates_remain_closed": true,
+    "historical_approvals_remain_consumed_and_non_reusable": true
+  },
+  "acceptance_criteria": [
+    "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
+    "BASE_PINNED_TO_CI_GREEN_D008_REVIEW_CHECKPOINT",
+    "MINIMAL_DELTA_REUSES_EXISTING_FAIL_CLOSED_RUNNER_CONTROL_FLOW",
+    "V1_1_HISTORICAL_EXECUTION_SCHEMA_REMAINS_IMMUTABLE",
+    "FUTURE_V1_2_ADDS_ONLY_NULLABLE_NON_VALUE_BEARING_CONTROL_DISPOSITION",
+    "LEGACY_STOPPED_FAIL_CLOSED_AND_PROPERTY_TYPE_FORMAT_UNEXPECTED_REMAIN_PRESERVED",
+    "D008_STATUS_AND_REASON_MAP_ONLY_FROM_PROPERTY_TYPE_FORMAT_UNEXPECTED",
+    "SOURCE_CONTINUATION_REMAINS_FALSE_AND_IS_NOT_PERSISTED_AS_SOURCE_DATA",
+    "REGEX_PROJECTOR_AND_NO_NORMALIZATION_BEHAVIOR_REMAIN_UNCHANGED",
+    "NO_REAL_SOURCE_TEST_IS_REQUIRED_TO IMPLEMENT_THE_CODE_CHANGE",
+    "ROLLBACK_REQUIRES_NO_DATABASE_SOURCE_STATE_OR_HISTORICAL_EVIDENCE_MIGRATION",
+    "NO_RUNTIME_OR_CONTRACT_IMPLEMENTATION_IS_PERFORMED_DURING_PROPOSAL_PREPARATION",
+    "SOURCE_POLICY_REGISTRY_PRODUCTION_CLASSIFICATION_AND_DOWNSTREAM_GATES_REMAIN_CLOSED"
+  ],
+  "next_gate": "HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_IMPLEMENTATION_PROPOSAL_REVIEW"
+}

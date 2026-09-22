@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.second_bounded_attempt_authorization_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-18",
+  "status": "GRANTED_NOT_CONSUMED_PENDING_FRESH_PREFLIGHT",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "previous_attempt": {
+    "execution_result_path": "sources/evidence/ny_osc_owner_name_file_first_download_execution_result.v1.json",
+    "status": "BLOCKED_FAIL_CLOSED",
+    "reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+    "previous_gate_consumed": true,
+    "previous_local_file_approval_consumed": true,
+    "previous_retry_authorized": false
+  },
+  "remediation": {
+    "branch": "mvp1-ny-property-type-shape-offline-diagnostic",
+    "checkpoint": "151f3a2f16c74f604fa72cc1284b2f9cd2e73f52",
+    "ci_run_id": 35363685148,
+    "ci_conclusion": "SUCCESS",
+    "changes": [
+      "recognize documented header after bounded normalization",
+      "tolerate UTF-8 BOM on first header field",
+      "tolerate one matching pair of quotes around documented header fields",
+      "trim harmless outer ASCII whitespace",
+      "tolerate one matching pair of quotes around Property Type Code",
+      "retain strict ASCII-alphanumeric normalized Property Type Code shape",
+      "continue to reject internal ambiguity such as IN 03"
+    ],
+    "real_file_used_for_remediation": false
+  },
+  "fresh_preflight": {
+    "required": true,
+    "expected_if_unchanged": {
+      "remote_listing_name": "FINDERS.zip",
+      "size_display": "390.51 MB",
+      "last_modified_display": "9/16/2026, 1:33:31 PM"
+    },
+    "drift_behavior": "STOP_BEFORE_DOWNLOAD_AND_REFRESH_PROPOSAL"
+  },
+  "proposed_execution_bounds": {
+    "downloads_max": 1,
+    "retries_max": 0,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "text_members_required_exactly": 1,
+    "expected_delimiter": "|",
+    "expected_documented_field_count": 14
+  },
+  "proposed_privacy_scope": {
+    "transient_local_file_only": true,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true,
+    "physical_secure_erasure_guaranteed": false
+  },
+  "required_human_authorizations": [
+    {
+      "gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC SECOND TRANSIENT LOCAL FILE BOUNDED ONCE",
+      "single_use": true,
+      "reusable": false
+    },
+    {
+      "gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC OWNER NAME FILE SECOND BOUNDED TRANSIENT PII ATTEMPT ONCE",
+      "single_use": true,
+      "reusable": false
+    }
+  ],
+  "authorization_does_not_grant": {
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "local_approval_path": "sources/evidence/ny_osc_owner_name_file_second_attempt_transient_local_approval.v1.json",
+  "transient_pii_approval_path": "sources/evidence/ny_osc_owner_name_file_second_attempt_transient_pii_approval.v1.json",
+  "local_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_8D2E1F64",
+  "transient_pii_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_C41B7E93",
+  "next_action": "EXECUTE_NY_OSC_SECOND_BOUNDED_ATTEMPT_ONCE_AFTER_FRESH_PREFLIGHT"
+}

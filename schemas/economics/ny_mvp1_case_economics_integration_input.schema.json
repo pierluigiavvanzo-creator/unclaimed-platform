@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-case-economics-integration-input:1.0.0",
+  "title": "NY MVP-1 Case Economics Integration Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "recoverable_value_cents",
+    "agreed_fee_bps",
+    "value_evidence_ref",
+    "fee_evidence_ref",
+    "fee_rule_scope_confirmed"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "recoverable_value_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "agreed_fee_bps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1500
+    },
+    "value_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_rule_scope_confirmed": {
+      "const": true
+    }
+  }
+}

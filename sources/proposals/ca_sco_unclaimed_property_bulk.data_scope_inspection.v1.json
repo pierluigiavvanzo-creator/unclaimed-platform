@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ca.sco.unclaimed_property.bulk.data_scope_inspection",
+  "proposal_version": "1.0.0",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "jurisdiction": "CA",
+  "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+  "prepared_on": "2026-09-14",
+  "source_approved": false,
+  "source_enabled": false,
+  "real_acquisition_authorized": false,
+  "network_execution_authorized": false,
+  "network_request_performed": false,
+  "body_access_performed": false,
+  "body_bytes_read": 0,
+  "canonical_refs": {
+    "source_approval_package_ref": "sources/proposals/ca_sco_unclaimed_property_bulk.source_approval_package.v1.json",
+    "transport_evidence_ref": "sources/evidence/ca_sco_unclaimed_property_bulk.transport_preflight.execution.v1.json",
+    "source_access_policy_ref": "policies/states/CA/ca_sco_unclaimed_property_bulk.source_access.v1.json",
+    "registry_ref": "sources/registry.yaml"
+  },
+  "execution_gate": {
+    "execution_approval_required": true,
+    "execution_approval_ref": null,
+    "execution_authorized": false,
+    "authorized_scope": null
+  },
+  "inspection_scope": {
+    "purpose_id": "SOURCE_STRUCTURE_VERIFICATION_ONLY",
+    "archive_member_names_allowed": true,
+    "archive_member_metadata_allowed": true,
+    "csv_header_candidate_allowed": true,
+    "csv_data_rows_allowed": 0,
+    "record_values_allowed": false,
+    "pii_indicator_basis": "HEADER_LABELS_ONLY",
+    "identity_resolution_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false,
+    "downstream_record_use_allowed": false
+  },
+  "transport_controls": {
+    "endpoint": "https://claimit.ca.gov/upd-property-records/00_All_Records.zip",
+    "https_only": true,
+    "allowed_host": "claimit.ca.gov",
+    "redirect_policy": "SAME_HOST_ONLY",
+    "timeout_seconds": 10,
+    "timeout_semantics": "PER_REQUEST_NETWORK_INACTIVITY",
+    "expected_media_type": "application/zip",
+    "expected_content_length": 3203972130,
+    "content_length_match_required": true,
+    "accept_ranges_required": "bytes",
+    "request_mode": "HTTP_RANGE_GET_ONLY",
+    "full_body_request_allowed": false,
+    "endpoint_drift_policy": "BLOCK_AND_REQUIRE_NEW_PREFLIGHT",
+    "media_type_drift_policy": "BLOCK_AND_REVIEW",
+    "content_length_drift_policy": "BLOCK_AND_REVIEW"
+  },
+  "range_budget": {
+    "archive_tail_suffix_bytes": 131072,
+    "central_directory_max_bytes": 4194304,
+    "max_csv_candidate_members": 10,
+    "member_probe_max_response_bytes_each": 1048576,
+    "member_probe_max_uncompressed_bytes_each": 65536,
+    "max_range_requests": 12,
+    "max_total_response_body_bytes": 14811136,
+    "budget_basis": "PROJECT_SAFETY_CAPS_NOT_SOURCE_FACTS"
+  },
+  "archive_structure_plan": {
+    "tail_probe_required": true,
+    "central_directory_only": true,
+    "max_archive_members": 10000,
+    "member_path_safety_required": true,
+    "encrypted_members_allowed": false,
+    "supported_compression_methods": [
+      "STORED",
+      "DEFLATED"
+    ],
+    "raw_archive_persistence_allowed": false,
+    "partial_artifact_persistence_allowed": false
+  },
+  "csv_header_plan": {
+    "candidate_member_extensions": [
+      ".csv"
+    ],
+    "max_logical_records_per_member": 1,
+    "max_data_rows_parsed": 0,
+    "decompression_mode": "IN_MEMORY_PREFIX_ONLY",
+    "raw_member_bytes_persisted": false,
+    "raw_header_bytes_persisted": false,
+    "header_labels_persistence_policy": "PERSIST_ONLY_IF_HEADER_LIKELY_WITHOUT_DATA_ROW_ACCESS",
+    "header_ambiguity_policy": "STOP_WITHOUT_PERSISTING_CANDIDATE_VALUES",
+    "encoding_policy": "DETECT_WITHIN_PREFIX_OR_STOP",
+    "delimiter_policy": "DETECT_FROM_FIRST_LOGICAL_RECORD_OR_STOP",
+    "pii_indicator_policy": "LABEL_BASED_POTENTIAL_INDICATORS_ONLY_NO_LEGAL_DETERMINATION"
+  },
+  "privacy_controls": {
+    "quarantine_required": true,
+    "in_memory_body_processing_only": true,
+    "temporary_files_allowed": false,
+    "encryption_at_rest_required_if_any_derived_evidence_persisted": true,
+    "least_privilege_required": true,
+    "access_logging_required": true,
+    "body_bytes_in_logs_allowed": false,
+    "record_values_in_logs_allowed": false,
+    "export_allowed": false,
+    "matching_allowed": false,
+    "outreach_allowed": false,
+    "delete_transient_buffers_after_inspection": true
+  },
+  "proposed_outputs": {
+    "archive_member_names": "DERIVED_STRUCTURE_EVIDENCE",
+    "archive_member_metadata": "NAME_SIZE_COMPRESSION_ENCRYPTION_OFFSET_ONLY",
+    "csv_header_candidates": "LABELS_DELIMITER_ENCODING_COLUMN_COUNT_HEADER_CONFIDENCE_ONLY",
+    "pii_presence_indicators": "POTENTIAL_FROM_HEADER_LABELS_ONLY",
+    "record_values": "PROHIBITED",
+    "raw_body_bytes": "NOT_PERSISTED",
+    "execution_provenance": [
+      "EXECUTION_APPROVAL_REF",
+      "OBSERVED_AT",
+      "REQUESTED_RANGES",
+      "RESPONSE_STATUS",
+      "CONTENT_RANGE",
+      "BYTES_READ",
+      "TRANSPORT_METADATA",
+      "STOP_REASON"
+    ]
+  },
+  "stop_conditions": [
+    "TRANSPORT_METADATA_DRIFT",
+    "BYTE_RANGE_UNSUPPORTED",
+    "RANGE_RESPONSE_NOT_PARTIAL",
+    "TAIL_STRUCTURE_NOT_FOUND_WITHIN_LIMIT",
+    "CENTRAL_DIRECTORY_TOO_LARGE",
+    "ARCHIVE_MEMBER_LIMIT_EXCEEDED",
+    "UNSAFE_MEMBER_PATH",
+    "ENCRYPTED_MEMBER",
+    "UNSUPPORTED_COMPRESSION",
+    "NO_CSV_MEMBER",
+    "CSV_MEMBER_LIMIT_EXCEEDED",
+    "MEMBER_PREFIX_LIMIT_EXCEEDED",
+    "HEADER_NOT_COMPLETE_WITHIN_LIMIT",
+    "HEADER_AMBIGUOUS",
+    "DATA_ROW_ACCESS_WOULD_BE_REQUIRED",
+    "TOTAL_BYTE_BUDGET_EXCEEDED",
+    "RANGE_REQUEST_BUDGET_EXCEEDED",
+    "UNEXPECTED_RESPONSE_BODY_BEHAVIOR"
+  ],
+  "next_gate": "HUMAN_DATA_SCOPE_INSPECTION_EXECUTION",
+  "notes": "This proposal defines a bounded structure-only inspection. It authorizes no request, no body access, no data-row parsing, no source approval, and no downstream use. Numeric range limits are project safety caps, not observed source facts."
+}

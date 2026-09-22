@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.first_download_execution_result",
+  "observed_on": "2026-09-18",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED",
+  "archive_byte_count": 409477526,
+  "archive_member_count": 1,
+  "selected_member_uncompressed_bytes": 1939569781,
+  "local_file_deleted": true,
+  "no_raw_path_returned": true,
+  "no_owner_values_returned": true,
+  "retry_permitted": false
+}

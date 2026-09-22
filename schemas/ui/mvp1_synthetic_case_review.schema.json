@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ui:mvp1-synthetic-case-review:1.0.0",
+  "title": "MVP-1 Synthetic Case Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "source_state",
+    "classification",
+    "candidate",
+    "economics",
+    "provenance",
+    "safety",
+    "reviewer_decision_required"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "mode": {"const": "SYNTHETIC_READ_ONLY"},
+    "source_state": {"const": "REGISTERED_CANDIDATE_UNAPPROVED_NOT_ACQUIRED"},
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "authority_code",
+        "authority_description",
+        "primary_target",
+        "reason_code"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "MVP1_PRIMARY_INSURANCE",
+            "INSURANCE_OTHER",
+            "NO_AUTHORITY_BACKED_INSURANCE_MATCH"
+          ]
+        },
+        "authority_code": {"type": ["string", "null"]},
+        "authority_description": {"type": ["string", "null"]},
+        "primary_target": {"type": "boolean"},
+        "reason_code": {"type": "string", "minLength": 1}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "case_id",
+        "lifecycle_state",
+        "source_record_ref",
+        "owner_reference",
+        "reason_code",
+        "identity_resolution_performed",
+        "beneficiary_matching_performed"
+      ],
+      "properties": {
+        "status": {"enum": ["CREATED", "NOT_CREATED"]},
+        "case_id": {"type": ["string", "null"]},
+        "lifecycle_state": {"enum": ["SYNTHETIC_REVIEW_READY", "NOT_CREATED"]},
+        "source_record_ref": {"type": "string", "minLength": 1},
+        "owner_reference": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "identity_resolution_performed": {"const": false},
+        "beneficiary_matching_performed": {"const": false}
+      }
+    },
+    "economics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recoverable_value_state",
+        "source_amount_available",
+        "fee_basis_state",
+        "economic_actionability",
+        "commercial_threshold_applied",
+        "invented_amounts",
+        "required_next_evidence"
+      ],
+      "properties": {
+        "recoverable_value_state": {"const": "UNKNOWN_FROM_SOURCE"},
+        "source_amount_available": {"const": false},
+        "fee_basis_state": {"const": "NOT_COMPUTABLE_FROM_SOURCE"},
+        "economic_actionability": {"const": "VALUE_EVIDENCE_REQUIRED"},
+        "commercial_threshold_applied": {"const": false},
+        "invented_amounts": {"const": false},
+        "required_next_evidence": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "authority",
+        "source_contract_ref",
+        "input_boundary",
+        "synthetic_fixture",
+        "real_source_accessed"
+      ],
+      "properties": {
+        "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+        "authority": {
+          "const": "New York State Office of the State Comptroller, Office of Unclaimed Funds"
+        },
+        "source_contract_ref": {
+          "const": "policies/states/NY/ny_osc_owner_name_file.v1.json"
+        },
+        "input_boundary": {"const": "SYNTHETIC_POST_SCHEMA_MAPPING"},
+        "synthetic_fixture": {"const": true},
+        "real_source_accessed": {"const": false}
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_file_downloaded",
+        "real_owner_pii_processed",
+        "identity_resolution_performed",
+        "beneficiary_matching_performed",
+        "outreach_performed",
+        "representation_performed",
+        "claim_activity_performed"
+      ],
+      "properties": {
+        "owner_file_downloaded": {"const": false},
+        "real_owner_pii_processed": {"const": false},
+        "identity_resolution_performed": {"const": false},
+        "beneficiary_matching_performed": {"const": false},
+        "outreach_performed": {"const": false},
+        "representation_performed": {"const": false},
+        "claim_activity_performed": {"const": false}
+      }
+    },
+    "reviewer_decision_required": {"const": "CONTINUE_VALUE_RESEARCH_OR_STOP"}
+  }
+}

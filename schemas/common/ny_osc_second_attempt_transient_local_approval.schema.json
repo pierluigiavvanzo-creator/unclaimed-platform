@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-second-attempt-transient-local-approval:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "attempt_number",
+    "scope",
+    "authorization_does_not_grant"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION"
+    },
+    "owner_authorization": {
+      "const": "APPROVO NY OSC SECOND TRANSIENT LOCAL FILE BOUNDED ONCE"
+    },
+    "granted_on": {
+      "const": "2026-09-18"
+    },
+    "execution_approval_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "attempt_number": {
+      "const": 2
+    },
+    "consumed_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "execution_result_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object"
+    },
+    "authorization_does_not_grant": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "consumed_on",
+          "execution_result_ref"
+        ]
+      }
+    }
+  ]
+}

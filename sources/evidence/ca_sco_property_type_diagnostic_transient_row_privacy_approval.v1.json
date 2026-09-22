@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "approval_ref": "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED",
+  "authorization_artifact_package_sha": "daeaa7bfb7f7d73a61f011d394cc88393625866c",
+  "granted_on": "2026-09-15",
+  "single_use": true,
+  "reusable": false,
+  "status": "CONSUMED",
+  "consumed_at_utc": "2026-09-15T20:28:31.130359Z",
+  "execution_run_id": "35019840276",
+  "execution_branch": "m3-ca-sco-property-type-diagnostic-execution-one-shot"
+}

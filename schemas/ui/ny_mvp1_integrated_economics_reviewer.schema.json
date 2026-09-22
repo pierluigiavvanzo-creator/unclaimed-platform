@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ui:ny-mvp1-integrated-economics-reviewer:1.0.0",
+  "title": "NY MVP-1 Integrated Economics Reviewer Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "ready",
+    "blocked",
+    "safety"
+  ],
+  "$defs": {
+    "scenario_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario",
+        "follow_up_cost",
+        "integration"
+      ],
+      "properties": {
+        "scenario": {
+          "type": "string"
+        },
+        "follow_up_cost": {
+          "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-follow-up-cost-measurement-result:1.0.0"
+        },
+        "integration": {
+          "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-case-economics-integration-result:1.0.0"
+        }
+      }
+    }
+  },
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "mode": {
+      "const": "SYNTHETIC_READ_ONLY"
+    },
+    "ready": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/scenario_base"
+        },
+        {
+          "properties": {
+            "scenario": {
+              "const": "READY_WITH_DOCUMENTED_LABOR_RATE"
+            }
+          }
+        }
+      ]
+    },
+    "blocked": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/scenario_base"
+        },
+        {
+          "properties": {
+            "scenario": {
+              "const": "BLOCKED_WITHOUT_DOCUMENTED_LABOR_RATE"
+            }
+          }
+        }
+      ]
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "real_source_accessed",
+        "owner_file_downloaded",
+        "real_owner_pii_processed",
+        "automatic_commercial_recommendation"
+      ],
+      "properties": {
+        "real_source_accessed": {
+          "const": false
+        },
+        "owner_file_downloaded": {
+          "const": false
+        },
+        "real_owner_pii_processed": {
+          "const": false
+        },
+        "automatic_commercial_recommendation": {
+          "const": false
+        }
+      }
+    }
+  }
+}

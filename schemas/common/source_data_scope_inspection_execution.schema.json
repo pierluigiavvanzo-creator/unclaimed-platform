@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:source-data-scope-inspection-execution:1.0.0",
+  "title": "SourceDataScopeInspectionExecution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "execution_id", "source_id", "source_segment_id", "jurisdiction", "execution_approval_ref", "executed_at", "target", "controls", "transport_verification", "range_requests", "archive", "csv_header_candidates", "total_response_body_bytes_read", "safety_state", "result_status", "stop_reason"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "execution_id": {"type": "string", "minLength": 1},
+    "source_id": {"const": "ca.sco.unclaimed_property.bulk"},
+    "source_segment_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus"},
+    "jurisdiction": {"const": "CA"},
+    "execution_approval_ref": {"type": "string", "minLength": 1},
+    "executed_at": {"type": "string", "format": "date-time"},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["endpoint", "expected_content_length", "expected_etag", "expected_media_type", "expected_accept_ranges"],
+      "properties": {
+        "endpoint": {"const": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip"},
+        "expected_content_length": {"const": 162416884},
+        "expected_etag": {"const": "\"b25b315b6cd8007624387c3a00d4b1fe\""},
+        "expected_media_type": {"const": "application/zip"},
+        "expected_accept_ranges": {"const": "bytes"}
+      }
+    },
+    "controls": {
+      "type": "object", "additionalProperties": false,
+      "required": ["request_mode", "full_body_request_allowed", "tail_bytes_max", "central_directory_bytes_max", "member_response_bytes_max_each", "actual_member_probe_bytes_each", "uncompressed_header_bytes_max_each", "range_requests_max", "total_response_body_bytes_max", "csv_data_rows_allowed", "record_values_persistence_allowed"],
+      "properties": {
+        "request_mode": {"const": "HTTP_RANGE_GET_ONLY"},
+        "full_body_request_allowed": {"const": false},
+        "tail_bytes_max": {"const": 131072},
+        "central_directory_bytes_max": {"const": 4194304},
+        "member_response_bytes_max_each": {"const": 1048576},
+        "actual_member_probe_bytes_each": {"const": 65536},
+        "uncompressed_header_bytes_max_each": {"const": 65536},
+        "range_requests_max": {"const": 12},
+        "total_response_body_bytes_max": {"const": 14811136},
+        "csv_data_rows_allowed": {"const": 0},
+        "record_values_persistence_allowed": {"const": false}
+      }
+    },
+    "transport_verification": {
+      "type": "object", "additionalProperties": false,
+      "required": ["head_status", "content_length", "content_type", "accept_ranges", "etag", "last_modified"],
+      "properties": {
+        "head_status": {"const": 200},
+        "content_length": {"const": 162416884},
+        "content_type": {"const": "application/zip"},
+        "accept_ranges": {"const": "bytes"},
+        "etag": {"const": "\"b25b315b6cd8007624387c3a00d4b1fe\""},
+        "last_modified": {"type": ["string", "null"]}
+      }
+    },
+    "range_requests": {
+      "type": "array", "maxItems": 12,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["purpose", "range_start", "range_end", "http_status", "content_range", "bytes_read"],
+        "properties": {
+          "purpose": {"enum": ["TAIL", "CENTRAL_DIRECTORY", "MEMBER_PREFIX"]},
+          "range_start": {"type": "integer", "minimum": 0},
+          "range_end": {"type": "integer", "minimum": 0},
+          "http_status": {"const": 206},
+          "content_range": {"type": "string", "minLength": 1},
+          "bytes_read": {"type": "integer", "minimum": 1, "maximum": 4194304}
+        }
+      }
+    },
+    "archive": {
+      "type": "object", "additionalProperties": false,
+      "required": ["parse_status", "zip64", "member_count", "csv_candidate_count", "members"],
+      "properties": {
+        "parse_status": {"enum": ["NOT_ATTEMPTED", "PARSED", "BLOCKED"]},
+        "zip64": {"const": false},
+        "member_count": {"type": ["integer", "null"], "minimum": 0, "maximum": 10000},
+        "csv_candidate_count": {"type": ["integer", "null"], "minimum": 0, "maximum": 10},
+        "members": {
+          "type": "array", "maxItems": 10000,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["name", "compressed_size", "uncompressed_size", "compression_method", "encrypted", "local_header_offset"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "compressed_size": {"type": "integer", "minimum": 0},
+              "uncompressed_size": {"type": "integer", "minimum": 0},
+              "compression_method": {"enum": ["STORED", "DEFLATED"]},
+              "encrypted": {"const": false},
+              "local_header_offset": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "csv_header_candidates": {
+      "type": "array", "maxItems": 10,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["member_name", "labels", "delimiter", "encoding", "column_count", "header_confidence", "potential_pii_labels"],
+        "properties": {
+          "member_name": {"type": "string", "minLength": 1},
+          "labels": {"type": "array", "minItems": 2, "maxItems": 256, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 128}},
+          "delimiter": {"enum": [",", ";", "|", "\\t"]},
+          "encoding": {"const": "utf-8"},
+          "column_count": {"type": "integer", "minimum": 2, "maximum": 256},
+          "header_confidence": {"const": "HIGH_DETERMINISTIC_LABEL_HEURISTIC"},
+          "potential_pii_labels": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 128}}
+        }
+      }
+    },
+    "total_response_body_bytes_read": {"type": "integer", "minimum": 0, "maximum": 14811136},
+    "safety_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["full_archive_downloaded", "raw_body_persisted", "temporary_source_files_created", "csv_data_rows_parsed", "record_values_persisted", "real_pii_processing_authorized", "identity_resolution_performed", "beneficiary_matching_performed", "outreach_performed", "source_approved", "source_enabled"],
+      "properties": {
+        "full_archive_downloaded": {"const": false},
+        "raw_body_persisted": {"const": false},
+        "temporary_source_files_created": {"const": false},
+        "csv_data_rows_parsed": {"const": 0},
+        "record_values_persisted": {"const": false},
+        "real_pii_processing_authorized": {"const": false},
+        "identity_resolution_performed": {"const": false},
+        "beneficiary_matching_performed": {"const": false},
+        "outreach_performed": {"const": false},
+        "source_approved": {"const": false},
+        "source_enabled": {"const": false}
+      }
+    },
+    "result_status": {"enum": ["SUCCEEDED_STRUCTURE_ONLY", "BLOCKED", "FAILED"]},
+    "stop_reason": {"type": ["string", "null"]}
+  }
+}

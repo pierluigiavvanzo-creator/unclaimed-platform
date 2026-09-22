@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-nonconforming-row-handling-proposal:1.0.0",
+  "title": "PropertyTypeNonconformingRowHandlingProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "proposal_version",
+    "proposal_status",
+    "prepared_on",
+    "jurisdiction",
+    "source_id",
+    "source_segment_id",
+    "base_state",
+    "established_facts",
+    "handling_question",
+    "unchanged_validation_contract",
+    "candidate_handling_options",
+    "proposal_comparison_constraints",
+    "non_value_bearing_control_contract",
+    "privacy_and_persistence_boundaries",
+    "consumed_authorizations",
+    "authorization_boundary",
+    "implementation_state",
+    "safety_state",
+    "acceptance_criteria",
+    "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "proposal_id": {"const": "ca.sco.segment_500_plus.property_type_nonconforming_row_handling"},
+    "proposal_version": {"const": "1.0.0"},
+    "proposal_status": {"const": "PROPOSAL_ONLY_NOT_AUTHORIZED"},
+    "prepared_on": {"const": "2026-09-16"},
+    "jurisdiction": {"const": "CA"},
+    "source_id": {"const": "ca.sco.unclaimed_property.bulk"},
+    "source_segment_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus"},
+    "base_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "branch",
+        "head_sha",
+        "head_ci_run",
+        "source_format_execution_run_id",
+        "source_format_execution_evidence",
+        "source_format_diagnostic_class",
+        "source_format_evidence_review_audit",
+        "source_format_evidence_review_decision",
+        "authority_review_audit",
+        "authority_review_decision"
+      ],
+      "properties": {
+        "branch": {"const": "m3-ca-sco-property-type-source-format-diagnostic-evidence-review"},
+        "head_sha": {"const": "27b1a19874449b0170fc0c47328340122d443529"},
+        "head_ci_run": {"const": "35092673600"},
+        "source_format_execution_run_id": {"const": "35090057224"},
+        "source_format_execution_evidence": {"const": "sources/evidence/ca_sco_segment_500_plus.property_type_source_format_diagnostic.execution.v1.json"},
+        "source_format_diagnostic_class": {"const": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH"},
+        "source_format_evidence_review_audit": {"const": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW.md"},
+        "source_format_evidence_review_decision": {"const": "PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED"},
+        "authority_review_audit": {"const": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md"},
+        "authority_review_decision": {"const": "ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS"}
+      }
+    },
+    "established_facts": {
+      "type": "array",
+      "minItems": 7,
+      "items": {"type": "string"}
+    },
+    "handling_question": {"type": "string", "minLength": 1},
+    "unchanged_validation_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "property_type_zero_based_index",
+        "regex",
+        "trim_before_validation",
+        "ascii_uppercase_before_validation",
+        "unicode_normalization_before_validation",
+        "alternate_token_acceptance",
+        "parser_or_projector_change"
+      ],
+      "properties": {
+        "property_type_zero_based_index": {"const": 1},
+        "regex": {"const": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$"},
+        "trim_before_validation": {"const": false},
+        "ascii_uppercase_before_validation": {"const": false},
+        "unicode_normalization_before_validation": {"const": false},
+        "alternate_token_acceptance": {"const": false},
+        "parser_or_projector_change": {"const": false}
+      }
+    },
+    "candidate_handling_options": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {"$ref": "#/$defs/wholeSourceStop"},
+        {"$ref": "#/$defs/rowDefer"},
+        {"$ref": "#/$defs/humanReview"}
+      ],
+      "items": false
+    },
+    "proposal_comparison_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_option",
+        "selection_authorized_by_this_proposal",
+        "silent_row_skip_allowed",
+        "silent_source_continuation_allowed",
+        "silent_semantic_acceptance_allowed",
+        "automatic_correction_allowed",
+        "normalization_allowed",
+        "regex_relaxation_allowed",
+        "real_row_quarantine_persistence_allowed",
+        "source_activation_allowed",
+        "production_classification_activation_allowed"
+      ],
+      "properties": {
+        "selected_option": {"type": "null"},
+        "selection_authorized_by_this_proposal": {"const": false},
+        "silent_row_skip_allowed": {"const": false},
+        "silent_source_continuation_allowed": {"const": false},
+        "silent_semantic_acceptance_allowed": {"const": false},
+        "automatic_correction_allowed": {"const": false},
+        "normalization_allowed": {"const": false},
+        "regex_relaxation_allowed": {"const": false},
+        "real_row_quarantine_persistence_allowed": {"const": false},
+        "source_activation_allowed": {"const": false},
+        "production_classification_activation_allowed": {"const": false}
+      }
+    },
+    "non_value_bearing_control_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status_codes",
+        "reason_codes",
+        "may_persist_exact_property_type",
+        "may_persist_property_type_derivative",
+        "may_persist_row_or_field_hash",
+        "may_persist_exact_row_or_field_length",
+        "may_persist_property_id",
+        "may_persist_owner_holder_values",
+        "may_persist_source_derived_free_text",
+        "may_log_real_row_or_field_content"
+      ],
+      "properties": {
+        "status_codes": {"const": ["PROPERTY_TYPE_NONCONFORMING_STOPPED", "PROPERTY_TYPE_NONCONFORMING_DEFERRED_POLICY_REQUIRED", "PROPERTY_TYPE_NONCONFORMING_HUMAN_REVIEW_REQUIRED"]},
+        "reason_codes": {"const": ["PROPERTY_TYPE_STRUCTURAL_NONCONFORMANCE", "ROW_CONTINUATION_POLICY_NOT_AUTHORIZED", "REAL_ROW_RETENTION_NOT_AUTHORIZED", "ROW_SPECIFIC_HUMAN_INSPECTION_NOT_AUTHORIZED"]},
+        "may_persist_exact_property_type": {"const": false},
+        "may_persist_property_type_derivative": {"const": false},
+        "may_persist_row_or_field_hash": {"const": false},
+        "may_persist_exact_row_or_field_length": {"const": false},
+        "may_persist_property_id": {"const": false},
+        "may_persist_owner_holder_values": {"const": false},
+        "may_persist_source_derived_free_text": {"const": false},
+        "may_log_real_row_or_field_content": {"const": false}
+      }
+    },
+    "privacy_and_persistence_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metadata_only_handling_design_requires_privacy_expansion",
+        "real_row_or_field_retention_is_privacy_expansion",
+        "real_row_or_field_retention_authorized_by_this_proposal",
+        "row_specific_human_inspection_is_privacy_expansion",
+        "row_specific_human_inspection_authorized_by_this_proposal",
+        "future_privacy_expansion_requires_separate_reviewed_authorization_path",
+        "future_real_source_execution_requires_separate_reviewed_authorization_path",
+        "approval_tokens_defined_by_this_proposal"
+      ],
+      "properties": {
+        "metadata_only_handling_design_requires_privacy_expansion": {"const": false},
+        "real_row_or_field_retention_is_privacy_expansion": {"const": true},
+        "real_row_or_field_retention_authorized_by_this_proposal": {"const": false},
+        "row_specific_human_inspection_is_privacy_expansion": {"const": true},
+        "row_specific_human_inspection_authorized_by_this_proposal": {"const": false},
+        "future_privacy_expansion_requires_separate_reviewed_authorization_path": {"const": true},
+        "future_real_source_execution_requires_separate_reviewed_authorization_path": {"const": true},
+        "approval_tokens_defined_by_this_proposal": {"const": false}
+      }
+    },
+    "consumed_authorizations": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["approval_ref", "consumed", "reusable"],
+        "properties": {
+          "approval_ref": {"type": "string"},
+          "consumed": {"const": true},
+          "reusable": {"const": false}
+        }
+      }
+    },
+    "authorization_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_preparation_authorized",
+        "handling_policy_selection_authorized",
+        "runtime_handling_change_authorized",
+        "source_or_authority_network_access_authorized",
+        "real_source_execution_authorized",
+        "privacy_expansion_authorized",
+        "row_quarantine_persistence_authorized",
+        "row_specific_human_inspection_authorized",
+        "source_continuation_after_nonconformance_authorized",
+        "parser_change_authorized",
+        "regex_change_authorized",
+        "normalization_change_authorized",
+        "remediation_authorized",
+        "source_activation_authorized",
+        "production_classification_activation_authorized",
+        "approval_token_defined_by_this_proposal"
+      ],
+      "properties": {
+        "proposal_preparation_authorized": {"const": true},
+        "handling_policy_selection_authorized": {"const": false},
+        "runtime_handling_change_authorized": {"const": false},
+        "source_or_authority_network_access_authorized": {"const": false},
+        "real_source_execution_authorized": {"const": false},
+        "privacy_expansion_authorized": {"const": false},
+        "row_quarantine_persistence_authorized": {"const": false},
+        "row_specific_human_inspection_authorized": {"const": false},
+        "source_continuation_after_nonconformance_authorized": {"const": false},
+        "parser_change_authorized": {"const": false},
+        "regex_change_authorized": {"const": false},
+        "normalization_change_authorized": {"const": false},
+        "remediation_authorized": {"const": false},
+        "source_activation_authorized": {"const": false},
+        "production_classification_activation_authorized": {"const": false},
+        "approval_token_defined_by_this_proposal": {"const": false}
+      }
+    },
+    "implementation_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_branch",
+        "proposal_only",
+        "source_request_performed",
+        "authority_request_performed",
+        "real_row_access_performed",
+        "runtime_code_modified",
+        "runner_modified",
+        "parser_modified",
+        "regex_modified",
+        "normalization_modified",
+        "logging_modified",
+        "persistence_modified",
+        "source_policy_modified",
+        "registry_modified"
+      ],
+      "properties": {
+        "proposal_branch": {"const": "m3-ca-sco-property-type-nonconforming-row-handling-proposal"},
+        "proposal_only": {"const": true},
+        "source_request_performed": {"const": false},
+        "authority_request_performed": {"const": false},
+        "real_row_access_performed": {"const": false},
+        "runtime_code_modified": {"const": false},
+        "runner_modified": {"const": false},
+        "parser_modified": {"const": false},
+        "regex_modified": {"const": false},
+        "normalization_modified": {"const": false},
+        "logging_modified": {"const": false},
+        "persistence_modified": {"const": false},
+        "source_policy_modified": {"const": false},
+        "registry_modified": {"const": false}
+      }
+    },
+    "safety_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_policy_status",
+        "registry_enabled",
+        "registry_approved_for_use",
+        "approved_real_sources",
+        "authority_provenance_resolved",
+        "semantic_compatibility_resolved",
+        "production_classification_active",
+        "downstream_gates_remain_closed"
+      ],
+      "properties": {
+        "source_policy_status": {"const": "PROPOSED"},
+        "registry_enabled": {"const": false},
+        "registry_approved_for_use": {"const": false},
+        "approved_real_sources": {"const": 0},
+        "authority_provenance_resolved": {"const": true},
+        "semantic_compatibility_resolved": {"const": false},
+        "production_classification_active": {"const": false},
+        "downstream_gates_remain_closed": {"const": true}
+      }
+    },
+    "acceptance_criteria": {"type": "array", "minItems": 11, "items": {"type": "string"}},
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW"}
+  },
+  "$defs": {
+    "commonOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "option_id",
+        "description",
+        "fail_closed",
+        "continues_after_nonconforming_row",
+        "retains_real_row_or_field_content",
+        "requires_privacy_expansion",
+        "requires_new_real_source_execution_to_validate",
+        "principal_benefit",
+        "principal_cost",
+        "authorized_by_this_proposal"
+      ],
+      "properties": {
+        "option_id": {"type": "string"},
+        "description": {"type": "string", "minLength": 1},
+        "fail_closed": {"const": true},
+        "continues_after_nonconforming_row": {},
+        "retains_real_row_or_field_content": {},
+        "requires_privacy_expansion": {},
+        "requires_new_real_source_execution_to_validate": {"const": true},
+        "principal_benefit": {"type": "string", "minLength": 1},
+        "principal_cost": {"type": "string", "minLength": 1},
+        "authorized_by_this_proposal": {"const": false}
+      }
+    },
+    "wholeSourceStop": {
+      "allOf": [
+        {"$ref": "#/$defs/commonOption"},
+        {"properties": {"option_id": {"const": "WHOLE_SOURCE_STOP"}, "continues_after_nonconforming_row": {"const": false}, "retains_real_row_or_field_content": {"const": false}, "requires_privacy_expansion": {"const": false}}}
+      ]
+    },
+    "rowDefer": {
+      "allOf": [
+        {"$ref": "#/$defs/commonOption"},
+        {"properties": {"option_id": {"const": "ROW_LEVEL_DEFER_OR_QUARANTINE"}, "continues_after_nonconforming_row": {"const": "REQUIRES_SEPARATE_POLICY_DECISION"}, "retains_real_row_or_field_content": {"const": "NOT_BY_DEFAULT"}, "requires_privacy_expansion": {"const": "ONLY_IF_REAL_ROW_OR_FIELD_CONTENT_IS_RETAINED"}}}
+      ]
+    },
+    "humanReview": {
+      "allOf": [
+        {"$ref": "#/$defs/commonOption"},
+        {"properties": {"option_id": {"const": "HUMAN_REVIEW_ROUTE"}, "continues_after_nonconforming_row": {"const": false}, "retains_real_row_or_field_content": {"const": false}, "requires_privacy_expansion": {"const": "ONLY_IF_HUMAN_REVIEW_REQUIRES_ACTUAL_ROW_OR_FIELD_CONTENT"}}}
+      ]
+    }
+  }
+}

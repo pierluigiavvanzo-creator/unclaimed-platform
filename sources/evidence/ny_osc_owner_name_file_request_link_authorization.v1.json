@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION",
+  "authorized_on": "2026-09-17",
+  "owner_authorization": "APPROVO NY OSC OWNER NAME FILE REQUEST-LINK ONLY",
+  "repository": "pierluigiavvanzo-creator/unclaimed-platform",
+  "authorization_base_branch": "mvp1-ny-osc-owner-file-source-contract-privacy-gate-offline",
+  "authorization_base_head": "198821ff41abb103b6c56876a075abb6c28c9c8f",
+  "authorization_base_ci_run": "35258809399",
+  "authorization_base_ci_conclusion": "SUCCESS",
+  "execution_branch": "mvp1-ny-osc-request-submitted",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_ONLY_5F8B2C71",
+  "approval_state": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "authorized_scope": {
+    "official_request_submission_allowed": true,
+    "receive_access_instructions_allowed": true,
+    "requester_contact_disclosure_allowed_when_explicitly_supplied": true,
+    "owner_name_file_download_allowed": false,
+    "real_owner_pii_processing_allowed": false,
+    "raw_file_persistence_allowed": false,
+    "schema_parsing_allowed": false,
+    "identity_resolution_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false,
+    "representation_allowed": false,
+    "fee_agreement_allowed": false,
+    "claim_activity_allowed": false
+  },
+  "official_form": {
+    "url": "https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form",
+    "requester_contact_fields": [
+      "name",
+      "company",
+      "phone",
+      "email"
+    ]
+  },
+  "requester_contact_values_persisted": false,
+  "external_request_submitted": true,
+  "submission_confirmation_source": "PRODUCT_OWNER_MANUAL_CONFIRMATION_IN_CHAT",
+  "submission_confirmation_date": "2026-09-17",
+  "approval_consumed": true,
+  "consumed_at_utc": "2026-09-17T19:48:56Z",
+  "consumption_time_basis": "confirmation_record_time; exact external submit timestamp not independently verified"
+}

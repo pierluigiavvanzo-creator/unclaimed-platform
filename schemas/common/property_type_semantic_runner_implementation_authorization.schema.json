@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:property-type-runner-implementation-authorization:1.0.0",
+  "title": "PropertyTypeRunnerImplementationAuthorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "authorization_version",
+    "approved_on",
+    "approval_ref",
+    "owner_instruction",
+    "canonical_base_sha",
+    "canonical_design_ref",
+    "authorized_scope",
+    "runner_path",
+    "forbidden_workflow_path",
+    "next_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "authorization_id": {"const": "ca.sco.segment.500_plus.property_type_runner_implementation"},
+    "authorization_version": {"const": "1.0.0"},
+    "approved_on": {"const": "2026-09-15"},
+    "approval_ref": {"const": "OWNER_CHAT_APPROVAL_2026-09-15_PROPERTY_TYPE_RUNNER_IMPLEMENTATION_SYNTHETIC_MOCK_ONLY"},
+    "owner_instruction": {"const": "approvo implementazione bounded runner PROPERTY_TYPE con soli test synthetic/mock"},
+    "canonical_base_sha": {"const": "6105c22a7d31df7afca00282eff7e9798e98b868"},
+    "canonical_design_ref": {"const": "sources/proposals/ca_sco_segment_500_plus.property_type_semantic_runner_design.v1.json"},
+    "authorized_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runner_implementation",
+        "synthetic_mock_testing",
+        "real_network_execution",
+        "network_workflow",
+        "real_row_access",
+        "transient_row_privacy",
+        "source_approval",
+        "registry_activation"
+      ],
+      "properties": {
+        "runner_implementation": {"const": true},
+        "synthetic_mock_testing": {"const": true},
+        "real_network_execution": {"const": false},
+        "network_workflow": {"const": false},
+        "real_row_access": {"const": false},
+        "transient_row_privacy": {"const": false},
+        "source_approval": {"const": false},
+        "registry_activation": {"const": false}
+      }
+    },
+    "runner_path": {"const": "scripts/ca_sco_property_type_semantic_verification.py"},
+    "forbidden_workflow_path": {"const": ".github/workflows/ca-sco-property-type-semantic-verification-once.yml"},
+    "next_gate": {"const": "HUMAN_PROPERTY_TYPE_RUNNER_CANDIDATE_PROMOTION"}
+  }
+}

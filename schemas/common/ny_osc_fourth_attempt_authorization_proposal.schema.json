@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-osc-fourth-attempt-authorization-proposal:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "source_id",
+    "request_scope",
+    "preceding_attempt",
+    "verified_offline_remediation",
+    "fresh_preflight",
+    "proposed_execution_bounds",
+    "proposed_privacy_scope",
+    "required_human_authorizations",
+    "implementation_gate",
+    "authorization_does_not_grant",
+    "next_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.osc.owner_name_file.fourth_bounded_attempt_authorization_proposal"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "const": "PROPOSED_NOT_AUTHORIZED"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "request_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_only",
+        "source_network_access_performed",
+        "remote_preflight_performed",
+        "download_performed",
+        "owner_file_opened",
+        "owner_pii_processed"
+      ],
+      "properties": {
+        "repository_only": {
+          "const": true
+        },
+        "source_network_access_performed": {
+          "const": false
+        },
+        "remote_preflight_performed": {
+          "const": false
+        },
+        "download_performed": {
+          "const": false
+        },
+        "owner_file_opened": {
+          "const": false
+        },
+        "owner_pii_processed": {
+          "const": false
+        }
+      }
+    },
+    "preceding_attempt": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "attempt_number",
+        "status",
+        "reason_code",
+        "transient_local_approval_consumed",
+        "transient_pii_approval_consumed",
+        "approvals_reusable",
+        "retry_authorized",
+        "raw_file_logically_deleted",
+        "owner_values_returned"
+      ],
+      "properties": {
+        "attempt_number": {
+          "const": 3
+        },
+        "status": {
+          "const": "BLOCKED_FAIL_CLOSED"
+        },
+        "reason_code": {
+          "const": "MALFORMED_QUOTED_RECORD"
+        },
+        "transient_local_approval_consumed": {
+          "const": true
+        },
+        "transient_pii_approval_consumed": {
+          "const": true
+        },
+        "approvals_reusable": {
+          "const": false
+        },
+        "retry_authorized": {
+          "const": false
+        },
+        "raw_file_logically_deleted": {
+          "const": true
+        },
+        "owner_values_returned": {
+          "const": false
+        }
+      }
+    },
+    "verified_offline_remediation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "integrated_merge_checkpoint",
+        "pull_request_number",
+        "verification_ci_run_id",
+        "verification_ci_conclusion",
+        "real_owner_file_used_for_remediation"
+      ],
+      "properties": {
+        "integrated_merge_checkpoint": {
+          "const": "3e58eeb27b47ca89d01f6b45159c8a01bef94bf0"
+        },
+        "pull_request_number": {
+          "const": 8
+        },
+        "verification_ci_run_id": {
+          "const": 35425632178
+        },
+        "verification_ci_conclusion": {
+          "const": "SUCCESS"
+        },
+        "real_owner_file_used_for_remediation": {
+          "const": false
+        }
+      }
+    },
+    "fresh_preflight": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "required_immediately_before_execution",
+        "performed_for_this_proposal",
+        "remote_access_authorized_by_this_proposal",
+        "required_result",
+        "drift_behavior"
+      ],
+      "properties": {
+        "required_immediately_before_execution": {
+          "const": true
+        },
+        "performed_for_this_proposal": {
+          "const": false
+        },
+        "remote_access_authorized_by_this_proposal": {
+          "const": false
+        },
+        "required_result": {
+          "const": "EXACT_MATCH_OR_STOP"
+        },
+        "drift_behavior": {
+          "const": "STOP_BEFORE_DOWNLOAD_AND_REFRESH_PROPOSAL"
+        }
+      }
+    },
+    "proposed_execution_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt_number",
+        "downloads_max",
+        "retries_max",
+        "max_download_bytes",
+        "max_uncompressed_bytes",
+        "max_archive_members",
+        "text_members_required_exactly",
+        "expected_delimiter",
+        "expected_documented_field_count",
+        "parser_chunk_bytes",
+        "automatic_widening_allowed",
+        "automatic_retry_allowed"
+      ],
+      "properties": {
+        "attempt_number": {
+          "const": 4
+        },
+        "downloads_max": {
+          "const": 1
+        },
+        "retries_max": {
+          "const": 0
+        },
+        "max_download_bytes": {
+          "const": 450000000
+        },
+        "max_uncompressed_bytes": {
+          "const": 2000000000
+        },
+        "max_archive_members": {
+          "const": 1
+        },
+        "text_members_required_exactly": {
+          "const": 1
+        },
+        "expected_delimiter": {
+          "const": "|"
+        },
+        "expected_documented_field_count": {
+          "const": 14
+        },
+        "parser_chunk_bytes": {
+          "const": 65536
+        },
+        "automatic_widening_allowed": {
+          "const": false
+        },
+        "automatic_retry_allowed": {
+          "const": false
+        }
+      }
+    },
+    "proposed_privacy_scope": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "required_human_authorizations": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "gate",
+            "approval_phrase",
+            "status",
+            "single_use",
+            "reusable",
+            "retry_authorized"
+          ],
+          "properties": {
+            "gate": {
+              "const": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION"
+            },
+            "approval_phrase": {
+              "const": "APPROVO NY OSC FOURTH TRANSIENT LOCAL FILE BOUNDED ONCE"
+            },
+            "status": {
+              "const": "NOT_GRANTED"
+            },
+            "single_use": {
+              "const": true
+            },
+            "reusable": {
+              "const": false
+            },
+            "retry_authorized": {
+              "const": false
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "gate",
+            "approval_phrase",
+            "status",
+            "single_use",
+            "reusable",
+            "retry_authorized"
+          ],
+          "properties": {
+            "gate": {
+              "const": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION"
+            },
+            "approval_phrase": {
+              "const": "APPROVO NY OSC OWNER NAME FILE FOURTH BOUNDED TRANSIENT PII ATTEMPT ONCE"
+            },
+            "status": {
+              "const": "NOT_GRANTED"
+            },
+            "single_use": {
+              "const": true
+            },
+            "reusable": {
+              "const": false
+            },
+            "retry_authorized": {
+              "const": false
+            }
+          }
+        }
+      ],
+      "items": false
+    },
+    "implementation_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fourth_attempt_runner_status",
+        "fourth_attempt_approval_artifacts_status",
+        "execution_status",
+        "third_attempt_runner_reuse_allowed",
+        "third_attempt_approval_reuse_allowed",
+        "source_access_allowed"
+      ],
+      "properties": {
+        "fourth_attempt_runner_status": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "fourth_attempt_approval_artifacts_status": {
+          "const": "NOT_CREATED"
+        },
+        "execution_status": {
+          "const": "BLOCKED_PROPOSAL_ONLY"
+        },
+        "third_attempt_runner_reuse_allowed": {
+          "const": false
+        },
+        "third_attempt_approval_reuse_allowed": {
+          "const": false
+        },
+        "source_access_allowed": {
+          "const": false
+        }
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "next_action": {
+      "const": "HUMAN_REVIEW_NY_OSC_FOURTH_BOUNDED_ATTEMPT_PROPOSAL"
+    }
+  }
+}

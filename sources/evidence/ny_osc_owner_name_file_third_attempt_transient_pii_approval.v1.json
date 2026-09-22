@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
+  "required_owner_authorization": "APPROVO NY OSC OWNER NAME FILE THIRD BOUNDED TRANSIENT PII ATTEMPT ONCE",
+  "owner_authorization": "APPROVO NY OSC OWNER NAME FILE THIRD BOUNDED TRANSIENT PII ATTEMPT ONCE",
+  "granted_on": "2026-09-18",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_THIRD_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35385157",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "attempt_number": 3,
+  "proposal_ref": "sources/proposals/ny_osc_owner_name_file_third_bounded_attempt_authorization.v1.json",
+  "proposal_checkpoint": "fbb9ae1e104897e032a7442fd679bb3c17f021c6",
+  "proposal_ci_run_id": 35382914678,
+  "runner_checkpoint": "2d871ee041abe9cccc0e0fa32b849bbe223bdfa2",
+  "runner_ci_run_id": 35385157576,
+  "runner_ci_conclusion": "SUCCESS",
+  "source_identity": {
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "expected_remote_name": "FINDERS.zip",
+    "historical_size_display_for_preflight_only": "390.51 MB",
+    "historical_last_modified_display_for_preflight_only": "9/16/2026, 1:33:31 PM",
+    "fresh_preflight_required": true
+  },
+  "execution_bounds": {
+    "downloads_max": 1,
+    "retries_max": 0,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "text_members_required_exactly": 1,
+    "expected_delimiter": "|",
+    "expected_documented_field_count": 14,
+    "automatic_widening_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "processing_scope": {
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true
+  },
+  "authorization_does_not_grant": {
+    "source_network_access": false,
+    "download": false,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "consumed_on": "2026-09-19",
+  "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_third_attempt_execution_result.v1.json"
+}

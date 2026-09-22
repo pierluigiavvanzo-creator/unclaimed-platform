@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-precontact-evidence:1.0.0",
+  "title": "NY MVP-1 Precontact Economics Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "jurisdiction",
+    "source_id",
+    "recoverable_value_state",
+    "exact_recoverable_value_cents",
+    "owner_file_discloses_amount",
+    "claim_review_required_for_exact_amount",
+    "fee_rule_scope",
+    "statutory_fee_cap_bps",
+    "actual_fee_bps",
+    "fee_applicability_requires_legal_review",
+    "expected_follow_up_cost_cents",
+    "cost_measurement_state",
+    "commercial_actionability",
+    "reason_codes",
+    "reviewer_decision_required"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "mode": {
+      "const": "OFFLINE_PRECONTACT_EVIDENCE"
+    },
+    "jurisdiction": {
+      "const": "NY"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
+    "recoverable_value_state": {
+      "const": "UNKNOWN_PRE_CLAIM_REVIEW"
+    },
+    "exact_recoverable_value_cents": {
+      "type": "null"
+    },
+    "owner_file_discloses_amount": {
+      "const": false
+    },
+    "claim_review_required_for_exact_amount": {
+      "const": true
+    },
+    "fee_rule_scope": {
+      "const": "ABP_1416_LOCATION_SERVICES_SUBJECT_TO_EXCEPTIONS"
+    },
+    "statutory_fee_cap_bps": {
+      "const": 1500
+    },
+    "actual_fee_bps": {
+      "type": "null"
+    },
+    "fee_applicability_requires_legal_review": {
+      "const": true
+    },
+    "expected_follow_up_cost_cents": {
+      "type": "null"
+    },
+    "cost_measurement_state": {
+      "const": "NOT_MEASURED"
+    },
+    "commercial_actionability": {
+      "const": "NOT_COMPUTABLE_PRE_CONTACT"
+    },
+    "reason_codes": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "RECOVERABLE_VALUE_UNDISCLOSED_PRE_CLAIM_REVIEW"
+        },
+        {
+          "const": "ACTUAL_FEE_RATE_UNSUPPORTED"
+        },
+        {
+          "const": "FOLLOW_UP_COST_NOT_MEASURED"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "reviewer_decision_required": {
+      "const": "CONTINUE_VALUE_RESEARCH_OR_STOP"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.current_listing_metadata",
+  "artifact_version": "1.0.0",
+  "observed_on": "2026-09-18",
+  "evidence_source": "PRODUCT_OWNER_SCREENSHOT_IN_CHAT",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "portal_location": "secure transfer / outbound listing",
+  "observed_remote_name": "FINDERS.zip",
+  "observed_last_modified_display": "9/16/2026, 1:33:31 PM",
+  "observed_size_display": "390.51 MB",
+  "exact_byte_count_exposed": false,
+  "size_interpretation": {
+    "decimal_mb_bytes": 390510000,
+    "binary_mib_equivalent_ceil_bytes": 409479414,
+    "unit_semantics": "portal displays MB; exact byte semantics not exposed"
+  },
+  "screenshot_raw_bytes_persisted": false,
+  "credentials_persisted": false,
+  "owner_file_downloaded": false,
+  "owner_file_content_inspected": false,
+  "owner_pii_processed": false
+}

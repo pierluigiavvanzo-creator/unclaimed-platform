@@ -1,0 +1,269 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ca.sco.segment_500_plus.property_type_source_format_diagnostic",
+  "proposal_version": "1.0.0",
+  "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+  "prepared_on": "2026-09-16",
+  "jurisdiction": "CA",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "source_segment_id": "ca.sco.unclaimed_property.bulk.500_plus",
+  "base_state": {
+    "branch": "m3-ca-sco-property-type-diagnostic-evidence-review",
+    "head_sha": "9195d27e17b89703f7179a9db2ba5dccad43a75e",
+    "head_ci_run": "35058889923",
+    "diagnostic_execution_run_id": "35019840276",
+    "diagnostic_execution_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json",
+    "diagnostic_result_status": "DIAGNOSTIC_CLASSIFIED",
+    "diagnostic_class": "ASCII_STRUCTURAL_MISMATCH",
+    "diagnostic_evidence_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW.md",
+    "diagnostic_evidence_review_decision": "PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED",
+    "authority_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md",
+    "authority_review_decision": "ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS"
+  },
+  "established_facts": [
+    "THE_LIVE_MISMATCH_REPRODUCED_AS_A_DECODED_NON_EMPTY_ASCII_STRUCTURAL_MISMATCH_UNDER_THE_UNCHANGED_REGEX",
+    "THE_MISMATCH_WAS_NOT_EXPLAINED_SOLELY_BY_SURROUNDING_ASCII_SPACE_OR_TAB_ASCII_CASE_THEIR_COMBINATION_OR_NON_ASCII_OR_DISALLOWED_CONTROL_CONTENT",
+    "THE_EXACT_PROPERTY_TYPE_VALUE_BYTES_HASH_EXACT_LENGTH_FRAGMENTS_CODEPOINTS_AND_TRANSFORMED_FORM_WERE_NOT_RETAINED_AND_MUST_NOT_BE_RECONSTRUCTED_OR_INFERRED",
+    "THE_ARCHIVED_SCO_AUTHORITY_SUPPORTS_THE_ENUMERATED_AA99_SHAPE_WITH_SCOPE_BOUNDARY_ZZZZ_AND_IN01_THROUGH_IN08_PLUS_IN99",
+    "THE_EXISTING_SYNTHETIC_STANDARD_CSV_DIFFERENTIAL_MATRIX_DID_NOT_REPRODUCE_A_CUSTOM_PROJECTOR_DEFECT",
+    "A_REAL_ROW_STDLIB_FULL_ROW_CROSSCHECK_HAS_NOT_BEEN_PERFORMED_AND_WOULD_REQUIRE_A_SEPARATE_TRANSIENT_FULL_ROW_PRIVACY_BOUNDARY",
+    "NO_CURRENT_EVIDENCE_AUTHORIZES_REGEX_PARSER_TRIMMING_CASING_NORMALIZATION_OR_OTHER_RUNTIME_REMEDIATION"
+  ],
+  "diagnostic_question": "If a future separately authorized bounded execution reproduces the same PROPERTY_TYPE ASCII structural mismatch, does an independent strict standard-library CSV parse agree with the current narrow projector on canonical row shape and PROPERTY_TYPE field selection, or does it reveal a source-format/projector divergence, without retaining source values?",
+  "future_source_scope_if_later_authorized": {
+    "source_network_access_authorized_by_this_proposal": false,
+    "exact_endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
+    "expected_content_length": 162416884,
+    "expected_etag": "\"b25b315b6cd8007624387c3a00d4b1fe\"",
+    "expected_media_type": "application/zip",
+    "expected_accept_ranges": "bytes",
+    "canonical_member": "From_500_To_Beyond_1_of_4.csv",
+    "canonical_member_local_header_offset": 0,
+    "members_max": 1,
+    "transient_data_rows_max": 4,
+    "full_row_crosscheck_rows_max": 1,
+    "stop_at_first_reproduced_ascii_structural_mismatch": true,
+    "head_requests_max": 1,
+    "range_requests_max": 1,
+    "http_requests_max_total": 2,
+    "range_response_bytes_max_each": 131072,
+    "source_response_body_bytes_max_total": 131072,
+    "uncompressed_transient_bytes_max_total": 262144,
+    "logical_record_bytes_max": 32768,
+    "retries_max": 0,
+    "redirects_allowed": false,
+    "additional_range_allowed": false,
+    "full_body_fallback_allowed": false,
+    "automatic_widening_allowed": false,
+    "source_identity_drift_behavior": "STOP_FAIL_CLOSED",
+    "target_mismatch_not_reproduced_within_bound_behavior": "STOP_FAIL_CLOSED",
+    "authority_network_access_allowed": false,
+    "other_source_or_endpoint_access_allowed": false
+  },
+  "independent_parser_contract_if_later_authorized": {
+    "implementation": "PYTHON_STDLIB_CSV_READER",
+    "strict": true,
+    "delimiter": ",",
+    "quotechar": "\"",
+    "doublequote": true,
+    "escapechar": null,
+    "skipinitialspace": false,
+    "row_text_decode": "UTF_8_STRICT",
+    "canonical_column_count": 25,
+    "property_type_zero_based_index": 1,
+    "current_custom_projector_remains_unchanged": true,
+    "current_regex_remains_unchanged": "^(?:[A-Z]{2}[0-9]{2}|ZZZZ)$",
+    "stdlib_result_may_not_replace_or_normalize_source_value": true,
+    "unicode_normalization_allowed": false,
+    "runtime_remediation_allowed": false
+  },
+  "future_privacy_boundary_if_later_authorized": {
+    "full_row_transient_exposure_is_privacy_expansion": true,
+    "full_row_transient_exposure_authorized_by_this_proposal": false,
+    "full_row_transient_rows_max": 1,
+    "purpose": "IN_MEMORY_INDEPENDENT_CSV_PARSE_OF_ONLY_THE_FIRST_ROW_THAT_REPRODUCES_ASCII_STRUCTURAL_MISMATCH",
+    "persist_full_row": false,
+    "persist_any_row_field_value": false,
+    "persist_property_type": false,
+    "persist_property_type_bytes": false,
+    "persist_property_type_hash": false,
+    "persist_property_type_exact_length": false,
+    "persist_property_type_fragments": false,
+    "persist_property_type_codepoints": false,
+    "persist_transformed_property_type": false,
+    "persist_property_id": false,
+    "persist_owner_holder_values": false,
+    "persist_row_hash": false,
+    "persist_row_exact_length": false,
+    "record_source_values_in_logs": false,
+    "source_derived_free_text_allowed": false,
+    "fresh_execution_approval_required_before_network": true,
+    "fresh_full_row_privacy_approval_required_before_network": true,
+    "approval_tokens_defined_by_this_proposal": false
+  },
+  "diagnostic_classes_if_later_authorized": [
+    {
+      "class_id": "FULL_ROW_UTF8_DECODE_FAILED",
+      "definition": "The target PROPERTY_TYPE mismatch was reproduced by the narrow projector, but strict UTF-8 decoding of the same transient logical row for the independent parser failed.",
+      "automatic_remediation": false
+    },
+    {
+      "class_id": "STDLIB_STRICT_CSV_PARSE_FAILED",
+      "definition": "The target mismatch was reproduced, the same transient row decoded strictly as UTF-8, but Python csv.reader with the pinned strict dialect could not parse the row.",
+      "automatic_remediation": false
+    },
+    {
+      "class_id": "STDLIB_COLUMN_SHAPE_NOT_CANONICAL",
+      "definition": "The independent strict parser parsed the transient row but did not produce exactly the canonical 25 columns.",
+      "automatic_remediation": false
+    },
+    {
+      "class_id": "PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER",
+      "definition": "The independent strict parser produced the canonical 25 columns, but its field at zero-based index 1 was not exactly equal in memory to the narrow projector output.",
+      "automatic_remediation": false
+    },
+    {
+      "class_id": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH",
+      "definition": "The independent strict parser produced the canonical 25 columns, selected an exactly equal field at zero-based index 1, and that shared decoded field still failed the unchanged PROPERTY_TYPE regex.",
+      "automatic_remediation": false
+    }
+  ],
+  "diagnostic_output_contract_if_later_authorized": {
+    "allowed_persisted_fields": [
+      "diagnostic_result_status",
+      "source_format_diagnostic_class",
+      "fail_closed_reason_code",
+      "source_identity_verified",
+      "head_requests",
+      "range_requests",
+      "http_requests_total",
+      "source_response_body_bytes_read",
+      "transient_rows_examined",
+      "full_row_crosscheck_rows_examined",
+      "safety_flags"
+    ],
+    "diagnostic_result_status_values": ["SOURCE_FORMAT_CLASSIFIED", "STOPPED_FAIL_CLOSED"],
+    "source_format_diagnostic_class_values": [
+      "FULL_ROW_UTF8_DECODE_FAILED",
+      "STDLIB_STRICT_CSV_PARSE_FAILED",
+      "STDLIB_COLUMN_SHAPE_NOT_CANONICAL",
+      "PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER",
+      "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH"
+    ],
+    "exact_or_derived_source_values_allowed": false,
+    "exact_counts_other_than_bounded_execution_counters_allowed": false,
+    "source_derived_free_text_allowed": false,
+    "parser_exception_text_allowed": false,
+    "row_or_field_hashes_allowed": false
+  },
+  "decision_map": [
+    {
+      "diagnostic_class": "FULL_ROW_UTF8_DECODE_FAILED",
+      "possible_later_action": "REQUIRE_SEPARATE_SOURCE_ENCODING_OR_FORMAT_EVIDENCE_PROPOSAL",
+      "authorized_by_this_proposal": false
+    },
+    {
+      "diagnostic_class": "STDLIB_STRICT_CSV_PARSE_FAILED",
+      "possible_later_action": "REQUIRE_SEPARATE_SOURCE_DIALECT_OR_FORMAT_EVIDENCE_PROPOSAL",
+      "authorized_by_this_proposal": false
+    },
+    {
+      "diagnostic_class": "STDLIB_COLUMN_SHAPE_NOT_CANONICAL",
+      "possible_later_action": "REQUIRE_SEPARATE_SOURCE_SCHEMA_OR_FORMAT_EVIDENCE_PROPOSAL",
+      "authorized_by_this_proposal": false
+    },
+    {
+      "diagnostic_class": "PROJECTOR_STDLIB_PROPERTY_TYPE_DIFFER",
+      "possible_later_action": "CONSIDER_SEPARATE_OFFLINE_PROJECTOR_REMEDIATION_PROPOSAL",
+      "authorized_by_this_proposal": false
+    },
+    {
+      "diagnostic_class": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH",
+      "possible_later_action": "REQUIRE_SEPARATE_SOURCE_CODE_DOMAIN_OR_SOURCE_EVOLUTION_EVIDENCE_PROPOSAL",
+      "authorized_by_this_proposal": false
+    }
+  ],
+  "consumed_authorizations": [
+    {"approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_SEMANTIC_EXECUTION_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_SECOND_PROPERTY_TYPE_TRANSIENT_ROW_PRIVACY_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_EXECUTION_BOUNDED", "consumed": true, "reusable": false},
+    {"approval_ref": "APPROVE_PROPERTY_TYPE_DIAGNOSTIC_TRANSIENT_ROW_PRIVACY_BOUNDED", "consumed": true, "reusable": false}
+  ],
+  "authorization_boundary": {
+    "proposal_preparation_authorized": true,
+    "source_format_diagnostic_execution_authorized": false,
+    "full_row_transient_privacy_exposure_authorized": false,
+    "network_workflow_authorized": false,
+    "network_execution_authorized": false,
+    "runtime_change_authorized": false,
+    "parser_change_authorized": false,
+    "regex_change_authorized": false,
+    "remediation_authorized": false,
+    "additional_authority_retrieval_authorized": false,
+    "approval_token_defined_by_this_proposal": false
+  },
+  "forbidden_actions": {
+    "source_or_authority_network_access_during_proposal_preparation": true,
+    "source_value_reconstruction_or_inference": true,
+    "source_value_hashing_or_exact_length_capture": true,
+    "full_row_access_during_proposal_preparation": true,
+    "runner_change": true,
+    "parser_change": true,
+    "regex_change": true,
+    "regex_relaxation": true,
+    "trimming_as_runtime_behavior": true,
+    "uppercasing_as_runtime_behavior": true,
+    "unicode_normalization": true,
+    "logging_expansion": true,
+    "persistence_expansion": true,
+    "source_approval": true,
+    "registry_activation": true,
+    "production_classification_activation": true,
+    "identity_resolution": true,
+    "genealogy": true,
+    "beneficiary_matching": true,
+    "outreach": true,
+    "claim_submission": true
+  },
+  "implementation_state": {
+    "proposal_branch": "m3-ca-sco-property-type-source-format-diagnostic-proposal",
+    "proposal_only": true,
+    "source_request_performed": false,
+    "authority_request_performed": false,
+    "full_row_source_access_performed": false,
+    "diagnostic_execution_performed": false,
+    "network_workflow_created": false,
+    "runner_modified": false,
+    "parser_modified": false,
+    "regex_modified": false,
+    "normalization_modified": false,
+    "logging_modified": false,
+    "persistence_modified": false
+  },
+  "safety_state": {
+    "source_policy_status": "PROPOSED",
+    "registry_enabled": false,
+    "registry_approved_for_use": false,
+    "approved_real_sources": 0,
+    "authority_provenance_resolved": true,
+    "semantic_compatibility_resolved": false,
+    "production_classification_active": false,
+    "downstream_gates_remain_closed": true
+  },
+  "acceptance_criteria": [
+    "PROPOSAL_VALIDATES_AGAINST_VERSIONED_SCHEMA",
+    "BASE_PINNED_TO_CI_GREEN_DIAGNOSTIC_EVIDENCE_REVIEW",
+    "PROPOSAL_PREPARATION_PERFORMS_NO_SOURCE_OR_AUTHORITY_NETWORK_ACCESS",
+    "FUTURE_SOURCE_SCOPE_DOES_NOT_WIDEN_REQUEST_ROW_OR_BYTE_BUDGETS",
+    "FUTURE_FULL_ROW_CROSSCHECK_IS_LIMITED_TO_ONE_TRANSIENT_ROW_AND_EXPLICITLY_MARKED_AS_PRIVACY_EXPANSION",
+    "FUTURE_INDEPENDENT_PARSER_IS_PINNED_TO_PYTHON_STDLIB_STRICT_CSV_BEHAVIOR_AND_CANONICAL_FIELD_INDEX",
+    "NO_EXACT_VALUE_BYTES_HASH_LENGTH_FRAGMENTS_CODEPOINTS_ROW_VALUES_OR_SOURCE_FREE_TEXT_PERSISTED",
+    "NO_PARSER_REGEX_NORMALIZATION_LOGGING_PERSISTENCE_OR_RUNTIME_CHANGE_BY_THIS_PROPOSAL",
+    "NO_AUTOMATIC_REMEDIATION_FROM_ANY_SOURCE_FORMAT_DIAGNOSTIC_CLASS",
+    "ALL_PRIOR_APPROVALS_REMAIN_CONSUMED_AND_NON_REUSABLE",
+    "FRESH_EXECUTION_AND_FULL_ROW_PRIVACY_APPROVALS_REQUIRED_BEFORE_ANY_LATER_NETWORK_REQUEST",
+    "DOWNSTREAM_GATES_REMAIN_CLOSED"
+  ],
+  "next_gate": "HUMAN_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW"
+}

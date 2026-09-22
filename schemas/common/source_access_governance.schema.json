@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:source-access-governance:1.0.0",
+  "title": "SourceAccessGovernance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "policy_version",
+    "status",
+    "source_id",
+    "jurisdiction",
+    "authority",
+    "official_source_page",
+    "acquisition_method",
+    "allowed_scope",
+    "source_approval_required",
+    "provenance_required",
+    "terms_review_required",
+    "privacy_review_required",
+    "retention_policy_required",
+    "real_acquisition_authorized",
+    "beneficiary_matching_authorized",
+    "outreach_authorized",
+    "approval_ref",
+    "terms_review_ref",
+    "privacy_policy_ref",
+    "retention_policy_ref",
+    "authorized_processing_purposes",
+    "authorized_data_categories",
+    "allowed_fields",
+    "allow_pii",
+    "transport"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "policy_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"
+    },
+    "policy_version": {"const": "1.0.0"},
+    "status": {"type": "string", "enum": ["PROPOSED", "APPROVED", "REVOKED"]},
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"
+    },
+    "jurisdiction": {"type": "string", "pattern": "^[A-Z]{2}$"},
+    "authority": {"type": "string", "minLength": 1},
+    "official_source_page": {"type": "string", "format": "uri"},
+    "acquisition_method": {
+      "type": "string",
+      "enum": ["OFFICIAL_BULK_DOWNLOAD", "MANUAL_REFERENCE", "CASE_SPECIFIC_REQUEST"]
+    },
+    "allowed_scope": {"const": "RAW_INGEST_ONLY"},
+    "source_approval_required": {"const": true},
+    "provenance_required": {"const": true},
+    "terms_review_required": {"const": true},
+    "privacy_review_required": {"const": true},
+    "retention_policy_required": {"const": true},
+    "real_acquisition_authorized": {"type": "boolean"},
+    "beneficiary_matching_authorized": {"const": false},
+    "outreach_authorized": {"const": false},
+    "approval_ref": {"type": ["string", "null"]},
+    "terms_review_ref": {"type": "string", "minLength": 1},
+    "privacy_policy_ref": {"type": ["string", "null"]},
+    "retention_policy_ref": {"type": ["string", "null"]},
+    "authorized_processing_purposes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authorized_data_categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "allowed_fields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "allow_pii": {"type": "boolean"},
+    "transport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "https_only",
+        "allowed_download_hosts",
+        "redirect_policy",
+        "timeout_seconds",
+        "max_bytes",
+        "expected_media_types"
+      ],
+      "properties": {
+        "https_only": {"const": true},
+        "allowed_download_hosts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "redirect_policy": {
+          "type": "string",
+          "enum": ["BLOCK_UNTIL_APPROVED", "SAME_HOST_ONLY", "ALLOWLIST_ONLY"]
+        },
+        "timeout_seconds": {"type": ["integer", "null"], "minimum": 1},
+        "max_bytes": {"type": ["integer", "null"], "minimum": 1},
+        "expected_media_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "PROPOSED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "real_acquisition_authorized": {"const": false},
+          "approval_ref": {"const": null},
+          "authorized_processing_purposes": {"maxItems": 0},
+          "authorized_data_categories": {"maxItems": 0},
+          "allowed_fields": {"maxItems": 0},
+          "allow_pii": {"const": false},
+          "transport": {
+            "properties": {
+              "allowed_download_hosts": {"maxItems": 0},
+              "redirect_policy": {"const": "BLOCK_UNTIL_APPROVED"},
+              "timeout_seconds": {"const": null},
+              "max_bytes": {"const": null},
+              "expected_media_types": {"maxItems": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "REVOKED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "real_acquisition_authorized": {"const": false},
+          "transport": {
+            "properties": {
+              "allowed_download_hosts": {"maxItems": 0},
+              "redirect_policy": {"const": "BLOCK_UNTIL_APPROVED"},
+              "timeout_seconds": {"const": null},
+              "max_bytes": {"const": null},
+              "expected_media_types": {"maxItems": 0}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"real_acquisition_authorized": {"const": true}}, "required": ["real_acquisition_authorized"]},
+      "then": {
+        "properties": {
+          "status": {"const": "APPROVED"},
+          "approval_ref": {"type": "string", "minLength": 1},
+          "privacy_policy_ref": {"type": "string", "minLength": 1},
+          "retention_policy_ref": {"type": "string", "minLength": 1},
+          "authorized_processing_purposes": {"minItems": 1},
+          "authorized_data_categories": {"minItems": 1},
+          "transport": {
+            "properties": {
+              "allowed_download_hosts": {"minItems": 1},
+              "redirect_policy": {"enum": ["SAME_HOST_ONLY", "ALLOWLIST_ONLY"]},
+              "timeout_seconds": {"type": "integer", "minimum": 1},
+              "max_bytes": {"type": "integer", "minimum": 1},
+              "expected_media_types": {"minItems": 1}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

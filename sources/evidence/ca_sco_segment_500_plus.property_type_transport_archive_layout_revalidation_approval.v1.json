@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_id": "ca.sco.segment_500_plus.property_type_transport_archive_layout_baseline_refresh_revalidation",
+  "authorization_version": "1.0.0",
+  "authorization_status": "GRANTED_NOT_CONSUMED",
+  "approved_on": "2026-09-17",
+  "gate": "HUMAN_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_AUTHORIZATION",
+  "authorization_base": {
+    "branch": "m3-unified-mvp1",
+    "head_sha": "3d4d8a76e47d88eca77ca6d899b85341ba8beaf2",
+    "ci_run": "35195330933",
+    "ci_conclusion": "SUCCESS"
+  },
+  "accepted_review": {
+    "branch": "m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal-review",
+    "head_sha": "b8f703db18207661cd799b0baf1f0dac1bfdc398",
+    "ci_run": "35187432747",
+    "result": "PASS_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_PROPOSAL_ACCEPTED_AS_DESIGN_FRESH_AUTHORIZATION_REQUIRED_REVALIDATION_NOT_AUTHORIZED"
+  },
+  "reviewed_proposal": {
+    "proposal_id": "ca.sco.segment_500_plus.property_type_transport_archive_layout_baseline_refresh",
+    "proposal_version": "1.0.0",
+    "branch": "m3-ca-sco-property-type-transport-archive-layout-baseline-refresh-proposal",
+    "head_sha": "359b1c1a86d34edabcd028e5e5fbb6fc3acba781",
+    "ci_run": "35139290645",
+    "selected_strategy": "BOUNDED_ZIP_CENTRAL_DIRECTORY_METADATA_REVALIDATION"
+  },
+  "endpoint_binding": {
+    "endpoint": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip",
+    "https_only": true,
+    "exact_host": "claimit.ca.gov"
+  },
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_REVALIDATION_EXECUTION_BOUNDED_B8F703DB",
+  "structural_byte_privacy_approval_ref": "OWNER_APPROVAL_2026-09-17_CA_SCO_PROPERTY_TYPE_STRUCTURAL_BYTE_PRIVACY_BOUNDED_B8F703DB",
+  "fresh": true,
+  "single_use": true,
+  "reusable": false,
+  "consumption_trigger": "FIRST_AUTHORIZED_CA_SCO_NETWORK_REQUEST",
+  "authorized_scope": {
+    "bounded_structural_revalidation": true,
+    "structural_byte_privacy_exposure": true,
+    "one_shot_network_execution": true,
+    "workflow_creation_for_one_shot_execution": true,
+    "candidate_evidence_persistence": true,
+    "baseline_adoption": false,
+    "runner_constant_update": false,
+    "source_approval": false,
+    "registry_activation": false,
+    "production_classification": false,
+    "identity_resolution": false,
+    "genealogy": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "claim_submission": false
+  },
+  "execution_caps": {
+    "head_requests_max": 1,
+    "range_requests_max": 4,
+    "http_requests_max_total": 5,
+    "range_response_bytes_max_each": 131072,
+    "source_response_body_bytes_max_total": 524288,
+    "full_body_fallback_allowed": false,
+    "automatic_widening_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "structural_constraints": {
+    "classic_zip_eocd_required": true,
+    "zip64_supported": false,
+    "multi_disk_supported": false,
+    "central_directory_metadata_only": true,
+    "decompression_allowed": false,
+    "csv_parsing_allowed": false,
+    "row_or_field_inspection_allowed": false,
+    "arithmetic_offset_rebase_allowed": false,
+    "if_match_required": true,
+    "same_object_etag_required": true,
+    "content_range_total_must_match_head_length": true,
+    "canonical_member_names_must_be_unique": true,
+    "canonical_member_offsets_must_be_from_central_directory": true,
+    "offsets_must_be_within_observed_content_length": true,
+    "canonical_members": [
+      "From_500_To_Beyond_1_of_4.csv",
+      "From_500_To_Beyond_2_of_4.csv",
+      "From_500_To_Beyond_3_of_4.csv",
+      "From_500_To_Beyond_4_of_4.csv"
+    ]
+  },
+  "privacy_controls": {
+    "structural_bytes_memory_only": true,
+    "retention_days": 0,
+    "immediate_disposal": true,
+    "raw_range_bytes_persisted": false,
+    "compressed_payload_parsed_or_decompressed": false,
+    "csv_rows_parsed": false,
+    "row_or_field_inspection_allowed": false,
+    "protected_fields_observed": false,
+    "noncanonical_member_names_persisted": false,
+    "allowed_persisted_derived_fields": [
+      "OBSERVED_CONTENT_LENGTH",
+      "OBSERVED_ETAG",
+      "OBSERVED_CONTENT_TYPE",
+      "OBSERVED_ACCEPT_RANGES",
+      "OBSERVED_LAST_MODIFIED",
+      "OBSERVED_AT",
+      "CANONICAL_MEMBER_NAMES",
+      "CANONICAL_MEMBER_LOCAL_HEADER_OFFSETS",
+      "CANONICAL_MEMBER_MATCH_STATUS",
+      "ADDITIONAL_MEMBER_COUNT",
+      "REVALIDATION_RESULT_STATUS",
+      "STOP_REASON"
+    ]
+  },
+  "fail_closed_on": [
+    "REQUEST_OR_BYTE_CAP_EXCEEDED",
+    "EOCD_NOT_FOUND_OR_AMBIGUOUS",
+    "ZIP64_DETECTED",
+    "MULTI_DISK_DETECTED",
+    "ETAG_OR_LENGTH_OBJECT_DRIFT",
+    "CANONICAL_MEMBER_MISSING_OR_DUPLICATE",
+    "LAYOUT_AMBIGUITY_OR_UNRESOLVABLE_WITHIN_CAPS"
+  ],
+  "historical_approval_reuse": {
+    "execution_approval_ref": "OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_REAL_SOURCE_EXECUTION_BOUNDED_A2139884",
+    "privacy_approval_ref": "OWNER_APPROVAL_2026-09-16_CA_SCO_PROPERTY_TYPE_V1_2_TRANSIENT_ROW_PRIVACY_BOUNDED_A2139884",
+    "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+    "reused": false
+  },
+  "current_gate_effect": {
+    "network_request_performed": false,
+    "head_performed": false,
+    "range_get_performed": false,
+    "structural_revalidation_performed": false,
+    "baseline_candidate_established": false,
+    "baseline_adopted": false,
+    "runner_modified": false,
+    "source_policy_modified": false,
+    "registry_modified": false
+  },
+  "next_gate": "EXECUTE_PROPERTY_TYPE_TRANSPORT_AND_ARCHIVE_LAYOUT_BASELINE_REFRESH_REVALIDATION_ONCE"
+}

@@ -1,0 +1,47 @@
+{
+  "ny.real.contract_only.valid": {
+    "schema_version": "1.1.0",
+    "request_id": "41000000-0000-4000-8000-000000000001",
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "jurisdiction": "NY",
+    "mode": "REAL",
+    "requested_at": "2026-09-17T18:00:00Z",
+    "acquisition_scope": "RAW_INGEST_ONLY",
+    "max_bytes": 1,
+    "approval_id": "authorization-bundle-placeholder-not-granted",
+    "expected_media_types": ["application/zip", "application/octet-stream"],
+    "notes": "Contract-only example. The real max_bytes bound must be set from a future explicitly authorized acquisition design; this fixture authorizes no request or download."
+  },
+  "ny.real.invalid_missing_approval": {
+    "schema_version": "1.1.0",
+    "request_id": "41000000-0000-4000-8000-000000000002",
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "jurisdiction": "NY",
+    "mode": "REAL",
+    "requested_at": "2026-09-17T18:00:00Z",
+    "acquisition_scope": "RAW_INGEST_ONLY",
+    "max_bytes": 1,
+    "approval_id": null,
+    "expected_media_types": ["application/zip", "application/octet-stream"],
+    "notes": "Must fail closed because REAL acquisition requires an approval reference."
+  },
+  "ny.blocked.schema_discovery_required": {
+    "schema_version": "1.1.0",
+    "request_id": "41000000-0000-4000-8000-000000000001",
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "jurisdiction": "NY",
+    "status": "BLOCKED",
+    "reason_code": "FIRST_FILE_SCHEMA_DISCOVERY_REQUIRED",
+    "reason": "The source is a selected candidate, but the real file schema has not been observed and production parsing is not authorized.",
+    "artifact": null,
+    "provenance": {
+      "source_uri": "https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form",
+      "authority": "New York State Office of the State Comptroller, Office of Unclaimed Funds",
+      "acquisition_method": "OFFICIAL_BULK_DOWNLOAD",
+      "retrieved_at": null,
+      "terms_review_ref": "docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md",
+      "source_revision": null,
+      "access_notes": "Boundary only; no Owner Name File request, download, or real PII processing performed."
+    }
+  }
+}

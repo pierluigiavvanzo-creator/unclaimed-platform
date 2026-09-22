@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:source-data-scope-segment-inspection-proposal:1.0.0",
+  "title": "SourceDataScopeSegmentInspectionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "proposal_id", "proposal_version", "source_id", "source_segment_id", "jurisdiction", "proposal_status", "prepared_on", "source_approved", "source_enabled", "real_acquisition_authorized", "network_execution_authorized", "network_request_performed", "body_access_performed", "body_bytes_read", "canonical_refs", "execution_gate", "inspection_scope", "transport_controls", "range_budget", "archive_structure_plan", "csv_header_plan", "privacy_controls", "proposed_outputs", "stop_conditions", "next_gate", "notes"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "proposal_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus.data_scope_inspection"},
+    "proposal_version": {"const": "1.0.0"},
+    "source_id": {"const": "ca.sco.unclaimed_property.bulk"},
+    "source_segment_id": {"const": "ca.sco.unclaimed_property.bulk.500_plus"},
+    "jurisdiction": {"const": "CA"},
+    "proposal_status": {"const": "PROPOSAL_ONLY_NOT_AUTHORIZED"},
+    "prepared_on": {"type": "string", "format": "date"},
+    "source_approved": {"const": false},
+    "source_enabled": {"const": false},
+    "real_acquisition_authorized": {"const": false},
+    "network_execution_authorized": {"const": false},
+    "network_request_performed": {"const": false},
+    "body_access_performed": {"const": false},
+    "body_bytes_read": {"const": 0},
+    "canonical_refs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_approval_package_ref", "segmented_transport_evidence_ref", "source_access_policy_ref", "registry_ref"],
+      "properties": {
+        "source_approval_package_ref": {"type": "string", "minLength": 1},
+        "segmented_transport_evidence_ref": {"const": "sources/evidence/ca_sco_segment_500_plus.transport_preflight.execution.v1.json"},
+        "source_access_policy_ref": {"type": "string", "minLength": 1},
+        "registry_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "execution_gate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["execution_approval_required", "execution_approval_ref", "execution_authorized", "authorized_scope"],
+      "properties": {
+        "execution_approval_required": {"const": true},
+        "execution_approval_ref": {"const": null},
+        "execution_authorized": {"const": false},
+        "authorized_scope": {"const": null}
+      }
+    },
+    "inspection_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["purpose_id", "archive_member_names_allowed", "archive_member_metadata_allowed", "csv_header_candidate_allowed", "csv_data_rows_allowed", "record_values_allowed", "pii_indicator_basis", "identity_resolution_allowed", "beneficiary_matching_allowed", "outreach_allowed", "downstream_record_use_allowed"],
+      "properties": {
+        "purpose_id": {"const": "SOURCE_STRUCTURE_VERIFICATION_ONLY"},
+        "archive_member_names_allowed": {"const": true},
+        "archive_member_metadata_allowed": {"const": true},
+        "csv_header_candidate_allowed": {"const": true},
+        "csv_data_rows_allowed": {"const": 0},
+        "record_values_allowed": {"const": false},
+        "pii_indicator_basis": {"const": "HEADER_LABELS_ONLY"},
+        "identity_resolution_allowed": {"const": false},
+        "beneficiary_matching_allowed": {"const": false},
+        "outreach_allowed": {"const": false},
+        "downstream_record_use_allowed": {"const": false}
+      }
+    },
+    "transport_controls": {
+      "type": "object", "additionalProperties": false,
+      "required": ["endpoint", "https_only", "allowed_host", "redirect_policy", "timeout_seconds", "timeout_semantics", "expected_media_type", "expected_content_length", "expected_etag", "accept_ranges_required", "request_mode", "full_body_request_allowed", "metadata_drift_policy"],
+      "properties": {
+        "endpoint": {"const": "https://claimit.ca.gov/upd-property-records/04_From_500_To_Beyond.zip"},
+        "https_only": {"const": true},
+        "allowed_host": {"const": "claimit.ca.gov"},
+        "redirect_policy": {"const": "SAME_HOST_ONLY"},
+        "timeout_seconds": {"const": 10},
+        "timeout_semantics": {"const": "PER_REQUEST_NETWORK_INACTIVITY"},
+        "expected_media_type": {"const": "application/zip"},
+        "expected_content_length": {"const": 162416884},
+        "expected_etag": {"const": "\"b25b315b6cd8007624387c3a00d4b1fe\""},
+        "accept_ranges_required": {"const": "bytes"},
+        "request_mode": {"const": "HTTP_RANGE_GET_ONLY"},
+        "full_body_request_allowed": {"const": false},
+        "metadata_drift_policy": {"const": "BLOCK_AND_REVIEW"}
+      }
+    },
+    "range_budget": {
+      "type": "object", "additionalProperties": false,
+      "required": ["archive_tail_suffix_bytes", "central_directory_max_bytes", "max_csv_candidate_members", "member_probe_max_response_bytes_each", "actual_member_probe_bytes_each", "member_probe_max_uncompressed_bytes_each", "max_range_requests", "max_total_response_body_bytes", "budget_basis"],
+      "properties": {
+        "archive_tail_suffix_bytes": {"const": 131072},
+        "central_directory_max_bytes": {"const": 4194304},
+        "max_csv_candidate_members": {"const": 10},
+        "member_probe_max_response_bytes_each": {"const": 1048576},
+        "actual_member_probe_bytes_each": {"const": 65536},
+        "member_probe_max_uncompressed_bytes_each": {"const": 65536},
+        "max_range_requests": {"const": 12},
+        "max_total_response_body_bytes": {"const": 14811136},
+        "budget_basis": {"const": "PROJECT_SAFETY_CAPS_NOT_SOURCE_FACTS"}
+      }
+    },
+    "archive_structure_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tail_probe_required", "central_directory_only", "max_archive_members", "member_path_safety_required", "zip64_allowed", "encrypted_members_allowed", "supported_compression_methods", "raw_archive_persistence_allowed", "partial_artifact_persistence_allowed"],
+      "properties": {
+        "tail_probe_required": {"const": true},
+        "central_directory_only": {"const": true},
+        "max_archive_members": {"const": 10000},
+        "member_path_safety_required": {"const": true},
+        "zip64_allowed": {"const": false},
+        "encrypted_members_allowed": {"const": false},
+        "supported_compression_methods": {"const": ["STORED", "DEFLATED"]},
+        "raw_archive_persistence_allowed": {"const": false},
+        "partial_artifact_persistence_allowed": {"const": false}
+      }
+    },
+    "csv_header_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_member_extensions", "max_logical_records_per_member", "max_data_rows_parsed", "decompression_mode", "raw_member_bytes_persisted", "raw_header_bytes_persisted", "header_labels_persistence_policy", "header_ambiguity_policy", "encoding_policy", "delimiter_policy", "pii_indicator_policy"],
+      "properties": {
+        "candidate_member_extensions": {"const": [".csv"]},
+        "max_logical_records_per_member": {"const": 1},
+        "max_data_rows_parsed": {"const": 0},
+        "decompression_mode": {"const": "IN_MEMORY_ONE_OUTPUT_BYTE_UNTIL_FIRST_RECORD"},
+        "raw_member_bytes_persisted": {"const": false},
+        "raw_header_bytes_persisted": {"const": false},
+        "header_labels_persistence_policy": {"const": "PERSIST_ONLY_IF_HIGH_CONFIDENCE_LABEL_HEURISTIC"},
+        "header_ambiguity_policy": {"const": "STOP_WITHOUT_PERSISTING_CANDIDATE_VALUES"},
+        "encoding_policy": {"const": "UTF8_OR_STOP"},
+        "delimiter_policy": {"const": "DETECT_FROM_FIRST_LOGICAL_RECORD_OR_STOP"},
+        "pii_indicator_policy": {"const": "LABEL_BASED_POTENTIAL_INDICATORS_ONLY_NO_LEGAL_DETERMINATION"}
+      }
+    },
+    "privacy_controls": {
+      "type": "object", "additionalProperties": false,
+      "required": ["quarantine_required", "in_memory_body_processing_only", "temporary_files_allowed", "body_bytes_in_logs_allowed", "record_values_in_logs_allowed", "export_allowed", "matching_allowed", "outreach_allowed", "delete_transient_buffers_after_inspection"],
+      "properties": {
+        "quarantine_required": {"const": true},
+        "in_memory_body_processing_only": {"const": true},
+        "temporary_files_allowed": {"const": false},
+        "body_bytes_in_logs_allowed": {"const": false},
+        "record_values_in_logs_allowed": {"const": false},
+        "export_allowed": {"const": false},
+        "matching_allowed": {"const": false},
+        "outreach_allowed": {"const": false},
+        "delete_transient_buffers_after_inspection": {"const": true}
+      }
+    },
+    "proposed_outputs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["archive_member_names", "archive_member_metadata", "csv_header_candidates", "pii_presence_indicators", "record_values", "raw_body_bytes"],
+      "properties": {
+        "archive_member_names": {"const": "DERIVED_STRUCTURE_EVIDENCE"},
+        "archive_member_metadata": {"const": "NAME_SIZE_COMPRESSION_ENCRYPTION_OFFSET_ONLY"},
+        "csv_header_candidates": {"const": "LABELS_DELIMITER_ENCODING_COLUMN_COUNT_HEADER_CONFIDENCE_ONLY"},
+        "pii_presence_indicators": {"const": "POTENTIAL_FROM_HEADER_LABELS_ONLY"},
+        "record_values": {"const": "PROHIBITED"},
+        "raw_body_bytes": {"const": "NOT_PERSISTED"}
+      }
+    },
+    "stop_conditions": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"type": "string", "enum": ["TRANSPORT_METADATA_DRIFT", "BYTE_RANGE_UNSUPPORTED", "RANGE_RESPONSE_NOT_PARTIAL", "TAIL_STRUCTURE_NOT_FOUND_WITHIN_LIMIT", "CENTRAL_DIRECTORY_TOO_LARGE", "ARCHIVE_MEMBER_LIMIT_EXCEEDED", "UNSAFE_MEMBER_PATH", "UNSUPPORTED_ZIP64", "UNSUPPORTED_ZIP_STRUCTURE", "ENCRYPTED_MEMBER", "UNSUPPORTED_COMPRESSION", "NO_CSV_MEMBER", "CSV_MEMBER_LIMIT_EXCEEDED", "MEMBER_PREFIX_LIMIT_EXCEEDED", "HEADER_NOT_COMPLETE_WITHIN_LIMIT", "HEADER_ENCODING_UNRESOLVED", "HEADER_AMBIGUOUS", "DATA_ROW_ACCESS_WOULD_BE_REQUIRED", "TOTAL_BYTE_BUDGET_EXCEEDED", "RANGE_REQUEST_BUDGET_EXCEEDED", "UNEXPECTED_RESPONSE_BODY_BEHAVIOR"]}
+    },
+    "next_gate": {"const": "HUMAN_DATA_SCOPE_INSPECTION_EXECUTION"},
+    "notes": {"type": "string", "minLength": 1}
+  }
+}

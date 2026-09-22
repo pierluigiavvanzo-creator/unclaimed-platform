@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:source-approval-readiness:1.0.0",
+  "title": "SourceApprovalReadiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "evidence_version",
+    "source_id",
+    "jurisdiction",
+    "authority",
+    "review_status",
+    "reviewed_at",
+    "acquisition_performed",
+    "source_approved",
+    "source_enabled",
+    "official_source_page",
+    "advertised_format",
+    "advertised_update_cadence",
+    "advertised_download_hosts",
+    "authoritative_references",
+    "downstream_legal_review_refs",
+    "transport_verification",
+    "data_scope_verification",
+    "unresolved_controls",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "evidence_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"},
+    "evidence_version": {"const": "1.0.0"},
+    "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"},
+    "jurisdiction": {"const": "CA"},
+    "authority": {"type": "string", "minLength": 1},
+    "review_status": {"const": "EVIDENCE_ONLY_NOT_APPROVED"},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "acquisition_performed": {"const": false},
+    "source_approved": {"const": false},
+    "source_enabled": {"const": false},
+    "official_source_page": {"type": "string", "format": "uri"},
+    "advertised_format": {"const": "CSV"},
+    "advertised_update_cadence": {"const": "EVERY_THURSDAY"},
+    "advertised_download_hosts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z0-9.-]+$"}
+    },
+    "authoritative_references": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "uri"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["OFFICIAL_DOWNLOAD_PAGE", "PUBLIC_RECORDS_GUIDANCE", "PRIVACY_POLICY"]
+          },
+          "uri": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "downstream_legal_review_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "uri", "scope_note"],
+        "properties": {
+          "kind": {"const": "DOWNSTREAM_LEGAL_REVIEW"},
+          "uri": {"type": "string", "format": "uri"},
+          "scope_note": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "transport_verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exact_download_urls_verified",
+        "redirect_chain_verified",
+        "actual_media_type_verified",
+        "current_file_size_verified",
+        "max_bytes_selected",
+        "timeout_selected"
+      ],
+      "properties": {
+        "exact_download_urls_verified": {"const": false},
+        "redirect_chain_verified": {"const": false},
+        "actual_media_type_verified": {"const": false},
+        "current_file_size_verified": {"const": false},
+        "max_bytes_selected": {"const": false},
+        "timeout_selected": {"const": false}
+      }
+    },
+    "data_scope_verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_layout_verified",
+        "processing_purpose_authorized",
+        "data_categories_authorized",
+        "allowed_fields_authorized",
+        "pii_necessity_determined",
+        "retention_policy_selected",
+        "trusted_privacy_policy_selected"
+      ],
+      "properties": {
+        "row_layout_verified": {"const": false},
+        "processing_purpose_authorized": {"const": false},
+        "data_categories_authorized": {"const": false},
+        "allowed_fields_authorized": {"const": false},
+        "pii_necessity_determined": {"const": false},
+        "retention_policy_selected": {"const": false},
+        "trusted_privacy_policy_selected": {"const": false}
+      }
+    },
+    "unresolved_controls": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "EXACT_DOWNLOAD_URLS",
+          "REDIRECT_CHAIN",
+          "ACTUAL_MEDIA_TYPE",
+          "CURRENT_FILE_SIZE",
+          "MAX_BYTES",
+          "TIMEOUT_SECONDS",
+          "SOURCE_REVISION",
+          "CONTENT_HASH",
+          "ROW_LAYOUT",
+          "PROCESSING_PURPOSE",
+          "DATA_CATEGORIES",
+          "ALLOWED_FIELDS",
+          "PII_NECESSITY",
+          "RETENTION_POLICY",
+          "TRUSTED_PROJECT_PRIVACY_POLICY",
+          "APPROVAL_REFERENCE"
+        ]
+      }
+    },
+    "notes": {"type": "string", "minLength": 1}
+  }
+}

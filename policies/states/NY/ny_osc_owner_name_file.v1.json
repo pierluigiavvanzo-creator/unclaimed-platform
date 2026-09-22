@@ -1,0 +1,281 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "ny.osc.owner_name_file.mvp1.source_contract",
+  "source": {
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "jurisdiction": "NY",
+    "authority": "New York State Office of the State Comptroller, Office of Unclaimed Funds",
+    "candidate_state": "SELECTED_CANDIDATE_NOT_APPROVED_NOT_ACQUIRED",
+    "official_request_url": "https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form",
+    "official_location_service_provider_url": "https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers",
+    "delivery_description": "secure FTP link to a zipped delimited .txt owner file after an accepted request",
+    "update_cadence": "QUARTERLY",
+    "enabled": false,
+    "approved_for_use": false
+  },
+  "officially_disclosed_semantics": [
+    {
+      "semantic_id": "owner_name",
+      "description": "name of a potential unclaimed-funds owner",
+      "owner_pii": true
+    },
+    {
+      "semantic_id": "last_known_address",
+      "description": "last-known address of a potential unclaimed-funds owner",
+      "owner_pii": true
+    },
+    {
+      "semantic_id": "nature_of_property",
+      "description": "nature of the property",
+      "owner_pii": false
+    },
+    {
+      "semantic_id": "reported_when",
+      "description": "when the property was reported",
+      "owner_pii": false
+    },
+    {
+      "semantic_id": "reported_by",
+      "description": "by whom the property was reported",
+      "owner_pii": false
+    }
+  ],
+  "physical_file_contract": {
+    "state": "UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE",
+    "physical_column_names_known": false,
+    "delimiter_known": true,
+    "encoding_known": false,
+    "archive_layout_known": false,
+    "property_nature_representation_known": false,
+    "property_id_presence_known": false,
+    "parser_activation_allowed": false,
+    "normalization_allowed": false,
+    "schema_inference_from_documentation_allowed": false,
+    "fail_closed_reason": "NY_OWNER_FILE_SCHEMA_UNOBSERVED",
+    "documented_delimiter": "|",
+    "documented_layout_known": true,
+    "documented_layout_field_count": 14,
+    "physical_header_presence_known": false,
+    "documented_archive_name": "NYSFINDERS.ZIP",
+    "documented_field_layout": [
+      "Property ID",
+      "Property Type Code",
+      "Property Type Code Description",
+      "Property Owner Count",
+      "Owner Name",
+      "Owner Address 1",
+      "Owner Address 2",
+      "Owner Address 3",
+      "Owner City",
+      "Owner Address State",
+      "Owner Zip Code",
+      "Owner Country Code",
+      "Holder Name",
+      "Holder Report Year"
+    ],
+    "property_type_code_documented_position_zero_based": 1,
+    "secure_transfer_listing_size_column_documented": true,
+    "current_archive_size_known": false,
+    "current_remote_listing_observed": true,
+    "current_remote_listing_name": "FINDERS.zip",
+    "current_remote_listing_size_display": "390.51 MB",
+    "current_remote_listing_size_unit_semantics": "PORTAL_LABEL_MB_EXACT_BYTE_COUNT_NOT_EXPOSED",
+    "current_remote_listing_size_decimal_interpretation_bytes": 390510000,
+    "current_remote_listing_size_binary_interpretation_ceil_bytes": 409479414,
+    "current_remote_listing_last_modified_display": "9/16/2026, 1:33:31 PM",
+    "current_remote_listing_evidence": "PRODUCT_OWNER_SCREENSHOT_2026-09-18",
+    "current_archive_exact_byte_count_known": false,
+    "documented_archive_name_variants": [
+      "NYSFINDERS.ZIP",
+      "FINDERS.ZIP",
+      "FINDERS.zip"
+    ]
+  },
+  "insurance_authority": {
+    "official_property_type_table_url": "https://www.osc.ny.gov/files/unclaimed-funds/reporters/pdf/property-type-tables.pdf",
+    "authority_verification_state": "OFFICIAL_INDEX_TEXT_VERIFIED_PDF_DIRECT_OPEN_BLOCKED_403_IN_TOOLING",
+    "property_type_representation_in_owner_file": "UNKNOWN_UNTIL_FIRST_AUTHORIZED_FILE",
+    "codes": {
+      "IN01": "Individual Policy Benefits or Claim Payments",
+      "IN02": "Group Policy Benefits or Claim Payments",
+      "IN03": "Proceeds Due Beneficiaries",
+      "IN04": "Proceeds from Matured Policies, Endowments or Annuities",
+      "IN05": "Premium Refunds",
+      "IN06": "Unidentified Remittances",
+      "IN07": "Other Amounts Due Under Policy Terms",
+      "IN12": "Retained Asset, Benefit Access or Similar Distribution Accounts",
+      "IN77": "Limiting Age (superannuated) contracts"
+    },
+    "mvp1_primary_code": "IN03",
+    "mvp1_primary_description": "Proceeds Due Beneficiaries",
+    "classification_activation_allowed": false
+  },
+  "economics": {
+    "source_discloses_dollar_value": false,
+    "recoverable_value_state": "UNKNOWN_FROM_SOURCE",
+    "invent_amount_allowed": false
+  },
+  "privacy": {
+    "owner_pii_semantics": [
+      "owner_name",
+      "last_known_address"
+    ],
+    "requester_contact_data_required_by_official_form": [
+      "name",
+      "company",
+      "phone",
+      "email"
+    ],
+    "first_file_schema_discovery_mode": "MEMORY_ONLY",
+    "real_owner_pii_allowed_without_privacy_approval": false,
+    "raw_file_persistence_allowed_during_first_schema_discovery": false,
+    "real_owner_row_persistence_allowed_during_first_schema_discovery": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_schema_metadata_persistence_allowed": true,
+    "later_raw_persistence_requires_separate_policy": true,
+    "transient_local_raw_file_exception": {
+      "authorization_gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "granted": true,
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "applies_only_with_separately_granted_gate2": true,
+      "local_temp_directory_only": true,
+      "expected_filename": "FINDERS.zip",
+      "max_download_bytes": 450000000,
+      "durable_raw_persistence_allowed": false,
+      "cloud_sync_allowed": false,
+      "repository_persistence_allowed": false,
+      "immediate_logical_deletion_required": true,
+      "physical_secure_erasure_guaranteed": false
+    },
+    "second_attempt_transient_local_raw_file_exception": {
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_8D2E1F64",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "max_download_bytes": 450000000,
+      "immediate_logical_deletion_required": true,
+      "durable_raw_persistence_allowed": false,
+      "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_second_attempt_execution_result.v1.json",
+      "execution_reason_code": "UNEXPECTED_DATA_FIELD_COUNT"
+    },
+    "third_attempt_transient_local_raw_file_exception": {
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_THIRD_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_2D871EE0",
+      "attempt_number": 3,
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "fresh_preflight_required": true,
+      "max_download_bytes": 450000000,
+      "immediate_logical_deletion_required": true,
+      "durable_raw_persistence_allowed": false,
+      "runner_checkpoint": "2d871ee041abe9cccc0e0fa32b849bbe223bdfa2",
+      "runner_ci_run_id": 35385157576,
+      "runner_ci_conclusion": "SUCCESS",
+      "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_third_attempt_execution_result.v1.json",
+      "execution_reason_code": "MALFORMED_QUOTED_RECORD"
+    }
+  },
+  "authorization_gates": {
+    "request_link_gate": {
+      "gate_id": "HUMAN_NY_OSC_OWNER_NAME_FILE_REQUEST_LINK_AUTHORIZATION",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "scope": "submit the official request and receive access instructions only; no owner-file download"
+    },
+    "first_download_transient_pii_gate": {
+      "gate_id": "HUMAN_NY_OSC_OWNER_NAME_FILE_FIRST_DOWNLOAD_TRANSIENT_PII_AUTHORIZATION",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "explicit_max_download_bytes_required": true,
+      "default_max_download_bytes": null,
+      "scope": "exactly one bounded first-file download and memory-only schema discovery with transient owner PII",
+      "proposed_max_download_bytes": 450000000,
+      "proposed_max_uncompressed_bytes": 2000000000,
+      "proposed_max_archive_members": 1,
+      "proposed_downloads_max": 1,
+      "proposed_retries_max": 0,
+      "proposed_preflight_identity_match_required": true,
+      "proposed_preflight_name": "FINDERS.zip",
+      "proposed_preflight_size_display": "390.51 MB",
+      "proposed_preflight_last_modified_display": "9/16/2026, 1:33:31 PM",
+      "execution_transport_state": "EXECUTED_FAIL_CLOSED_NO_RETRY",
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_PII_BOUNDED_ONCE_A7D4C2F1",
+      "execution_reason_code": "PROPERTY_TYPE_CODE_FIELD_SHAPE_UNEXPECTED"
+    },
+    "second_attempt_transient_pii_gate": {
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_C41B7E93",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "fresh_preflight_required": true,
+      "max_download_bytes": 450000000,
+      "max_uncompressed_bytes": 2000000000,
+      "max_archive_members": 1,
+      "remediation_checkpoint": "151f3a2f16c74f604fa72cc1284b2f9cd2e73f52",
+      "remediation_ci_run_id": 35363685148,
+      "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_second_attempt_execution_result.v1.json",
+      "execution_reason_code": "UNEXPECTED_DATA_FIELD_COUNT"
+    },
+    "third_attempt_transient_pii_gate": {
+      "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+      "approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_THIRD_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_35385157",
+      "attempt_number": 3,
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "fresh_preflight_required": true,
+      "downloads_max": 1,
+      "retries_max": 0,
+      "max_download_bytes": 450000000,
+      "max_uncompressed_bytes": 2000000000,
+      "max_archive_members": 1,
+      "runner_checkpoint": "2d871ee041abe9cccc0e0fa32b849bbe223bdfa2",
+      "runner_ci_run_id": 35385157576,
+      "runner_ci_conclusion": "SUCCESS",
+      "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_third_attempt_execution_result.v1.json",
+      "execution_reason_code": "MALFORMED_QUOTED_RECORD"
+    }
+  },
+  "first_file_schema_discovery": {
+    "required_before_production_parsing": true,
+    "allowed_persisted_outputs": [
+      "observed container/media type",
+      "observed file byte count",
+      "observed archive member count and non-owner-identifying member names",
+      "observed delimiter",
+      "observed encoding",
+      "observed physical header names",
+      "aggregate complete-record count",
+      "whether nature_of_property can be mapped deterministically to an authority-backed representation"
+    ],
+    "forbidden_persisted_outputs": [
+      "raw owner file bytes",
+      "owner name",
+      "owner address",
+      "complete owner row",
+      "row-specific nature-of-property value",
+      "row-specific reporting metadata"
+    ],
+    "classification_before_schema_mapping_allowed": false,
+    "source_activation_before_schema_mapping_allowed": false
+  },
+  "prohibited_actions": [
+    "identity resolution",
+    "beneficiary matching",
+    "outreach",
+    "representation",
+    "fee agreement",
+    "claim submission",
+    "production classification activation"
+  ]
+}

@@ -1,0 +1,154 @@
+name: ca-sco-property-type-authority-archival-once
+
+on:
+  push:
+    branches:
+      - m3-ca-sco-property-type-authority-archival-execution-one-shot
+    paths:
+      - .github/workflows/ca-sco-property-type-authority-archival-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  archive-authority-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-ca-sco-property-type-authority-archival-execution-one-shot
+          fetch-depth: 1
+
+      - name: Preflight approval
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path('sources/evidence/ca_sco_property_type_authority_archival_execution_approval.v1.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          assert data['approval_ref'] == 'APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT'
+          assert data['authorization_artifact_package_sha'] == 'd20bc80f50af56c10085eec7123aa0691e26ea1a'
+          assert data['single_use'] is True
+          assert data['reusable'] is False
+          assert data['status'] == 'GRANTED_NOT_YET_CONSUMED'
+          PY
+
+      - name: Consume approval before network
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          p = Path('sources/evidence/ca_sco_property_type_authority_archival_execution_approval.v1.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          data['status'] = 'CONSUMED'
+          data['consumed_at_utc'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+          data['execution_run_id'] = os.environ['GITHUB_RUN_ID']
+          data['execution_branch'] = os.environ['GITHUB_REF_NAME']
+          p.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add sources/evidence/ca_sco_property_type_authority_archival_execution_approval.v1.json
+          git commit -m 'governance: consume one-shot authority archival approval'
+          git push origin HEAD:m3-ca-sco-property-type-authority-archival-execution-one-shot
+
+      - name: One exact authority GET
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .authority-one-shot
+          URL='https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf'
+          curl --silent --show-error \
+            --request GET \
+            --proto '=https' \
+            --max-redirs 0 \
+            --retry 0 \
+            --connect-timeout 10 \
+            --max-time 15 \
+            --max-filesize 16777216 \
+            --dump-header .authority-one-shot/headers.txt \
+            --output .authority-one-shot/authority.pdf \
+            --write-out 'http_code=%{http_code}\ncontent_type=%{content_type}\nsize_download=%{size_download}\nurl_effective=%{url_effective}\nnum_redirects=%{num_redirects}\n' \
+            "$URL" > .authority-one-shot/curl_meta.txt
+
+      - name: Validate and archive immutable authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          root = Path('.authority-one-shot')
+          pdf = root / 'authority.pdf'
+          meta_lines = {}
+          for line in (root / 'curl_meta.txt').read_text(encoding='utf-8').splitlines():
+              key, value = line.split('=', 1)
+              meta_lines[key] = value
+
+          requested_url = 'https://www.sco.ca.gov/Files-UPD/upd_naupa_II_codes_dormancy_periods.pdf'
+          status = int(meta_lines['http_code'])
+          content_type = meta_lines['content_type'].split(';', 1)[0].strip().lower()
+          size = pdf.stat().st_size
+          assert status == 200, status
+          assert content_type == 'application/pdf', content_type
+          assert meta_lines['url_effective'] == requested_url, meta_lines['url_effective']
+          assert int(meta_lines['num_redirects']) == 0
+          assert 0 < size <= 16777216, size
+          assert pdf.read_bytes()[:5] == b'%PDF-'
+
+          digest = hashlib.sha256(pdf.read_bytes()).hexdigest()
+          archive = Path('sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods') / f'{digest}.pdf'
+          archive.parent.mkdir(parents=True, exist_ok=True)
+          archive.write_bytes(pdf.read_bytes())
+
+          allowed = {'etag', 'last-modified', 'content-type', 'content-length'}
+          retained = {}
+          for line in (root / 'headers.txt').read_text(encoding='iso-8859-1').splitlines():
+              if ':' not in line:
+                  continue
+              key, value = line.split(':', 1)
+              if key.strip().lower() in allowed:
+                  retained[key.strip()] = value.strip()
+
+          evidence = {
+              'schema_version': '1.0.0',
+              'authority_id': 'CA_SCO_NAUPA_II_CODES_DORMANCY_PERIODS',
+              'requested_url': requested_url,
+              'final_url': meta_lines['url_effective'],
+              'retrieved_at_utc': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'http_status': status,
+              'content_type': content_type,
+              'response_body_bytes': size,
+              'sha256': digest,
+              'archive_path': archive.as_posix(),
+              'retrieval_method': 'GET',
+              'redirect_count': int(meta_lines['num_redirects']),
+              'retained_response_headers': retained,
+              'approval_ref': 'APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT',
+              'authorization_artifact_package_sha': 'd20bc80f50af56c10085eec7123aa0691e26ea1a',
+              'execution_run_id': os.environ['GITHUB_RUN_ID'],
+              'semantic_extraction_performed': False,
+              'post_archive_human_review_required': True
+          }
+          Path('sources/evidence/ca_sco_property_type_authority_archive.v1.json').write_text(
+              json.dumps(evidence, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+
+      - name: Commit archive and provenance evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add sources/authority/ca/sco/upd_naupa_ii_codes_dormancy_periods sources/evidence/ca_sco_property_type_authority_archive.v1.json
+          git commit -m 'evidence: archive one-shot SCO authority document'
+          git push origin HEAD:m3-ca-sco-property-type-authority-archival-execution-one-shot

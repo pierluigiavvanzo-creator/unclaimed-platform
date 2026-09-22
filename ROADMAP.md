@@ -1,45 +1,109 @@
 # ROADMAP.md
 
-Last updated: 2026-09-13
+Last updated: 2026-09-22
 
-| Milestone | Status | Exit evidence |
-|---|---|---|
-| M0 — Repository & Development Harness | VERIFIED | Windows harness and GitHub CI green |
-| M1 — Machine Contracts | VERIFIED | Windows Ruff/mypy green, 12 tests passed, smoke green, GitHub CI green |
-| M2 — State & Governance Core | VERIFIED | GitHub CI green; Windows Ruff/mypy green; 24 tests passed; smoke 2 passed |
-| M3 — California Data Spike | READINESS GATE — CONTRACTS CI VERIFIED ON CANDIDATE | Source inventory and A01 acquisition boundary complete; real acquisition still blocked |
+## Product validation critical path
 
-## M3 completed readiness work
+The roadmap is now intentionally narrow:
 
-- California source/legal inventory completed using authoritative government sources;
-- California SCO public bulk CSV identified as the preferred future real-data candidate;
-- deferred sources classified as mock/reference/deferred;
-- A01 raw-acquisition request/result contracts defined at version `1.0.0`;
-- `REAL` requests require an explicit approval identifier;
-- acquisition scope constrained to `RAW_INGEST_ONLY`;
-- immutable raw artifact metadata includes SHA-256, byte count, content type and storage reference;
-- provenance includes source URI, authority, acquisition method, terms-review reference and retrieval time;
-- California SCO adapter boundary implemented fail-closed with no network retrieval;
-- deferred-source deterministic mock adapter and fixtures implemented;
-- candidate branch `m3-acquisition-contracts` GitHub CI green: Ruff PASS, mypy PASS, pytest 30 passed.
+`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-## M3 still required before any real California acquisition
+No broad platform expansion is scheduled before this is complete.
 
-1. promote the verified candidate to the canonical development branch after owner approval;
-2. define immutable raw-storage persistence and retention behavior;
-3. define provenance persistence into the append-only audit trail;
-4. define privacy/data-minimization constraints for the bounded spike;
-5. explicitly approve the California SCO source for real use;
-6. implement bounded read-only retrieval with transport/size/content validation;
-7. only then execute a bounded California spike with no unnecessary PII;
-8. verify the actual CSV layout before implementing A02 row normalization.
+## Stage 1 — Complete authorization for one real source
 
-## Still out of scope until later gates
+Current source path: NY OSC attempt 7.
 
-- beneficiary matching on real data before M3 readiness approval;
-- autonomous outreach;
-- legal determinations;
-- autonomous claimant verification;
-- fee agreement execution;
-- claim submission;
-- unapproved scraping or restricted-source access.
+Done:
+
+- real-capable package reviewed PASS;
+- local transient-retention approval granted and unconsumed.
+
+Next:
+
+`HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
+
+Required phrase:
+
+`APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+Then, as separate gates only:
+
+1. fresh listing preflight authorization;
+2. exact-match fresh preflight receipt;
+3. final single-use execution authorization.
+
+Exit criterion: all legally/privacy-required execution prerequisites are satisfied without inferring one gate from another.
+
+## Stage 2 — One bounded real execution
+
+Use the existing reviewed Gate 7 package.
+
+Constraints:
+
+- one manual download maximum;
+- zero retries;
+- dedicated OS-temp file;
+- documented byte/archive caps;
+- no direct network client in Gate 7;
+- `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
+- fail closed on unsupported structure;
+- logical deletion after execution;
+- no owner values/raw path in result artifacts.
+
+Exit criterion: one real execution result exists, or a bounded documented failure provides a specific blocker that directly prevents the product slice.
+
+## Stage 3 — Immediate downstream product slice
+
+On successful acquisition, move directly to:
+
+`real mapping -> normalization -> insurance classification -> candidate case -> provenance/evidence -> case economics -> reviewer`
+
+Reuse the existing synthetic MVP-1 path and contracts. Do not create another source-diagnostic program unless the real result proves it necessary.
+
+Exit criterion: at least one real reviewer case, or a documented zero-candidate full-pipeline result.
+
+## Stage 4 — Economic baseline
+
+Capture:
+
+- records examined;
+- records surviving insurance classification;
+- candidates produced;
+- candidate-to-review conversion;
+- automated cost/candidate;
+- source cost/candidate where applicable;
+- human review time/candidate;
+- recoverable value/value band where evidentially supportable;
+- fee/revenue basis where legally supportable;
+- unresolved/manual research burden;
+- main drop-off reasons.
+
+Exit criterion: one reproducible economic result visible to the Product Owner.
+
+## Stage 5 — Product decision
+
+Product Owner decision:
+
+`GO / REVISE / STOP`
+
+Only after this decision should the project consider multi-state expansion, graph infrastructure, broader agent automation, genealogy automation, additional source programs or major UI/infrastructure work.
+
+## Frozen backlog before MVP-1
+
+Unless a direct blocker is demonstrated:
+
+- new governance layers;
+- new source diagnostics;
+- parser research beyond the active bounded execution;
+- new agent frameworks;
+- graph databases/evidence-graph infrastructure;
+- multi-state expansion;
+- broad genealogy automation;
+- outreach/contracts/claims automation;
+- non-critical UI polish;
+- infrastructure refactors.
+
+## Git health
+
+`main` is restored as the canonical integration branch through the owner-authorized history-preserving reconciliation in this work package. Future verified milestone branches should merge back into `main` promptly to prevent another 600+ commit divergence.

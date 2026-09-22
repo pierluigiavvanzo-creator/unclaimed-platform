@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-transient-local-file-approval:1.0.0",
+  "title": "NY OSC Transient Local File Retention Approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_gate",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "scope",
+    "authorization_does_not_grant"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "authorization_gate": {
+      "const": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION"
+    },
+    "owner_authorization": {
+      "const": "APPROVO NY OSC FIRST DOWNLOAD TRANSIENT LOCAL FILE BOUNDED ONCE"
+    },
+    "granted_on": {
+      "const": "2026-09-18"
+    },
+    "execution_approval_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {
+      "const": true
+    },
+    "reusable": {
+      "const": false
+    },
+    "retry_authorized": {
+      "const": false
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applies_only_with_separately_granted_gate2",
+        "local_temp_directory_only",
+        "required_temp_directory_prefix",
+        "expected_filename",
+        "max_download_bytes",
+        "durable_raw_persistence_allowed",
+        "repository_persistence_allowed",
+        "cloud_sync_allowed",
+        "chat_upload_allowed",
+        "owner_field_logging_allowed",
+        "immediate_logical_deletion_required",
+        "deletion_must_run_in_finally",
+        "deletion_failure_behavior",
+        "physical_secure_erasure_guaranteed"
+      ],
+      "properties": {
+        "applies_only_with_separately_granted_gate2": {
+          "const": true
+        },
+        "local_temp_directory_only": {
+          "const": true
+        },
+        "required_temp_directory_prefix": {
+          "const": "unclaimed-ny-osc-gate2-"
+        },
+        "expected_filename": {
+          "const": "FINDERS.zip"
+        },
+        "max_download_bytes": {
+          "const": 450000000
+        },
+        "durable_raw_persistence_allowed": {
+          "const": false
+        },
+        "repository_persistence_allowed": {
+          "const": false
+        },
+        "cloud_sync_allowed": {
+          "const": false
+        },
+        "chat_upload_allowed": {
+          "const": false
+        },
+        "owner_field_logging_allowed": {
+          "const": false
+        },
+        "immediate_logical_deletion_required": {
+          "const": true
+        },
+        "deletion_must_run_in_finally": {
+          "const": true
+        },
+        "deletion_failure_behavior": {
+          "const": "STOP_FAIL_CLOSED_SECURE_DEVICE"
+        },
+        "physical_secure_erasure_guaranteed": {
+          "const": false
+        }
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_file_download",
+        "gate2_transient_pii_processing",
+        "source_activation",
+        "classification_activation",
+        "beneficiary_matching",
+        "outreach",
+        "fee_agreement",
+        "representation",
+        "claim_activity"
+      ],
+      "properties": {
+        "owner_file_download": {
+          "const": false
+        },
+        "gate2_transient_pii_processing": {
+          "const": false
+        },
+        "source_activation": {
+          "const": false
+        },
+        "classification_activation": {
+          "const": false
+        },
+        "beneficiary_matching": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "fee_agreement": {
+          "const": false
+        },
+        "representation": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        }
+      }
+    },
+    "consumed_on": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_result": {
+      "enum": [
+        "RAW_FILE_LOGICALLY_DELETED"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CONSUMED_SINGLE_USE_NON_REUSABLE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "consumed_on",
+          "execution_result"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "ca.sco.unclaimed_property.bulk.transport_preflight",
+  "proposal_version": "1.0.0",
+  "source_id": "ca.sco.unclaimed_property.bulk",
+  "jurisdiction": "CA",
+  "proposal_status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+  "created_at": "2026-09-14T10:11:00Z",
+  "network_execution_authorized": false,
+  "network_request_performed": false,
+  "acquisition_performed": false,
+  "source_approved": false,
+  "source_enabled": false,
+  "official_source_page": "https://www.sco.ca.gov/upd_download_property_records.html",
+  "advertised_download_hosts": [
+    "claimit.ca.gov"
+  ],
+  "readiness_evidence_ref": "sources/evidence/ca_sco_unclaimed_property_bulk.approval_readiness.v1.json",
+  "proposed_observations": [
+    "EXACT_ENDPOINT_IDENTITY",
+    "REDIRECT_CHAIN",
+    "HTTP_STATUS",
+    "FINAL_HOST",
+    "RESPONSE_HEADERS",
+    "CONTENT_TYPE",
+    "CONTENT_LENGTH",
+    "TLS_SCHEME",
+    "OBSERVED_AT"
+  ],
+  "execution_constraints": {
+    "https_only": true,
+    "execution_approval_required": true,
+    "execution_approval_ref": null,
+    "request_method": null,
+    "timeout_seconds": null,
+    "max_redirects": null,
+    "allowlisted_hosts": [],
+    "response_body_bytes_allowed": 0,
+    "persist_response_body": false,
+    "parse_response_body": false,
+    "persist_dataset_artifact": false,
+    "pii_processing_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false
+  },
+  "required_provenance_fields": [
+    "SOURCE_ID",
+    "OBSERVED_AT",
+    "REQUESTED_ENDPOINT",
+    "FINAL_ENDPOINT",
+    "REDIRECT_HOPS",
+    "HTTP_STATUS",
+    "RESPONSE_HEADERS",
+    "EXECUTION_APPROVAL_REF"
+  ],
+  "unresolved_execution_controls": [
+    "EXACT_ENDPOINT",
+    "REQUEST_METHOD",
+    "TIMEOUT_SECONDS",
+    "MAX_REDIRECTS",
+    "ALLOWLISTED_HOSTS",
+    "EXECUTION_APPROVAL_REF",
+    "OBSERVED_CONTENT_TYPE",
+    "OBSERVED_CONTENT_LENGTH"
+  ],
+  "notes": "Proposal only. No request to a download endpoint was performed; execution remains a separate owner gate."
+}

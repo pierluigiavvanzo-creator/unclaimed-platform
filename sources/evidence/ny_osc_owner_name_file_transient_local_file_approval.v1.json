@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+  "owner_authorization": "APPROVO NY OSC FIRST DOWNLOAD TRANSIENT LOCAL FILE BOUNDED ONCE",
+  "granted_on": "2026-09-18",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_6F2C91A4",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "scope": {
+    "applies_only_with_separately_granted_gate2": true,
+    "local_temp_directory_only": true,
+    "required_temp_directory_prefix": "unclaimed-ny-osc-gate2-",
+    "expected_filename": "FINDERS.zip",
+    "max_download_bytes": 450000000,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "owner_field_logging_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "deletion_must_run_in_finally": true,
+    "deletion_failure_behavior": "STOP_FAIL_CLOSED_SECURE_DEVICE",
+    "physical_secure_erasure_guaranteed": false
+  },
+  "authorization_does_not_grant": {
+    "owner_file_download": false,
+    "gate2_transient_pii_processing": false,
+    "source_activation": false,
+    "classification_activation": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "consumed_on": "2026-09-18",
+  "execution_result": "RAW_FILE_LOGICALLY_DELETED"
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_NY_OSC_FIRST_DOWNLOAD_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+  "owner_authorization": "APPROVO NY OSC SECOND TRANSIENT LOCAL FILE BOUNDED ONCE",
+  "granted_on": "2026-09-18",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-18_NY_OSC_SECOND_TRANSIENT_LOCAL_FILE_BOUNDED_ONCE_8D2E1F64",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "consumed_on": "2026-09-18",
+  "execution_result_ref": "sources/evidence/ny_osc_owner_name_file_second_attempt_execution_result.v1.json",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "attempt_number": 2,
+  "scope": {
+    "local_temp_directory_only": true,
+    "required_temp_directory_prefix": "unclaimed-ny-osc-gate2-retry-",
+    "expected_filename": "FINDERS.zip",
+    "max_download_bytes": 450000000,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "owner_field_logging_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "deletion_must_run_in_finally": true,
+    "physical_secure_erasure_guaranteed": false
+  },
+  "authorization_does_not_grant": {
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  }
+}

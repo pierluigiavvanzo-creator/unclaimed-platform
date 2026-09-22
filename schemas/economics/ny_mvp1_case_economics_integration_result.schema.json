@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:economics:ny-mvp1-case-economics-integration-result:1.0.0",
+  "title": "NY MVP-1 Case Economics Integration Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "integration_state",
+    "reason_code",
+    "candidate_case_id",
+    "follow_up_cost_measurement_id",
+    "follow_up_cost_measurement_ref",
+    "follow_up_cost_evidence_refs",
+    "recoverable_value_cents",
+    "agreed_fee_bps",
+    "value_evidence_ref",
+    "fee_evidence_ref",
+    "fee_rule_scope_confirmed",
+    "measured_follow_up_cost_cents",
+    "explicit_economics_input",
+    "explicit_economics_result",
+    "no_commercial_recommendation"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "integration_state": {
+      "enum": [
+        "READY_FOR_EXPLICIT_ECONOMICS",
+        "BLOCKED_FOLLOW_UP_COST_UNAVAILABLE"
+      ]
+    },
+    "reason_code": {
+      "enum": [
+        "FULLY_LOADED_FOLLOW_UP_COST_AVAILABLE",
+        "FULLY_LOADED_FOLLOW_UP_COST_UNAVAILABLE"
+      ]
+    },
+    "candidate_case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "follow_up_cost_measurement_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "follow_up_cost_measurement_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "follow_up_cost_evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 4,
+      "uniqueItems": true
+    },
+    "recoverable_value_cents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "agreed_fee_bps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1500
+    },
+    "value_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fee_rule_scope_confirmed": {
+      "const": true
+    },
+    "measured_follow_up_cost_cents": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "explicit_economics_input": {
+      "anyOf": [
+        {
+          "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-input:1.0.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "explicit_economics_result": {
+      "anyOf": [
+        {
+          "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-result:1.0.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "no_commercial_recommendation": {
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "integration_state": {
+            "const": "BLOCKED_FOLLOW_UP_COST_UNAVAILABLE"
+          }
+        },
+        "required": [
+          "integration_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason_code": {
+            "const": "FULLY_LOADED_FOLLOW_UP_COST_UNAVAILABLE"
+          },
+          "measured_follow_up_cost_cents": {
+            "type": "null"
+          },
+          "explicit_economics_input": {
+            "type": "null"
+          },
+          "explicit_economics_result": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "integration_state": {
+            "const": "READY_FOR_EXPLICIT_ECONOMICS"
+          }
+        },
+        "required": [
+          "integration_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason_code": {
+            "const": "FULLY_LOADED_FOLLOW_UP_COST_AVAILABLE"
+          },
+          "measured_follow_up_cost_cents": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "explicit_economics_input": {
+            "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-input:1.0.0"
+          },
+          "explicit_economics_result": {
+            "$ref": "urn:unclaimed-platform:schema:economics:ny-mvp1-explicit-case-result:1.0.0"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,2 +1,26 @@
 version: 1
-sources: []
+sources:
+  - source_id: ca.sco.unclaimed_property.bulk
+    name: California State Controller Unclaimed Property Bulk CSV
+    jurisdiction: CA
+    source_type: OFFICIAL_PUBLIC_BULK_CSV
+    enabled: false
+    approved_for_use: false
+    provenance_required: true
+    base_uri: https://www.sco.ca.gov/upd_download_property_records.html
+    access_notes: >-
+      Candidate source only; official public bulk CSV. Registration does not authorize real
+      acquisition, beneficiary matching, outreach, or real PII processing.
+  - source_id: ny.osc.unclaimed_funds.owner_name_file
+    name: New York OSC Unclaimed Funds Owner Name File
+    jurisdiction: NY
+    source_type: OFFICIAL_REQUESTED_BULK_DELIMITED_TEXT
+    enabled: false
+    approved_for_use: false
+    provenance_required: true
+    base_uri: https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form
+    access_notes: >-
+      Selected MVP-1 candidate only. OSC states that a successful request yields a secure FTP
+      link to a zipped delimited .txt owner file. Registration does not authorize form
+      submission, file download, real PII processing, identity resolution, outreach,
+      representation, fee agreement, or claim activity.
