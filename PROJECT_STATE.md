@@ -81,11 +81,11 @@ Proposal checkpoint:
 
 Runner/code checkpoint:
 
-`ce005f08a3bbd23eb8fac6088917109f7864e924`
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
 CI:
 
-`35834948309 — SUCCESS`
+`35859448715 — SUCCESS`
 
 Passed: Ruff, mypy, contract tests, smoke tests, full pytest suite, Streamlit safety/startup, frontend lint/typecheck/build.
 
@@ -128,15 +128,34 @@ Review:
 
 The snapshot is accepted only as future preflight listing identity; no archive-content equivalence is inferred.
 
-The new single-use fresh-preflight grant is now recorded as `GRANTED_NOT_CONSUMED`:
-
-`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh4.v1.json`
-
-It is bound to the refreshed metadata snapshot:
+The Product Owner supplied a new screenshot exactly matching the refreshed metadata snapshot:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-Next action: refresh the already-authenticated NY OSC outbound listing and provide a screenshot showing filename, size and last modified. Only an exact match may create a new fresh receipt. No download is authorized. Final Gate-11 execution authorization remains a later separate gate. No Attempt-10 authorization may be reused.
+Repository inspection then found the protected Gate-11 runner still hard-coded the prior `9/16/2026` last-modified value. Creating a fresh receipt at that point would have produced an unusable authorization chain, so no receipt was created.
+
+The minimal runner metadata binding has now been updated and regression-tested.
+
+New protected runner checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+
+CI:
+
+`35859448715 — SUCCESS`
+
+Audit:
+
+`docs/audits/NY_OSC_ELEVENTH_REFRESHED_LISTING_RUNNER_REBIND.md`
+
+The prior Attempt-11 local-file, transient-PII and refresh-4 preflight grants were not consumed, but they are bound to runner checkpoint `ce005f08a3bbd23eb8fac6088917109f7864e924` and therefore cannot be reused for the new protected runner.
+
+Next action: request only the first two Attempt-11 grants again, bound to the new runner checkpoint:
+
+1. `APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+2. `APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+Fresh preflight and final execution authorization remain separate later gates. No download is authorized.
 
 ## Product exit criteria
 
