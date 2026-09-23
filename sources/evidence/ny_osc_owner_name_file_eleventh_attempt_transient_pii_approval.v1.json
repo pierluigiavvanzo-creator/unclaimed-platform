@@ -5,7 +5,7 @@
   "owner_authorization": "APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
   "granted_on": "2026-09-23",
   "execution_approval_ref": "OWNER_APPROVAL_2026-09-23T122008Z_NY_OSC_ELEVENTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_BAC89609",
-  "status": "GRANTED_NOT_CONSUMED",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -55,5 +55,7 @@
     "claim_activity": false
   },
   "granted_at_utc": "2026-09-23T12:20:08Z",
-  "supersedes_approval_ref": "OWNER_APPROVAL_2026-09-23T081612Z_NY_OSC_ELEVENTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_CE005F08"
+  "supersedes_approval_ref": "OWNER_APPROVAL_2026-09-23T081612Z_NY_OSC_ELEVENTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_CE005F08",
+  "consumed_by_execution_result_ref": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json",
+  "consumed_execution_authorization_ref": "OWNER_APPROVAL_2026-09-23T122809Z_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE_BAC89609"
 }
