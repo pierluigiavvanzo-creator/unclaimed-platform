@@ -108,79 +108,80 @@ Gate 11 behavior:
 
 No NY OSC access, fresh preflight, download, or PII processing occurred while preparing Attempt 11 offline.
 
-## Current next action
+## Real-source evidence — NY OSC Attempt 11
 
-Attempt-11 local-file and transient-PII grants are already `GRANTED_NOT_CONSUMED`.
+Attempt 11 completed the bounded real product slice once.
 
-A new fresh-preflight refresh-3 was authorized, but the Product Owner screenshot showed listing metadata drift:
+Authoritative result:
 
-- name: `FINDERS.zip` — unchanged;
-- size: `390.51 MB` — unchanged;
-- last modified: `9/23/2026, 1:12:44 PM` — changed from `9/16/2026, 1:33:31 PM`.
-
-The mismatch correctly failed closed. A new metadata-only snapshot is recorded at:
-
-`sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v2.json`
-
-Review:
-
-`docs/audits/NY_OSC_ELEVENTH_LISTING_METADATA_DRIFT_REVIEW.md`
-
-The snapshot is accepted only as future preflight listing identity; no archive-content equivalence is inferred.
-
-The Product Owner supplied a new screenshot exactly matching the refreshed metadata snapshot:
-
-`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
-
-Repository inspection then found the protected Gate-11 runner still hard-coded the prior `9/16/2026` last-modified value. Creating a fresh receipt at that point would have produced an unusable authorization chain, so no receipt was created.
-
-The minimal runner metadata binding has now been updated and regression-tested.
-
-New protected runner checkpoint:
-
-`bac89609e9069efc98fcd0866b89ee4ee16f1689`
-
-CI:
-
-`35859448715 — SUCCESS`
+`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
 
 Audit:
 
-`docs/audits/NY_OSC_ELEVENTH_REFRESHED_LISTING_RUNNER_REBIND.md`
+`docs/audits/NY_OSC_ELEVENTH_ATTEMPT_PRODUCT_SLICE_COMPLETED.md`
 
-The prior Attempt-11 local-file, transient-PII and refresh-4 preflight grants were not consumed, but they are bound to runner checkpoint `ce005f08a3bbd23eb8fac6088917109f7864e924` and therefore cannot be reused for the new protected runner.
+Result:
 
-The two Attempt-11 grants remain `GRANTED_NOT_CONSUMED` against protected runner checkpoint:
+- status `COMPLETED`;
+- reason `PRODUCT_SLICE_COMPLETED`;
+- archive bytes `409477526`;
+- total records `14994489`;
+- structurally conforming records `14994477`;
+- deferred structural records `12`;
+- authority-backed insurance records `2792990`;
+- primary `IN03` candidate records `203921`;
+- other insurance records `2589069`;
+- no authority-backed insurance match records `12201486`;
+- unclassifiable Property Type Code records `1`;
+- candidate outcome `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
+- candidate materialization `NOT_AUTHORIZED_AGGREGATE_ONLY`;
+- economic actionability `VALUE_EVIDENCE_REQUIRED`;
+- recoverable value `UNKNOWN_FROM_SOURCE`;
+- owner/raw values returned: none;
+- local archive logical deletion reported: true;
+- physical secure erasure guarantee: false.
 
-`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+Authorized download start:
 
-A post-authorization authenticated-listing screenshot matched exactly:
+`2026-09-23T12:30:59.478237Z`
 
-`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+Automatic start detection succeeded inside the fresh-preflight window.
 
-A new canonical fresh receipt is recorded:
+All Attempt-11 single-use grants are now treated as:
 
-`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_receipt.v1.json`
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
 
-Receipt ref:
+No Attempt-11 authorization may be reused.
 
-`PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`
+## Current product blocker
 
-Performed at:
+The parser/freshness blocker is closed for the current bounded slice.
 
-`2026-09-23T12:26:19Z`
+The remaining MVP-1 gap is downstream:
 
-Freshness window:
+`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
 
-`900 seconds`
+Existing repository components already provide deterministic/fail-closed foundations for:
 
-No download, Owner Name File open or owner PII processing occurred.
+- candidate/classification contracts;
+- pre-contact value-evidence state;
+- measured follow-up cost;
+- explicit case economics;
+- reviewer surfaces.
 
-Next gate:
+Current real candidate materialization remains unauthorized, and the real source result does not provide supported recoverable-value evidence or a lawful fee basis.
 
-`AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
+Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
 
-It must be newly granted and bound to this exact receipt. No download is authorized before that grant is recorded.
+## Current next action
+
+PR #29 contains the completed Attempt-11 milestone and remains open/unmerged.
+
+Perform Product Owner review of the completed Attempt-11 evidence and obtain explicit authorization or rejection for merge of PR #29 into `main`.
+
+Do not merge without explicit Product Owner authorization.
+
+After merge, create a new isolated branch for a repository-only bounded proposal for the minimum lawful one-candidate materialization/value-evidence step. No new source download or real candidate PII materialization is authorized by the current state.
 
 ## Product exit criteria
 
@@ -189,11 +190,10 @@ Current status:
 - authorized real source: ACHIEVED FOR BOUNDED EXECUTIONS;
 - bounded real acquisition: ACHIEVED;
 - whole-file structural evidence: ACHIEVED VIA ATTEMPT 9;
-- real row-defer + insurance classification: ATTEMPT 11 PACKAGE READY OFFLINE;
-- real candidate or documented zero-candidate aggregate: NOT YET PRODUCED;
+- real row-defer + insurance classification: ACHIEVED VIA ATTEMPT 11;
+- real candidate or documented zero-candidate aggregate: ACHIEVED — `203921` aggregate primary `IN03` candidates;
+- real candidate materialization: NOT AUTHORIZED / NOT DONE;
 - real provenance/evidence package: PARTIAL;
-- reproducible real case economics: BLOCKED UNTIL VALUE EVIDENCE EXISTS;
+- reproducible real case economics: BLOCKED UNTIL VALUE/FEE/COST EVIDENCE EXISTS;
 - reviewer case with human GO / REVISE / STOP: NOT DONE;
-- commercial baseline: NOT DONE.
-
-If Attempt 11 completes, priority moves immediately downstream to candidate/zero-candidate evidence, value/economics, and reviewer actionability rather than another parser/timing loop.
+- commercial baseline: PARTIAL — real funnel counts established, value/review-cost/revenue evidence still missing.
