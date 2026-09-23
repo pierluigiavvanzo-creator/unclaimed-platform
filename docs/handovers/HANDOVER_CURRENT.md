@@ -149,19 +149,36 @@ The prior Attempt-11 local-file, transient-PII and refresh-4 fresh-preflight gra
 
 No new fresh receipt was created from that screenshot.
 
+## Attempt 11 refreshed-runner grants
+
+The two Attempt-11 grants have been reissued and recorded against protected runner checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+
+CI for the protected runner:
+
+`35859448715 — SUCCESS`
+
+Current states:
+
+- transient local file: `GRANTED_NOT_CONSUMED`;
+- transient PII: `GRANTED_NOT_CONSUMED`.
+
+No download, fresh preflight or Owner Name File open was performed while recording these grants.
+
 ## SINGLE NEXT ACTION
 
-Request only the first two Attempt-11 grants again, now bound to runner checkpoint `bac89609e9069efc98fcd0866b89ee4ee16f1689`:
-
-`APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
-
-`APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
-
-After those are recorded, request a new separate:
+Request a new separate single-use:
 
 `AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
 
-Then obtain a new exact-match screenshot and create a new 900-second fresh receipt. Final execution authorization remains a later separate gate.
+Bind it to runner checkpoint `bac89609e9069efc98fcd0866b89ee4ee16f1689` and the refreshed listing metadata snapshot:
+
+`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+
+Then refresh the authenticated listing again and require an exact match before creating a new 900-second fresh receipt.
+
+Final execution authorization remains a later separate gate.
 
 ## Expected real Attempt-11 output
 
