@@ -166,37 +166,47 @@ Current states:
 
 No download, fresh preflight or Owner Name File open was performed while recording these grants.
 
-## Attempt 11 fresh-preflight refresh 5
+## Attempt 11 fresh receipt — refresh 5
 
-A new single-use fresh-preflight authorization has been granted and recorded:
-
-`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh5.v1.json`
-
-Status:
-
-`GRANTED_NOT_CONSUMED`
-
-It is bound to protected runner checkpoint:
-
-`bac89609e9069efc98fcd0866b89ee4ee16f1689`
-
-and expected listing identity:
+A post-authorization authenticated-listing screenshot matched exactly:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-No download, Owner Name File open or owner PII processing is authorized by this grant.
+The canonical Gate-11 fresh receipt has been updated:
+
+`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_receipt.v1.json`
+
+Receipt ref:
+
+`PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`
+
+Performed at:
+
+`2026-09-23T12:26:19Z`
+
+Freshness window:
+
+`900 seconds`
+
+Protected runner checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+
+No download, Owner Name File open or owner PII processing occurred while creating the receipt.
 
 ## SINGLE NEXT ACTION
 
-Refresh the already-authenticated NY OSC outbound listing again and provide a new screenshot showing filename, size and last modified.
-
-Only an exact match observed after this fresh-preflight authorization may create a new 900-second fresh receipt.
-
-Only after a new exact-match fresh receipt exists may a new:
+Request a new single-use:
 
 `AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
 
-be requested and bound to that exact receipt.
+Bind the final execution authorization to exactly:
+
+`PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`
+
+Only after that authorization is recorded may the single PowerShell Gate-11 launch block be provided.
+
+Gate 11 remains one manual download, one execution, zero retry, automatic download-start detection, minimum 180 seconds freshness remaining, no direct network client, aggregate-only result.
 
 ## Expected real Attempt-11 output
 
