@@ -181,39 +181,47 @@ Current real candidate materialization remains unauthorized, and the real source
 
 Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
 
+## Economic feasibility audit — 2026-09-23
+
+Whole-project audit:
+
+`docs/audits/ECONOMIC_FEASIBILITY_AUDIT_2026-09-23.md`
+
+Audit status:
+
+`CONDITIONAL_CONTINUE_ECONOMIC_VALIDATION_NOT_SCALE`
+
+Main conclusions:
+
+- real candidate supply is proven at aggregate record level: `203921` primary `IN03` records;
+- source screening/processing technical feasibility is proven;
+- New York has an explicit commercial location-service-provider framework with a statutory maximum fee of 15% for the applicable scope;
+- the owner can claim directly from OSC for free, so discovery alone is not a sufficient value proposition;
+- OSC increasingly automates qualifying simple/low-value returns;
+- case-level recoverable value is not available in the Owner Name File and remains unavailable before claim review/ownership verification;
+- real unit economics, contact conversion, realized fee, collection rate and cycle time are not measured;
+- lawyer-fee referral/revenue-share economics must not be assumed without specialized legal review;
+- project-wide scale/architecture expansion is economically premature.
+
+The economic bottleneck is now:
+
+`CANDIDATE -> LAWFUL VALUE/CONTACT DISCOVERY -> MEASURED COST -> RECOVERY -> REALIZED FEE -> CONTRIBUTION`
+
 ## Current next action
 
-The repository-first/offline one-candidate materialization/value-evidence proposal is now prepared on isolated branch:
+Do not expand privacy scope or general architecture yet.
 
-`mvp1-ny-one-candidate-value-evidence-offline-proposal`
+If the Product Owner accepts the audit conclusion, the next implementation task is Stage A only:
 
-Proposal:
+`IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION`
+
+using the already approved proposal:
 
 `sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json`
 
-Schema:
+Stage A must remain synthetic-only and must not authorize source access, download, owner PII, identity resolution, beneficiary matching, outreach, value research, fee agreement, representation or claim activity.
 
-`schemas/common/ny_osc_one_candidate_value_evidence_offline_proposal.schema.json`
-
-Review:
-
-`docs/audits/NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL_REVIEW.md`
-
-The proposal selects at most one deterministic candidate using source order + exact `IN03` + single-owner + non-empty Property ID, without PII-based ranking.
-
-Initial materialization is designed as transient-only for Owner Name and Property ID, excludes address fields, persists no owner PII, and reuses existing value-evidence/follow-up-cost/economics/reviewer foundations.
-
-Next gate is proposal review only:
-
-`APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL`
-
-Review result: `APPROVED_PROPOSAL_ONLY`.
-
-Approval evidence:
-
-`sources/evidence/ny_osc_one_candidate_value_evidence_offline_proposal_approval.v1.json`
-
-This approval does not authorize implementation, source access, download, PII processing, candidate materialization or value research.
+Only after Stage A and an explicit legal/privacy review may a separate one-real-candidate economic-discovery execution be considered.
 
 ## Product exit criteria
 
