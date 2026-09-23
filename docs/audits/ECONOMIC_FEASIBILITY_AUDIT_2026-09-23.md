@@ -181,6 +181,28 @@ The business model includes collection/receivable risk after recovery and must m
 
 None is currently measured.
 
+### 3.5 Broad unclaimed-property value distribution is highly skewed
+
+The latest detailed official OUF annual report available in the reviewed sources (SFY 2024-25) reports:
+
+- 54% of payments were less than USD 100;
+- the then-current largest unclaimed account was USD 10 million for an estate;
+- OUF received roughly 2,000 claims per business day and processed more than USD 2 million in refunds per business day.
+
+Official source:
+
+https://www.osc.ny.gov/files/unclaimed-funds/resources/2025/pdf/annual-report-sfy-2024-25.pdf
+
+Economic implication:
+
+The overall unclaimed-property market contains both very small and very large cases.
+
+This distribution **must not be imputed to the IN03 subset**; the report does not provide an IN03-specific value distribution.
+
+But it reinforces the economic need for selective research: a workflow that spends material human/legal cost indiscriminately across candidate records is unlikely to be efficient when a large portion of the broader claims universe is very low value.
+
+The economic opportunity therefore depends on finding lawful, evidence-backed signals that reduce work on low-contribution cases without pretending those signals reveal an exact recoverable amount.
+
 ## 4. Lawyer-dependent monetization risk
 
 The project concept includes lawyers for cases requiring legal assistance.
