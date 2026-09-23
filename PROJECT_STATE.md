@@ -207,7 +207,13 @@ Next gate is proposal review only:
 
 `APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL`
 
-This gate does not authorize implementation, source access, download, PII processing, candidate materialization or value research.
+Review result: `APPROVED_PROPOSAL_ONLY`.
+
+Approval evidence:
+
+`sources/evidence/ny_osc_one_candidate_value_evidence_offline_proposal_approval.v1.json`
+
+This approval does not authorize implementation, source access, download, PII processing, candidate materialization or value research.
 
 ## Product exit criteria
 
