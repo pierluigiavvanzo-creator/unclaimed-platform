@@ -267,22 +267,56 @@ They should be reused before new custom implementation.
 
 Current real-data boundary remains strict: candidate materialization, identity resolution, beneficiary matching, outreach, representation, fee agreements and claim activity are not authorized.
 
+## One-candidate materialization/value-evidence offline proposal
+
+Branch:
+
+`mvp1-ny-one-candidate-value-evidence-offline-proposal`
+
+Proposal:
+
+`sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json`
+
+Schema:
+
+`schemas/common/ny_osc_one_candidate_value_evidence_offline_proposal.schema.json`
+
+Contract test:
+
+`tests/contract/test_ny_osc_one_candidate_value_evidence_offline_proposal.py`
+
+Review:
+
+`docs/audits/NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL_REVIEW.md`
+
+Design summary:
+
+- at most one candidate;
+- first eligible record in physical source order;
+- documented 14-field physical shape;
+- exact `IN03`;
+- Property Owner Count exactly `1`;
+- non-empty Property ID;
+- no PII-based ranking or random selection;
+- transient scope: Property ID, Property Type Code, Property Owner Count, Owner Name, Holder Name, Holder Report Year;
+- address fields excluded;
+- Owner Name and Property ID not persisted;
+- raw row and owner-row hash not persisted;
+- persistent candidate envelope contains no owner PII;
+- existing fail-closed value-evidence, follow-up-cost and economics components are reused;
+- reviewer remains synthetic-only until a separately reviewed real-safe adapter exists.
+
+No source access, download, candidate PII processing or value research occurred while preparing this proposal.
+
 ## SINGLE NEXT ACTION
 
-Create a new isolated branch from canonical `main` and prepare only a repository-first/offline bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
+Human-review this proposal only.
 
-That proposal must define, before any new real-source execution:
+Required Product Owner phrase:
 
-- deterministic candidate-selection rule;
-- minimum required fields;
-- PII/retention scope;
-- provenance requirements;
-- exact evidence/value objective;
-- stop/fail-closed conditions;
-- reuse of existing candidate/classification, value-evidence, follow-up-cost, explicit-economics and reviewer components;
-- explicit human gates for any new download or real candidate PII.
+`APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL`
 
-No new source download or real candidate PII materialization is part of the current next action.
+That phrase authorizes proposal acceptance only. It does not authorize implementation, source access, download, owner PII processing, candidate materialization, value research, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity.
 
 ## Git health
 
