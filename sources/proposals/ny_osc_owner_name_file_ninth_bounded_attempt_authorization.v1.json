@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.ninth_bounded_attempt_authorization_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-22",
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "attempt_number": 9,
+  "blocking_evidence_ref": "sources/evidence/ny_osc_owner_name_file_eighth_attempt_execution_result.v1.json",
+  "problem_statement": {
+    "attempt8_reason_code": "UNEXPECTED_DATA_FIELD_COUNT",
+    "documented_layout_field_count": 14,
+    "observed_data_field_count": 15,
+    "raw_pipe_count": 14,
+    "quote_byte_count": 0,
+    "hypothesis": "FOURTEEN_DOCUMENTED_FIELDS_PLUS_TERMINAL_PIPE_PRODUCING_EMPTY_FIFTEENTH_FIELD",
+    "hypothesis_is_not_assumed": true
+  },
+  "single_execution_strategy": {
+    "diagnose_trailing_delimiter_first": true,
+    "if_every_complete_record_has_exactly_14_pipes_and_ends_with_pipe_and_nonempty_15th_field_count_is_zero": "CLASSIFY_DOCUMENTED_14_FIELDS_WITH_TERMINAL_DELIMITER_AND_CONTINUE_WITH_STRUCTURAL_NORMALIZATION",
+    "otherwise": "BLOCK_FAIL_CLOSED",
+    "automatic_retry_allowed": false,
+    "new_source_semantics_may_not_be_invented": true
+  },
+  "diagnostic_output_only": {
+    "complete_records": true,
+    "records_with_exactly_14_pipes": true,
+    "records_ending_with_pipe": true,
+    "records_with_nonempty_15th_field": true,
+    "records_with_other_pipe_count": true,
+    "classification": true,
+    "owner_values": false,
+    "raw_records": false,
+    "raw_paths": false
+  },
+  "continuation_boundary": {
+    "terminal_empty_field_may_be_ignored_only_if_confirmed_for_all_complete_records": true,
+    "documented_14_field_order_must_remain_unchanged": true,
+    "property_type_code_index_zero_based": 1,
+    "field_decoding_for_diagnostic": false,
+    "row_specific_human_inspection": false,
+    "owner_field_logging": false
+  },
+  "privacy_and_execution_bounds": {
+    "transient_local_file_only": true,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "derived_non_pii_aggregate_metadata_persistence_allowed": true,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "downloads_max": 1,
+    "executions_max": 1,
+    "retries_max": 0,
+    "direct_network_client_allowed": false
+  },
+  "runner_remediation": {
+    "python_c_inline_wrapper_allowed": false,
+    "dedicated_python_entrypoint_required": true,
+    "reason": "ATTEMPT8_POST_RESULT_NAMEERROR_FROM_INLINE_PYTHON_C_QUOTING"
+  },
+  "human_gates": [
+    {
+      "sequence": 1,
+      "gate": "HUMAN_NY_OSC_NINTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC NINTH TRANSIENT LOCAL FILE BOUNDED ONCE",
+      "status": "NOT_GRANTED"
+    },
+    {
+      "sequence": 2,
+      "gate": "HUMAN_NY_OSC_NINTH_TRANSIENT_PII_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC OWNER NAME FILE NINTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+      "status": "NOT_GRANTED"
+    },
+    {
+      "sequence": 3,
+      "gate": "HUMAN_NY_OSC_NINTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+      "approval_phrase": "AUTHORIZE_NY_OSC_NINTH_FRESH_LISTING_PREFLIGHT",
+      "status": "NOT_GRANTED",
+      "scope": "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN"
+    },
+    {
+      "sequence": 4,
+      "gate": "HUMAN_NY_OSC_NINTH_EXECUTION_AUTHORIZATION",
+      "approval_phrase": "AUTHORIZE_NY_OSC_NINTH_BOUNDED_EXECUTION_ONCE",
+      "status": "NOT_GRANTED",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false,
+      "requires_exact_match_fresh_preflight": true,
+      "download_authority": "ONE_MANUAL_DOWNLOAD_TO_DEDICATED_OS_TEMP",
+      "execution_authority": "ONE_BOUND_GATE9_EXECUTION"
+    }
+  ],
+  "request_scope": {
+    "repository_only": true,
+    "source_network_access_performed": false,
+    "remote_preflight_performed": false,
+    "download_performed": false,
+    "owner_file_opened": false,
+    "owner_pii_processed": false
+  },
+  "authorization_does_not_grant": {
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "owner_pii_processing": false,
+    "ninth_attempt_execution": false,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  }
+}

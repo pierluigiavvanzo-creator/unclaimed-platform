@@ -4,7 +4,7 @@ Traceable, human-gated platform for turning lawful unclaimed-life-insurance data
 
 ## Current product objective
 
-The project is no longer in M0/foundation mode. The current priority is **MVP-1 — First Economically Actionable Case**.
+The project is in **MVP-1 — First Economically Actionable Case**.
 
 The governing product path is:
 
@@ -30,9 +30,10 @@ The deterministic core, versioned contracts, source adapters, NY OSC real-capabl
 
 The current NY path has reached:
 
+- synthetic RAW-literal runtime integration: **IMPLEMENTED + REVIEWED PASS**;
 - seventh real-runtime package: **IMPLEMENTED + REVIEWED PASS**;
 - seventh transient-local retention approval: **GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE**;
-- transient-PII approval: **NOT YET GRANTED**;
+- seventh transient-PII approval: **GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE**;
 - fresh listing preflight: **NOT YET AUTHORIZED / NOT PERFORMED**;
 - final execution authorization: **NOT YET GRANTED**;
 - real bounded execution: **NOT YET PERFORMED**;
@@ -57,13 +58,13 @@ The optimization metric is:
 
 ## Next critical gate
 
-`HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
+`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
 
 Required Product Owner phrase:
 
-`APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
 
-That gate authorizes only the bounded transient-PII scope. It does **not** authorize preflight, download or execution.
+That gate authorizes **preflight only**. It does not authorize download, owner-file open or final execution.
 
 ## Architecture boundaries that remain binding
 

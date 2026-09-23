@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.eleventh_product_slice_auto_start_authorization_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-23",
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "attempt_number": 11,
+  "blocking_evidence_ref": "sources/evidence/ny_osc_owner_name_file_tenth_attempt_execution_result.v1.json",
+  "product_objective": "REAL_MAPPING_TO_INSURANCE_CLASSIFICATION_TO_CANDIDATE_OR_ZERO_CANDIDATE_AGGREGATE",
+  "remediation_objective": "AUTOMATICALLY_CAPTURE_DOWNLOAD_START_INSIDE_FRESH_PREFLIGHT_WINDOW_WITHOUT_OPERATOR_ENTER",
+  "structural_policy": {
+    "conforming_pipe_count": 13,
+    "conforming_field_count": 14,
+    "property_type_code_index_zero_based": 1,
+    "nonconforming_action": "DEFER_STRUCTURAL_NONCONFORMING_METADATA_ONLY",
+    "normalization_or_repair_allowed": false
+  },
+  "classification_policy": {
+    "reuse_existing_authority_vocabulary": "src/unclaimed_platform/domain/mvp1_vertical_slice.py::NY_INSURANCE_CODES",
+    "primary_target_code": "IN03",
+    "exact_match_only": true,
+    "trimming_casefolding_or_inference_allowed": false,
+    "candidate_materialization_allowed": false,
+    "aggregate_candidate_count_allowed": true
+  },
+  "freshness_handoff_policy": {
+    "freshness_window_seconds": 900,
+    "minimum_remaining_seconds_before_download_prompt": 180,
+    "dedicated_temp_directory_must_be_empty_before_arming": true,
+    "detector_armed_before_operator_download_instruction": true,
+    "detection_mode": "FIRST_NONEMPTY_FILE_IN_DEDICATED_TEMP_DIRECTORY",
+    "poll_interval_milliseconds": 100,
+    "operator_enter_required_for_start_marker": false,
+    "start_marker_source": "RUNNER_UTC_TIME_AT_FIRST_NONEMPTY_FILE_OBSERVATION",
+    "detected_partial_filename_persistence_allowed": false,
+    "deadline_overrun_action": "STOP_FAIL_CLOSED",
+    "freshness_extension_allowed": false
+  },
+  "completion_handoff_policy": {
+    "operator_confirmation_after_same_single_download_finishes": true,
+    "additional_download_allowed": false
+  },
+  "economics_policy": {
+    "recoverable_value_state": "UNKNOWN_FROM_SOURCE",
+    "invent_amount_allowed": false,
+    "commercial_threshold_allowed": false,
+    "candidate_present_state": "VALUE_EVIDENCE_REQUIRED",
+    "zero_candidate_state": "ZERO_CANDIDATE_DOCUMENTED"
+  },
+  "privacy_and_execution_bounds": {
+    "transient_local_file_only": true,
+    "durable_raw_persistence_allowed": false,
+    "repository_persistence_allowed": false,
+    "cloud_sync_allowed": false,
+    "chat_upload_allowed": false,
+    "immediate_logical_deletion_required": true,
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "property_type_code_only_buffering_allowed": true,
+    "derived_non_pii_aggregate_metadata_persistence_allowed": true,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "downloads_max": 1,
+    "executions_max": 1,
+    "retries_max": 0,
+    "direct_network_client_allowed": false
+  },
+  "required_result_metrics": [
+    "total_records",
+    "structurally_conforming_records",
+    "deferred_structural_records",
+    "authority_backed_insurance_records",
+    "primary_in03_candidate_records",
+    "other_insurance_records",
+    "no_authority_backed_insurance_match_records",
+    "property_type_unclassifiable_records",
+    "candidate_outcome",
+    "economic_actionability"
+  ],
+  "human_gates": [
+    {
+      "sequence": 1,
+      "gate": "HUMAN_NY_OSC_ELEVENTH_TRANSIENT_LOCAL_FILE_RETENTION_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE",
+      "status": "NOT_GRANTED"
+    },
+    {
+      "sequence": 2,
+      "gate": "HUMAN_NY_OSC_ELEVENTH_TRANSIENT_PII_AUTHORIZATION",
+      "approval_phrase": "APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+      "status": "NOT_GRANTED"
+    },
+    {
+      "sequence": 3,
+      "gate": "HUMAN_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+      "approval_phrase": "AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT",
+      "status": "NOT_GRANTED",
+      "scope": "PREFLIGHT_ONLY_NO_DOWNLOAD_NO_OWNER_FILE_OPEN"
+    },
+    {
+      "sequence": 4,
+      "gate": "HUMAN_NY_OSC_ELEVENTH_EXECUTION_AUTHORIZATION",
+      "approval_phrase": "AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE",
+      "status": "NOT_GRANTED",
+      "single_use": true,
+      "reusable": false,
+      "retry_authorized": false
+    }
+  ],
+  "request_scope": {
+    "repository_only": true,
+    "source_network_access_performed": false,
+    "remote_preflight_performed": false,
+    "download_performed": false,
+    "owner_file_opened": false,
+    "owner_pii_processed": false
+  }
+}

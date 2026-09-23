@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.eleventh_fresh_listing_preflight_receipt.refresh5",
+  "receipt_ref": "PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609",
+  "attempt_number": 11,
+  "refresh_sequence": 5,
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "proposal_ref": "sources/proposals/ny_osc_owner_name_file_eleventh_product_slice_auto_start_authorization.v1.json",
+  "proposal_checkpoint": "270de2f6e79b7c654052519adc446fe76b811771",
+  "runner_checkpoint": "bac89609e9069efc98fcd0866b89ee4ee16f1689",
+  "runner_ci_run_id": 35859448715,
+  "runner_ci_conclusion": "SUCCESS",
+  "status": "EXACT_MATCH",
+  "remote_preflight_performed": true,
+  "preflight_authorization_ref": "OWNER_APPROVAL_2026-09-23T122403Z_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT_REFRESH_5_BAC89609",
+  "performed_at_utc": "2026-09-23T12:26:19Z",
+  "freshness_window_seconds": 900,
+  "evidence_source": "PRODUCT_OWNER_SCREENSHOT_IN_CHAT",
+  "expected_listing": {
+    "remote_name": "FINDERS.zip",
+    "size_display": "390.51 MB",
+    "last_modified_display": "9/23/2026, 1:12:44 PM"
+  },
+  "observed_listing": {
+    "remote_name": "FINDERS.zip",
+    "size_display": "390.51 MB",
+    "last_modified_display": "9/23/2026, 1:12:44 PM"
+  },
+  "metadata_snapshot_ref": "sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v2.json",
+  "download_performed": false,
+  "owner_file_opened": false,
+  "owner_pii_processed": false,
+  "contains_owner_pii": false
+}

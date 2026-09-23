@@ -1,109 +1,133 @@
 # ROADMAP.md
 
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 
 ## Product validation critical path
-
-The roadmap is now intentionally narrow:
 
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
 No broad platform expansion is scheduled before this is complete.
 
-## Stage 1 — Complete authorization for one real source
+## Stage 1 — Real-source evidence already established
 
-Current source path: NY OSC attempt 7.
+Attempt 9 scanned the complete real archive under bounded authorization:
 
-Done:
+- `14994489` physical records;
+- `12` records with exactly `14` pipes;
+- `0` records ending with a terminal pipe;
+- `12` records with non-empty bytes after the 14th pipe;
+- `14994477` records with another pipe count;
+- no owner/raw values returned;
+- authorization consumed, zero retry.
 
-- real-capable package reviewed PASS;
-- local transient-retention approval granted and unconsumed.
+The terminal-empty-field hypothesis is rejected.
 
-Next:
+Attempt 10 then attempted the first direct real product-slice execution. The manual download occurred, but the product slice did not start because the operator-captured download-start marker fell outside the 900-second fresh-preflight window. Attempt 10 is consumed/non-reusable/zero-retry.
 
-`HUMAN_NY_OSC_SEVENTH_TRANSIENT_PII_AUTHORIZATION`
+## Stage 2 — Attempt 11 real product slice — COMPLETED
 
-Required phrase:
+Branch:
 
-`APPROVO NY OSC OWNER NAME FILE SEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`mvp1-ny-eleventh-auto-start-detection-offline`
 
-Then, as separate gates only:
+PR:
 
-1. fresh listing preflight authorization;
-2. exact-match fresh preflight receipt;
-3. final single-use execution authorization.
+`#29`
 
-Exit criterion: all legally/privacy-required execution prerequisites are satisfied without inferring one gate from another.
+Protected runner checkpoint:
 
-## Stage 2 — One bounded real execution
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
-Use the existing reviewed Gate 7 package.
+Runner CI:
 
-Constraints:
+`35859448715 — SUCCESS`
 
-- one manual download maximum;
-- zero retries;
-- dedicated OS-temp file;
-- documented byte/archive caps;
-- no direct network client in Gate 7;
-- `DOCUMENTED_WIDTH_RAW_LITERAL_POLICY`;
-- fail closed on unsupported structure;
-- logical deletion after execution;
-- no owner values/raw path in result artifacts.
+Attempt 11 completed one bounded real execution with automatic download-start detection.
 
-Exit criterion: one real execution result exists, or a bounded documented failure provides a specific blocker that directly prevents the product slice.
+Authoritative result:
 
-## Stage 3 — Immediate downstream product slice
+`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
 
-On successful acquisition, move directly to:
+Observed product result:
 
-`real mapping -> normalization -> insurance classification -> candidate case -> provenance/evidence -> case economics -> reviewer`
+- `14994489` total records;
+- `14994477` structurally conforming records;
+- `12` deferred structural records;
+- `2792990` authority-backed insurance records;
+- `203921` primary `IN03` aggregate candidates;
+- `2589069` other insurance records;
+- `12201486` no-authority-match records;
+- `1` unclassifiable Property Type Code record;
+- `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
+- `VALUE_EVIDENCE_REQUIRED`.
 
-Reuse the existing synthetic MVP-1 path and contracts. Do not create another source-diagnostic program unless the real result proves it necessary.
+No owner/raw values were returned or persisted by the result. The local archive was reported logically deleted; physical secure erasure is not guaranteed.
 
-Exit criterion: at least one real reviewer case, or a documented zero-candidate full-pipeline result.
+## Stage 3 — Attempt 11 human gates — CONSUMED
 
-## Stage 4 — Economic baseline
+All Attempt-11 single-use gates required for the completed execution were exercised and are non-reusable:
 
-Capture:
+1. transient local-file grant;
+2. transient PII grant;
+3. fresh-listing preflight authorization;
+4. exact-match fresh receipt;
+5. bounded execution authorization;
+6. one manual download and one Gate-11 execution.
+
+State:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
+
+No Attempt-11 grant may be reused.
+
+## Stage 4 — Immediate result consumption — ACTIVE
+
+The real source produced `203921` aggregate primary `IN03` candidates.
+
+Therefore the critical path moves downstream to:
+
+`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
+
+Current blocker:
+
+- candidate materialization is `NOT_AUTHORIZED_AGGREGATE_ONLY`;
+- recoverable value is `UNKNOWN_FROM_SOURCE`;
+- lawful fee basis is not established for a real case;
+- measured follow-up cost for a real candidate is not yet available.
+
+Existing repository components for candidate contracts, value evidence, follow-up-cost measurement, case economics and reviewer display must be reused before any new custom implementation.
+
+Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
+
+Before any new real-source or candidate-PII operation, create and review a bounded repository-only proposal specifying the minimum fields, retention, privacy scope, deterministic selection rule, evidence path and stop conditions for one candidate.
+
+## Stage 5 — Economic baseline and Product Owner decision — PARTIAL
+
+Real funnel measurements now established:
 
 - records examined;
-- records surviving insurance classification;
-- candidates produced;
-- candidate-to-review conversion;
-- automated cost/candidate;
-- source cost/candidate where applicable;
-- human review time/candidate;
-- recoverable value/value band where evidentially supportable;
-- fee/revenue basis where legally supportable;
-- unresolved/manual research burden;
-- main drop-off reasons.
+- structural defer count;
+- insurance-classification survivors;
+- primary candidate count;
+- other-insurance count;
+- no-authority-match/unclassifiable counts.
 
-Exit criterion: one reproducible economic result visible to the Product Owner.
+Still missing before a reviewer-actionable economic result:
 
-## Stage 5 — Product decision
+- lawfully evidenced recoverable value/value band;
+- lawful fee/revenue basis where applicable;
+- measured per-candidate processing/source cost;
+- measured human review/manual research burden;
+- one real reviewer case.
 
-Product Owner decision:
+Then Product Owner decision:
 
 `GO / REVISE / STOP`
 
-Only after this decision should the project consider multi-state expansion, graph infrastructure, broader agent automation, genealogy automation, additional source programs or major UI/infrastructure work.
-
 ## Frozen backlog before MVP-1
 
-Unless a direct blocker is demonstrated:
-
-- new governance layers;
-- new source diagnostics;
-- parser research beyond the active bounded execution;
-- new agent frameworks;
-- graph databases/evidence-graph infrastructure;
-- multi-state expansion;
-- broad genealogy automation;
-- outreach/contracts/claims automation;
-- non-critical UI polish;
-- infrastructure refactors.
+Unless a direct blocker is demonstrated: new broad diagnostics, governance layers, multi-state expansion, new agent frameworks, graph infrastructure, broad genealogy automation, outreach/contracts/claims automation, non-critical UI polish, and infrastructure refactors.
 
 ## Git health
 
-`main` is restored as the canonical integration branch through the owner-authorized history-preserving reconciliation in this work package. Future verified milestone branches should merge back into `main` promptly to prevent another 600+ commit divergence.
+`main` remains canonical. PR #29 isolates Attempt 11 from the consumed Attempt-10 branch. No merge is authorized by offline preparation.
