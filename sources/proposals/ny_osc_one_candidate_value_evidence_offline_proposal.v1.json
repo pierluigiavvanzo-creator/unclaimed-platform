@@ -181,5 +181,6 @@
     "representation": false,
     "claim_activity": false
   },
+  "required_owner_review_phrase": "APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL",
   "next_action": "HUMAN_REVIEW_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL"
 }
