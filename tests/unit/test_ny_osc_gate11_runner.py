@@ -51,3 +51,13 @@ def test_gate11_runner_has_no_direct_network_client() -> None:
     assert "start-bitstransfer" not in source
     assert "curl " not in source
     assert "wget " not in source
+
+
+def test_gate11_runner_is_bound_to_refreshed_listing_metadata() -> None:
+    repo_root = Path(__file__).resolve().parents[2]
+    source = (
+        repo_root / "scripts" / "ny_osc_gate11_transient_local.ps1"
+    ).read_text(encoding="utf-8")
+
+    assert source.count("9/23/2026, 1:12:44 PM") == 2
+    assert "9/16/2026, 1:33:31 PM" not in source
