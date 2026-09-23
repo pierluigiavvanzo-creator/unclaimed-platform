@@ -6,7 +6,7 @@
   "granted_on": "2026-09-23",
   "granted_at_utc": "2026-09-23T12:28:09Z",
   "execution_approval_ref": "OWNER_APPROVAL_2026-09-23T122809Z_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE_BAC89609",
-  "status": "GRANTED_NOT_CONSUMED",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
   "single_use": true,
   "reusable": false,
   "retry_authorized": false,
@@ -36,5 +36,6 @@
     "fee_agreement": false,
     "representation": false,
     "claim_activity": false
-  }
+  },
+  "consumed_by_execution_result_ref": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json"
 }
