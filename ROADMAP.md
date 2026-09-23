@@ -111,28 +111,45 @@ It proposes exactly one deterministic source-order candidate, exact `IN03`, sing
 
 Human review result: `APPROVED_PROPOSAL_ONLY`. No real-source or candidate-PII operation is authorized by that approval. The next Product Owner-requested activity is a separate whole-project economic-feasibility audit before expanding privacy scope or implementing real candidate materialization.
 
-## Stage 5 — Economic baseline and Product Owner decision — PARTIAL
+## Stage 5 — Economic feasibility validation — ACTIVE
 
-Real funnel measurements now established:
+Whole-project economic audit completed:
 
-- records examined;
-- structural defer count;
-- insurance-classification survivors;
-- primary candidate count;
-- other-insurance count;
-- no-authority-match/unclassifiable counts.
+`docs/audits/ECONOMIC_FEASIBILITY_AUDIT_2026-09-23.md`
 
-Still missing before a reviewer-actionable economic result:
+Decision:
 
-- lawfully evidenced recoverable value/value band;
-- lawful fee/revenue basis where applicable;
-- measured per-candidate processing/source cost;
-- measured human review/manual research burden;
-- one real reviewer case.
+`CONDITIONAL_CONTINUE_ECONOMIC_VALIDATION_NOT_SCALE`
 
-Then Product Owner decision:
+Real evidence now supports:
 
-`GO / REVISE / STOP`
+- large candidate supply;
+- technically bounded source processing;
+- authority-backed insurance classification;
+- an official NY location-service-provider framework.
+
+Still unproven:
+
+- unique/contactable candidate rate;
+- recoverable-value distribution;
+- pre-contact value observability;
+- agreement conversion;
+- successful recovery rate;
+- realized fee percentage;
+- fee collection;
+- full per-case cost;
+- cycle time;
+- contribution before overhead.
+
+Next economic stage is deliberately narrow:
+
+1. synthetic-only one-candidate transient materialization implementation and review;
+2. explicit legal/privacy review for the minimum real-candidate scope;
+3. one separately authorized real economic-discovery case;
+4. measured economics package;
+5. Product Owner decision on whether broader PII/contact/outreach investment is justified.
+
+No scale build before those measurements.
 
 ## Frozen backlog before MVP-1
 
