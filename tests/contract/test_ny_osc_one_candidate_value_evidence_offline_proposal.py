@@ -38,6 +38,9 @@ def test_one_candidate_value_evidence_proposal_validates() -> None:
     assert proposal["baseline"]["candidate_materialization_state"] == (
         "NOT_AUTHORIZED_AGGREGATE_ONLY"
     )
+    assert proposal["required_owner_review_phrase"] == (
+        "APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL"
+    )
 
 
 def test_selection_is_deterministic_non_pii_and_single_candidate() -> None:
