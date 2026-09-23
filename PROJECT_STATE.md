@@ -154,19 +154,33 @@ The two Attempt-11 grants remain `GRANTED_NOT_CONSUMED` against protected runner
 
 `bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
-The new fresh-preflight authorization has now been granted and recorded:
-
-`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh5.v1.json`
-
-Status:
-
-`GRANTED_NOT_CONSUMED`
-
-Expected listing identity:
+A post-authorization authenticated-listing screenshot matched exactly:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-Next action: refresh the already-authenticated NY OSC outbound listing and provide a new screenshot showing filename, size and last modified. Only an exact match after this authorization may create a new 900-second fresh receipt. No download is authorized. Final execution authorization remains a later separate gate.
+A new canonical fresh receipt is recorded:
+
+`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_receipt.v1.json`
+
+Receipt ref:
+
+`PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`
+
+Performed at:
+
+`2026-09-23T12:26:19Z`
+
+Freshness window:
+
+`900 seconds`
+
+No download, Owner Name File open or owner PII processing occurred.
+
+Next gate:
+
+`AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
+
+It must be newly granted and bound to this exact receipt. No download is authorized before that grant is recorded.
 
 ## Product exit criteria
 
