@@ -26,13 +26,17 @@ Attempt 10 then attempted the first direct real product-slice execution. The man
 
 ## Stage 2 — Attempt 11 real product slice — COMPLETED
 
-Branch:
+Historical branch:
 
 `mvp1-ny-eleventh-auto-start-detection-offline`
 
-PR:
+Historical PR:
 
-`#29`
+`#29 — MERGED`
+
+Canonical integration:
+
+`PR #30 — MERGED INTO main at c5a56be629b7a684666a8fc5ee57fec24ff734c4`
 
 Protected runner checkpoint:
 
@@ -130,4 +134,4 @@ Unless a direct blocker is demonstrated: new broad diagnostics, governance layer
 
 ## Git health
 
-`main` remains canonical. PR #29 isolates Attempt 11 from the consumed Attempt-10 branch. No merge is authorized by offline preparation.
+`main` is canonical and contains the validated real-source stack through Attempt 11 via PR #30 at commit `c5a56be629b7a684666a8fc5ee57fec24ff734c4`. Historical stacked PRs must not be used to duplicate integration into `main`.
