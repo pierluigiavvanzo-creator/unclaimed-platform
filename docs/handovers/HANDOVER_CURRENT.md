@@ -316,7 +316,15 @@ Required Product Owner phrase:
 
 `APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL`
 
-That phrase authorizes proposal acceptance only. It does not authorize implementation, source access, download, owner PII processing, candidate materialization, value research, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity.
+Review result: `APPROVED_PROPOSAL_ONLY`.
+
+Approval evidence:
+
+`sources/evidence/ny_osc_one_candidate_value_evidence_offline_proposal_approval.v1.json`
+
+The approval authorizes proposal acceptance only. It does not authorize implementation, source access, download, owner PII processing, candidate materialization, value research, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity.
+
+The Product Owner separately requested a whole-project economic-feasibility audit after this proposal review. That audit must be isolated from proposal implementation and must not silently expand source/PII scope.
 
 ## Git health
 
