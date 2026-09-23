@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.tenth_attempt_execution_result",
+  "recorded_on": "2026-09-23",
+  "attempt_number": 10,
+  "contract_version": "1.7.0",
+  "execution_mode": "AUTHORIZED_REAL_ONCE",
+  "proposal_checkpoint": "dea34cbc503dd5f6bf62ec6c31483056c4b34966",
+  "runner_checkpoint": "37450aa70f2011dd553ff33aadce65df86be04f7",
+  "status": "BLOCKED",
+  "reason_code": "AUTHORIZED_DOWNLOAD_START_OUTSIDE_FRESH_PREFLIGHT_WINDOW",
+  "failure_stage": "BUILD_REAL_EXECUTION_AUTHORIZATION_V1_6",
+  "fresh_preflight_receipt_ref": "PREFLIGHT_RECEIPT_2026-09-23T064713Z_NY_OSC_TENTH_EXACT_MATCH_37450AA7",
+  "fresh_preflight_performed_at_utc": "2026-09-23T06:47:13Z",
+  "freshness_window_seconds": 900,
+  "execution_authorization_ref": "OWNER_APPROVAL_2026-09-23T064814Z_NY_OSC_TENTH_BOUNDED_EXECUTION_ONCE_37450AA7",
+  "observed_runtime_error": "authorized download start is outside fresh preflight window",
+  "download_completed_before_failure": true,
+  "download_completion_basis": "Gate 10 checks FINDERS.zip exists before invoking the Python entrypoint; the observed traceback is from that entrypoint.",
+  "product_slice_started": false,
+  "classification_started": false,
+  "candidate_or_zero_candidate_result_produced": false,
+  "owner_values_returned": false,
+  "raw_path_returned": false,
+  "retry_authorized": false,
+  "authorization_state_after_execution": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "cleanup": {
+    "runner_finally_cleanup_attempted": true,
+    "local_file_deletion_independently_verified": false,
+    "physical_secure_erasure_guaranteed": false
+  },
+  "next_execution_requires_new_fresh_preflight_and_new_execution_authorization": true
+}
