@@ -166,19 +166,37 @@ Current states:
 
 No download, fresh preflight or Owner Name File open was performed while recording these grants.
 
-## SINGLE NEXT ACTION
+## Attempt 11 fresh-preflight refresh 5
 
-Request a new separate single-use:
+A new single-use fresh-preflight authorization has been granted and recorded:
 
-`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh5.v1.json`
 
-Bind it to runner checkpoint `bac89609e9069efc98fcd0866b89ee4ee16f1689` and the refreshed listing metadata snapshot:
+Status:
+
+`GRANTED_NOT_CONSUMED`
+
+It is bound to protected runner checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+
+and expected listing identity:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-Then refresh the authenticated listing again and require an exact match before creating a new 900-second fresh receipt.
+No download, Owner Name File open or owner PII processing is authorized by this grant.
 
-Final execution authorization remains a later separate gate.
+## SINGLE NEXT ACTION
+
+Refresh the already-authenticated NY OSC outbound listing again and provide a new screenshot showing filename, size and last modified.
+
+Only an exact match observed after this fresh-preflight authorization may create a new 900-second fresh receipt.
+
+Only after a new exact-match fresh receipt exists may a new:
+
+`AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
+
+be requested and bound to that exact receipt.
 
 ## Expected real Attempt-11 output
 
