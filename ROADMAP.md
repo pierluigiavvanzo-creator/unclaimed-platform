@@ -24,9 +24,9 @@ The terminal-empty-field hypothesis is rejected.
 
 Attempt 10 then attempted the first direct real product-slice execution. The manual download occurred, but the product slice did not start because the operator-captured download-start marker fell outside the 900-second fresh-preflight window. Attempt 10 is consumed/non-reusable/zero-retry.
 
-## Stage 2 — Attempt 11: execute the same real product slice with automatic start detection
+## Stage 2 — Attempt 11 real product slice — COMPLETED
 
-Active branch:
+Branch:
 
 `mvp1-ny-eleventh-auto-start-detection-offline`
 
@@ -34,77 +34,91 @@ PR:
 
 `#29`
 
-Proposal checkpoint:
+Protected runner checkpoint:
 
-`270de2f6e79b7c654052519adc446fe76b811771`
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
-Runner/code checkpoint:
+Runner CI:
 
-`ce005f08a3bbd23eb8fac6088917109f7864e924`
+`35859448715 — SUCCESS`
 
-CI:
+Attempt 11 completed one bounded real execution with automatic download-start detection.
 
-`35834948309 — SUCCESS`
+Authoritative result:
 
-Attempt 11 changes only the freshness handoff. The Attempt-10 product slice remains unchanged.
+`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
 
-Freshness handoff:
+Observed product result:
 
-- require at least `180` seconds of preflight freshness before showing the download instruction;
-- dedicated temp directory must be empty before arming;
-- automatic start detector is armed before the operator is told to download;
-- poll every `100 ms`;
-- first non-empty file observed in the dedicated directory captures the UTC start marker;
-- no first Enter;
-- deadline overrun -> fail closed;
-- no freshness extension and no retry.
+- `14994489` total records;
+- `14994477` structurally conforming records;
+- `12` deferred structural records;
+- `2792990` authority-backed insurance records;
+- `203921` primary `IN03` aggregate candidates;
+- `2589069` other insurance records;
+- `12201486` no-authority-match records;
+- `1` unclassifiable Property Type Code record;
+- `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
+- `VALUE_EVIDENCE_REQUIRED`.
 
-Structural/classification rule:
+No owner/raw values were returned or persisted by the result. The local archive was reported logically deleted; physical secure erasure is not guaranteed.
 
-- exactly `13` pipes -> documented `14` fields -> classify;
-- any other pipe count -> metadata-only structural defer;
-- buffer/decode only Property Type Code at zero-based index `1`;
-- exact authority-backed code matching only;
-- `IN03` remains the MVP-1 primary target;
-- no owner/candidate PII materialization.
+## Stage 3 — Attempt 11 human gates — CONSUMED
 
-Required real output:
+All Attempt-11 single-use gates required for the completed execution were exercised and are non-reusable:
 
-- total records;
-- structurally conforming/deferred counts;
-- authority-backed insurance count;
-- aggregate `IN03` candidate count;
+1. transient local-file grant;
+2. transient PII grant;
+3. fresh-listing preflight authorization;
+4. exact-match fresh receipt;
+5. bounded execution authorization;
+6. one manual download and one Gate-11 execution.
+
+State:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
+
+No Attempt-11 grant may be reused.
+
+## Stage 4 — Immediate result consumption — ACTIVE
+
+The real source produced `203921` aggregate primary `IN03` candidates.
+
+Therefore the critical path moves downstream to:
+
+`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
+
+Current blocker:
+
+- candidate materialization is `NOT_AUTHORIZED_AGGREGATE_ONLY`;
+- recoverable value is `UNKNOWN_FROM_SOURCE`;
+- lawful fee basis is not established for a real case;
+- measured follow-up cost for a real candidate is not yet available.
+
+Existing repository components for candidate contracts, value evidence, follow-up-cost measurement, case economics and reviewer display must be reused before any new custom implementation.
+
+Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
+
+Before any new real-source or candidate-PII operation, create and review a bounded repository-only proposal specifying the minimum fields, retention, privacy scope, deterministic selection rule, evidence path and stop conditions for one candidate.
+
+## Stage 5 — Economic baseline and Product Owner decision — PARTIAL
+
+Real funnel measurements now established:
+
+- records examined;
+- structural defer count;
+- insurance-classification survivors;
+- primary candidate count;
 - other-insurance count;
-- no-authority-match and unclassifiable counts;
-- candidate-present or documented zero-candidate outcome;
-- economic actionability state.
+- no-authority-match/unclassifiable counts.
 
-Economics remain fail-closed: no invented source value, fee basis, or commercial threshold.
+Still missing before a reviewer-actionable economic result:
 
-## Stage 3 — Human gates for Attempt 11
-
-Request in order and do not infer one gate from another:
-
-1. `APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`;
-2. `APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`;
-3. `AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`;
-4. fresh `EXACT_MATCH` receipt;
-5. `AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`;
-6. one manual download and one Gate 11 execution, zero retries.
-
-No Attempt-10 grant is reusable.
-
-## Stage 4 — Immediate result consumption
-
-If Attempt 11 returns one or more aggregate `IN03` candidates, move directly to the minimum lawful evidence/value step needed for one reviewer-actionable case.
-
-If it returns zero `IN03` candidates, record the real zero-candidate product result and evaluate source/product fit.
-
-Do not return to parser or timing diagnostics unless the real output proves a new concrete blocker.
-
-## Stage 5 — Economic baseline and Product Owner decision
-
-Capture only evidence-supported measures: records examined, defer rate, insurance survivors, primary candidate count, supported processing/source cost, measured review burden, recoverable value/value band only where evidenced, lawful fee/revenue basis only where evidenced, and main drop-off reasons.
+- lawfully evidenced recoverable value/value band;
+- lawful fee/revenue basis where applicable;
+- measured per-candidate processing/source cost;
+- measured human review/manual research burden;
+- one real reviewer case.
 
 Then Product Owner decision:
 
