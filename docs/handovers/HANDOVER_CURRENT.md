@@ -101,15 +101,45 @@ Product boundary remains:
 
 No NY OSC source access, preflight, download or real PII processing occurred during Attempt-11 offline preparation.
 
+## Attempt 11 listing metadata drift — 2026-09-23
+
+The Attempt-11 local-file and transient-PII grants are already `GRANTED_NOT_CONSUMED`.
+
+A refresh-3 metadata-only fresh-preflight was authorized. The Product Owner then refreshed the authenticated NY OSC outbound listing and supplied a screenshot showing:
+
+- `FINDERS.zip`
+- `390.51 MB`
+- `9/23/2026, 1:12:44 PM`
+
+The prior expected last-modified value was `9/16/2026, 1:33:31 PM`, so the preflight correctly failed closed and no receipt was created.
+
+Repository-only drift review accepted the new observation only as a **future listing-metadata identity snapshot**:
+
+`sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v2.json`
+
+Audit:
+
+`docs/audits/NY_OSC_ELEVENTH_LISTING_METADATA_DRIFT_REVIEW.md`
+
+No archive-content equivalence is inferred. No download, Owner Name File open or owner PII processing was authorized or performed by this review.
+
 ## SINGLE NEXT ACTION
 
-Request the first two Attempt-11 grants together:
+Request a new single-use:
 
-`APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
 
-`APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+After that grant is recorded against the new metadata snapshot, refresh the authenticated listing again and provide a new screenshot. Only an exact match to:
 
-Only after those are registered may a separate fresh-preflight authorization be requested. Final execution authorization remains another separate gate.
+`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+
+may create a new fresh receipt.
+
+Only after a new exact-match fresh receipt exists may a new:
+
+`AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
+
+be requested and bound to that exact receipt. Final Gate-11 execution remains one download, one execution and zero retry.
 
 ## Expected real Attempt-11 output
 
