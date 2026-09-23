@@ -308,23 +308,45 @@ Design summary:
 
 No source access, download, candidate PII processing or value research occurred while preparing this proposal.
 
+## Whole-project economic feasibility audit — 2026-09-23
+
+Audit branch:
+
+`audit-economic-feasibility-2026-09-23`
+
+Audit:
+
+`docs/audits/ECONOMIC_FEASIBILITY_AUDIT_2026-09-23.md`
+
+Baseline:
+
+`main @ 9873005e61a088f718aeb3093fdb57ac6827ab44`
+
+Status:
+
+`CONDITIONAL_CONTINUE_ECONOMIC_VALIDATION_NOT_SCALE`
+
+Key finding:
+
+The project has proven real candidate supply and technical screening, but has not yet proven unit economics. The primary economic risk is that exact case value is unavailable before claim review/ownership verification while customer acquisition/research/contact costs may occur earlier.
+
+Current strategic rule:
+
+`BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE`
+
+Do not expand multi-agent architecture, multi-state sources, graph infrastructure, durable PII, genealogy or outreach systems until one real case produces measured value/cost/conversion evidence.
+
 ## SINGLE NEXT ACTION
 
-Human-review this proposal only.
+Product Owner reviews the economic-feasibility conclusion.
 
-Required Product Owner phrase:
+If accepted, execute only:
 
-`APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL`
+`IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION`
 
-Review result: `APPROVED_PROPOSAL_ONLY`.
+against the already approved one-candidate proposal.
 
-Approval evidence:
-
-`sources/evidence/ny_osc_one_candidate_value_evidence_offline_proposal_approval.v1.json`
-
-The approval authorizes proposal acceptance only. It does not authorize implementation, source access, download, owner PII processing, candidate materialization, value research, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity.
-
-The Product Owner separately requested a whole-project economic-feasibility audit after this proposal review. That audit must be isolated from proposal implementation and must not silently expand source/PII scope.
+No real source access, download, owner PII processing, identity resolution, beneficiary matching, outreach or value research is authorized by the economic audit.
 
 ## Git health
 
