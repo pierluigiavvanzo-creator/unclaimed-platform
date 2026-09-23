@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 
 ## Product validation critical path
 
@@ -8,116 +8,103 @@ Last updated: 2026-09-22
 
 No broad platform expansion is scheduled before this is complete.
 
-## Stage 1 — Real-source execution evidence
+## Stage 1 — Real-source evidence already established
 
-Attempts 8 and 9 established real-source transport and structure under bounded single-use authorization.
+Attempt 9 scanned the complete real archive under bounded authorization:
 
-Attempt 9 whole-file result:
-
-- `14994489` physical records scanned;
+- `14994489` physical records;
 - `12` records with exactly `14` pipes;
-- `0` records ending in a terminal pipe;
+- `0` records ending with a terminal pipe;
 - `12` records with non-empty bytes after the 14th pipe;
-- `14994477` records with a pipe count different from 14;
-- no raw/owner values returned;
-- archive logically deleted;
+- `14994477` records with another pipe count;
+- no owner/raw values returned;
 - authorization consumed, zero retry.
 
-The empty-terminal-field hypothesis is rejected. The aggregate `other pipe count` bucket must not be interpreted as all having 13 pipes without another observation.
+The terminal-empty-field hypothesis is rejected.
 
-## Stage 2 — Attempt 10: execute a real product slice
+Attempt 10 then attempted the first direct real product-slice execution. The manual download occurred, but the product slice did not start because the operator-captured download-start marker fell outside the 900-second fresh-preflight window. Attempt 10 is consumed/non-reusable/zero-retry.
+
+## Stage 2 — Attempt 11: execute the same real product slice with automatic start detection
 
 Active branch:
 
-`mvp1-ny-tenth-product-slice-offline`
+`mvp1-ny-eleventh-auto-start-detection-offline`
 
 PR:
 
-`#28`
+`#29`
 
-Attempt 10 directly advances the product slice instead of opening another pure diagnostic phase.
+Proposal checkpoint:
 
-Structural rule:
+`270de2f6e79b7c654052519adc446fe76b811771`
 
-- exactly `13` pipe bytes -> documented `14` fields -> eligible for classification;
-- any other pipe count -> `DEFER_STRUCTURAL_NONCONFORMING_METADATA_ONLY`;
-- no repair, trimming or structural inference.
+Runner/code checkpoint:
 
-Classification rule:
+`ce005f08a3bbd23eb8fac6088917109f7864e924`
 
-- buffer/decode only `Property Type Code` at documented zero-based index `1`;
-- reuse existing authority-backed `NY_INSURANCE_CODES`;
-- exact code match only;
-- `IN03` is the existing MVP-1 primary target;
-- no owner/candidate PII materialization in this execution package.
+CI:
+
+`35834948309 — SUCCESS`
+
+Attempt 11 changes only the freshness handoff. The Attempt-10 product slice remains unchanged.
+
+Freshness handoff:
+
+- require at least `180` seconds of preflight freshness before showing the download instruction;
+- dedicated temp directory must be empty before arming;
+- automatic start detector is armed before the operator is told to download;
+- poll every `100 ms`;
+- first non-empty file observed in the dedicated directory captures the UTC start marker;
+- no first Enter;
+- deadline overrun -> fail closed;
+- no freshness extension and no retry.
+
+Structural/classification rule:
+
+- exactly `13` pipes -> documented `14` fields -> classify;
+- any other pipe count -> metadata-only structural defer;
+- buffer/decode only Property Type Code at zero-based index `1`;
+- exact authority-backed code matching only;
+- `IN03` remains the MVP-1 primary target;
+- no owner/candidate PII materialization.
 
 Required real output:
 
 - total records;
-- structurally conforming records;
-- structurally deferred records;
-- authority-backed insurance records;
-- `IN03` aggregate candidate records;
-- other insurance records;
-- records with no authority-backed insurance match;
-- unclassifiable Property Type Code records;
-- aggregate candidate or documented zero-candidate outcome;
+- structurally conforming/deferred counts;
+- authority-backed insurance count;
+- aggregate `IN03` candidate count;
+- other-insurance count;
+- no-authority-match and unclassifiable counts;
+- candidate-present or documented zero-candidate outcome;
 - economic actionability state.
 
-Economics remain fail-closed:
+Economics remain fail-closed: no invented source value, fee basis, or commercial threshold.
 
-- source value: `UNKNOWN_FROM_SOURCE`;
-- no invented dollar value;
-- no invented fee basis;
-- candidate-present result -> `VALUE_EVIDENCE_REQUIRED`;
-- zero-candidate result -> `ZERO_CANDIDATE_NO_CASE_ECONOMICS`.
+## Stage 3 — Human gates for Attempt 11
 
-Offline package checkpoint before canonical-document updates:
+Request in order and do not infer one gate from another:
 
-`b34a2a283cf45a2e205af4d8944a0b35cb74e6b2`
-
-CI:
-
-`35777375233 — SUCCESS`
-
-All Python quality/tests, Streamlit checks and frontend lint/typecheck/build passed.
-
-No source access or real PII processing occurred during offline package preparation.
-
-## Stage 3 — Human gates for Attempt 10
-
-Only after the final documented checkpoint is CI green, request in order:
-
-1. `APPROVO NY OSC TENTH TRANSIENT LOCAL FILE BOUNDED ONCE`;
-2. `APPROVO NY OSC OWNER NAME FILE TENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`;
-3. `AUTHORIZE_NY_OSC_TENTH_FRESH_LISTING_PREFLIGHT`;
+1. `APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`;
+2. `APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`;
+3. `AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`;
 4. fresh `EXACT_MATCH` receipt;
-5. `AUTHORIZE_NY_OSC_TENTH_BOUNDED_EXECUTION_ONCE`;
-6. one manual download and one Gate 10 execution, zero retries.
+5. `AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`;
+6. one manual download and one Gate 11 execution, zero retries.
 
-No earlier grant is reusable.
+No Attempt-10 grant is reusable.
 
 ## Stage 4 — Immediate result consumption
 
-If Attempt 10 produces one or more aggregate `IN03` candidates, move directly to the minimum lawful evidence/value step needed to make one candidate reviewer-actionable. Do not perform identity resolution, beneficiary matching, outreach, representation or claim activity without their separate later gates.
+If Attempt 11 returns one or more aggregate `IN03` candidates, move directly to the minimum lawful evidence/value step needed for one reviewer-actionable case.
 
-If Attempt 10 produces zero `IN03` candidates, record the real zero-candidate outcome and evaluate source/product fit rather than returning to parser experimentation by default.
+If it returns zero `IN03` candidates, record the real zero-candidate product result and evaluate source/product fit.
 
-Exit criterion: a real reviewer-facing candidate/economic evidence path or a documented real zero-candidate product result.
+Do not return to parser or timing diagnostics unless the real output proves a new concrete blocker.
 
 ## Stage 5 — Economic baseline and Product Owner decision
 
-Capture only evidence-supported measures:
-
-- records examined;
-- structurally deferred rate;
-- records surviving insurance classification;
-- primary candidate count;
-- processing/source cost where supportable;
-- human review burden where measured;
-- recoverable value/value band only where evidence exists;
-- lawful fee/revenue basis only where evidence exists;
-- main failure/drop-off reasons.
+Capture only evidence-supported measures: records examined, defer rate, insurance survivors, primary candidate count, supported processing/source cost, measured review burden, recoverable value/value band only where evidenced, lawful fee/revenue basis only where evidenced, and main drop-off reasons.
 
 Then Product Owner decision:
 
@@ -125,19 +112,8 @@ Then Product Owner decision:
 
 ## Frozen backlog before MVP-1
 
-Unless a direct blocker is demonstrated:
-
-- new source-diagnostic programs;
-- broad parser research;
-- new governance layers;
-- multi-state expansion;
-- new agent frameworks;
-- graph infrastructure;
-- broad genealogy automation;
-- outreach/contracts/claims automation;
-- non-critical UI polish;
-- infrastructure refactors without direct MVP-1 value.
+Unless a direct blocker is demonstrated: new broad diagnostics, governance layers, multi-state expansion, new agent frameworks, graph infrastructure, broad genealogy automation, outreach/contracts/claims automation, non-critical UI polish, and infrastructure refactors.
 
 ## Git health
 
-`main` remains canonical. PR #28 isolates the Attempt-10 delta from Attempt 9. No merge is authorized by offline preparation.
+`main` remains canonical. PR #29 isolates Attempt 11 from the consumed Attempt-10 branch. No merge is authorized by offline preparation.
