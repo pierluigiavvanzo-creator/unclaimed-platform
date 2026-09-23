@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "gate": "HUMAN_REVIEW_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL",
+  "required_owner_phrase": "APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL",
+  "owner_phrase": "APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL",
+  "granted_on": "2026-09-23",
+  "status": "APPROVED_PROPOSAL_ONLY",
+  "reusable": false,
+  "scope": {
+    "proposal_acceptance": true,
+    "runtime_implementation": false,
+    "source_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "owner_pii_processing": false,
+    "candidate_materialization": false,
+    "value_research": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "proposal_ref": "sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json",
+  "review_ref": "docs/audits/NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL_REVIEW.md",
+  "branch": "mvp1-ny-one-candidate-value-evidence-offline-proposal",
+  "proposal_head_at_approval": "def4cd8b096014f479b7b5819665e646a19d3fda"
+}
