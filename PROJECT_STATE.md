@@ -150,20 +150,23 @@ Audit:
 
 The prior Attempt-11 local-file, transient-PII and refresh-4 preflight grants were not consumed, but they are bound to runner checkpoint `ce005f08a3bbd23eb8fac6088917109f7864e924` and therefore cannot be reused for the new protected runner.
 
-The two Attempt-11 grants have now been reissued and recorded against the refreshed protected runner checkpoint:
+The two Attempt-11 grants remain `GRANTED_NOT_CONSUMED` against protected runner checkpoint:
 
 `bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
-Current grant states:
+The new fresh-preflight authorization has now been granted and recorded:
 
-1. transient local file — `GRANTED_NOT_CONSUMED`;
-2. transient PII — `GRANTED_NOT_CONSUMED`.
+`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh5.v1.json`
 
-Next gate:
+Status:
 
-`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+`GRANTED_NOT_CONSUMED`
 
-The new fresh-preflight authorization must be separately bound to the refreshed runner and the current listing metadata snapshot. Final execution authorization remains a later separate gate. No download is authorized.
+Expected listing identity:
+
+`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+
+Next action: refresh the already-authenticated NY OSC outbound listing and provide a new screenshot showing filename, size and last modified. Only an exact match after this authorization may create a new 900-second fresh receipt. No download is authorized. Final execution authorization remains a later separate gate.
 
 ## Product exit criteria
 
