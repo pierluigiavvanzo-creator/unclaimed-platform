@@ -63,15 +63,23 @@ Result:
 
 Root cause: Gate 10 depended on the operator pressing Enter to capture the download-start marker. That marker was recorded after the 900-second preflight deadline.
 
-## Current product-critical path — NY OSC Attempt 11
+## Completed product-critical milestone — NY OSC Attempt 11
 
 Branch:
 
 `mvp1-ny-eleventh-auto-start-detection-offline`
 
-PR:
+Historical PR:
 
-`#29`
+`#29 — MERGED`
+
+Canonical integration PR:
+
+`#30 — MERGED INTO main`
+
+Main integration commit:
+
+`c5a56be629b7a684666a8fc5ee57fec24ff734c4`
 
 Attempt 11 reuses the Attempt-10 product slice unchanged and modifies only the freshness handoff.
 
@@ -175,13 +183,19 @@ Do not return to parser/timing diagnostics unless new evidence proves a concrete
 
 ## Current next action
 
-PR #29 contains the completed Attempt-11 milestone and remains open/unmerged.
+Attempt 11 and the accumulated real-source stack are now integrated into canonical `main` through PR #30.
 
-Perform Product Owner review of the completed Attempt-11 evidence and obtain explicit authorization or rejection for merge of PR #29 into `main`.
+Canonical integration commit:
 
-Do not merge without explicit Product Owner authorization.
+`c5a56be629b7a684666a8fc5ee57fec24ff734c4`
 
-After merge, create a new isolated branch for a repository-only bounded proposal for the minimum lawful one-candidate materialization/value-evidence step. No new source download or real candidate PII materialization is authorized by the current state.
+Next work is repository-only and offline:
+
+create a new isolated branch and prepare a bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
+
+The proposal must reuse existing candidate/classification, value-evidence, follow-up-cost, explicit-economics and reviewer components before adding custom implementation.
+
+No new source download, real candidate PII materialization, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity is authorized by the current state.
 
 ## Product exit criteria
 
