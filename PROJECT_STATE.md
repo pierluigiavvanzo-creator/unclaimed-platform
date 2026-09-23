@@ -128,15 +128,15 @@ Review:
 
 The snapshot is accepted only as future preflight listing identity; no archive-content equivalence is inferred.
 
-Next gate:
+The new single-use fresh-preflight grant is now recorded as `GRANTED_NOT_CONSUMED`:
 
-`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh4.v1.json`
 
-After that new grant, refresh the authenticated listing again and require an exact match to:
+It is bound to the refreshed metadata snapshot:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-Only then may a new fresh receipt be created. Final Gate-11 execution authorization remains a later separate gate. No Attempt-10 authorization may be reused.
+Next action: refresh the already-authenticated NY OSC outbound listing and provide a screenshot showing filename, size and last modified. Only an exact match may create a new fresh receipt. No download is authorized. Final Gate-11 execution authorization remains a later separate gate. No Attempt-10 authorization may be reused.
 
 ## Product exit criteria
 
