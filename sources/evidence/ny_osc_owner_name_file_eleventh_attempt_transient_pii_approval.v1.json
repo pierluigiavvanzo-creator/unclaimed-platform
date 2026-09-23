@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_gate": "HUMAN_NY_OSC_ELEVENTH_TRANSIENT_PII_AUTHORIZATION",
+  "required_owner_authorization": "APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+  "owner_authorization": "APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE",
+  "granted_on": "2026-09-23",
+  "execution_approval_ref": "OWNER_APPROVAL_2026-09-23T122008Z_NY_OSC_ELEVENTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_BAC89609",
+  "status": "CONSUMED_SINGLE_USE_NON_REUSABLE",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "attempt_number": 11,
+  "proposal_ref": "sources/proposals/ny_osc_owner_name_file_eleventh_product_slice_auto_start_authorization.v1.json",
+  "proposal_checkpoint": "270de2f6e79b7c654052519adc446fe76b811771",
+  "runner_checkpoint": "bac89609e9069efc98fcd0866b89ee4ee16f1689",
+  "runner_ci_run_id": 35859448715,
+  "runner_ci_conclusion": "SUCCESS",
+  "source_identity": {
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "expected_remote_name": "FINDERS.zip",
+    "historical_size_display_for_preflight_only": "390.51 MB",
+    "historical_last_modified_display_for_preflight_only": "9/16/2026, 1:33:31 PM",
+    "fresh_preflight_required": true
+  },
+  "execution_bounds": {
+    "downloads_max": 1,
+    "retries_max": 0,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "required_transient_execution_authorization_contract_version": "1.7.0",
+    "required_execution_result_contract_version": "1.8.0",
+    "required_product_slice_contract_version": "1.0.0",
+    "automatic_retry_allowed": false
+  },
+  "processing_scope": {
+    "transient_owner_pii_in_memory_allowed": true,
+    "owner_rows_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "property_type_code_only_buffering_allowed": true,
+    "derived_non_pii_aggregate_metadata_persistence_allowed": true
+  },
+  "authorization_does_not_grant": {
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "source_activation": false,
+    "production_classification_activation": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "granted_at_utc": "2026-09-23T12:20:08Z",
+  "supersedes_approval_ref": "OWNER_APPROVAL_2026-09-23T081612Z_NY_OSC_ELEVENTH_BOUNDED_TRANSIENT_PII_ATTEMPT_ONCE_CE005F08",
+  "consumed_by_execution_result_ref": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json",
+  "consumed_execution_authorization_ref": "OWNER_APPROVAL_2026-09-23T122809Z_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE_BAC89609"
+}

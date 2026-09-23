@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 
 ## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION MODE
 
@@ -12,103 +12,284 @@ Objective:
 
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-## Real-source state through Attempt 9
+## Consumed real attempts relevant to current state
 
-Attempt 9 completed one bounded whole-file structural scan and is consumed/non-reusable/zero-retry.
+### Attempt 9
 
-Authoritative non-sensitive result:
+Consumed/non-reusable/zero-retry whole-file structural scan.
+
+Authoritative evidence:
 
 `sources/evidence/ny_osc_owner_name_file_ninth_attempt_execution_result.v1.json`
 
-Observed aggregate result:
+Key aggregate result: `14994489` physical records, terminal-empty-field hypothesis rejected, no owner/raw values returned.
+
+### Attempt 10
+
+Consumed/non-reusable/zero-retry.
+
+Authoritative evidence:
+
+`sources/evidence/ny_osc_owner_name_file_tenth_attempt_execution_result.v1.json`
+
+Result:
 
 - status `BLOCKED`;
-- reason `TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`;
-- archive bytes `409477526`;
-- physical records `14994489`;
-- exactly-14-pipe records `12`;
-- records ending with `|`: `0`;
-- non-empty data after the 14th pipe: `12`;
-- records with any other pipe count: `14994477`;
-- raw archive logically deleted;
-- no owner/raw values returned.
+- reason `AUTHORIZED_DOWNLOAD_START_OUTSIDE_FRESH_PREFLIGHT_WINDOW`;
+- manual download had occurred;
+- classification/product slice never started;
+- no candidate/zero-candidate result;
+- no owner values returned.
 
-The empty-terminal-field hypothesis is rejected. The `14994477` aggregate bucket must not be silently interpreted as all 13-pipe records.
+Root cause: Gate 10 captured the download-start marker only after the Product Owner pressed Enter, and that marker landed outside the 900-second fresh-preflight window.
 
-## Attempt 10 offline product-slice package
+Do not reuse any Attempt-10 grant.
+
+## Attempt 11 offline package
 
 Branch:
 
-`mvp1-ny-tenth-product-slice-offline`
+`mvp1-ny-eleventh-auto-start-detection-offline`
 
 PR:
 
-`#28`
+`#29`
+
+Proposal checkpoint:
+
+`270de2f6e79b7c654052519adc446fe76b811771`
+
+Runner/code checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+
+CI:
+
+`35859448715 — SUCCESS`
+
+All Python quality/tests, Streamlit checks and frontend lint/typecheck/build passed.
 
 Purpose:
 
 `REAL PHYSICAL RECORDS -> STRUCTURAL DEFER/ACCEPT -> PROPERTY TYPE CODE -> INSURANCE CLASSIFICATION -> AGGREGATE CANDIDATE OR ZERO-CANDIDATE -> ECONOMIC ACTIONABILITY`
 
-Implemented:
+The Attempt-10 product slice is reused unchanged.
 
-- exactly `13` pipes is the only accepted physical width for the documented `14` fields;
-- all other physical shapes are deferred metadata-only, not repaired;
-- only Property Type Code at documented field index `1` is buffered/decoded;
-- owner name/address bytes are not buffered, decoded, logged or returned;
-- classification reuses existing authority-backed `NY_INSURANCE_CODES` with exact matching only;
-- `IN03` remains the existing MVP-1 primary target;
-- result exposes aggregate counts only and does not materialize candidate PII;
-- economics remain `UNKNOWN_FROM_SOURCE` / fail-closed;
-- dedicated Python entrypoint and Gate 10 PowerShell runner;
-- one download / one execution / zero retry;
-- archive logical deletion after execution;
-- versioned product-slice result schema and unit tests.
+Gate 11 freshness remediation:
 
-Package checkpoint before these canonical-document updates:
+- minimum `180` freshness seconds remaining before download instruction;
+- new dedicated empty temp directory;
+- automatic detector armed before operator download instruction;
+- `100 ms` polling;
+- first observed non-empty file in the dedicated directory captures the UTC download-start marker;
+- no operator Enter is used to mark transfer start;
+- no detected start before deadline -> fail closed;
+- one manual completion confirmation after the same download finishes;
+- one download / one Gate 11 execution / zero retry;
+- no direct network client.
 
-`b34a2a283cf45a2e205af4d8944a0b35cb74e6b2`
+Product boundary remains:
+
+- exactly `13` pipes -> classify documented 14-field record;
+- all other shapes -> metadata-only defer;
+- only Property Type Code index `1` is buffered/decoded;
+- exact existing authority-backed insurance vocabulary;
+- `IN03` primary target;
+- aggregate result only;
+- no candidate/owner PII materialization;
+- economics remain `UNKNOWN_FROM_SOURCE`.
+
+No NY OSC source access, preflight, download or real PII processing occurred during Attempt-11 offline preparation.
+
+## Attempt 11 listing metadata drift — 2026-09-23
+
+The Attempt-11 local-file and transient-PII grants are already `GRANTED_NOT_CONSUMED`.
+
+A refresh-3 metadata-only fresh-preflight was authorized. The Product Owner then refreshed the authenticated NY OSC outbound listing and supplied a screenshot showing:
+
+- `FINDERS.zip`
+- `390.51 MB`
+- `9/23/2026, 1:12:44 PM`
+
+The prior expected last-modified value was `9/16/2026, 1:33:31 PM`, so the preflight correctly failed closed and no receipt was created.
+
+Repository-only drift review accepted the new observation only as a **future listing-metadata identity snapshot**:
+
+`sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v2.json`
+
+Audit:
+
+`docs/audits/NY_OSC_ELEVENTH_LISTING_METADATA_DRIFT_REVIEW.md`
+
+No archive-content equivalence is inferred. No download, Owner Name File open or owner PII processing was authorized or performed by this review.
+
+## Attempt 11 refreshed-listing runner rebind
+
+A subsequent authenticated-listing screenshot exactly matched:
+
+`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+
+Before creating a fresh receipt, repository inspection found that the protected Gate-11 runner still required the prior `9/16/2026` last-modified value.
+
+The minimal metadata binding was updated without changing product-slice, privacy, retry or network behavior.
+
+New protected runner checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
 CI:
 
-`35777375233 — SUCCESS`
+`35859448715 — SUCCESS`
 
-Passed Ruff, mypy, contract/smoke/full pytest, Streamlit checks, frontend lint/typecheck/build.
+Audit:
 
-No NY OSC source access, preflight, download or real PII processing occurred while preparing Attempt 10 offline.
+`docs/audits/NY_OSC_ELEVENTH_REFRESHED_LISTING_RUNNER_REBIND.md`
+
+The prior Attempt-11 local-file, transient-PII and refresh-4 fresh-preflight grants were not consumed, but they are bound to the previous runner checkpoint `ce005f08a3bbd23eb8fac6088917109f7864e924` and cannot be reused for the new protected package.
+
+No new fresh receipt was created from that screenshot.
+
+## Attempt 11 refreshed-runner grants
+
+The two Attempt-11 grants have been reissued and recorded against protected runner checkpoint:
+
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+
+CI for the protected runner:
+
+`35859448715 — SUCCESS`
+
+Current states:
+
+- transient local file: `GRANTED_NOT_CONSUMED`;
+- transient PII: `GRANTED_NOT_CONSUMED`.
+
+No download, fresh preflight or Owner Name File open was performed while recording these grants.
+
+## Attempt 11 real execution — COMPLETED
+
+Attempt 11 completed one authorized bounded real product-slice execution.
+
+Authoritative result:
+
+`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
+
+Audit:
+
+`docs/audits/NY_OSC_ELEVENTH_ATTEMPT_PRODUCT_SLICE_COMPLETED.md`
+
+Execution identity:
+
+- proposal checkpoint: `270de2f6e79b7c654052519adc446fe76b811771`;
+- protected runner checkpoint: `bac89609e9069efc98fcd0866b89ee4ee16f1689`;
+- runner CI: `35859448715 — SUCCESS`;
+- fresh receipt: `PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`;
+- execution authorization: `OWNER_APPROVAL_2026-09-23T122809Z_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE_BAC89609`;
+- automatically detected download start: `2026-09-23T12:30:59.478237Z`.
+
+Execution result:
+
+- status: `COMPLETED`;
+- reason: `PRODUCT_SLICE_COMPLETED`;
+- archive bytes: `409477526`;
+- total records: `14994489`;
+- structurally conforming: `14994477`;
+- deferred structural: `12`;
+- authority-backed insurance: `2792990`;
+- primary `IN03` aggregate candidates: `203921`;
+- other insurance: `2589069`;
+- no authority-backed insurance match: `12201486`;
+- unclassifiable Property Type Code: `1`;
+- candidate outcome: `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
+- candidate materialization: `NOT_AUTHORIZED_AGGREGATE_ONLY`;
+- economic actionability: `VALUE_EVIDENCE_REQUIRED`;
+- recoverable value: `UNKNOWN_FROM_SOURCE`.
+
+Privacy / retention result:
+
+- owner values buffered: false;
+- owner rows persisted: false;
+- owner field logging: false;
+- row-specific human inspection: false;
+- raw record returned: false;
+- owner values returned: false;
+- local archive deleted: true;
+- deletion is logical only; physical secure erasure is not guaranteed.
+
+## Attempt 11 authorization state
+
+The Attempt-11 single-use chain is consumed.
+
+State:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
+
+The following may not be reused:
+
+- transient local-file grant;
+- transient PII grant;
+- refresh-5 preflight grant;
+- final execution authorization.
+
+No retry or second Attempt-11 download is authorized.
+
+## Product interpretation
+
+The parser/freshness critical blocker is closed for the current bounded vertical slice.
+
+The source has demonstrated a material real funnel:
+
+`14994489 records -> 2792990 authority-backed insurance -> 203921 primary IN03 aggregate candidates`
+
+The project must now move downstream rather than return to parser/timing diagnostics.
+
+Remaining MVP-1 path:
+
+`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
+
+Existing repository components already exist for:
+
+- deterministic candidate/classification contracts;
+- fail-closed NY pre-contact value evidence;
+- measured follow-up-cost contracts;
+- explicit case economics;
+- reviewer surfaces.
+
+They should be reused before new custom implementation.
+
+Current real-data boundary remains strict: candidate materialization, identity resolution, beneficiary matching, outreach, representation, fee agreements and claim activity are not authorized.
 
 ## SINGLE NEXT ACTION
 
-Wait for CI on the final documented Attempt-10 checkpoint.
+Perform Product Owner completion review of Attempt 11 and decide whether to merge PR #29 into canonical `main`.
 
-If and only if green, request the first two new Attempt-10 grants together:
+PR #29 remains open and must NOT be merged without explicit Product Owner authorization.
 
-`APPROVO NY OSC TENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+If merge is authorized and completed, create a new isolated branch and prepare only a repository-first/offline bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
 
-`APPROVO NY OSC OWNER NAME FILE TENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+That proposal must define, before any new real-source execution:
 
-Do not infer fresh-preflight or execution authority from these grants. Those remain separate later gates.
+- deterministic candidate-selection rule;
+- minimum required fields;
+- PII/retention scope;
+- provenance requirements;
+- exact evidence/value objective;
+- stop/fail-closed conditions;
+- reuse of existing candidate/economics/reviewer components;
+- explicit human gates for any new download or real candidate PII.
 
-No Attempt-9 authorization may be reused.
-
-## Expected real Attempt-10 output
-
-The execution should return only non-owner aggregate product metrics:
-
-- total records;
-- structurally conforming/deferred counts;
-- authority-backed insurance count;
-- primary `IN03` aggregate candidate count;
-- other-insurance count;
-- no-authority-match and unclassifiable counts;
-- candidate-present or documented zero-candidate outcome;
-- fail-closed economic actionability state.
-
-If candidates are present, the next product step is evidence/value work required for reviewer actionability, not another parser loop. If zero candidates are found, record the real zero-candidate product result and reassess source/product fit.
-
-## Safety boundaries
-
-Attempt 10 does not authorize source activation, candidate PII persistence, identity resolution, beneficiary matching, outreach, fee agreement, representation or claim activity.
+No new source download is part of the current next action.
 
 ## Git health
 
-`main` remains canonical. PR #28 is open and not merged. No merge is authorized by this handover.
+Canonical integration branch: `main`.
+
+Active milestone branch:
+
+`mvp1-ny-eleventh-auto-start-detection-offline`
+
+PR:
+
+`#29 — OPEN / NOT MERGED`
+
+Merge requires explicit Product Owner authorization.
