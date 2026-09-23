@@ -1,0 +1,1122 @@
+{
+  "$defs": {
+    "EconomicCaseLedger": {
+      "additionalProperties": false,
+      "description": "Non-PII economics evidence record for the synthetic one-case experiment.",
+      "properties": {
+        "contract_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "mode": {
+          "const": "SYNTHETIC_TEST_ONLY",
+          "default": "SYNTHETIC_TEST_ONLY",
+          "title": "Mode",
+          "type": "string"
+        },
+        "case_id": {
+          "format": "uuid",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "source_id": {
+          "const": "ny.osc.unclaimed_funds.owner_name_file",
+          "default": "ny.osc.unclaimed_funds.owner_name_file",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_snapshot_ref": {
+          "minLength": 1,
+          "title": "Source Snapshot Ref",
+          "type": "string"
+        },
+        "selection_rule_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Selection Rule Version",
+          "type": "string"
+        },
+        "source_record_ordinal": {
+          "minimum": 1,
+          "title": "Source Record Ordinal",
+          "type": "integer"
+        },
+        "lane": {
+          "$ref": "#/$defs/FrictionLaneAssignment"
+        },
+        "stage_events": {
+          "items": {
+            "$ref": "#/$defs/EconomicStageEvent"
+          },
+          "minItems": 2,
+          "title": "Stage Events",
+          "type": "array"
+        },
+        "current_discovery_stage": {
+          "const": "L1",
+          "default": "L1",
+          "title": "Current Discovery Stage",
+          "type": "string"
+        },
+        "pre_value_discovery_cost": {
+          "$ref": "#/$defs/PreValueDiscoveryCostSummary"
+        },
+        "value_evidence_state": {
+          "const": "UNKNOWN_PRE_CLAIM_REVIEW",
+          "default": "UNKNOWN_PRE_CLAIM_REVIEW",
+          "title": "Value Evidence State",
+          "type": "string"
+        },
+        "value_evidence_ref": {
+          "const": "component:ny_mvp1_precontact_economics_evidence",
+          "default": "component:ny_mvp1_precontact_economics_evidence",
+          "title": "Value Evidence Ref",
+          "type": "string"
+        },
+        "candidate_selected": {
+          "const": true,
+          "default": true,
+          "title": "Candidate Selected",
+          "type": "boolean"
+        },
+        "identity_work_started": {
+          "const": false,
+          "default": false,
+          "title": "Identity Work Started",
+          "type": "boolean"
+        },
+        "contactability_established": {
+          "const": false,
+          "default": false,
+          "title": "Contactability Established",
+          "type": "boolean"
+        },
+        "contact_attempts_count": {
+          "const": 0,
+          "default": 0,
+          "title": "Contact Attempts Count",
+          "type": "integer"
+        },
+        "agreement_offered": {
+          "const": false,
+          "default": false,
+          "title": "Agreement Offered",
+          "type": "boolean"
+        },
+        "agreement_signed": {
+          "const": false,
+          "default": false,
+          "title": "Agreement Signed",
+          "type": "boolean"
+        },
+        "claim_recovery_started": {
+          "const": false,
+          "default": false,
+          "title": "Claim Recovery Started",
+          "type": "boolean"
+        },
+        "recovery_success": {
+          "const": false,
+          "default": false,
+          "title": "Recovery Success",
+          "type": "boolean"
+        },
+        "fee_billed_cents": {
+          "default": null,
+          "title": "Fee Billed Cents",
+          "type": "null"
+        },
+        "fee_collected_cents": {
+          "default": null,
+          "title": "Fee Collected Cents",
+          "type": "null"
+        },
+        "integration_hooks": {
+          "$ref": "#/$defs/EconomicIntegrationHooks"
+        },
+        "owner_pii_included": {
+          "const": false,
+          "default": false,
+          "title": "Owner Pii Included",
+          "type": "boolean"
+        },
+        "no_lane_value_prediction": {
+          "const": true,
+          "default": true,
+          "title": "No Lane Value Prediction",
+          "type": "boolean"
+        },
+        "no_commercial_recommendation": {
+          "const": true,
+          "default": true,
+          "title": "No Commercial Recommendation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "source_snapshot_ref",
+        "source_record_ordinal",
+        "lane",
+        "stage_events",
+        "pre_value_discovery_cost",
+        "integration_hooks"
+      ],
+      "title": "EconomicCaseLedger",
+      "type": "object"
+    },
+    "EconomicIntegrationHooks": {
+      "additionalProperties": false,
+      "properties": {
+        "value_evidence_component": {
+          "const": "unclaimed_platform.domain.ny_mvp1_value_evidence.ny_mvp1_precontact_economics_evidence",
+          "default": "unclaimed_platform.domain.ny_mvp1_value_evidence.ny_mvp1_precontact_economics_evidence",
+          "title": "Value Evidence Component",
+          "type": "string"
+        },
+        "follow_up_cost_component": {
+          "const": "unclaimed_platform.domain.ny_mvp1_follow_up_cost.measure_follow_up_cost",
+          "default": "unclaimed_platform.domain.ny_mvp1_follow_up_cost.measure_follow_up_cost",
+          "title": "Follow Up Cost Component",
+          "type": "string"
+        },
+        "case_economics_component": {
+          "const": "unclaimed_platform.domain.ny_mvp1_case_economics_integration.integrate_follow_up_cost_with_case_economics",
+          "default": "unclaimed_platform.domain.ny_mvp1_case_economics_integration.integrate_follow_up_cost_with_case_economics",
+          "title": "Case Economics Component",
+          "type": "string"
+        },
+        "case_economics_integration_state": {
+          "const": "BLOCKED_VALUE_AND_FEE_EVIDENCE_REQUIRED",
+          "default": "BLOCKED_VALUE_AND_FEE_EVIDENCE_REQUIRED",
+          "title": "Case Economics Integration State",
+          "type": "string"
+        },
+        "explicit_case_economics_computed": {
+          "const": false,
+          "default": false,
+          "title": "Explicit Case Economics Computed",
+          "type": "boolean"
+        }
+      },
+      "title": "EconomicIntegrationHooks",
+      "type": "object"
+    },
+    "EconomicStageEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "enum": [
+            "L0",
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5"
+          ],
+          "title": "Stage",
+          "type": "string"
+        },
+        "event": {
+          "enum": [
+            "ENTERED",
+            "COMPLETED"
+          ],
+          "title": "Event",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "evidence_ref": {
+          "minLength": 1,
+          "title": "Evidence Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stage",
+        "event",
+        "occurred_at",
+        "evidence_ref"
+      ],
+      "title": "EconomicStageEvent",
+      "type": "object"
+    },
+    "FrictionLaneAssignment": {
+      "additionalProperties": false,
+      "properties": {
+        "initial_lane": {
+          "enum": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "title": "Initial Lane",
+          "type": "string"
+        },
+        "current_lane": {
+          "enum": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "title": "Current Lane",
+          "type": "string"
+        },
+        "assignment_basis": {
+          "const": "EXPLICIT_SYNTHETIC_FRICTION_FIXTURE_NOT_VALUE_PREDICTION",
+          "default": "EXPLICIT_SYNTHETIC_FRICTION_FIXTURE_NOT_VALUE_PREDICTION",
+          "title": "Assignment Basis",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "lane_change_events": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/LaneChangeEvent"
+          },
+          "title": "Lane Change Events",
+          "type": "array"
+        },
+        "value_prediction_performed": {
+          "const": false,
+          "default": false,
+          "title": "Value Prediction Performed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "initial_lane",
+        "current_lane",
+        "evidence_refs"
+      ],
+      "title": "FrictionLaneAssignment",
+      "type": "object"
+    },
+    "LaneChangeEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "from_lane": {
+          "enum": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "title": "From Lane",
+          "type": "string"
+        },
+        "to_lane": {
+          "enum": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "title": "To Lane",
+          "type": "string"
+        },
+        "changed_at": {
+          "format": "date-time",
+          "title": "Changed At",
+          "type": "string"
+        },
+        "reason_code": {
+          "minLength": 1,
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "value_evidence_used": {
+          "const": false,
+          "default": false,
+          "title": "Value Evidence Used",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "from_lane",
+        "to_lane",
+        "changed_at",
+        "reason_code",
+        "evidence_refs"
+      ],
+      "title": "LaneChangeEvent",
+      "type": "object"
+    },
+    "NyMvp1FollowUpCostMeasurementResult": {
+      "properties": {
+        "contract_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "measurement_id": {
+          "format": "uuid",
+          "title": "Measurement Id",
+          "type": "string"
+        },
+        "candidate_case_id": {
+          "format": "uuid",
+          "title": "Candidate Case Id",
+          "type": "string"
+        },
+        "currency": {
+          "const": "USD",
+          "default": "USD",
+          "title": "Currency",
+          "type": "string"
+        },
+        "automated_processing_cost_cents": {
+          "minimum": 0,
+          "title": "Automated Processing Cost Cents",
+          "type": "integer"
+        },
+        "source_data_cost_cents": {
+          "minimum": 0,
+          "title": "Source Data Cost Cents",
+          "type": "integer"
+        },
+        "direct_machine_and_data_cost_cents": {
+          "minimum": 0,
+          "title": "Direct Machine And Data Cost Cents",
+          "type": "integer"
+        },
+        "human_review_seconds": {
+          "minimum": 0,
+          "title": "Human Review Seconds",
+          "type": "integer"
+        },
+        "manual_research_seconds": {
+          "minimum": 0,
+          "title": "Manual Research Seconds",
+          "type": "integer"
+        },
+        "total_human_seconds": {
+          "minimum": 0,
+          "title": "Total Human Seconds",
+          "type": "integer"
+        },
+        "human_labor_rate_state": {
+          "enum": [
+            "NOT_PROVIDED",
+            "DOCUMENTED"
+          ],
+          "title": "Human Labor Rate State",
+          "type": "string"
+        },
+        "human_labor_rate_cents_per_hour": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Human Labor Rate Cents Per Hour"
+        },
+        "human_labor_cost_state": {
+          "enum": [
+            "NOT_COMPUTED_NO_RATE",
+            "COMPUTED_FROM_DOCUMENTED_RATE"
+          ],
+          "title": "Human Labor Cost State",
+          "type": "string"
+        },
+        "human_labor_cost_cents": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Human Labor Cost Cents"
+        },
+        "fully_loaded_follow_up_cost_state": {
+          "enum": [
+            "NOT_COMPUTABLE_NO_LABOR_RATE",
+            "COMPUTED_FROM_MEASURED_COMPONENTS"
+          ],
+          "title": "Fully Loaded Follow Up Cost State",
+          "type": "string"
+        },
+        "fully_loaded_follow_up_cost_cents": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fully Loaded Follow Up Cost Cents"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 4,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "owner_pii_included": {
+          "const": false,
+          "title": "Owner Pii Included",
+          "type": "boolean"
+        },
+        "no_commercial_recommendation": {
+          "const": true,
+          "title": "No Commercial Recommendation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "measurement_id",
+        "candidate_case_id",
+        "automated_processing_cost_cents",
+        "source_data_cost_cents",
+        "direct_machine_and_data_cost_cents",
+        "human_review_seconds",
+        "manual_research_seconds",
+        "total_human_seconds",
+        "human_labor_rate_state",
+        "human_labor_cost_state",
+        "fully_loaded_follow_up_cost_state",
+        "evidence_refs",
+        "owner_pii_included",
+        "no_commercial_recommendation"
+      ],
+      "title": "NyMvp1FollowUpCostMeasurementResult",
+      "type": "object"
+    },
+    "NyMvp1PrecontactEconomicsEvidence": {
+      "properties": {
+        "contract_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "mode": {
+          "const": "OFFLINE_PRECONTACT_EVIDENCE",
+          "default": "OFFLINE_PRECONTACT_EVIDENCE",
+          "title": "Mode",
+          "type": "string"
+        },
+        "jurisdiction": {
+          "const": "NY",
+          "default": "NY",
+          "title": "Jurisdiction",
+          "type": "string"
+        },
+        "source_id": {
+          "const": "ny.osc.unclaimed_funds.owner_name_file",
+          "default": "ny.osc.unclaimed_funds.owner_name_file",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "recoverable_value_state": {
+          "const": "UNKNOWN_PRE_CLAIM_REVIEW",
+          "default": "UNKNOWN_PRE_CLAIM_REVIEW",
+          "title": "Recoverable Value State",
+          "type": "string"
+        },
+        "exact_recoverable_value_cents": {
+          "default": null,
+          "title": "Exact Recoverable Value Cents",
+          "type": "null"
+        },
+        "owner_file_discloses_amount": {
+          "const": false,
+          "default": false,
+          "title": "Owner File Discloses Amount",
+          "type": "boolean"
+        },
+        "claim_review_required_for_exact_amount": {
+          "const": true,
+          "default": true,
+          "title": "Claim Review Required For Exact Amount",
+          "type": "boolean"
+        },
+        "fee_rule_scope": {
+          "const": "ABP_1416_LOCATION_SERVICES_SUBJECT_TO_EXCEPTIONS",
+          "default": "ABP_1416_LOCATION_SERVICES_SUBJECT_TO_EXCEPTIONS",
+          "title": "Fee Rule Scope",
+          "type": "string"
+        },
+        "statutory_fee_cap_bps": {
+          "const": 1500,
+          "default": 1500,
+          "title": "Statutory Fee Cap Bps",
+          "type": "integer"
+        },
+        "actual_fee_bps": {
+          "default": null,
+          "title": "Actual Fee Bps",
+          "type": "null"
+        },
+        "fee_applicability_requires_legal_review": {
+          "const": true,
+          "default": true,
+          "title": "Fee Applicability Requires Legal Review",
+          "type": "boolean"
+        },
+        "expected_follow_up_cost_cents": {
+          "default": null,
+          "title": "Expected Follow Up Cost Cents",
+          "type": "null"
+        },
+        "cost_measurement_state": {
+          "const": "NOT_MEASURED",
+          "default": "NOT_MEASURED",
+          "title": "Cost Measurement State",
+          "type": "string"
+        },
+        "commercial_actionability": {
+          "const": "NOT_COMPUTABLE_PRE_CONTACT",
+          "default": "NOT_COMPUTABLE_PRE_CONTACT",
+          "title": "Commercial Actionability",
+          "type": "string"
+        },
+        "reason_codes": {
+          "default": [
+            "RECOVERABLE_VALUE_UNDISCLOSED_PRE_CLAIM_REVIEW",
+            "ACTUAL_FEE_RATE_UNSUPPORTED",
+            "FOLLOW_UP_COST_NOT_MEASURED"
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "const": "RECOVERABLE_VALUE_UNDISCLOSED_PRE_CLAIM_REVIEW",
+              "type": "string"
+            },
+            {
+              "const": "ACTUAL_FEE_RATE_UNSUPPORTED",
+              "type": "string"
+            },
+            {
+              "const": "FOLLOW_UP_COST_NOT_MEASURED",
+              "type": "string"
+            }
+          ],
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "reviewer_decision_required": {
+          "const": "CONTINUE_VALUE_RESEARCH_OR_STOP",
+          "default": "CONTINUE_VALUE_RESEARCH_OR_STOP",
+          "title": "Reviewer Decision Required",
+          "type": "string"
+        }
+      },
+      "title": "NyMvp1PrecontactEconomicsEvidence",
+      "type": "object"
+    },
+    "PersistentCandidateEnvelope": {
+      "additionalProperties": false,
+      "description": "Durable candidate envelope that excludes Owner Name and Property ID.",
+      "properties": {
+        "contract_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "case_id": {
+          "format": "uuid",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "source_id": {
+          "const": "ny.osc.unclaimed_funds.owner_name_file",
+          "default": "ny.osc.unclaimed_funds.owner_name_file",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_snapshot_ref": {
+          "minLength": 1,
+          "title": "Source Snapshot Ref",
+          "type": "string"
+        },
+        "source_record_ordinal": {
+          "minimum": 1,
+          "title": "Source Record Ordinal",
+          "type": "integer"
+        },
+        "selection_rule_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Selection Rule Version",
+          "type": "string"
+        },
+        "property_type_code": {
+          "const": "IN03",
+          "default": "IN03",
+          "title": "Property Type Code",
+          "type": "string"
+        },
+        "property_owner_count": {
+          "const": 1,
+          "default": 1,
+          "title": "Property Owner Count",
+          "type": "integer"
+        },
+        "reported_by": {
+          "minLength": 1,
+          "title": "Reported By",
+          "type": "string"
+        },
+        "reported_when": {
+          "minLength": 1,
+          "title": "Reported When",
+          "type": "string"
+        },
+        "candidate_state": {
+          "const": "SYNTHETIC_TRANSIENT_MATERIALIZED",
+          "default": "SYNTHETIC_TRANSIENT_MATERIALIZED",
+          "title": "Candidate State",
+          "type": "string"
+        },
+        "value_evidence_state": {
+          "const": "UNKNOWN_PRE_CLAIM_REVIEW",
+          "default": "UNKNOWN_PRE_CLAIM_REVIEW",
+          "title": "Value Evidence State",
+          "type": "string"
+        },
+        "persistent_candidate_contains_owner_pii": {
+          "const": false,
+          "default": false,
+          "title": "Persistent Candidate Contains Owner Pii",
+          "type": "boolean"
+        },
+        "owner_name_persisted": {
+          "const": false,
+          "default": false,
+          "title": "Owner Name Persisted",
+          "type": "boolean"
+        },
+        "property_id_persisted": {
+          "const": false,
+          "default": false,
+          "title": "Property Id Persisted",
+          "type": "boolean"
+        },
+        "raw_row_persisted": {
+          "const": false,
+          "default": false,
+          "title": "Raw Row Persisted",
+          "type": "boolean"
+        },
+        "address_fields_persisted": {
+          "const": false,
+          "default": false,
+          "title": "Address Fields Persisted",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "source_snapshot_ref",
+        "source_record_ordinal",
+        "reported_by",
+        "reported_when"
+      ],
+      "title": "PersistentCandidateEnvelope",
+      "type": "object"
+    },
+    "PreValueDiscoveryCostSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "enum": [
+            "NOT_STARTED",
+            "MEASURING",
+            "VALUE_KNOWN",
+            "VALUE_STILL_UNKNOWN_STOPPED",
+            "VALUE_REQUIRES_UNAUTHORIZED_SCOPE"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "currency": {
+          "const": "USD",
+          "default": "USD",
+          "title": "Currency",
+          "type": "string"
+        },
+        "accumulated_pre_value_cost_cents": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Accumulated Pre Value Cost Cents"
+        },
+        "direct_machine_and_data_cost_cents": {
+          "minimum": 0,
+          "title": "Direct Machine And Data Cost Cents",
+          "type": "integer"
+        },
+        "human_labor_cost_cents": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Human Labor Cost Cents"
+        },
+        "total_human_seconds": {
+          "minimum": 0,
+          "title": "Total Human Seconds",
+          "type": "integer"
+        },
+        "elapsed_seconds": {
+          "minimum": 0,
+          "title": "Elapsed Seconds",
+          "type": "integer"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 4,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "value_known_at_stage": {
+          "default": null,
+          "title": "Value Known At Stage",
+          "type": "null"
+        },
+        "stop_reason": {
+          "enum": [
+            "STOP_FULLY_LOADED_PRE_VALUE_COST_UNAVAILABLE",
+            "STOP_PRE_VALUE_DISCOVERY_COST_TOO_HIGH",
+            "STOP_REQUIRES_SEPARATELY_AUTHORIZED_L2_SCOPE"
+          ],
+          "title": "Stop Reason",
+          "type": "string"
+        },
+        "privacy_legal_scope_required": {
+          "const": "L2_MINIMAL_IDENTITY_CONTACTABILITY_DISCOVERY",
+          "default": "L2_MINIMAL_IDENTITY_CONTACTABILITY_DISCOVERY",
+          "title": "Privacy Legal Scope Required",
+          "type": "string"
+        },
+        "approved_incremental_budget_cents": {
+          "minimum": 0,
+          "title": "Approved Incremental Budget Cents",
+          "type": "integer"
+        },
+        "budget_evidence_ref": {
+          "minLength": 1,
+          "title": "Budget Evidence Ref",
+          "type": "string"
+        },
+        "budget_exceeded": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Budget Exceeded"
+        }
+      },
+      "required": [
+        "state",
+        "direct_machine_and_data_cost_cents",
+        "total_human_seconds",
+        "elapsed_seconds",
+        "evidence_refs",
+        "stop_reason",
+        "approved_incremental_budget_cents",
+        "budget_evidence_ref",
+        "budget_exceeded"
+      ],
+      "title": "PreValueDiscoveryCostSummary",
+      "type": "object"
+    },
+    "SyntheticMaterializationSafety": {
+      "additionalProperties": false,
+      "properties": {
+        "synthetic_only": {
+          "const": true,
+          "default": true,
+          "title": "Synthetic Only",
+          "type": "boolean"
+        },
+        "real_source_accessed": {
+          "const": false,
+          "default": false,
+          "title": "Real Source Accessed",
+          "type": "boolean"
+        },
+        "remote_preflight_performed": {
+          "const": false,
+          "default": false,
+          "title": "Remote Preflight Performed",
+          "type": "boolean"
+        },
+        "download_performed": {
+          "const": false,
+          "default": false,
+          "title": "Download Performed",
+          "type": "boolean"
+        },
+        "real_owner_pii_processed": {
+          "const": false,
+          "default": false,
+          "title": "Real Owner Pii Processed",
+          "type": "boolean"
+        },
+        "real_candidate_materialized": {
+          "const": false,
+          "default": false,
+          "title": "Real Candidate Materialized",
+          "type": "boolean"
+        },
+        "identity_resolution_performed": {
+          "const": false,
+          "default": false,
+          "title": "Identity Resolution Performed",
+          "type": "boolean"
+        },
+        "beneficiary_matching_performed": {
+          "const": false,
+          "default": false,
+          "title": "Beneficiary Matching Performed",
+          "type": "boolean"
+        },
+        "address_enrichment_performed": {
+          "const": false,
+          "default": false,
+          "title": "Address Enrichment Performed",
+          "type": "boolean"
+        },
+        "outreach_performed": {
+          "const": false,
+          "default": false,
+          "title": "Outreach Performed",
+          "type": "boolean"
+        },
+        "value_research_performed": {
+          "const": false,
+          "default": false,
+          "title": "Value Research Performed",
+          "type": "boolean"
+        },
+        "fee_agreement_performed": {
+          "const": false,
+          "default": false,
+          "title": "Fee Agreement Performed",
+          "type": "boolean"
+        },
+        "representation_performed": {
+          "const": false,
+          "default": false,
+          "title": "Representation Performed",
+          "type": "boolean"
+        },
+        "claim_activity_performed": {
+          "const": false,
+          "default": false,
+          "title": "Claim Activity Performed",
+          "type": "boolean"
+        },
+        "transient_values_returned": {
+          "const": false,
+          "default": false,
+          "title": "Transient Values Returned",
+          "type": "boolean"
+        },
+        "owner_pii_persisted": {
+          "const": false,
+          "default": false,
+          "title": "Owner Pii Persisted",
+          "type": "boolean"
+        },
+        "transient_fields_disposed": {
+          "default": [
+            "Property ID",
+            "Property Type Code",
+            "Property Owner Count",
+            "Owner Name",
+            "Holder Name",
+            "Holder Report Year"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Transient Fields Disposed",
+          "type": "array"
+        }
+      },
+      "title": "SyntheticMaterializationSafety",
+      "type": "object"    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "mode": {
+      "const": "SYNTHETIC_ONLY",
+      "default": "SYNTHETIC_ONLY",
+      "title": "Mode",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "MATERIALIZED",
+        "STOPPED_NO_ELIGIBLE_CANDIDATE"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "reason_code": {
+      "enum": [
+        "SYNTHETIC_ONE_CANDIDATE_MATERIALIZED",
+        "NO_ELIGIBLE_SINGLE_OWNER_IN03_CANDIDATE_FOUND",
+        "SOURCE_ORDER_NOT_STRICTLY_INCREASING"
+      ],
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "records_evaluated": {
+      "minimum": 0,
+      "title": "Records Evaluated",
+      "type": "integer"
+    },
+    "selected_source_record_ordinal": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selected Source Record Ordinal"
+    },
+    "persistent_candidate": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PersistentCandidateEnvelope"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "economic_case_ledger": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EconomicCaseLedger"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "precontact_value_evidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NyMvp1PrecontactEconomicsEvidence"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "follow_up_cost": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NyMvp1FollowUpCostMeasurementResult"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "safety": {
+      "$ref": "#/$defs/SyntheticMaterializationSafety"
+    },
+    "review_state": {
+      "enum": [
+        "READY_FOR_SYNTHETIC_REVIEW",
+        "STOPPED_BEFORE_MATERIALIZATION"
+      ],
+      "title": "Review State",
+      "type": "string"
+    },
+    "authorization_granted": {
+      "const": false,
+      "default": false,
+      "title": "Authorization Granted",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "status",
+    "reason_code",
+    "records_evaluated",
+    "persistent_candidate",
+    "economic_case_ledger",
+    "precontact_value_evidence",
+    "follow_up_cost",
+    "safety",
+    "review_state"
+  ],
+  "title": "SyntheticOneCandidateMaterializationResult",
+  "type": "object"
+}
