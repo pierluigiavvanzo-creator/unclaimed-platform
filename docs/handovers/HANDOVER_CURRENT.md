@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 
 ## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION MODE
 
@@ -12,103 +12,124 @@ Objective:
 
 `ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-## Real-source state through Attempt 9
+## Consumed real attempts relevant to current state
 
-Attempt 9 completed one bounded whole-file structural scan and is consumed/non-reusable/zero-retry.
+### Attempt 9
 
-Authoritative non-sensitive result:
+Consumed/non-reusable/zero-retry whole-file structural scan.
+
+Authoritative evidence:
 
 `sources/evidence/ny_osc_owner_name_file_ninth_attempt_execution_result.v1.json`
 
-Observed aggregate result:
+Key aggregate result: `14994489` physical records, terminal-empty-field hypothesis rejected, no owner/raw values returned.
+
+### Attempt 10
+
+Consumed/non-reusable/zero-retry.
+
+Authoritative evidence:
+
+`sources/evidence/ny_osc_owner_name_file_tenth_attempt_execution_result.v1.json`
+
+Result:
 
 - status `BLOCKED`;
-- reason `TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`;
-- archive bytes `409477526`;
-- physical records `14994489`;
-- exactly-14-pipe records `12`;
-- records ending with `|`: `0`;
-- non-empty data after the 14th pipe: `12`;
-- records with any other pipe count: `14994477`;
-- raw archive logically deleted;
-- no owner/raw values returned.
+- reason `AUTHORIZED_DOWNLOAD_START_OUTSIDE_FRESH_PREFLIGHT_WINDOW`;
+- manual download had occurred;
+- classification/product slice never started;
+- no candidate/zero-candidate result;
+- no owner values returned.
 
-The empty-terminal-field hypothesis is rejected. The `14994477` aggregate bucket must not be silently interpreted as all 13-pipe records.
+Root cause: Gate 10 captured the download-start marker only after the Product Owner pressed Enter, and that marker landed outside the 900-second fresh-preflight window.
 
-## Attempt 10 offline product-slice package
+Do not reuse any Attempt-10 grant.
+
+## Attempt 11 offline package
 
 Branch:
 
-`mvp1-ny-tenth-product-slice-offline`
+`mvp1-ny-eleventh-auto-start-detection-offline`
 
 PR:
 
-`#28`
+`#29`
+
+Proposal checkpoint:
+
+`270de2f6e79b7c654052519adc446fe76b811771`
+
+Runner/code checkpoint:
+
+`ce005f08a3bbd23eb8fac6088917109f7864e924`
+
+CI:
+
+`35834948309 — SUCCESS`
+
+All Python quality/tests, Streamlit checks and frontend lint/typecheck/build passed.
 
 Purpose:
 
 `REAL PHYSICAL RECORDS -> STRUCTURAL DEFER/ACCEPT -> PROPERTY TYPE CODE -> INSURANCE CLASSIFICATION -> AGGREGATE CANDIDATE OR ZERO-CANDIDATE -> ECONOMIC ACTIONABILITY`
 
-Implemented:
+The Attempt-10 product slice is reused unchanged.
 
-- exactly `13` pipes is the only accepted physical width for the documented `14` fields;
-- all other physical shapes are deferred metadata-only, not repaired;
-- only Property Type Code at documented field index `1` is buffered/decoded;
-- owner name/address bytes are not buffered, decoded, logged or returned;
-- classification reuses existing authority-backed `NY_INSURANCE_CODES` with exact matching only;
-- `IN03` remains the existing MVP-1 primary target;
-- result exposes aggregate counts only and does not materialize candidate PII;
-- economics remain `UNKNOWN_FROM_SOURCE` / fail-closed;
-- dedicated Python entrypoint and Gate 10 PowerShell runner;
-- one download / one execution / zero retry;
-- archive logical deletion after execution;
-- versioned product-slice result schema and unit tests.
+Gate 11 freshness remediation:
 
-Package checkpoint before these canonical-document updates:
+- minimum `180` freshness seconds remaining before download instruction;
+- new dedicated empty temp directory;
+- automatic detector armed before operator download instruction;
+- `100 ms` polling;
+- first observed non-empty file in the dedicated directory captures the UTC download-start marker;
+- no operator Enter is used to mark transfer start;
+- no detected start before deadline -> fail closed;
+- one manual completion confirmation after the same download finishes;
+- one download / one Gate 11 execution / zero retry;
+- no direct network client.
 
-`b34a2a283cf45a2e205af4d8944a0b35cb74e6b2`
+Product boundary remains:
 
-CI:
+- exactly `13` pipes -> classify documented 14-field record;
+- all other shapes -> metadata-only defer;
+- only Property Type Code index `1` is buffered/decoded;
+- exact existing authority-backed insurance vocabulary;
+- `IN03` primary target;
+- aggregate result only;
+- no candidate/owner PII materialization;
+- economics remain `UNKNOWN_FROM_SOURCE`.
 
-`35777375233 — SUCCESS`
-
-Passed Ruff, mypy, contract/smoke/full pytest, Streamlit checks, frontend lint/typecheck/build.
-
-No NY OSC source access, preflight, download or real PII processing occurred while preparing Attempt 10 offline.
+No NY OSC source access, preflight, download or real PII processing occurred during Attempt-11 offline preparation.
 
 ## SINGLE NEXT ACTION
 
-Wait for CI on the final documented Attempt-10 checkpoint.
+Request the first two Attempt-11 grants together:
 
-If and only if green, request the first two new Attempt-10 grants together:
+`APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
 
-`APPROVO NY OSC TENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+`APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
 
-`APPROVO NY OSC OWNER NAME FILE TENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+Only after those are registered may a separate fresh-preflight authorization be requested. Final execution authorization remains another separate gate.
 
-Do not infer fresh-preflight or execution authority from these grants. Those remain separate later gates.
+## Expected real Attempt-11 output
 
-No Attempt-9 authorization may be reused.
-
-## Expected real Attempt-10 output
-
-The execution should return only non-owner aggregate product metrics:
+Only non-owner aggregate product metrics:
 
 - total records;
 - structurally conforming/deferred counts;
 - authority-backed insurance count;
-- primary `IN03` aggregate candidate count;
-- other-insurance count;
-- no-authority-match and unclassifiable counts;
+- aggregate primary `IN03` candidate count;
+- other insurance count;
+- no-authority-match/unclassifiable counts;
 - candidate-present or documented zero-candidate outcome;
 - fail-closed economic actionability state.
 
-If candidates are present, the next product step is evidence/value work required for reviewer actionability, not another parser loop. If zero candidates are found, record the real zero-candidate product result and reassess source/product fit.
+If candidates are present, next step is evidence/value/economics required for reviewer actionability. If zero candidates, record the real zero-candidate result and reassess source/product fit.
 
 ## Safety boundaries
 
-Attempt 10 does not authorize source activation, candidate PII persistence, identity resolution, beneficiary matching, outreach, fee agreement, representation or claim activity.
+Attempt 11 does not authorize source activation, candidate PII persistence, identity resolution, beneficiary matching, outreach, fee agreement, representation or claim activity.
 
 ## Git health
 
-`main` remains canonical. PR #28 is open and not merged. No merge is authorized by this handover.
+`main` remains canonical. PR #29 is open and not merged. No merge is authorized.
