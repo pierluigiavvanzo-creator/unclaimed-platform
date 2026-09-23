@@ -45,15 +45,23 @@ Root cause: Gate 10 captured the download-start marker only after the Product Ow
 
 Do not reuse any Attempt-10 grant.
 
-## Attempt 11 offline package
+## Attempt 11 package — COMPLETED AND INTEGRATED
 
 Branch:
 
 `mvp1-ny-eleventh-auto-start-detection-offline`
 
-PR:
+Historical PR:
 
-`#29`
+`#29 — MERGED`
+
+Canonical integration PR:
+
+`#30 — MERGED INTO main`
+
+Main integration commit:
+
+`c5a56be629b7a684666a8fc5ee57fec24ff734c4`
 
 Proposal checkpoint:
 
@@ -261,11 +269,7 @@ Current real-data boundary remains strict: candidate materialization, identity r
 
 ## SINGLE NEXT ACTION
 
-Perform Product Owner completion review of Attempt 11 and decide whether to merge PR #29 into canonical `main`.
-
-PR #29 remains open and must NOT be merged without explicit Product Owner authorization.
-
-If merge is authorized and completed, create a new isolated branch and prepare only a repository-first/offline bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
+Create a new isolated branch from canonical `main` and prepare only a repository-first/offline bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
 
 That proposal must define, before any new real-source execution:
 
@@ -275,21 +279,23 @@ That proposal must define, before any new real-source execution:
 - provenance requirements;
 - exact evidence/value objective;
 - stop/fail-closed conditions;
-- reuse of existing candidate/economics/reviewer components;
+- reuse of existing candidate/classification, value-evidence, follow-up-cost, explicit-economics and reviewer components;
 - explicit human gates for any new download or real candidate PII.
 
-No new source download is part of the current next action.
+No new source download or real candidate PII materialization is part of the current next action.
 
 ## Git health
 
-Canonical integration branch: `main`.
+Canonical integration branch:
 
-Active milestone branch:
+`main`
 
-`mvp1-ny-eleventh-auto-start-detection-offline`
+Attempt 11 was merged through PR #29 into the stacked real-source branch, then the complete validated stack was merged to `main` through PR #30.
 
-PR:
+Canonical integration commit:
 
-`#29 — OPEN / NOT MERGED`
+`c5a56be629b7a684666a8fc5ee57fec24ff734c4`
 
-Merge requires explicit Product Owner authorization.
+PR #30: `MERGED`.
+
+Historical stacked PRs must not be used to re-integrate already-canonical work into `main`.
