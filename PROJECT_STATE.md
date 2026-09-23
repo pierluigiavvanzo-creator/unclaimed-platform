@@ -150,12 +150,20 @@ Audit:
 
 The prior Attempt-11 local-file, transient-PII and refresh-4 preflight grants were not consumed, but they are bound to runner checkpoint `ce005f08a3bbd23eb8fac6088917109f7864e924` and therefore cannot be reused for the new protected runner.
 
-Next action: request only the first two Attempt-11 grants again, bound to the new runner checkpoint:
+The two Attempt-11 grants have now been reissued and recorded against the refreshed protected runner checkpoint:
 
-1. `APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
-2. `APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
-Fresh preflight and final execution authorization remain separate later gates. No download is authorized.
+Current grant states:
+
+1. transient local file — `GRANTED_NOT_CONSUMED`;
+2. transient PII — `GRANTED_NOT_CONSUMED`.
+
+Next gate:
+
+`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+
+The new fresh-preflight authorization must be separately bound to the refreshed runner and the current listing metadata snapshot. Final execution authorization remains a later separate gate. No download is authorized.
 
 ## Product exit criteria
 
