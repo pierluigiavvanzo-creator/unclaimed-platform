@@ -101,10 +101,10 @@ if ($Preflight.status -ne "EXACT_MATCH" -or $Preflight.remote_preflight_performe
 if (
     $Preflight.expected_listing.remote_name -ne "FINDERS.zip" -or
     $Preflight.expected_listing.size_display -ne "390.51 MB" -or
-    $Preflight.expected_listing.last_modified_display -ne "9/16/2026, 1:33:31 PM" -or
+    $Preflight.expected_listing.last_modified_display -ne "9/23/2026, 1:12:44 PM" -or
     $Preflight.observed_listing.remote_name -ne "FINDERS.zip" -or
     $Preflight.observed_listing.size_display -ne "390.51 MB" -or
-    $Preflight.observed_listing.last_modified_display -ne "9/16/2026, 1:33:31 PM"
+    $Preflight.observed_listing.last_modified_display -ne "9/23/2026, 1:12:44 PM"
 ) {
     throw "Attempt-11 listing metadata is not an exact match. Do not download."
 }
