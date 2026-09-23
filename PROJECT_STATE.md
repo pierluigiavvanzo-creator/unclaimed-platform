@@ -110,12 +110,33 @@ No NY OSC access, fresh preflight, download, or PII processing occurred while pr
 
 ## Current next action
 
-Request only the first two new Attempt-11 grants:
+Attempt-11 local-file and transient-PII grants are already `GRANTED_NOT_CONSUMED`.
 
-1. `APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`;
-2. `APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`.
+A new fresh-preflight refresh-3 was authorized, but the Product Owner screenshot showed listing metadata drift:
 
-Fresh preflight and final execution authorization remain separate later gates. No Attempt-10 authorization may be reused.
+- name: `FINDERS.zip` — unchanged;
+- size: `390.51 MB` — unchanged;
+- last modified: `9/23/2026, 1:12:44 PM` — changed from `9/16/2026, 1:33:31 PM`.
+
+The mismatch correctly failed closed. A new metadata-only snapshot is recorded at:
+
+`sources/evidence/ny_osc_owner_name_file_current_listing_metadata.v2.json`
+
+Review:
+
+`docs/audits/NY_OSC_ELEVENTH_LISTING_METADATA_DRIFT_REVIEW.md`
+
+The snapshot is accepted only as future preflight listing identity; no archive-content equivalence is inferred.
+
+Next gate:
+
+`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+
+After that new grant, refresh the authenticated listing again and require an exact match to:
+
+`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+
+Only then may a new fresh receipt be created. Final Gate-11 execution authorization remains a later separate gate. No Attempt-10 authorization may be reused.
 
 ## Product exit criteria
 
