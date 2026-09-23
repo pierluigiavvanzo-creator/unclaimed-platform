@@ -166,67 +166,130 @@ Current states:
 
 No download, fresh preflight or Owner Name File open was performed while recording these grants.
 
-## Attempt 11 fresh receipt — refresh 5
+## Attempt 11 real execution — COMPLETED
 
-A post-authorization authenticated-listing screenshot matched exactly:
+Attempt 11 completed one authorized bounded real product-slice execution.
 
-`FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
+Authoritative result:
 
-The canonical Gate-11 fresh receipt has been updated:
+`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
 
-`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_receipt.v1.json`
+Audit:
 
-Receipt ref:
+`docs/audits/NY_OSC_ELEVENTH_ATTEMPT_PRODUCT_SLICE_COMPLETED.md`
 
-`PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`
+Execution identity:
 
-Performed at:
+- proposal checkpoint: `270de2f6e79b7c654052519adc446fe76b811771`;
+- protected runner checkpoint: `bac89609e9069efc98fcd0866b89ee4ee16f1689`;
+- runner CI: `35859448715 — SUCCESS`;
+- fresh receipt: `PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`;
+- execution authorization: `OWNER_APPROVAL_2026-09-23T122809Z_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE_BAC89609`;
+- automatically detected download start: `2026-09-23T12:30:59.478237Z`.
 
-`2026-09-23T12:26:19Z`
+Execution result:
 
-Freshness window:
+- status: `COMPLETED`;
+- reason: `PRODUCT_SLICE_COMPLETED`;
+- archive bytes: `409477526`;
+- total records: `14994489`;
+- structurally conforming: `14994477`;
+- deferred structural: `12`;
+- authority-backed insurance: `2792990`;
+- primary `IN03` aggregate candidates: `203921`;
+- other insurance: `2589069`;
+- no authority-backed insurance match: `12201486`;
+- unclassifiable Property Type Code: `1`;
+- candidate outcome: `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
+- candidate materialization: `NOT_AUTHORIZED_AGGREGATE_ONLY`;
+- economic actionability: `VALUE_EVIDENCE_REQUIRED`;
+- recoverable value: `UNKNOWN_FROM_SOURCE`.
 
-`900 seconds`
+Privacy / retention result:
 
-Protected runner checkpoint:
+- owner values buffered: false;
+- owner rows persisted: false;
+- owner field logging: false;
+- row-specific human inspection: false;
+- raw record returned: false;
+- owner values returned: false;
+- local archive deleted: true;
+- deletion is logical only; physical secure erasure is not guaranteed.
 
-`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+## Attempt 11 authorization state
 
-No download, Owner Name File open or owner PII processing occurred while creating the receipt.
+The Attempt-11 single-use chain is consumed.
+
+State:
+
+`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
+
+The following may not be reused:
+
+- transient local-file grant;
+- transient PII grant;
+- refresh-5 preflight grant;
+- final execution authorization.
+
+No retry or second Attempt-11 download is authorized.
+
+## Product interpretation
+
+The parser/freshness critical blocker is closed for the current bounded vertical slice.
+
+The source has demonstrated a material real funnel:
+
+`14994489 records -> 2792990 authority-backed insurance -> 203921 primary IN03 aggregate candidates`
+
+The project must now move downstream rather than return to parser/timing diagnostics.
+
+Remaining MVP-1 path:
+
+`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
+
+Existing repository components already exist for:
+
+- deterministic candidate/classification contracts;
+- fail-closed NY pre-contact value evidence;
+- measured follow-up-cost contracts;
+- explicit case economics;
+- reviewer surfaces.
+
+They should be reused before new custom implementation.
+
+Current real-data boundary remains strict: candidate materialization, identity resolution, beneficiary matching, outreach, representation, fee agreements and claim activity are not authorized.
 
 ## SINGLE NEXT ACTION
 
-Request a new single-use:
+Perform Product Owner completion review of Attempt 11 and decide whether to merge PR #29 into canonical `main`.
 
-`AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
+PR #29 remains open and must NOT be merged without explicit Product Owner authorization.
 
-Bind the final execution authorization to exactly:
+If merge is authorized and completed, create a new isolated branch and prepare only a repository-first/offline bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
 
-`PREFLIGHT_RECEIPT_2026-09-23T122619Z_NY_OSC_ELEVENTH_EXACT_MATCH_REFRESH5_BAC89609`
+That proposal must define, before any new real-source execution:
 
-Only after that authorization is recorded may the single PowerShell Gate-11 launch block be provided.
+- deterministic candidate-selection rule;
+- minimum required fields;
+- PII/retention scope;
+- provenance requirements;
+- exact evidence/value objective;
+- stop/fail-closed conditions;
+- reuse of existing candidate/economics/reviewer components;
+- explicit human gates for any new download or real candidate PII.
 
-Gate 11 remains one manual download, one execution, zero retry, automatic download-start detection, minimum 180 seconds freshness remaining, no direct network client, aggregate-only result.
-
-## Expected real Attempt-11 output
-
-Only non-owner aggregate product metrics:
-
-- total records;
-- structurally conforming/deferred counts;
-- authority-backed insurance count;
-- aggregate primary `IN03` candidate count;
-- other insurance count;
-- no-authority-match/unclassifiable counts;
-- candidate-present or documented zero-candidate outcome;
-- fail-closed economic actionability state.
-
-If candidates are present, next step is evidence/value/economics required for reviewer actionability. If zero candidates, record the real zero-candidate result and reassess source/product fit.
-
-## Safety boundaries
-
-Attempt 11 does not authorize source activation, candidate PII persistence, identity resolution, beneficiary matching, outreach, fee agreement, representation or claim activity.
+No new source download is part of the current next action.
 
 ## Git health
 
-`main` remains canonical. PR #29 is open and not merged. No merge is authorized.
+Canonical integration branch: `main`.
+
+Active milestone branch:
+
+`mvp1-ny-eleventh-auto-start-detection-offline`
+
+PR:
+
+`#29 — OPEN / NOT MERGED`
+
+Merge requires explicit Product Owner authorization.
