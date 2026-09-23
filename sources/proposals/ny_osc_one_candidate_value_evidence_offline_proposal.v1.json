@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.osc.owner_name_file.one_candidate_value_evidence_offline_proposal",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-23",
+  "status": "PROPOSED_NOT_IMPLEMENTED_NOT_AUTHORIZED",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "baseline": {
+    "main_checkpoint": "cb3c1bfcd4011d222527d08e4683803ca5976f18",
+    "attempt11_result_ref": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json",
+    "attempt11_status": "COMPLETED",
+    "primary_in03_candidate_records": 203921,
+    "candidate_materialization_state": "NOT_AUTHORIZED_AGGREGATE_ONLY",
+    "economic_actionability": "VALUE_EVIDENCE_REQUIRED"
+  },
+  "reuse_assessment": [
+    {
+      "path": "src/unclaimed_platform/domain/mvp1_vertical_slice.py",
+      "decision": "ADAPT",
+      "purpose": "reuse exact IN03 classification semantics and deterministic candidate-id pattern without synthetic-only state"
+    },
+    {
+      "path": "schemas/common/case.schema.json",
+      "decision": "REUSE",
+      "purpose": "reuse canonical non-PII case envelope and lifecycle linkage"
+    },
+    {
+      "path": "schemas/common/evidence.schema.json",
+      "decision": "REUSE",
+      "purpose": "reuse evidence/provenance references without persisting owner-row values"
+    },
+    {
+      "path": "src/unclaimed_platform/domain/ny_mvp1_value_evidence.py",
+      "decision": "REUSE",
+      "purpose": "preserve fail-closed UNKNOWN_PRE_CLAIM_REVIEW and no-invented-amount economics state"
+    },
+    {
+      "path": "src/unclaimed_platform/domain/ny_mvp1_follow_up_cost.py",
+      "decision": "REUSE",
+      "purpose": "measure per-candidate machine, data and human follow-up cost after a real candidate exists"
+    },
+    {
+      "path": "src/unclaimed_platform/domain/ny_mvp1_case_economics_integration.py",
+      "decision": "REUSE",
+      "purpose": "compute explicit economics only when value fee and cost evidence are all available"
+    },
+    {
+      "path": "src/unclaimed_platform/api/reviewer.py",
+      "decision": "ADAPT",
+      "purpose": "reuse reviewer structure later but keep current synthetic endpoints isolated from real PII"
+    }
+  ],
+  "candidate_selection_contract": {
+    "mode": "FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER",
+    "max_candidates": 1,
+    "source_order_required": true,
+    "required_structural_shape": "EXACTLY_13_PIPES_DOCUMENTED_14_FIELDS",
+    "required_exact_property_type_code": "IN03",
+    "required_property_owner_count": 1,
+    "requires_nonempty_property_id": true,
+    "pii_based_ranking_allowed": false,
+    "random_selection_allowed": false,
+    "selection_uses_owner_pii": false,
+    "stop_after_first_match": true,
+    "no_match_outcome": "NO_ELIGIBLE_SINGLE_OWNER_IN03_CANDIDATE_FOUND"
+  },
+  "materialization_contract": {
+    "candidate_case_id_derivation": "UUID5_SOURCE_ID_PLUS_SOURCE_SNAPSHOT_PLUS_RECORD_ORDINAL_PLUS_IN03_NO_OWNER_PII",
+    "transient_fields_allowed": [
+      "Property ID",
+      "Property Type Code",
+      "Property Owner Count",
+      "Owner Name",
+      "Holder Name",
+      "Holder Report Year"
+    ],
+    "persisted_non_owner_fields_allowed": [
+      "case_id",
+      "source_id",
+      "source_snapshot_ref",
+      "source_record_ordinal",
+      "property_type_code",
+      "property_owner_count",
+      "reported_by",
+      "reported_when",
+      "candidate_state",
+      "value_evidence_state"
+    ],
+    "address_fields_allowed": false,
+    "raw_row_persistence_allowed": false,
+    "owner_name_persistence_allowed": false,
+    "property_id_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "same_session_disposal_required": true,
+    "persistent_candidate_contains_owner_pii": false
+  },
+  "value_evidence_contract": {
+    "objective": "OBTAIN_EVIDENCE_BACKED_VALUE_OR_PRESERVE_EXPLICIT_UNKNOWN_PRE_CLAIM_REVIEW",
+    "owner_file_amount_available": false,
+    "existing_precontact_value_state": "UNKNOWN_PRE_CLAIM_REVIEW",
+    "invent_amount_allowed": false,
+    "existing_economics_component": "src/unclaimed_platform/domain/ny_mvp1_value_evidence.py",
+    "same_session_preferred": true,
+    "claim_submission_allowed": false,
+    "identity_resolution_allowed": false,
+    "beneficiary_matching_allowed": false,
+    "outreach_allowed": false,
+    "supported_outcomes": [
+      "VALUE_EVIDENCE_OBTAINED_FROM_SEPARATELY_AUTHORIZED_EVIDENCE",
+      "UNKNOWN_PRE_CLAIM_REVIEW",
+      "STOP_PRIVACY_SCOPE_INSUFFICIENT",
+      "STOP_REQUIRES_SEPARATELY_AUTHORIZED_CLAIM_OR_IDENTITY_ACTION"
+    ]
+  },
+  "provenance_contract": {
+    "required_refs": [
+      "attempt11_aggregate_result_ref",
+      "source_policy_ref",
+      "fresh_source_snapshot_ref",
+      "future_execution_authorization_ref",
+      "selection_rule_ref",
+      "value_evidence_ref_if_available"
+    ],
+    "source_record_ordinal_required": true,
+    "selection_rule_version_required": true,
+    "owner_row_hash_persistence_allowed": false,
+    "owner_value_in_provenance_allowed": false
+  },
+  "fail_closed_conditions": [
+    "SOURCE_LISTING_NOT_FRESH_EXACT_MATCH",
+    "STRUCTURAL_SHAPE_NOT_DOCUMENTED_14_FIELDS",
+    "PROPERTY_TYPE_NOT_EXACT_IN03",
+    "PROPERTY_OWNER_COUNT_NOT_ONE",
+    "PROPERTY_ID_EMPTY",
+    "MORE_THAN_ONE_CANDIDATE_SELECTED",
+    "OWNER_PII_WOULD_BE_PERSISTED_OR_LOGGED",
+    "ADDRESS_FIELD_REQUIRED_BY_DOWNSTREAM_STEP",
+    "VALUE_RESEARCH_REQUIRES_UNAUTHORIZED_CLAIM_SUBMISSION",
+    "VALUE_RESEARCH_REQUIRES_UNAUTHORIZED_IDENTITY_OR_BENEFICIARY_MATCHING",
+    "VALUE_OR_FEE_WOULD_REQUIRE_INVENTED_AMOUNT_OR_ASSUMPTION"
+  ],
+  "implementation_boundaries": {
+    "proposal_only": true,
+    "proposal_schema_created": true,
+    "proposal_contract_test_created": true,
+    "runtime_code_modified": false,
+    "real_candidate_adapter_created": false,
+    "reviewer_real_endpoint_modified": false,
+    "approval_artifacts_created": false,
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "owner_pii_processing": false,
+    "candidate_materialization": false,
+    "value_research": false
+  },
+  "future_execution_prerequisites": [
+    "HUMAN_REVIEW_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL_PASS",
+    "IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION",
+    "HUMAN_LEGAL_PRIVACY_REVIEW_NY_OSC_ONE_CANDIDATE_TRANSIENT_PII_SCOPE",
+    "SEPARATE_FRESH_TRANSIENT_LOCAL_FILE_APPROVAL",
+    "SEPARATE_FRESH_TRANSIENT_PII_APPROVAL",
+    "SEPARATE_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+    "SEPARATE_EXPLICIT_ONE_CANDIDATE_EXECUTION_AUTHORIZATION",
+    "SEPARATE_VALUE_EVIDENCE_RESEARCH_AUTHORIZATION"
+  ],
+  "authorization_does_not_grant": {
+    "runtime_implementation": false,
+    "source_network_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "owner_pii_processing": false,
+    "candidate_materialization": false,
+    "value_research": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "outreach": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "required_owner_review_phrase": "APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL",
+  "next_action": "HUMAN_REVIEW_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL"
+}

@@ -183,19 +183,37 @@ Do not return to parser/timing diagnostics unless new evidence proves a concrete
 
 ## Current next action
 
-Attempt 11 and the accumulated real-source stack are now integrated into canonical `main` through PR #30.
+The repository-first/offline one-candidate materialization/value-evidence proposal is now prepared on isolated branch:
 
-Canonical integration commit:
+`mvp1-ny-one-candidate-value-evidence-offline-proposal`
 
-`c5a56be629b7a684666a8fc5ee57fec24ff734c4`
+Proposal:
 
-Next work is repository-only and offline:
+`sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json`
 
-create a new isolated branch and prepare a bounded proposal for the minimum lawful one-candidate materialization/value-evidence step.
+Schema:
 
-The proposal must reuse existing candidate/classification, value-evidence, follow-up-cost, explicit-economics and reviewer components before adding custom implementation.
+`schemas/common/ny_osc_one_candidate_value_evidence_offline_proposal.schema.json`
 
-No new source download, real candidate PII materialization, identity resolution, beneficiary matching, outreach, representation, fee agreement or claim activity is authorized by the current state.
+Review:
+
+`docs/audits/NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL_REVIEW.md`
+
+The proposal selects at most one deterministic candidate using source order + exact `IN03` + single-owner + non-empty Property ID, without PII-based ranking.
+
+Initial materialization is designed as transient-only for Owner Name and Property ID, excludes address fields, persists no owner PII, and reuses existing value-evidence/follow-up-cost/economics/reviewer foundations.
+
+Next gate is proposal review only:
+
+`APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL`
+
+Review result: `APPROVED_PROPOSAL_ONLY`.
+
+Approval evidence:
+
+`sources/evidence/ny_osc_one_candidate_value_evidence_offline_proposal_approval.v1.json`
+
+This approval does not authorize implementation, source access, download, PII processing, candidate materialization or value research.
 
 ## Product exit criteria
 

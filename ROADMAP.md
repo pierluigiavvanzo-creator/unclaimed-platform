@@ -103,7 +103,13 @@ Existing repository components for candidate contracts, value evidence, follow-u
 
 Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
 
-Before any new real-source or candidate-PII operation, create and review a bounded repository-only proposal specifying the minimum fields, retention, privacy scope, deterministic selection rule, evidence path and stop conditions for one candidate.
+A bounded repository-only proposal has now been prepared on branch `mvp1-ny-one-candidate-value-evidence-offline-proposal`:
+
+`sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json`
+
+It proposes exactly one deterministic source-order candidate, exact `IN03`, single owner, non-empty Property ID, transient-only Owner Name/Property ID, no address scope, no durable owner PII, and fail-closed value evidence.
+
+Human review result: `APPROVED_PROPOSAL_ONLY`. No real-source or candidate-PII operation is authorized by that approval. The next Product Owner-requested activity is a separate whole-project economic-feasibility audit before expanding privacy scope or implementing real candidate materialization.
 
 ## Stage 5 — Economic baseline and Product Owner decision — PARTIAL
 
