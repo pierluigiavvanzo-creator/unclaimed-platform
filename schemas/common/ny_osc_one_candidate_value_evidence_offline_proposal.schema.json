@@ -22,16 +22,31 @@
     "implementation_boundaries",
     "future_execution_prerequisites",
     "authorization_does_not_grant",
+    "required_owner_review_phrase",
     "next_action"
   ],
   "properties": {
-    "schema_version": {"const": "1.0.0"},
-    "artifact_id": {"const": "ny.osc.owner_name_file.one_candidate_value_evidence_offline_proposal"},
-    "artifact_version": {"const": "1.0.0"},
-    "prepared_on": {"const": "2026-09-23"},
-    "status": {"const": "PROPOSED_NOT_IMPLEMENTED_NOT_AUTHORIZED"},
-    "work_class": {"const": "A_PRODUCT_CRITICAL"},
-    "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.osc.owner_name_file.one_candidate_value_evidence_offline_proposal"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "const": "2026-09-23"
+    },
+    "status": {
+      "const": "PROPOSED_NOT_IMPLEMENTED_NOT_AUTHORIZED"
+    },
+    "work_class": {
+      "const": "A_PRODUCT_CRITICAL"
+    },
+    "source_id": {
+      "const": "ny.osc.unclaimed_funds.owner_name_file"
+    },
     "baseline": {
       "type": "object",
       "additionalProperties": false,
@@ -44,12 +59,24 @@
         "economic_actionability"
       ],
       "properties": {
-        "main_checkpoint": {"const": "cb3c1bfcd4011d222527d08e4683803ca5976f18"},
-        "attempt11_result_ref": {"const": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json"},
-        "attempt11_status": {"const": "COMPLETED"},
-        "primary_in03_candidate_records": {"const": 203921},
-        "candidate_materialization_state": {"const": "NOT_AUTHORIZED_AGGREGATE_ONLY"},
-        "economic_actionability": {"const": "VALUE_EVIDENCE_REQUIRED"}
+        "main_checkpoint": {
+          "const": "cb3c1bfcd4011d222527d08e4683803ca5976f18"
+        },
+        "attempt11_result_ref": {
+          "const": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json"
+        },
+        "attempt11_status": {
+          "const": "COMPLETED"
+        },
+        "primary_in03_candidate_records": {
+          "const": 203921
+        },
+        "candidate_materialization_state": {
+          "const": "NOT_AUTHORIZED_AGGREGATE_ONLY"
+        },
+        "economic_actionability": {
+          "const": "VALUE_EVIDENCE_REQUIRED"
+        }
       }
     },
     "reuse_assessment": {
@@ -59,11 +86,27 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["path", "decision", "purpose"],
+        "required": [
+          "path",
+          "decision",
+          "purpose"
+        ],
         "properties": {
-          "path": {"type": "string", "minLength": 1},
-          "decision": {"enum": ["REUSE", "ADAPT", "DEFER"]},
-          "purpose": {"type": "string", "minLength": 1}
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision": {
+            "enum": [
+              "REUSE",
+              "ADAPT",
+              "DEFER"
+            ]
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
@@ -85,18 +128,42 @@
         "no_match_outcome"
       ],
       "properties": {
-        "mode": {"const": "FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER"},
-        "max_candidates": {"const": 1},
-        "source_order_required": {"const": true},
-        "required_structural_shape": {"const": "EXACTLY_13_PIPES_DOCUMENTED_14_FIELDS"},
-        "required_exact_property_type_code": {"const": "IN03"},
-        "required_property_owner_count": {"const": 1},
-        "requires_nonempty_property_id": {"const": true},
-        "pii_based_ranking_allowed": {"const": false},
-        "random_selection_allowed": {"const": false},
-        "selection_uses_owner_pii": {"const": false},
-        "stop_after_first_match": {"const": true},
-        "no_match_outcome": {"const": "NO_ELIGIBLE_SINGLE_OWNER_IN03_CANDIDATE_FOUND"}
+        "mode": {
+          "const": "FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER"
+        },
+        "max_candidates": {
+          "const": 1
+        },
+        "source_order_required": {
+          "const": true
+        },
+        "required_structural_shape": {
+          "const": "EXACTLY_13_PIPES_DOCUMENTED_14_FIELDS"
+        },
+        "required_exact_property_type_code": {
+          "const": "IN03"
+        },
+        "required_property_owner_count": {
+          "const": 1
+        },
+        "requires_nonempty_property_id": {
+          "const": true
+        },
+        "pii_based_ranking_allowed": {
+          "const": false
+        },
+        "random_selection_allowed": {
+          "const": false
+        },
+        "selection_uses_owner_pii": {
+          "const": false
+        },
+        "stop_after_first_match": {
+          "const": true
+        },
+        "no_match_outcome": {
+          "const": "NO_ELIGIBLE_SINGLE_OWNER_IN03_CANDIDATE_FOUND"
+        }
       }
     },
     "materialization_contract": {
@@ -116,7 +183,9 @@
         "persistent_candidate_contains_owner_pii"
       ],
       "properties": {
-        "candidate_case_id_derivation": {"const": "UUID5_SOURCE_ID_PLUS_SOURCE_SNAPSHOT_PLUS_RECORD_ORDINAL_PLUS_IN03_NO_OWNER_PII"},
+        "candidate_case_id_derivation": {
+          "const": "UUID5_SOURCE_ID_PLUS_SOURCE_SNAPSHOT_PLUS_RECORD_ORDINAL_PLUS_IN03_NO_OWNER_PII"
+        },
         "transient_fields_allowed": {
           "const": [
             "Property ID",
@@ -141,14 +210,30 @@
             "value_evidence_state"
           ]
         },
-        "address_fields_allowed": {"const": false},
-        "raw_row_persistence_allowed": {"const": false},
-        "owner_name_persistence_allowed": {"const": false},
-        "property_id_persistence_allowed": {"const": false},
-        "owner_field_logging_allowed": {"const": false},
-        "row_specific_human_inspection_allowed": {"const": false},
-        "same_session_disposal_required": {"const": true},
-        "persistent_candidate_contains_owner_pii": {"const": false}
+        "address_fields_allowed": {
+          "const": false
+        },
+        "raw_row_persistence_allowed": {
+          "const": false
+        },
+        "owner_name_persistence_allowed": {
+          "const": false
+        },
+        "property_id_persistence_allowed": {
+          "const": false
+        },
+        "owner_field_logging_allowed": {
+          "const": false
+        },
+        "row_specific_human_inspection_allowed": {
+          "const": false
+        },
+        "same_session_disposal_required": {
+          "const": true
+        },
+        "persistent_candidate_contains_owner_pii": {
+          "const": false
+        }
       }
     },
     "value_evidence_contract": {
@@ -168,16 +253,36 @@
         "supported_outcomes"
       ],
       "properties": {
-        "objective": {"const": "OBTAIN_EVIDENCE_BACKED_VALUE_OR_PRESERVE_EXPLICIT_UNKNOWN_PRE_CLAIM_REVIEW"},
-        "owner_file_amount_available": {"const": false},
-        "existing_precontact_value_state": {"const": "UNKNOWN_PRE_CLAIM_REVIEW"},
-        "invent_amount_allowed": {"const": false},
-        "existing_economics_component": {"const": "src/unclaimed_platform/domain/ny_mvp1_value_evidence.py"},
-        "same_session_preferred": {"const": true},
-        "claim_submission_allowed": {"const": false},
-        "identity_resolution_allowed": {"const": false},
-        "beneficiary_matching_allowed": {"const": false},
-        "outreach_allowed": {"const": false},
+        "objective": {
+          "const": "OBTAIN_EVIDENCE_BACKED_VALUE_OR_PRESERVE_EXPLICIT_UNKNOWN_PRE_CLAIM_REVIEW"
+        },
+        "owner_file_amount_available": {
+          "const": false
+        },
+        "existing_precontact_value_state": {
+          "const": "UNKNOWN_PRE_CLAIM_REVIEW"
+        },
+        "invent_amount_allowed": {
+          "const": false
+        },
+        "existing_economics_component": {
+          "const": "src/unclaimed_platform/domain/ny_mvp1_value_evidence.py"
+        },
+        "same_session_preferred": {
+          "const": true
+        },
+        "claim_submission_allowed": {
+          "const": false
+        },
+        "identity_resolution_allowed": {
+          "const": false
+        },
+        "beneficiary_matching_allowed": {
+          "const": false
+        },
+        "outreach_allowed": {
+          "const": false
+        },
         "supported_outcomes": {
           "const": [
             "VALUE_EVIDENCE_OBTAINED_FROM_SEPARATELY_AUTHORIZED_EVIDENCE",
@@ -209,10 +314,18 @@
             "value_evidence_ref_if_available"
           ]
         },
-        "source_record_ordinal_required": {"const": true},
-        "selection_rule_version_required": {"const": true},
-        "owner_row_hash_persistence_allowed": {"const": false},
-        "owner_value_in_provenance_allowed": {"const": false}
+        "source_record_ordinal_required": {
+          "const": true
+        },
+        "selection_rule_version_required": {
+          "const": true
+        },
+        "owner_row_hash_persistence_allowed": {
+          "const": false
+        },
+        "owner_value_in_provenance_allowed": {
+          "const": false
+        }
       }
     },
     "fail_closed_conditions": {
@@ -249,19 +362,45 @@
         "value_research"
       ],
       "properties": {
-        "proposal_only": {"const": true},
-        "proposal_schema_created": {"const": true},
-        "proposal_contract_test_created": {"const": true},
-        "runtime_code_modified": {"const": false},
-        "real_candidate_adapter_created": {"const": false},
-        "reviewer_real_endpoint_modified": {"const": false},
-        "approval_artifacts_created": {"const": false},
-        "source_network_access": {"const": false},
-        "remote_preflight": {"const": false},
-        "download": {"const": false},
-        "owner_pii_processing": {"const": false},
-        "candidate_materialization": {"const": false},
-        "value_research": {"const": false}
+        "proposal_only": {
+          "const": true
+        },
+        "proposal_schema_created": {
+          "const": true
+        },
+        "proposal_contract_test_created": {
+          "const": true
+        },
+        "runtime_code_modified": {
+          "const": false
+        },
+        "real_candidate_adapter_created": {
+          "const": false
+        },
+        "reviewer_real_endpoint_modified": {
+          "const": false
+        },
+        "approval_artifacts_created": {
+          "const": false
+        },
+        "source_network_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "owner_pii_processing": {
+          "const": false
+        },
+        "candidate_materialization": {
+          "const": false
+        },
+        "value_research": {
+          "const": false
+        }
       }
     },
     "future_execution_prerequisites": {
@@ -295,21 +434,52 @@
         "claim_activity"
       ],
       "properties": {
-        "runtime_implementation": {"const": false},
-        "source_network_access": {"const": false},
-        "remote_preflight": {"const": false},
-        "download": {"const": false},
-        "owner_pii_processing": {"const": false},
-        "candidate_materialization": {"const": false},
-        "value_research": {"const": false},
-        "identity_resolution": {"const": false},
-        "beneficiary_matching": {"const": false},
-        "outreach": {"const": false},
-        "fee_agreement": {"const": false},
-        "representation": {"const": false},
-        "claim_activity": {"const": false}
+        "runtime_implementation": {
+          "const": false
+        },
+        "source_network_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "owner_pii_processing": {
+          "const": false
+        },
+        "candidate_materialization": {
+          "const": false
+        },
+        "value_research": {
+          "const": false
+        },
+        "identity_resolution": {
+          "const": false
+        },
+        "beneficiary_matching": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "fee_agreement": {
+          "const": false
+        },
+        "representation": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        }
       }
     },
-    "next_action": {"const": "HUMAN_REVIEW_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL"}
+    "next_action": {
+      "const": "HUMAN_REVIEW_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL"
+    },
+    "required_owner_review_phrase": {
+      "const": "APPROVE_NY_OSC_ONE_CANDIDATE_VALUE_EVIDENCE_OFFLINE_PROPOSAL"
+    }
   }
 }
