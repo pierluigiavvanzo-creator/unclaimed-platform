@@ -125,15 +125,21 @@ No archive-content equivalence is inferred. No download, Owner Name File open or
 
 ## SINGLE NEXT ACTION
 
-Request a new single-use:
+The new single-use fresh-preflight authorization has been granted and recorded:
 
-`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh4.v1.json`
 
-After that grant is recorded against the new metadata snapshot, refresh the authenticated listing again and provide a new screenshot. Only an exact match to:
+Status:
+
+`GRANTED_NOT_CONSUMED`
+
+Expected listing identity:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-may create a new fresh receipt.
+Refresh the already-authenticated NY OSC outbound listing again and provide a screenshot showing filename, size and last modified.
+
+Only an exact match may create a new 900-second fresh receipt. No download is authorized by this grant.
 
 Only after a new exact-match fresh receipt exists may a new:
 
