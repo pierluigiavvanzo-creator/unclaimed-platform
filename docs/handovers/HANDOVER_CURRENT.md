@@ -61,11 +61,11 @@ Proposal checkpoint:
 
 Runner/code checkpoint:
 
-`ce005f08a3bbd23eb8fac6088917109f7864e924`
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
 CI:
 
-`35834948309 — SUCCESS`
+`35859448715 — SUCCESS`
 
 All Python quality/tests, Streamlit checks and frontend lint/typecheck/build passed.
 
@@ -123,29 +123,45 @@ Audit:
 
 No archive-content equivalence is inferred. No download, Owner Name File open or owner PII processing was authorized or performed by this review.
 
-## SINGLE NEXT ACTION
+## Attempt 11 refreshed-listing runner rebind
 
-The new single-use fresh-preflight authorization has been granted and recorded:
-
-`sources/evidence/ny_osc_owner_name_file_eleventh_fresh_listing_preflight_authorization.refresh4.v1.json`
-
-Status:
-
-`GRANTED_NOT_CONSUMED`
-
-Expected listing identity:
+A subsequent authenticated-listing screenshot exactly matched:
 
 `FINDERS.zip | 390.51 MB | 9/23/2026, 1:12:44 PM`
 
-Refresh the already-authenticated NY OSC outbound listing again and provide a screenshot showing filename, size and last modified.
+Before creating a fresh receipt, repository inspection found that the protected Gate-11 runner still required the prior `9/16/2026` last-modified value.
 
-Only an exact match may create a new 900-second fresh receipt. No download is authorized by this grant.
+The minimal metadata binding was updated without changing product-slice, privacy, retry or network behavior.
 
-Only after a new exact-match fresh receipt exists may a new:
+New protected runner checkpoint:
 
-`AUTHORIZE_NY_OSC_ELEVENTH_BOUNDED_EXECUTION_ONCE`
+`bac89609e9069efc98fcd0866b89ee4ee16f1689`
 
-be requested and bound to that exact receipt. Final Gate-11 execution remains one download, one execution and zero retry.
+CI:
+
+`35859448715 — SUCCESS`
+
+Audit:
+
+`docs/audits/NY_OSC_ELEVENTH_REFRESHED_LISTING_RUNNER_REBIND.md`
+
+The prior Attempt-11 local-file, transient-PII and refresh-4 fresh-preflight grants were not consumed, but they are bound to the previous runner checkpoint `ce005f08a3bbd23eb8fac6088917109f7864e924` and cannot be reused for the new protected package.
+
+No new fresh receipt was created from that screenshot.
+
+## SINGLE NEXT ACTION
+
+Request only the first two Attempt-11 grants again, now bound to runner checkpoint `bac89609e9069efc98fcd0866b89ee4ee16f1689`:
+
+`APPROVO NY OSC ELEVENTH TRANSIENT LOCAL FILE BOUNDED ONCE`
+
+`APPROVO NY OSC OWNER NAME FILE ELEVENTH BOUNDED TRANSIENT PII ATTEMPT ONCE`
+
+After those are recorded, request a new separate:
+
+`AUTHORIZE_NY_OSC_ELEVENTH_FRESH_LISTING_PREFLIGHT`
+
+Then obtain a new exact-match screenshot and create a new 900-second fresh receipt. Final execution authorization remains a later separate gate.
 
 ## Expected real Attempt-11 output
 
