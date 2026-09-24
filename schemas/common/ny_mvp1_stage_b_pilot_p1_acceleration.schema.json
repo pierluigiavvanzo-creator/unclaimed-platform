@@ -164,13 +164,13 @@
             "status",
             "osc_list_research_supported",
             "osc_location_service_provider_license_or_registration_required",
-            "stage_b_precontact_requires_signed_fee_agreement",
-            "stage_b_precontact_requires_claim_submission",
-            "stage_b_precontact_requires_direct_owner_contact",
             "rationale",
             "downstream_l3_plus_requirements",
             "pending_legislation_watch",
-            "official_sources"
+            "official_sources",
+            "claim_path_signed_fee_agreement_is_downstream_of_stage_b",
+            "claim_submission_is_downstream_of_stage_b",
+            "claim_path_direct_contact_is_downstream_of_stage_b"
           ],
           "properties": {
             "status": {
@@ -182,17 +182,17 @@
             "osc_location_service_provider_license_or_registration_required": {
               "const": false
             },
-            "stage_b_precontact_requires_signed_fee_agreement": {
-              "const": false
-            },
-            "stage_b_precontact_requires_claim_submission": {
-              "const": false
-            },
-            "stage_b_precontact_requires_direct_owner_contact": {
-              "const": false
-            },
             "pending_legislation_watch": {
               "const": "NY_ASSEMBLY_BILL_A3372_2025_2026_ACTIVE_IN_ASSEMBLY_COMMITTEE_NOT_CURRENT_LAW_AS_OF_2026_09_24"
+            },
+            "claim_path_signed_fee_agreement_is_downstream_of_stage_b": {
+              "const": true
+            },
+            "claim_submission_is_downstream_of_stage_b": {
+              "const": true
+            },
+            "claim_path_direct_contact_is_downstream_of_stage_b": {
+              "const": true
             }
           }
         },
