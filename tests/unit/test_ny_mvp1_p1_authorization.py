@@ -99,7 +99,7 @@ def common_paths(tmp_path: Path, *, local_status="GRANTED_NOT_CONSUMED"):
             "source_snapshot_ref": "synthetic:snapshot",
             "runner_checkpoint": RUNNER_SHA,
             "preflight_authorization_ref": (
-                f"synthetic:HUMAN_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_AUTHORIZATION"
+                "synthetic:HUMAN_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_AUTHORIZATION"
             ),
         },
     )
