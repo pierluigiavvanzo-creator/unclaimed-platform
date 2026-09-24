@@ -164,23 +164,55 @@ Do not perform:
 - representation;
 - claim activity.
 
-## SINGLE NEXT ACTION
+## Legal/privacy readiness review completed
+
+Action:
 
 DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
 
-This is design/review only.
+Result:
 
-It must document:
+CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
 
-- controller identity;
-- controller establishment;
-- applicable-law assessment;
-- legal basis;
-- transparency obligations/plan;
-- LIA if legitimate interests is selected;
-- legal/privacy fail-closed conditions.
+Artifacts:
 
-Do not create or grant any of the seven execution/privacy gates during this action.
+- sources/proposals/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.v1.json
+- schemas/common/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.schema.json
+- tests/contract/test_ny_mvp1_real_p1_legal_readiness_contract.py
+- docs/audits/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
+
+Critical findings:
+
+- repository contains no controller/legal-entity declaration;
+- full Owner Name File acquisition is part of processing scope, not merely the selected record;
+- if GDPR applies, no Article 6 basis is yet established;
+- legitimate interests is candidate-only and requires a documented LIA;
+- Article 14 transparency path is unresolved;
+- no Article 14(5) exception is assumed;
+- Article 21 objection process is not implemented;
+- project policy requires ROPA + DPIA screen before real P1 if GDPR applies;
+- current L1-only direct-PII decoding has not yet passed a necessity test;
+- all seven P1 gate templates remain NOT_GRANTED.
+
+## SINGLE NEXT ACTION
+
+HUMAN_DEFINE_P1_CONTROLLER_IDENTITY_AND_ESTABLISHMENT
+
+Required factual input:
+
+- exact controller legal name;
+- entity type;
+- establishment country/jurisdiction;
+- establishment/business address;
+- privacy contact if already defined.
+
+Do not infer these fields from the Product Owner, GitHub identity or chat metadata.
+
+After the facts exist:
+
+COMPLETE_P1_APPLICABLE_LAW_LIA_TRANSPARENCY_AND_DPIA_SCREEN_OFFLINE
+
+No source access, preflight, download, real PII processing or gate creation is authorized.
 
 ## Context restart order
 
