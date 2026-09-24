@@ -20,9 +20,13 @@ e2856c61a77e2ff8ca6f973b9090beb87a754ebc
 
 Do not infer the live `main` HEAD from this handover. Documentation-only commits may advance `main`; verify the remote HEAD at the start of every task.
 
-Final post-merge CI:
+Latest verified main checkpoint after controller-readiness merge:
 
-35999333460 — SUCCESS
+6703d98f351f6e5dbc6a7be98f91099dae8f47e4
+
+Latest verified main CI:
+
+36009473009 — SUCCESS
 
 ## Integration completed
 
@@ -215,25 +219,69 @@ Cross-track issues still open:
 - exact controller/entity facts;
 - all seven P1 gate templates remain NOT_GRANTED.
 
+## Stage B / Pilot P1 acceleration prepared
+
+Stage B:
+
+PILOT_P1_ONE_REAL_TARGETABILITY_EXPERIMENT
+
+Objective:
+
+ONE REAL PERSISTENCE-SELECTED IN03 CASE
+-> TARGETABILITY DECISION OR BOUNDED STOP
+-> MEASURED TARGETABILITY_DECISION_COST
+-> HUMAN REVIEW
+
+New artifacts:
+
+- sources/proposals/ny_mvp1_stage_b_pilot_p1_acceleration.v1.json
+- schemas/common/ny_mvp1_stage_b_pilot_p1_acceleration.schema.json
+- tests/contract/test_ny_mvp1_stage_b_acceleration_contract.py
+- docs/audits/NY_MVP1_STAGE_B_PILOT_P1_ACCELERATION_REVIEW.md
+
+Offline runner change pending human review:
+
+L1-only selected-record verification no longer field-buffers:
+
+- Property ID value;
+- Owner Name;
+- Holder Name;
+- address fields.
+
+It verifies only structural/non-PII selection facts.
+
+The source-file PII gate remains because the source archive itself contains owner PII.
+
+Direct selected-candidate PII remains reserved for separately pre-authorized L2-A.
+
+Stage B exit does not require:
+
+- outreach;
+- signed LSP agreement;
+- known recoverable value;
+- claim submission;
+- recovery;
+- profitability proof.
+
+Remaining human dependencies are intentionally reduced to three groups:
+
+1. controller operating model/entity facts;
+2. exact L2-A provider or manual research source set;
+3. fresh single-use execution approvals.
+
+All seven P1 gates remain NOT_GRANTED.
+
 ## SINGLE NEXT ACTION
 
-HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
+HUMAN_REVIEW_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
 
-Required factual input:
+Required phrase:
 
-- US controller / EU controller / other operating model;
-- exact controller legal name;
-- entity type;
-- formation/incorporation jurisdiction;
-- principal establishment/business address;
-- any EU branch/office/employee/agent/stable arrangement relevant to P1;
-- any EU person/entity that will access live owner PII;
-- entity signing LSP customer agreements;
-- entity receiving LSP fees;
-- confirmation of US-only MVP1 market and no EU targeting/monitoring;
-- privacy contact if defined.
+APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
 
-Do not infer these facts from Product Owner identity, GitHub identity, residence or developer location.
+If approved, execute only:
+
+COMPLETE_US_CONTROLLER_FACT_BINDING_AND_L2A_MANUAL_PROVIDER_REVIEW_OFFLINE
 
 No source access, preflight, download, real PII processing or gate creation is authorized.
 

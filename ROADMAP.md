@@ -93,109 +93,88 @@ NOT_GRANTED
 
 No owner authorization or execution reference exists.
 
-## Stage 7 — Controller territorial-scope readiness — BIFURCATED / WAITING FOR FACTS
+## Stage 7 — Controller territorial-scope readiness — COMPLETE / BIFURCATED
 
-Action completed:
+PR #41 — MERGED.
 
-DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
+Merge commit:
 
-Result:
+6703d98f351f6e5dbc6a7be98f91099dae8f47e4
 
-BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
+Post-merge CI:
 
-Tracks:
+36009473009 — SUCCESS
 
-- US_CONTROLLER_US_MARKET — preferred MVP hypothesis pending facts;
+Accepted framework:
+
+- US_CONTROLLER_US_MARKET — preferred MVP hypothesis pending real entity facts;
 - EU_CONTROLLER_OR_EU_ESTABLISHMENT — GDPR Article 3(1) track;
-- NON_EU_CONTROLLER_ARTICLE_3_2 — GDPR track if EU targeting/monitoring occurs;
-- US_CONTROLLER_WITH_EU_PROCESSOR_ONLY — separate controller/processor analysis; EU processor does not automatically create an EU establishment for the US controller.
-
-Preferred architecture hypothesis:
-
-US production controller/PII plane + EU synthetic/non-PII development plane.
+- NON_EU_CONTROLLER_ARTICLE_3_2 — conditional EU-targeting/monitoring track;
+- US_CONTROLLER_WITH_EU_PROCESSOR_ONLY — separate controller/processor analysis.
 
 All seven P1 gates remain NOT_GRANTED.
 
-Next human input:
+## Stage B / Pilot P1 fast-track — PREPARED OFFLINE
 
-HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
+Stage B means:
 
-Required:
+ONE REAL BOUNDED TARGETABILITY EXPERIMENT.
 
-- operating model;
-- exact legal entity;
-- entity type;
-- formation/incorporation jurisdiction;
-- principal establishment/business address;
-- EU establishment/stable-arrangement facts;
-- EU live-PII access facts;
-- customer-contracting and fee-receipt entity;
-- US-only market/no EU targeting or monitoring confirmation;
-- privacy contact if defined.
+Fast-track lanes:
 
-## Stage 8 — Track-specific legal readiness — BLOCKED ON STAGE 7 FACTS
+### B0 — Controller facts — BLOCKED ON HUMAN FACTS
 
-### If US_CONTROLLER_US_MARKET is factually confirmed
+Need only the factual US/EU controller/entity record.
 
-Complete US/New York legal/privacy/security readiness only, plus any processor-role review needed for EU vendors/personnel.
+### B1 — L1 privacy minimization — IMPLEMENTED OFFLINE / PENDING REVIEW
 
-Do not impose GDPR controller Article 6/14/21/ROPA/DPIA blockers merely by default.
+L1-only selected-row verification does not field-buffer direct owner PII.
 
-### If EU_CONTROLLER_OR_EU_ESTABLISHMENT is triggered
+### B2 — US/NY pre-contact readiness — MOSTLY DEFINED
 
-Complete:
+OSC research/list access is separated from downstream claim-path requirements.
 
-- Article 6 basis;
-- LIA if Article 6(1)(f);
-- Article 14 path;
-- Article 21 process;
-- ROPA by project policy;
-- DPIA screen;
-- full-file necessity/minimisation.
+No claim/outreach machinery is required to complete Stage B.
 
-No source access is required for this work.
+### B3 — L2-A provider/manual research binding — NEXT AFTER B0
 
-## Stage 9 — L2-A provider privacy/terms readiness — CONDITIONAL
+Constraints:
 
-Only if P1 is intended to include L2-A in the same authorized run.
+- USD 0 external paid spend;
+- 900-second manual cap;
+- no paid API/data broker/FCRA consumer-report product;
+- no outreach;
+- no value research.
 
-Must identify one exact provider/tool and document:
+### B4 — Fresh single-use approval chain — NOT STARTED
 
-- privacy/terms;
-- PII fields transmitted;
-- retention/reuse;
-- commercial cost;
-- FCRA/consumer-report status if relevant;
-- allowed query count;
-- approved USD 0 external paid-spend constraint.
+All seven gates remain NOT_GRANTED.
 
-No generic provider approval.
-
-## Stage 9 — Fresh real P1 authorization chain — NOT STARTED
-
-Only after required legal/controller readiness is approved.
-
-All grants must be fresh, single-use, non-reusable and zero-retry.
-
-Historical approvals cannot be reused.
-
-## Stage 10 — Pilot P1 real execution — NOT AUTHORIZED
+### B5 — One real P1 — NOT AUTHORIZED
 
 One candidate maximum.
 
-P1 question:
+### B6 — Human economic review — CONDITIONAL ON P1
 
-Can material service need and bounded resolvability be established cheaply enough to justify the next authorization before recoverable value is known?
+Review targetability result/stop and TARGETABILITY_DECISION_COST before any P2.
 
-P1 does not require outreach, known value or recovery.
+## Stage B human review — NEXT
 
-## Stage 11 — P2 approximately five cases — CONDITIONAL
+Review only:
+
+HUMAN_REVIEW_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+
+Required phrase:
+
+APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+
+Approval does not authorize real P1.
+
+## P2 — approximately five cases — CONDITIONAL
 
 Only if P1 supports continuation.
 
-Management-learning batch, not statistical proof.
-
-## Stage 12 — P3 approximately 20–30 cases — CONDITIONAL
+## P3 — approximately 20–30 cases — CONDITIONAL
 
 Only if P2 supports continuation.
 

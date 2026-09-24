@@ -282,12 +282,61 @@ Required facts include:
 
 These facts must not be inferred from Product Owner identity, account location, GitHub ownership or developer location.
 
+## Stage B / Pilot P1 acceleration — PREPARED OFFLINE
+
+Stage B is now explicitly defined as:
+
+PILOT_P1_ONE_REAL_TARGETABILITY_EXPERIMENT
+
+Objective:
+
+ONE REAL PERSISTENCE-SELECTED IN03 CASE
+-> EVIDENCE-BACKED TARGETABILITY DECISION OR BOUNDED STOP
+-> MEASURED TARGETABILITY_DECISION_COST
+-> HUMAN REVIEW
+
+Acceleration artifacts:
+
+- sources/proposals/ny_mvp1_stage_b_pilot_p1_acceleration.v1.json
+- schemas/common/ny_mvp1_stage_b_pilot_p1_acceleration.schema.json
+- tests/contract/test_ny_mvp1_stage_b_acceleration_contract.py
+- docs/audits/NY_MVP1_STAGE_B_PILOT_P1_ACCELERATION_REVIEW.md
+
+Offline runner improvement:
+
+L1-only selected-record verification no longer field-buffers:
+
+- Property ID value;
+- Owner Name;
+- Holder Name;
+- address fields.
+
+It verifies only non-PII/structural target-selection facts.
+
+The source-file PII gate remains because the archive itself still contains owner PII.
+
+Stage B remaining human dependencies are intentionally reduced to three groups:
+
+1. controller operating model/entity facts;
+2. exact L2-A provider or manual research source set;
+3. fresh single-use execution approvals.
+
+Claim agreement, outreach, known value, recovery and profitability proof are downstream and are not Stage B exit requirements.
+
+No real source or PII activity was authorized or performed.
+
 ## Current next action
 
 Execute only:
 
-HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
+HUMAN_REVIEW_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
 
-Once those facts exist, complete only the legal track actually triggered by the operating model.
+Required phrase:
 
-No source access, preflight, download, PII processing or grant creation is authorized.
+APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+
+If approved, proceed offline with:
+
+COMPLETE_US_CONTROLLER_FACT_BINDING_AND_L2A_MANUAL_PROVIDER_REVIEW_OFFLINE
+
+No source access, preflight, download, real PII processing or grant creation is authorized.

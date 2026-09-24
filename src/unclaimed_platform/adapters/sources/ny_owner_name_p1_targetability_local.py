@@ -395,11 +395,19 @@ class _SelectionScanner:
 
 
 class _SelectedRecordCollector:
-    L1_FIELDS = {0, 1, 3, 4, 12, 13}
+    NON_PII_FIELDS = {1, 3, 13}
+    DIRECT_PII_FIELDS = {0, 4, 12}
     ADDRESS_FIELDS = {5, 6, 7, 8, 9, 10, 11}
 
-    def __init__(self, target_ordinal: int, include_address: bool) -> None:
+    def __init__(
+        self,
+        target_ordinal: int,
+        *,
+        include_direct_pii: bool,
+        include_address: bool,
+    ) -> None:
         self.target_ordinal = target_ordinal
+        self.include_direct_pii = include_direct_pii
         self.include_address = include_address
         self.current_ordinal = 0
         self.selected: dict[int, bytes] | None = None
@@ -408,6 +416,8 @@ class _SelectedRecordCollector:
         self._has_data = False
         self._pending_cr = False
         self._buffers: dict[int, bytearray] = {}
+        self._property_id_non_ws = False
+        self.selected_property_id_non_ws: bool | None = None
         self._overflow = False
 
     def consume(self, value: int) -> None:
@@ -437,7 +447,9 @@ class _SelectedRecordCollector:
             self._finish_record()
 
     def _should_collect(self, field_index: int) -> bool:
-        if field_index in self.L1_FIELDS:
+        if field_index in self.NON_PII_FIELDS:
+            return True
+        if self.include_direct_pii and field_index in self.DIRECT_PII_FIELDS:
             return True
         return self.include_address and field_index in self.ADDRESS_FIELDS
 
@@ -449,6 +461,8 @@ class _SelectedRecordCollector:
             return
         if self.current_ordinal + 1 != self.target_ordinal:
             return
+        if self._field_index == 0 and value not in {9, 32}:
+            self._property_id_non_ws = True
         if not self._should_collect(self._field_index):
             return
         target = self._buffers.setdefault(self._field_index, bytearray())
@@ -463,6 +477,7 @@ class _SelectedRecordCollector:
             return
         self.current_ordinal += 1
         if self.current_ordinal == self.target_ordinal:
+            self.selected_property_id_non_ws = self._property_id_non_ws
             if self._pipe_count != DOCUMENTED_PIPE_COUNT or self._overflow:
                 self.selected = {}
             else:
@@ -476,6 +491,7 @@ class _SelectedRecordCollector:
         self._field_index = 0
         self._has_data = False
         self._buffers = {}
+        self._property_id_non_ws = False
         self._overflow = False
 
 
@@ -530,6 +546,48 @@ def _scan_selection(
     )
 
 
+def _verify_selected_without_direct_pii(
+    archive_path: Path,
+    authorization: P1ExecutionAuthorization,
+    selection: RealP1SelectionSummary,
+) -> bool:
+    """Verify the selected row without buffering Owner Name, Holder Name or addresses."""
+
+    ordinal = selection.selected_source_record_ordinal
+    selected_year = selection.selected_holder_report_year
+    if ordinal is None or selected_year is None:
+        return False
+
+    _, member = _archive_member(archive_path, authorization)
+    collector = _SelectedRecordCollector(
+        ordinal,
+        include_direct_pii=False,
+        include_address=False,
+    )
+    with zipfile.ZipFile(archive_path) as archive, archive.open(member, "r") as stream:
+        while chunk := stream.read(CHUNK_BYTES):
+            for value in chunk:
+                collector.consume(value)
+                if collector.selected is not None:
+                    break
+            if collector.selected is not None:
+                break
+        collector.finish()
+
+    fields = collector.selected
+    if not fields or collector.selected_property_id_non_ws is not True:
+        return False
+
+    property_type = fields.get(1, b"")
+    owner_count = fields.get(3, b"")
+    report_year = fields.get(13, b"")
+    if property_type != b"IN03" or owner_count != b"1":
+        return False
+    if not report_year or not all(48 <= item <= 57 for item in report_year):
+        return False
+    return int(report_year.decode("ascii")) == selected_year
+
+
 def _materialize_selected(
     archive_path: Path,
     authorization: P1ExecutionAuthorization,
@@ -542,7 +600,8 @@ def _materialize_selected(
     _, member = _archive_member(archive_path, authorization)
     collector = _SelectedRecordCollector(
         ordinal,
-        include_address=authorization.l2a_enabled,
+        include_direct_pii=True,
+        include_address=True,
     )
     with zipfile.ZipFile(archive_path) as archive, archive.open(member, "r") as stream:
         while chunk := stream.read(CHUNK_BYTES):
@@ -744,13 +803,20 @@ def execute_real_p1_targetability_local(
             selection = _scan_selection(archive_path, authorization)
             if selection.eligible_records_count == 0:
                 reason = "NO_ELIGIBLE_SINGLE_OWNER_IN03_WITH_REPORT_YEAR"
+            elif not authorization.l2a_enabled:
+                if _verify_selected_without_direct_pii(
+                    archive_path,
+                    authorization,
+                    selection,
+                ):
+                    reason = "L1_COMPLETED_L2A_NOT_AUTHORIZED"
+                    status = "COMPLETED"
+                else:
+                    reason = "SELECTED_RECORD_SECOND_PASS_MISMATCH"
             else:
                 candidate = _materialize_selected(archive_path, authorization, selection)
                 if candidate is None:
                     reason = "SELECTED_RECORD_SECOND_PASS_MISMATCH"
-                elif not authorization.l2a_enabled:
-                    reason = "L1_COMPLETED_L2A_NOT_AUTHORIZED"
-                    status = "COMPLETED"
                 elif l2a_provider is None:
                     reason = "L2A_PROVIDER_REQUIRED"
                 elif authorization.provider_binding is None:
