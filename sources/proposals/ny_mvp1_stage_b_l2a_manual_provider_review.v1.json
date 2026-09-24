@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.stage_b.l2a_manual_provider_review",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-24",
+  "status": "CONDITIONAL_PASS_OFFLINE_NOT_APPROVED_FOR_REAL_PII_QUERY",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "provider_candidate": {
+    "provider_id": "google-search-manual-us-v1",
+    "service": "Google Search",
+    "service_provider_if_us_country_terms": "Google LLC",
+    "mode": "MANUAL_BROWSER_ONLY",
+    "api_allowed": false,
+    "automation_allowed": false,
+    "bot_allowed": false,
+    "paid_product_allowed": false,
+    "paid_data_broker_allowed": false,
+    "consumer_report_product_allowed": false,
+    "external_cash_budget_cents": 0,
+    "manual_research_cap_seconds": 900,
+    "max_search_queries": 3,
+    "operator_location_requirement": "UNITED_STATES",
+    "operator_role_requirement": "AUTHORIZED_US_CONTROLLER_OPERATOR",
+    "account_requirement": "NO_NEW_ACCOUNT_REQUIRED",
+    "preferred_session_mode": "DEDICATED_US_BUSINESS_BROWSER_PROFILE_WITH_SEARCH_HISTORY_PERSONALIZATION_DISABLED_WHERE_AVAILABLE"
+  },
+  "terms_privacy_review": {
+    "google_terms_effective_date": "2026-07-30",
+    "google_privacy_effective_date": "2026-05-26",
+    "business_use_supported_by_general_terms": true,
+    "search_terms_processed_by_google": true,
+    "device_network_activity_processed_by_google": true,
+    "signed_in_activity_may_be_saved_depending_on_settings": true,
+    "signed_out_activity_still_has_browser_device_controls_and_processing": true,
+    "respect_privacy_and_applicable_law_required": true,
+    "automated_access_prohibited_by_project_even_if_otherwise_available": true,
+    "review_refs": [
+      "https://policies.google.com/terms/embedded",
+      "https://policies.google.com/privacy/embedded"
+    ]
+  },
+  "pii_query_minimisation": {
+    "first_query_template": "OWNER_FULL_NAME_PLUS_LAST_KNOWN_CITY_AND_STATE",
+    "second_query_template_if_ambiguous": "OWNER_FULL_NAME_PLUS_LAST_KNOWN_ZIP",
+    "third_query_template_if_still_ambiguous": "OWNER_FULL_NAME_PLUS_PUBLIC_CONTEXT_TERM_SELECTED_BY_HUMAN_WITHOUT_NEW_SENSITIVE_DATA",
+    "forbidden_query_fields": [
+      "SOCIAL_SECURITY_NUMBER",
+      "DATE_OF_BIRTH",
+      "PHONE_NUMBER",
+      "EMAIL_ADDRESS",
+      "FULL_STREET_ADDRESS_UNLESS_SEPARATELY_REVIEWED",
+      "PROPERTY_ID",
+      "BENEFICIARY_NAME",
+      "RELATIVE_NAME"
+    ],
+    "query_strings_persisted": false,
+    "query_urls_persisted": false,
+    "screenshots_persisted": false,
+    "copied_snippets_persisted": false
+  },
+  "evidence_rules": {
+    "google_result_or_ai_summary_is_evidence": false,
+    "google_ai_overview_or_ai_mode_allowed_as_evidence": false,
+    "source_page_verification_required": true,
+    "public_access_without_login_required": true,
+    "paywalled_or_account_required_sources_allowed": false,
+    "source_terms_must_not_prohibit_proposed_use": true,
+    "durable_output_must_be_non_pii": true,
+    "allowed_durable_fields": [
+      "SERVICE_NEED_STATE",
+      "RESOLVABILITY_STATE",
+      "ESTATE_PATH_STATE",
+      "REPRESENTATIVE_PATH_STATE",
+      "TARGETABILITY_CLASS",
+      "FRICTION_LANE",
+      "EVIDENCE_OPAQUE_REFS",
+      "SOURCE_TYPE_CATEGORIES",
+      "NON_PII_SOURCE_DOMAINS",
+      "MANUAL_RESEARCH_SECONDS",
+      "EXTERNAL_CASH_SPEND_CENTS",
+      "STOP_REASON"
+    ]
+  },
+  "explicit_source_exclusions": [
+    {
+      "source": "WebSurrogate",
+      "domain": "websurrogates.nycourts.gov",
+      "status": "REJECTED_FOR_STAGE_B_COMMERCIAL_RESEARCH_ABSENT_EXPRESS_PERMISSION_OR_NEW_LEGAL_REVIEW",
+      "reason": "CURRENT_TERMS_STATE_DATA_MAY_NOT_BE_MINED_OR_SOLD_OR_USED_IN_ANY_PAY_FOR_USE_APPLICATION_AND_BOTS_ARE_PROHIBITED",
+      "terms_ref": "https://websurrogates.nycourts.gov/Home/TermsOfUse"
+    },
+    {
+      "source": "PEOPLE_SEARCH_DATA_BROKERS",
+      "status": "REJECTED_FOR_P1",
+      "reason": "PAID_DATA_BROKER_AND_GENERAL_IDENTITY_STACK_FROZEN"
+    },
+    {
+      "source": "CONSUMER_REPORT_FCRA_PRODUCTS",
+      "status": "REJECTED_FOR_P1",
+      "reason": "P1_SCOPE_PROHIBITS_CONSUMER_REPORT_PRODUCTS"
+    }
+  ],
+  "stop_conditions": [
+    "OPERATOR_NOT_US_BASED_FOR_LIVE_PII_SESSION",
+    "CONTROLLER_US_TRACK_NOT_FACTUALLY_BOUND",
+    "L2A_PII_GATE_NOT_GRANTED",
+    "PROVIDER_BUDGET_GATE_NOT_GRANTED",
+    "L2A_EXECUTION_GATE_NOT_GRANTED",
+    "QUERY_COUNT_WOULD_EXCEED_THREE",
+    "MANUAL_RESEARCH_WOULD_EXCEED_900_SECONDS",
+    "ONLY_RESTRICTED_LOGIN_PAYWALL_OR_PROHIBITED_SOURCE_AVAILABLE",
+    "RESULT_REQUIRES_UNSUPPORTED_IDENTITY_INFERENCE",
+    "OUTREACH_REQUIRED",
+    "VALUE_RESEARCH_REQUIRED"
+  ],
+  "provider_binding_template": {
+    "provider_id": "google-search-manual-us-v1",
+    "provider_terms_review_ref": "docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md",
+    "approved_external_cash_budget_cents": 0,
+    "approved_manual_research_cap_seconds": 900,
+    "paid_api_allowed": false,
+    "paid_data_broker_allowed": false,
+    "consumer_report_fcra_product_allowed": false
+  },
+  "execution_allowed": false,
+  "authorization_does_not_grant": {
+    "external_pii_query": false,
+    "provider_budget_gate": false,
+    "l2a_execution": false,
+    "source_access": false,
+    "download": false
+  },
+  "review_result": "CONDITIONAL_PROVIDER_CANDIDATE_READY_FOR_HUMAN_REVIEW_AFTER_CONTROLLER_FACT_BINDING"
+}
