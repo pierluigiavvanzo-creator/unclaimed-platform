@@ -1,148 +1,541 @@
 # PRODUCT_STRATEGY_MVP1.md
 
-Version: 2.1  
-Date: 2026-09-22  
-Status: AUTHORITATIVE PRODUCT-VALIDATION PRIORITY  
+Version: 3.0
+Date: 2026-09-24
+Status: AUTHORITATIVE PRODUCT-VALIDATION PRIORITY
 Owner: Product Owner
 
 ## 1. Strategic command
 
-Until MVP-1 is validated, the project optimizes for exactly this transition:
+Until MVP-1 is validated, optimize for:
 
-`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
+ONE AUTHORIZED REAL SOURCE
+-> ONE TARGETABLE BOUNDED CASE
+-> ONE REVIEWABLE ECONOMIC RESULT
 
-This is the product milestone. Governance completeness, test volume, diagnostic depth, architecture breadth and source-specific investigation are not substitutes for it.
+Primary economic rule:
 
-The broader economic objective remains EUR 2,000,000 of additional economic/patrimonial value within 5 years.
+BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE
 
 Guiding metric:
 
-`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME
 
-## 2. Definition of MVP-1
+The project must not optimize code volume, agent count, architecture breadth, diagnostic depth or governance completeness as ends in themselves.
 
-MVP-1 is complete only when one lawful real source reaches one complete bounded product slice:
+## 2. Updated value proposition
 
-`AUTHORIZED REAL SOURCE`
-`-> bounded acquisition`
-`-> normalization`
-`-> insurance classification`
-`-> candidate case or documented zero-candidate outcome`
-`-> provenance / evidence package`
-`-> reproducible case economics`
-`-> reviewer console`
-`-> bounded human GO / REVISE / STOP decision`
+The product is not a paid shortcut to a free New York State claim.
 
-A green CI run, a reviewed parser, a new approval schema, a source diagnostic or a synthetic candidate is supporting evidence only.
+The value proposition to validate is:
 
-## 3. Current real-source critical path
+Find unresolved insurance-beneficiary opportunities that the rightful person or authorized representative may not be effectively resolving through ordinary processes, determine whether the case is practically resolvable at bounded cost, and provide compliant discovery/location/recovery assistance where that assistance creates real value.
 
-Current source candidate: NY OSC Owner Name File.
+The customer must never be led to believe that payment is required to obtain New York State unclaimed funds.
 
-Completed:
+New York OSC offers direct search/claim processing without a provider fee. A commercial service must therefore create value through discovery, location, disambiguation, documentation support, coordination or complex-case assistance.
 
-- synthetic RAW-literal runtime integration: implemented and reviewed PASS;
-- real-capable authorization/runtime/result/Gate 7 package: implemented and reviewed PASS;
-- transient-local retention approval for attempt 7: `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE`;
-- transient-PII approval for attempt 7: `GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE`.
+## 3. Target customer
 
-Still required, in order and without inference between gates:
+The initial target is not every IN03 record.
 
-1. `HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`;
-2. fresh listing preflight with `EXACT_MATCH` receipt;
-3. final single-use execution authorization;
-4. one bounded real execution;
-5. real output mapped directly into normalization/classification/candidate/economics/reviewer;
-6. commercial baseline and Product Owner GO / REVISE / STOP decision.
+The desired population is:
 
-The current local-retention and transient-PII grants do not authorize any later step.
+exact IN03
+-> unresolved/persistent opportunity
+-> material service need
+-> owner or authorized representative resolvable at bounded cost
+-> separately authorized compliant contact/recovery path.
 
-## 4. Freeze rule — governance and source diagnostics
+Important target hypotheses:
 
-Governance and source diagnostics are considered **over-implemented relative to current product validation**.
+- unresolved but locatable owner;
+- deceased owner / estate / authorized-representative path that remains bounded and documentable;
+- harder identity/contactability case for which the next information step is explicit and bounded.
 
-Effective immediately, do not start new governance, parser, source-diagnostic, attempt-design, framework, agent, database, graph, multi-state or UI-polish work unless all of the following are true:
+Do not infer:
 
-1. it blocks the current real MVP-1 vertical slice;
-2. it tests a genuinely new hypothesis or satisfies a legally/privacy-required gate;
-3. the blocker cannot be resolved inside the largest safe bounded execution package already available;
-4. the work has a direct exit criterion tied to one real reviewer/economic result.
+difficulty = high value
+old record = high value
+estate = high value
+IN03 = profitable case.
 
-Historical governance artifacts remain valid as controls and provenance; they are not the forward roadmap.
+## 4. Current evidence
 
-## 5. Post-execution rule
+NY OSC Attempt 11 established:
 
-As soon as one authorized real execution produces usable output, priority moves immediately downstream.
+- 14,994,489 total physical records;
+- 2,792,990 authority-backed insurance records;
+- 203,921 primary IN03 aggregate candidates;
+- candidate materialization remains separately gated;
+- recoverable value is not disclosed by the source.
 
-Do not return to source diagnostics unless the real output demonstrates a concrete blocker.
+Stage A established, using synthetic-only fixtures:
 
-The default next work after acquisition is:
+- one-candidate transient materialization mechanics;
+- non-PII case ID derivation;
+- Economic Case Ledger;
+- friction lanes F0-F3;
+- PRE_VALUE_DISCOVERY_COST;
+- bounded incremental budget handling;
+- reuse hooks into cost/value/economics components.
 
-`real mapping -> insurance classification -> candidate creation -> provenance/evidence -> economics -> reviewer`
+Stage A's FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER rule was a technical determinism test. It is not the future real P1 economic-targeting rule.
 
-The existing synthetic MVP-1 slice should be reused and adapted rather than replaced.
+## 5. Targetability model
 
-## 6. Commercial evidence to capture
+### 5.1 Deterministic source eligibility
 
-The first real slice must capture, where available:
+Initial P1 eligibility remains:
 
-- records examined;
-- records surviving insurance classification;
-- candidate cases produced;
-- candidate-to-review conversion;
-- processing cost per candidate;
-- source/data cost per candidate;
-- human review time per candidate;
-- estimated recoverable value or value band only where evidentially supportable;
-- expected fee/revenue basis only where legally supportable;
-- unresolved/manual research burden;
-- main drop-off/failure reasons;
-- documented zero-candidate result if no candidate survives.
+- documented 14-field physical shape;
+- exact Property Type Code IN03;
+- Property Owner Count exactly 1;
+- non-empty Property ID;
+- usable Holder Report Year for the persistence experiment.
 
-No commercial threshold is invented before the real baseline exists.
+Eligibility is not economic attractiveness.
 
-## 7. Work priority
+### 5.2 Persistence-first P1 selection
 
-`A — Product Critical`
+Future real P1 design uses:
 
-Only work that directly advances the current real slice or is legally/privacy required to execute it.
+PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
-`B — Material Upgrade`
+The oldest Holder Report Year among eligible records is selected; lowest source record ordinal is the deterministic tie-breaker.
 
-Work required to make the completed real slice reproducible or usable by the Product Owner.
+Holder Report Year is interpreted only as a persistence signal.
 
-`C/D — Frozen by default before MVP-1`
+It does not prove:
+- awareness/unawareness;
+- contactability;
+- death;
+- complexity;
+- recoverable value;
+- willingness to pay.
 
-Additional governance, broad diagnostics, infrastructure, platform expansion, agent expansion, multi-state coverage, genealogy automation, graph systems, UI polish and refactors without direct vertical-slice value.
+No fixed age threshold is invented.
 
-## 8. Product Owner involvement
+### 5.3 Service-need axis
 
-The Product Owner remains responsible for explicit material human gates and final product/commercial decisions.
+SERVICE_NEED_STATE:
 
-The Product Owner should not be used as repetitive QA, log transporter, debugger or operator of unnecessary micro-gates.
+- UNKNOWN
+- LOW_EVIDENCE
+- MATERIAL_EVIDENCE
 
-Use the largest safe bounded package practical while preserving legal/privacy/source authorization boundaries.
+### 5.4 Resolvability axis
 
-## 9. Safety and authority boundaries
+RESOLVABILITY_STATE:
 
-This strategy does not weaken:
+- UNKNOWN
+- EASY
+- BOUNDED
+- UNBOUNDED
 
-- law, privacy or security controls;
-- explicit source authorization;
-- single-use approval semantics;
-- fail-closed behavior;
-- deterministic state/policy/budget/audit controls;
-- versioned machine contracts;
-- prohibition on invented source semantics or data;
-- prohibition on outreach, representation or claim activity without later explicit gates.
+### 5.5 Estate / representative axis
 
-## 10. Canonical read order
+ESTATE_PATH_STATE:
 
-1. `AGENTS.md`
-2. `PRODUCT_STRATEGY_MVP1.md`
-3. `PROJECT_STATE.md`
-4. `ROADMAP.md`
-5. `DECISIONS.md`
-6. `docs/handovers/HANDOVER_CURRENT.md`
+- NOT_EVALUATED
+- NO_EVIDENCE
+- EVIDENCE_PRESENT
 
-Within existing safety/legal constraints, this file governs prioritization and the definition of useful progress.
+REPRESENTATIVE_PATH_STATE:
+
+- NOT_EVALUATED
+- IDENTIFIED
+- BOUNDED_DISCOVERABLE
+- NOT_BOUNDED
+
+### 5.6 Awareness axis
+
+AWARENESS_STATE:
+
+- UNKNOWN_UNTIL_OUTREACH
+- UNAWARE_CONFIRMED
+- AWARE_CONFIRMED
+
+No beneficiary may be labeled "unaware" before evidence produced by a separately authorized contact/outreach stage.
+
+## 6. Targetability classes T0-T4
+
+T0_SELF_SERVICE_LIKELY
+
+- low service-need evidence;
+- easy resolvability;
+- no material complexity evidenced;
+- deprioritize for a paid direct-owner service;
+- does not mean low monetary value.
+
+T1_UNRESOLVED_BUT_LOCATABLE
+
+- material service-need evidence;
+- easy/low-cost resolvability;
+- core direct-service target hypothesis.
+
+T2_ESTATE_OR_REPRESENTATIVE_PATH
+
+- deceased/estate evidence exists;
+- rightful representative is identified or bounded-discoverable;
+- complex-service target hypothesis;
+- does not imply high value.
+
+T3_HARD_BUT_BOUNDED
+
+- material service need;
+- identity/contactability is harder;
+- an explicit bounded next information step exists within an approved budget.
+
+T4_UNBOUNDED_OR_UNRESOLVED_STOP
+
+- no bounded next information step;
+- legal/privacy scope unavailable;
+- or incremental cost becomes disproportionate;
+- stop rather than add architecture.
+
+When evidence is insufficient:
+
+TARGETABILITY_STATE = UNRESOLVED_REQUIRES_L2
+
+No T class may be fabricated.
+
+## 7. Friction lanes F0-F3
+
+F0-F3 remain backward-compatible process-friction observations.
+
+They are orthogonal to T0-T4.
+
+They must never be used as:
+- value prediction;
+- targetability score;
+- ranking score;
+- automatic commercial decision.
+
+Allowed meaning only:
+
+F0 = lower observed process friction
+F1 = identifiable/assistance process friction
+F2 = harder bounded research friction
+F3 = estate/complex-document process friction
+
+No automatic T/F mapping exists.
+
+## 8. No targetability scoring yet
+
+Version 1 uses evidence states and deterministic classes.
+
+targetability_score = null
+
+Do not create weights, probabilities or point systems before real P1/P2 evidence supports them.
+
+## 9. Economic metrics
+
+PRE_VALUE_DISCOVERY_COST remains the umbrella measure of evidenced cost accumulated before sufficient value evidence exists.
+
+New primary P1 sub-metric:
+
+TARGETABILITY_DECISION_COST
+
+Definition:
+
+the fully evidenced incremental cost required to determine whether a case has material service need and bounded resolvability before outreach/value research.
+
+P1 optimization target becomes:
+
+COST_TO_DETERMINE_SERVICE_NEED_AND_RESOLVABILITY
+
+before:
+
+COST_TO_LEARN_IF_THE CASE HAS SUFFICIENT VALUE.
+
+TARGETABILITY_DECISION_COST_STATE:
+
+- NOT_MEASURED
+- MEASURING
+- MEASURED
+
+Human labor cost may be monetized only when a documented labor-rate evidence reference exists.
+
+## 10. Economic Case Ledger
+
+Every future real candidate experiment must emit a durable ledger without direct owner PII.
+
+Retain:
+
+- case_id;
+- source_id;
+- source snapshot/acquisition evidence;
+- selection rule version;
+- source record ordinal;
+- Holder Report Year when allowed as reporting metadata;
+- friction lane and evidence;
+- stage timestamps;
+- machine/data/human-time evidence;
+- PRE_VALUE_DISCOVERY_COST;
+- value-evidence state;
+- explicit stop reason.
+
+Add:
+
+- persistence_signal;
+- service_need_state;
+- resolvability_state;
+- estate_path_state;
+- representative_path_state;
+- awareness_state;
+- targetability_state;
+- targetability_class;
+- targetability_decision_cost_state;
+- targetability_decision_cost_cents when fully evidenced;
+- targetability_evidence_refs;
+- targetability_stop_reason;
+- next_information_objective.
+
+Do not persist:
+
+- Owner Name;
+- Property ID;
+- raw row;
+- address;
+- phone/email;
+- relatives;
+- owner-PII-derived hashes;
+- guessed value;
+- guessed fee;
+- guessed probability of recovery.
+
+## 11. Economic Discovery Ladder
+
+### L0 — Source qualification / target signal
+
+Use non-PII/already-authorized evidence.
+
+Goal:
+
+- deterministic eligibility;
+- persistence signal;
+- no owner-value inference.
+
+### L1 — Transient one-candidate materialization
+
+Goal:
+
+- materialize the minimum approved candidate structure transiently;
+- measure L1 machine/operator cost;
+- preserve no durable owner PII.
+
+No identity resolution, outreach or value research.
+
+### L2 — Minimal targetability discovery
+
+Requires separate legal/privacy authorization.
+
+Question:
+
+CAN THIS OWNER OR AUTHORIZED REPRESENTATIVE BE IDENTIFIED/CONTACTED AT BOUNDED COST, AND IS THERE MATERIAL SERVICE NEED?
+
+Outputs:
+
+- service_need_state;
+- resolvability_state;
+- estate/representative-path state where lawfully evidenced;
+- T0-T4 or UNRESOLVED_REQUIRES_L2;
+- TARGETABILITY_DECISION_COST.
+
+No broad genealogy or unbounded manual research.
+
+### L3 — Outreach / service-fit discovery
+
+Separate outreach authorization required.
+
+Only here may awareness become evidence-backed through actual contact.
+
+Measure:
+- actual contactability;
+- response;
+- awareness;
+- willingness to engage;
+- agreement conversion;
+- channel/human cost.
+
+### L4 — Value-evidence discovery
+
+Obtain evidence-backed recoverable value when lawfully possible, or preserve an explicit unknown/blocked state.
+
+No invented value.
+
+### L5 — Explicit case economics
+
+Only when value, actual/agreed fee and fully loaded case-cost evidence exist.
+
+Then compute:
+
+GROSS_FEE = RECOVERED_VALUE x REALIZED_FEE_RATE
+
+CONTRIBUTION_BEFORE_OVERHEAD = GROSS_FEE - FULLY_LOADED_CASE_COST
+
+The Product Owner decides GO / REVISE / STOP.
+
+## 12. P1 budget discipline
+
+L1 maximum new external cash spend:
+
+USD 0.00
+
+Allowed:
+- measured machine cost;
+- measured operator/reviewer time;
+- no paid API;
+- no paid data broker;
+- no paid identity enrichment.
+
+This is a spend ceiling, not a claim that human/machine work has zero economic cost.
+
+L2 incremental budget:
+
+UNSET_REQUIRES_PRODUCT_OWNER
+
+No L2 spend is authorized by this strategy.
+
+## 13. Pilot sequence
+
+### P1 — one targetability experiment
+
+Question:
+
+Can we identify one case with material service need and bounded resolvability at low enough evidenced cost to justify asking for the next authorization, before knowing recoverable value?
+
+P1 success does not require outreach, agreement, known value or recovery.
+
+Valid outcomes:
+
+- TARGETABLE_CONTINUE_TO_SEPARATE_OUTREACH_REVIEW;
+- STOP_SELF_SERVICE_LOW_NEED;
+- STOP_UNBOUNDED_RESOLUTION_COST;
+- STOP_LEGAL_PRIVACY_SCOPE;
+- STOP_TARGETABILITY_NOT_ESTABLISHED_WITHIN_BUDGET.
+
+### P2 — approximately five bounded cases
+
+Only after P1 review.
+
+P2 is a management-learning batch, not a statistical sample.
+
+Do not simply take the next five rows.
+
+Test variation in:
+- source persistence;
+- T-class outcome;
+- friction lane;
+- targetability decision cost;
+- estate versus non-estate path where lawfully evidenced.
+
+### P3 — approximately 20–30 bounded cases
+
+Only if P2 supports continuation.
+
+Measure an initial empirical distribution of:
+- targetable-opportunity rate;
+- service-need outcomes;
+- resolvability outcomes;
+- targetability decision cost;
+- contactability;
+- outreach conversion;
+- value-known rate;
+- recovery/fee economics.
+
+No statistical representativeness is claimed from sample size alone.
+
+## 14. Stop conditions
+
+Stop fail-closed if:
+
+- deterministic candidate eligibility fails;
+- persistence experiment cannot use a valid Holder Report Year;
+- required legal/privacy authorization is missing;
+- owner PII would be persisted/logged beyond the approved envelope;
+- no bounded next information step exists;
+- paid API/data would be required without a Product Owner budget and approval;
+- targetability cannot be established within the approved budget;
+- outreach is required before outreach authorization;
+- value/fee/probability would have to be invented;
+- T class would rely on unsupported inference.
+
+## 15. Product priority rule
+
+Priority is now:
+
+TARGETABILITY EVIDENCE BEFORE VALUE RESEARCH
+and
+VALUE EVIDENCE BEFORE SCALE.
+
+Freeze by default:
+
+- broad multi-state expansion;
+- generic new agent frameworks;
+- graph infrastructure;
+- generalized genealogy infrastructure;
+- mass outreach automation;
+- large durable PII architecture;
+- non-critical UI polish;
+- parser/source work without a demonstrated blocker.
+
+## 16. Reuse-first rule
+
+Reuse existing:
+
+- Stage A transient-materialization contracts;
+- Economic Case Ledger;
+- follow-up cost component;
+- pre-contact value-evidence component;
+- explicit case-economics component;
+- reviewer surfaces.
+
+Add only the smallest targetability layer needed to distinguish service need from resolvability.
+
+## 17. Current next action
+
+The value-proposition and parameter reframe is authorized by the Product Owner.
+
+Execute only:
+
+IMPLEMENT_AND_REVIEW_SYNTHETIC_TARGETABLE_OPPORTUNITY_FILTER_V1
+
+This implementation must remain synthetic-only.
+
+It must:
+- implement persistence-first deterministic selection using only non-owner targeting metadata;
+- implement targetability evidence states/classes T0-T4;
+- preserve F0-F3 as friction-only;
+- expose TARGETABILITY_DECISION_COST as a distinct future economic metric;
+- use no numeric targetability score;
+- contain tests and a versioned machine contract;
+- authorize nothing real.
+
+It must not perform:
+- source access;
+- remote preflight;
+- download;
+- real candidate materialization;
+- real owner PII processing;
+- identity resolution;
+- beneficiary matching;
+- address enrichment;
+- third-party API use;
+- outreach;
+- value research;
+- fee agreement;
+- representation;
+- claim activity.
+
+## 18. Canonical read order
+
+1. AGENTS.md
+2. PRODUCT_STRATEGY_MVP1.md
+3. PROJECT_STATE.md
+4. ROADMAP.md
+5. DECISIONS.md
+6. docs/handovers/HANDOVER_CURRENT.md
+
+Law, privacy, security and explicit authorization gates remain superior constraints.
