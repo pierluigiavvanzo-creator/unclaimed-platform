@@ -22,10 +22,6 @@ Post-merge main CI:
 
 35994103772 — SUCCESS
 
-PR #36:
-
-MERGED
-
 ## Canonical product objective
 
 ONE AUTHORIZED REAL SOURCE
@@ -42,157 +38,142 @@ MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
 ## Proven source state
 
-Attempt 11 established:
+Attempt 11:
 
 - 14,994,489 records;
-- 2,792,990 authority-backed insurance records;
-- 203,921 primary IN03 aggregate candidates;
+- 2,792,990 authority-backed insurance;
+- 203,921 aggregate IN03 candidates;
 - value unknown from source;
-- no real candidate materialization yet.
+- no real candidate materialization.
 
-All historical real-source/privacy approvals are consumed/non-reusable.
+Historical real-source/privacy approvals are consumed/non-reusable.
 
 ## Canonical targetability state
 
 PRODUCT_STRATEGY_MVP1 v3.0 and D-012 are canonical.
 
-Selection rule planned for real P1:
+Real P1 planned selection:
 
 PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
-Holder Report Year is persistence-only, not a value/awareness/death/contactability signal.
-
 T0-T4 = targetability.
 
-F0-F3 = process friction only.
+F0-F3 = friction only.
 
-No numeric targetability score.
+## Scope review
 
-## Active work
-
-Branch:
+Scope branch:
 
 mvp1-real-p1-targetability-execution-scope
 
-Single task:
+PR #37:
 
-DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
+OPEN / NOT MERGED
 
-Status:
+Product Owner explicitly approved:
 
-DEFINED / OFFLINE DESIGN ONLY / NOT AUTHORIZED
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-Artifacts:
+That approval authorized only offline runner implementation/review.
 
-- sources/proposals/ny_mvp1_real_p1_targetability_execution_scope.v1.json
-- schemas/common/ny_mvp1_real_p1_targetability_execution_scope.schema.json
-- tests/contract/test_ny_mvp1_real_p1_targetability_execution_scope_contract.py
-- docs/audits/NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_REVIEW.md
+## Current implementation branch
 
-## Proposed real P1 design
+mvp1-real-p1-targetability-runner-offline
 
-### Pass L0
+Verified runtime checkpoint:
 
-Streaming whole-file selection using only:
+6a73a4e3da189affe530f6ca9e32259c828e803d
 
-- structure;
-- exact IN03;
-- owner-count = 1;
-- Property ID presence boolean;
-- Holder Report Year;
-- ordinal.
+CI:
 
-No owner-name/address ranking.
+35997991872 — SUCCESS
 
-### L1
+Review:
 
-Second pass on selected ordinal only.
+docs/audits/NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE_REVIEW.md
 
-Transient:
+Decision:
 
-- Property ID;
-- Property Type Code;
-- Property Owner Count;
-- Owner Name;
-- Holder Name;
-- Holder Report Year.
+D-013
 
-No address.
+## Implemented runner
 
-No owner PII persistence/logging/return.
+L0:
 
-External cash budget:
+- streams full TXT;
+- only structural width, IN03, owner-count=1, Property ID presence, Holder Report Year and ordinal participate in selection;
+- Owner Name/address are not decoded/buffered for ranking.
 
-USD 0.00.
+L1:
 
-### L2-A
+- second pass over same local archive;
+- selected ordinal only;
+- transient six-field candidate scope;
+- no durable/returned/logged owner PII;
+- no address unless L2-A was already fully approved.
 
-Defined but separately gated.
+L2-A:
 
-May use selected Owner Name + OSC last-known address only after separate PII approval.
+- protocol seam only;
+- no production provider;
+- no CLI provider;
+- provider must be specifically bound to approved terms/budget;
+- paid spend = USD 0.00;
+- manual research <= 900 seconds;
+- provider output is non-PII targetability evidence.
 
-Goal:
+Output:
 
-service need + resolvability.
+- non-PII selection summary;
+- Economic Case Ledger;
+- T0-T4 result only when approved provider evidence exists;
+- stop/disposal/authorization provenance.
 
-Proposed P1 L2-A cap:
+Local file:
 
-- paid spend USD 0.00;
-- manual research 900 seconds.
+logical deletion required after execution attempt.
 
-No paid data broker/API, FCRA consumer-report product, genealogy, beneficiary matching, outreach or value research.
+No secure physical erasure claim.
 
-No provider/search engine may receive owner PII until its privacy/terms use is explicitly reviewed and approved.
+## Approval state
 
-## One-download rule
+Seven fresh P1 gate templates exist.
 
-L1 and L2-A may share one download only when every L1/L2-A approval is already granted before the download.
+All seven are:
 
-Otherwise:
+NOT_GRANTED
 
-L1 -> disposal -> local file logical deletion -> STOP.
+No owner authorization exists.
 
-No mid-session waiting for new authorization.
+No execution approval ref exists.
 
-## Legal/privacy preconditions
+No runner checkpoint is bound to a granted artifact.
 
-Before real execution:
+## CLI state
 
-- identify controller;
-- record controller establishment;
-- determine applicable law;
-- document legal basis;
-- document transparency obligations/plan.
+scripts/ny_mvp1_p1_targetability_execute.py
 
-If GDPR applies, Article 6 basis must be documented; legitimate interests is not preapproved. If Article 6(1)(f) is selected, project policy requires a documented LIA. Article 14 must be analyzed because data are obtained from a source other than the data subject.
+is local-only and L1-only.
 
-## Fresh gates proposed
+scripts/ny_mvp1_p1_targetability_local.ps1
 
-All single-use/non-reusable/zero-retry:
+is the Windows wrapper.
 
-1. APPROVE_NY_MVP1_P1_TRANSIENT_LOCAL_FILE_ONCE
-2. APPROVE_NY_MVP1_P1_L1_TRANSIENT_PII_ONCE
-3. AUTHORIZE_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_ONCE
-4. AUTHORIZE_NY_MVP1_P1_L1_EXECUTION_ONCE
-5. APPROVE_NY_MVP1_P1_L2A_TARGETABILITY_PII_SCOPE_ONCE
-6. APPROVE_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_ONCE
-7. AUTHORIZE_NY_MVP1_P1_L2A_EXECUTION_ONCE
-
-None is currently granted.
+Neither contains a source network client.
 
 ## Current prohibitions
 
 Do not perform:
 
 - source access;
-- remote preflight;
+- fresh remote preflight;
 - download;
 - real candidate materialization;
 - owner PII processing;
 - external PII queries;
 - identity/contact enrichment;
-- beneficiary matching;
 - genealogy;
+- beneficiary matching;
 - outreach;
 - value research;
 - fee agreement;
@@ -201,17 +182,11 @@ Do not perform:
 
 ## SINGLE NEXT ACTION
 
-HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
+HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
 
-Required Product Owner phrase:
+If accepted, the Product Owner may separately authorize repository merge/integration.
 
-APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
-
-If approved:
-
-IMPLEMENT_AND_REVIEW_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
-
-The runner implementation remains offline and synthetic/test-only until a later fresh authorization chain.
+Acceptance of the runner is NOT an execution/privacy approval.
 
 ## Context restart order
 
@@ -222,4 +197,4 @@ The runner implementation remains offline and synthetic/test-only until a later 
 5. DECISIONS.md
 6. docs/handovers/HANDOVER_CURRENT.md
 
-Then verify remote main and active feature branch before modification.
+Then verify main, PR #37, and branch mvp1-real-p1-targetability-runner-offline.
