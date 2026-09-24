@@ -358,27 +358,52 @@ Accepted offline design:
 
 All seven P1 gates remain NOT_GRANTED.
 
+## Competitive Moat Gate completed
+
+Artifact:
+
+docs/audits/MVP1_COMPETITIVE_MOAT_GATE_2026-09-24.md
+
+Result:
+
+PASS_WITH_REFRAME_CONTINUE_STAGE_B
+
+Broad category uniqueness failed.
+
+Material public competitors include ClaimTrace, Assethound.ai, Heir Crown, Sparrow, Linking Assets, Ryan, ClaimFound and AssetFynd.
+
+Closest workflow competitor:
+
+ClaimTrace
+
+Retained differentiation hypothesis:
+
+NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
+
+Key combination:
+
+- NY IN03 specialization;
+- recoverable value unknown at selection time;
+- service-need and bounded-resolvability evidence;
+- TARGETABILITY_DECISION_COST;
+- explicit bounded STOP;
+- privacy-minimized/transient PII handling.
+
+This is an unproven moat hypothesis and must be validated empirically.
+
+Wyoming remains the preferred bootstrap LLC hypothesis, but formation is deferred until just before real P1 gating and requires US CPA/attorney + NY nexus review.
+
 ## SINGLE NEXT ACTION
 
-HUMAN_SUPPLY_NY_MVP1_US_CONTROLLER_ENTITY_FACTS
+Return to Stage B:
 
-Required factual input:
+HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1
 
-- formed or NOT_YET_FORMED;
-- exact legal name if formed;
-- entity type;
-- US formation/incorporation jurisdiction;
-- principal business address;
-- any EU branch/office/employee/agent/stable arrangement relevant to P1;
-- any EU person/entity that will access live owner PII;
-- entity signing LSP agreements;
-- entity receiving LSP fees;
-- confirmation of US-only MVP1 market/no EU targeting/monitoring;
-- privacy contact if defined.
+After formation:
 
-Do not invent missing fields.
+bind controller facts -> prepare fresh single-use gate packet -> ONE REAL P1 -> human economic review.
 
-No real query, source access, preflight, download, PII processing or P1 execution is authorized.
+All seven P1 gates remain NOT_GRANTED.
 
 ## Context restart order
 
