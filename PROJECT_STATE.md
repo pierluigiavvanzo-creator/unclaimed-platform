@@ -400,16 +400,56 @@ P1 provider bounds:
 
 All seven P1 gates remain NOT_GRANTED.
 
+## Stage B US-controller + L2-A manual review — APPROVED AND MERGED
+
+Product Owner approval:
+
+APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+
+PR #43:
+
+MERGED
+
+Merge commit:
+
+97341caddf2da95765ccced4dcbd11ccccdad336
+
+Post-merge CI:
+
+36016356389 — SUCCESS
+
+Accepted offline design:
+
+- preferred operating model remains US_CONTROLLER_US_MARKET;
+- factual controller/entity fields remain unset until supplied;
+- proposed L2-A provider is google-search-manual-us-v1;
+- provider mode is manual-browser-only, US operator, max 3 minimized queries, max 900 seconds, USD 0;
+- Google AI summaries/snippets are not evidence;
+- underlying source-page verification is required;
+- WebSurrogate remains excluded for Stage B commercial research absent express permission/new legal review.
+
+All seven P1 gates remain NOT_GRANTED.
+
 ## Current next action
 
 Execute only:
 
-HUMAN_REVIEW_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+HUMAN_SUPPLY_NY_MVP1_US_CONTROLLER_ENTITY_FACTS
 
-Required phrase:
+Required factual fields:
 
-APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+- whether the intended US controller entity is already formed;
+- exact legal name if formed;
+- entity type;
+- US formation/incorporation jurisdiction;
+- principal business address;
+- any EU branch/office/employee/agent/stable arrangement relevant to P1;
+- whether any EU person/entity will access live owner PII;
+- entity that will sign LSP agreements;
+- entity that will receive LSP fees;
+- confirmation that MVP1 is US-only with no EU targeting/monitoring;
+- privacy contact if already defined.
 
-Approval still does NOT authorize a real Google query, preflight, download, PII processing or P1 execution.
+If the entity is not yet formed, record NOT_YET_FORMED rather than inventing a company.
 
-After review approval, the project still requires factual controller/entity input before any real gate can be prepared.
+No real query, source access, preflight, download, PII processing or P1 execution is authorized.

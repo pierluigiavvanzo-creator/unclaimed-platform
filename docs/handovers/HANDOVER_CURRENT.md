@@ -323,17 +323,62 @@ REJECTED_FOR_STAGE_B_COMMERCIAL_RESEARCH_ABSENT_EXPRESS_PERMISSION_OR_NEW_LEGAL_
 
 All seven P1 gates remain NOT_GRANTED.
 
-## SINGLE NEXT ACTION
+## Stage B controller/L2-A review approval consumed
 
-HUMAN_REVIEW_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
-
-Required phrase:
+Product Owner approval:
 
 APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
 
-Approval does not authorize any real query, source access, download, PII processing or P1 execution.
+PR #43:
 
-After approval, factual controller/entity input remains required before the fresh single-use gate packet can be prepared.
+MERGED
+
+Merge commit:
+
+97341caddf2da95765ccced4dcbd11ccccdad336
+
+Post-merge CI:
+
+36016356389 — SUCCESS
+
+Accepted offline design:
+
+- US_CONTROLLER_US_MARKET remains the preferred operating-model hypothesis;
+- controller/entity facts remain null until explicitly supplied;
+- google-search-manual-us-v1 is the sole proposed P1 L2-A discovery provider;
+- max 3 minimized manual queries;
+- max 900 seconds;
+- USD 0;
+- authorized US controller operator only;
+- no API/bot/data broker/FCRA product;
+- no outreach/value research;
+- no AI summary as evidence;
+- no persisted query strings/URLs/screenshots/snippets;
+- WebSurrogate excluded absent express permission/new legal review.
+
+All seven P1 gates remain NOT_GRANTED.
+
+## SINGLE NEXT ACTION
+
+HUMAN_SUPPLY_NY_MVP1_US_CONTROLLER_ENTITY_FACTS
+
+Required factual input:
+
+- formed or NOT_YET_FORMED;
+- exact legal name if formed;
+- entity type;
+- US formation/incorporation jurisdiction;
+- principal business address;
+- any EU branch/office/employee/agent/stable arrangement relevant to P1;
+- any EU person/entity that will access live owner PII;
+- entity signing LSP agreements;
+- entity receiving LSP fees;
+- confirmation of US-only MVP1 market/no EU targeting/monitoring;
+- privacy contact if defined.
+
+Do not invent missing fields.
+
+No real query, source access, preflight, download, PII processing or P1 execution is authorized.
 
 ## Context restart order
 
