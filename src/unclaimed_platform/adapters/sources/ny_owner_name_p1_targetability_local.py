@@ -40,6 +40,19 @@ RepresentativePathState = Literal[
     "NOT_BOUNDED",
 ]
 FrictionLane = Literal["F0", "F1", "F2", "F3"]
+RunReason = Literal[
+    "L1_COMPLETED_L2A_NOT_AUTHORIZED",
+    "L2A_TARGETABILITY_CLASSIFIED",
+    "L2A_TARGETABILITY_UNRESOLVED",
+    "NO_ELIGIBLE_SINGLE_OWNER_IN03_WITH_REPORT_YEAR",
+    "SELECTED_RECORD_SECOND_PASS_MISMATCH",
+    "L2A_PROVIDER_REQUIRED",
+    "L2A_PROVIDER_BINDING_MISMATCH",
+    "L2A_MANUAL_RESEARCH_CAP_EXCEEDED",
+    "SOURCE_ARCHIVE_BOUNDARY_FAILED",
+    "EXECUTION_ERROR",
+    "DISPOSAL_FAILED",
+]
 
 
 class RealP1SelectionSummary(BaseModel):
@@ -254,19 +267,7 @@ class RealP1RunResult(BaseModel):
         "AUTHORIZED_REAL_LOCAL_FILE_ONCE"
     )
     status: Literal["COMPLETED", "BLOCKED"]
-    reason_code: Literal[
-        "L1_COMPLETED_L2A_NOT_AUTHORIZED",
-        "L2A_TARGETABILITY_CLASSIFIED",
-        "L2A_TARGETABILITY_UNRESOLVED",
-        "NO_ELIGIBLE_SINGLE_OWNER_IN03_WITH_REPORT_YEAR",
-        "SELECTED_RECORD_SECOND_PASS_MISMATCH",
-        "L2A_PROVIDER_REQUIRED",
-        "L2A_PROVIDER_BINDING_MISMATCH",
-        "L2A_MANUAL_RESEARCH_CAP_EXCEEDED",
-        "SOURCE_ARCHIVE_BOUNDARY_FAILED",
-        "EXECUTION_ERROR",
-        "DISPOSAL_FAILED",
-    ]
+    reason_code: RunReason
     runner_checkpoint: str = Field(pattern=r"^[0-9a-f]{40}$")
     source_snapshot_ref: str = Field(min_length=1)
     fresh_preflight_receipt_ref: str = Field(min_length=1)
@@ -731,7 +732,7 @@ def execute_real_p1_targetability_local(
     selection: RealP1SelectionSummary | None = None
     evidence: RealP1TargetabilityEvidence | None = None
     targetability: TargetabilityDecision | None = None
-    reason: RealP1RunResult.__annotations__["reason_code"]  # type: ignore[assignment]
+    reason: RunReason
     status: Literal["COMPLETED", "BLOCKED"] = "BLOCKED"
 
     try:
