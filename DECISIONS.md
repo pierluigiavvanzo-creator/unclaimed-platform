@@ -328,3 +328,56 @@ Consequences:
 - A RAW !=14 / candidate quote-aware 14 record remains blocked under the current fallback unless later authoritative or statistically robust evidence changes the policy.
 - A future non-PII full-file structural scan may be proposed to enlarge the discriminating sample, but no such scan is authorized by D-011.
 - No parser/runtime/runner change, source access, retry, approval creation, seventh attempt, source activation, matching or outreach is authorized by this decision.
+
+
+---
+
+## D-012 — Targetable opportunity replaces first-source-order economic selection for Pilot P1
+
+Date: 2026-09-24
+
+Status: Accepted as Product Owner product-validation policy; real P1 execution remains separately gated
+
+Context:
+Attempt 11 proved substantial aggregate IN03 candidate supply, while the NY OSC Owner Name File does not disclose recoverable value. Stage A then proved synthetic one-candidate transient materialization using the first eligible source-order record. That Stage A rule was useful for deterministic technical validation but does not distinguish cases where a paid service creates material value from cases a person can likely resolve directly through the free OSC path.
+
+Official NY OSC materials also establish that direct claims are free, Location Service Providers are recognized, the applicable provider fee is capped at 15 percent, qualifying simple payments may be expedited by OSC, and estate claims can require additional entitlement/court documentation.
+
+Decision:
+For future Pilot P1 economic discovery:
+
+1. retain Stage A FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER only as historical synthetic technical evidence;
+2. use PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER as the proposed future P1 source-selection rule;
+3. interpret Holder Report Year only as a persistence signal, never as evidence of value, awareness, death, contactability or willingness to pay;
+4. introduce targetability as a separate product axis based on SERVICE NEED x RESOLVABILITY;
+5. use evidence classes T0-T4 rather than a numeric score:
+   - T0_SELF_SERVICE_LIKELY;
+   - T1_UNRESOLVED_BUT_LOCATABLE;
+   - T2_ESTATE_OR_REPRESENTATIVE_PATH;
+   - T3_HARD_BUT_BOUNDED;
+   - T4_UNBOUNDED_OR_UNRESOLVED_STOP;
+6. preserve F0-F3 strictly as observed process-friction lanes and do not use them as targetability/value scores;
+7. keep awareness UNKNOWN_UNTIL_OUTREACH until separately authorized contact produces evidence;
+8. retain PRE_VALUE_DISCOVERY_COST as the umbrella metric and add TARGETABILITY_DECISION_COST as the primary P1 sub-metric;
+9. set L1 maximum new external cash spend to USD 0.00; paid API/data use is excluded from L1;
+10. leave L2 incremental budget UNSET_REQUIRES_PRODUCT_OWNER;
+11. keep outreach, value research, fee agreement, representation and claim activity as separate human gates.
+
+Reason:
+The economically useful subset is not the highest theoretical value and not the highest difficulty. It is the subset with material service need, bounded resolvability and controlled pre-value cost. This directly tests whether the platform can create paid service value despite the free State claim path without inventing recoverable values or profitability.
+
+Alternatives considered:
+- keep selecting the first eligible IN03 record;
+- rank candidates by guessed property value;
+- equate F2/F3 friction with commercial attractiveness;
+- introduce a weighted targetability score before real evidence exists;
+- begin paid identity/data enrichment before proving targetability economics.
+
+Consequences:
+- PRODUCT_STRATEGY_MVP1 v3 governs prioritization;
+- Stage A implementation remains preserved and backward-compatible;
+- future real P1 must not use first-source-order selection as its economic targeting policy;
+- no T class may be assigned when evidence is insufficient;
+- no numeric targetability score is permitted in v1;
+- P1 asks whether service need and bounded resolvability can be established at acceptable evidenced cost before value is known;
+- this decision authorizes only offline/synthetic design and implementation, not source access or PII processing.

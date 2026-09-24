@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.targetable_opportunity_filter",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-24",
+  "status": "SYNTHETIC_IMPLEMENTATION_ONLY_REAL_EXECUTION_NOT_AUTHORIZED",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "strategic_objective": "ONE_AUTHORIZED_REAL_SOURCE_TO_ONE_TARGETABLE_BOUNDED_CASE_TO_ONE_REVIEWABLE_ECONOMIC_RESULT",
+  "value_proposition": "Find unresolved insurance-beneficiary opportunities where material service need and bounded resolvability can be evidenced before meaningful spend.",
+  "selection_policy": {
+    "previous_stage_a_rule": "FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER",
+    "previous_rule_status": "HISTORICAL_SYNTHETIC_TECHNICAL_VALIDATION_ONLY",
+    "future_p1_rule": "PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER",
+    "selection_rule_version": "2.0.0",
+    "holder_report_year_interpretation": "PERSISTENCE_SIGNAL_ONLY",
+    "fixed_age_threshold": null,
+    "owner_pii_based_ranking": false,
+    "value_based_ranking": false,
+    "random_selection": false
+  },
+  "targetability_axes": {
+    "service_need_states": ["UNKNOWN", "LOW_EVIDENCE", "MATERIAL_EVIDENCE"],
+    "resolvability_states": ["UNKNOWN", "EASY", "BOUNDED", "UNBOUNDED"],
+    "estate_path_states": ["NOT_EVALUATED", "NO_EVIDENCE", "EVIDENCE_PRESENT"],
+    "representative_path_states": ["NOT_EVALUATED", "IDENTIFIED", "BOUNDED_DISCOVERABLE", "NOT_BOUNDED"],
+    "awareness_pre_outreach": "UNKNOWN_UNTIL_OUTREACH"
+  },
+  "targetability_classes": [
+    "T0_SELF_SERVICE_LIKELY",
+    "T1_UNRESOLVED_BUT_LOCATABLE",
+    "T2_ESTATE_OR_REPRESENTATIVE_PATH",
+    "T3_HARD_BUT_BOUNDED",
+    "T4_UNBOUNDED_OR_UNRESOLVED_STOP"
+  ],
+  "scoring_policy": {
+    "numeric_targetability_score_allowed": false,
+    "invented_weights_allowed": false,
+    "friction_lane_used_as_targetability": false,
+    "friction_lane_used_as_value_prediction": false
+  },
+  "economics": {
+    "primary_p1_metric": "TARGETABILITY_DECISION_COST",
+    "pre_value_discovery_cost_retained": true,
+    "l1_max_new_external_cash_spend_cents": 0,
+    "l1_paid_api_calls_allowed": false,
+    "l1_paid_data_purchases_allowed": false,
+    "l2_incremental_budget_state": "UNSET_REQUIRES_PRODUCT_OWNER"
+  },
+  "authorization_does_not_grant": {
+    "source_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "real_candidate_materialization": false,
+    "owner_pii_processing": false,
+    "identity_resolution": false,
+    "beneficiary_matching": false,
+    "address_enrichment": false,
+    "third_party_api_use": false,
+    "outreach": false,
+    "value_research": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  }
+}

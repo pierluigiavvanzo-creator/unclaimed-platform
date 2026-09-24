@@ -1,151 +1,330 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
-## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION / ECONOMIC DISCOVERY MODE
+## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION / TARGETABILITY DISCOVERY MODE
 
 Repository:
 
-`pierluigiavvanzo-creator/unclaimed-platform`
+pierluigiavvanzo-creator/unclaimed-platform
 
 Canonical integration branch:
 
-`main`
+main
 
-Current canonical `main` HEAD:
+Verified main HEAD before this work:
 
-`9fc0c782ae575307be38c3f6b55b8f5ce477d372`
+23de3a6ef5f1d6335691e17206285b4ec5f923af
 
-Current product objective:
+Active feature branch:
 
-`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
+mvp1-targetable-opportunity-reframe
+
+Main has NOT been changed by this work.
+
+## Product objective
+
+ONE AUTHORIZED REAL SOURCE
+-> ONE TARGETABLE BOUNDED CASE
+-> ONE REVIEWABLE ECONOMIC RESULT
 
 Primary economic rule:
 
-`BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE`
+BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE
 
 Strategic metric:
 
-`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME
 
-Do not optimize architecture, diagnostics, agents, parsers or governance as ends in themselves.
+## Updated value proposition
 
-## Canonical operating constraints
+The product is not a paid shortcut to a free OSC claim.
 
-- GitHub is the source of truth.
-- Do not invent data, sources, APIs, legal conclusions, economic values or probabilities.
-- Repository-first / reuse-first.
-- Deterministic core.
-- Fail closed on ambiguity, missing authorization or missing evidence.
-- Every implementation requires tests.
-- Human approval gates remain mandatory for privacy, PII, real-source execution, outreach, fee/representation and claim activity.
-- No Work or Codex for this project.
-- Commit/push/merge decisions remain human-controlled.
-- User is Product Owner, not debugger or QA operator.
+The value proposition to validate is:
 
-## Real-source status already established
+Find unresolved insurance-beneficiary opportunities that the rightful person or authorized representative may not be effectively resolving through ordinary processes, determine whether the case is practically resolvable at bounded cost, and provide compliant discovery/location/recovery assistance where that assistance creates real value.
 
-NY OSC Owner Name File remains the active real-source candidate.
+The owner/authorized representative must never be led to believe that payment is required to obtain New York State unclaimed funds.
+
+## Why this reframe was required
+
+Facts already established:
+
+- NY OSC direct claim processing is free.
+- New York recognizes Abandoned Property Location Service Providers.
+- The applicable provider fee is capped by law at 15 percent; this is a ceiling, not an assumed realized fee.
+- The Owner Name File does not disclose recoverable amount.
+- 2026 expedited payment covers qualifying simple cases up to USD 5,000.
+- Estate claims do not qualify for the expedited program.
+- Deceased-owner/estate claims can require entitlement and court/representative documentation.
+
+Therefore candidate volume alone is not the business.
+
+The commercially interesting hypothesis is:
+
+MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
+
+not:
+
+DIFFICULT CASE = HIGH VALUE
+
+and not:
+
+IN03 = PROFITABLE CASE.
+
+## Real-source evidence already established
 
 Attempt 11 completed the bounded aggregate product slice.
 
 Authoritative aggregate result:
 
-- total physical records: `14,994,489`;
-- structurally conforming: `14,994,477`;
-- structurally deferred: `12`;
-- authority-backed insurance: `2,792,990`;
-- primary `IN03` aggregate candidates: `203,921`;
-- other insurance: `2,589,069`;
-- no authority-backed insurance match: `12,201,486`;
-- unclassifiable Property Type Code: `1`;
-- candidate outcome: `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
-- candidate materialization: `NOT_AUTHORIZED_AGGREGATE_ONLY`;
-- recoverable value: `UNKNOWN_FROM_SOURCE`;
-- economic actionability: `VALUE_EVIDENCE_REQUIRED`.
+- total physical records: 14,994,489;
+- structurally conforming: 14,994,477;
+- structurally deferred: 12;
+- authority-backed insurance: 2,792,990;
+- primary IN03 aggregate candidates: 203,921;
+- candidate materialization: NOT_AUTHORIZED_AGGREGATE_ONLY;
+- recoverable value: UNKNOWN_FROM_SOURCE.
 
-No owner/raw values were returned by the aggregate execution.
+No owner/raw values were returned.
 
 All Attempt-11 execution/privacy approvals are consumed, non-reusable and zero-retry.
 
-The local archive was logically deleted after execution. Physical secure erasure was not guaranteed.
+## Stage A — completed and merged
 
-## Economic feasibility conclusion
+Action:
 
-Whole-project economic audit status:
+IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION
 
-`CONDITIONAL_CONTINUE_ECONOMIC_VALIDATION_NOT_SCALE`
-
-The project has proven candidate supply, but not yet unit economics.
-
-Current downstream bottleneck:
-
-`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
-
-No project-level ROI, CAC, LTV, expected recovery value or profitability forecast is authoritative yet.
-
-## STAGE A — COMPLETED, MERGED, CI PASS
-
-Stage A action:
-
-`IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION`
-
-Purpose:
-
-prove, with synthetic-only inputs, that one future real candidate can be processed through the economic instrumentation layer without persisting owner PII in the economic ledger.
-
-Implementation branch:
-
-`mvp1-ny-synthetic-one-candidate-transient-materialization`
-
-Implementation commit:
-
-`8910bb3cb38958d149c343bb8fdc5b02bba88ba4`
-
-Pull request:
-
-`#34 — MERGED`
+PR #34 — MERGED
 
 Merge commit:
 
-`9fc0c782ae575307be38c3f6b55b8f5ce477d372`
+9fc0c782ae575307be38c3f6b55b8f5ce477d372
 
-Pre-merge PR CI:
+Post-merge CI:
 
-`35920078741 — SUCCESS`
+35920762625 — SUCCESS
 
-Post-merge `main` CI:
+Stage A remains valid as technical evidence.
 
-`35920762625 — SUCCESS`
+Important reinterpretation:
 
-Stage A changed exactly five files:
+FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER was a synthetic determinism test and is NOT the proposed future P1 economic-targeting rule.
 
-1. `src/unclaimed_platform/domain/ny_osc_one_candidate_transient_materialization.py`
-2. `schemas/common/ny_osc_synthetic_one_candidate_transient_materialization.schema.json`
-3. `tests/unit/test_ny_osc_one_candidate_transient_materialization.py`
-4. `tests/contract/test_ny_osc_synthetic_one_candidate_transient_materialization.py`
-5. `docs/audits/NY_OSC_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION_REVIEW.md`
+## Product strategy v3
 
-Stage A now provides tested interfaces/contracts for:
+PRODUCT_STRATEGY_MVP1.md is updated to version 3.0 on the active branch.
 
-- deterministic first-eligible-candidate selection in source order;
-- non-PII case ID derivation;
-- friction lanes `F0/F1/F2/F3`;
-- lane-change provenance;
-- Economic Case Ledger;
-- Economic Discovery Ladder state;
-- `PRE_VALUE_DISCOVERY_COST`;
-- measured machine/data/human-time components;
-- explicit Product Owner incremental stage budget;
-- bounded stop reasons;
-- value-evidence state;
-- reuse hooks for follow-up-cost, value-evidence and explicit case-economics components.
+Future P1 selection proposal:
 
-Stage A remained synthetic-only.
+PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
-It did NOT authorize or perform:
+Meaning:
 
-- source access;
+use the oldest Holder Report Year among otherwise eligible records; source ordinal breaks ties.
+
+Holder Report Year is only a persistence signal.
+
+It does not prove:
+
+- beneficiary awareness/unawareness;
+- death;
+- contactability;
+- claim complexity;
+- recoverable value;
+- willingness to pay.
+
+No fixed age threshold is invented.
+
+## Targetability model
+
+### Service need
+
+SERVICE_NEED_STATE:
+
+- UNKNOWN
+- LOW_EVIDENCE
+- MATERIAL_EVIDENCE
+
+### Resolvability
+
+RESOLVABILITY_STATE:
+
+- UNKNOWN
+- EASY
+- BOUNDED
+- UNBOUNDED
+
+### Estate / representative
+
+ESTATE_PATH_STATE:
+
+- NOT_EVALUATED
+- NO_EVIDENCE
+- EVIDENCE_PRESENT
+
+REPRESENTATIVE_PATH_STATE:
+
+- NOT_EVALUATED
+- IDENTIFIED
+- BOUNDED_DISCOVERABLE
+- NOT_BOUNDED
+
+### Awareness
+
+Before separate outreach authorization:
+
+AWARENESS_STATE = UNKNOWN_UNTIL_OUTREACH
+
+Do not label a beneficiary unaware before contact evidence exists.
+
+## Targetability classes T0-T4
+
+T0_SELF_SERVICE_LIKELY
+
+Low service-need evidence + easy resolution. Low priority for paid direct-owner service. Not a low-value label.
+
+T1_UNRESOLVED_BUT_LOCATABLE
+
+Material service need + easy/low-cost resolvability. Core direct-service target hypothesis.
+
+T2_ESTATE_OR_REPRESENTATIVE_PATH
+
+Deceased/estate evidence + identified or bounded-discoverable representative path. Complex-service hypothesis, not a high-value label.
+
+T3_HARD_BUT_BOUNDED
+
+Material service need + harder identity/contactability + explicit bounded next step.
+
+T4_UNBOUNDED_OR_UNRESOLVED_STOP
+
+No bounded next step, unavailable legal/privacy scope or disproportionate cost. Stop rather than build more architecture.
+
+If evidence is insufficient:
+
+UNRESOLVED_REQUIRES_L2
+
+No T class is fabricated.
+
+## F0-F3 status
+
+F0-F3 remain observed process-friction lanes only.
+
+They are NOT:
+
+- targetability classes;
+- value predictions;
+- ranking scores;
+- automatic commercial decisions.
+
+No automatic mapping exists between T0-T4 and F0-F3.
+
+## Economic metric changes
+
+PRE_VALUE_DISCOVERY_COST remains the umbrella metric.
+
+New primary P1 sub-metric:
+
+TARGETABILITY_DECISION_COST
+
+Definition:
+
+evidenced incremental cost to determine material service need and bounded resolvability before outreach/value research.
+
+P1 optimization now begins with:
+
+COST_TO_DETERMINE_SERVICE_NEED_AND_RESOLVABILITY
+
+before spending to learn exact value.
+
+L1 maximum new external cash spend:
+
+USD 0.00
+
+Paid APIs in L1:
+
+NOT ALLOWED
+
+Paid data purchase in L1:
+
+NOT ALLOWED
+
+L2 incremental budget:
+
+UNSET_REQUIRES_PRODUCT_OWNER
+
+No L2 spend is authorized.
+
+## Synthetic Targetable Opportunity Filter V1
+
+Implementation:
+
+src/unclaimed_platform/domain/ny_mvp1_targetable_opportunity.py
+
+Contract:
+
+schemas/common/ny_mvp1_targetable_opportunity_filter.schema.json
+
+Tests:
+
+- tests/unit/test_ny_mvp1_targetable_opportunity.py
+- tests/contract/test_ny_mvp1_targetable_opportunity_contract.py
+
+Proposal:
+
+sources/proposals/ny_mvp1_targetable_opportunity_filter.v1.json
+
+Audit:
+
+docs/audits/TARGETABLE_OPPORTUNITY_VALUE_PROPOSITION_REFRAME_2026-09-24.md
+
+Review:
+
+docs/audits/NY_MVP1_TARGETABLE_OPPORTUNITY_FILTER_REVIEW.md
+
+Decision:
+
+D-012
+
+## Verification
+
+Verified implementation checkpoint:
+
+89a3fcc0528571e465f73b94552165d3ccea14e6
+
+CI:
+
+35993271424 — SUCCESS
+
+Verified:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest suite;
+- frontend lint;
+- frontend typecheck;
+- frontend build;
+- Streamlit safety smoke;
+- Streamlit startup smoke.
+
+An initial full-pytest run failed only because unit and contract test modules had identical basenames.
+
+Repair:
+
+the contract test was renamed.
+
+No product logic changed.
+
+## Safety boundary
+
+The entire new package is synthetic/offline only.
+
+It does NOT authorize or perform:
+
+- NY OSC access;
 - remote preflight;
 - download;
 - real candidate materialization;
@@ -153,434 +332,129 @@ It did NOT authorize or perform:
 - identity resolution;
 - beneficiary matching;
 - address enrichment;
+- third-party API use;
 - outreach;
 - value research;
 - fee agreement;
 - representation;
 - claim activity.
 
-## Friction lanes
+No previous real-source/privacy approval may be reused.
 
-Lane assignment measures process friction, not value.
+## Economic Discovery Ladder — current interpretation
 
-Never infer:
+L0 — SOURCE QUALIFICATION / TARGET SIGNAL
 
-`F3 = HIGH VALUE`
+Exact eligibility + persistence signal only.
 
-or:
+L1 — TRANSIENT ONE-CANDIDATE MATERIALIZATION
 
-`F0 = LOW VALUE`
+Minimum candidate structure + measured L1 cost. No identity/outreach/value work.
 
-Allowed interpretation only:
+L2 — MINIMAL TARGETABILITY DISCOVERY
 
-`F3 = HIGHER OBSERVED PROCESS FRICTION`
+Question:
 
-`F0 = LOWER OBSERVED PROCESS FRICTION`
+CAN THIS OWNER OR AUTHORIZED REPRESENTATIVE BE IDENTIFIED/CONTACTED AT BOUNDED COST, AND IS THERE MATERIAL SERVICE NEED?
 
-### F0 — Easy / self-service dominant
+Produces T0-T4 or unresolved state and TARGETABILITY_DECISION_COST.
 
-Economic posture:
+L3 — OUTREACH / SERVICE FIT
 
-`MINIMUM_OR_ZERO_INCREMENTAL_SPEND`
+Separate authorization. Awareness may become evidence-backed only here.
 
-Do not perform expensive research merely to rescue an easy case.
+L4 — VALUE EVIDENCE
 
-### F1 — Identifiable / assistance case
+Evidence-backed value only; unknown remains explicit if unavailable.
 
-Economic posture:
+L5 — EXPLICIT CASE ECONOMICS
 
-`LOW_TOUCH / AUTOMATION_FIRST`
+Only after value, actual/agreed fee and fully loaded cost are evidenced.
 
-Measure whether a low-cost assistance workflow can create enough convenience to justify payment despite the free State route.
+## Pilot sequence
 
-### F2 — Hard to identify / hard to contact
+P1:
 
-Economic posture:
+one targetability experiment.
 
-`BOUNDED_RESEARCH_WITH_STOP_LOSS`
+Question:
 
-Every F2 case must carry:
+Can we establish material service need and bounded resolvability cheaply enough to justify the next authorization before recoverable value is known?
 
-- current discovery stage;
-- accumulated pre-value discovery cost;
-- next information objective;
-- Product Owner-approved incremental budget;
-- explicit stop reason.
+P2:
 
-### F3 — Estate / deceased owner / complex documentation
+approximately five deliberately varied cases only after P1 review.
 
-Economic posture:
+Do not simply use the next five rows.
 
-`PREMIUM_COMPLEX_CASE / HUMAN_OR_PROFESSIONAL_SUPPORT`
+P3:
 
-Measure actual legal/professional/documentation burden.
+approximately 20–30 only if P2 supports continuation.
 
-Do not assume that legal-fee sharing is lawful or economically available without specialized legal review.
+Management gates, not statistical guarantees.
 
-## Economic Case Ledger
-
-Every future real candidate experiment must produce one non-PII Economic Case Ledger keyed by `case_id`.
-
-The ledger must not become a parallel owner-PII database.
-
-Minimum categories:
-
-### Provenance
-
-- case ID;
-- source ID;
-- source snapshot/acquisition evidence;
-- deterministic selection-rule version;
-- physical source ordinal or other approved non-owner pointer;
-- lane assignment and lane-change evidence;
-- economic-stage timestamps.
-
-### Measured costs
-
-Record actual evidence-backed amounts only:
-
-- compute/tool cost;
-- data/API cost;
-- human review time;
-- manual research time;
-- contact-channel cost;
-- document/notary cost;
-- professional/legal/external cost;
-- fee-collection cost;
-- other evidenced direct case cost.
-
-Human labor cost may be computed only when a documented labor-rate evidence ref exists.
-
-### Funnel events
-
-Record evidence-backed state for:
-
-- candidate selected;
-- identity work;
-- identity established;
-- contactability;
-- contact attempts;
-- contact success;
-- agreement offered/signed;
-- value known;
-- recovery started/succeeded;
-- fee billed/collected;
-- stop/pause reason.
-
-### Time
-
-Derive, when evidence exists:
-
-- time to identifiable;
-- time to contactable;
-- time to contact;
-- time to agreement;
-- time to value known;
-- time to recovery;
-- time to fee collection.
-
-Primary collected-cash metric:
-
-`DAYS_TO_CASH = fee_collected_at - candidate_selected_at`
-
-## PRE_VALUE_DISCOVERY_COST
-
-Definition:
-
-`PRE_VALUE_DISCOVERY_COST` is the fully evidenced cost accumulated before the platform knows enough about case value to make a rational continue/stop decision.
-
-It is the principal economic-discovery metric for the current MVP phase.
-
-Required states:
-
-- `NOT_STARTED`;
-- `MEASURING`;
-- `VALUE_KNOWN`;
-- `VALUE_STILL_UNKNOWN_STOPPED`;
-- `VALUE_REQUIRES_UNAUTHORIZED_SCOPE`.
-
-Core optimization target:
-
-`COST_TO_LEARN_IF_THE_CANDIDATE_IS WORTH FURTHER SPEND`
-
-not merely:
-
-`COST_PER_CANDIDATE`.
-
-No arbitrary fixed dollar stop-loss threshold is currently evidence-backed.
-
-Every real discovery stage must therefore receive an explicit bounded incremental budget from the Product Owner.
-
-## Economic Discovery Ladder
-
-### L0 — Source-only qualification
-
-Use non-PII / already-authorized classification evidence.
-
-Goal:
-
-determine deterministic eligibility and initial friction lane.
-
-### L1 — Transient one-candidate materialization
-
-Stage A proved the required synthetic contracts.
-
-Real L1 execution remains NOT authorized.
-
-Goal of a future authorized real L1 execution:
-
-materialize exactly one approved candidate transiently and confirm minimum case structure while measuring machine/operator/transient-processing cost.
-
-No durable owner PII, address enrichment, identity work, outreach or value research.
-
-### L2 — Minimal identity/contactability discovery
-
-Requires a separate legal/privacy authorization.
-
-Question to answer:
-
-`CAN THIS OWNER / AUTHORIZED REPRESENTATIVE BE IDENTIFIED AND CONTACTED AT ACCEPTABLE COST?`
-
-No broad genealogy or unbounded manual research.
-
-### L3 — Minimal contact/service-fit discovery
-
-Requires separate outreach authorization.
-
-Measure:
-
-- actual contactability;
-- response;
-- willingness to engage;
-- agreement conversion;
-- incremental channel/human cost.
-
-### L4 — Value-evidence discovery
-
-Goal:
-
-obtain evidence-backed recoverable value when lawfully possible, or establish why value remains unavailable.
-
-Allowed terminal states include:
-
-- `VALUE_EVIDENCE_OBTAINED`;
-- `UNKNOWN_PRE_CLAIM_REVIEW`;
-- `STOP_PRIVACY_SCOPE_INSUFFICIENT`;
-- `STOP_REQUIRES_CLAIM_IDENTITY_OR_LEGAL_ACTION`;
-- `STOP_PRE_VALUE_DISCOVERY_COST_TOO_HIGH`.
-
-No value may be invented.
-
-### L5 — Explicit case economics
-
-Only when value, fee and fully loaded case-cost evidence exist.
-
-Then compute:
-
-`GROSS_FEE = RECOVERED_VALUE x REALIZED_FEE_RATE`
-
-`CONTRIBUTION_BEFORE_OVERHEAD = GROSS_FEE - FULLY_LOADED_CASE_COST`
-
-The Product Owner decides `GO / REVISE / STOP`.
-
-The software must not silently turn arithmetic into an automatic business decision.
-
-## Stage B / Pilot sequence
-
-Stage B is the next economic-validation phase, but it has NOT started.
-
-Its governing question is:
-
-> Can we obtain useful economic evidence and measure the case cost before the cost of research makes the model irrational?
-
-### Pilot P1 — one real candidate
-
-Purpose:
-
-prove the economic-discovery process end to end and identify the exact point where value, privacy and cost become binding.
-
-P1 success is not necessarily a recovery.
-
-A valid outcome may be:
-
-`STOP — PRE_VALUE_DISCOVERY_COST OR REQUIRED_SCOPE MAKES CASE IRRATIONAL`
-
-### Pilot P2 — approximately five bounded cases
-
-Only after P1 review.
-
-Purpose:
-
-identify repeated failure modes, lane differences, cost concentration and safe automation opportunities.
-
-Five is a management-learning batch, not a statistically validated sample size.
-
-### Pilot P3 — approximately 20–30 bounded cases
-
-Only if P2 supports continuation.
-
-Purpose:
-
-obtain an initial empirical distribution for cost, time, conversion and value-known outcomes sufficient for a Product Owner scale/pivot decision.
-
-Twenty to thirty is a management gate, not a claim of statistical representativeness.
-
-## Pivot framework
-
-### Scenario A
-
-Low discovery cost + positive real contribution.
-
-Action:
-
-`CONTINUE_DIRECT_OWNER_LOCATION_SERVICE`
-
-### Scenario B
-
-Direct-owner economics weak/volatile, but professionals show willingness to pay for the tooling.
-
-Action:
-
-`PIVOT_OR_ADD_B2B_SOFTWARE_SERVICE_MODEL`
-
-Do not build B2B features before willingness-to-pay evidence exists.
-
-### Scenario C
-
-Complex F3 cases appear attractive but legal/professional cost dominates.
-
-Action:
-
-`RESTRUCTURE_PARTNERSHIP_AND_PRICING_BEFORE_SCALE`
-
-Do not assume revenue sharing with lawyers is available.
-
-### Scenario D
-
-Discovery cost repeatedly high + value arrives too late + no professional willingness to pay.
-
-Action:
-
-`FREEZE_OR_STOP_NY_DIRECT_MODEL`
-
-Do not respond by adding architecture.
-
-## Governance-to-economics rule
-
-Additional governance is justified only when required to:
-
-- lawfully run the next economic experiment;
-- protect PII/security;
-- preserve reproducibility/provenance;
-- solve a demonstrated economic bottleneck.
-
-Freeze by default:
-
-- generic new agent frameworks;
-- broad multi-state expansion;
-- graph infrastructure;
-- generalized genealogy infrastructure;
-- mass outreach automation;
-- large durable PII architecture;
-- non-critical UI polish;
-- parser work without a real blocker.
-
-Planning heuristic during economic validation:
-
-approximately `70–80%` of effort toward economic evidence and approximately `20%` toward the minimum legal/privacy/governance needed to obtain it safely.
-
-This is a Product Owner planning heuristic, not an externally validated economic constant.
-
-## SINGLE NEXT ACTION
-
-Stage A is complete and merged.
-
-Do NOT execute a real candidate yet.
+## Current single next action
 
 Execute only:
 
-`DEFINE_AND_REVIEW_MINIMUM_LEGAL_PRIVACY_SCOPE_FOR_PILOT_P1`
+HUMAN_REVIEW_TARGETABLE_OPPORTUNITY_REFRAME_AND_SYNTHETIC_FILTER_V1
 
-Purpose:
+The Product Owner review should decide whether to accept:
 
-define the smallest lawful/privacy-safe authorization envelope required to obtain the next unit of economic information from exactly one real candidate.
+1. value proposition v3;
+2. persistence-first P1 selection;
+3. T0-T4 vocabulary;
+4. F0-F3 / T0-T4 separation;
+5. TARGETABILITY_DECISION_COST;
+6. L1 external cash spend ceiling USD 0.00;
+7. L2 budget remaining unset;
+8. integration of the active branch into main.
 
-The review must determine, before any real execution:
+No real candidate execution is part of this review.
 
-1. which real candidate fields may be transiently materialized at L1;
-2. which fields, if any, may be persisted and why;
-3. retention/disposal requirements;
-4. minimum lawful basis and privacy constraints for L1;
-5. whether L2 identity/contactability work is permissible and under what separately approved scope;
-6. whether any third-party data/API use is required and under what evidence/cost controls;
-7. whether outreach remains separately gated;
-8. exact Product Owner incremental budget required for the first real discovery step;
-9. exact stop conditions;
-10. which approvals are single-use/non-reusable;
-11. what evidence must be written to the Economic Case Ledger without owner PII.
+If approved and integrated, next separate action:
 
-The review must remain offline/design-only.
+DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
 
-It must NOT authorize or perform:
+That future action must still define fresh single-use privacy/execution gates, exact PII scope, retention/disposal and any L2 incremental budget.
 
-- source access;
-- remote preflight;
-- download;
-- real candidate materialization;
-- owner PII processing;
-- identity resolution;
-- address enrichment;
-- outreach;
-- value research;
-- fee agreement;
-- representation;
-- claim activity.
+## Canonical read order
 
-After this review, the next human decision will be whether the expected information gain justifies authorizing the minimum real Pilot P1 scope.
+1. AGENTS.md
+2. PRODUCT_STRATEGY_MVP1.md
+3. PROJECT_STATE.md
+4. ROADMAP.md
+5. DECISIONS.md
+6. docs/handovers/HANDOVER_CURRENT.md
 
-## Git health
+Then verify remote main and active branch HEAD.
 
-Canonical integration branch:
+## Git status
 
-`main`
+Canonical main baseline before work:
 
-Current `main` HEAD:
+23de3a6ef5f1d6335691e17206285b4ec5f923af
 
-`9fc0c782ae575307be38c3f6b55b8f5ce477d372`
+Active branch:
 
-Economic-feasibility audit:
+mvp1-targetable-opportunity-reframe
 
-`PR #33 — MERGED`
+Verified implementation checkpoint:
 
-Synthetic one-candidate Stage A:
+89a3fcc0528571e465f73b94552165d3ccea14e6
 
-`PR #34 — MERGED`
+Verified CI:
 
-Stage A merge commit:
+35993271424 — SUCCESS
 
-`9fc0c782ae575307be38c3f6b55b8f5ce477d372`
+Documentation commits after the verified implementation checkpoint may advance the feature-branch HEAD; verify latest branch HEAD and CI before integration.
 
-Post-merge CI:
+COMMIT/PUSH:
 
-`35920762625 — SUCCESS`
+Feature-branch commits have been created through the authorized GitHub connector work.
 
-No real-case Pilot P1 authorization is currently active.
+MERGE:
 
-No previous real-source execution/privacy grant may be reused.
+NOT EXECUTED.
 
-## Context continuity rule
-
-This handover is intended to be the clean starting point for the next chat.
-
-Before the next task, read in order:
-
-1. `AGENTS.md`
-2. `PRODUCT_STRATEGY_MVP1.md`
-3. `PROJECT_STATE.md`
-4. `ROADMAP.md`
-5. `DECISIONS.md`
-6. `docs/handovers/HANDOVER_CURRENT.md`
-
-Then verify the remote `main` HEAD before any change.
-
-The next chat should execute only the SINGLE NEXT ACTION above unless the Product Owner explicitly changes direction.
+Main remains unchanged.

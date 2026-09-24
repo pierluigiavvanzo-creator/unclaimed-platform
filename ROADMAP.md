@@ -1,160 +1,225 @@
 # ROADMAP.md
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
 ## Product validation critical path
 
-`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
+ONE AUTHORIZED REAL SOURCE
+-> ONE TARGETABLE BOUNDED CASE
+-> ONE REVIEWABLE ECONOMIC RESULT
 
-No broad platform expansion is scheduled before this is complete.
+No broad scale build is scheduled before this path is economically validated.
 
-## Stage 1 — Real-source evidence already established
+## Stage 1 — Real-source evidence — COMPLETED
 
-Attempt 9 scanned the complete real archive under bounded authorization:
+NY OSC Attempt 11 proved:
 
-- `14994489` physical records;
-- `12` records with exactly `14` pipes;
-- `0` records ending with a terminal pipe;
-- `12` records with non-empty bytes after the 14th pipe;
-- `14994477` records with another pipe count;
+- 14,994,489 physical records;
+- 2,792,990 authority-backed insurance records;
+- 203,921 primary IN03 aggregate candidates;
+- bounded real-source processing;
 - no owner/raw values returned;
-- authorization consumed, zero retry.
+- recoverable value UNKNOWN_FROM_SOURCE.
 
-The terminal-empty-field hypothesis is rejected.
+All Attempt-11 grants are consumed/non-reusable/zero-retry.
 
-Attempt 10 then attempted the first direct real product-slice execution. The manual download occurred, but the product slice did not start because the operator-captured download-start marker fell outside the 900-second fresh-preflight window. Attempt 10 is consumed/non-reusable/zero-retry.
+## Stage 2 — Stage A synthetic materialization — COMPLETED / MERGED
 
-## Stage 2 — Attempt 11 real product slice — COMPLETED
+Action:
 
-Historical branch:
+IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION
 
-`mvp1-ny-eleventh-auto-start-detection-offline`
+PR #34 — MERGED
 
-Historical PR:
+Merge commit:
 
-`#29 — MERGED`
+9fc0c782ae575307be38c3f6b55b8f5ce477d372
 
-Canonical integration:
+Post-merge CI:
 
-`PR #30 — MERGED INTO main at c5a56be629b7a684666a8fc5ee57fec24ff734c4`
+35920762625 — SUCCESS
 
-Protected runner checkpoint:
+Stage A proved one-candidate transient/economic instrumentation.
 
-`bac89609e9069efc98fcd0866b89ee4ee16f1689`
+Its FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER rule is retained only as synthetic technical proof.
 
-Runner CI:
+## Stage 3 — Value proposition / targetability reframe — IMPLEMENTED AND VERIFIED ON FEATURE BRANCH
 
-`35859448715 — SUCCESS`
+Branch:
 
-Attempt 11 completed one bounded real execution with automatic download-start detection.
+mvp1-targetable-opportunity-reframe
 
-Authoritative result:
+Strategic change:
 
-`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
+The product no longer treats candidate discovery alone as the commercial proposition.
 
-Observed product result:
+Target thesis:
 
-- `14994489` total records;
-- `14994477` structurally conforming records;
-- `12` deferred structural records;
-- `2792990` authority-backed insurance records;
-- `203921` primary `IN03` aggregate candidates;
-- `2589069` other insurance records;
-- `12201486` no-authority-match records;
-- `1` unclassifiable Property Type Code record;
-- `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
-- `VALUE_EVIDENCE_REQUIRED`.
+MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
-No owner/raw values were returned or persisted by the result. The local archive was reported logically deleted; physical secure erasure is not guaranteed.
+New proposed real-P1 selection:
 
-## Stage 3 — Attempt 11 human gates — CONSUMED
+PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
-All Attempt-11 single-use gates required for the completed execution were exercised and are non-reusable:
-
-1. transient local-file grant;
-2. transient PII grant;
-3. fresh-listing preflight authorization;
-4. exact-match fresh receipt;
-5. bounded execution authorization;
-6. one manual download and one Gate-11 execution.
-
-State:
-
-`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
-
-No Attempt-11 grant may be reused.
-
-## Stage 4 — Immediate result consumption — ACTIVE
-
-The real source produced `203921` aggregate primary `IN03` candidates.
-
-Therefore the critical path moves downstream to:
-
-`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
-
-Current blocker:
-
-- candidate materialization is `NOT_AUTHORIZED_AGGREGATE_ONLY`;
-- recoverable value is `UNKNOWN_FROM_SOURCE`;
-- lawful fee basis is not established for a real case;
-- measured follow-up cost for a real candidate is not yet available.
-
-Existing repository components for candidate contracts, value evidence, follow-up-cost measurement, case economics and reviewer display must be reused before any new custom implementation.
-
-Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
-
-A bounded repository-only proposal has now been prepared on branch `mvp1-ny-one-candidate-value-evidence-offline-proposal`:
-
-`sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json`
-
-It proposes exactly one deterministic source-order candidate, exact `IN03`, single owner, non-empty Property ID, transient-only Owner Name/Property ID, no address scope, no durable owner PII, and fail-closed value evidence.
-
-Human review result: `APPROVED_PROPOSAL_ONLY`. No real-source or candidate-PII operation is authorized by that approval. The next Product Owner-requested activity is a separate whole-project economic-feasibility audit before expanding privacy scope or implementing real candidate materialization.
-
-## Stage 5 — Economic feasibility validation — ACTIVE
-
-Whole-project economic audit completed:
-
-`docs/audits/ECONOMIC_FEASIBILITY_AUDIT_2026-09-23.md`
+Holder Report Year is persistence evidence only, not a value or awareness signal.
 
 Decision:
 
-`CONDITIONAL_CONTINUE_ECONOMIC_VALIDATION_NOT_SCALE`
+D-012
 
-Real evidence now supports:
+Canonical strategy candidate:
 
-- large candidate supply;
-- technically bounded source processing;
-- authority-backed insurance classification;
-- an official NY location-service-provider framework.
+PRODUCT_STRATEGY_MVP1.md v3.0
 
-Still unproven:
+## Stage 4 — Synthetic Targetable Opportunity Filter V1 — VERIFIED
 
-- unique/contactable candidate rate;
-- recoverable-value distribution;
-- pre-contact value observability;
-- agreement conversion;
-- successful recovery rate;
-- realized fee percentage;
-- fee collection;
-- full per-case cost;
-- cycle time;
-- contribution before overhead.
+Implementation:
 
-Next economic stage is deliberately narrow:
+src/unclaimed_platform/domain/ny_mvp1_targetable_opportunity.py
 
-1. synthetic-only one-candidate transient materialization implementation and review;
-2. explicit legal/privacy review for the minimum real-candidate scope;
-3. one separately authorized real economic-discovery case;
-4. measured economics package;
-5. Product Owner decision on whether broader PII/contact/outreach investment is justified.
+Contract:
 
-No scale build before those measurements.
+schemas/common/ny_mvp1_targetable_opportunity_filter.schema.json
 
-## Frozen backlog before MVP-1
+Tests:
 
-Unless a direct blocker is demonstrated: new broad diagnostics, governance layers, multi-state expansion, new agent frameworks, graph infrastructure, broad genealogy automation, outreach/contracts/claims automation, non-critical UI polish, and infrastructure refactors.
+- tests/unit/test_ny_mvp1_targetable_opportunity.py
+- tests/contract/test_ny_mvp1_targetable_opportunity_contract.py
+
+Targetability classes:
+
+- T0_SELF_SERVICE_LIKELY
+- T1_UNRESOLVED_BUT_LOCATABLE
+- T2_ESTATE_OR_REPRESENTATIVE_PATH
+- T3_HARD_BUT_BOUNDED
+- T4_UNBOUNDED_OR_UNRESOLVED_STOP
+
+No numeric targetability score.
+
+F0-F3 remain friction-only.
+
+New primary P1 metric:
+
+TARGETABILITY_DECISION_COST
+
+PRE_VALUE_DISCOVERY_COST remains the umbrella cost metric.
+
+Verified checkpoint:
+
+89a3fcc0528571e465f73b94552165d3ccea14e6
+
+CI:
+
+35993271424 — SUCCESS
+
+## Stage 5 — Human review / integration — NEXT
+
+Execute only:
+
+HUMAN_REVIEW_TARGETABLE_OPPORTUNITY_REFRAME_AND_SYNTHETIC_FILTER_V1
+
+Review questions:
+
+1. Is the updated value proposition accepted?
+2. Is persistence-first selection accepted for P1?
+3. Are T0-T4 accepted as the targetability vocabulary?
+4. Is the separation F0-F3 friction versus T0-T4 targeting accepted?
+5. Is TARGETABILITY_DECISION_COST accepted as the primary P1 sub-metric?
+6. Is L1 new external cash spend = USD 0.00 accepted?
+7. Is L2 budget correctly left unset pending Product Owner decision?
+8. Should the feature branch be merged into main?
+
+No real-source action is included in this stage.
+
+## Stage 6 — Fresh real P1 targetability scope — NOT STARTED
+
+Only after Stage 5 acceptance/integration.
+
+Future action:
+
+DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
+
+Must define:
+
+- exact transient PII fields;
+- durable non-PII ledger fields;
+- retention/disposal;
+- lawful/privacy scope;
+- one-candidate selection execution mechanics;
+- fresh single-use approvals;
+- L2 incremental budget;
+- third-party API/data policy;
+- stop conditions;
+- outreach separation.
+
+No previous approval may be reused.
+
+## Stage 7 — Pilot P1 one real case — NOT AUTHORIZED
+
+Question:
+
+Can one case be shown to have material service need and bounded resolvability at low enough evidenced cost to justify the next authorization before recoverable value is known?
+
+P1 does not require recovery.
+
+Valid terminal outcomes include:
+
+- TARGETABLE_CONTINUE_TO_SEPARATE_OUTREACH_REVIEW
+- STOP_SELF_SERVICE_LOW_NEED
+- STOP_UNBOUNDED_RESOLUTION_COST
+- STOP_LEGAL_PRIVACY_SCOPE
+- STOP_TARGETABILITY_NOT_ESTABLISHED_WITHIN_BUDGET
+
+## Stage 8 — Pilot P2 ~5 cases — CONDITIONAL
+
+Only after P1 review.
+
+Management-learning batch, not statistical sample.
+
+Do not simply take next source rows.
+
+Test variation in:
+
+- persistence;
+- targetability class;
+- friction lane;
+- estate/non-estate path where evidenced;
+- targetability decision cost.
+
+## Stage 9 — Pilot P3 ~20–30 cases — CONDITIONAL
+
+Only if P2 supports continuation.
+
+Measure an initial empirical distribution of:
+
+- targetable-opportunity rate;
+- service need;
+- resolvability;
+- targetability decision cost;
+- contactability;
+- outreach conversion;
+- value-known rate;
+- recovery/fee economics.
+
+No claim of statistical representativeness from sample size alone.
+
+## Frozen backlog before evidence justifies it
+
+Freeze by default:
+
+- broad multi-state expansion;
+- generic agent-framework expansion;
+- graph infrastructure;
+- generalized genealogy infrastructure;
+- mass outreach automation;
+- large durable PII architecture;
+- non-critical UI polish;
+- parser/source diagnostics without a demonstrated blocker.
 
 ## Git health
 
-`main` is canonical and contains the validated real-source stack through Attempt 11 via PR #30 at commit `c5a56be629b7a684666a8fc5ee57fec24ff734c4`. Historical stacked PRs must not be used to duplicate integration into `main`.
+Canonical main remains unchanged by this branch until Product Owner explicitly approves integration.
+
+Verified main baseline before this work:
+
+23de3a6ef5f1d6335691e17206285b4ec5f923af
