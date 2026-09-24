@@ -2,9 +2,9 @@
 
 Last updated: 2026-09-24
 
-## CURRENT MODE
+## 1. CURRENT MODE
 
-PRODUCT VALIDATION / TARGETABILITY DISCOVERY
+PRODUCT VALIDATION / STAGE B PILOT P1
 
 Repository:
 
@@ -14,212 +14,166 @@ Canonical branch:
 
 main
 
-Verified runner-integration checkpoint:
+Latest verified canonical main checkpoint before this documentation update:
 
-e2856c61a77e2ff8ca6f973b9090beb87a754ebc
-
-Do not infer the live `main` HEAD from this handover. Documentation-only commits may advance `main`; verify the remote HEAD at the start of every task.
-
-Latest verified main checkpoint after Stage B acceleration merge:
-
-5721b764c4c0dfc89bd3455f9870cee15c17e1d5
-
-Latest verified main CI:
-
-36011409899 — SUCCESS
-
-## Integration completed
-
-PR #37:
-
-MVP1: define fresh real P1 targetability execution scope — MERGED
-
-Merge commit:
-
-755bd4c6dbd18e4a204c513e68e456c517e9dbf7
+6cb0b89ae70573b9452343660ea6f0a23a47cce3
 
 Post-merge CI:
 
-35999157888 — SUCCESS
+36023036445 — SUCCESS
 
-PR #38:
+Always verify the live remote `main` HEAD and latest CI before modifying the repository.
 
-MVP1: implement and review offline real P1 targetability runner — MERGED
+Execution preference:
 
-Merge commit:
+- continue in normal ChatGPT chat;
+- do not use Work;
+- do not use Codex.
 
-e2856c61a77e2ff8ca6f973b9090beb87a754ebc
+## 2. PRODUCT OWNER CLARIFICATION — AUTHORITATIVE PRODUCT TARGET
 
-Post-merge CI:
+The product is NOT a New York-only system.
 
-35999333460 — SUCCESS
+Target geography:
 
-## Product Owner approvals consumed for repository decisions
+UNITED STATES + CANADA
 
-Scope review:
+Target product:
 
-APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
+NORTH AMERICA MULTI-REGISTRY UNCLAIMED-ASSET INTELLIGENCE AND RECOVERY OPERATING PLATFORM
 
-Runner review/integration:
+New York OSC is the first validated source adapter / Stage B experiment anchor.
 
-APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
+It is NOT the permanent product boundary.
 
-These approvals are repository/design approvals only.
+Canonical companion document:
 
-They are NOT real execution/privacy grants.
+docs/NORTH_AMERICA_MULTI_REGISTRY_PRODUCT_TARGET_V1.md
 
-## Canonical product objective
+Canonical decision:
 
-ONE AUTHORIZED REAL SOURCE
--> ONE TARGETABLE BOUNDED CASE
--> ONE REVIEWABLE ECONOMIC RESULT
+D-014
 
-Primary rule:
+Canonical product strategy:
 
-BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE
+PRODUCT_STRATEGY_MVP1.md v3.2
 
-Target thesis:
+## 3. TARGET PLATFORM CAPABILITIES
 
-MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
+The target platform must eventually support:
 
-## Proven source state
+1. multi-registry discovery/acquisition;
+2. registry-specific adapters and normalization;
+3. cross-registry deduplication/linking;
+4. evidence-aware AI confidence scoring;
+5. lead prioritization;
+6. people/owner/heir/beneficiary/representative finding;
+7. death/estate/representative path handling;
+8. case economics;
+9. jurisdiction-specific compliance/policy;
+10. contract builder;
+11. fee calculator;
+12. CRM / case management;
+13. outreach workflow when separately authorized;
+14. claim workflow when separately authorized;
+15. recovery/outcome tracking;
+16. outcome-driven learning/calibration.
 
-Attempt 11 established:
+Automation philosophy:
 
-- 14,994,489 records;
-- 2,792,990 authority-backed insurance records;
-- 203,921 aggregate IN03 candidates;
-- value unknown from source;
-- no real candidate materialization.
+AUTOMATE repetitive, high-confidence, reversible work.
 
-Historical real-source/privacy approvals are consumed/non-reusable.
+SEMI-AUTOMATE ambiguous/material work.
 
-## Canonical P1 runner
+HUMAN-GATE legal, privacy, identity-conflict and irreversible actions.
 
-Decision:
+## 4. COMPETITIVE OBJECTIVE
 
-D-013
+Patentability is NOT a primary objective.
 
-L0:
+Do not optimize for novelty as an end in itself.
 
-- stream full authorized source;
-- exact structural width;
-- IN03;
-- owner-count=1;
-- Property ID presence boolean;
-- Holder Report Year;
-- source ordinal;
-- no Owner Name/address ranking.
+Optimize for measurable:
 
-Selection:
+- reliability;
+- useful-lead precision;
+- false-positive reduction;
+- confidence calibration;
+- time to targetability;
+- TARGETABILITY_DECISION_COST;
+- cost per targetable lead;
+- human minutes per case;
+- automation rate by stage;
+- human override rate;
+- identity-resolution success;
+- stage conversion;
+- time to recovery;
+- fully loaded case cost;
+- contribution before overhead.
 
-PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
+No numeric KPI threshold may be invented before sufficient real evidence exists.
 
-L1:
+Competitive Moat Gate result:
 
-- second pass over same local archive;
-- selected ordinal only;
-- six-field transient scope;
-- no durable/returned/logged owner PII;
-- address excluded unless L2-A was fully pre-approved.
+PASS_WITH_REFRAME_CONTINUE_STAGE_B
 
-L2-A:
+Broad uniqueness claims were rejected.
 
-- provider protocol seam only;
-- no approved production provider;
-- no CLI provider option;
-- USD 0 paid external spend;
-- proposed 900-second manual cap;
-- provider must be separately privacy/terms/budget bound;
-- output must be non-PII.
+Do NOT claim:
 
-## Gate state
+- first AI unclaimed-property platform;
+- no competitors;
+- unique owner-location AI;
+- unique lead prioritization.
 
-Seven fresh P1 gate templates are present on main.
+Closest workflow competitor found in the rapid review:
 
-All seven were verified after merge as:
+ClaimTrace
 
-NOT_GRANTED
+Other relevant public competitors reviewed include:
 
-Each currently has:
+- Assethound.ai;
+- Heir Crown;
+- Sparrow;
+- Linking Assets;
+- Ryan;
+- ClaimFound;
+- AssetFynd.
 
-owner_authorization = null
-execution_approval_ref = null
-runner_checkpoint = null
+Stage B differentiation hypothesis:
 
-Therefore no real P1 run is authorized.
+NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
 
-## Current prohibitions
+Long-term performance hypothesis:
 
-Do not perform:
+NORTH_AMERICA_MULTI_REGISTRY_TARGETABILITY_AND_RECOVERY_OPERATING_SYSTEM
 
-- source access;
-- remote preflight;
-- download;
-- real candidate materialization;
-- owner PII processing;
-- external PII query;
-- identity/contact enrichment;
-- beneficiary matching;
-- genealogy;
-- outreach;
-- value research;
-- fee agreement;
-- representation;
-- claim activity.
+Any moat must emerge from measured performance/outcome data, not feature novelty.
 
-## Legal/privacy readiness review — bifurcated US/EU model
+## 5. WHY STAGE B IS STILL NY-BASED
 
-Action:
+Stage B deliberately remains narrow because the NY OSC adapter and evidence base already exist.
 
-DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
+Current Stage B question:
 
-Result:
+CAN THE CORE ENGINE TURN ONE AUTHORIZED REGISTRY RECORD INTO A RELIABLE TARGETABILITY DECISION AT CONTROLLED COST?
 
-BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
+This is an experiment constraint, not a market-scope constraint.
 
-Artifacts:
+Do NOT start integrating many US/Canadian registries before P1 economics are reviewed.
 
-- sources/proposals/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.v1.json
-- schemas/common/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.schema.json
-- tests/contract/test_ny_mvp1_real_p1_legal_readiness_contract.py
-- docs/audits/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
+Do NOT hard-code NY semantics into generic downstream modules.
 
-Current legal tracks:
+NY-specific behavior belongs in:
 
-1. US_CONTROLLER_US_MARKET
-   - preferred MVP hypothesis pending facts;
-   - likely outside GDPR controller scope only if genuine US-controller/no relevant EU establishment/no EU targeting or monitoring facts are confirmed;
-   - US/New York legal/privacy/security review still required.
+- source adapter;
+- source taxonomy mapping;
+- jurisdiction policy;
+- legal/compliance policy.
 
-2. EU_CONTROLLER_OR_EU_ESTABLISHMENT
-   - GDPR Article 3(1) track;
-   - Article 6/LIA/Article 14/Article 21/ROPA/DPIA requirements remain.
+Generic downstream modules should remain registry-independent where feasible.
 
-3. NON_EU_CONTROLLER_ARTICLE_3_2
-   - GDPR track if EU goods/services targeting or behavioural monitoring exists.
-
-4. US_CONTROLLER_WITH_EU_PROCESSOR_ONLY
-   - EU processor does not automatically make the US controller an EU establishment;
-   - processor may have its own GDPR obligations;
-   - role/contract review required.
-
-Preferred MVP privacy architecture hypothesis:
-
-- US controller/LSP production plane;
-- US production PII by default;
-- EU development synthetic/non-PII only by default;
-- no live owner PII access from EU without separate review;
-- US market only / no EU targeting or monitoring.
-
-Cross-track issues still open:
-
-- full-file security/minimisation;
-- L1-only direct-PII necessity;
-- exact controller/entity facts;
-- all seven P1 gate templates remain NOT_GRANTED.
-
-## Stage B / Pilot P1 acceleration prepared
+## 6. STAGE B OBJECTIVE
 
 Stage B:
 
@@ -227,34 +181,12 @@ PILOT_P1_ONE_REAL_TARGETABILITY_EXPERIMENT
 
 Objective:
 
-ONE REAL PERSISTENCE-SELECTED IN03 CASE
--> TARGETABILITY DECISION OR BOUNDED STOP
+ONE REAL PERSISTENCE-SELECTED NY OSC IN03 CASE
+-> EVIDENCE-BACKED TARGETABILITY DECISION OR BOUNDED STOP
 -> MEASURED TARGETABILITY_DECISION_COST
--> HUMAN REVIEW
+-> HUMAN ECONOMIC REVIEW
 
-New artifacts:
-
-- sources/proposals/ny_mvp1_stage_b_pilot_p1_acceleration.v1.json
-- schemas/common/ny_mvp1_stage_b_pilot_p1_acceleration.schema.json
-- tests/contract/test_ny_mvp1_stage_b_acceleration_contract.py
-- docs/audits/NY_MVP1_STAGE_B_PILOT_P1_ACCELERATION_REVIEW.md
-
-Offline runner change pending human review:
-
-L1-only selected-record verification no longer field-buffers:
-
-- Property ID value;
-- Owner Name;
-- Holder Name;
-- address fields.
-
-It verifies only structural/non-PII selection facts.
-
-The source-file PII gate remains because the source archive itself contains owner PII.
-
-Direct selected-candidate PII remains reserved for separately pre-authorized L2-A.
-
-Stage B exit does not require:
+Stage B does NOT require:
 
 - outreach;
 - signed LSP agreement;
@@ -263,43 +195,96 @@ Stage B exit does not require:
 - recovery;
 - profitability proof.
 
-Remaining human dependencies are intentionally reduced to three groups:
+A bounded STOP is a valid economic result.
 
-1. controller operating model/entity facts;
-2. exact L2-A provider or manual research source set;
-3. fresh single-use execution approvals.
+## 7. ESTABLISHED NY SOURCE EVIDENCE
 
-All seven P1 gates remain NOT_GRANTED.
+NY OSC Attempt 11 established:
 
-## Stage B acceleration approval consumed
+- 14,994,489 total physical records;
+- 2,792,990 authority-backed insurance records;
+- 203,921 primary IN03 aggregate candidates;
+- recoverable value UNKNOWN_FROM_SOURCE;
+- no real candidate materialization.
 
-Product Owner approval:
+Historical execution/privacy approvals are consumed, non-reusable and zero-retry.
 
-APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+## 8. CANONICAL STAGE B SELECTION / TARGETABILITY
 
-PR #42:
+Decision D-012:
 
-MERGED
+PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
-Merge commit:
+Holder Report Year is only a persistence signal.
 
-5721b764c4c0dfc89bd3455f9870cee15c17e1d5
+It does NOT prove:
 
-Post-merge CI:
+- value;
+- awareness;
+- death;
+- contactability;
+- complexity;
+- willingness to pay.
 
-36011409899 — SUCCESS
+Target thesis:
 
-This was repository/offline approval only.
+MATERIAL SERVICE NEED
+x BOUNDED RESOLVABILITY
+x EVIDENCED COST DISCIPLINE
 
-## US controller + L2-A manual provider review prepared
+T0-T4 are Stage B targetability classes.
 
-Controller binding:
+F0-F3 are process-friction observations only.
 
-- preferred track: US_CONTROLLER_US_MARKET;
-- factual fields remain null until supplied by the Product Owner;
-- real P1 is blocked if the entity is not actually formed/bound.
+Stage B:
 
-Manual L2-A provider candidate:
+targetability_score = null
+
+Do not invent AI targetability weights yet.
+
+The long-term platform DOES require evidence-aware AI confidence scoring, but it must be calibrated against real outcomes.
+
+## 9. CANONICAL P1 RUNNER
+
+Decision:
+
+D-013
+
+Architecture:
+
+two-pass local bounded runner.
+
+### L0
+
+Uses only:
+
+- structural shape;
+- exact IN03;
+- owner-count=1;
+- Property ID presence boolean;
+- Holder Report Year;
+- source ordinal.
+
+No Owner Name/address ranking.
+
+### L1-only
+
+Selected-row verification does NOT field-buffer:
+
+- Property ID value;
+- Owner Name;
+- Holder Name;
+- address fields.
+
+It verifies only structural/non-PII target-selection facts.
+
+The source-file PII gate remains because the archive itself contains PII.
+
+### L2-A
+
+Direct selected-candidate PII may be transiently processed only when L2-A is fully pre-authorized before download.
+
+Current accepted offline provider candidate:
 
 google-search-manual-us-v1
 
@@ -307,111 +292,188 @@ Bounds:
 
 - authorized US controller operator only;
 - manual browser only;
-- max 3 queries;
-- max 900 seconds;
-- USD 0;
-- no API/automation/bot;
-- no data broker/FCRA product;
-- no outreach/value research;
-- no persisted query strings, URLs, screenshots or snippets;
-- AI Overview / AI Mode not evidence;
-- source page verification required.
+- maximum 3 minimized queries;
+- maximum 900 seconds;
+- USD 0 external paid spend;
+- no API;
+- no automation/bot;
+- no paid data broker;
+- no consumer-report/FCRA product;
+- no outreach;
+- no value research;
+- no persisted query strings/URLs/screenshots/snippets;
+- Google AI summary/AI Mode is NOT evidence;
+- underlying source-page verification required.
 
 WebSurrogate:
 
 REJECTED_FOR_STAGE_B_COMMERCIAL_RESEARCH_ABSENT_EXPRESS_PERMISSION_OR_NEW_LEGAL_REVIEW
 
-All seven P1 gates remain NOT_GRANTED.
+## 10. P1 GATE STATE
 
-## Stage B controller/L2-A review approval consumed
+Seven fresh P1 gate templates exist.
 
-Product Owner approval:
+All seven remain:
 
-APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+NOT_GRANTED
 
-PR #43:
+1. transient local-file gate;
+2. L1 transient-PII gate;
+3. fresh-listing preflight gate;
+4. L1 execution gate;
+5. L2-A targetability-PII gate;
+6. L2-A provider/budget gate;
+7. L2-A execution gate.
 
-MERGED
+No historical approval may be reused.
 
-Merge commit:
+No real P1 execution is authorized.
 
-97341caddf2da95765ccced4dcbd11ccccdad336
+## 11. CURRENT SAFETY BOUNDARY
 
-Post-merge CI:
+Do NOT perform without fresh explicit authorization:
 
-36016356389 — SUCCESS
+- NY OSC remote preflight;
+- source download;
+- real candidate materialization;
+- real owner PII processing;
+- external PII query;
+- identity/contact enrichment;
+- genealogy;
+- beneficiary matching;
+- outreach;
+- value research;
+- fee agreement;
+- representation;
+- claim submission.
 
-Accepted offline design:
+## 12. CONTROLLER / LLC STATE
 
-- US_CONTROLLER_US_MARKET remains the preferred operating-model hypothesis;
-- controller/entity facts remain null until explicitly supplied;
-- google-search-manual-us-v1 is the sole proposed P1 L2-A discovery provider;
-- max 3 minimized manual queries;
-- max 900 seconds;
-- USD 0;
-- authorized US controller operator only;
-- no API/bot/data broker/FCRA product;
-- no outreach/value research;
-- no AI summary as evidence;
-- no persisted query strings/URLs/screenshots/snippets;
-- WebSurrogate excluded absent express permission/new legal review.
+Preferred operating-model hypothesis:
 
-All seven P1 gates remain NOT_GRANTED.
+US_CONTROLLER_US_MARKET
 
-## Competitive Moat Gate completed
+Preferred bootstrap entity hypothesis from current research:
 
-Artifact:
+WYOMING LLC
 
-docs/audits/MVP1_COMPETITIVE_MOAT_GATE_2026-09-24.md
+No LLC has yet been factually bound in the repository.
 
-Result:
+Before real P1, the project requires a genuine controller entity.
 
-PASS_WITH_REFRAME_CONTINUE_STAGE_B
+Required facts after formation:
 
-Broad category uniqueness failed.
+- exact legal name;
+- entity type;
+- US formation/incorporation jurisdiction;
+- principal business address;
+- privacy contact if defined;
+- any EU branch/office/employee/agent/stable arrangement relevant to P1;
+- any EU person/entity with live owner-PII access;
+- entity signing LSP customer agreements;
+- entity receiving LSP fees;
+- US-only MVP1 market / no EU targeting or monitoring.
 
-Material public competitors include ClaimTrace, Assethound.ai, Heir Crown, Sparrow, Linking Assets, Ryan, ClaimFound and AssetFynd.
+If the entity is not formed, record:
 
-Closest workflow competitor:
+NOT_YET_FORMED
 
-ClaimTrace
+Never invent an LLC identity.
 
-Retained differentiation hypothesis:
+US CPA/attorney review remains appropriate for:
 
-NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
+- foreign-owned US entity federal tax treatment;
+- Form 5472 / pro-forma Form 1120 where applicable;
+- then-current beneficial-ownership/reporting obligations;
+- NY nexus / foreign qualification for the planned workflow.
 
-Key combination:
+## 13. NORTH AMERICA EXPANSION — AFTER STAGE B EVIDENCE
 
-- NY IN03 specialization;
-- recoverable value unknown at selection time;
-- service-need and bounded-resolvability evidence;
-- TARGETABILITY_DECISION_COST;
-- explicit bounded STOP;
-- privacy-minimized/transient PII handling.
+If P1/P2 support continuation:
 
-This is an unproven moat hypothesis and must be validated empirically.
+1. freeze a generic versioned Source Adapter Contract;
+2. define canonical normalized RegistryRecord / OpportunityCandidate contracts;
+3. create a source/jurisdiction capability matrix;
+4. benchmark registries by:
+   - accessibility;
+   - legal/terms viability;
+   - data richness;
+   - insurance relevance;
+   - owner/beneficiary fields;
+   - value availability;
+   - refresh frequency;
+   - expected candidate density;
+   - integration cost;
+5. add US registries in evidence-backed priority order;
+6. add Canadian federal/provincial/territorial registries in evidence-backed priority order;
+7. implement cross-registry dedup/linking;
+8. calibrate confidence against outcomes;
+9. expand modular people-finder adapters;
+10. activate jurisdiction-aware contract builder / fee calculator / CRM workflows.
 
-Wyoming remains the preferred bootstrap LLC hypothesis, but formation is deferred until just before real P1 gating and requires US CPA/attorney + NY nexus review.
+No source is considered supported until its source contract, legal/terms status, schema, provenance and acquisition method are verified.
 
-## SINGLE NEXT ACTION
+## 14. KEY MERGED MILESTONES
 
-Return to Stage B:
+PR #37 — real P1 scope — MERGED.
+
+PR #38 — offline P1 runner — MERGED.
+
+PR #41 — controller/legal-readiness bifurcation — MERGED.
+
+PR #42 — Stage B acceleration — MERGED.
+
+PR #43 — US-controller + manual L2-A provider review — MERGED.
+
+PR #45 — Competitive Moat Gate — MERGED.
+
+Latest verified post-merge main:
+
+6cb0b89ae70573b9452343660ea6f0a23a47cce3
+
+CI:
+
+36023036445 — SUCCESS
+
+## 15. CURRENT SINGLE NEXT ACTION
+
+Return to Stage B.
+
+Current next human/product action:
 
 HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1
 
-After formation:
+After entity formation:
 
-bind controller facts -> prepare fresh single-use gate packet -> ONE REAL P1 -> human economic review.
+1. bind controller facts in repository;
+2. verify legal/tax/NY nexus assumptions for the real entity;
+3. verify current main HEAD/CI;
+4. prepare fresh single-use P1 gate packet bound to the final runner checkpoint;
+5. obtain explicit Product Owner approvals;
+6. execute ONE REAL P1;
+7. perform human economic review.
 
-All seven P1 gates remain NOT_GRANTED.
+Do not begin broad multi-registry implementation before this Stage B evidence.
 
-## Context restart order
+## 16. CONTEXT RESTART ORDER FOR A NEW CHAT
+
+Read in this exact order:
 
 1. AGENTS.md
 2. PRODUCT_STRATEGY_MVP1.md
-3. PROJECT_STATE.md
-4. ROADMAP.md
-5. DECISIONS.md
-6. docs/handovers/HANDOVER_CURRENT.md
+3. docs/NORTH_AMERICA_MULTI_REGISTRY_PRODUCT_TARGET_V1.md
+4. PROJECT_STATE.md
+5. ROADMAP.md
+6. DECISIONS.md
+7. docs/handovers/HANDOVER_CURRENT.md
 
-Then verify remote main HEAD and CI before any modification.
+Then:
+
+- verify remote `main` HEAD;
+- verify latest CI;
+- verify all seven P1 gates are still NOT_GRANTED;
+- continue only the SINGLE NEXT ACTION.
+
+GitHub remains the source of truth.
+
+Do not reconstruct project state from chat memory when repository evidence is available.
