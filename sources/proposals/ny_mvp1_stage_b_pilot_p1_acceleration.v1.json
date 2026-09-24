@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.stage_b.pilot_p1_acceleration",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-24",
+  "status": "READY_FOR_HUMAN_REVIEW_NOT_EXECUTION_AUTHORIZED",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "stage_b_definition": "PILOT_P1_ONE_REAL_TARGETABILITY_EXPERIMENT",
+  "baseline": {
+    "main_checkpoint": "6703d98f351f6e5dbc6a7be98f91099dae8f47e4",
+    "main_ci_run_id": 36009473009,
+    "main_ci_conclusion": "SUCCESS",
+    "controller_readiness_pr": 41,
+    "controller_readiness_merge_commit": "6703d98f351f6e5dbc6a7be98f91099dae8f47e4",
+    "real_p1_gates_state": "ALL_NOT_GRANTED"
+  },
+  "stage_b_objective": "ONE_REAL_PERSISTENCE_SELECTED_IN03_CASE_TO_ONE_EVIDENCE_BACKED_TARGETABILITY_DECISION_OR_BOUNDED_STOP_WITH_MEASURED_TARGETABILITY_DECISION_COST",
+  "stage_b_exit_does_not_require": [
+    "OUTREACH",
+    "KNOWN_RECOVERABLE_VALUE",
+    "FEE_AGREEMENT",
+    "CLAIM_SUBMISSION",
+    "RECOVERY",
+    "PROFITABILITY_PROOF"
+  ],
+  "fast_track_sequence": [
+    "B0_CONTROLLER_OPERATING_MODEL_FACTS",
+    "B1_L1_ONLY_DIRECT_PII_MINIMIZATION",
+    "B2_US_NY_PRECONTACT_READINESS",
+    "B3_L2A_PROVIDER_OR_MANUAL_RESEARCH_BINDING",
+    "B4_FRESH_SINGLE_USE_APPROVAL_CHAIN",
+    "B5_ONE_REAL_P1_EXECUTION",
+    "B6_HUMAN_ECONOMIC_REVIEW"
+  ],
+  "lanes": {
+    "controller_track": {
+      "status": "BLOCKED_ON_HUMAN_ENTITY_FACTS",
+      "preferred_hypothesis": "US_CONTROLLER_US_MARKET",
+      "required_facts": [
+        "EXACT_CONTROLLER_LEGAL_NAME_OR_EXPLICIT_ENTITY_NOT_YET_FORMED",
+        "ENTITY_TYPE",
+        "FORMATION_OR_INCORPORATION_JURISDICTION",
+        "PRINCIPAL_BUSINESS_OR_ESTABLISHMENT_ADDRESS",
+        "ANY_RELEVANT_EU_BRANCH_OFFICE_EMPLOYEE_AGENT_OR_STABLE_ARRANGEMENT",
+        "ANY_EU_PERSON_OR_ENTITY_WITH_LIVE_OWNER_PII_ACCESS",
+        "ENTITY_SIGNING_LSP_CUSTOMER_AGREEMENTS",
+        "ENTITY_RECEIVING_LSP_FEES",
+        "US_ONLY_MVP1_MARKET_AND_NO_EU_TARGETING_OR_MONITORING",
+        "PRIVACY_CONTACT_IF_DEFINED"
+      ],
+      "execution_allowed": false
+    },
+    "l1_privacy_minimization": {
+      "status": "IMPLEMENTED_OFFLINE_PENDING_REVIEW",
+      "rule": "L1_ONLY_SECOND_PASS_MUST_VERIFY_SELECTED_RECORD_WITHOUT_BUFFERING_DIRECT_OWNER_PII",
+      "direct_pii_fields_not_buffered_when_l2a_disabled": [
+        "PROPERTY_ID_VALUE",
+        "OWNER_NAME",
+        "HOLDER_NAME",
+        "ADDRESS_FIELDS"
+      ],
+      "non_pii_selected_record_checks": [
+        "PROPERTY_ID_PRESENCE_BOOLEAN",
+        "PROPERTY_TYPE_CODE",
+        "PROPERTY_OWNER_COUNT",
+        "HOLDER_REPORT_YEAR",
+        "STRUCTURAL_WIDTH"
+      ],
+      "l1_pii_file_gate_retained": true,
+      "reason_gate_retained": "SOURCE_ARCHIVE_STILL_CONTAINS_OWNER_PII_EVEN_WHEN_DIRECT_FIELDS_ARE_NOT_MATERIALIZED",
+      "l2a_direct_pii_materialization_requires_preapproval": true
+    },
+    "us_ny_precontact": {
+      "status": "MOSTLY_DEFINED_REQUIRES_ENTITY_SPECIFIC_SIGNOFF",
+      "osc_list_research_supported": true,
+      "osc_location_service_provider_license_or_registration_required": false,
+      "stage_b_precontact_requires_signed_fee_agreement": false,
+      "stage_b_precontact_requires_claim_submission": false,
+      "stage_b_precontact_requires_direct_owner_contact": false,
+      "rationale": "STAGE_B_STOPS_AT_TARGETABILITY_AND_DOES_NOT_SUBMIT_A_CLAIM_OR_SELL_LOCATION_SERVICES_TO_A_CONTACTED_CLIENT",
+      "downstream_l3_plus_requirements": [
+        "DIRECT_CONTACT_WITH_OWNER_OR_DULY_APPOINTED_REPRESENTATIVE_FOR_LSP_CLAIM_PATH",
+        "WRITTEN_AGREEMENT",
+        "OWNER_OR_AUTHORIZED_REPRESENTATIVE_SIGNATURE",
+        "WITNESS_AND_NOTARY_ACKNOWLEDGMENT",
+        "DIRECT_FREE_CLAIM_DISCLOSURE",
+        "FEE_AT_OR_BELOW_15_PERCENT",
+        "PROVIDER_COLLECTS_FEE_FROM_CLIENT_NOT_OSC"
+      ],
+      "pending_legislation_watch": "NY_ASSEMBLY_BILL_A3372_2025_2026_ACTIVE_IN_ASSEMBLY_COMMITTEE_NOT_CURRENT_LAW_AS_OF_2026_09_24",
+      "official_sources": [
+        "https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers",
+        "https://www.osc.ny.gov/unclaimed-funds/resources/owner-name-file-request-form",
+        "https://www.osc.ny.gov/files/unclaimed-funds/resources/2025/pdf/aplsp-requirements-and-procedures-highlight-changes-1.pdf",
+        "https://www.nysenate.gov/legislation/laws/ABP/1416",
+        "https://www.nysenate.gov/legislation/laws/GBS/393-E",
+        "https://www.nysenate.gov/legislation/bills/2025/A3372"
+      ]
+    },
+    "l2a_targetability": {
+      "status": "BLOCKED_PROVIDER_OR_MANUAL_RESEARCH_BINDING_REQUIRED",
+      "required_to_finish_stage_b": true,
+      "external_paid_spend_cents": 0,
+      "manual_research_cap_seconds": 900,
+      "paid_data_broker_allowed": false,
+      "paid_api_allowed": false,
+      "consumer_report_fcra_product_allowed": false,
+      "outreach_allowed": false,
+      "value_research_allowed": false,
+      "preferred_p1_mode": "MANUAL_BOUNDED_RESEARCH_WITH_NON_PII_RESULT_ENTRY_AND_EXACT_SOURCE_PROVIDER_BINDING",
+      "provider_stack_build_deferred": true,
+      "reason": "ONE_CASE_PILOT_SHOULD_MEASURE_TARGETABILITY_BEFORE_BUILDING_A_GENERAL_IDENTITY_STACK"
+    },
+    "approvals": {
+      "status": "NOT_STARTED",
+      "all_gates_single_use": true,
+      "reusable": false,
+      "retries_max": 0,
+      "current_state": "ALL_NOT_GRANTED",
+      "authorization_requires_final_runner_checkpoint_and_successful_ci": true
+    }
+  },
+  "stage_b_metrics": [
+    "TARGETABILITY_DECISION_COST",
+    "MANUAL_RESEARCH_SECONDS",
+    "EXTERNAL_CASH_SPEND_CENTS",
+    "SERVICE_NEED_STATE",
+    "RESOLVABILITY_STATE",
+    "ESTATE_PATH_STATE",
+    "REPRESENTATIVE_PATH_STATE",
+    "TARGETABILITY_CLASS_OR_BOUNDED_STOP",
+    "STOP_REASON"
+  ],
+  "stage_b_success_outcomes": [
+    "TARGETABLE_CONTINUE_TO_SEPARATE_OUTREACH_REVIEW",
+    "STOP_SELF_SERVICE_LOW_NEED",
+    "STOP_UNBOUNDED_RESOLUTION_COST",
+    "STOP_LEGAL_PRIVACY_SCOPE",
+    "STOP_TARGETABILITY_NOT_ESTABLISHED_WITHIN_BUDGET"
+  ],
+  "no_scale_before_review": true,
+  "authorization_does_not_grant": {
+    "source_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "real_candidate_materialization": false,
+    "owner_pii_processing": false,
+    "external_pii_query": false,
+    "outreach": false,
+    "value_research": false,
+    "claim_activity": false,
+    "any_p1_gate": false
+  },
+  "remaining_human_inputs_minimum": [
+    "CONTROLLER_OPERATING_MODEL_AND_ENTITY_FACTS",
+    "EXACT_L2A_PROVIDER_OR_MANUAL_RESEARCH_SOURCE_SET",
+    "FRESH_SINGLE_USE_EXECUTION_APPROVALS"
+  ],
+  "review_result": "STAGE_B_FAST_TRACK_PREPARED_OFFLINE",
+  "required_owner_review_phrase": "APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1",
+  "next_action_if_approved": "COMPLETE_US_CONTROLLER_FACT_BINDING_AND_L2A_MANUAL_PROVIDER_REVIEW_OFFLINE"
+}
