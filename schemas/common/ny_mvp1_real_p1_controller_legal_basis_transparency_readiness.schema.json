@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-real-p1-controller-legal-basis-transparency-readiness:1.0.0",
+  "title": "NY MVP1 Real P1 Controller Legal Basis and Transparency Readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "work_class",
+    "mode",
+    "baseline",
+    "legal_review_disclaimer",
+    "controller_readiness",
+    "processing_scope",
+    "new_york_readiness",
+    "gdpr_applicability",
+    "article_6_basis_assessment",
+    "full_file_necessity_and_minimisation",
+    "transparency_article_14",
+    "article_21_objection",
+    "accountability_and_records",
+    "dpia_readiness",
+    "precontact_minimisation_finding",
+    "readiness_requirements",
+    "fail_closed_conditions",
+    "authorization_does_not_grant",
+    "review_result",
+    "required_owner_review_phrase",
+    "next_action_if_approved"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "artifact_id": {"const": "ny.mvp1.real_p1.controller_legal_basis_transparency_readiness"},
+    "artifact_version": {"const": "1.0.0"},
+    "prepared_on": {"const": "2026-09-24"},
+    "status": {"const": "BLOCKED_CONTROLLER_IDENTITY_AND_TRANSPARENCY_PATH_UNRESOLVED"},
+    "work_class": {"const": "A_PRODUCT_CRITICAL"},
+    "mode": {"const": "OFFLINE_DESIGN_REVIEW_ONLY"},
+    "baseline": {
+      "type": "object",
+      "required": [
+        "main_checkpoint",
+        "main_ci_run_id",
+        "main_ci_conclusion",
+        "scope_decision",
+        "real_p1_gate_count",
+        "all_real_p1_gates_state"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "main_checkpoint": {"const": "cf00481f2824d163f9e325faf66482243ebc2024"},
+        "main_ci_run_id": {"const": 36000390328},
+        "main_ci_conclusion": {"const": "SUCCESS"},
+        "scope_decision": {"const": "D-013"},
+        "real_p1_gate_count": {"const": 7},
+        "all_real_p1_gates_state": {"const": "NOT_GRANTED"}
+      }
+    },
+    "legal_review_disclaimer": {"const": "SOFTWARE_PRIVACY_CONTROL_DESIGN_NOT_LEGAL_OPINION"},
+    "controller_readiness": {
+      "type": "object",
+      "required": [
+        "controller_identity_state",
+        "controller_legal_name",
+        "controller_entity_type",
+        "controller_jurisdiction",
+        "controller_establishment_country",
+        "controller_establishment_address",
+        "privacy_contact",
+        "dpo_required_state",
+        "dpo_contact",
+        "eu_representative_required_state",
+        "eu_representative_contact",
+        "joint_controller_state",
+        "processor_inventory_state",
+        "repository_search_result",
+        "execution_allowed"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "controller_identity_state": {"const": "UNRESOLVED_BLOCKING"},
+        "controller_legal_name": {"type": "null"},
+        "controller_entity_type": {"type": "null"},
+        "controller_jurisdiction": {"type": "null"},
+        "controller_establishment_country": {"type": "null"},
+        "controller_establishment_address": {"type": "null"},
+        "privacy_contact": {"type": "null"},
+        "dpo_required_state": {"const": "NOT_ASSESSED"},
+        "dpo_contact": {"type": "null"},
+        "eu_representative_required_state": {"const": "NOT_ASSESSED"},
+        "eu_representative_contact": {"type": "null"},
+        "joint_controller_state": {"const": "NOT_ASSESSED"},
+        "processor_inventory_state": {"const": "NOT_ASSESSED"},
+        "repository_search_result": {"const": "NO_CONTROLLER_OR_LEGAL_ENTITY_IDENTIFIED_IN_CANONICAL_REPOSITORY"},
+        "execution_allowed": {"const": false}
+      }
+    },
+    "processing_scope": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "stated_purpose",
+        "source_id",
+        "source_population_scope",
+        "source_population_record_count_reference",
+        "target_candidate_max",
+        "l0_processing",
+        "l1_processing",
+        "l2a_processing",
+        "outreach",
+        "value_research",
+        "beneficiary_matching",
+        "genealogy",
+        "claim_activity",
+        "important_scope_finding"
+      ],
+      "properties": {
+        "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+        "source_population_record_count_reference": {"const": 14994489},
+        "target_candidate_max": {"const": 1},
+        "outreach": {"const": false},
+        "value_research": {"const": false},
+        "beneficiary_matching": {"const": false},
+        "genealogy": {"const": false},
+        "claim_activity": {"const": false}
+      }
+    },
+    "new_york_readiness": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "osc_publication_state",
+        "location_service_provider_framework_state",
+        "direct_claim_free_state",
+        "fee_cap_state",
+        "solicitation_and_agreement_disclosure_state",
+        "privacy_authorization_inference",
+        "finding",
+        "official_sources"
+      ],
+      "properties": {
+        "osc_publication_state": {"const": "SUPPORTED"},
+        "location_service_provider_framework_state": {"const": "SUPPORTED"},
+        "direct_claim_free_state": {"const": "SUPPORTED"},
+        "fee_cap_state": {"const": "SUPPORTED_MAX_15_PERCENT_NOT_ASSUMED_REALIZED_FEE"},
+        "solicitation_and_agreement_disclosure_state": {"const": "REQUIRED_IF_OFFERING_LOCATION_SERVICES"},
+        "privacy_authorization_inference": {"const": "NOT_ESTABLISHED"}
+      }
+    },
+    "gdpr_applicability": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "state",
+        "article_3_1_rule",
+        "article_3_2_rule",
+        "public_source_exception_assumed",
+        "us_data_subject_exception_assumed",
+        "official_source"
+      ],
+      "properties": {
+        "state": {"const": "UNRESOLVED_UNTIL_CONTROLLER_ESTABLISHMENT_IS_DOCUMENTED"},
+        "public_source_exception_assumed": {"const": false},
+        "us_data_subject_exception_assumed": {"const": false}
+      }
+    },
+    "article_6_basis_assessment": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "final_basis_selected",
+        "consent",
+        "contract_or_precontract",
+        "legal_obligation",
+        "vital_interests",
+        "public_task",
+        "legitimate_interests",
+        "conclusion"
+      ],
+      "properties": {
+        "final_basis_selected": {"const": false},
+        "legitimate_interests": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "candidate",
+            "status",
+            "proposed_interest",
+            "three_part_test_required",
+            "lawful_precise_real_present_interest_required",
+            "necessity_less_intrusive_alternative_test_required",
+            "balancing_test_required",
+            "reasonable_expectations_analysis_required",
+            "safeguards_analysis_required",
+            "article_21_objection_process_required",
+            "result"
+          ],
+          "properties": {
+            "candidate": {"const": true},
+            "status": {"const": "CANDIDATE_ONLY_NOT_APPROVED"},
+            "three_part_test_required": {"const": true},
+            "necessity_less_intrusive_alternative_test_required": {"const": true},
+            "balancing_test_required": {"const": true},
+            "reasonable_expectations_analysis_required": {"const": true},
+            "safeguards_analysis_required": {"const": true},
+            "article_21_objection_process_required": {"const": true}
+          }
+        }
+      }
+    },
+    "full_file_necessity_and_minimisation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "state",
+        "finding",
+        "less_intrusive_alternative_test_required",
+        "source_side_filtering_feasibility_state",
+        "online_search_as_equivalent_alternative_state",
+        "transient_storage_mitigates_but_does_not_REMOVE_processing",
+        "project_decision"
+      ],
+      "properties": {
+        "state": {"const": "BLOCKING_ASSESSMENT_REQUIRED"},
+        "less_intrusive_alternative_test_required": {"const": true},
+        "source_side_filtering_feasibility_state": {"const": "NOT_ESTABLISHED"},
+        "online_search_as_equivalent_alternative_state": {"const": "NOT_ESTABLISHED_FOR_CANDIDATE_DISCOVERY"},
+        "transient_storage_mitigates_but_does_not_REMOVE_processing": {"const": true},
+        "project_decision": {"const": "NO_REAL_FULL_FILE_ACQUISITION_UNTIL_NECESSITY_AND_PROPORTIONALITY_ARE_DOCUMENTED"}
+      }
+    },
+    "transparency_article_14": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "state",
+        "data_obtained_from_subject",
+        "default_rule",
+        "ordinary_deadlines",
+        "required_notice_elements",
+        "article_14_5_exception_assumed",
+        "disproportionate_effort_exception_state",
+        "direct_notice_path_state",
+        "public_notice_substitute_state",
+        "finding",
+        "execution_allowed"
+      ],
+      "properties": {
+        "state": {"const": "UNRESOLVED_BLOCKING_IF_GDPR_APPLIES"},
+        "data_obtained_from_subject": {"const": false},
+        "article_14_5_exception_assumed": {"const": false},
+        "disproportionate_effort_exception_state": {"const": "NOT_ESTABLISHED"},
+        "direct_notice_path_state": {"const": "NOT_IMPLEMENTED_AND_CONFLICTS_WITH_CURRENT_NO_OUTREACH_L1_DESIGN"},
+        "public_notice_substitute_state": {"const": "NOT_AUTHORIZED_NOT_ESTABLISHED"},
+        "execution_allowed": {"const": false}
+      }
+    },
+    "article_21_objection": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "applicable_if_legitimate_interests_basis",
+        "process_state",
+        "requirement",
+        "first_communication_notice_required"
+      ],
+      "properties": {
+        "applicable_if_legitimate_interests_basis": {"const": true},
+        "process_state": {"const": "NOT_IMPLEMENTED"},
+        "first_communication_notice_required": {"const": true}
+      }
+    },
+    "accountability_and_records": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "article_5_principles_required",
+        "article_24_accountability_required_if_gdpr_applies",
+        "article_25_privacy_by_design_required_if_gdpr_applies",
+        "ropa_project_policy",
+        "retention_schedule_required",
+        "data_subject_rights_procedure_required",
+        "incident_response_owner_required",
+        "access_control_owner_required"
+      ],
+      "properties": {
+        "article_5_principles_required": {"const": true},
+        "article_24_accountability_required_if_gdpr_applies": {"const": true},
+        "article_25_privacy_by_design_required_if_gdpr_applies": {"const": true},
+        "ropa_project_policy": {"const": "REQUIRED_BEFORE_REAL_P1_REGARDLESS_OF_POSSIBLE_ARTICLE_30_SMALL_ORGANISATION_EXCEPTION"},
+        "retention_schedule_required": {"const": true},
+        "data_subject_rights_procedure_required": {"const": true}
+      }
+    },
+    "dpia_readiness": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "legal_requirement_conclusion",
+        "project_policy",
+        "drivers",
+        "full_dpia_if_high_risk_screen_positive",
+        "supervisory_authority_list_check_required"
+      ],
+      "properties": {
+        "legal_requirement_conclusion": {"const": "NOT_DETERMINED"},
+        "project_policy": {"const": "DPIA_SCREEN_REQUIRED_BEFORE_REAL_P1_IF_GDPR_APPLIES"},
+        "full_dpia_if_high_risk_screen_positive": {"const": true},
+        "supervisory_authority_list_check_required": {"const": true}
+      }
+    },
+    "precontact_minimisation_finding": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "state",
+        "finding",
+        "necessity_for_l1_only",
+        "recommended_project_constraint",
+        "runtime_change_authorized"
+      ],
+      "properties": {
+        "state": {"const": "MATERIAL_DESIGN_ISSUE"},
+        "necessity_for_l1_only": {"const": "NOT_ESTABLISHED"},
+        "runtime_change_authorized": {"const": false}
+      }
+    },
+    "readiness_requirements": {
+      "type": "array",
+      "minItems": 10,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "fail_closed_conditions": {
+      "type": "array",
+      "minItems": 10,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_access",
+        "remote_preflight",
+        "download",
+        "real_candidate_materialization",
+        "owner_pii_processing",
+        "external_pii_query",
+        "identity_resolution",
+        "address_enrichment",
+        "outreach",
+        "value_research",
+        "fee_agreement",
+        "representation",
+        "claim_activity",
+        "any_of_seven_p1_gates"
+      ],
+      "properties": {
+        "source_access": {"const": false},
+        "remote_preflight": {"const": false},
+        "download": {"const": false},
+        "real_candidate_materialization": {"const": false},
+        "owner_pii_processing": {"const": false},
+        "external_pii_query": {"const": false},
+        "identity_resolution": {"const": false},
+        "address_enrichment": {"const": false},
+        "outreach": {"const": false},
+        "value_research": {"const": false},
+        "fee_agreement": {"const": false},
+        "representation": {"const": false},
+        "claim_activity": {"const": false},
+        "any_of_seven_p1_gates": {"const": false}
+      }
+    },
+    "review_result": {"const": "CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1"},
+    "required_owner_review_phrase": {"const": "APPROVE_NY_MVP1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_FINDINGS_V1"},
+    "next_action_if_approved": {"const": "IMPLEMENT_AND_REVIEW_P1_PRECONTACT_PRIVACY_MINIMIZATION_AND_LEGAL_READINESS_ARTIFACTS_OFFLINE"}
+  }
+}
