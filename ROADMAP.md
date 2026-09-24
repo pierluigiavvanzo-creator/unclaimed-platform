@@ -2,13 +2,40 @@
 
 Last updated: 2026-09-24
 
-## Critical path
+## Product target
+
+UNITED STATES + CANADA MULTI-REGISTRY UNCLAIMED-ASSET INTELLIGENCE AND RECOVERY PLATFORM
+
+Required target capabilities:
+
+- multi-registry acquisition/normalization;
+- cross-registry dedup/linking;
+- evidence-aware AI confidence scoring;
+- lead prioritization;
+- people/owner/heir finding;
+- case economics;
+- jurisdiction-specific compliance;
+- contract builder;
+- fee calculator;
+- CRM/case management;
+- authorized outreach/claim workflow;
+- outcome learning/calibration.
+
+Patentability is not a roadmap objective.
+
+Performance, reliability and efficiency are the primary product objectives.
+
+## Current critical path — Stage B
 
 ONE AUTHORIZED REAL SOURCE
 -> ONE TARGETABLE BOUNDED CASE
 -> ONE REVIEWABLE ECONOMIC RESULT
 
-Scale remains frozen until real targetability economics are measured.
+Stage B uses NY OSC as the first validated adapter.
+
+This does NOT limit the product to New York.
+
+Broad simultaneous registry implementation remains deferred until real targetability economics are measured.
 
 ## Stage 1 — Aggregate real-source evidence — COMPLETE
 
@@ -228,11 +255,17 @@ Closest workflow competitor:
 
 ClaimTrace — California-focused property import, value/tractability/risk vetting, research, outreach, agreement, claim and payment pipeline.
 
-Retained hypothesis:
+Stage B hypothesis:
 
 NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
 
-This is not yet a defensible moat. P1/P2/P3 must create the proprietary economic/targetability evidence.
+Long-term performance hypothesis:
+
+NORTH_AMERICA_MULTI_REGISTRY_TARGETABILITY_AND_RECOVERY_OPERATING_SYSTEM
+
+The target advantage is measured lead quality, confidence, operator efficiency, conversion and case economics — not category novelty.
+
+P1/P2/P3 must create the first proprietary economic/targetability evidence.
 
 LLC formation remains just-in-time before real P1.
 
@@ -254,6 +287,23 @@ bind entity facts -> prepare fresh single-use approvals -> one real P1 -> human 
 
 Real P1 remains NOT AUTHORIZED.
 
+## Post-Stage-B source architecture — CONDITIONAL
+
+Only if P1/P2 support continuation:
+
+1. freeze a generic versioned Source Adapter Contract;
+2. define canonical normalized RegistryRecord / OpportunityCandidate contracts;
+3. create a jurisdiction/source capability matrix;
+4. benchmark additional registries by accessibility, legal/terms viability, data richness, refresh rate, candidate density and integration cost;
+5. add US registries in evidence-backed priority order;
+6. add Canadian registries in evidence-backed priority order;
+7. add cross-registry dedup/linking;
+8. calibrate AI confidence against observed outcomes;
+9. expand modular people-finder providers;
+10. activate jurisdiction-aware contract builder, fee calculator and CRM workflows only after relevant legal readiness.
+
+Do not implement registry count as a vanity metric.
+
 ## P2 — approximately five cases — CONDITIONAL
 
 Only if P1 supports continuation.
@@ -264,10 +314,17 @@ Only if P2 supports continuation.
 
 ## Frozen before evidence justifies it
 
-- broad multi-state expansion;
-- general genealogy platform;
+- simultaneous broad US/Canada registry implementation before Stage B evidence;
+- general genealogy platform beyond bounded needs;
 - mass outreach;
-- paid identity-data stack;
+- paid identity-data stack before unit economics justify it;
 - large durable PII database;
-- generic agent expansion;
+- generic agent expansion without measured performance benefit;
 - non-critical UI work.
+
+Not frozen:
+
+- multi-registry target architecture;
+- source-adapter contracts;
+- registry-independent downstream interfaces;
+- performance instrumentation needed to compare future source adapters.
