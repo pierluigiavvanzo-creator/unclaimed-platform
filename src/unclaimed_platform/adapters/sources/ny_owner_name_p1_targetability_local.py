@@ -78,7 +78,7 @@ class RealP1SelectionSummary(BaseModel):
     ] = "REPORT_YEAR_IS_PERSISTENCE_SIGNAL_ONLY_NOT_AWARENESS_VALUE_DEATH_OR_CONTACTABILITY"
 
     @model_validator(mode="after")
-    def validate_counts(self) -> "RealP1SelectionSummary":
+    def validate_counts(self) -> RealP1SelectionSummary:
         if (
             self.structurally_conforming_records + self.structurally_deferred_records
             != self.total_records
@@ -154,7 +154,7 @@ class RealP1TargetabilityEvidence(BaseModel):
         return values
 
     @model_validator(mode="after")
-    def validate_cost_state(self) -> "RealP1TargetabilityEvidence":
+    def validate_cost_state(self) -> RealP1TargetabilityEvidence:
         if self.targetability_decision_cost_state == "MEASURED":
             if self.targetability_decision_cost_cents is None:
                 raise ValueError("MEASURED targetability cost requires cents")
