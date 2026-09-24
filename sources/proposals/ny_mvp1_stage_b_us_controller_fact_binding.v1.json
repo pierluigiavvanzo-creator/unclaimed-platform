@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.stage_b.us_controller_fact_binding",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-24",
+  "status": "HUMAN_FACTS_REQUIRED_NOT_EXECUTION_READY",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "preferred_track": "US_CONTROLLER_US_MARKET",
+  "main_checkpoint": "5721b764c4c0dfc89bd3455f9870cee15c17e1d5",
+  "main_ci_run_id": 36011409899,
+  "main_ci_conclusion": "SUCCESS",
+  "controller_facts": {
+    "operating_model": null,
+    "legal_name": null,
+    "entity_type": null,
+    "formation_state": null,
+    "formation_jurisdiction": null,
+    "principal_business_address": null,
+    "privacy_contact": null,
+    "relevant_eu_branch_office_employee_agent_or_stable_arrangement": null,
+    "eu_person_or_entity_live_owner_pii_access": null,
+    "lsp_customer_agreement_signing_entity": null,
+    "lsp_fee_receiving_entity": null,
+    "us_only_mvp1_market": null,
+    "eu_targeting": false,
+    "eu_monitoring": false
+  },
+  "required_operating_model_value": "US_CONTROLLER_US_MARKET",
+  "allowed_formation_states": [
+    "FORMED",
+    "NOT_YET_FORMED"
+  ],
+  "us_track_conditions": [
+    "GENUINE_US_LEGAL_ENTITY_IS_CONTROLLER_BEFORE_REAL_EXECUTION",
+    "NO_RELEVANT_EU_ESTABLISHMENT_CONNECTED_TO_P1",
+    "NO_EU_TARGETING",
+    "NO_EU_BEHAVIOURAL_MONITORING",
+    "US_ONLY_MVP1_MARKET",
+    "LIVE_OWNER_PII_ACCESS_FROM_EU_DISABLED_BY_DEFAULT"
+  ],
+  "if_entity_not_yet_formed": {
+    "real_p1_allowed": false,
+    "permitted_work": "OFFLINE_DESIGN_TESTING_SYNTHETIC_NON_PII_ONLY",
+    "next_requirement": "FORM_ENTITY_AND_REPLACE_NULL_ENTITY_FACTS_BEFORE_ANY_REAL_P1_GATE"
+  },
+  "if_us_track_confirmed": {
+    "gdpr_controller_track": "LIKELY_OUTSIDE_SCOPE_SUBJECT_TO_FACTUAL_LEGAL_CONFIRMATION",
+    "us_ny_readiness_required": true,
+    "l2a_provider_review_required": true,
+    "full_file_security_minimisation_required": true,
+    "real_p1_gates_still_required": true
+  },
+  "execution_allowed": false,
+  "authorization_does_not_grant": {
+    "source_access": false,
+    "preflight": false,
+    "download": false,
+    "pii_processing": false,
+    "external_pii_query": false,
+    "any_p1_gate": false
+  },
+  "human_input_required": true,
+  "required_human_action": "SUPPLY_CONTROLLER_ENTITY_FACTS",
+  "review_result": "BLOCKED_ONLY_ON_CONTROLLER_ENTITY_FACTS_FOR_US_TRACK_BINDING"
+}
