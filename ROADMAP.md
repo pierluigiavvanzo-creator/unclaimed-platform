@@ -93,7 +93,7 @@ NOT_GRANTED
 
 No owner authorization or execution reference exists.
 
-## Stage 7 — Controller/legal/transparency readiness — REVIEWED / BLOCKED ON CONTROLLER FACTS
+## Stage 7 — Controller territorial-scope readiness — BIFURCATED / WAITING FOR FACTS
 
 Action completed:
 
@@ -101,42 +101,57 @@ DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
 
 Result:
 
-CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
+BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
 
-Blocking findings:
+Tracks:
 
-- controller legal identity absent from repository;
-- controller establishment absent;
-- GDPR applicability therefore unresolved;
-- no Article 6 basis selected;
-- Article 6(1)(f), if selected, requires completed LIA;
-- necessity of full-file acquisition is not established;
-- Article 14 path is unresolved if GDPR applies;
-- Article 21 objection process is absent;
-- DPIA screen required by project policy if GDPR applies;
-- direct-PII necessity for real L1-only is unresolved.
+- US_CONTROLLER_US_MARKET — preferred MVP hypothesis pending facts;
+- EU_CONTROLLER_OR_EU_ESTABLISHMENT — GDPR Article 3(1) track;
+- NON_EU_CONTROLLER_ARTICLE_3_2 — GDPR track if EU targeting/monitoring occurs;
+- US_CONTROLLER_WITH_EU_PROCESSOR_ONLY — separate controller/processor analysis; EU processor does not automatically create an EU establishment for the US controller.
+
+Preferred architecture hypothesis:
+
+US production controller/PII plane + EU synthetic/non-PII development plane.
 
 All seven P1 gates remain NOT_GRANTED.
 
 Next human input:
 
-HUMAN_DEFINE_P1_CONTROLLER_IDENTITY_AND_ESTABLISHMENT
+HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
 
 Required:
 
-- exact legal name;
+- operating model;
+- exact legal entity;
 - entity type;
-- establishment jurisdiction/country;
-- establishment/business address;
-- privacy contact if already defined.
+- formation/incorporation jurisdiction;
+- principal establishment/business address;
+- EU establishment/stable-arrangement facts;
+- EU live-PII access facts;
+- customer-contracting and fee-receipt entity;
+- US-only market/no EU targeting or monitoring confirmation;
+- privacy contact if defined.
 
-After that:
+## Stage 8 — Track-specific legal readiness — BLOCKED ON STAGE 7 FACTS
 
-COMPLETE_P1_APPLICABLE_LAW_LIA_TRANSPARENCY_AND_DPIA_SCREEN_OFFLINE
+### If US_CONTROLLER_US_MARKET is factually confirmed
 
-## Stage 8 — Applicable law / LIA / transparency / DPIA completion — BLOCKED
+Complete US/New York legal/privacy/security readiness only, plus any processor-role review needed for EU vendors/personnel.
 
-Cannot start conclusively until Stage 7 controller facts are supplied.
+Do not impose GDPR controller Article 6/14/21/ROPA/DPIA blockers merely by default.
+
+### If EU_CONTROLLER_OR_EU_ESTABLISHMENT is triggered
+
+Complete:
+
+- Article 6 basis;
+- LIA if Article 6(1)(f);
+- Article 14 path;
+- Article 21 process;
+- ROPA by project policy;
+- DPIA screen;
+- full-file necessity/minimisation.
 
 No source access is required for this work.
 
