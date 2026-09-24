@@ -16,11 +16,51 @@ main
 
 Canonical main HEAD:
 
-322c38027a2a214246f1a52ca0854b7b93d171b7
+e2856c61a77e2ff8ca6f973b9090beb87a754ebc
 
-Post-merge main CI:
+Final post-merge CI:
 
-35994103772 — SUCCESS
+35999333460 — SUCCESS
+
+## Integration completed
+
+PR #37:
+
+MVP1: define fresh real P1 targetability execution scope — MERGED
+
+Merge commit:
+
+755bd4c6dbd18e4a204c513e68e456c517e9dbf7
+
+Post-merge CI:
+
+35999157888 — SUCCESS
+
+PR #38:
+
+MVP1: implement and review offline real P1 targetability runner — MERGED
+
+Merge commit:
+
+e2856c61a77e2ff8ca6f973b9090beb87a754ebc
+
+Post-merge CI:
+
+35999333460 — SUCCESS
+
+## Product Owner approvals consumed for repository decisions
+
+Scope review:
+
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
+
+Runner review/integration:
+
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
+
+These approvals are repository/design approvals only.
+
+They are NOT real execution/privacy grants.
 
 ## Canonical product objective
 
@@ -38,142 +78,84 @@ MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
 ## Proven source state
 
-Attempt 11:
+Attempt 11 established:
 
 - 14,994,489 records;
-- 2,792,990 authority-backed insurance;
+- 2,792,990 authority-backed insurance records;
 - 203,921 aggregate IN03 candidates;
 - value unknown from source;
 - no real candidate materialization.
 
 Historical real-source/privacy approvals are consumed/non-reusable.
 
-## Canonical targetability state
-
-PRODUCT_STRATEGY_MVP1 v3.0 and D-012 are canonical.
-
-Real P1 planned selection:
-
-PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
-
-T0-T4 = targetability.
-
-F0-F3 = friction only.
-
-## Scope review
-
-Scope branch:
-
-mvp1-real-p1-targetability-execution-scope
-
-PR #37:
-
-OPEN / NOT MERGED
-
-Product Owner explicitly approved:
-
-APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
-
-That approval authorized only offline runner implementation/review.
-
-## Current implementation branch
-
-mvp1-real-p1-targetability-runner-offline
-
-Verified runtime checkpoint:
-
-6a73a4e3da189affe530f6ca9e32259c828e803d
-
-CI:
-
-35997991872 — SUCCESS
-
-Review:
-
-docs/audits/NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE_REVIEW.md
+## Canonical P1 runner
 
 Decision:
 
 D-013
 
-## Implemented runner
-
 L0:
 
-- streams full TXT;
-- only structural width, IN03, owner-count=1, Property ID presence, Holder Report Year and ordinal participate in selection;
-- Owner Name/address are not decoded/buffered for ranking.
+- stream full authorized source;
+- exact structural width;
+- IN03;
+- owner-count=1;
+- Property ID presence boolean;
+- Holder Report Year;
+- source ordinal;
+- no Owner Name/address ranking.
+
+Selection:
+
+PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
 L1:
 
 - second pass over same local archive;
 - selected ordinal only;
-- transient six-field candidate scope;
+- six-field transient scope;
 - no durable/returned/logged owner PII;
-- no address unless L2-A was already fully approved.
+- address excluded unless L2-A was fully pre-approved.
 
 L2-A:
 
-- protocol seam only;
-- no production provider;
-- no CLI provider;
-- provider must be specifically bound to approved terms/budget;
-- paid spend = USD 0.00;
-- manual research <= 900 seconds;
-- provider output is non-PII targetability evidence.
+- provider protocol seam only;
+- no approved production provider;
+- no CLI provider option;
+- USD 0 paid external spend;
+- proposed 900-second manual cap;
+- provider must be separately privacy/terms/budget bound;
+- output must be non-PII.
 
-Output:
+## Gate state
 
-- non-PII selection summary;
-- Economic Case Ledger;
-- T0-T4 result only when approved provider evidence exists;
-- stop/disposal/authorization provenance.
+Seven fresh P1 gate templates are present on main.
 
-Local file:
-
-logical deletion required after execution attempt.
-
-No secure physical erasure claim.
-
-## Approval state
-
-Seven fresh P1 gate templates exist.
-
-All seven are:
+All seven were verified after merge as:
 
 NOT_GRANTED
 
-No owner authorization exists.
+Each currently has:
 
-No execution approval ref exists.
+owner_authorization = null
+execution_approval_ref = null
+runner_checkpoint = null
 
-No runner checkpoint is bound to a granted artifact.
-
-## CLI state
-
-scripts/ny_mvp1_p1_targetability_execute.py
-
-is local-only and L1-only.
-
-scripts/ny_mvp1_p1_targetability_local.ps1
-
-is the Windows wrapper.
-
-Neither contains a source network client.
+Therefore no real P1 run is authorized.
 
 ## Current prohibitions
 
 Do not perform:
 
 - source access;
-- fresh remote preflight;
+- remote preflight;
 - download;
 - real candidate materialization;
 - owner PII processing;
-- external PII queries;
+- external PII query;
 - identity/contact enrichment;
-- genealogy;
 - beneficiary matching;
+- genealogy;
 - outreach;
 - value research;
 - fee agreement;
@@ -182,11 +164,21 @@ Do not perform:
 
 ## SINGLE NEXT ACTION
 
-HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
+DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
 
-If accepted, the Product Owner may separately authorize repository merge/integration.
+This is design/review only.
 
-Acceptance of the runner is NOT an execution/privacy approval.
+It must document:
+
+- controller identity;
+- controller establishment;
+- applicable-law assessment;
+- legal basis;
+- transparency obligations/plan;
+- LIA if legitimate interests is selected;
+- legal/privacy fail-closed conditions.
+
+Do not create or grant any of the seven execution/privacy gates during this action.
 
 ## Context restart order
 
@@ -197,4 +189,4 @@ Acceptance of the runner is NOT an execution/privacy approval.
 5. DECISIONS.md
 6. docs/handovers/HANDOVER_CURRENT.md
 
-Then verify main, PR #37, and branch mvp1-real-p1-targetability-runner-offline.
+Then verify remote main HEAD and CI before any modification.

@@ -26,161 +26,214 @@ main
 
 Current verified main HEAD:
 
-322c38027a2a214246f1a52ca0854b7b93d171b7
+e2856c61a77e2ff8ca6f973b9090beb87a754ebc
 
-Main post-merge CI:
+PR #37:
 
-35994103772 — SUCCESS
+MVP1: define fresh real P1 targetability execution scope — MERGED
 
-PR #36:
+PR #37 merge commit:
 
-MERGED
+755bd4c6dbd18e4a204c513e68e456c517e9dbf7
 
-PRODUCT_STRATEGY_MVP1 v3.0 and D-012 are canonical.
+PR #37 post-merge CI:
+
+35999157888 — SUCCESS
+
+PR #38:
+
+MVP1: implement and review offline real P1 targetability runner — MERGED
+
+PR #38 merge commit / current main HEAD:
+
+e2856c61a77e2ff8ca6f973b9090beb87a754ebc
+
+Final post-merge main CI:
+
+35999333460 — SUCCESS
+
+PRODUCT_STRATEGY_MVP1 v3.0, D-012 and D-013 are canonical.
 
 ## Real-source evidence already established
 
 NY OSC Attempt 11 established:
 
-- 14,994,489 physical records;
-- 2,792,990 authority-backed insurance records;
-- 203,921 primary IN03 aggregate candidates;
+- total physical records: 14,994,489;
+- authority-backed insurance records: 2,792,990;
+- primary IN03 aggregate candidates: 203,921;
 - real candidate materialization: NOT AUTHORIZED;
 - recoverable value: UNKNOWN_FROM_SOURCE.
 
 All historical execution/privacy approvals are consumed, non-reusable and zero-retry.
 
-## Current targetability model
+## Canonical targetability model
 
-Future real P1 selection:
+Real P1 selection policy:
 
 PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
 Holder Report Year is persistence evidence only.
 
+It is not evidence of:
+
+- monetary value;
+- awareness;
+- death;
+- contactability;
+- claim complexity;
+- willingness to pay.
+
 Target thesis:
 
 MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
-T0-T4 = targetability.
+T0-T4 = targetability classes.
 
-F0-F3 = process friction only.
+F0-F3 = process-friction observations only.
 
-No numeric targetability score.
+No numeric targetability score is permitted.
 
-## Fresh real P1 execution scope — HUMAN APPROVED
-
-Scope branch:
-
-mvp1-real-p1-targetability-execution-scope
-
-PR #37:
-
-OPEN / NOT MERGED
+## Fresh real P1 scope — APPROVED AND MERGED
 
 Product Owner approval:
 
 APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-The approval authorized only offline implementation/review of the runner.
+The approval covered the design scope only.
 
-It did NOT authorize source access, PII processing or real P1 execution.
+It did not authorize:
 
-## Offline real P1 targetability runner — IMPLEMENTED AND VERIFIED
+- source access;
+- remote preflight;
+- download;
+- real candidate materialization;
+- real owner PII processing;
+- external PII queries;
+- identity/contact enrichment;
+- outreach;
+- value research;
+- representation;
+- claim activity.
 
-Active implementation branch:
+## Offline real P1 runner — APPROVED, MERGED AND POST-MERGE VERIFIED
 
-mvp1-real-p1-targetability-runner-offline
+Product Owner approval:
 
-Verified runtime checkpoint:
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
 
-6a73a4e3da189affe530f6ca9e32259c828e803d
+The runner implements D-013.
 
-Verified CI:
+### L0
 
-35997991872 — SUCCESS
+Streams the authorized local source and derives only:
 
-Review:
+- structural shape;
+- exact IN03;
+- Property Owner Count = 1;
+- Property ID presence boolean;
+- Holder Report Year;
+- source ordinal.
 
-docs/audits/NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE_REVIEW.md
+Owner Name/address are not decoded or buffered for ranking.
 
-Decision:
+### L1
 
-D-013
+Second pass over the same already-authorized local archive.
 
-### Runtime architecture
+Only the selected ordinal is materially buffered.
 
-L0 pass:
+Transient six-field candidate scope:
 
-- streams full authorized TXT member;
-- buffers/derives only structural shape, exact IN03, owner-count=1, Property ID presence boolean, Holder Report Year and source ordinal;
-- does not decode or buffer Owner Name/address for ranking;
-- selects oldest eligible Holder Report Year, then lowest source ordinal.
+- Property ID;
+- Property Type Code;
+- Property Owner Count;
+- Owner Name;
+- Holder Name;
+- Holder Report Year.
 
-L1 pass:
+No durable/returned/logged owner PII or Holder Name.
 
-- reopens the same already-authorized local archive;
-- materially buffers only the selected ordinal;
-- transiently permits Property ID, Property Type Code, Property Owner Count, Owner Name, Holder Name and Holder Report Year;
-- does not persist/return/log owner PII or Holder Name;
-- excludes address unless L2-A was fully pre-authorized.
+L1 external paid spend:
 
-L2-A seam:
+USD 0.00
 
-- dependency-injection protocol only;
-- no production provider implementation;
-- no CLI provider option;
-- provider must be bound by approved provider/terms/budget gate;
-- external paid spend fixed at USD 0.00;
-- manual research capped at 900 seconds;
-- returned evidence must be non-PII.
+### L2-A
 
-Local archive:
+Defined as a provider-binding seam only.
 
-- logically deleted after execution attempt;
-- physical secure erasure is not claimed;
-- deletion failure => BLOCKED / DISPOSAL_FAILED.
+No production provider is approved.
 
-## Fresh approval contracts
+No CLI provider option exists.
 
-Created:
+If separately approved in the future:
 
-- schemas/common/ny_mvp1_p1_single_use_gate.schema.json
-- schemas/common/ny_mvp1_p1_fresh_listing_preflight_receipt.schema.json
+- external paid spend remains USD 0.00;
+- manual research cap is 900 seconds;
+- provider must be specifically bound to an approved privacy/terms/budget review;
+- provider output must remain non-PII targetability evidence.
 
-Seven gate templates exist under sources/proposals.
+## Fresh approval state
 
-All seven currently remain:
+Seven P1 gate templates are canonical on main.
 
-NOT_GRANTED
+Verified after merge:
 
-with no owner authorization, no approval ref and no runner checkpoint.
+1. P1 transient local-file gate — NOT_GRANTED
+2. P1 L1 transient-PII gate — NOT_GRANTED
+3. P1 fresh-listing preflight gate — NOT_GRANTED
+4. P1 L1 execution gate — NOT_GRANTED
+5. P1 L2-A targetability-PII gate — NOT_GRANTED
+6. P1 L2-A provider/budget gate — NOT_GRANTED
+7. P1 L2-A execution gate — NOT_GRANTED
 
-No gate is active.
+For all seven:
 
-## Runner contracts and tests
+- owner_authorization = null;
+- execution_approval_ref = null;
+- runner_checkpoint = null.
 
-Created:
+No real P1 execution grant exists.
 
-- src/unclaimed_platform/domain/ny_mvp1_p1_authorization.py
-- src/unclaimed_platform/adapters/sources/ny_owner_name_p1_targetability_local.py
-- schemas/common/ny_mvp1_real_p1_targetability_run_result.schema.json
-- tests/unit/test_ny_mvp1_p1_authorization.py
-- tests/unit/test_ny_mvp1_real_p1_targetability_runner.py
-- tests/contract/test_ny_mvp1_p1_runner_contracts.py
-- scripts/ny_mvp1_p1_targetability_execute.py
-- scripts/ny_mvp1_p1_targetability_local.ps1
+## Safety boundary
 
-The production CLI is intentionally L1-only until a provider-specific L2-A review exists.
+Current repository state does NOT authorize or perform:
 
-## Current safety boundary
+- NY OSC source access;
+- remote preflight;
+- download;
+- real candidate materialization;
+- owner PII processing;
+- external PII transfer;
+- identity/contact enrichment;
+- beneficiary matching;
+- genealogy;
+- outreach;
+- value research;
+- fee agreement;
+- representation;
+- claim activity.
 
-No source access, remote preflight, download, real candidate materialization, real owner PII processing, external PII query, identity/contact enrichment, beneficiary matching, genealogy, outreach, value research, fee agreement, representation or claim activity is authorized by this implementation milestone.
+## Remaining blocker before any real P1 grant
+
+The next unresolved prerequisite is legal/controller/transparency readiness.
+
+Before any real processing the project must document:
+
+- controller identity;
+- controller establishment;
+- applicable-law assessment;
+- legal basis;
+- transparency obligations/plan;
+- any required legitimate-interest assessment if that basis is selected.
+
+L2-A provider review remains separate and is only needed if L2-A is to be authorized.
 
 ## Current next action
 
-HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
+Execute only:
 
-If the Product Owner accepts the runner, repository integration may be authorized.
+DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
 
-Runner approval must NOT be treated as any of the seven real execution/privacy grants.
+This next action is design/review only.
+
+It must not perform source access, preflight, download, PII processing or create any of the seven execution grants.
