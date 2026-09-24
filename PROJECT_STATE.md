@@ -430,26 +430,53 @@ Accepted offline design:
 
 All seven P1 gates remain NOT_GRANTED.
 
+## Competitive Moat Gate — COMPLETE / REFRAME
+
+Artifact:
+
+docs/audits/MVP1_COMPETITIVE_MOAT_GATE_2026-09-24.md
+
+Result:
+
+PASS_WITH_REFRAME_CONTINUE_STAGE_B
+
+Killed claims:
+
+- first AI unclaimed-property platform;
+- no competitors;
+- unique case prioritization;
+- unique owner-location AI.
+
+Closest direct workflow competitor found:
+
+ClaimTrace
+
+Public evidence shows California property-file import, scoring/vetting by recoverable value, owner tractability and risk, evidence-aware research, outreach, legal workflow gates and payment ledger.
+
+Other material competitors include Assethound.ai, Heir Crown, Sparrow, Linking Assets, Ryan, ClaimFound and AssetFynd.
+
+Retained moat hypothesis:
+
+NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
+
+Meaning:
+
+NY IN03 specialization + value-blind service-need/resolvability triage + TARGETABILITY_DECISION_COST + bounded STOP + privacy-minimized evidence trail.
+
+This remains an UNPROVEN workflow/data moat hypothesis.
+
+Proof must come from P1/P2/P3 outcomes.
+
+LLC bootstrap hypothesis remains Wyoming LLC, formed just-in-time before real P1 gates, subject to US CPA/attorney review and NY nexus/foreign-qualification analysis.
+
 ## Current next action
 
-Execute only:
+Return to:
 
-HUMAN_SUPPLY_NY_MVP1_US_CONTROLLER_ENTITY_FACTS
+STAGE_B_PILOT_P1
 
-Required factual fields:
+Immediate dependency:
 
-- whether the intended US controller entity is already formed;
-- exact legal name if formed;
-- entity type;
-- US formation/incorporation jurisdiction;
-- principal business address;
-- any EU branch/office/employee/agent/stable arrangement relevant to P1;
-- whether any EU person/entity will access live owner PII;
-- entity that will sign LSP agreements;
-- entity that will receive LSP fees;
-- confirmation that MVP1 is US-only with no EU targeting/monitoring;
-- privacy contact if already defined.
+HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1
 
-If the entity is not yet formed, record NOT_YET_FORMED rather than inventing a company.
-
-No real query, source access, preflight, download, PII processing or P1 execution is authorized.
+Until a genuine controller exists, keep all seven P1 gates NOT_GRANTED and continue only offline/synthetic/non-PII work.
