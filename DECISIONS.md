@@ -432,3 +432,75 @@ Consequences:
 - real L2-A requires a future provider-specific legal/privacy/terms review;
 - no current repository artifact grants real execution;
 - approval templates remain NOT_GRANTED until separately and explicitly granted by the Product Owner.
+
+
+---
+
+## D-014 — Product target expands to North America multi-registry operating platform
+
+Date: 2026-09-24
+
+Status: Accepted by Product Owner as product direction; implementation remains milestone-gated
+
+Context:
+The project began product validation on NY OSC because it provided a concrete, lawful source and a tractable path to test targetability economics. Competitive review established that unclaimed-property search, AI-assisted owner location, lead prioritization and recovery workflow products already exist. The Product Owner clarified that the intended product must not be limited to NY OSC or even one US state. The target market is the United States and Canada, and the product must ultimately operate as a multi-registry research, prioritization and recovery platform.
+
+Decision:
+1. define the long-term product geography as UNITED STATES + CANADA;
+2. treat NY OSC as the first validated source adapter / Stage B pilot anchor, not as the permanent product boundary;
+3. require a versioned multi-registry source-adapter architecture so additional US and Canadian registries can be added without rewriting generic downstream modules;
+4. make the target product capabilities:
+   - multi-registry acquisition/normalization;
+   - cross-registry deduplication/linking;
+   - evidence-aware AI confidence scoring;
+   - lead prioritization;
+   - people/owner/heir/representative finding;
+   - case economics;
+   - jurisdiction-specific compliance;
+   - contract builder;
+   - fee calculator;
+   - CRM/case management;
+   - outreach/claim workflow when separately authorized;
+   - outcome learning/calibration;
+5. keep automation evidence-based:
+   - automate repetitive, high-confidence, reversible work;
+   - semi-automate ambiguous/material decisions;
+   - human-gate legal/privacy/identity-conflict/irreversible actions;
+6. remove patentability/feature novelty as a primary strategic objective;
+7. optimize instead for measured performance, reliability and efficiency:
+   - useful-lead precision;
+   - false-positive rate;
+   - confidence calibration;
+   - time to targetability;
+   - targetability decision cost;
+   - cost per targetable lead;
+   - human minutes per case;
+   - automation rate by stage;
+   - human override rate;
+   - identity-resolution success;
+   - conversion across stages;
+   - claim/recovery economics where later authorized;
+8. do not invent numeric KPI thresholds until real P1/P2/P3 evidence exists;
+9. preserve Stage B as a deliberately narrow experiment on the already-developed NY adapter;
+10. after Stage B/P1/P2 support continuation, generalize the Source Adapter Contract and expand registries in evidence-backed priority order across USA and Canada;
+11. do not hard-code NY-specific semantics into generic targetability, confidence, people-finder, economics, CRM, contract or fee modules.
+
+Reason:
+The product advantage should come from better operating performance, lower research/decision cost, higher useful-lead precision, broader verified registry coverage, stronger evidence/provenance and better workflow conversion — not from claiming category novelty or patentability. A narrow Stage B remains economically rational because it validates the engine before paying the integration cost of continent-wide registry coverage.
+
+Alternatives considered:
+- keep the product NY-only;
+- expand immediately to many registries before P1;
+- optimize for patents/novel features;
+- build a broad generic CRM before validating targetability;
+- hard-code each state/province as a separate end-to-end workflow.
+
+Consequences:
+- PRODUCT_STRATEGY_MVP1 v3.2 governs Stage B and the North America target;
+- docs/NORTH_AMERICA_MULTI_REGISTRY_PRODUCT_TARGET_V1.md is the product-target companion document;
+- the roadmap must distinguish PRODUCT TARGET from CURRENT EXPERIMENT;
+- Stage B remains NY OSC bounded P1;
+- post-Stage-B source expansion must be adapter-based and benchmarked;
+- Canada is in product scope, but no Canadian registry is considered supported until source/legal/terms/schema readiness is verified;
+- patent work is deferred unless later evidence shows a narrow, strategically valuable opportunity;
+- performance and economic evidence are the primary product-selection criteria.

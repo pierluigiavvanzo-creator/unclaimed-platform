@@ -4,9 +4,13 @@ Last updated: 2026-09-24
 
 ## Authoritative product state
 
-The project is in PRODUCT VALIDATION / TARGETABILITY DISCOVERY MODE.
+The project is in PRODUCT VALIDATION / NORTH AMERICA MULTI-REGISTRY TARGETABILITY MODE.
 
-Primary objective:
+Long-term product target:
+
+UNITED STATES + CANADA MULTI-REGISTRY UNCLAIMED-ASSET INTELLIGENCE AND RECOVERY PLATFORM
+
+Current Stage B experiment:
 
 ONE AUTHORIZED REAL SOURCE -> ONE TARGETABLE BOUNDED CASE -> ONE REVIEWABLE ECONOMIC RESULT
 
@@ -17,6 +21,51 @@ BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE
 Guiding metric:
 
 ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME
+
+
+## Product target clarification
+
+Product geography:
+
+UNITED STATES + CANADA
+
+New York OSC is the first validated source adapter / Stage B pilot anchor.
+
+It is NOT the permanent product boundary.
+
+Target platform capabilities:
+
+- multi-registry acquisition and normalization;
+- cross-registry deduplication/linking;
+- evidence-aware AI confidence scoring;
+- lead prioritization;
+- people/owner/heir/representative finding;
+- case economics;
+- jurisdiction-specific compliance;
+- contract builder;
+- fee calculator;
+- CRM / case management;
+- outreach and claim workflow when separately authorized;
+- outcome learning/calibration.
+
+Patentability is not a product priority.
+
+Competitive advantage must be demonstrated through measurable:
+
+- reliability;
+- useful-lead precision;
+- lower false positives;
+- confidence calibration;
+- lower operator minutes per case;
+- lower targetability decision cost;
+- lower cost per targetable lead;
+- faster time to targetability/recovery;
+- better conversion between workflow stages;
+- better case economics.
+
+No numeric performance thresholds are invented before real evidence exists.
+
+Stage B remains intentionally narrow so that the engine is validated before broad USA/Canada source integration.
 
 ## Canonical main
 
@@ -54,7 +103,11 @@ Final post-merge main CI:
 
 35999333460 — SUCCESS
 
-PRODUCT_STRATEGY_MVP1 v3.0, D-012 and D-013 are canonical.
+PRODUCT_STRATEGY_MVP1 v3.2, D-012, D-013 and D-014 are canonical.
+
+Product-target companion document:
+
+docs/NORTH_AMERICA_MULTI_REGISTRY_PRODUCT_TARGET_V1.md
 
 ## Real-source evidence already established
 
@@ -455,17 +508,19 @@ Public evidence shows California property-file import, scoring/vetting by recove
 
 Other material competitors include Assethound.ai, Heir Crown, Sparrow, Linking Assets, Ryan, ClaimFound and AssetFynd.
 
-Retained moat hypothesis:
+Stage B differentiation hypothesis:
 
 NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
 
-Meaning:
+This remains useful only as the first experiment.
 
-NY IN03 specialization + value-blind service-need/resolvability triage + TARGETABILITY_DECISION_COST + bounded STOP + privacy-minimized evidence trail.
+Long-term product-performance hypothesis:
 
-This remains an UNPROVEN workflow/data moat hypothesis.
+NORTH_AMERICA_MULTI_REGISTRY_TARGETABILITY_AND_RECOVERY_OPERATING_SYSTEM
 
-Proof must come from P1/P2/P3 outcomes.
+The product is differentiated only if it measurably improves registry coverage, lead quality, confidence, identity resolution, operator efficiency, workflow conversion and unit economics.
+
+Proof must come from P1/P2/P3 and later cross-registry outcomes, not feature novelty.
 
 LLC bootstrap hypothesis remains Wyoming LLC, formed just-in-time before real P1 gates, subject to US CPA/attorney review and NY nexus/foreign-qualification analysis.
 
@@ -475,8 +530,20 @@ Return to:
 
 STAGE_B_PILOT_P1
 
+Stage B remains NY OSC-based because that adapter is already validated.
+
+Do NOT reinterpret this as a New York-only product decision.
+
 Immediate dependency:
 
 HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1
+
+After formation:
+
+bind controller facts -> prepare fresh single-use gate packet -> ONE REAL P1 -> human economic review.
+
+If P1/P2 support continuation:
+
+freeze a generic Source Adapter Contract -> prioritize additional US registries -> prioritize Canadian registries -> reuse the same downstream confidence/targetability/people-finder/economics/CRM/contracts/fee engine.
 
 Until a genuine controller exists, keep all seven P1 gates NOT_GRANTED and continue only offline/synthetic/non-PII work.

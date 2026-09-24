@@ -1,6 +1,6 @@
 # PRODUCT_STRATEGY_MVP1.md
 
-Version: 3.1
+Version: 3.2
 Date: 2026-09-24
 Status: AUTHORITATIVE PRODUCT-VALIDATION PRIORITY
 Owner: Product Owner
@@ -25,27 +25,63 @@ The project must not optimize code volume, agent count, architecture breadth, di
 
 ## 2. Updated value proposition
 
-The product is not a paid shortcut to a free New York State claim.
+The product target is NOT limited to New York OSC.
+
+Target geography:
+
+UNITED STATES + CANADA
+
+The product target is a North American multi-registry unclaimed-asset intelligence and recovery operating platform.
 
 The value proposition to validate is:
 
-Find unresolved insurance-beneficiary opportunities that the rightful person or authorized representative may not be effectively resolving through ordinary processes, determine whether the case is practically resolvable at bounded cost, and provide compliant discovery/location/recovery assistance where that assistance creates real value.
+Continuously discover unresolved opportunities across lawful/authorized registries, normalize and link registry records, prioritize the leads most likely to create real service value, resolve owner/heir/representative identity at bounded cost, and move viable cases through compliant contract, fee, CRM and recovery workflows with the highest practical reliability and efficiency.
 
-The customer must never be led to believe that payment is required to obtain New York State unclaimed funds.
+New York OSC is the first validated source adapter / pilot anchor.
 
-New York OSC offers direct search/claim processing without a provider fee. A commercial service must therefore create value through discovery, location, disambiguation, documentation support, coordination or complex-case assistance.
+It is NOT the permanent product boundary.
+
+The platform must ultimately support:
+
+- multi-registry acquisition and normalization;
+- evidence-aware AI confidence scoring;
+- lead prioritization;
+- people/owner/heir finding;
+- case economics;
+- jurisdiction-specific compliance;
+- contract builder;
+- fee calculator;
+- CRM / case management;
+- outreach and claim workflow when separately authorized;
+- outcome learning and calibration.
+
+The product must never imply that a paid intermediary is legally required where a direct free claim path exists.
+
+Commercial value must come from discovery, prioritization, location, identity resolution, documentation, coordination, complex-case execution, speed, reliability and lower user/operator effort.
 
 ## 3. Target customer
 
-The initial target is not every IN03 record.
+The long-term target is not every record from one registry.
 
-The desired population is:
+The desired North American opportunity population is:
 
-exact IN03
+lawful/authorized registry record
+-> unresolved opportunity
+-> sufficient source/evidence quality
+-> material service need
+-> owner/heir/beneficiary/authorized representative resolvable at bounded cost
+-> jurisdictionally compliant contact/recovery path
+-> economically viable service workflow.
+
+Current Stage B remains narrower:
+
+NY OSC exact IN03
 -> unresolved/persistent opportunity
 -> material service need
 -> owner or authorized representative resolvable at bounded cost
--> separately authorized compliant contact/recovery path.
+-> separately authorized compliant next step.
+
+Stage B is an experiment anchor, not the permanent market scope.
 
 Important target hypotheses:
 
@@ -243,13 +279,28 @@ F3 = estate/complex-document process friction
 
 No automatic T/F mapping exists.
 
-## 8. No targetability scoring yet
+## 8. Confidence scoring and targetability scoring
 
-Version 1 uses evidence states and deterministic classes.
+Stage B v1 still uses evidence states and deterministic targetability classes.
 
 targetability_score = null
 
-Do not create weights, probabilities or point systems before real P1/P2 evidence supports them.
+Do not invent weights, probabilities or opaque point systems before real P1/P2 evidence supports them.
+
+The PRODUCT TARGET nevertheless explicitly includes evidence-aware AI confidence scoring.
+
+Future scoring must be multidimensional and calibrated against observed outcomes, including at minimum:
+
+- identity confidence;
+- evidence quality;
+- source reliability;
+- contradiction state;
+- resolvability confidence;
+- targetability confidence;
+- jurisdiction/compliance availability;
+- later economic outcome evidence.
+
+No AI confidence score may replace provenance or human review where ambiguity or legal risk is material.
 
 ## 9. Economic metrics
 
@@ -504,22 +555,32 @@ Stop fail-closed if:
 
 ## 15. Product priority rule
 
-Priority is now:
+Priority during Stage B is:
 
 TARGETABILITY EVIDENCE BEFORE VALUE RESEARCH
 and
 VALUE EVIDENCE BEFORE SCALE.
 
-Freeze by default:
+Product target after Stage B is:
 
-- broad multi-state expansion;
-- generic new agent frameworks;
-- graph infrastructure;
-- generalized genealogy infrastructure;
-- mass outreach automation;
+NORTH_AMERICA_MULTI_REGISTRY_PLATFORM
+
+covering USA + Canada through versioned source adapters and jurisdiction policy modules.
+
+Freeze during Stage B:
+
+- simultaneous implementation of many registries before P1 economics are validated;
+- generic new agent frameworks without measured benefit;
+- graph infrastructure without a demonstrated need;
+- generalized genealogy infrastructure before bounded identity economics are measured;
+- mass outreach automation before legal/readiness evidence;
 - large durable PII architecture;
 - non-critical UI polish;
-- parser/source work without a demonstrated blocker.
+- source/parser work without a demonstrated blocker.
+
+Do NOT freeze the multi-registry architecture itself.
+
+Generic downstream components must avoid hard-coding NY-specific semantics so that additional US and Canadian registries can be added after Stage B without redesigning targetability, confidence, economics, CRM, contracts or fee logic.
 
 ## 16. Reuse-first rule
 
@@ -532,7 +593,58 @@ Reuse existing:
 - explicit case-economics component;
 - reviewer surfaces.
 
-Add only the smallest targetability layer needed to distinguish service need from resolvability.
+For North American expansion, reuse/wrap mature components before custom code for:
+
+- source ingestion;
+- entity resolution;
+- confidence/calibration;
+- CRM/case management;
+- document/contract generation;
+- workflow orchestration;
+- search/provider adapters.
+
+Add custom code where the competitive performance advantage is actually measured.
+
+Performance and efficiency outrank novelty/patentability.
+
+## 16.1 Product performance objective
+
+Patentability is NOT a primary objective.
+
+The competitive objective is superior measured execution:
+
+BETTER RELIABILITY
++ LOWER COST
++ LOWER OPERATOR TIME
++ HIGHER USEFUL-LEAD PRECISION
++ BETTER STAGE CONVERSION
++ FASTER TIME TO TARGETABILITY / RECOVERY
+
+Required measurement family:
+
+- verified registry coverage;
+- source refresh latency;
+- ingest success/error rate;
+- normalization error rate;
+- duplicate/cross-registry link quality;
+- lead precision / false-positive rate;
+- confidence calibration;
+- TIME_TO_TARGETABILITY;
+- TARGETABILITY_DECISION_COST;
+- COST_PER_TARGETABLE_LEAD;
+- HUMAN_MINUTES_PER_CASE;
+- AUTOMATION_RATE_BY_STAGE;
+- HUMAN_OVERRIDE_RATE;
+- identity-resolution success rate;
+- outreach contact rate;
+- agreement conversion rate;
+- value-known rate;
+- claim success rate;
+- time to recovery;
+- fully loaded case cost;
+- contribution before overhead.
+
+No numeric promotion thresholds are invented before real evidence exists.
 
 ## 17. Current Stage B critical path
 
@@ -546,9 +658,12 @@ Fast-track sequence:
 4. approve one exact L2-A provider or manual research source set;
 5. create fresh single-use approvals bound to the final runner checkpoint and successful CI;
 6. execute one real bounded P1;
-7. perform human economic review before any P2 expansion.
+7. perform human economic review before any P2 expansion;
+8. if P1/P2 support continuation, freeze a generic Source Adapter Contract and begin prioritized USA+Canada multi-registry expansion.
 
-Do not insert broad architecture ahead of P1 unless a demonstrated blocker requires it.
+Do not insert broad multi-registry implementation ahead of P1 unless a demonstrated blocker requires it.
+
+Do not let the Stage B NY adapter leak NY-specific semantics into generic downstream modules.
 
 All seven real P1 execution/privacy gates remain separately authorized and non-reusable.
 
