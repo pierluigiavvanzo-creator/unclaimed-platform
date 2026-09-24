@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unclaimed-platform.local/schemas/common/ny_mvp1_targetable_opportunity_filter.schema.json",
+  "title": "SyntheticTargetableOpportunityResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "mode",
+    "selection",
+    "targetability",
+    "economics_policy",
+    "safety",
+    "authorization_granted"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "mode": {"const": "SYNTHETIC_ONLY"},
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "status",
+        "reason_code",
+        "selection_rule_version",
+        "selection_basis",
+        "records_evaluated",
+        "eligible_records_count",
+        "selected_source_record_ordinal",
+        "selected_holder_report_year",
+        "persistence_interpretation",
+        "owner_pii_used_for_ranking",
+        "value_prediction_performed",
+        "authorization_granted"
+      ],
+      "properties": {
+        "contract_version": {"const": "1.0.0"},
+        "status": {"enum": ["SELECTED", "STOPPED_NO_ELIGIBLE_CANDIDATE"]},
+        "reason_code": {"enum": [
+          "PERSISTENCE_FIRST_CANDIDATE_SELECTED",
+          "NO_ELIGIBLE_SINGLE_OWNER_IN03_WITH_REPORT_YEAR"
+        ]},
+        "selection_rule_version": {"const": "2.0.0"},
+        "selection_basis": {"const": "PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER"},
+        "records_evaluated": {"type": "integer", "minimum": 0},
+        "eligible_records_count": {"type": "integer", "minimum": 0},
+        "selected_source_record_ordinal": {
+          "anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]
+        },
+        "selected_holder_report_year": {
+          "anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]
+        },
+        "persistence_interpretation": {
+          "const": "REPORT_YEAR_IS_PERSISTENCE_SIGNAL_ONLY_NOT_AWARENESS_VALUE_DEATH_OR_CONTACTABILITY"
+        },
+        "owner_pii_used_for_ranking": {"const": false},
+        "value_prediction_performed": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "targetability": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract_version",
+            "state",
+            "targetability_class",
+            "service_need_state",
+            "resolvability_state",
+            "estate_path_state",
+            "representative_path_state",
+            "awareness_state",
+            "friction_lane",
+            "friction_lane_used_as_targeting",
+            "targetability_score",
+            "value_prediction_performed",
+            "monetary_value_used_for_targeting",
+            "evidence_refs",
+            "targetability_decision_cost_state",
+            "targetability_decision_cost_cents",
+            "recommended_next_scope",
+            "no_commercial_decision"
+          ],
+          "properties": {
+            "contract_version": {"const": "1.0.0"},
+            "state": {"enum": ["CLASSIFIED", "UNRESOLVED_REQUIRES_L2"]},
+            "targetability_class": {
+              "anyOf": [
+                {"enum": [
+                  "T0_SELF_SERVICE_LIKELY",
+                  "T1_UNRESOLVED_BUT_LOCATABLE",
+                  "T2_ESTATE_OR_REPRESENTATIVE_PATH",
+                  "T3_HARD_BUT_BOUNDED",
+                  "T4_UNBOUNDED_OR_UNRESOLVED_STOP"
+                ]},
+                {"type": "null"}
+              ]
+            },
+            "service_need_state": {"enum": ["UNKNOWN", "LOW_EVIDENCE", "MATERIAL_EVIDENCE"]},
+            "resolvability_state": {"enum": ["UNKNOWN", "EASY", "BOUNDED", "UNBOUNDED"]},
+            "estate_path_state": {"enum": ["NOT_EVALUATED", "NO_EVIDENCE", "EVIDENCE_PRESENT"]},
+            "representative_path_state": {"enum": [
+              "NOT_EVALUATED", "IDENTIFIED", "BOUNDED_DISCOVERABLE", "NOT_BOUNDED"
+            ]},
+            "awareness_state": {"const": "UNKNOWN_UNTIL_OUTREACH"},
+            "friction_lane": {
+              "anyOf": [{"enum": ["F0", "F1", "F2", "F3"]}, {"type": "null"}]
+            },
+            "friction_lane_used_as_targeting": {"const": false},
+            "targetability_score": {"type": "null"},
+            "value_prediction_performed": {"const": false},
+            "monetary_value_used_for_targeting": {"const": false},
+            "evidence_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string"}
+            },
+            "targetability_decision_cost_state": {
+              "enum": ["NOT_MEASURED", "MEASURING", "MEASURED"]
+            },
+            "targetability_decision_cost_cents": {
+              "anyOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]
+            },
+            "recommended_next_scope": {"enum": [
+              "STOP_OR_LOW_TOUCH_REVIEW",
+              "SEPARATE_L3_OUTREACH_REVIEW",
+              "STOP",
+              "L2_MINIMAL_TARGETABILITY_DISCOVERY"
+            ]},
+            "no_commercial_decision": {"const": true}
+          }
+        }
+      ]
+    },
+    "economics_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_p1_metric",
+        "pre_value_discovery_cost_retained",
+        "l1_max_new_external_cash_spend_cents",
+        "l1_paid_api_calls_allowed",
+        "l1_paid_data_purchases_allowed",
+        "l2_incremental_budget_state"
+      ],
+      "properties": {
+        "primary_p1_metric": {"const": "TARGETABILITY_DECISION_COST"},
+        "pre_value_discovery_cost_retained": {"const": true},
+        "l1_max_new_external_cash_spend_cents": {"const": 0},
+        "l1_paid_api_calls_allowed": {"const": false},
+        "l1_paid_data_purchases_allowed": {"const": false},
+        "l2_incremental_budget_state": {"const": "UNSET_REQUIRES_PRODUCT_OWNER"}
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "synthetic_only",
+        "real_source_accessed",
+        "real_owner_pii_processed",
+        "real_candidate_materialized",
+        "identity_resolution_performed",
+        "address_enrichment_performed",
+        "third_party_api_used",
+        "outreach_performed",
+        "value_research_performed",
+        "claim_activity_performed"
+      ],
+      "properties": {
+        "synthetic_only": {"const": true},
+        "real_source_accessed": {"const": false},
+        "real_owner_pii_processed": {"const": false},
+        "real_candidate_materialized": {"const": false},
+        "identity_resolution_performed": {"const": false},
+        "address_enrichment_performed": {"const": false},
+        "third_party_api_used": {"const": false},
+        "outreach_performed": {"const": false},
+        "value_research_performed": {"const": false},
+        "claim_activity_performed": {"const": false}
+      }
+    },
+    "authorization_granted": {"const": false}
+  }
+}
