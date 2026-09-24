@@ -1,6 +1,6 @@
 # PRODUCT_STRATEGY_MVP1.md
 
-Version: 3.0
+Version: 3.1
 Date: 2026-09-24
 Status: AUTHORITATIVE PRODUCT-VALIDATION PRIORITY
 Owner: Product Owner
@@ -81,6 +81,28 @@ Stage A established, using synthetic-only fixtures:
 - reuse hooks into cost/value/economics components.
 
 Stage A's FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER rule was a technical determinism test. It is not the future real P1 economic-targeting rule.
+
+### 4.1 Stage nomenclature
+
+Stage A:
+
+SYNTHETIC-ONLY instrumentation and one-candidate mechanics.
+
+Status:
+
+COMPLETE.
+
+Stage B:
+
+PILOT P1 — ONE REAL BOUNDED TARGETABILITY EXPERIMENT.
+
+Stage B exit is:
+
+ONE evidence-backed targetability decision or bounded stop
++ measured TARGETABILITY_DECISION_COST
++ human review.
+
+Stage B does not require outreach, a signed customer agreement, known recoverable value, claim submission, recovery or profitability proof.
 
 ## 5. Targetability model
 
@@ -317,15 +339,27 @@ Goal:
 - persistence signal;
 - no owner-value inference.
 
-### L1 — Transient one-candidate materialization
+### L1 — Selected-record verification / minimal materialization
 
 Goal:
 
-- materialize the minimum approved candidate structure transiently;
+- verify the selected candidate with the minimum approved data;
 - measure L1 machine/operator cost;
 - preserve no durable owner PII.
 
-No identity resolution, outreach or value research.
+For L1-only execution, direct owner PII is not required for the targetability experiment and should not be field-buffered.
+
+The selected-row second pass may use only:
+
+- structural width;
+- Property ID presence boolean;
+- Property Type Code;
+- Property Owner Count;
+- Holder Report Year.
+
+Direct PII materialization is reserved for a separately pre-authorized L2 targetability purpose.
+
+No identity resolution, outreach or value research at L1.
 
 ### L2 — Minimal targetability discovery
 
@@ -392,11 +426,17 @@ Allowed:
 
 This is a spend ceiling, not a claim that human/machine work has zero economic cost.
 
-L2 incremental budget:
+Stage B L2-A experiment bounds:
 
-UNSET_REQUIRES_PRODUCT_OWNER
+- external paid spend: USD 0.00;
+- manual research cap: 900 seconds;
+- no paid API;
+- no paid data broker;
+- no consumer-report/FCRA product.
 
-No L2 spend is authorized by this strategy.
+The 900-second limit is a Product Owner experiment cap, not an evidence-backed profitability threshold.
+
+The exact L2-A provider or manual research source set still requires separate privacy/terms review and explicit approval.
 
 ## 13. Pilot sequence
 
@@ -494,40 +534,25 @@ Reuse existing:
 
 Add only the smallest targetability layer needed to distinguish service need from resolvability.
 
-## 17. Current next action
+## 17. Current Stage B critical path
 
-The value-proposition and parameter reframe is authorized by the Product Owner.
+Stage B / Pilot P1 is now the next product-critical milestone.
 
-Execute only:
+Fast-track sequence:
 
-IMPLEMENT_AND_REVIEW_SYNTHETIC_TARGETABLE_OPPORTUNITY_FILTER_V1
+1. bind the real controller operating model and entity facts;
+2. preserve L1-only direct-PII minimization;
+3. complete the US/New York pre-contact readiness track actually triggered by the controller facts;
+4. approve one exact L2-A provider or manual research source set;
+5. create fresh single-use approvals bound to the final runner checkpoint and successful CI;
+6. execute one real bounded P1;
+7. perform human economic review before any P2 expansion.
 
-This implementation must remain synthetic-only.
+Do not insert broad architecture ahead of P1 unless a demonstrated blocker requires it.
 
-It must:
-- implement persistence-first deterministic selection using only non-owner targeting metadata;
-- implement targetability evidence states/classes T0-T4;
-- preserve F0-F3 as friction-only;
-- expose TARGETABILITY_DECISION_COST as a distinct future economic metric;
-- use no numeric targetability score;
-- contain tests and a versioned machine contract;
-- authorize nothing real.
+All seven real P1 execution/privacy gates remain separately authorized and non-reusable.
 
-It must not perform:
-- source access;
-- remote preflight;
-- download;
-- real candidate materialization;
-- real owner PII processing;
-- identity resolution;
-- beneficiary matching;
-- address enrichment;
-- third-party API use;
-- outreach;
-- value research;
-- fee agreement;
-- representation;
-- claim activity.
+No source access, download, real PII processing, external PII query, outreach, value research, fee agreement, representation or claim activity is authorized by this strategy update.
 
 ## 18. Canonical read order
 
