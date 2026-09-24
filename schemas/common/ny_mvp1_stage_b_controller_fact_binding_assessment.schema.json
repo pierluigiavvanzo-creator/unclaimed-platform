@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-stage-b-controller-fact-binding-assessment:1.0.0",
+  "title": "NY MVP1 Stage B Controller Fact Binding Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "work_class",
+    "mode",
+    "status",
+    "formation_state",
+    "preferred_track",
+    "facts_complete",
+    "controller_identity_present",
+    "principal_business_address_present",
+    "privacy_contact_defined",
+    "relevant_eu_arrangement_present",
+    "eu_live_owner_pii_access_present",
+    "us_only_mvp1_market",
+    "eu_targeting",
+    "eu_monitoring",
+    "sensitive_or_identifying_values_persisted",
+    "all_seven_p1_gates_state",
+    "real_p1_execution_allowed",
+    "authorization_does_not_grant",
+    "next_action"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "artifact_id": {
+      "const": "ny.mvp1.stage_b.controller_fact_binding_assessment"
+    },
+    "work_class": {"const": "A_PRODUCT_CRITICAL"},
+    "mode": {"const": "OFFLINE_FACT_BINDING_NO_SOURCE_ACCESS"},
+    "status": {
+      "enum": [
+        "BLOCKED_ENTITY_NOT_FORMED",
+        "ROUTE_TO_HUMAN_LEGAL_PRIVACY_REVIEW",
+        "FACTS_BOUND_US_TRACK_PENDING_PROFESSIONAL_REVIEW"
+      ]
+    },
+    "formation_state": {"enum": ["FORMED", "NOT_YET_FORMED"]},
+    "preferred_track": {"const": "US_CONTROLLER_US_MARKET"},
+    "facts_complete": {"type": "boolean"},
+    "controller_identity_present": {"type": "boolean"},
+    "principal_business_address_present": {"type": "boolean"},
+    "privacy_contact_defined": {"type": "boolean"},
+    "relevant_eu_arrangement_present": {"type": ["boolean", "null"]},
+    "eu_live_owner_pii_access_present": {"type": ["boolean", "null"]},
+    "us_only_mvp1_market": {"type": ["boolean", "null"]},
+    "eu_targeting": {"type": ["boolean", "null"]},
+    "eu_monitoring": {"type": ["boolean", "null"]},
+    "sensitive_or_identifying_values_persisted": {"const": false},
+    "all_seven_p1_gates_state": {"const": "NOT_GRANTED"},
+    "real_p1_execution_allowed": {"const": false},
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_access",
+        "remote_preflight",
+        "download",
+        "real_candidate_materialization",
+        "owner_pii_processing",
+        "external_pii_query",
+        "identity_resolution",
+        "genealogy",
+        "beneficiary_matching",
+        "outreach",
+        "value_research",
+        "fee_agreement",
+        "representation",
+        "claim_activity",
+        "any_p1_gate"
+      ],
+      "properties": {
+        "source_access": {"const": false},
+        "remote_preflight": {"const": false},
+        "download": {"const": false},
+        "real_candidate_materialization": {"const": false},
+        "owner_pii_processing": {"const": false},
+        "external_pii_query": {"const": false},
+        "identity_resolution": {"const": false},
+        "genealogy": {"const": false},
+        "beneficiary_matching": {"const": false},
+        "outreach": {"const": false},
+        "value_research": {"const": false},
+        "fee_agreement": {"const": false},
+        "representation": {"const": false},
+        "claim_activity": {"const": false},
+        "any_p1_gate": {"const": false}
+      }
+    },
+    "next_action": {
+      "enum": [
+        "HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1",
+        "HUMAN_REVIEW_CONTROLLER_TERRITORIAL_SCOPE_AND_LIVE_PII_ACCESS",
+        "HUMAN_VERIFY_US_TAX_NY_NEXUS_AND_LEGAL_READINESS"
+      ]
+    }
+  }
+}
