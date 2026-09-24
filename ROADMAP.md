@@ -57,9 +57,11 @@ No real execution was authorized.
 
 PR #38 — MERGED.
 
-Current main:
+Verified runner-integration checkpoint:
 
 e2856c61a77e2ff8ca6f973b9090beb87a754ebc
+
+Always verify the live remote `main` HEAD because documentation-only reconciliation commits may follow this checkpoint.
 
 Post-merge CI:
 
