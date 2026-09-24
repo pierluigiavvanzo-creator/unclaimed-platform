@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-stage-b-pilot-p1-acceleration:1.0.0",
+  "title": "NY MVP1 Stage B Pilot P1 Acceleration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "work_class",
+    "stage_b_definition",
+    "baseline",
+    "stage_b_objective",
+    "stage_b_exit_does_not_require",
+    "fast_track_sequence",
+    "lanes",
+    "stage_b_metrics",
+    "stage_b_success_outcomes",
+    "no_scale_before_review",
+    "authorization_does_not_grant",
+    "remaining_human_inputs_minimum",
+    "review_result",
+    "required_owner_review_phrase",
+    "next_action_if_approved"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.mvp1.stage_b.pilot_p1_acceleration"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "const": "2026-09-24"
+    },
+    "status": {
+      "const": "READY_FOR_HUMAN_REVIEW_NOT_EXECUTION_AUTHORIZED"
+    },
+    "work_class": {
+      "const": "A_PRODUCT_CRITICAL"
+    },
+    "stage_b_definition": {
+      "const": "PILOT_P1_ONE_REAL_TARGETABILITY_EXPERIMENT"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "main_checkpoint",
+        "main_ci_run_id",
+        "main_ci_conclusion",
+        "controller_readiness_pr",
+        "controller_readiness_merge_commit",
+        "real_p1_gates_state"
+      ],
+      "properties": {
+        "main_checkpoint": {
+          "const": "6703d98f351f6e5dbc6a7be98f91099dae8f47e4"
+        },
+        "main_ci_run_id": {
+          "const": 36009473009
+        },
+        "main_ci_conclusion": {
+          "const": "SUCCESS"
+        },
+        "controller_readiness_pr": {
+          "const": 41
+        },
+        "controller_readiness_merge_commit": {
+          "const": "6703d98f351f6e5dbc6a7be98f91099dae8f47e4"
+        },
+        "real_p1_gates_state": {
+          "const": "ALL_NOT_GRANTED"
+        }
+      }
+    },
+    "stage_b_objective": {
+      "const": "ONE_REAL_PERSISTENCE_SELECTED_IN03_CASE_TO_ONE_EVIDENCE_BACKED_TARGETABILITY_DECISION_OR_BOUNDED_STOP_WITH_MEASURED_TARGETABILITY_DECISION_COST"
+    },
+    "stage_b_exit_does_not_require": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "fast_track_sequence": {
+      "const": [
+        "B0_CONTROLLER_OPERATING_MODEL_FACTS",
+        "B1_L1_ONLY_DIRECT_PII_MINIMIZATION",
+        "B2_US_NY_PRECONTACT_READINESS",
+        "B3_L2A_PROVIDER_OR_MANUAL_RESEARCH_BINDING",
+        "B4_FRESH_SINGLE_USE_APPROVAL_CHAIN",
+        "B5_ONE_REAL_P1_EXECUTION",
+        "B6_HUMAN_ECONOMIC_REVIEW"
+      ]
+    },
+    "lanes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controller_track",
+        "l1_privacy_minimization",
+        "us_ny_precontact",
+        "l2a_targetability",
+        "approvals"
+      ],
+      "properties": {
+        "controller_track": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "status",
+            "preferred_hypothesis",
+            "required_facts",
+            "execution_allowed"
+          ],
+          "properties": {
+            "status": {
+              "const": "BLOCKED_ON_HUMAN_ENTITY_FACTS"
+            },
+            "preferred_hypothesis": {
+              "const": "US_CONTROLLER_US_MARKET"
+            },
+            "execution_allowed": {
+              "const": false
+            }
+          }
+        },
+        "l1_privacy_minimization": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "status",
+            "rule",
+            "direct_pii_fields_not_buffered_when_l2a_disabled",
+            "non_pii_selected_record_checks",
+            "l1_pii_file_gate_retained",
+            "reason_gate_retained",
+            "l2a_direct_pii_materialization_requires_preapproval"
+          ],
+          "properties": {
+            "status": {
+              "const": "IMPLEMENTED_OFFLINE_PENDING_REVIEW"
+            },
+            "l1_pii_file_gate_retained": {
+              "const": true
+            },
+            "l2a_direct_pii_materialization_requires_preapproval": {
+              "const": true
+            }
+          }
+        },
+        "us_ny_precontact": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "status",
+            "osc_list_research_supported",
+            "osc_location_service_provider_license_or_registration_required",
+            "stage_b_precontact_requires_signed_fee_agreement",
+            "stage_b_precontact_requires_claim_submission",
+            "stage_b_precontact_requires_direct_owner_contact",
+            "rationale",
+            "downstream_l3_plus_requirements",
+            "pending_legislation_watch",
+            "official_sources"
+          ],
+          "properties": {
+            "status": {
+              "const": "MOSTLY_DEFINED_REQUIRES_ENTITY_SPECIFIC_SIGNOFF"
+            },
+            "osc_list_research_supported": {
+              "const": true
+            },
+            "osc_location_service_provider_license_or_registration_required": {
+              "const": false
+            },
+            "stage_b_precontact_requires_signed_fee_agreement": {
+              "const": false
+            },
+            "stage_b_precontact_requires_claim_submission": {
+              "const": false
+            },
+            "stage_b_precontact_requires_direct_owner_contact": {
+              "const": false
+            },
+            "pending_legislation_watch": {
+              "const": "NY_ASSEMBLY_BILL_A3372_2025_2026_ACTIVE_IN_ASSEMBLY_COMMITTEE_NOT_CURRENT_LAW_AS_OF_2026_09_24"
+            }
+          }
+        },
+        "l2a_targetability": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "status",
+            "required_to_finish_stage_b",
+            "external_paid_spend_cents",
+            "manual_research_cap_seconds",
+            "paid_data_broker_allowed",
+            "paid_api_allowed",
+            "consumer_report_fcra_product_allowed",
+            "outreach_allowed",
+            "value_research_allowed",
+            "preferred_p1_mode",
+            "provider_stack_build_deferred",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "BLOCKED_PROVIDER_OR_MANUAL_RESEARCH_BINDING_REQUIRED"
+            },
+            "required_to_finish_stage_b": {
+              "const": true
+            },
+            "external_paid_spend_cents": {
+              "const": 0
+            },
+            "manual_research_cap_seconds": {
+              "const": 900
+            },
+            "paid_data_broker_allowed": {
+              "const": false
+            },
+            "paid_api_allowed": {
+              "const": false
+            },
+            "consumer_report_fcra_product_allowed": {
+              "const": false
+            },
+            "outreach_allowed": {
+              "const": false
+            },
+            "value_research_allowed": {
+              "const": false
+            },
+            "provider_stack_build_deferred": {
+              "const": true
+            }
+          }
+        },
+        "approvals": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "status",
+            "all_gates_single_use",
+            "reusable",
+            "retries_max",
+            "current_state",
+            "authorization_requires_final_runner_checkpoint_and_successful_ci"
+          ],
+          "properties": {
+            "status": {
+              "const": "NOT_STARTED"
+            },
+            "all_gates_single_use": {
+              "const": true
+            },
+            "reusable": {
+              "const": false
+            },
+            "retries_max": {
+              "const": 0
+            },
+            "current_state": {
+              "const": "ALL_NOT_GRANTED"
+            },
+            "authorization_requires_final_runner_checkpoint_and_successful_ci": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "stage_b_metrics": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "string"
+      }
+    },
+    "stage_b_success_outcomes": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "no_scale_before_review": {
+      "const": true
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_access",
+        "remote_preflight",
+        "download",
+        "real_candidate_materialization",
+        "owner_pii_processing",
+        "external_pii_query",
+        "outreach",
+        "value_research",
+        "claim_activity",
+        "any_p1_gate"
+      ],
+      "properties": {
+        "source_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "real_candidate_materialization": {
+          "const": false
+        },
+        "owner_pii_processing": {
+          "const": false
+        },
+        "external_pii_query": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "value_research": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        },
+        "any_p1_gate": {
+          "const": false
+        }
+      }
+    },
+    "remaining_human_inputs_minimum": {
+      "const": [
+        "CONTROLLER_OPERATING_MODEL_AND_ENTITY_FACTS",
+        "EXACT_L2A_PROVIDER_OR_MANUAL_RESEARCH_SOURCE_SET",
+        "FRESH_SINGLE_USE_EXECUTION_APPROVALS"
+      ]
+    },
+    "review_result": {
+      "const": "STAGE_B_FAST_TRACK_PREPARED_OFFLINE"
+    },
+    "required_owner_review_phrase": {
+      "const": "APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1"
+    },
+    "next_action_if_approved": {
+      "const": "COMPLETE_US_CONTROLLER_FACT_BINDING_AND_L2A_MANUAL_PROVIDER_REVIEW_OFFLINE"
+    }
+  }
+}
