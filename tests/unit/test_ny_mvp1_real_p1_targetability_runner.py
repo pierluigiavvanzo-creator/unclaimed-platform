@@ -1,6 +1,7 @@
 import zipfile
 
 from unclaimed_platform.adapters.sources.ny_owner_name_p1_targetability_local import (
+    _SelectedRecordCollector,
     RealP1TargetabilityEvidence,
     TransientSelectedCandidate,
     execute_real_p1_targetability_local,
@@ -155,6 +156,36 @@ def test_l1_selects_oldest_report_year_then_source_order_and_returns_no_pii(tmp_
         "SYNTHETIC-HOLDER",
     ):
         assert secret not in serialized
+
+
+def test_l1_only_selected_record_collector_buffers_no_direct_pii() -> None:
+    payload = (
+        row(
+            property_id="SECRET-PROPERTY-ID",
+            owner_name="SECRET-OWNER-NAME",
+            address1="SECRET-ADDRESS",
+            holder="SECRET-HOLDER",
+            year="2000",
+        )
+        + "\r\n"
+    ).encode("ascii")
+    collector = _SelectedRecordCollector(
+        1,
+        include_direct_pii=False,
+        include_address=False,
+    )
+    for value in payload:
+        collector.consume(value)
+    collector.finish()
+
+    assert collector.selected_property_id_non_ws is True
+    assert collector.selected is not None
+    assert set(collector.selected) == {1, 3, 13}
+    serialized = repr(collector.selected)
+    assert "SECRET-PROPERTY-ID" not in serialized
+    assert "SECRET-OWNER-NAME" not in serialized
+    assert "SECRET-ADDRESS" not in serialized
+    assert "SECRET-HOLDER" not in serialized
 
 
 def test_l0_deferred_structural_record_does_not_block_later_candidate(tmp_path):
