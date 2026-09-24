@@ -14,9 +14,11 @@ Canonical branch:
 
 main
 
-Canonical main HEAD:
+Verified runner-integration checkpoint:
 
 e2856c61a77e2ff8ca6f973b9090beb87a754ebc
+
+Do not infer the live `main` HEAD from this handover. Documentation-only commits may advance `main`; verify the remote HEAD at the start of every task.
 
 Final post-merge CI:
 
