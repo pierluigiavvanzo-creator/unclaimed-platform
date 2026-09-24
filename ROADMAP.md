@@ -198,17 +198,39 @@ Proposed bounds:
 
 WebSurrogate is excluded for Stage B commercial research under current Terms of Use absent express permission/new legal review.
 
-## Stage B controller/provider human review — NEXT
+## Stage B controller/provider review — COMPLETE
 
-Review only:
-
-HUMAN_REVIEW_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
-
-Required phrase:
+Product Owner approval:
 
 APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
 
-Approval does not authorize real P1 or any external PII query.
+PR #43 — MERGED.
+
+Merge commit:
+
+97341caddf2da95765ccced4dcbd11ccccdad336
+
+Post-merge CI:
+
+36016356389 — SUCCESS
+
+Accepted offline provider candidate:
+
+google-search-manual-us-v1
+
+All seven P1 gates remain NOT_GRANTED.
+
+## B0 factual controller binding — NEXT
+
+Execute only:
+
+HUMAN_SUPPLY_NY_MVP1_US_CONTROLLER_ENTITY_FACTS
+
+No further technical/provider architecture is required before those facts are supplied.
+
+After factual binding, prepare the fresh single-use approval packet bound to the then-current runner checkpoint and successful CI.
+
+Real P1 remains NOT AUTHORIZED.
 
 ## P2 — approximately five cases — CONDITIONAL
 
