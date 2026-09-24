@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-real-p1-targetability-run-result:1.0.0",
+  "title": "NY MVP1 Real P1 Targetability Run Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "execution_mode",
+    "status",
+    "reason_code",
+    "runner_checkpoint",
+    "source_snapshot_ref",
+    "fresh_preflight_receipt_ref",
+    "selection",
+    "economic_case_ledger",
+    "targetability",
+    "archive_byte_count",
+    "local_file_deleted",
+    "logical_deletion_only",
+    "safety",
+    "execution_authorization_consumed",
+    "reusable",
+    "retry_authorized"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "execution_mode": {"const": "AUTHORIZED_REAL_LOCAL_FILE_ONCE"},
+    "status": {"enum": ["COMPLETED", "BLOCKED"]},
+    "reason_code": {
+      "enum": [
+        "L1_COMPLETED_L2A_NOT_AUTHORIZED",
+        "L2A_TARGETABILITY_CLASSIFIED",
+        "L2A_TARGETABILITY_UNRESOLVED",
+        "NO_ELIGIBLE_SINGLE_OWNER_IN03_WITH_REPORT_YEAR",
+        "SELECTED_RECORD_SECOND_PASS_MISMATCH",
+        "L2A_PROVIDER_REQUIRED",
+        "L2A_PROVIDER_BINDING_MISMATCH",
+        "L2A_MANUAL_RESEARCH_CAP_EXCEEDED",
+        "SOURCE_ARCHIVE_BOUNDARY_FAILED",
+        "EXECUTION_ERROR",
+        "DISPOSAL_FAILED"
+      ]
+    },
+    "runner_checkpoint": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "source_snapshot_ref": {"type": "string", "minLength": 1},
+    "fresh_preflight_receipt_ref": {"type": "string", "minLength": 1},
+    "selection": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract_version",
+            "selection_rule_version",
+            "selection_basis",
+            "total_records",
+            "structurally_conforming_records",
+            "structurally_deferred_records",
+            "eligible_records_count",
+            "selected_source_record_ordinal",
+            "selected_holder_report_year",
+            "owner_pii_decoded_for_ranking",
+            "owner_pii_buffered_for_ranking",
+            "property_id_value_persisted",
+            "value_prediction_performed",
+            "persistence_interpretation"
+          ],
+          "properties": {
+            "contract_version": {"const": "1.0.0"},
+            "selection_rule_version": {"const": "2.0.0"},
+            "selection_basis": {"const": "PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER"},
+            "total_records": {"type": "integer", "minimum": 0},
+            "structurally_conforming_records": {"type": "integer", "minimum": 0},
+            "structurally_deferred_records": {"type": "integer", "minimum": 0},
+            "eligible_records_count": {"type": "integer", "minimum": 0},
+            "selected_source_record_ordinal": {
+              "anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]
+            },
+            "selected_holder_report_year": {
+              "anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]
+            },
+            "owner_pii_decoded_for_ranking": {"const": false},
+            "owner_pii_buffered_for_ranking": {"const": false},
+            "property_id_value_persisted": {"const": false},
+            "value_prediction_performed": {"const": false},
+            "persistence_interpretation": {
+              "const": "REPORT_YEAR_IS_PERSISTENCE_SIGNAL_ONLY_NOT_AWARENESS_VALUE_DEATH_OR_CONTACTABILITY"
+            }
+          }
+        }
+      ]
+    },
+    "economic_case_ledger": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract_version",
+            "case_id",
+            "source_id",
+            "source_snapshot_ref",
+            "source_record_ordinal",
+            "selection_rule_version",
+            "holder_report_year",
+            "persistence_signal",
+            "current_discovery_stage",
+            "service_need_state",
+            "resolvability_state",
+            "estate_path_state",
+            "representative_path_state",
+            "awareness_state",
+            "targetability_state",
+            "targetability_class",
+            "friction_lane",
+            "targetability_decision_cost_state",
+            "targetability_decision_cost_cents",
+            "pre_value_discovery_cost_state",
+            "measured_machine_and_data_cost_cents",
+            "measured_human_seconds",
+            "external_cash_spend_cents",
+            "value_evidence_state",
+            "legal_privacy_scope_ref",
+            "authorization_refs",
+            "evidence_refs",
+            "stop_reason",
+            "disposal_result",
+            "direct_owner_pii_included",
+            "owner_name_persisted",
+            "property_id_persisted",
+            "address_persisted",
+            "holder_name_persisted",
+            "raw_row_persisted",
+            "no_commercial_decision"
+          ],
+          "properties": {
+            "contract_version": {"const": "1.0.0"},
+            "case_id": {"type": "string", "format": "uuid"},
+            "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+            "source_snapshot_ref": {"type": "string", "minLength": 1},
+            "source_record_ordinal": {"type": "integer", "minimum": 1},
+            "selection_rule_version": {"const": "2.0.0"},
+            "holder_report_year": {"type": "integer", "minimum": 1},
+            "persistence_signal": {"const": "OLDER_REPORT_YEAR_SELECTED_WITHOUT_VALUE_INFERENCE"},
+            "current_discovery_stage": {"enum": ["L1", "L2A"]},
+            "service_need_state": {"enum": ["UNKNOWN", "LOW_EVIDENCE", "MATERIAL_EVIDENCE"]},
+            "resolvability_state": {"enum": ["UNKNOWN", "EASY", "BOUNDED", "UNBOUNDED"]},
+            "estate_path_state": {"enum": ["NOT_EVALUATED", "NO_EVIDENCE", "EVIDENCE_PRESENT"]},
+            "representative_path_state": {"enum": ["NOT_EVALUATED", "IDENTIFIED", "BOUNDED_DISCOVERABLE", "NOT_BOUNDED"]},
+            "awareness_state": {"const": "UNKNOWN_UNTIL_OUTREACH"},
+            "targetability_state": {"enum": ["NOT_EVALUATED", "CLASSIFIED", "UNRESOLVED_REQUIRES_L2", "STOPPED"]},
+            "targetability_class": {"type": ["string", "null"]},
+            "friction_lane": {"anyOf": [{"enum": ["F0", "F1", "F2", "F3"]}, {"type": "null"}]},
+            "targetability_decision_cost_state": {"enum": ["NOT_MEASURED", "MEASURING", "MEASURED"]},
+            "targetability_decision_cost_cents": {"type": ["integer", "null"], "minimum": 0},
+            "pre_value_discovery_cost_state": {"const": "MEASURING"},
+            "measured_machine_and_data_cost_cents": {"type": ["integer", "null"], "minimum": 0},
+            "measured_human_seconds": {"type": "integer", "minimum": 0},
+            "external_cash_spend_cents": {"const": 0},
+            "value_evidence_state": {"const": "UNKNOWN_PRE_CLAIM_REVIEW"},
+            "legal_privacy_scope_ref": {"const": "sources/proposals/ny_mvp1_real_p1_targetability_execution_scope.v1.json"},
+            "authorization_refs": {"type": "array", "minItems": 4, "items": {"type": "string", "minLength": 1}},
+            "evidence_refs": {"type": "array", "items": {"type": "string"}},
+            "stop_reason": {"type": "string", "minLength": 1},
+            "disposal_result": {"enum": ["LOGICAL_DELETION_COMPLETED", "LOGICAL_DELETION_FAILED"]},
+            "direct_owner_pii_included": {"const": false},
+            "owner_name_persisted": {"const": false},
+            "property_id_persisted": {"const": false},
+            "address_persisted": {"const": false},
+            "holder_name_persisted": {"const": false},
+            "raw_row_persisted": {"const": false},
+            "no_commercial_decision": {"const": true}
+          }
+        }
+      ]
+    },
+    "targetability": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "targetability_score": {"type": "null"},
+            "value_prediction_performed": {"const": false},
+            "monetary_value_used_for_targeting": {"const": false},
+            "awareness_state": {"const": "UNKNOWN_UNTIL_OUTREACH"}
+          },
+          "required": [
+            "targetability_score",
+            "value_prediction_performed",
+            "monetary_value_used_for_targeting",
+            "awareness_state"
+          ]
+        }
+      ]
+    },
+    "archive_byte_count": {"type": "integer", "minimum": 0},
+    "local_file_deleted": {"type": "boolean"},
+    "logical_deletion_only": {"const": true},
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direct_network_client_used",
+        "owner_pii_returned",
+        "owner_pii_persisted",
+        "raw_row_persisted",
+        "beneficiary_matching_performed",
+        "genealogy_performed",
+        "outreach_performed",
+        "value_research_performed",
+        "fee_agreement_performed",
+        "representation_performed",
+        "claim_activity_performed",
+        "physical_secure_erasure_guaranteed"
+      ],
+      "properties": {
+        "direct_network_client_used": {"const": false},
+        "owner_pii_returned": {"const": false},
+        "owner_pii_persisted": {"const": false},
+        "raw_row_persisted": {"const": false},
+        "beneficiary_matching_performed": {"const": false},
+        "genealogy_performed": {"const": false},
+        "outreach_performed": {"const": false},
+        "value_research_performed": {"const": false},
+        "fee_agreement_performed": {"const": false},
+        "representation_performed": {"const": false},
+        "claim_activity_performed": {"const": false},
+        "physical_secure_erasure_guaranteed": {"const": false}
+      }
+    },
+    "execution_authorization_consumed": {"const": true},
+    "reusable": {"const": false},
+    "retry_authorized": {"const": false}
+  }
+}

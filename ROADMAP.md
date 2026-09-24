@@ -14,21 +14,18 @@ Scale remains frozen until real targetability economics are measured.
 
 NY OSC Attempt 11:
 
-- 14,994,489 physical records;
+- 14,994,489 records;
 - 2,792,990 authority-backed insurance records;
 - 203,921 primary IN03 aggregate candidates;
-- recoverable value UNKNOWN_FROM_SOURCE;
-- no durable owner PII output.
+- recoverable value UNKNOWN_FROM_SOURCE.
 
 ## Stage 2 — Synthetic one-candidate materialization — COMPLETE
 
-PR #34 — MERGED
-
-Stage A established safe transient/economic instrumentation.
+PR #34 — MERGED.
 
 ## Stage 3 — Targetable Opportunity Filter V1 — COMPLETE / CANONICAL
 
-PR #36 — MERGED
+PR #36 — MERGED.
 
 Canonical main:
 
@@ -38,137 +35,117 @@ Post-merge CI:
 
 35994103772 — SUCCESS
 
-Canonical product thesis:
+## Stage 4 — Fresh real P1 execution scope — HUMAN APPROVED / PR OPEN
 
-MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
+PR #37:
 
-Target classes:
+OPEN / NOT MERGED
 
-T0-T4
+Product Owner approved:
 
-F0-F3 remain friction-only.
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-Primary targetability metric:
+Approved design:
 
-TARGETABILITY_DECISION_COST
+L0 persistence-first selection
+-> L1 one selected candidate
+-> optional pre-authorized L2-A.
 
-## Stage 4 — Fresh real P1 execution scope — READY FOR HUMAN REVIEW
+No real execution authorization was granted.
+
+## Stage 5 — Offline real P1 runner and approval contracts — IMPLEMENTED / VERIFIED
 
 Branch:
 
-mvp1-real-p1-targetability-execution-scope
+mvp1-real-p1-targetability-runner-offline
 
-Deliverables:
+Verified runtime checkpoint:
 
-- real P1 execution-scope proposal;
-- versioned JSON Schema;
-- contract tests;
-- legal/privacy scope review.
+6a73a4e3da189affe530f6ca9e32259c828e803d
 
-Design:
+CI:
 
-L0 source-only persistence selection
--> L1 one selected candidate transient materialization
--> optional separately approved L2-A minimal targetability discovery.
+35997991872 — SUCCESS
 
-No real execution is authorized.
+Implemented:
 
-### L1 proposed budget
+- two-pass local archive runner;
+- seven fresh single-use gate templates;
+- fresh preflight receipt contract;
+- authorization binder;
+- non-PII result contract;
+- disposal handling;
+- L2-A provider-binding seam;
+- L1-only CLI;
+- Windows PowerShell wrapper;
+- unit/contract/adversarial PII-leak tests.
 
-External cash:
+D-013 records the architecture.
 
-USD 0.00
+No gate is granted.
 
-Paid APIs/data:
-
-NONE.
-
-### L2-A proposed experiment bounds
-
-External cash:
-
-USD 0.00
-
-Manual research cap:
-
-900 seconds
-
-This is a management experiment cap, not a profitability threshold.
-
-Provider/search PII transfer requires separate provider privacy/terms review and approval.
-
-## Stage 5 — Human review of real P1 scope — NEXT
+## Stage 6 — Human runner review — NEXT
 
 Execute only:
 
-HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
+HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
 
-Review:
+Review should confirm:
 
-- two-pass selection/materialization architecture;
-- PII field whitelist;
-- no durable owner PII;
-- L1 USD 0 external spend;
-- proposed L2-A 900-second / USD 0 bound;
-- legal/controller prerequisites;
-- provider-specific PII-transfer gate;
-- one-download co-execution rule;
-- seven new single-use gates;
-- stop conditions.
+- two-pass implementation matches approved scope;
+- L0 does not buffer/decode owner PII for ranking;
+- L1 returns no owner PII;
+- seven templates remain NOT_GRANTED;
+- L2-A has no default provider;
+- USD 0 external paid spend and 900-second cap remain enforced;
+- deletion failure is fail-closed;
+- CI 35997991872 is accepted;
+- repository integration sequence is approved.
 
-If accepted:
+Runner review does NOT authorize real P1.
 
-IMPLEMENT_AND_REVIEW_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
+## Stage 7 — Repository integration — CONDITIONAL
 
-## Stage 6 — Offline real-P1 runner/approval contracts — CONDITIONAL
+If runner review passes:
 
-Only after Stage 5 approval.
+1. merge/integrate scope PR #37 only with explicit Product Owner merge authorization;
+2. integrate the stacked runner PR only with explicit Product Owner merge authorization;
+3. run post-merge CI.
 
-Must implement and test:
+No real source action in this stage.
 
-- two-pass bounded runner;
-- targetability result contract;
-- fresh approval artifacts;
-- freshness/preflight binding;
-- disposal behavior;
-- budget/time stop;
-- no-PII ledger output.
+## Stage 8 — Legal/controller/provider readiness — NOT STARTED
 
-Still no real source access.
+Before any real P1 grant:
 
-## Stage 7 — Fresh real P1 authorization chain — NOT STARTED
+- controller identity;
+- establishment;
+- applicable-law assessment;
+- legal basis;
+- transparency plan;
+- provider-specific privacy/terms review if L2-A will be used.
 
-Only after runner review PASS.
+## Stage 9 — Fresh real P1 authorization chain — NOT STARTED
 
-Requires controller/legal/privacy prerequisites plus fresh single-use approvals.
+All seven grants remain NOT_GRANTED.
 
 No historical approval may be reused.
 
-## Stage 8 — Pilot P1 real execution — NOT AUTHORIZED
+## Stage 10 — Pilot P1 real execution — NOT AUTHORIZED
 
 One candidate maximum.
 
-Possible terminal outcomes:
-
-- TARGETABLE_CONTINUE_TO_SEPARATE_OUTREACH_REVIEW
-- STOP_SELF_SERVICE_LOW_NEED
-- STOP_UNBOUNDED_RESOLUTION_COST
-- STOP_LEGAL_PRIVACY_SCOPE
-- STOP_TARGETABILITY_NOT_ESTABLISHED_WITHIN_BUDGET
+Valid outcomes include targetability continue or bounded stop.
 
 P1 does not require known value, outreach or recovery.
 
-## Stage 9 — P2 approximately five cases — CONDITIONAL
+## Stage 11 — P2 ~5 — CONDITIONAL
 
 Only if P1 justifies continuation.
 
-Management-learning batch, not statistical proof.
-
-## Stage 10 — P3 approximately 20–30 cases — CONDITIONAL
+## Stage 12 — P3 ~20–30 — CONDITIONAL
 
 Only if P2 supports continuation.
-
-Measure targetability, cost, contactability, conversion and value-known distributions.
 
 ## Frozen before evidence justifies it
 

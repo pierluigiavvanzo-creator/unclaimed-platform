@@ -381,3 +381,54 @@ Consequences:
 - no numeric targetability score is permitted in v1;
 - P1 asks whether service need and bounded resolvability can be established at acceptable evidenced cost before value is known;
 - this decision authorizes only offline/synthetic design and implementation, not source access or PII processing.
+
+
+---
+
+## D-013 — Real P1 uses two-pass local selection/materialization with pre-bound single-use gates
+
+Date: 2026-09-24
+
+Status: Accepted as Product Owner scope direction; runtime implementation verified offline; real execution remains separately gated
+
+Context:
+The Product Owner approved the fresh real P1 targetability execution scope after D-012 established targetability as MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE. The first real P1 must minimize owner-PII exposure while preserving persistence-first selection and bounded economics. A one-pass design that buffers owner data across many eligible rows would unnecessarily widen privacy exposure, while a post-L1 request for permission to continue would incentivize retaining the downloaded owner file while waiting for a new authorization.
+
+Decision:
+For the first real NY OSC P1:
+
+1. selection and candidate materialization are two separate passes over the same already-authorized local archive;
+2. L0 selection may derive only structural shape, exact IN03, owner-count=1, Property ID presence boolean, Holder Report Year and source ordinal;
+3. Owner Name/address must not be decoded or buffered for L0 ranking;
+4. selection is PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER, with no fixed age threshold and no value inference;
+5. L1 second pass may transiently materialize only Property ID, Property Type Code, Property Owner Count, Owner Name, Holder Name and Holder Report Year for the selected ordinal;
+6. no owner PII, Holder Name, raw row or address is durable at L1;
+7. L1 new external cash spend remains USD 0.00;
+8. L2-A is a separate optional extension and may share the same download only when every L2-A privacy/provider/budget/execution grant already exists before the download;
+9. mid-session waiting for a new authorization while retaining the local owner file is prohibited;
+10. proposed L2-A experiment bounds are USD 0.00 external paid spend and 900 seconds manual research, explicitly as a management experiment cap rather than a profitability threshold;
+11. no L2-A provider is approved by default; the provider must be specifically bound to an approved provider/terms review;
+12. the production CLI remains L1-only until a provider-specific review authorizes an L2-A adapter;
+13. all seven P1 gates are fresh, single-use, non-reusable and zero-retry;
+14. the local archive must be logically deleted after execution; physical secure erasure must not be claimed;
+15. deletion failure is a fail-closed BLOCKED outcome.
+
+Reason:
+This architecture minimizes PII exposure, avoids redundant downloads when the entire L1/L2-A scope is already approved, prevents opportunistic retention while waiting for wider scope, and forces the first real pilot to measure targetability economics before value research or scale.
+
+Alternatives considered:
+- buffer owner PII for every eligible IN03 during the selection scan;
+- select by Owner Name/address or other PII-based ranking;
+- perform L1, retain the file, then request L2-A approval;
+- add a generic people-search/data-broker integration immediately;
+- allow paid API/data use in P1;
+- use a one-pass raw-row materialization design;
+- automatically retry after a blocked run.
+
+Consequences:
+- L0 and L1 can be tested independently and audited;
+- a single authorized archive can support both passes without a second download;
+- if L2-A is not pre-approved, P1 stops after L1 disposal;
+- real L2-A requires a future provider-specific legal/privacy/terms review;
+- no current repository artifact grants real execution;
+- approval templates remain NOT_GRANTED until separately and explicitly granted by the Product Owner.

@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.p1.single_use_gate",
+  "gate_id": "HUMAN_NY_MVP1_P1_L1_TRANSIENT_PII_APPROVAL",
+  "required_owner_phrase": "APPROVE_NY_MVP1_P1_L1_TRANSIENT_PII_ONCE",
+  "owner_authorization": null,
+  "granted_on": null,
+  "execution_approval_ref": null,
+  "status": "NOT_GRANTED",
+  "single_use": true,
+  "reusable": false,
+  "retry_authorized": false,
+  "scope_ref": "sources/proposals/ny_mvp1_real_p1_targetability_execution_scope.v1.json",
+  "scope_blob_sha": "52e23fefee358ea51d6d7e6aa3085b7491807a9c",
+  "runner_checkpoint": null,
+  "runner_ci_run_id": null,
+  "runner_ci_conclusion": null,
+  "provider_binding": null
+}
