@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-p1-single-use-gate:1.0.0",
+  "title": "NY MVP1 P1 Single Use Gate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "gate_id",
+    "required_owner_phrase",
+    "owner_authorization",
+    "granted_on",
+    "execution_approval_ref",
+    "status",
+    "single_use",
+    "reusable",
+    "retry_authorized",
+    "scope_ref",
+    "scope_blob_sha",
+    "runner_checkpoint",
+    "runner_ci_run_id",
+    "runner_ci_conclusion",
+    "provider_binding"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "artifact_id": {"const": "ny.mvp1.p1.single_use_gate"},
+    "gate_id": {
+      "enum": [
+        "HUMAN_NY_MVP1_P1_TRANSIENT_LOCAL_FILE_APPROVAL",
+        "HUMAN_NY_MVP1_P1_L1_TRANSIENT_PII_APPROVAL",
+        "HUMAN_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+        "HUMAN_NY_MVP1_P1_L1_EXECUTION_AUTHORIZATION",
+        "HUMAN_NY_MVP1_P1_L2A_TARGETABILITY_PII_SCOPE_APPROVAL",
+        "HUMAN_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_APPROVAL",
+        "HUMAN_NY_MVP1_P1_L2A_EXECUTION_AUTHORIZATION"
+      ]
+    },
+    "required_owner_phrase": {"type": "string", "minLength": 1},
+    "owner_authorization": {"type": ["string", "null"]},
+    "granted_on": {"type": ["string", "null"], "format": "date"},
+    "execution_approval_ref": {"type": ["string", "null"]},
+    "status": {
+      "enum": [
+        "NOT_GRANTED",
+        "GRANTED_NOT_CONSUMED",
+        "CONSUMED_SINGLE_USE_NON_REUSABLE"
+      ]
+    },
+    "single_use": {"const": true},
+    "reusable": {"const": false},
+    "retry_authorized": {"const": false},
+    "scope_ref": {
+      "const": "sources/proposals/ny_mvp1_real_p1_targetability_execution_scope.v1.json"
+    },
+    "scope_blob_sha": {
+      "const": "52e23fefee358ea51d6d7e6aa3085b7491807a9c"
+    },
+    "runner_checkpoint": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      ]
+    },
+    "runner_ci_run_id": {"type": ["integer", "null"]},
+    "runner_ci_conclusion": {"type": ["string", "null"]},
+    "provider_binding": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "provider_id",
+            "provider_terms_review_ref",
+            "approved_external_cash_budget_cents",
+            "approved_manual_research_cap_seconds",
+            "paid_api_allowed",
+            "paid_data_broker_allowed",
+            "consumer_report_fcra_product_allowed"
+          ],
+          "properties": {
+            "provider_id": {"type": "string", "minLength": 1},
+            "provider_terms_review_ref": {"type": "string", "minLength": 1},
+            "approved_external_cash_budget_cents": {"const": 0},
+            "approved_manual_research_cap_seconds": {"const": 900},
+            "paid_api_allowed": {"const": false},
+            "paid_data_broker_allowed": {"const": false},
+            "consumer_report_fcra_product_allowed": {"const": false}
+          }
+        }
+      ]
+    },
+    "consumed_on": {"type": "string", "format": "date"},
+    "execution_result_ref": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "NOT_GRANTED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "owner_authorization": {"const": null},
+          "granted_on": {"const": null},
+          "execution_approval_ref": {"const": null},
+          "runner_checkpoint": {"const": null},
+          "runner_ci_run_id": {"const": null},
+          "runner_ci_conclusion": {"const": null}
+        },
+        "not": {
+          "anyOf": [
+            {"required": ["consumed_on"]},
+            {"required": ["execution_result_ref"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "GRANTED_NOT_CONSUMED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "owner_authorization": {"type": "string", "minLength": 1},
+          "granted_on": {"type": "string", "format": "date"},
+          "execution_approval_ref": {"type": "string", "minLength": 1},
+          "runner_checkpoint": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "runner_ci_run_id": {"type": "integer", "minimum": 1},
+          "runner_ci_conclusion": {"const": "SUCCESS"}
+        },
+        "not": {
+          "anyOf": [
+            {"required": ["consumed_on"]},
+            {"required": ["execution_result_ref"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_id": {"const": "HUMAN_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_APPROVAL"},
+          "status": {"const": "GRANTED_NOT_CONSUMED"}
+        },
+        "required": ["gate_id", "status"]
+      },
+      "then": {
+        "properties": {
+          "provider_binding": {"type": "object"}
+        }
+      }
+    },
+    {
+      "if": {
+        "not": {
+          "properties": {
+            "gate_id": {"const": "HUMAN_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_APPROVAL"}
+          },
+          "required": ["gate_id"]
+        }
+      },
+      "then": {
+        "properties": {"provider_binding": {"const": null}}
+      }
+    }
+  ]
+}
