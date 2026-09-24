@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-stage-b-controller-facts-input:1.0.0",
+  "title": "NY MVP1 Stage B Controller Facts Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "formation_state",
+    "operating_model",
+    "legal_name",
+    "entity_type",
+    "formation_jurisdiction",
+    "principal_business_address",
+    "privacy_contact",
+    "relevant_eu_branch_office_employee_agent_or_stable_arrangement",
+    "eu_person_or_entity_live_owner_pii_access",
+    "lsp_customer_agreement_signing_entity",
+    "lsp_fee_receiving_entity",
+    "us_only_mvp1_market",
+    "eu_targeting",
+    "eu_monitoring"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "artifact_id": {"const": "ny.mvp1.stage_b.controller_facts_input"},
+    "formation_state": {"enum": ["FORMED", "NOT_YET_FORMED"]},
+    "operating_model": {"type": ["string", "null"], "enum": ["US_CONTROLLER_US_MARKET", null]},
+    "legal_name": {"type": ["string", "null"], "minLength": 1},
+    "entity_type": {"type": ["string", "null"], "minLength": 1},
+    "formation_jurisdiction": {"type": ["string", "null"], "minLength": 1},
+    "principal_business_address": {"type": ["string", "null"], "minLength": 1},
+    "privacy_contact": {"type": ["string", "null"], "minLength": 1},
+    "relevant_eu_branch_office_employee_agent_or_stable_arrangement": {
+      "type": ["boolean", "null"]
+    },
+    "eu_person_or_entity_live_owner_pii_access": {"type": ["boolean", "null"]},
+    "lsp_customer_agreement_signing_entity": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "lsp_fee_receiving_entity": {"type": ["string", "null"], "minLength": 1},
+    "us_only_mvp1_market": {"type": ["boolean", "null"]},
+    "eu_targeting": {"type": ["boolean", "null"]},
+    "eu_monitoring": {"type": ["boolean", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "formation_state": {"const": "NOT_YET_FORMED"}
+        }
+      },
+      "then": {
+        "properties": {
+          "operating_model": {"type": "null"},
+          "legal_name": {"type": "null"},
+          "entity_type": {"type": "null"},
+          "formation_jurisdiction": {"type": "null"},
+          "principal_business_address": {"type": "null"},
+          "privacy_contact": {"type": "null"},
+          "relevant_eu_branch_office_employee_agent_or_stable_arrangement": {
+            "type": "null"
+          },
+          "eu_person_or_entity_live_owner_pii_access": {"type": "null"},
+          "lsp_customer_agreement_signing_entity": {"type": "null"},
+          "lsp_fee_receiving_entity": {"type": "null"},
+          "us_only_mvp1_market": {"type": "null"},
+          "eu_targeting": {"type": "null"},
+          "eu_monitoring": {"type": "null"}
+        }
+      },
+      "else": {
+        "properties": {
+          "operating_model": {"const": "US_CONTROLLER_US_MARKET"},
+          "legal_name": {"type": "string", "minLength": 1},
+          "entity_type": {"type": "string", "minLength": 1},
+          "formation_jurisdiction": {"type": "string", "minLength": 1},
+          "principal_business_address": {"type": "string", "minLength": 1},
+          "relevant_eu_branch_office_employee_agent_or_stable_arrangement": {
+            "type": "boolean"
+          },
+          "eu_person_or_entity_live_owner_pii_access": {"type": "boolean"},
+          "lsp_customer_agreement_signing_entity": {"type": "string", "minLength": 1},
+          "lsp_fee_receiving_entity": {"type": "string", "minLength": 1},
+          "us_only_mvp1_market": {"type": "boolean"},
+          "eu_targeting": {"type": "boolean"},
+          "eu_monitoring": {"type": "boolean"}
+        }
+      }
+    }
+  ]
+}
