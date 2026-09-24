@@ -1,0 +1,378 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-real-p1-targetability-execution-scope:1.0.0",
+  "title": "NY MVP1 Real P1 Targetability Execution Scope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "work_class",
+    "source_id",
+    "baseline",
+    "objective",
+    "pilot_question",
+    "reuse_plan",
+    "legal_privacy_gate",
+    "source_execution_bounds",
+    "l0_selection_pass",
+    "l1_selected_candidate_materialization",
+    "l2a_minimal_targetability_discovery",
+    "economic_case_ledger",
+    "single_use_non_reusable_gates",
+    "stop_conditions",
+    "co_execution_rule",
+    "authorization_does_not_grant",
+    "implementation_boundaries",
+    "required_owner_review_phrase",
+    "next_action_if_approved"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "artifact_id": {"const": "ny.mvp1.real_p1_targetability_execution_scope"},
+    "artifact_version": {"const": "1.0.0"},
+    "prepared_on": {"const": "2026-09-24"},
+    "status": {"const": "PROPOSED_OFFLINE_DESIGN_ONLY_NOT_AUTHORIZED"},
+    "work_class": {"const": "A_PRODUCT_CRITICAL"},
+    "source_id": {"const": "ny.osc.unclaimed_funds.owner_name_file"},
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "main_checkpoint",
+        "main_post_merge_ci_run_id",
+        "main_post_merge_ci_conclusion",
+        "targetability_strategy_version",
+        "selection_rule_version",
+        "attempt11_aggregate_result_ref",
+        "primary_in03_candidate_records",
+        "real_candidate_materialization_state"
+      ],
+      "properties": {
+        "main_checkpoint": {"const": "322c38027a2a214246f1a52ca0854b7b93d171b7"},
+        "main_post_merge_ci_run_id": {"const": 35994103772},
+        "main_post_merge_ci_conclusion": {"const": "SUCCESS"},
+        "targetability_strategy_version": {"const": "3.0"},
+        "selection_rule_version": {"const": "2.0.0"},
+        "attempt11_aggregate_result_ref": {"type": "string", "minLength": 1},
+        "primary_in03_candidate_records": {"const": 203921},
+        "real_candidate_materialization_state": {"const": "NOT_AUTHORIZED"}
+      }
+    },
+    "objective": {"const": "MEASURE_ONE_REAL_CASE_TARGETABILITY_AT_BOUNDED_COST_BEFORE_VALUE_RESEARCH"},
+    "pilot_question": {"type": "string", "minLength": 1},
+    "reuse_plan": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "decision", "purpose"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "decision": {"enum": ["REUSE", "ADAPT", "INSPIRE"]},
+          "purpose": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "legal_privacy_gate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "legal_design_state",
+        "controller_identity_required",
+        "controller_establishment_required",
+        "applicable_law_assessment_required",
+        "gdpr_if_eu_establishment",
+        "ny_security_scope",
+        "legal_references",
+        "fail_closed_if_unresolved"
+      ],
+      "properties": {
+        "legal_design_state": {"const": "REQUIRES_HUMAN_LEGAL_CONFIRMATION_BEFORE_REAL_EXECUTION"},
+        "controller_identity_required": {"const": true},
+        "controller_establishment_required": {"const": true},
+        "applicable_law_assessment_required": {"const": true},
+        "fail_closed_if_unresolved": {"const": true}
+      }
+    },
+    "source_execution_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fresh_listing_preflight_required",
+        "downloads_max",
+        "retries_max",
+        "dedicated_os_temp_directory_required",
+        "cloud_sync_allowed",
+        "repository_raw_persistence_allowed",
+        "max_download_bytes",
+        "max_uncompressed_bytes",
+        "max_archive_members",
+        "expected_documented_field_count",
+        "expected_delimiter",
+        "physical_secure_erasure_guaranteed",
+        "logical_deletion_required"
+      ],
+      "properties": {
+        "fresh_listing_preflight_required": {"const": true},
+        "downloads_max": {"const": 1},
+        "retries_max": {"const": 0},
+        "dedicated_os_temp_directory_required": {"const": true},
+        "cloud_sync_allowed": {"const": false},
+        "repository_raw_persistence_allowed": {"const": false},
+        "max_download_bytes": {"const": 450000000},
+        "max_uncompressed_bytes": {"const": 2000000000},
+        "max_archive_members": {"const": 1},
+        "expected_documented_field_count": {"const": 14},
+        "expected_delimiter": {"const": "|"},
+        "physical_secure_erasure_guaranteed": {"const": false},
+        "logical_deletion_required": {"const": true}
+      }
+    },
+    "l0_selection_pass": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "selection_rule",
+        "max_selected_candidates",
+        "whole_file_streaming_selection_required",
+        "owner_pii_decoding_allowed",
+        "owner_pii_buffering_allowed",
+        "allowed_selection_observations",
+        "required_exact_property_type_code",
+        "required_property_owner_count",
+        "property_id_value_persisted",
+        "holder_report_year_interpretation",
+        "fixed_age_threshold",
+        "tie_breaker",
+        "value_prediction_allowed",
+        "owner_pii_ranking_allowed"
+      ],
+      "properties": {
+        "selection_rule": {"const": "PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER"},
+        "max_selected_candidates": {"const": 1},
+        "whole_file_streaming_selection_required": {"const": true},
+        "owner_pii_decoding_allowed": {"const": false},
+        "owner_pii_buffering_allowed": {"const": false},
+        "required_exact_property_type_code": {"const": "IN03"},
+        "required_property_owner_count": {"const": 1},
+        "property_id_value_persisted": {"const": false},
+        "holder_report_year_interpretation": {"const": "PERSISTENCE_SIGNAL_ONLY"},
+        "fixed_age_threshold": {"type": "null"},
+        "tie_breaker": {"const": "LOWEST_SOURCE_RECORD_ORDINAL"},
+        "value_prediction_allowed": {"const": false},
+        "owner_pii_ranking_allowed": {"const": false}
+      }
+    },
+    "l1_selected_candidate_materialization": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "execution_pass",
+        "max_candidates",
+        "max_new_external_cash_spend_cents",
+        "paid_api_calls_allowed",
+        "paid_data_purchase_allowed",
+        "transient_fields_allowed",
+        "address_fields_allowed",
+        "raw_row_persistence_allowed",
+        "owner_name_persistence_allowed",
+        "property_id_persistence_allowed",
+        "holder_name_persistence_allowed",
+        "owner_field_logging_allowed",
+        "transient_values_returned_allowed",
+        "row_specific_human_inspection_allowed",
+        "same_session_disposal_required",
+        "persistent_non_owner_fields_allowed",
+        "default_terminal_state"
+      ],
+      "properties": {
+        "execution_pass": {"const": "SECOND_PASS_SAME_AUTHORIZED_LOCAL_FILE_SELECTED_ORDINAL_ONLY"},
+        "max_candidates": {"const": 1},
+        "max_new_external_cash_spend_cents": {"const": 0},
+        "paid_api_calls_allowed": {"const": false},
+        "paid_data_purchase_allowed": {"const": false},
+        "address_fields_allowed": {"const": false},
+        "raw_row_persistence_allowed": {"const": false},
+        "owner_name_persistence_allowed": {"const": false},
+        "property_id_persistence_allowed": {"const": false},
+        "holder_name_persistence_allowed": {"const": false},
+        "owner_field_logging_allowed": {"const": false},
+        "transient_values_returned_allowed": {"const": false},
+        "row_specific_human_inspection_allowed": {"const": false},
+        "same_session_disposal_required": {"const": true}
+      }
+    },
+    "l2a_minimal_targetability_discovery": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "objective",
+        "separate_approval_required",
+        "same_download_extension_allowed_only_if_all_l2a_grants_exist_before_download",
+        "if_l2a_not_preapproved",
+        "proposed_incremental_external_cash_budget_cents",
+        "proposed_manual_research_cap_seconds",
+        "manual_research_cap_interpretation",
+        "paid_data_broker_allowed",
+        "paid_api_allowed",
+        "consumer_report_or_fcra_product_allowed",
+        "account_creation_or_paid_login_allowed",
+        "external_provider_state",
+        "transient_input_fields_allowed_after_separate_l2a_approval",
+        "external_query_fields_must_be_minimised_per_query",
+        "beneficiary_matching_allowed",
+        "genealogy_allowed",
+        "outreach_allowed",
+        "value_research_allowed",
+        "claim_activity_allowed",
+        "awareness_state_required",
+        "allowed_durable_outputs",
+        "forbidden_durable_outputs",
+        "classification_rules"
+      ],
+      "properties": {
+        "status": {"const": "DEFINED_NOT_AUTHORIZED"},
+        "separate_approval_required": {"const": true},
+        "same_download_extension_allowed_only_if_all_l2a_grants_exist_before_download": {"const": true},
+        "if_l2a_not_preapproved": {"const": "DISPOSE_L1_PII_DELETE_LOCAL_FILE_AND_STOP"},
+        "proposed_incremental_external_cash_budget_cents": {"const": 0},
+        "proposed_manual_research_cap_seconds": {"const": 900},
+        "manual_research_cap_interpretation": {"const": "PRODUCT_OWNER_EXPERIMENT_CAP_NOT_EVIDENCE_BACKED_PROFITABILITY_THRESHOLD"},
+        "paid_data_broker_allowed": {"const": false},
+        "paid_api_allowed": {"const": false},
+        "consumer_report_or_fcra_product_allowed": {"const": false},
+        "account_creation_or_paid_login_allowed": {"const": false},
+        "external_provider_state": {"const": "PROVIDER_OR_TOOL_PRIVACY_TERMS_REVIEW_REQUIRED_BEFORE_ANY_PII_QUERY"},
+        "external_query_fields_must_be_minimised_per_query": {"const": true},
+        "beneficiary_matching_allowed": {"const": false},
+        "genealogy_allowed": {"const": false},
+        "outreach_allowed": {"const": false},
+        "value_research_allowed": {"const": false},
+        "claim_activity_allowed": {"const": false},
+        "awareness_state_required": {"const": "UNKNOWN_UNTIL_OUTREACH"}
+      }
+    },
+    "economic_case_ledger": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "direct_owner_pii_allowed",
+        "pseudonymised_linkability_warning",
+        "required_fields",
+        "value_evidence_state",
+        "commercial_decision_automatic"
+      ],
+      "properties": {
+        "direct_owner_pii_allowed": {"const": false},
+        "pseudonymised_linkability_warning": {"const": true},
+        "value_evidence_state": {"const": "UNKNOWN_PRE_CLAIM_REVIEW"},
+        "commercial_decision_automatic": {"const": false}
+      }
+    },
+    "single_use_non_reusable_gates": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "required_owner_phrase"],
+        "properties": {
+          "gate_id": {"type": "string", "minLength": 1},
+          "required_owner_phrase": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 10,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "co_execution_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "l1_only_allowed",
+        "l1_plus_l2a_same_download_allowed",
+        "condition",
+        "mid_session_wait_for_new_authorization_allowed",
+        "automatic_scope_widening_allowed",
+        "automatic_retry_allowed"
+      ],
+      "properties": {
+        "l1_only_allowed": {"const": true},
+        "l1_plus_l2a_same_download_allowed": {"const": true},
+        "condition": {"const": "ALL_L1_AND_L2A_GRANTS_EXIST_BEFORE_DOWNLOAD_AND_PROVIDER_SCOPE_IS_APPROVED"},
+        "mid_session_wait_for_new_authorization_allowed": {"const": false},
+        "automatic_scope_widening_allowed": {"const": false},
+        "automatic_retry_allowed": {"const": false}
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_access",
+        "remote_preflight",
+        "download",
+        "real_candidate_materialization",
+        "owner_pii_processing",
+        "identity_resolution",
+        "external_pii_query",
+        "beneficiary_matching",
+        "genealogy",
+        "address_enrichment",
+        "third_party_api_use",
+        "outreach",
+        "value_research",
+        "fee_agreement",
+        "representation",
+        "claim_activity"
+      ],
+      "properties": {
+        "source_access": {"const": false},
+        "remote_preflight": {"const": false},
+        "download": {"const": false},
+        "real_candidate_materialization": {"const": false},
+        "owner_pii_processing": {"const": false},
+        "identity_resolution": {"const": false},
+        "external_pii_query": {"const": false},
+        "beneficiary_matching": {"const": false},
+        "genealogy": {"const": false},
+        "address_enrichment": {"const": false},
+        "third_party_api_use": {"const": false},
+        "outreach": {"const": false},
+        "value_research": {"const": false},
+        "fee_agreement": {"const": false},
+        "representation": {"const": false},
+        "claim_activity": {"const": false}
+      }
+    },
+    "implementation_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_only",
+        "runtime_code_modified",
+        "approval_artifacts_created",
+        "source_access_performed",
+        "pii_processing_performed"
+      ],
+      "properties": {
+        "proposal_only": {"const": true},
+        "runtime_code_modified": {"const": false},
+        "approval_artifacts_created": {"const": false},
+        "source_access_performed": {"const": false},
+        "pii_processing_performed": {"const": false}
+      }
+    },
+    "required_owner_review_phrase": {"const": "APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1"},
+    "next_action_if_approved": {"const": "IMPLEMENT_AND_REVIEW_REAL_P1_TARGETABILITY_RUNNER_OFFLINE"}
+  }
+}
