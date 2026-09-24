@@ -99,9 +99,25 @@ PR #38 runtime-integration merge commit:
 
 e2856c61a77e2ff8ca6f973b9090beb87a754ebc
 
-Final post-merge main CI:
+Final post-merge main CI for PR #38:
 
 35999333460 — SUCCESS
+
+Latest verified canonical main checkpoint after PR #47:
+
+06de8ec5c6a2734e5f126174b5483606fca6505a
+
+PR #47:
+
+MVP1: add offline controller fact binder v1 — MERGED
+
+PR #47 post-merge CI:
+
+36050081205 — SUCCESS
+
+The Controller Fact Binder V1 is now canonical on main.
+
+All seven P1 gates were re-verified after the merge and remain NOT_GRANTED with no owner authorization or execution approval reference.
 
 PRODUCT_STRATEGY_MVP1 v3.2, D-012, D-013 and D-014 are canonical.
 
@@ -523,6 +539,41 @@ The product is differentiated only if it measurably improves registry coverage, 
 Proof must come from P1/P2/P3 and later cross-registry outcomes, not feature novelty.
 
 LLC bootstrap hypothesis remains Wyoming LLC, formed just-in-time before real P1 gates, subject to US CPA/attorney review and NY nexus/foreign-qualification analysis.
+
+## Controller Fact Binder V1 — MERGED / VERIFIED
+
+PR #47 added the deterministic offline controller fact binder, its input/output schemas, CLI, tests and audit.
+
+Canonical merge commit:
+
+06de8ec5c6a2734e5f126174b5483606fca6505a
+
+Post-merge CI:
+
+36050081205 — SUCCESS
+
+The binder cannot authorize P1 and persists no controller legal name or principal business address in its assessment.
+
+Current controller factual state remains:
+
+NOT_YET_FORMED
+
+No LLC identity has been invented or bound.
+
+## Formation-readiness pack — PREPARED OFFLINE
+
+Prepared artifacts:
+
+- docs/templates/NY_MVP1_CONTROLLER_FACT_PACKET_TEMPLATE.md
+- docs/checklists/NY_MVP1_US_CONTROLLER_FORMATION_CHECKLIST.md
+- docs/checklists/NY_MVP1_US_CONTROLLER_CPA_ATTORNEY_QUESTIONS.md
+- docs/runbooks/NY_MVP1_POST_FORMATION_TO_P1_RUNBOOK.md
+
+Purpose:
+
+reduce elapsed time from genuine controller formation to factual binding, professional review and preparation of fresh single-use P1 gates.
+
+These artifacts do not authorize source access, PII processing, external PII query, outreach, value research, agreements, representation or claim activity.
 
 ## Current next action
 

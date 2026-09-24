@@ -8,7 +8,7 @@ Mode: OFFLINE / SYNTHETIC / NON-PII / NO SOURCE ACCESS
 
 ## Result
 
-IMPLEMENTED_OFFLINE_PENDING_GITHUB_CI_AND_HUMAN_ENTITY_FORMATION
+MERGED_AND_POST_MERGE_VERIFIED_AWAITING_HUMAN_ENTITY_FORMATION
 
 ## Objective
 
@@ -114,7 +114,15 @@ Local isolated validation before GitHub integration covers:
 - non-persistence of legal name/address in output;
 - invariant that all seven P1 gates remain `NOT_GRANTED`.
 
-Canonical verification remains GitHub CI on Python 3.11 after branch integration.
+Canonical integration:
+
+- PR #47 — MERGED;
+- merge commit: 06de8ec5c6a2734e5f126174b5483606fca6505a;
+- post-merge CI: 36050081205 — SUCCESS;
+- quality: SUCCESS;
+- streamlit-candidate: SUCCESS.
+
+All seven P1 gates were re-verified after the merge and remain NOT_GRANTED.
 
 ## Remaining blocker
 

@@ -16,11 +16,11 @@ main
 
 Latest verified canonical main checkpoint before this documentation update:
 
-6cb0b89ae70573b9452343660ea6f0a23a47cce3
+06de8ec5c6a2734e5f126174b5483606fca6505a
 
 Post-merge CI:
 
-36023036445 — SUCCESS
+36050081205 — SUCCESS
 
 Always verify the live remote `main` HEAD and latest CI before modifying the repository.
 
@@ -380,6 +380,17 @@ NOT_YET_FORMED
 
 Never invent an LLC identity.
 
+Controller Fact Binder V1 is now canonical on main after PR #47 and post-merge CI 36050081205 — SUCCESS.
+
+Prepared offline readiness artifacts:
+
+- docs/templates/NY_MVP1_CONTROLLER_FACT_PACKET_TEMPLATE.md
+- docs/checklists/NY_MVP1_US_CONTROLLER_FORMATION_CHECKLIST.md
+- docs/checklists/NY_MVP1_US_CONTROLLER_CPA_ATTORNEY_QUESTIONS.md
+- docs/runbooks/NY_MVP1_POST_FORMATION_TO_P1_RUNBOOK.md
+
+They do not grant any P1 gate.
+
 US CPA/attorney review remains appropriate for:
 
 - foreign-owned US entity federal tax treatment;
@@ -427,13 +438,15 @@ PR #43 — US-controller + manual L2-A provider review — MERGED.
 
 PR #45 — Competitive Moat Gate — MERGED.
 
+PR #47 — offline Controller Fact Binder V1 — MERGED.
+
 Latest verified post-merge main:
 
-6cb0b89ae70573b9452343660ea6f0a23a47cce3
+06de8ec5c6a2734e5f126174b5483606fca6505a
 
 CI:
 
-36023036445 — SUCCESS
+36050081205 — SUCCESS
 
 ## 15. CURRENT SINGLE NEXT ACTION
 
