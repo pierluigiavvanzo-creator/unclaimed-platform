@@ -93,27 +93,54 @@ NOT_GRANTED
 
 No owner authorization or execution reference exists.
 
-## Stage 7 — Controller/legal/transparency readiness — NEXT
+## Stage 7 — Controller/legal/transparency readiness — REVIEWED / BLOCKED ON CONTROLLER FACTS
 
-Execute only:
+Action completed:
 
 DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
 
-Must determine/document:
+Result:
 
-- controller identity;
-- controller establishment;
-- applicable-law assessment;
-- legal basis for the proposed P1 processing;
-- transparency obligations/plan;
-- LIA if legitimate interests is selected;
-- fail-closed legal stop conditions.
+CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
 
-This stage is design/review only.
+Blocking findings:
 
-No source access, remote preflight, download, PII processing or gate creation.
+- controller legal identity absent from repository;
+- controller establishment absent;
+- GDPR applicability therefore unresolved;
+- no Article 6 basis selected;
+- Article 6(1)(f), if selected, requires completed LIA;
+- necessity of full-file acquisition is not established;
+- Article 14 path is unresolved if GDPR applies;
+- Article 21 objection process is absent;
+- DPIA screen required by project policy if GDPR applies;
+- direct-PII necessity for real L1-only is unresolved.
 
-## Stage 8 — L2-A provider privacy/terms readiness — CONDITIONAL
+All seven P1 gates remain NOT_GRANTED.
+
+Next human input:
+
+HUMAN_DEFINE_P1_CONTROLLER_IDENTITY_AND_ESTABLISHMENT
+
+Required:
+
+- exact legal name;
+- entity type;
+- establishment jurisdiction/country;
+- establishment/business address;
+- privacy contact if already defined.
+
+After that:
+
+COMPLETE_P1_APPLICABLE_LAW_LIA_TRANSPARENCY_AND_DPIA_SCREEN_OFFLINE
+
+## Stage 8 — Applicable law / LIA / transparency / DPIA completion — BLOCKED
+
+Cannot start conclusively until Stage 7 controller facts are supplied.
+
+No source access is required for this work.
+
+## Stage 9 — L2-A provider privacy/terms readiness — CONDITIONAL
 
 Only if P1 is intended to include L2-A in the same authorized run.
 
