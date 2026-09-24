@@ -20,13 +20,13 @@ e2856c61a77e2ff8ca6f973b9090beb87a754ebc
 
 Do not infer the live `main` HEAD from this handover. Documentation-only commits may advance `main`; verify the remote HEAD at the start of every task.
 
-Latest verified main checkpoint after controller-readiness merge:
+Latest verified main checkpoint after Stage B acceleration merge:
 
-6703d98f351f6e5dbc6a7be98f91099dae8f47e4
+5721b764c4c0dfc89bd3455f9870cee15c17e1d5
 
 Latest verified main CI:
 
-36009473009 — SUCCESS
+36011409899 — SUCCESS
 
 ## Integration completed
 
@@ -271,19 +271,69 @@ Remaining human dependencies are intentionally reduced to three groups:
 
 All seven P1 gates remain NOT_GRANTED.
 
-## SINGLE NEXT ACTION
+## Stage B acceleration approval consumed
 
-HUMAN_REVIEW_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
-
-Required phrase:
+Product Owner approval:
 
 APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
 
-If approved, execute only:
+PR #42:
 
-COMPLETE_US_CONTROLLER_FACT_BINDING_AND_L2A_MANUAL_PROVIDER_REVIEW_OFFLINE
+MERGED
 
-No source access, preflight, download, real PII processing or gate creation is authorized.
+Merge commit:
+
+5721b764c4c0dfc89bd3455f9870cee15c17e1d5
+
+Post-merge CI:
+
+36011409899 — SUCCESS
+
+This was repository/offline approval only.
+
+## US controller + L2-A manual provider review prepared
+
+Controller binding:
+
+- preferred track: US_CONTROLLER_US_MARKET;
+- factual fields remain null until supplied by the Product Owner;
+- real P1 is blocked if the entity is not actually formed/bound.
+
+Manual L2-A provider candidate:
+
+google-search-manual-us-v1
+
+Bounds:
+
+- authorized US controller operator only;
+- manual browser only;
+- max 3 queries;
+- max 900 seconds;
+- USD 0;
+- no API/automation/bot;
+- no data broker/FCRA product;
+- no outreach/value research;
+- no persisted query strings, URLs, screenshots or snippets;
+- AI Overview / AI Mode not evidence;
+- source page verification required.
+
+WebSurrogate:
+
+REJECTED_FOR_STAGE_B_COMMERCIAL_RESEARCH_ABSENT_EXPRESS_PERMISSION_OR_NEW_LEGAL_REVIEW
+
+All seven P1 gates remain NOT_GRANTED.
+
+## SINGLE NEXT ACTION
+
+HUMAN_REVIEW_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+
+Required phrase:
+
+APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+
+Approval does not authorize any real query, source access, download, PII processing or P1 execution.
+
+After approval, factual controller/entity input remains required before the fresh single-use gate packet can be prepared.
 
 ## Context restart order
 

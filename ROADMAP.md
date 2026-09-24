@@ -158,17 +158,57 @@ One candidate maximum.
 
 Review targetability result/stop and TARGETABILITY_DECISION_COST before any P2.
 
-## Stage B human review — NEXT
+## Stage B acceleration integration — COMPLETE
 
-Review only:
-
-HUMAN_REVIEW_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
-
-Required phrase:
+Product Owner approval:
 
 APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
 
-Approval does not authorize real P1.
+PR #42 — MERGED.
+
+Merge commit:
+
+5721b764c4c0dfc89bd3455f9870cee15c17e1d5
+
+Post-merge CI:
+
+36011409899 — SUCCESS
+
+## B0 — US controller fact binding — TEMPLATE READY / HUMAN FACTS REQUIRED
+
+No entity fact is invented.
+
+Required factual input remains the only blocker for binding the preferred US-controller track.
+
+## B3 — L2-A manual provider review — PREPARED OFFLINE
+
+Candidate:
+
+google-search-manual-us-v1
+
+Proposed bounds:
+
+- manual US operator only;
+- max 3 minimized queries;
+- max 900 seconds;
+- USD 0;
+- no API/bot/data broker/FCRA product;
+- no AI-generated summary as evidence;
+- no persisted PII query material.
+
+WebSurrogate is excluded for Stage B commercial research under current Terms of Use absent express permission/new legal review.
+
+## Stage B controller/provider human review — NEXT
+
+Review only:
+
+HUMAN_REVIEW_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+
+Required phrase:
+
+APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
+
+Approval does not authorize real P1 or any external PII query.
 
 ## P2 — approximately five cases — CONDITIONAL
 

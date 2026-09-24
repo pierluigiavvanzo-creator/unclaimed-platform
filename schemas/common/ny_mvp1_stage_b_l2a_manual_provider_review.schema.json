@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-stage-b-l2a-manual-provider-review:1.0.0",
+  "title": "NY MVP1 Stage B L2A Manual Provider Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "work_class",
+    "provider_candidate",
+    "terms_privacy_review",
+    "pii_query_minimisation",
+    "evidence_rules",
+    "explicit_source_exclusions",
+    "stop_conditions",
+    "provider_binding_template",
+    "execution_allowed",
+    "authorization_does_not_grant",
+    "review_result"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "artifact_id": {
+      "const": "ny.mvp1.stage_b.l2a_manual_provider_review"
+    },
+    "artifact_version": {
+      "const": "1.0.0"
+    },
+    "prepared_on": {
+      "const": "2026-09-24"
+    },
+    "status": {
+      "const": "CONDITIONAL_PASS_OFFLINE_NOT_APPROVED_FOR_REAL_PII_QUERY"
+    },
+    "work_class": {
+      "const": "A_PRODUCT_CRITICAL"
+    },
+    "provider_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "service",
+        "service_provider_if_us_country_terms",
+        "mode",
+        "api_allowed",
+        "automation_allowed",
+        "bot_allowed",
+        "paid_product_allowed",
+        "paid_data_broker_allowed",
+        "consumer_report_product_allowed",
+        "external_cash_budget_cents",
+        "manual_research_cap_seconds",
+        "max_search_queries",
+        "operator_location_requirement",
+        "operator_role_requirement",
+        "account_requirement",
+        "preferred_session_mode"
+      ],
+      "properties": {
+        "provider_id": {
+          "const": "google-search-manual-us-v1"
+        },
+        "service": {
+          "const": "Google Search"
+        },
+        "service_provider_if_us_country_terms": {
+          "const": "Google LLC"
+        },
+        "mode": {
+          "const": "MANUAL_BROWSER_ONLY"
+        },
+        "api_allowed": {
+          "const": false
+        },
+        "automation_allowed": {
+          "const": false
+        },
+        "bot_allowed": {
+          "const": false
+        },
+        "paid_product_allowed": {
+          "const": false
+        },
+        "paid_data_broker_allowed": {
+          "const": false
+        },
+        "consumer_report_product_allowed": {
+          "const": false
+        },
+        "external_cash_budget_cents": {
+          "const": 0
+        },
+        "manual_research_cap_seconds": {
+          "const": 900
+        },
+        "max_search_queries": {
+          "const": 3
+        },
+        "operator_location_requirement": {
+          "const": "UNITED_STATES"
+        },
+        "operator_role_requirement": {
+          "const": "AUTHORIZED_US_CONTROLLER_OPERATOR"
+        },
+        "account_requirement": {
+          "const": "NO_NEW_ACCOUNT_REQUIRED"
+        },
+        "preferred_session_mode": {
+          "const": "DEDICATED_US_BUSINESS_BROWSER_PROFILE_WITH_SEARCH_HISTORY_PERSONALIZATION_DISABLED_WHERE_AVAILABLE"
+        }
+      }
+    },
+    "terms_privacy_review": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "google_terms_effective_date",
+        "google_privacy_effective_date",
+        "business_use_supported_by_general_terms",
+        "search_terms_processed_by_google",
+        "device_network_activity_processed_by_google",
+        "signed_in_activity_may_be_saved_depending_on_settings",
+        "signed_out_activity_still_has_browser_device_controls_and_processing",
+        "respect_privacy_and_applicable_law_required",
+        "automated_access_prohibited_by_project_even_if_otherwise_available",
+        "review_refs"
+      ],
+      "properties": {
+        "google_terms_effective_date": {
+          "const": "2026-07-30"
+        },
+        "google_privacy_effective_date": {
+          "const": "2026-05-26"
+        },
+        "business_use_supported_by_general_terms": {
+          "const": true
+        },
+        "search_terms_processed_by_google": {
+          "const": true
+        },
+        "device_network_activity_processed_by_google": {
+          "const": true
+        },
+        "signed_in_activity_may_be_saved_depending_on_settings": {
+          "const": true
+        },
+        "signed_out_activity_still_has_browser_device_controls_and_processing": {
+          "const": true
+        },
+        "respect_privacy_and_applicable_law_required": {
+          "const": true
+        },
+        "automated_access_prohibited_by_project_even_if_otherwise_available": {
+          "const": true
+        }
+      }
+    },
+    "pii_query_minimisation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "first_query_template",
+        "second_query_template_if_ambiguous",
+        "third_query_template_if_still_ambiguous",
+        "forbidden_query_fields",
+        "query_strings_persisted",
+        "query_urls_persisted",
+        "screenshots_persisted",
+        "copied_snippets_persisted"
+      ],
+      "properties": {
+        "query_strings_persisted": {
+          "const": false
+        },
+        "query_urls_persisted": {
+          "const": false
+        },
+        "screenshots_persisted": {
+          "const": false
+        },
+        "copied_snippets_persisted": {
+          "const": false
+        }
+      }
+    },
+    "evidence_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "google_result_or_ai_summary_is_evidence",
+        "google_ai_overview_or_ai_mode_allowed_as_evidence",
+        "source_page_verification_required",
+        "public_access_without_login_required",
+        "paywalled_or_account_required_sources_allowed",
+        "source_terms_must_not_prohibit_proposed_use",
+        "durable_output_must_be_non_pii",
+        "allowed_durable_fields"
+      ],
+      "properties": {
+        "google_result_or_ai_summary_is_evidence": {
+          "const": false
+        },
+        "google_ai_overview_or_ai_mode_allowed_as_evidence": {
+          "const": false
+        },
+        "source_page_verification_required": {
+          "const": true
+        },
+        "public_access_without_login_required": {
+          "const": true
+        },
+        "paywalled_or_account_required_sources_allowed": {
+          "const": false
+        },
+        "source_terms_must_not_prohibit_proposed_use": {
+          "const": true
+        },
+        "durable_output_must_be_non_pii": {
+          "const": true
+        }
+      }
+    },
+    "explicit_source_exclusions": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "provider_binding_template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "provider_terms_review_ref",
+        "approved_external_cash_budget_cents",
+        "approved_manual_research_cap_seconds",
+        "paid_api_allowed",
+        "paid_data_broker_allowed",
+        "consumer_report_fcra_product_allowed"
+      ],
+      "properties": {
+        "provider_id": {
+          "const": "google-search-manual-us-v1"
+        },
+        "provider_terms_review_ref": {
+          "const": "docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md"
+        },
+        "approved_external_cash_budget_cents": {
+          "const": 0
+        },
+        "approved_manual_research_cap_seconds": {
+          "const": 900
+        },
+        "paid_api_allowed": {
+          "const": false
+        },
+        "paid_data_broker_allowed": {
+          "const": false
+        },
+        "consumer_report_fcra_product_allowed": {
+          "const": false
+        }
+      }
+    },
+    "execution_allowed": {
+      "const": false
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_pii_query",
+        "provider_budget_gate",
+        "l2a_execution",
+        "source_access",
+        "download"
+      ],
+      "properties": {
+        "external_pii_query": {
+          "const": false
+        },
+        "provider_budget_gate": {
+          "const": false
+        },
+        "l2a_execution": {
+          "const": false
+        },
+        "source_access": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        }
+      }
+    },
+    "review_result": {
+      "const": "CONDITIONAL_PROVIDER_CANDIDATE_READY_FOR_HUMAN_REVIEW_AFTER_CONTROLLER_FACT_BINDING"
+    }
+  }
+}

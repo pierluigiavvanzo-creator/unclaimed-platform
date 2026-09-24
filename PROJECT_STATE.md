@@ -142,18 +142,26 @@ Owner Name/address are not decoded or buffered for ranking.
 
 Second pass over the same already-authorized local archive.
 
-Only the selected ordinal is materially buffered.
+If L2-A is NOT pre-authorized, the selected ordinal is verified without field-buffering direct owner PII.
 
-Transient six-field candidate scope:
+L1-only verifies:
 
-- Property ID;
+- structural shape;
+- Property ID presence boolean;
 - Property Type Code;
 - Property Owner Count;
-- Owner Name;
-- Holder Name;
 - Holder Report Year.
 
-No durable/returned/logged owner PII or Holder Name.
+L1-only does not field-buffer:
+
+- Property ID value;
+- Owner Name;
+- Holder Name;
+- address fields.
+
+If L2-A is fully pre-authorized before download, direct selected-candidate PII may be transiently materialized only for that separately approved targetability purpose.
+
+No durable/returned/logged owner PII.
 
 L1 external paid spend:
 
@@ -325,18 +333,83 @@ Claim agreement, outreach, known value, recovery and profitability proof are dow
 
 No real source or PII activity was authorized or performed.
 
+## Stage B acceleration — APPROVED AND MERGED
+
+Product Owner approval:
+
+APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+
+PR #42:
+
+MERGED
+
+Merge commit:
+
+5721b764c4c0dfc89bd3455f9870cee15c17e1d5
+
+Post-merge CI:
+
+36011409899 — SUCCESS
+
+The approval covered repository integration of the Stage B fast-track only.
+
+It did not authorize real P1.
+
+## US-controller fact binding + L2-A manual provider review — PREPARED OFFLINE
+
+Artifacts:
+
+- sources/proposals/ny_mvp1_stage_b_us_controller_fact_binding.v1.json
+- schemas/common/ny_mvp1_stage_b_us_controller_fact_binding.schema.json
+- sources/proposals/ny_mvp1_stage_b_l2a_manual_provider_review.v1.json
+- schemas/common/ny_mvp1_stage_b_l2a_manual_provider_review.schema.json
+- tests/contract/test_ny_mvp1_stage_b_us_controller_l2a_manual_review.py
+- docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md
+
+Controller result:
+
+BLOCKED_ONLY_ON_CONTROLLER_ENTITY_FACTS_FOR_US_TRACK_BINDING
+
+No controller/entity fact was invented.
+
+L2-A provider candidate:
+
+google-search-manual-us-v1
+
+Status:
+
+CONDITIONAL_PASS_OFFLINE_NOT_APPROVED_FOR_REAL_PII_QUERY
+
+P1 provider bounds:
+
+- manual browser only;
+- US-based authorized controller operator;
+- maximum 3 minimized searches;
+- maximum 900 seconds;
+- USD 0 external cash spend;
+- no API;
+- no automation/bot;
+- no paid data broker;
+- no consumer-report/FCRA product;
+- no outreach;
+- no value research;
+- no persisted query strings/URLs/screenshots/snippets;
+- Google AI Overview/AI Mode is not accepted as evidence;
+- underlying public source page must be verified;
+- WebSurrogate is rejected for Stage B commercial research absent express permission/new legal review.
+
+All seven P1 gates remain NOT_GRANTED.
+
 ## Current next action
 
 Execute only:
 
-HUMAN_REVIEW_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+HUMAN_REVIEW_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
 
 Required phrase:
 
-APPROVE_NY_MVP1_STAGE_B_P1_ACCELERATION_OFFLINE_V1
+APPROVE_NY_MVP1_STAGE_B_US_CONTROLLER_AND_L2A_MANUAL_REVIEW_V1
 
-If approved, proceed offline with:
+Approval still does NOT authorize a real Google query, preflight, download, PII processing or P1 execution.
 
-COMPLETE_US_CONTROLLER_FACT_BINDING_AND_L2A_MANUAL_PROVIDER_REVIEW_OFFLINE
-
-No source access, preflight, download, real PII processing or grant creation is authorized.
+After review approval, the project still requires factual controller/entity input before any real gate can be prepared.
