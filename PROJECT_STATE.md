@@ -24,9 +24,11 @@ Canonical branch:
 
 main
 
-Current verified main HEAD:
+Verified runtime-integration checkpoint (PR #38 merge):
 
 e2856c61a77e2ff8ca6f973b9090beb87a754ebc
+
+Documentation-only commits may advance `main` beyond this runtime checkpoint. Always verify the remote `main` HEAD at task start.
 
 PR #37:
 
@@ -44,7 +46,7 @@ PR #38:
 
 MVP1: implement and review offline real P1 targetability runner — MERGED
 
-PR #38 merge commit / current main HEAD:
+PR #38 runtime-integration merge commit:
 
 e2856c61a77e2ff8ca6f973b9090beb87a754ebc
 
