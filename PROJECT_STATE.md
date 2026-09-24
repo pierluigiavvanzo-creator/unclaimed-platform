@@ -215,7 +215,7 @@ Current repository state does NOT authorize or perform:
 - representation;
 - claim activity.
 
-## Controller / legal basis / transparency readiness — REVIEWED
+## Controller / legal basis / transparency readiness — BIFURCATED REVIEW
 
 Action:
 
@@ -230,45 +230,64 @@ Artifacts:
 
 Result:
 
-CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
+BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
 
-Key findings:
+The review now distinguishes four factual tracks:
 
-1. canonical repository does not identify the legal controller or its establishment;
-2. if the controller is established in the EU, GDPR Article 3(1) may apply regardless of the US source/data-subject location;
-3. if GDPR applies, no final Article 6 basis is selected;
-4. Article 6(1)(f) legitimate interests is the only currently plausible pre-contact candidate in the present design, but requires a documented three-part LIA before processing;
-5. full Owner Name File acquisition is itself part of the personal-data processing scope and must pass necessity/minimisation review;
-6. Article 14 transparency is unresolved and no Article 14(5) exception is assumed;
-7. Article 21 objection handling is not implemented if legitimate interests is selected;
-8. project policy requires a ROPA entry and DPIA screen before real P1 if GDPR applies;
-9. real L1-only direct-PII decoding is not yet justified by necessity;
-10. all seven P1 execution/privacy gates remain NOT_GRANTED.
+1. US_CONTROLLER_US_MARKET:
+   preferred MVP hypothesis pending facts; likely outside GDPR controller scope only if the controller is genuinely US-based, has no relevant EU establishment, does not target/monitor people in the EU, and P1 remains US-only;
+2. EU_CONTROLLER_OR_EU_ESTABLISHMENT:
+   GDPR Article 3(1) track; Article 6/LIA/Article 14/Article 21/ROPA/DPIA readiness remains required;
+3. NON_EU_CONTROLLER_ARTICLE_3_2:
+   GDPR may apply if goods/services are offered to or behaviour is monitored for data subjects in the EU;
+4. US_CONTROLLER_WITH_EU_PROCESSOR_ONLY:
+   an EU processor does not automatically make the US controller subject to GDPR controller obligations under Article 3(1), but the processor may have its own GDPR obligations and roles/contracts require review.
+
+Preferred MVP privacy architecture hypothesis:
+
+- US LSP/controller owns and operates the platform for the US market;
+- production owner-PII plane is US-hosted/US-operated by default;
+- EU development uses synthetic/non-PII data by default;
+- EU developer/contractor access to live owner PII is prohibited absent separate role/territorial-scope review;
+- no EU customer targeting or behavioural monitoring for MVP1.
+
+This is a risk-control architecture, not a nominal device to evade applicable law.
+
+Cross-track safeguards remain:
+
+- full Owner Name File acquisition is a material privacy/security event;
+- full-file minimisation/security review remains required;
+- real L1-only direct-PII necessity remains unresolved;
+- all seven P1 execution/privacy gates remain NOT_GRANTED.
 
 No real-source or PII activity was authorized or performed.
 
 ## Remaining blocker before any real P1 grant
 
-The project now requires explicit factual identification of the controller before legal readiness can progress.
+The project now requires selection of the real controller operating model and factual entity information.
 
-Required facts:
+Required facts include:
 
+- US controller, EU controller, or other operating model;
 - exact controller legal name;
 - entity type;
-- country/jurisdiction of establishment;
-- establishment/business address;
-- privacy contact if already defined.
+- formation/incorporation jurisdiction;
+- principal establishment/business address;
+- whether any EU branch, office, employee, agent or other stable arrangement participates in P1;
+- whether any EU person/entity will access live owner PII;
+- who signs LSP customer agreements;
+- who receives LSP fees;
+- confirmation of US-only MVP1 market/no EU targeting or monitoring;
+- privacy contact if defined.
 
-These facts must not be inferred from the Product Owner, account holder, repository owner or chat context.
+These facts must not be inferred from Product Owner identity, account location, GitHub ownership or developer location.
 
 ## Current next action
 
 Execute only:
 
-HUMAN_DEFINE_P1_CONTROLLER_IDENTITY_AND_ESTABLISHMENT
+HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
 
-After those facts exist, the next offline action will be:
-
-COMPLETE_P1_APPLICABLE_LAW_LIA_TRANSPARENCY_AND_DPIA_SCREEN_OFFLINE
+Once those facts exist, complete only the legal track actually triggered by the operating model.
 
 No source access, preflight, download, PII processing or grant creation is authorized.
