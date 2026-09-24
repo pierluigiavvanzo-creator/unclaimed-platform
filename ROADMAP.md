@@ -201,11 +201,38 @@ Post-merge CI:
 
 36011409899 — SUCCESS
 
-## B0 — US controller fact binding — TEMPLATE READY / HUMAN FACTS REQUIRED
+## B0 — US controller fact binding — BINDER READY / HUMAN FORMATION FACTS REQUIRED
 
 No entity fact is invented.
 
-Required factual input remains the only blocker for binding the preferred US-controller track.
+Controller Fact Binder V1 is canonical after PR #47.
+
+Merge commit:
+
+06de8ec5c6a2734e5f126174b5483606fca6505a
+
+Post-merge CI:
+
+36050081205 — SUCCESS
+
+Required factual input remains the blocker for binding the preferred US-controller track.
+
+Current factual state:
+
+NOT_YET_FORMED
+
+### B0.1 — Formation-readiness pack — PREPARED OFFLINE
+
+Prepared:
+
+- controller fact packet template;
+- formation checklist;
+- CPA/attorney question set;
+- post-formation-to-P1 runbook.
+
+These artifacts reduce post-formation delay but grant no P1 authority.
+
+All seven P1 gates remain NOT_GRANTED.
 
 ## B3 — L2-A manual provider review — PREPARED OFFLINE
 
