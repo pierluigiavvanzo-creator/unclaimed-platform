@@ -215,27 +215,60 @@ Current repository state does NOT authorize or perform:
 - representation;
 - claim activity.
 
+## Controller / legal basis / transparency readiness — REVIEWED
+
+Action:
+
+DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
+
+Artifacts:
+
+- sources/proposals/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.v1.json
+- schemas/common/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.schema.json
+- tests/contract/test_ny_mvp1_real_p1_legal_readiness_contract.py
+- docs/audits/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
+
+Result:
+
+CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
+
+Key findings:
+
+1. canonical repository does not identify the legal controller or its establishment;
+2. if the controller is established in the EU, GDPR Article 3(1) may apply regardless of the US source/data-subject location;
+3. if GDPR applies, no final Article 6 basis is selected;
+4. Article 6(1)(f) legitimate interests is the only currently plausible pre-contact candidate in the present design, but requires a documented three-part LIA before processing;
+5. full Owner Name File acquisition is itself part of the personal-data processing scope and must pass necessity/minimisation review;
+6. Article 14 transparency is unresolved and no Article 14(5) exception is assumed;
+7. Article 21 objection handling is not implemented if legitimate interests is selected;
+8. project policy requires a ROPA entry and DPIA screen before real P1 if GDPR applies;
+9. real L1-only direct-PII decoding is not yet justified by necessity;
+10. all seven P1 execution/privacy gates remain NOT_GRANTED.
+
+No real-source or PII activity was authorized or performed.
+
 ## Remaining blocker before any real P1 grant
 
-The next unresolved prerequisite is legal/controller/transparency readiness.
+The project now requires explicit factual identification of the controller before legal readiness can progress.
 
-Before any real processing the project must document:
+Required facts:
 
-- controller identity;
-- controller establishment;
-- applicable-law assessment;
-- legal basis;
-- transparency obligations/plan;
-- any required legitimate-interest assessment if that basis is selected.
+- exact controller legal name;
+- entity type;
+- country/jurisdiction of establishment;
+- establishment/business address;
+- privacy contact if already defined.
 
-L2-A provider review remains separate and is only needed if L2-A is to be authorized.
+These facts must not be inferred from the Product Owner, account holder, repository owner or chat context.
 
 ## Current next action
 
 Execute only:
 
-DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
+HUMAN_DEFINE_P1_CONTROLLER_IDENTITY_AND_ESTABLISHMENT
 
-This next action is design/review only.
+After those facts exist, the next offline action will be:
 
-It must not perform source access, preflight, download, PII processing or create any of the seven execution grants.
+COMPLETE_P1_APPLICABLE_LAW_LIA_TRANSPARENCY_AND_DPIA_SCREEN_OFFLINE
+
+No source access, preflight, download, PII processing or grant creation is authorized.
