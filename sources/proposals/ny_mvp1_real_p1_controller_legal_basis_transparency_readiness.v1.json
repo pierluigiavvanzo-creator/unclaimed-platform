@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.real_p1.controller_legal_basis_transparency_readiness",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-24",
+  "status": "BLOCKED_CONTROLLER_IDENTITY_AND_TRANSPARENCY_PATH_UNRESOLVED",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "mode": "OFFLINE_DESIGN_REVIEW_ONLY",
+  "baseline": {
+    "main_checkpoint": "cf00481f2824d163f9e325faf66482243ebc2024",
+    "main_ci_run_id": 36000390328,
+    "main_ci_conclusion": "SUCCESS",
+    "scope_decision": "D-013",
+    "real_p1_gate_count": 7,
+    "all_real_p1_gates_state": "NOT_GRANTED"
+  },
+  "legal_review_disclaimer": "SOFTWARE_PRIVACY_CONTROL_DESIGN_NOT_LEGAL_OPINION",
+  "controller_readiness": {
+    "controller_identity_state": "UNRESOLVED_BLOCKING",
+    "controller_legal_name": null,
+    "controller_entity_type": null,
+    "controller_jurisdiction": null,
+    "controller_establishment_country": null,
+    "controller_establishment_address": null,
+    "privacy_contact": null,
+    "dpo_required_state": "NOT_ASSESSED",
+    "dpo_contact": null,
+    "eu_representative_required_state": "NOT_ASSESSED",
+    "eu_representative_contact": null,
+    "joint_controller_state": "NOT_ASSESSED",
+    "processor_inventory_state": "NOT_ASSESSED",
+    "repository_search_result": "NO_CONTROLLER_OR_LEGAL_ENTITY_IDENTIFIED_IN_CANONICAL_REPOSITORY",
+    "execution_allowed": false
+  },
+  "processing_scope": {
+    "stated_purpose": "IDENTIFY_ONE_TARGETABLE_BOUNDED_NY_OSC_IN03_CASE_AND_MEASURE_TARGETABILITY_DECISION_COST_BEFORE_VALUE_RESEARCH",
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "source_population_scope": "FULL_OWNER_NAME_FILE_TRANSIENT_ACQUISITION_PRECEDES_ONE_CANDIDATE_SELECTION",
+    "source_population_record_count_reference": 14994489,
+    "target_candidate_max": 1,
+    "l0_processing": "FULL_FILE_LOCAL_STREAMING_SELECTION_WITHOUT_OWNER_PII_RANKING",
+    "l1_processing": "ONE_SELECTED_RECORD_TRANSIENT_MATERIALIZATION",
+    "l2a_processing": "OPTIONAL_SEPARATELY_AUTHORIZED_MINIMAL_TARGETABILITY_DISCOVERY",
+    "outreach": false,
+    "value_research": false,
+    "beneficiary_matching": false,
+    "genealogy": false,
+    "claim_activity": false,
+    "important_scope_finding": "FULL_FILE_DOWNLOAD_AND_LOCAL_STORAGE_ARE_PERSONAL_DATA_PROCESSING_IF_APPLICABLE_LAW_TREATS_OWNER_FILE_FIELDS_AS_PERSONAL_DATA"
+  },
+  "new_york_readiness": {
+    "osc_publication_state": "SUPPORTED",
+    "location_service_provider_framework_state": "SUPPORTED",
+    "direct_claim_free_state": "SUPPORTED",
+    "fee_cap_state": "SUPPORTED_MAX_15_PERCENT_NOT_ASSUMED_REALIZED_FEE",
+    "solicitation_and_agreement_disclosure_state": "REQUIRED_IF_OFFERING_LOCATION_SERVICES",
+    "privacy_authorization_inference": "NOT_ESTABLISHED",
+    "finding": "OSC_PUBLICATION_AND_LOCATION_SERVICE_RULES_DO_NOT_BY_THEMSELVES_ESTABLISH_AN_EU_GDPR_LEGAL_BASIS_OR_BLANKET_DOWNSTREAM_PII_AUTHORIZATION",
+    "official_sources": [
+      "https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers",
+      "https://www.nysenate.gov/legislation/laws/ABP/1416",
+      "https://www.nysenate.gov/legislation/laws/GBS/393-E",
+      "https://www.nysenate.gov/legislation/laws/GBS/899-AA",
+      "https://www.nysenate.gov/legislation/laws/GBS/899-BB",
+      "https://www.nysenate.gov/legislation/laws/GBS/399-H"
+    ]
+  },
+  "gdpr_applicability": {
+    "state": "UNRESOLVED_UNTIL_CONTROLLER_ESTABLISHMENT_IS_DOCUMENTED",
+    "article_3_1_rule": "IF_PROCESSING_IS_IN_CONTEXT_OF_ACTIVITIES_OF_AN_EU_ESTABLISHMENT_GDPR_APPLIES_REGARDLESS_OF_WHETHER_PROCESSING_TAKES_PLACE_IN_EU",
+    "article_3_2_rule": "IF_CONTROLLER_NOT_ESTABLISHED_IN_EU_APPLICABILITY_REQUIRES_SEPARATE_ASSESSMENT_OF_OFFERING_SERVICES_TO_OR_MONITORING_DATA_SUBJECTS_IN_EU",
+    "public_source_exception_assumed": false,
+    "us_data_subject_exception_assumed": false,
+    "official_source": "https://eur-lex.europa.eu/eli/reg/2016/679/"
+  },
+  "article_6_basis_assessment": {
+    "final_basis_selected": false,
+    "consent": {
+      "candidate": false,
+      "reason": "PRE_CONTACT_DISCOVERY_OCCURS_BEFORE_DATA_SUBJECT_CONSENT"
+    },
+    "contract_or_precontract": {
+      "candidate": false,
+      "reason": "P1_IS_NOT_INITIATED_AT_THE_DATA_SUBJECT_REQUEST_AND_NO_CONTRACT_EXISTS_AT_DISCOVERY"
+    },
+    "legal_obligation": {
+      "candidate": false,
+      "reason": "NO_CONTROLLER_SPECIFIC_LEGAL_OBLIGATION_REQUIRING_THIS_P1_PROCESSING_HAS_BEEN_IDENTIFIED"
+    },
+    "vital_interests": {
+      "candidate": false,
+      "reason": "P1_COMMERCIAL_TARGETABILITY_DISCOVERY_IS_NOT_A_VITAL_INTEREST_PROCESSING_PURPOSE"
+    },
+    "public_task": {
+      "candidate": false,
+      "reason": "NO_OFFICIAL_AUTHORITY_OR_PUBLIC_TASK_VESTED_IN_THE_PROJECT_CONTROLLER_HAS_BEEN_IDENTIFIED"
+    },
+    "legitimate_interests": {
+      "candidate": true,
+      "status": "CANDIDATE_ONLY_NOT_APPROVED",
+      "proposed_interest": "LAWFUL_COMMERCIAL_INTEREST_IN_IDENTIFYING_AND_EVALUATING_POTENTIAL_NY_UNCLAIMED_PROPERTY_LOCATION_SERVICE_CASES_WHERE_ASSISTANCE_MAY_CREATE_REAL_SERVICE_VALUE",
+      "three_part_test_required": true,
+      "lawful_precise_real_present_interest_required": true,
+      "necessity_less_intrusive_alternative_test_required": true,
+      "balancing_test_required": true,
+      "reasonable_expectations_analysis_required": true,
+      "safeguards_analysis_required": true,
+      "article_21_objection_process_required": true,
+      "result": "LIA_REQUIRED_BEFORE_ANY_REAL_PROCESSING_IF_ARTICLE_6_1_F_IS_SELECTED"
+    },
+    "conclusion": "IF_GDPR_APPLIES_ARTICLE_6_1_F_IS_THE_ONLY_CURRENTLY_PLAUSIBLE_PRE_CONTACT_CANDIDATE_IN_THIS_DESIGN_BUT_IS_NOT_YET_ESTABLISHED"
+  },
+  "full_file_necessity_and_minimisation": {
+    "state": "BLOCKING_ASSESSMENT_REQUIRED",
+    "finding": "THE_REAL_P1_CURRENTLY_REQUIRES_ACQUIRING_A_FILE_CONTAINING_MILLIONS_OF_NAMES_AND_LAST_KNOWN_ADDRESSES_TO_SELECT_ONE_CASE",
+    "less_intrusive_alternative_test_required": true,
+    "source_side_filtering_feasibility_state": "NOT_ESTABLISHED",
+    "online_search_as_equivalent_alternative_state": "NOT_ESTABLISHED_FOR_CANDIDATE_DISCOVERY",
+    "transient_storage_mitigates_but_does_not_REMOVE_processing": true,
+    "project_decision": "NO_REAL_FULL_FILE_ACQUISITION_UNTIL_NECESSITY_AND_PROPORTIONALITY_ARE_DOCUMENTED"
+  },
+  "transparency_article_14": {
+    "state": "UNRESOLVED_BLOCKING_IF_GDPR_APPLIES",
+    "data_obtained_from_subject": false,
+    "default_rule": "ARTICLE_14_INFORMATION_REQUIRED_WHERE_PERSONAL_DATA_ARE_NOT_OBTAINED_FROM_DATA_SUBJECT",
+    "ordinary_deadlines": [
+      "WITHIN_REASONABLE_PERIOD_AND_AT_LATEST_ONE_MONTH_AFTER_OBTAINING_DATA",
+      "AT_LATEST_AT_FIRST_COMMUNICATION_IF_DATA_USED_TO_COMMUNICATE",
+      "AT_LATEST_AT_FIRST_DISCLOSURE_IF_DISCLOSED_TO_ANOTHER_RECIPIENT"
+    ],
+    "required_notice_elements": [
+      "CONTROLLER_IDENTITY_AND_CONTACT",
+      "DPO_CONTACT_IF_APPLICABLE",
+      "PURPOSES_AND_LEGAL_BASIS",
+      "CATEGORIES_OF_PERSONAL_DATA",
+      "RECIPIENTS_OR_CATEGORIES",
+      "RETENTION_PERIOD_OR_CRITERIA",
+      "LEGITIMATE_INTEREST_IF_USED",
+      "DATA_SUBJECT_RIGHTS",
+      "RIGHT_TO_OBJECT_IF_ARTICLE_6_1_F",
+      "RIGHT_TO_COMPLAIN_TO_SUPERVISORY_AUTHORITY",
+      "DATA_SOURCE_AND_PUBLICLY_ACCESSIBLE_SOURCE_STATUS",
+      "AUTOMATED_DECISION_INFORMATION_IF_APPLICABLE"
+    ],
+    "article_14_5_exception_assumed": false,
+    "disproportionate_effort_exception_state": "NOT_ESTABLISHED",
+    "direct_notice_path_state": "NOT_IMPLEMENTED_AND_CONFLICTS_WITH_CURRENT_NO_OUTREACH_L1_DESIGN",
+    "public_notice_substitute_state": "NOT_AUTHORIZED_NOT_ESTABLISHED",
+    "finding": "EPHEMERAL_OR_SAME_SESSION_PROCESSING_DOES_NOT_AUTOMATICALLY_REMOVE_ARTICLE_14_OBLIGATIONS",
+    "execution_allowed": false
+  },
+  "article_21_objection": {
+    "applicable_if_legitimate_interests_basis": true,
+    "process_state": "NOT_IMPLEMENTED",
+    "requirement": "IF_ARTICLE_6_1_F_IS_USED_DATA_SUBJECT_MUST_HAVE_AN_EFFECTIVE_OBJECTION_PATH_AND_PROCESSING_MUST_STOP_UNLESS_COMPELLING_LEGITIMATE_GROUNDS_OR_LEGAL_CLAIMS_APPLY",
+    "first_communication_notice_required": true
+  },
+  "accountability_and_records": {
+    "article_5_principles_required": true,
+    "article_24_accountability_required_if_gdpr_applies": true,
+    "article_25_privacy_by_design_required_if_gdpr_applies": true,
+    "ropa_project_policy": "REQUIRED_BEFORE_REAL_P1_REGARDLESS_OF_POSSIBLE_ARTICLE_30_SMALL_ORGANISATION_EXCEPTION",
+    "retention_schedule_required": true,
+    "data_subject_rights_procedure_required": true,
+    "incident_response_owner_required": true,
+    "access_control_owner_required": true
+  },
+  "dpia_readiness": {
+    "legal_requirement_conclusion": "NOT_DETERMINED",
+    "project_policy": "DPIA_SCREEN_REQUIRED_BEFORE_REAL_P1_IF_GDPR_APPLIES",
+    "drivers": [
+      "FULL_FILE_CONTAINS_MILLIONS_OF_IDENTIFIABLE_RECORDS",
+      "COMMERCIAL_TARGETABILITY_SELECTION",
+      "POTENTIAL_IDENTITY_AND_CONTACTABILITY_DISCOVERY_AT_L2A",
+      "REPEATED_PRODUCT_USE_IS_INTENDED_IF_P1_SUCCEEDS"
+    ],
+    "full_dpia_if_high_risk_screen_positive": true,
+    "supervisory_authority_list_check_required": true
+  },
+  "precontact_minimisation_finding": {
+    "state": "MATERIAL_DESIGN_ISSUE",
+    "finding": "L1_CURRENTLY_DECODES_OWNER_NAME_PROPERTY_ID_AND_HOLDER_NAME_EVEN_WHEN_L2A_IS_NOT_AUTHORIZED",
+    "necessity_for_l1_only": "NOT_ESTABLISHED",
+    "recommended_project_constraint": "DO_NOT_EXECUTE_REAL_L1_ONLY_WITH_DIRECT_OWNER_PII_UNLESS_NECESSITY_IS_DOCUMENTED;PREFER_NO_PII_L1_OR_PREAUTHORIZED_L1_PLUS_L2A",
+    "runtime_change_authorized": false
+  },
+  "readiness_requirements": [
+    "IDENTIFY_CONTROLLER_LEGAL_NAME_AND_ENTITY_TYPE",
+    "DOCUMENT_CONTROLLER_ESTABLISHMENT_AND_APPLICABLE_LAW",
+    "IF_GDPR_APPLIES_SELECT_AND_DOCUMENT_ARTICLE_6_BASIS",
+    "IF_ARTICLE_6_1_F_SELECTED_COMPLETE_LIA_THREE_PART_TEST",
+    "DOCUMENT_WHY_FULL_FILE_ACQUISITION_IS_NECESSARY_OR_REDESIGN_TO_LESS_INTRUSIVE_SOURCE_ACCESS",
+    "SELECT_ARTICLE_14_TRANSPARENCY_PATH_OR_DOCUMENT_VALID_EXCEPTION_WITH_SAFEGUARDS",
+    "IMPLEMENT_DATA_SUBJECT_RIGHTS_AND_ARTICLE_21_OBJECTION_PROCESS_IF_APPLICABLE",
+    "CREATE_ROPA_ENTRY_BY_PROJECT_POLICY",
+    "COMPLETE_DPIA_SCREEN_AND_FULL_DPIA_IF_REQUIRED",
+    "DEFINE_EXACT_RETENTION_AND_DELETION_EVIDENCE",
+    "REVIEW_L1_ONLY_DIRECT_PII_NECESSITY",
+    "HUMAN_LEGAL_REVIEW_SIGNOFF"
+  ],
+  "fail_closed_conditions": [
+    "CONTROLLER_IDENTITY_UNKNOWN",
+    "CONTROLLER_ESTABLISHMENT_UNKNOWN",
+    "APPLICABLE_LAW_UNRESOLVED",
+    "GDPR_APPLIES_AND_ARTICLE_6_BASIS_NOT_DOCUMENTED",
+    "LEGITIMATE_INTEREST_SELECTED_WITHOUT_COMPLETED_LIA",
+    "FULL_FILE_NECESSITY_NOT_DOCUMENTED",
+    "ARTICLE_14_PATH_UNRESOLVED_WHERE_GDPR_APPLIES",
+    "DATA_SUBJECT_RIGHTS_PROCESS_MISSING_WHERE_REQUIRED",
+    "ARTICLE_21_OBJECTION_PROCESS_MISSING_IF_ARTICLE_6_1_F",
+    "DPIA_SCREEN_NOT_COMPLETED_WHERE_REQUIRED_BY_PROJECT_POLICY",
+    "L1_DIRECT_PII_NECESSITY_UNRESOLVED",
+    "LEGAL_REVIEW_SIGNOFF_MISSING"
+  ],
+  "authorization_does_not_grant": {
+    "source_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "real_candidate_materialization": false,
+    "owner_pii_processing": false,
+    "external_pii_query": false,
+    "identity_resolution": false,
+    "address_enrichment": false,
+    "outreach": false,
+    "value_research": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false,
+    "any_of_seven_p1_gates": false
+  },
+  "review_result": "CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1",
+  "required_owner_review_phrase": "APPROVE_NY_MVP1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_FINDINGS_V1",
+  "next_action_if_approved": "IMPLEMENT_AND_REVIEW_P1_PRECONTACT_PRIVACY_MINIMIZATION_AND_LEGAL_READINESS_ARTIFACTS_OFFLINE"
+}
