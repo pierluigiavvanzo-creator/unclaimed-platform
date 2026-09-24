@@ -1,239 +1,303 @@
 # PROJECT_STATE.md
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
 ## Authoritative product state
 
-The project is in **PRODUCT VALIDATION MODE**.
+The project is in PRODUCT VALIDATION / TARGETABILITY DISCOVERY MODE.
 
 Primary objective:
 
-`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
+ONE AUTHORIZED REAL SOURCE -> ONE TARGETABLE BOUNDED CASE -> ONE REVIEWABLE ECONOMIC RESULT
 
-Governance and source diagnostics remain frozen unless a real execution proves a concrete blocker.
+Primary economic rule:
+
+BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE
+
+Guiding metric:
+
+ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME
 
 ## Canonical integration branch
 
-`main`
+main
 
-`main` remains the canonical integration branch. Product-critical milestone branches are temporary and must not be merged without the Product Owner's explicit authorization.
+Verified remote main HEAD before this work:
 
-## Real-source evidence — NY OSC Attempt 9
+23de3a6ef5f1d6335691e17206285b4ec5f923af
 
-Attempt 9 executed once and is `CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`.
+PR #35 is merged.
 
-Authoritative non-PII evidence:
+The current work is isolated on:
 
-`sources/evidence/ny_osc_owner_name_file_ninth_attempt_execution_result.v1.json`
+mvp1-targetable-opportunity-reframe
 
-Observed aggregate result:
+No merge to main has been executed.
 
-- status `BLOCKED`;
-- reason `TRAILING_DELIMITER_HYPOTHESIS_NOT_CONFIRMED`;
-- archive bytes `409477526`;
-- physical records `14994489`;
-- exactly-14-pipe records `12`;
-- records ending with `|`: `0`;
-- non-empty data after the 14th pipe: `12`;
-- records with any other pipe count: `14994477`;
-- no owner/raw values returned.
+## Real-source evidence already established
 
-The empty-terminal-field hypothesis is rejected. The `14994477` aggregate bucket must not be interpreted as all 13-pipe records.
-
-## Real-source evidence — NY OSC Attempt 10
-
-Attempt 10 received fresh exact-match metadata and one bounded execution authorization. One manual download occurred, but the product slice did not start.
-
-Authoritative non-PII evidence:
-
-`sources/evidence/ny_osc_owner_name_file_tenth_attempt_execution_result.v1.json`
-
-Result:
-
-- status `BLOCKED`;
-- reason `AUTHORIZED_DOWNLOAD_START_OUTSIDE_FRESH_PREFLIGHT_WINDOW`;
-- failure stage `BUILD_REAL_EXECUTION_AUTHORIZATION_V1_6`;
-- the runner had already confirmed `FINDERS.zip` existed before invoking Python;
-- classification did not start;
-- no candidate/zero-candidate result was produced;
-- no owner values or raw path were returned;
-- authorization is treated as `CONSUMED_SINGLE_USE_NON_REUSABLE`;
-- zero retry;
-- runner cleanup was attempted, but physical secure erasure is not guaranteed.
-
-Root cause: Gate 10 depended on the operator pressing Enter to capture the download-start marker. That marker was recorded after the 900-second preflight deadline.
-
-## Completed product-critical milestone — NY OSC Attempt 11
-
-Branch:
-
-`mvp1-ny-eleventh-auto-start-detection-offline`
-
-Historical PR:
-
-`#29 — MERGED`
-
-Canonical integration PR:
-
-`#30 — MERGED INTO main`
-
-Main integration commit:
-
-`c5a56be629b7a684666a8fc5ee57fec24ff734c4`
-
-Attempt 11 reuses the Attempt-10 product slice unchanged and modifies only the freshness handoff.
-
-Proposal checkpoint:
-
-`270de2f6e79b7c654052519adc446fe76b811771`
-
-Runner/code checkpoint:
-
-`bac89609e9069efc98fcd0866b89ee4ee16f1689`
-
-CI:
-
-`35859448715 — SUCCESS`
-
-Passed: Ruff, mypy, contract tests, smoke tests, full pytest suite, Streamlit safety/startup, frontend lint/typecheck/build.
-
-Gate 11 behavior:
-
-- requires at least `180` freshness seconds remaining before exposing the download instruction;
-- creates a new dedicated empty OS temp directory;
-- arms automatic detection before instructing the operator to start the manual download;
-- polls the dedicated directory every `100 ms`;
-- captures the authorized download-start marker at the first observation of any non-empty file in that previously empty directory;
-- no operator Enter is used for the start marker;
-- if no start is observed before the preflight deadline, execution stops fail-closed;
-- completion confirmation remains one manual Enter after the same single download finishes;
-- one download / one execution / zero retry;
-- no direct network client in the runner;
-- product slice remains: 13 pipes -> documented 14-field width -> Property Type Code index 1 -> exact authority-backed insurance classification -> aggregate IN03 candidate or zero-candidate result;
-- all other physical shapes are deferred metadata-only;
-- owner/candidate PII is not materialized by this package;
-- recoverable value remains `UNKNOWN_FROM_SOURCE`.
-
-No NY OSC access, fresh preflight, download, or PII processing occurred while preparing Attempt 11 offline.
-
-## Real-source evidence — NY OSC Attempt 11
-
-Attempt 11 completed the bounded real product slice once.
+NY OSC Attempt 11 completed one bounded aggregate real-source product slice.
 
 Authoritative result:
 
-`sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json`
+sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json
 
-Audit:
+Observed:
 
-`docs/audits/NY_OSC_ELEVENTH_ATTEMPT_PRODUCT_SLICE_COMPLETED.md`
+- total physical records: 14,994,489;
+- structurally conforming: 14,994,477;
+- structurally deferred: 12;
+- authority-backed insurance: 2,792,990;
+- primary IN03 aggregate candidates: 203,921;
+- candidate materialization: NOT_AUTHORIZED_AGGREGATE_ONLY;
+- recoverable value: UNKNOWN_FROM_SOURCE.
 
-Result:
+No owner/raw values were returned.
 
-- status `COMPLETED`;
-- reason `PRODUCT_SLICE_COMPLETED`;
-- archive bytes `409477526`;
-- total records `14994489`;
-- structurally conforming records `14994477`;
-- deferred structural records `12`;
-- authority-backed insurance records `2792990`;
-- primary `IN03` candidate records `203921`;
-- other insurance records `2589069`;
-- no authority-backed insurance match records `12201486`;
-- unclassifiable Property Type Code records `1`;
-- candidate outcome `CANDIDATES_PRESENT_AGGREGATE_ONLY`;
-- candidate materialization `NOT_AUTHORIZED_AGGREGATE_ONLY`;
-- economic actionability `VALUE_EVIDENCE_REQUIRED`;
-- recoverable value `UNKNOWN_FROM_SOURCE`;
-- owner/raw values returned: none;
-- local archive logical deletion reported: true;
-- physical secure erasure guarantee: false.
+All Attempt-11 execution/privacy approvals are consumed, non-reusable and zero-retry.
 
-Authorized download start:
+## Stage A — completed and merged
 
-`2026-09-23T12:30:59.478237Z`
+Action:
 
-Automatic start detection succeeded inside the fresh-preflight window.
+IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION
 
-All Attempt-11 single-use grants are now treated as:
+PR #34 — MERGED
 
-`CONSUMED_SINGLE_USE_NON_REUSABLE / ZERO_RETRY`
+Merge commit:
 
-No Attempt-11 authorization may be reused.
+9fc0c782ae575307be38c3f6b55b8f5ce477d372
 
-## Current product blocker
+Post-merge CI:
 
-The parser/freshness blocker is closed for the current bounded slice.
+35920762625 — SUCCESS
 
-The remaining MVP-1 gap is downstream:
+Stage A proved synthetic transient materialization and economic instrumentation.
 
-`ONE LAWFULLY MATERIALIZED CANDIDATE -> VALUE/EVIDENCE -> CASE ECONOMICS -> REVIEWER DECISION`
+Stage A used FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER only to prove deterministic technical behavior.
 
-Existing repository components already provide deterministic/fail-closed foundations for:
+It remains historical/technical evidence and is no longer the proposed economic-targeting rule for future real P1.
 
-- candidate/classification contracts;
-- pre-contact value-evidence state;
-- measured follow-up cost;
-- explicit case economics;
-- reviewer surfaces.
+## Product-value reframe — 2026-09-24
 
-Current real candidate materialization remains unauthorized, and the real source result does not provide supported recoverable-value evidence or a lawful fee basis.
+Product Owner direction:
 
-Do not return to parser/timing diagnostics unless new evidence proves a concrete blocker.
+Do not target candidates merely because IN03 exists or because a case appears difficult.
 
-## Economic feasibility audit — 2026-09-23
+Target the subset where the service can create material value despite the free OSC claim path:
 
-Whole-project audit:
+MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
-`docs/audits/ECONOMIC_FEASIBILITY_AUDIT_2026-09-23.md`
+Updated value proposition:
 
-Audit status:
+Find unresolved insurance-beneficiary opportunities that the rightful person or authorized representative may not be effectively resolving through ordinary processes, determine whether the case is practically resolvable at bounded cost, and provide compliant discovery/location/recovery assistance where that assistance creates real value.
 
-`CONDITIONAL_CONTINUE_ECONOMIC_VALIDATION_NOT_SCALE`
+The product must never imply that a customer must pay to obtain funds from OSC.
 
-Main conclusions:
+## D-012 — targetable opportunity policy
 
-- real candidate supply is proven at aggregate record level: `203921` primary `IN03` records;
-- source screening/processing technical feasibility is proven;
-- New York has an explicit commercial location-service-provider framework with a statutory maximum fee of 15% for the applicable scope;
-- the owner can claim directly from OSC for free, so discovery alone is not a sufficient value proposition;
-- OSC increasingly automates qualifying simple/low-value returns;
-- case-level recoverable value is not available in the Owner Name File and remains unavailable before claim review/ownership verification;
-- real unit economics, contact conversion, realized fee, collection rate and cycle time are not measured;
-- lawyer-fee referral/revenue-share economics must not be assumed without specialized legal review;
-- project-wide scale/architecture expansion is economically premature.
+Accepted on the active branch.
 
-The economic bottleneck is now:
+Future P1 proposed selection rule:
 
-`CANDIDATE -> LAWFUL VALUE/CONTACT DISCOVERY -> MEASURED COST -> RECOVERY -> REALIZED FEE -> CONTRIBUTION`
+PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
+
+Holder Report Year is a persistence signal only.
+
+It is not evidence of:
+
+- monetary value;
+- awareness;
+- death;
+- contactability;
+- willingness to pay.
+
+No fixed age threshold is invented.
+
+## Targetability parameters
+
+SERVICE_NEED_STATE:
+
+- UNKNOWN
+- LOW_EVIDENCE
+- MATERIAL_EVIDENCE
+
+RESOLVABILITY_STATE:
+
+- UNKNOWN
+- EASY
+- BOUNDED
+- UNBOUNDED
+
+ESTATE_PATH_STATE:
+
+- NOT_EVALUATED
+- NO_EVIDENCE
+- EVIDENCE_PRESENT
+
+REPRESENTATIVE_PATH_STATE:
+
+- NOT_EVALUATED
+- IDENTIFIED
+- BOUNDED_DISCOVERABLE
+- NOT_BOUNDED
+
+AWARENESS_STATE before outreach:
+
+UNKNOWN_UNTIL_OUTREACH
+
+Targetability classes:
+
+- T0_SELF_SERVICE_LIKELY
+- T1_UNRESOLVED_BUT_LOCATABLE
+- T2_ESTATE_OR_REPRESENTATIVE_PATH
+- T3_HARD_BUT_BOUNDED
+- T4_UNBOUNDED_OR_UNRESOLVED_STOP
+
+Insufficient evidence:
+
+UNRESOLVED_REQUIRES_L2
+
+No numeric targetability score is allowed in v1.
+
+## Friction lanes
+
+F0-F3 remain backward-compatible process-friction observations only.
+
+They are not:
+
+- value scores;
+- targetability scores;
+- ranking scores;
+- automatic commercial decisions.
+
+No automatic mapping exists between F0-F3 and T0-T4.
+
+## Economic parameters
+
+PRE_VALUE_DISCOVERY_COST remains the umbrella metric.
+
+New primary P1 sub-metric:
+
+TARGETABILITY_DECISION_COST
+
+Definition:
+
+the evidenced incremental cost required to determine whether the case has material service need and bounded resolvability before outreach/value research.
+
+L1 maximum new external cash spend:
+
+USD 0.00
+
+L1 paid API calls:
+
+NOT ALLOWED
+
+L1 paid data purchases:
+
+NOT ALLOWED
+
+L2 incremental budget:
+
+UNSET_REQUIRES_PRODUCT_OWNER
+
+## Synthetic Targetable Opportunity Filter V1 — VERIFIED
+
+Implementation:
+
+src/unclaimed_platform/domain/ny_mvp1_targetable_opportunity.py
+
+Machine contract:
+
+schemas/common/ny_mvp1_targetable_opportunity_filter.schema.json
+
+Tests:
+
+tests/unit/test_ny_mvp1_targetable_opportunity.py
+
+tests/contract/test_ny_mvp1_targetable_opportunity_contract.py
+
+Proposal:
+
+sources/proposals/ny_mvp1_targetable_opportunity_filter.v1.json
+
+Strategy/audits:
+
+- PRODUCT_STRATEGY_MVP1.md v3.0
+- docs/audits/TARGETABLE_OPPORTUNITY_VALUE_PROPOSITION_REFRAME_2026-09-24.md
+- docs/audits/NY_MVP1_TARGETABLE_OPPORTUNITY_FILTER_REVIEW.md
+
+Verified implementation checkpoint:
+
+89a3fcc0528571e465f73b94552165d3ccea14e6
+
+CI:
+
+35993271424 — SUCCESS
+
+Verified:
+
+- Ruff;
+- mypy;
+- contract tests;
+- smoke tests;
+- full pytest;
+- Streamlit safety/startup;
+- frontend lint;
+- frontend typecheck;
+- frontend build.
+
+Initial CI defect:
+
+pytest import collision caused by identical unit/contract test basenames.
+
+Repair:
+
+contract test renamed.
+
+No product logic changed.
+
+## Safety / authorization state
+
+The targetability implementation is synthetic-only.
+
+It does NOT authorize or perform:
+
+- source access;
+- remote preflight;
+- download;
+- real candidate materialization;
+- real owner PII processing;
+- identity resolution;
+- beneficiary matching;
+- address enrichment;
+- third-party API use;
+- outreach;
+- value research;
+- fee agreement;
+- representation;
+- claim activity.
+
+No previous real-source/privacy authorization may be reused.
+
+## Current blocker
+
+The technical targetability model is verified synthetically.
+
+The remaining blocker to real P1 is human/legal/privacy authorization for a strictly bounded real experiment.
+
+L2 identity/contactability spend is not authorized and has no budget yet.
 
 ## Current next action
 
-Do not expand privacy scope or general architecture yet.
+Execute only:
 
-If the Product Owner accepts the audit conclusion, the next implementation task is Stage A only:
+HUMAN_REVIEW_TARGETABLE_OPPORTUNITY_REFRAME_AND_SYNTHETIC_FILTER_V1
 
-`IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION`
+If accepted, merge/integrate this branch only with explicit Product Owner authorization.
 
-using the already approved proposal:
+After integration, the next separate design gate will be:
 
-`sources/proposals/ny_osc_one_candidate_value_evidence_offline_proposal.v1.json`
+DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
 
-Stage A must remain synthetic-only and must not authorize source access, download, owner PII, identity resolution, beneficiary matching, outreach, value research, fee agreement, representation or claim activity.
-
-Only after Stage A and an explicit legal/privacy review may a separate one-real-candidate economic-discovery execution be considered.
-
-## Product exit criteria
-
-Current status:
-
-- authorized real source: ACHIEVED FOR BOUNDED EXECUTIONS;
-- bounded real acquisition: ACHIEVED;
-- whole-file structural evidence: ACHIEVED VIA ATTEMPT 9;
-- real row-defer + insurance classification: ACHIEVED VIA ATTEMPT 11;
-- real candidate or documented zero-candidate aggregate: ACHIEVED — `203921` aggregate primary `IN03` candidates;
-- real candidate materialization: NOT AUTHORIZED / NOT DONE;
-- real provenance/evidence package: PARTIAL;
-- reproducible real case economics: BLOCKED UNTIL VALUE/FEE/COST EVIDENCE EXISTS;
-- reviewer case with human GO / REVISE / STOP: NOT DONE;
-- commercial baseline: PARTIAL — real funnel counts established, value/review-cost/revenue evidence still missing.
+That later gate must establish the exact PII envelope, retention/disposal, single-use approvals and Product Owner L2 incremental budget before any real candidate is processed.
