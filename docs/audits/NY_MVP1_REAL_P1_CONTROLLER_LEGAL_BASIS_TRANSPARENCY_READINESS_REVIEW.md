@@ -6,15 +6,39 @@ Classification: A — Product Critical
 
 Mode: OFFLINE / DESIGN-REVIEW ONLY
 
+Version: 1.1 — bifurcated US-controller vs EU-controller analysis
+
 Result:
 
-CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
+BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
 
 This document is a software/privacy control review. It is not a legal opinion and does not replace qualified legal review.
 
-## 1. Baseline
+## 1. Why the review was reformulated
 
-Canonical main checkpoint verified before this review:
+The first version correctly treated GDPR applicability as unresolved because the repository does not identify the controller.
+
+The Product Owner then raised a material operating-model question:
+
+What changes if the Location Service Provider and platform owner is a US company serving the US market?
+
+That question materially changes the territorial-scope analysis.
+
+The correct project design is therefore not:
+
+ASSUME GDPR
+
+and not:
+
+ASSUME NO GDPR.
+
+It is:
+
+SELECT CONTROLLER OPERATING MODEL -> VERIFY FACTS -> APPLY THE CORRECT LEGAL TRACK.
+
+## 2. Baseline
+
+Verified main checkpoint before this review:
 
 cf00481f2824d163f9e325faf66482243ebc2024
 
@@ -29,471 +53,306 @@ Canonical P1 architecture:
 - D-013 two-pass P1 runner;
 - seven fresh P1 gate templates, all NOT_GRANTED.
 
-No source access, preflight, download, real PII processing or P1 execution occurred during this review.
+No source access, preflight, download, real PII processing or P1 execution occurred.
 
-## 2. Repository finding — controller identity is absent
+## 3. Controller identity remains a factual blocker
 
-A repository search found no canonical declaration for:
+The canonical repository still contains no declaration of:
 
-- data controller / titolare del trattamento;
-- legal entity operating P1;
-- controller establishment;
-- privacy contact;
-- DPO;
-- joint-controller allocation.
-
-This is blocking.
-
-Under GDPR Article 4(7), the controller is the natural or legal person, authority, agency or other body which determines the purposes and means of processing.
-
-The project cannot safely infer a controller from the Product Owner identity, repository owner name, account name, developer identity, business idea or geographic location.
-
-Required fields before real execution:
-
-- legal name;
+- exact controller legal name;
 - entity type;
-- jurisdiction;
-- establishment country/address;
+- incorporation/formation jurisdiction;
+- principal establishment;
 - privacy contact;
-- controller role;
-- processor inventory;
-- joint-controller status;
-- DPO requirement assessment;
-- EU representative assessment if applicable.
+- EU establishment;
+- EU targeting;
+- EU monitoring;
+- EU processor/contractor access to real owner PII.
 
-## 3. GDPR territorial scope
+Those facts cannot be inferred from:
 
-Article 3(1) GDPR applies to processing in the context of the activities of an establishment of a controller or processor in the Union, regardless of whether the processing itself takes place in the Union.
+- Product Owner identity;
+- GitHub account;
+- personal residence;
+- developer location;
+- ownership of the source code;
+- intended corporate structure.
+
+The controller is determined by who actually decides the purposes and essential means of the processing.
+
+## 4. Track A — US controller / US market
+
+### Proposed MVP hypothesis
+
+The preferred simplification hypothesis is:
+
+US LEGAL ENTITY
+-> owns/operates the platform
+-> acts as the Location Service Provider
+-> determines purposes and essential means
+-> contracts with US customers
+-> receives the service fee
+-> targets the US market
+-> does not target or monitor people in the EU
+-> has no EU establishment whose activities are connected to P1.
+
+If those facts are true, the US controller is likely outside GDPR controller scope under Article 3.
+
+This is not yet a legal determination because the entity and operational facts do not yet exist in the repository.
+
+### Consequence if Track A is confirmed
+
+The following GDPR-controller items would no longer be blockers merely for this P1 processing:
+
+- Article 6 legal basis;
+- Article 14 controller transparency;
+- Article 21 controller objection mechanism;
+- GDPR ROPA;
+- GDPR DPIA.
+
+US / New York legal, privacy, security and consumer-protection review would still remain required.
+
+The project must not interpret "GDPR outside scope" as "data unrestricted".
+
+## 5. Track B — EU controller or relevant EU establishment
+
+If the controller is established in the EU, GDPR Article 3(1) applies to processing in the context of that establishment regardless of where the processing physically occurs.
+
+The US source does not remove GDPR applicability.
+
+The fact that the data subjects are in the US does not remove Article 3(1) when the processing occurs in the context of an EU establishment.
+
+The same track can become relevant where a US controller has an EU establishment and the P1 processing is sufficiently connected to the activities of that establishment.
+
+If Track B is triggered, the previous blockers remain:
+
+- Article 6 basis;
+- LIA if Article 6(1)(f) is selected;
+- full-file necessity/minimisation;
+- Article 14 path;
+- Article 21 process if legitimate interests is used;
+- ROPA by project policy;
+- DPIA screen by project policy.
+
+## 6. Track C — non-EU controller targeting or monitoring the EU
+
+A non-EU controller may still enter GDPR scope under Article 3(2) if its processing relates to:
+
+- offering goods or services to data subjects in the EU; or
+- monitoring their behaviour in the EU.
+
+Current MVP intent is:
+
+NO EU TARGETING
+NO EU MONITORING
+US MARKET ONLY.
+
+That intent must become an operational constraint if the US-controller track is selected.
+
+## 7. Important distinction — EU processor is not automatically an EU establishment of the US controller
+
+EDPB Guidelines 3/2018 require controller and processor territorial scope to be assessed separately.
+
+An EU processor does not become an establishment of a non-EU controller merely because it processes data on that controller's behalf.
 
 Therefore:
 
-- US source data is not automatically outside GDPR;
-- US data subjects are not automatically outside GDPR where Article 3(1) applies;
-- public availability is not a general GDPR exemption.
+US CONTROLLER + EU PROCESSOR
 
-If the actual controller is not established in the Union, Article 3(2) requires a separate assessment of whether processing relates to offering goods/services to data subjects in the Union or monitoring their behaviour there.
+does not automatically mean:
 
-Current conclusion:
+US CONTROLLER SUBJECT TO GDPR CONTROLLER OBLIGATIONS UNDER ARTICLE 3(1).
 
-GDPR_APPLICABILITY = UNRESOLVED
+However:
 
-because controller identity and establishment are unresolved.
+- the EU processor may itself be subject to GDPR processor obligations;
+- controller/processor roles and contract must be reviewed;
+- the factual relationship must remain genuinely processor-like;
+- an EU entity/person that actually determines purposes or essential means may not be only a processor.
 
-Official source:
+## 8. Preferred MVP privacy architecture
 
-https://eur-lex.europa.eu/eli/reg/2016/679/
+To keep the US-controller hypothesis factually clean and reduce cross-jurisdiction complexity, the proposed MVP architecture is:
 
-## 4. Important scope correction — the whole file is part of the processing
+### Controller plane
 
-The current P1 technical design selects only one candidate, but the real source workflow first acquires the Owner Name File.
+US LSP/controller owns and operates the platform for the US market.
 
-Attempt 11 established a source population of:
+### Production PII plane
 
-14,994,489 physical records.
+US-hosted and US-operated by default.
 
-OSC states that the downloadable list includes names and last-known addresses of persons or entities that may be entitled to unclaimed funds.
+### EU development plane
 
-Therefore, where those fields are personal data under applicable law:
+Synthetic or non-PII data only by default.
 
-DOWNLOAD + TRANSIENT LOCAL STORAGE + STREAMING
+### Live owner PII access from the EU
 
-are themselves processing operations.
+PROHIBITED BY DEFAULT.
 
-It is not sufficient to reason only about the one selected candidate.
+Any future exception requires a separate review of:
 
-The fact that L0 does not use Owner Name/address for ranking is an important safeguard, but it does not transform the complete downloaded file into non-personal data.
+- role;
+- territorial scope;
+- processor/controller status;
+- contract;
+- security;
+- access necessity.
 
-This materially changes the legal-readiness question:
+### Market boundary
 
-CAN THE CONTROLLER LAWFULLY AND NECESSARILY ACQUIRE THE FULL OWNER FILE TO SELECT ONE TARGET CASE?
+No EU customer targeting.
 
-Official OSC source:
+No EU data-subject monitoring.
 
-https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers
+This architecture is a project-risk control.
 
-## 5. New York source / location-service framework
+It must not be used as a nominal arrangement whose operational reality is different.
 
-Official NY OSC materials support all of the following:
+## 9. New York / US track still requires real legal readiness
 
-- direct OSC claim processing is free;
-- OSC recognizes Abandoned Property Location Service Providers;
-- OSC provides a downloadable list to support research;
-- that list contains names, last-known addresses, property nature, reporter and reporting time;
-- OSC does not disclose claim amount or taxpayer identification number in the list;
-- a provider agreement is required for the service-provider claim path.
+A confirmed US-controller track does not eliminate the legal work.
 
-New York Abandoned Property Law §1416:
+The project must still address at least:
 
-- regulates fee-based abandoned-property location services;
-- requires specified agreement disclosures;
-- caps the applicable fee at 15 percent of recoverable property.
+- NY OSC Location Service Provider rules;
+- ABP §1416 agreement requirements and fee cap;
+- GBS §393-e direct-free-claim disclosure;
+- NY security/disposal obligations where applicable;
+- provider/data-source terms;
+- FCRA/consumer-report status before using external identity tools;
+- outreach-channel law before outreach;
+- security/minimisation for the full Owner Name File;
+- corporate authority and customer contracting.
 
-New York General Business Law §393-e requires the direct-free-claim disclosure in solicitation and agreements.
+The exact complete US-law inventory must be reviewed for the final entity and workflow before real P1.
 
-These provisions support the existence of the business/service framework.
+## 10. Full Owner Name File remains a material privacy/security event on either track
 
-They do NOT by themselves establish:
+Even if GDPR controller scope is ultimately outside Track A, the project should not downgrade full-file acquisition.
 
-- an EU GDPR Article 6 basis;
-- a blanket right to enrich owner data;
-- a blanket right to contact anyone by any channel;
-- a privacy exception for all downstream processing.
+P1 may acquire a source containing millions of names and last-known addresses to identify one candidate.
 
-Official sources:
+Therefore project policy remains:
 
-https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers
+- bounded acquisition;
+- transient local handling;
+- no repository persistence;
+- no cloud sync;
+- strict access control;
+- logical deletion;
+- no raw-row output;
+- one candidate maximum;
+- necessity/minimisation review.
 
-https://www.nysenate.gov/legislation/laws/ABP/1416
+These safeguards remain economically and operationally valuable even if GDPR is not the governing controller regime.
 
-https://www.nysenate.gov/legislation/laws/GBS/393-E
+## 11. L1 direct-PII issue remains cross-track
 
-## 6. New York data-security laws — narrower than project policy
+The real runner can decode Owner Name, Property ID and Holder Name at L1.
 
-NY GBL §899-aa defines personal information broadly but defines the separate category private information through specified sensitive combinations; lawfully public government-record information is excluded from that statutory private-information definition.
+If L2-A is not authorized, L1 itself does not use those identifiers for targetability research.
 
-NY GBL §899-bb imposes reasonable safeguards on businesses owning or licensing computerized data containing private information of New York residents.
+Therefore:
 
-NY GBL §399-h separately regulates disposal of records containing specified personal identifying information.
+L1_ONLY_DIRECT_PII_NECESSITY = NOT ESTABLISHED.
 
-The current OSC source is intentionally treated more strictly by project policy than the narrow statutory private-information category.
+Preferred design remains:
 
-Project rule remains:
-
-OWNER NAME / LAST-KNOWN ADDRESS / PROPERTY IDENTIFIER = OWNER PII FOR GOVERNANCE PURPOSES.
-
-No project privacy control is relaxed merely because information is publicly available.
-
-Official sources:
-
-https://www.nysenate.gov/legislation/laws/GBS/899-AA
-
-https://www.nysenate.gov/legislation/laws/GBS/899-BB
-
-https://www.nysenate.gov/legislation/laws/GBS/399-H
-
-## 7. Article 6 legal-basis assessment if GDPR applies
-
-No final legal basis is selected by this review.
-
-### Consent — not suitable for pre-contact P1
-
-Pre-contact discovery occurs before the potential customer has provided consent.
-
-Result:
-
-NOT CURRENTLY SUITABLE.
-
-### Contract / pre-contract request — not suitable for pre-contact P1
-
-P1 is not initiated at the request of the candidate and there is no existing contract with that person.
-
-Result:
-
-NOT CURRENTLY SUITABLE.
-
-### Legal obligation
-
-No controller-specific legal obligation requiring this P1 processing has been identified.
-
-Result:
-
-NOT ESTABLISHED.
-
-### Vital interests
-
-Commercial targetability research is not designed to protect a vital interest.
-
-Result:
-
-NOT CURRENTLY SUITABLE.
-
-### Public task / official authority
-
-The project has not established that the controller is vested with a public task or official authority.
-
-Result:
-
-NOT ESTABLISHED.
-
-### Legitimate interests — plausible candidate only
-
-Article 6(1)(f) is the only currently plausible pre-contact candidate in this design if GDPR applies.
-
-It is NOT approved by this review.
-
-EDPB Guidelines 1/2024 describe three cumulative conditions:
-
-1. a lawful, clearly articulated, real and present legitimate interest;
-2. necessity of the processing for that interest, including consideration of less intrusive means;
-3. a balancing exercise showing the data subject's interests/fundamental rights do not override the interest.
-
-The proposed interest to test is:
-
-LAWFUL COMMERCIAL INTEREST IN IDENTIFYING AND EVALUATING POTENTIAL NY UNCLAIMED-PROPERTY LOCATION-SERVICE CASES WHERE ASSISTANCE MAY CREATE REAL SERVICE VALUE.
-
-A documented LIA must answer at minimum:
-
-- Is that interest lawful, specific, real and present?
-- Is acquiring the whole Owner Name File necessary?
-- Can substantially equivalent P1 evidence be obtained by a less intrusive source or source-side filter?
-- What would a person reasonably expect from publication in the OSC list?
-- What impact can selection, identity research and possible future contact have?
-- What safeguards materially reduce that impact?
-- What happens on objection?
-
-EDPB source:
-
-https://www.edpb.europa.eu/public-consultations/guidelines-12024-on-processing-of-personal-data-based-on-article-61f-gdpr_en
-
-GDPR source:
-
-https://eur-lex.europa.eu/eli/reg/2016/679/
-
-## 8. Data minimisation / necessity — current blocking issue
-
-GDPR Article 5 requires data minimisation and storage limitation.
-
-Article 25 requires protection by design/default so that, by default, only data necessary for each purpose are processed.
-
-Current design has a material mismatch:
-
-BUSINESS EXPERIMENT:
-
-one P1 candidate.
-
-SOURCE ACQUISITION:
-
-potentially millions of identifiable source records.
-
-Transient deletion reduces duration and exposure, but does not eliminate the processing.
-
-Before real acquisition, one of these must be supported:
-
-A. documented necessity/proportionality showing that full-file acquisition is reasonably necessary for the one-candidate selection purpose;
+A. no-direct-PII L1 where technically sufficient;
 
 or
 
-B. a technically and commercially viable less-intrusive acquisition method.
+B. pre-authorized L1 + L2-A so direct PII is opened only for an approved targetability purpose.
 
-This review does not assert that a source-side filter exists.
+No runtime modification is authorized by this review.
 
-Current state:
+## 12. Operating-model decision matrix
 
-BLOCKING_ASSESSMENT_REQUIRED.
-
-## 9. Article 14 transparency
-
-If GDPR applies, the Owner Name File data are not obtained from the data subject.
-
-Article 14 therefore becomes the default transparency framework.
-
-Article 14 ordinarily requires information including:
-
-- controller identity/contact;
-- purpose/legal basis;
-- categories of personal data;
-- recipients/categories;
-- retention period or criteria;
-- legitimate interest where relied upon;
-- rights;
-- right to complain;
-- source and whether publicly accessible;
-- automated-decision information where applicable.
-
-Timing is ordinarily:
-
-- within a reasonable period, no later than one month after obtaining data;
-- at the latest at first communication if the data are used to communicate;
-- at the latest at first disclosure if data are disclosed first.
-
-Article 14(5) contains exceptions, including where providing information proves impossible or would involve disproportionate effort under the conditions stated there.
-
-This project MUST NOT assume the exception.
-
-Current design has a conflict:
-
-- L1 prohibits outreach;
-- L1 has no transparency-notice mechanism;
-- full-file acquisition may involve millions of data subjects;
-- same-session deletion does not itself create an Article 14 exception.
-
-Therefore:
-
-ARTICLE_14_PATH = UNRESOLVED_BLOCKING_IF_GDPR_APPLIES.
-
-Permissible future outcomes require human legal review:
-
-1. a direct Article 14 notice design where legally/operationally appropriate;
-2. a specifically documented Article 14(5) exception analysis with required safeguards/public information;
-3. a redesign that materially changes the processing so the obligation is addressed differently.
-
-The project must not select one automatically.
-
-Official GDPR source:
-
-https://eur-lex.europa.eu/eli/reg/2016/679/
-
-Transparency guidance:
-
-https://www.edpb.europa.eu/system/files/2023-09/wp260rev01_en.pdf
-
-## 10. Article 21 objection
-
-If Article 6(1)(f) is ultimately selected, Article 21 gives the data subject a right to object on grounds relating to their particular situation.
-
-The controller must be able to stop processing unless it can demonstrate the grounds allowed by Article 21.
-
-At first communication, the right to object must be brought explicitly to the data subject's attention.
-
-Current project state:
-
-OBJECTION PROCESS = NOT IMPLEMENTED.
-
-This is blocking before any outreach and must be part of legal readiness if legitimate interests is chosen.
-
-## 11. Accountability / records
-
-If GDPR applies, the design must support:
-
-- Article 5 principles/accountability;
-- Article 24 controller accountability;
-- Article 25 privacy by design/default;
-- data-subject rights handling;
-- incident-response ownership;
-- access-control ownership;
-- retention schedule.
-
-The project will require a Record of Processing Activities entry before real P1 as a governance rule, even if a controller later believes an Article 30 small-organisation exception could technically apply.
-
-This is deliberately stricter and removes ambiguity.
-
-## 12. DPIA screening
-
-Article 35 requires a DPIA where the contemplated processing is likely to result in high risk, considering nature, scope, context and purpose.
-
-This review does not make a final legal conclusion that a DPIA is mandatory.
-
-However, the project has several risk drivers:
-
-- millions of identifiable source records in the acquired file;
-- commercial targetability selection;
-- intended identity/contactability research at L2-A;
-- planned repeated use if the pilot succeeds.
-
-Project decision proposed:
-
-DPIA_SCREEN_REQUIRED_BEFORE_REAL_P1_IF_GDPR_APPLIES.
-
-The controller must also check the applicable supervisory authority's Article 35 list once establishment is known.
-
-If the screen is positive:
-
-FULL DPIA BEFORE PROCESSING.
-
-## 13. Additional minimisation finding — real L1-only is weakly justified
-
-The current runner can transiently decode:
-
-- Property ID;
-- Owner Name;
-- Holder Name;
-
-even when L2-A is not authorized.
-
-For a real L1-only run, the project has not established that these direct identifiers are necessary, because L1 by itself does not perform targetability research.
-
-This is a material privacy-by-design issue.
-
-Preferred project constraint:
-
-DO NOT EXECUTE REAL L1-ONLY WITH DIRECT OWNER PII UNLESS NECESSITY IS DOCUMENTED.
-
-Preferred future architecture:
-
-- either make real L1 no-direct-PII where possible;
-- or authorize a legally-ready L1 + L2-A session in advance so direct PII is processed only when it serves an approved targetability purpose.
-
-No runtime change is authorized by this review.
-
-## 14. Readiness matrix
-
-| Requirement | State |
+| Fact pattern | GDPR controller track |
 |---|---|
-| Controller legal identity | BLOCKING / UNKNOWN |
-| Controller establishment | BLOCKING / UNKNOWN |
-| Applicable law | BLOCKING / UNKNOWN |
-| GDPR Article 6 basis | NOT SELECTED |
-| Article 6(1)(f) LIA | NOT COMPLETED |
-| Full-file necessity | NOT ESTABLISHED |
-| Article 14 path | BLOCKING / UNRESOLVED if GDPR applies |
-| Article 21 objection path | NOT IMPLEMENTED |
-| ROPA | NOT CREATED |
-| DPIA screen | NOT COMPLETED |
-| Exact retention schedule | NEEDS LEGAL-READINESS RECORD |
-| Data-subject rights procedure | NOT IMPLEMENTED |
-| L1-only direct-PII necessity | NOT ESTABLISHED |
-| Seven P1 execution gates | ALL NOT_GRANTED |
+| Genuine US controller, no relevant EU establishment, US-only market, no EU targeting/monitoring | Likely outside GDPR controller scope, subject to factual/legal confirmation |
+| EU controller | GDPR Article 3(1) track |
+| US controller with relevant EU establishment tied to P1 | Potential Article 3(1) track |
+| Non-EU controller targeting/monitoring people in EU | Article 3(2) track |
+| US controller using EU processor only | Does not automatically bring US controller into Article 3(1); EU processor may have own GDPR obligations |
 
-## 15. Fail-closed result
+## 13. Required facts before selecting a track
 
-RESULT:
+The Product Owner must supply or formally select:
 
-CONDITIONAL_FAIL_NOT_READY_FOR_REAL_P1
+1. operating model: US controller, EU controller, or other;
+2. exact controller legal name;
+3. entity type;
+4. formation/incorporation jurisdiction;
+5. principal business/establishment address;
+6. whether any EU branch, office, employee, agent or other stable arrangement is involved in P1;
+7. whether any EU person/entity will access real Owner Name File PII;
+8. who signs LSP customer agreements;
+9. who receives the LSP fee;
+10. confirmation that MVP1 targets the US market only and does not monitor people in the EU;
+11. privacy contact if defined.
 
-This means:
+If the US company has not yet been formed, that fact should be recorded explicitly rather than inventing a controller.
 
-- the product direction is not rejected;
-- the NY location-service business model is not rejected;
-- legitimate interests is not rejected;
-- P1 is not abandoned.
+## 14. Fail-closed state
 
-It means only that a real P1 must not be authorized yet.
+No real P1 may start while any of these remain unresolved:
 
-The current legal/privacy design has four material blockers:
+- operating model;
+- legal controller identity;
+- establishment facts;
+- EU establishment relevance;
+- EU targeting/monitoring;
+- EU live-PII access;
+- selected legal track;
+- US/NY legal signoff or GDPR-track readiness as applicable;
+- L1 direct-PII necessity;
+- final legal review.
 
-1. controller identity/establishment;
-2. lawful-basis determination;
-3. full-file necessity/minimisation;
-4. Article 14 transparency path.
+All seven P1 gates remain NOT_GRANTED.
 
-## 16. Human decision
+## 15. Updated result
 
-Recommended human review phrase:
+The correct result is no longer a single GDPR-centric failure.
+
+It is:
+
+BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
+
+Meaning:
+
+- the US-controller/US-market model is a credible simplification path;
+- GDPR controller obligations should not be imposed by default if that track is factually true;
+- the EU-controller/GDPR path remains available and fully specified;
+- no track can be finalized until the actual controller and operational facts are supplied.
+
+## 16. Human review gate
+
+Review phrase remains:
 
 APPROVE_NY_MVP1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_FINDINGS_V1
 
 Approval means:
 
-- accept the findings and fail-closed state;
-- accept that no real P1 gate may yet be granted;
-- accept that controller identity/establishment must be supplied explicitly;
-- accept the need to resolve full-file minimisation and Article 14 before execution.
+- accept the bifurcated US/EU framework;
+- accept US-controller/US-market as the preferred MVP hypothesis pending facts;
+- accept EU-production PII segregation by default;
+- accept that no real P1 gate may yet be granted.
 
-Approval does NOT mean:
+Approval does NOT:
 
-- approve legitimate interests as the legal basis;
-- approve an Article 14 exception;
-- approve download;
+- form a US company;
+- declare the controller;
+- determine GDPR definitively;
+- approve source access;
 - approve PII processing;
-- approve outreach;
-- approve any of the seven P1 grants.
+- approve any P1 execution grant.
 
-## 17. Next action after review acceptance
+## 17. Next action after approval
 
-Because controller identity cannot be invented from the repository, the next required human input is:
+HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
 
-DEFINE_P1_CONTROLLER_IDENTITY_AND_ESTABLISHMENT
+If the intended path is US-controller/US-market, the factual record must identify the real US legal entity and confirm the conditions listed above.
 
-Required factual fields:
-
-- exact controller legal name;
-- entity type;
-- country/jurisdiction of establishment;
-- establishment/business address;
-- privacy contact address/email if already defined.
-
-After those facts exist, the project can execute:
-
-COMPLETE_P1_APPLICABLE_LAW_LIA_TRANSPARENCY_AND_DPIA_SCREEN_OFFLINE
-
-No source access is needed for either action.
+Only after those facts exist should the project complete the track-specific legal readiness review.
