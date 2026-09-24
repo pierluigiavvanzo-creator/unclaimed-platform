@@ -1,0 +1,594 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unclaimed-platform:schema:ny-mvp1-real-p1-controller-legal-basis-transparency-readiness:1.1.0",
+  "title": "NY MVP1 Real P1 Controller Legal Basis and Transparency Readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_version",
+    "prepared_on",
+    "status",
+    "work_class",
+    "mode",
+    "baseline",
+    "legal_review_disclaimer",
+    "controller_readiness",
+    "processing_scope",
+    "territorial_scope_tracks",
+    "preferred_mvp_privacy_architecture",
+    "us_ny_readiness",
+    "gdpr_track_requirements_if_triggered",
+    "cross_track_privacy_findings",
+    "controller_fact_requirements",
+    "fail_closed_conditions",
+    "authorization_does_not_grant",
+    "review_result",
+    "required_owner_review_phrase",
+    "next_action_if_approved"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1.0"
+    },
+    "artifact_id": {
+      "const": "ny.mvp1.real_p1.controller_legal_basis_transparency_readiness"
+    },
+    "artifact_version": {
+      "const": "1.1.0"
+    },
+    "prepared_on": {
+      "const": "2026-09-24"
+    },
+    "status": {
+      "const": "BIFURCATED_READINESS_CONTROLLER_FACTS_REQUIRED"
+    },
+    "work_class": {
+      "const": "A_PRODUCT_CRITICAL"
+    },
+    "mode": {
+      "const": "OFFLINE_DESIGN_REVIEW_ONLY"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "main_checkpoint",
+        "main_ci_run_id",
+        "main_ci_conclusion",
+        "scope_decision",
+        "real_p1_gate_count",
+        "all_real_p1_gates_state"
+      ],
+      "properties": {
+        "main_checkpoint": {
+          "const": "cf00481f2824d163f9e325faf66482243ebc2024"
+        },
+        "main_ci_run_id": {
+          "const": 36000390328
+        },
+        "main_ci_conclusion": {
+          "const": "SUCCESS"
+        },
+        "scope_decision": {
+          "const": "D-013"
+        },
+        "real_p1_gate_count": {
+          "const": 7
+        },
+        "all_real_p1_gates_state": {
+          "const": "NOT_GRANTED"
+        }
+      }
+    },
+    "legal_review_disclaimer": {
+      "const": "SOFTWARE_PRIVACY_CONTROL_DESIGN_NOT_LEGAL_OPINION"
+    },
+    "controller_readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controller_identity_state",
+        "controller_operating_model_state",
+        "controller_legal_name",
+        "controller_entity_type",
+        "controller_jurisdiction",
+        "controller_establishment_country",
+        "controller_establishment_address",
+        "privacy_contact",
+        "eu_establishment_state",
+        "eu_targeting_state",
+        "eu_monitoring_state",
+        "eu_processor_or_contractor_state",
+        "repository_search_result",
+        "execution_allowed"
+      ],
+      "properties": {
+        "controller_identity_state": {
+          "const": "UNRESOLVED_BLOCKING"
+        },
+        "controller_operating_model_state": {
+          "const": "UNSELECTED"
+        },
+        "controller_legal_name": {
+          "type": "null"
+        },
+        "controller_entity_type": {
+          "type": "null"
+        },
+        "controller_jurisdiction": {
+          "type": "null"
+        },
+        "controller_establishment_country": {
+          "type": "null"
+        },
+        "controller_establishment_address": {
+          "type": "null"
+        },
+        "privacy_contact": {
+          "type": "null"
+        },
+        "eu_establishment_state": {
+          "const": "UNRESOLVED"
+        },
+        "eu_targeting_state": {
+          "const": "UNRESOLVED"
+        },
+        "eu_monitoring_state": {
+          "const": "UNRESOLVED"
+        },
+        "eu_processor_or_contractor_state": {
+          "const": "UNRESOLVED"
+        },
+        "repository_search_result": {
+          "const": "NO_CONTROLLER_OR_LEGAL_ENTITY_IDENTIFIED_IN_CANONICAL_REPOSITORY"
+        },
+        "execution_allowed": {
+          "const": false
+        }
+      }
+    },
+    "processing_scope": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "stated_purpose",
+        "source_id",
+        "source_population_scope",
+        "source_population_record_count_reference",
+        "target_candidate_max",
+        "target_market_intent",
+        "target_data_subject_geography_intent",
+        "outreach",
+        "value_research",
+        "beneficiary_matching",
+        "genealogy",
+        "claim_activity"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "ny.osc.unclaimed_funds.owner_name_file"
+        },
+        "source_population_record_count_reference": {
+          "const": 14994489
+        },
+        "target_candidate_max": {
+          "const": 1
+        },
+        "target_market_intent": {
+          "const": "UNITED_STATES_ONLY_UNLESS_LATER_SEPARATELY_APPROVED"
+        },
+        "target_data_subject_geography_intent": {
+          "const": "UNITED_STATES_ONLY_UNLESS_LATER_SEPARATELY_APPROVED"
+        },
+        "outreach": {
+          "const": false
+        },
+        "value_research": {
+          "const": false
+        },
+        "beneficiary_matching": {
+          "const": false
+        },
+        "genealogy": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        }
+      }
+    },
+    "territorial_scope_tracks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "us_controller_us_market",
+        "eu_controller_or_eu_establishment",
+        "non_eu_controller_targeting_or_monitoring_eu",
+        "us_controller_with_eu_processor_only"
+      ],
+      "properties": {
+        "us_controller_us_market": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "track_id",
+            "state",
+            "conditions_required",
+            "gdpr_controller_scope_assessment",
+            "article_6_controller_blocker_if_outside_scope",
+            "article_14_controller_blocker_if_outside_scope",
+            "article_21_controller_blocker_if_outside_scope",
+            "gdpr_ropa_controller_blocker_if_outside_scope",
+            "gdpr_dpia_controller_blocker_if_outside_scope",
+            "us_ny_legal_privacy_review_still_required",
+            "execution_allowed"
+          ],
+          "properties": {
+            "track_id": {
+              "const": "US_CONTROLLER_US_MARKET"
+            },
+            "state": {
+              "const": "PREFERRED_MVP_HYPOTHESIS_PENDING_FACTS"
+            },
+            "gdpr_controller_scope_assessment": {
+              "const": "LIKELY_OUTSIDE_GDPR_CONTROLLER_SCOPE_IF_ALL_CONDITIONS_TRUE_NOT_A_LEGAL_DETERMINATION"
+            },
+            "article_6_controller_blocker_if_outside_scope": {
+              "const": false
+            },
+            "article_14_controller_blocker_if_outside_scope": {
+              "const": false
+            },
+            "article_21_controller_blocker_if_outside_scope": {
+              "const": false
+            },
+            "gdpr_ropa_controller_blocker_if_outside_scope": {
+              "const": false
+            },
+            "gdpr_dpia_controller_blocker_if_outside_scope": {
+              "const": false
+            },
+            "us_ny_legal_privacy_review_still_required": {
+              "const": true
+            },
+            "execution_allowed": {
+              "const": false
+            }
+          }
+        },
+        "eu_controller_or_eu_establishment": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "track_id",
+            "state",
+            "trigger_examples",
+            "gdpr_article_3_1_expected_to_apply_if_trigger_true",
+            "us_data_source_does_not_remove_gdpr",
+            "us_data_subject_location_does_not_remove_gdpr",
+            "article_6_basis_required",
+            "legitimate_interest_lia_required_if_article_6_1_f_selected",
+            "article_14_path_required",
+            "article_21_process_required_if_article_6_1_f_selected",
+            "ropa_required_by_project_policy",
+            "dpia_screen_required_by_project_policy",
+            "execution_allowed"
+          ],
+          "properties": {
+            "track_id": {
+              "const": "EU_CONTROLLER_OR_EU_ESTABLISHMENT"
+            },
+            "state": {
+              "const": "GDPR_TRACK"
+            },
+            "gdpr_article_3_1_expected_to_apply_if_trigger_true": {
+              "const": true
+            },
+            "us_data_source_does_not_remove_gdpr": {
+              "const": true
+            },
+            "us_data_subject_location_does_not_remove_gdpr": {
+              "const": true
+            },
+            "article_6_basis_required": {
+              "const": true
+            },
+            "legitimate_interest_lia_required_if_article_6_1_f_selected": {
+              "const": true
+            },
+            "article_14_path_required": {
+              "const": true
+            },
+            "article_21_process_required_if_article_6_1_f_selected": {
+              "const": true
+            },
+            "ropa_required_by_project_policy": {
+              "const": true
+            },
+            "dpia_screen_required_by_project_policy": {
+              "const": true
+            },
+            "execution_allowed": {
+              "const": false
+            }
+          }
+        },
+        "non_eu_controller_targeting_or_monitoring_eu": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "track_id",
+            "state",
+            "gdpr_trigger",
+            "current_project_intent",
+            "execution_allowed"
+          ],
+          "properties": {
+            "track_id": {
+              "const": "NON_EU_CONTROLLER_ARTICLE_3_2"
+            },
+            "state": {
+              "const": "CONDITIONAL_GDPR_TRACK"
+            },
+            "current_project_intent": {
+              "const": "NO_EU_TARGETING_OR_MONITORING"
+            },
+            "execution_allowed": {
+              "const": false
+            }
+          }
+        },
+        "us_controller_with_eu_processor_only": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "track_id",
+            "state",
+            "edpb_rule",
+            "controller_gdpr_scope_not_automatically_triggered_by_eu_processor",
+            "eu_processor_may_have_own_gdpr_processor_obligations",
+            "controller_processor_contract_and_roles_review_required",
+            "execution_allowed"
+          ],
+          "properties": {
+            "track_id": {
+              "const": "US_CONTROLLER_WITH_EU_PROCESSOR_ONLY"
+            },
+            "state": {
+              "const": "SEPARATE_ENTITY_ANALYSIS_REQUIRED"
+            },
+            "controller_gdpr_scope_not_automatically_triggered_by_eu_processor": {
+              "const": true
+            },
+            "eu_processor_may_have_own_gdpr_processor_obligations": {
+              "const": true
+            },
+            "controller_processor_contract_and_roles_review_required": {
+              "const": true
+            },
+            "execution_allowed": {
+              "const": false
+            }
+          }
+        }
+      }
+    },
+    "preferred_mvp_privacy_architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "controller_plane",
+        "production_pii_plane",
+        "eu_development_plane",
+        "eu_developer_access_to_live_owner_pii",
+        "eu_live_pii_support_exception",
+        "eu_customer_targeting",
+        "eu_data_subject_monitoring",
+        "purpose"
+      ],
+      "properties": {
+        "status": {
+          "const": "PROPOSED_NOT_YET_FACTUALLY_BOUND"
+        },
+        "eu_development_plane": {
+          "const": "SYNTHETIC_OR_NON_PII_ONLY_BY_DEFAULT"
+        },
+        "eu_developer_access_to_live_owner_pii": {
+          "const": false
+        },
+        "eu_customer_targeting": {
+          "const": false
+        },
+        "eu_data_subject_monitoring": {
+          "const": false
+        },
+        "controller_plane": {
+          "const": "US_LSP_CONTROLLER_OWNS_AND_OPERATES_PLATFORM_FOR_US_MARKET"
+        },
+        "production_pii_plane": {
+          "const": "US_HOSTED_AND_US_OPERATED_BY_DEFAULT"
+        },
+        "eu_live_pii_support_exception": {
+          "const": "SEPARATE_ROLE_TERRITORIAL_SCOPE_AND_PROCESSOR_REVIEW_REQUIRED_BEFORE_ACCESS"
+        },
+        "purpose": {
+          "const": "REDUCE_CROSS_JURISDICTION_COMPLEXITY_WITHOUT_USING_NOMINAL_STRUCTURING_TO_EVADE_APPLICABLE_LAW"
+        }
+      }
+    },
+    "us_ny_readiness": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "osc_location_service_provider_framework_state",
+        "direct_claim_free_state",
+        "fee_cap_state",
+        "solicitation_and_agreement_disclosure_state",
+        "public_source_does_not_equal_unrestricted_downstream_use",
+        "owner_pii_project_policy",
+        "full_file_security_and_minimisation_review_required",
+        "provider_terms_and_fcra_review_required_before_any_external_identity_tool",
+        "outreach_law_review_deferred_until_outreach_scope",
+        "official_sources"
+      ],
+      "properties": {
+        "osc_location_service_provider_framework_state": {
+          "const": "SUPPORTED"
+        },
+        "direct_claim_free_state": {
+          "const": "SUPPORTED"
+        },
+        "fee_cap_state": {
+          "const": "SUPPORTED_MAX_15_PERCENT_NOT_ASSUMED_REALIZED_FEE"
+        },
+        "solicitation_and_agreement_disclosure_state": {
+          "const": "REQUIRED_IF_OFFERING_LOCATION_SERVICES"
+        },
+        "public_source_does_not_equal_unrestricted_downstream_use": {
+          "const": true
+        },
+        "full_file_security_and_minimisation_review_required": {
+          "const": true
+        },
+        "provider_terms_and_fcra_review_required_before_any_external_identity_tool": {
+          "const": true
+        }
+      }
+    },
+    "gdpr_track_requirements_if_triggered": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "final_basis_selected",
+        "legitimate_interests",
+        "full_file_necessity_and_minimisation_state",
+        "article_14_state",
+        "article_14_5_exception_assumed",
+        "ropa_project_policy",
+        "dpia_screen_project_policy"
+      ],
+      "properties": {
+        "final_basis_selected": {
+          "const": false
+        },
+        "article_14_5_exception_assumed": {
+          "const": false
+        }
+      }
+    },
+    "cross_track_privacy_findings": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "full_file_acquisition",
+        "l1_only_direct_pii_necessity",
+        "recommended_l1_constraint",
+        "runtime_change_authorized",
+        "transient_deletion_is_a_safeguard_not_A_LEGAL_BASIS"
+      ],
+      "properties": {
+        "l1_only_direct_pii_necessity": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "runtime_change_authorized": {
+          "const": false
+        },
+        "transient_deletion_is_a_safeguard_not_A_LEGAL_BASIS": {
+          "const": true
+        }
+      }
+    },
+    "controller_fact_requirements": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "fail_closed_conditions": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authorization_does_not_grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_access",
+        "remote_preflight",
+        "download",
+        "real_candidate_materialization",
+        "owner_pii_processing",
+        "external_pii_query",
+        "identity_resolution",
+        "address_enrichment",
+        "outreach",
+        "value_research",
+        "fee_agreement",
+        "representation",
+        "claim_activity",
+        "any_of_seven_p1_gates"
+      ],
+      "properties": {
+        "source_access": {
+          "const": false
+        },
+        "remote_preflight": {
+          "const": false
+        },
+        "download": {
+          "const": false
+        },
+        "real_candidate_materialization": {
+          "const": false
+        },
+        "owner_pii_processing": {
+          "const": false
+        },
+        "external_pii_query": {
+          "const": false
+        },
+        "identity_resolution": {
+          "const": false
+        },
+        "address_enrichment": {
+          "const": false
+        },
+        "outreach": {
+          "const": false
+        },
+        "value_research": {
+          "const": false
+        },
+        "fee_agreement": {
+          "const": false
+        },
+        "representation": {
+          "const": false
+        },
+        "claim_activity": {
+          "const": false
+        },
+        "any_of_seven_p1_gates": {
+          "const": false
+        }
+      }
+    },
+    "review_result": {
+      "const": "BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1"
+    },
+    "required_owner_review_phrase": {
+      "const": "APPROVE_NY_MVP1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_FINDINGS_V1"
+    },
+    "next_action_if_approved": {
+      "const": "HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS"
+    }
+  }
+}

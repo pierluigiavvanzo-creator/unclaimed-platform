@@ -164,23 +164,78 @@ Do not perform:
 - representation;
 - claim activity.
 
-## SINGLE NEXT ACTION
+## Legal/privacy readiness review — bifurcated US/EU model
+
+Action:
 
 DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
 
-This is design/review only.
+Result:
 
-It must document:
+BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
 
-- controller identity;
-- controller establishment;
-- applicable-law assessment;
-- legal basis;
-- transparency obligations/plan;
-- LIA if legitimate interests is selected;
-- legal/privacy fail-closed conditions.
+Artifacts:
 
-Do not create or grant any of the seven execution/privacy gates during this action.
+- sources/proposals/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.v1.json
+- schemas/common/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.schema.json
+- tests/contract/test_ny_mvp1_real_p1_legal_readiness_contract.py
+- docs/audits/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
+
+Current legal tracks:
+
+1. US_CONTROLLER_US_MARKET
+   - preferred MVP hypothesis pending facts;
+   - likely outside GDPR controller scope only if genuine US-controller/no relevant EU establishment/no EU targeting or monitoring facts are confirmed;
+   - US/New York legal/privacy/security review still required.
+
+2. EU_CONTROLLER_OR_EU_ESTABLISHMENT
+   - GDPR Article 3(1) track;
+   - Article 6/LIA/Article 14/Article 21/ROPA/DPIA requirements remain.
+
+3. NON_EU_CONTROLLER_ARTICLE_3_2
+   - GDPR track if EU goods/services targeting or behavioural monitoring exists.
+
+4. US_CONTROLLER_WITH_EU_PROCESSOR_ONLY
+   - EU processor does not automatically make the US controller an EU establishment;
+   - processor may have its own GDPR obligations;
+   - role/contract review required.
+
+Preferred MVP privacy architecture hypothesis:
+
+- US controller/LSP production plane;
+- US production PII by default;
+- EU development synthetic/non-PII only by default;
+- no live owner PII access from EU without separate review;
+- US market only / no EU targeting or monitoring.
+
+Cross-track issues still open:
+
+- full-file security/minimisation;
+- L1-only direct-PII necessity;
+- exact controller/entity facts;
+- all seven P1 gate templates remain NOT_GRANTED.
+
+## SINGLE NEXT ACTION
+
+HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
+
+Required factual input:
+
+- US controller / EU controller / other operating model;
+- exact controller legal name;
+- entity type;
+- formation/incorporation jurisdiction;
+- principal establishment/business address;
+- any EU branch/office/employee/agent/stable arrangement relevant to P1;
+- any EU person/entity that will access live owner PII;
+- entity signing LSP customer agreements;
+- entity receiving LSP fees;
+- confirmation of US-only MVP1 market and no EU targeting/monitoring;
+- privacy contact if defined.
+
+Do not infer these facts from Product Owner identity, GitHub identity, residence or developer location.
+
+No source access, preflight, download, real PII processing or gate creation is authorized.
 
 ## Context restart order
 

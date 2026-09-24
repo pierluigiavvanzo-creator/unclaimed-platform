@@ -215,27 +215,79 @@ Current repository state does NOT authorize or perform:
 - representation;
 - claim activity.
 
+## Controller / legal basis / transparency readiness — BIFURCATED REVIEW
+
+Action:
+
+DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
+
+Artifacts:
+
+- sources/proposals/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.v1.json
+- schemas/common/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.schema.json
+- tests/contract/test_ny_mvp1_real_p1_legal_readiness_contract.py
+- docs/audits/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
+
+Result:
+
+BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1
+
+The review now distinguishes four factual tracks:
+
+1. US_CONTROLLER_US_MARKET:
+   preferred MVP hypothesis pending facts; likely outside GDPR controller scope only if the controller is genuinely US-based, has no relevant EU establishment, does not target/monitor people in the EU, and P1 remains US-only;
+2. EU_CONTROLLER_OR_EU_ESTABLISHMENT:
+   GDPR Article 3(1) track; Article 6/LIA/Article 14/Article 21/ROPA/DPIA readiness remains required;
+3. NON_EU_CONTROLLER_ARTICLE_3_2:
+   GDPR may apply if goods/services are offered to or behaviour is monitored for data subjects in the EU;
+4. US_CONTROLLER_WITH_EU_PROCESSOR_ONLY:
+   an EU processor does not automatically make the US controller subject to GDPR controller obligations under Article 3(1), but the processor may have its own GDPR obligations and roles/contracts require review.
+
+Preferred MVP privacy architecture hypothesis:
+
+- US LSP/controller owns and operates the platform for the US market;
+- production owner-PII plane is US-hosted/US-operated by default;
+- EU development uses synthetic/non-PII data by default;
+- EU developer/contractor access to live owner PII is prohibited absent separate role/territorial-scope review;
+- no EU customer targeting or behavioural monitoring for MVP1.
+
+This is a risk-control architecture, not a nominal device to evade applicable law.
+
+Cross-track safeguards remain:
+
+- full Owner Name File acquisition is a material privacy/security event;
+- full-file minimisation/security review remains required;
+- real L1-only direct-PII necessity remains unresolved;
+- all seven P1 execution/privacy gates remain NOT_GRANTED.
+
+No real-source or PII activity was authorized or performed.
+
 ## Remaining blocker before any real P1 grant
 
-The next unresolved prerequisite is legal/controller/transparency readiness.
+The project now requires selection of the real controller operating model and factual entity information.
 
-Before any real processing the project must document:
+Required facts include:
 
-- controller identity;
-- controller establishment;
-- applicable-law assessment;
-- legal basis;
-- transparency obligations/plan;
-- any required legitimate-interest assessment if that basis is selected.
+- US controller, EU controller, or other operating model;
+- exact controller legal name;
+- entity type;
+- formation/incorporation jurisdiction;
+- principal establishment/business address;
+- whether any EU branch, office, employee, agent or other stable arrangement participates in P1;
+- whether any EU person/entity will access live owner PII;
+- who signs LSP customer agreements;
+- who receives LSP fees;
+- confirmation of US-only MVP1 market/no EU targeting or monitoring;
+- privacy contact if defined.
 
-L2-A provider review remains separate and is only needed if L2-A is to be authorized.
+These facts must not be inferred from Product Owner identity, account location, GitHub ownership or developer location.
 
 ## Current next action
 
 Execute only:
 
-DEFINE_AND_REVIEW_REAL_P1_CONTROLLER_LEGAL_BASIS_AND_TRANSPARENCY_READINESS
+HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS
 
-This next action is design/review only.
+Once those facts exist, complete only the legal track actually triggered by the operating model.
 
-It must not perform source access, preflight, download, PII processing or create any of the seven execution grants.
+No source access, preflight, download, PII processing or grant creation is authorized.

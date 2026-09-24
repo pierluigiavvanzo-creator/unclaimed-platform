@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.1.0",
+  "artifact_id": "ny.mvp1.real_p1.controller_legal_basis_transparency_readiness",
+  "artifact_version": "1.1.0",
+  "prepared_on": "2026-09-24",
+  "status": "BIFURCATED_READINESS_CONTROLLER_FACTS_REQUIRED",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "mode": "OFFLINE_DESIGN_REVIEW_ONLY",
+  "baseline": {
+    "main_checkpoint": "cf00481f2824d163f9e325faf66482243ebc2024",
+    "main_ci_run_id": 36000390328,
+    "main_ci_conclusion": "SUCCESS",
+    "scope_decision": "D-013",
+    "real_p1_gate_count": 7,
+    "all_real_p1_gates_state": "NOT_GRANTED"
+  },
+  "legal_review_disclaimer": "SOFTWARE_PRIVACY_CONTROL_DESIGN_NOT_LEGAL_OPINION",
+  "controller_readiness": {
+    "controller_identity_state": "UNRESOLVED_BLOCKING",
+    "controller_operating_model_state": "UNSELECTED",
+    "controller_legal_name": null,
+    "controller_entity_type": null,
+    "controller_jurisdiction": null,
+    "controller_establishment_country": null,
+    "controller_establishment_address": null,
+    "privacy_contact": null,
+    "eu_establishment_state": "UNRESOLVED",
+    "eu_targeting_state": "UNRESOLVED",
+    "eu_monitoring_state": "UNRESOLVED",
+    "eu_processor_or_contractor_state": "UNRESOLVED",
+    "repository_search_result": "NO_CONTROLLER_OR_LEGAL_ENTITY_IDENTIFIED_IN_CANONICAL_REPOSITORY",
+    "execution_allowed": false
+  },
+  "processing_scope": {
+    "stated_purpose": "IDENTIFY_ONE_TARGETABLE_BOUNDED_NY_OSC_IN03_CASE_AND_MEASURE_TARGETABILITY_DECISION_COST_BEFORE_VALUE_RESEARCH",
+    "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+    "source_population_scope": "FULL_OWNER_NAME_FILE_TRANSIENT_ACQUISITION_PRECEDES_ONE_CANDIDATE_SELECTION",
+    "source_population_record_count_reference": 14994489,
+    "target_candidate_max": 1,
+    "target_market_intent": "UNITED_STATES_ONLY_UNLESS_LATER_SEPARATELY_APPROVED",
+    "target_data_subject_geography_intent": "UNITED_STATES_ONLY_UNLESS_LATER_SEPARATELY_APPROVED",
+    "outreach": false,
+    "value_research": false,
+    "beneficiary_matching": false,
+    "genealogy": false,
+    "claim_activity": false
+  },
+  "territorial_scope_tracks": {
+    "us_controller_us_market": {
+      "track_id": "US_CONTROLLER_US_MARKET",
+      "state": "PREFERRED_MVP_HYPOTHESIS_PENDING_FACTS",
+      "conditions_required": [
+        "CONTROLLER_IS_A_GENUINE_US_LEGAL_ENTITY",
+        "CONTROLLER_HAS_NO_EU_ESTABLISHMENT_RELEVANT_TO_THE_PROCESSING",
+        "PROCESSING_IS_NOT_IN_CONTEXT_OF_ACTIVITIES_OF_AN_EU_ESTABLISHMENT",
+        "SERVICE_IS_NOT_OFFERED_OR_TARGETED_TO_DATA_SUBJECTS_IN_THE_EU",
+        "BEHAVIOUR_OF_DATA_SUBJECTS_IN_THE_EU_IS_NOT_MONITORED",
+        "P1_MARKET_AND_OPERATIONAL_TARGET_REMAIN_US_ONLY"
+      ],
+      "gdpr_controller_scope_assessment": "LIKELY_OUTSIDE_GDPR_CONTROLLER_SCOPE_IF_ALL_CONDITIONS_TRUE_NOT_A_LEGAL_DETERMINATION",
+      "article_6_controller_blocker_if_outside_scope": false,
+      "article_14_controller_blocker_if_outside_scope": false,
+      "article_21_controller_blocker_if_outside_scope": false,
+      "gdpr_ropa_controller_blocker_if_outside_scope": false,
+      "gdpr_dpia_controller_blocker_if_outside_scope": false,
+      "us_ny_legal_privacy_review_still_required": true,
+      "execution_allowed": false
+    },
+    "eu_controller_or_eu_establishment": {
+      "track_id": "EU_CONTROLLER_OR_EU_ESTABLISHMENT",
+      "state": "GDPR_TRACK",
+      "trigger_examples": [
+        "CONTROLLER_ESTABLISHED_IN_EU",
+        "US_CONTROLLER_HAS_EU_ESTABLISHMENT_AND_PROCESSING_IS_IN_CONTEXT_OF_ITS_ACTIVITIES"
+      ],
+      "gdpr_article_3_1_expected_to_apply_if_trigger_true": true,
+      "us_data_source_does_not_remove_gdpr": true,
+      "us_data_subject_location_does_not_remove_gdpr": true,
+      "article_6_basis_required": true,
+      "legitimate_interest_lia_required_if_article_6_1_f_selected": true,
+      "article_14_path_required": true,
+      "article_21_process_required_if_article_6_1_f_selected": true,
+      "ropa_required_by_project_policy": true,
+      "dpia_screen_required_by_project_policy": true,
+      "execution_allowed": false
+    },
+    "non_eu_controller_targeting_or_monitoring_eu": {
+      "track_id": "NON_EU_CONTROLLER_ARTICLE_3_2",
+      "state": "CONDITIONAL_GDPR_TRACK",
+      "gdpr_trigger": "OFFERING_GOODS_OR_SERVICES_TO_DATA_SUBJECTS_IN_EU_OR_MONITORING_THEIR_BEHAVIOUR_IN_EU",
+      "current_project_intent": "NO_EU_TARGETING_OR_MONITORING",
+      "execution_allowed": false
+    },
+    "us_controller_with_eu_processor_only": {
+      "track_id": "US_CONTROLLER_WITH_EU_PROCESSOR_ONLY",
+      "state": "SEPARATE_ENTITY_ANALYSIS_REQUIRED",
+      "edpb_rule": "EU_PROCESSOR_DOES_NOT_BY_ITSELF_BECOME_AN_ESTABLISHMENT_OF_THE_NON_EU_CONTROLLER",
+      "controller_gdpr_scope_not_automatically_triggered_by_eu_processor": true,
+      "eu_processor_may_have_own_gdpr_processor_obligations": true,
+      "controller_processor_contract_and_roles_review_required": true,
+      "execution_allowed": false
+    }
+  },
+  "preferred_mvp_privacy_architecture": {
+    "status": "PROPOSED_NOT_YET_FACTUALLY_BOUND",
+    "controller_plane": "US_LSP_CONTROLLER_OWNS_AND_OPERATES_PLATFORM_FOR_US_MARKET",
+    "production_pii_plane": "US_HOSTED_AND_US_OPERATED_BY_DEFAULT",
+    "eu_development_plane": "SYNTHETIC_OR_NON_PII_ONLY_BY_DEFAULT",
+    "eu_developer_access_to_live_owner_pii": false,
+    "eu_live_pii_support_exception": "SEPARATE_ROLE_TERRITORIAL_SCOPE_AND_PROCESSOR_REVIEW_REQUIRED_BEFORE_ACCESS",
+    "eu_customer_targeting": false,
+    "eu_data_subject_monitoring": false,
+    "purpose": "REDUCE_CROSS_JURISDICTION_COMPLEXITY_WITHOUT_USING_NOMINAL_STRUCTURING_TO_EVADE_APPLICABLE_LAW"
+  },
+  "us_ny_readiness": {
+    "osc_location_service_provider_framework_state": "SUPPORTED",
+    "direct_claim_free_state": "SUPPORTED",
+    "fee_cap_state": "SUPPORTED_MAX_15_PERCENT_NOT_ASSUMED_REALIZED_FEE",
+    "solicitation_and_agreement_disclosure_state": "REQUIRED_IF_OFFERING_LOCATION_SERVICES",
+    "public_source_does_not_equal_unrestricted_downstream_use": true,
+    "owner_pii_project_policy": "NAME_ADDRESS_PROPERTY_IDENTIFIER_REMAIN_GOVERNED_AS_OWNER_PII",
+    "full_file_security_and_minimisation_review_required": true,
+    "provider_terms_and_fcra_review_required_before_any_external_identity_tool": true,
+    "outreach_law_review_deferred_until_outreach_scope": true,
+    "official_sources": [
+      "https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers",
+      "https://www.nysenate.gov/legislation/laws/ABP/1416",
+      "https://www.nysenate.gov/legislation/laws/GBS/393-E",
+      "https://www.nysenate.gov/legislation/laws/GBS/899-AA",
+      "https://www.nysenate.gov/legislation/laws/GBS/899-BB",
+      "https://www.nysenate.gov/legislation/laws/GBS/399-H"
+    ]
+  },
+  "gdpr_track_requirements_if_triggered": {
+    "final_basis_selected": false,
+    "legitimate_interests": {
+      "candidate": true,
+      "status": "CANDIDATE_ONLY_NOT_APPROVED",
+      "three_part_test_required": true,
+      "less_intrusive_alternative_test_required": true,
+      "balancing_test_required": true,
+      "reasonable_expectations_analysis_required": true,
+      "safeguards_analysis_required": true,
+      "article_21_objection_process_required": true
+    },
+    "full_file_necessity_and_minimisation_state": "BLOCKING_ASSESSMENT_REQUIRED",
+    "article_14_state": "UNRESOLVED_BLOCKING",
+    "article_14_5_exception_assumed": false,
+    "ropa_project_policy": "REQUIRED_BEFORE_REAL_P1_IF_GDPR_TRACK_APPLIES",
+    "dpia_screen_project_policy": "REQUIRED_BEFORE_REAL_P1_IF_GDPR_TRACK_APPLIES"
+  },
+  "cross_track_privacy_findings": {
+    "full_file_acquisition": "DOWNLOAD_AND_LOCAL_STORAGE_OF_THE_OWNER_FILE_REMAIN_A_MATERIAL_PRIVACY_AND_SECURITY_EVENT_EVEN_IF_GDPR_CONTROLLER_SCOPE_IS_OUT",
+    "l1_only_direct_pii_necessity": "NOT_ESTABLISHED",
+    "recommended_l1_constraint": "PREFER_NO_DIRECT_PII_L1_OR_PREAUTHORIZED_L1_PLUS_L2A_WHERE_DIRECT_PII_SERVES_AN_APPROVED_TARGETABILITY_PURPOSE",
+    "runtime_change_authorized": false,
+    "transient_deletion_is_a_safeguard_not_A_LEGAL_BASIS": true
+  },
+  "controller_fact_requirements": [
+    "SELECT_OPERATING_MODEL_US_CONTROLLER_OR_EU_CONTROLLER_OR_OTHER",
+    "PROVIDE_EXACT_CONTROLLER_LEGAL_NAME",
+    "PROVIDE_ENTITY_TYPE",
+    "PROVIDE_JURISDICTION_AND_COUNTRY_OF_INCORPORATION_OR_FORMATION",
+    "PROVIDE_PRINCIPAL_BUSINESS_OR_ESTABLISHMENT_ADDRESS",
+    "STATE_WHETHER_CONTROLLER_HAS_ANY_EU_BRANCH_OFFICE_EMPLOYEE_AGENT_OR_OTHER_STABLE_ARRANGEMENT_RELEVANT_TO_P1",
+    "STATE_WHETHER_ANY_EU_PERSON_OR_ENTITY_WILL_ACCESS_REAL_OWNER_PII",
+    "CONFIRM_WHO_SIGNS_LSP_CUSTOMER_AGREEMENTS_AND_RECEIVES_FEES",
+    "CONFIRM_US_ONLY_MARKET_AND_NO_EU_TARGETING_OR_MONITORING_FOR_MVP1",
+    "PROVIDE_PRIVACY_CONTACT_IF_DEFINED"
+  ],
+  "fail_closed_conditions": [
+    "CONTROLLER_OPERATING_MODEL_UNSELECTED",
+    "CONTROLLER_LEGAL_IDENTITY_UNKNOWN",
+    "CONTROLLER_ESTABLISHMENT_FACTS_UNKNOWN",
+    "EU_ESTABLISHMENT_RELEVANCE_UNRESOLVED",
+    "EU_TARGETING_OR_MONITORING_STATUS_UNRESOLVED",
+    "REAL_PII_ACCESS_BY_EU_PERSONNEL_OR_PROCESSORS_UNRESOLVED",
+    "US_TRACK_SELECTED_BUT_ANY_REQUIRED_US_ONLY_CONDITION_FALSE_OR_UNDOCUMENTED",
+    "EU_GDPR_TRACK_TRIGGERED_AND_LEGAL_BASIS_NOT_COMPLETED",
+    "EU_GDPR_TRACK_TRIGGERED_AND_ARTICLE_14_PATH_UNRESOLVED",
+    "EU_GDPR_TRACK_TRIGGERED_AND_REQUIRED_LIA_OR_DPIA_SCREEN_INCOMPLETE",
+    "FULL_FILE_SECURITY_MINIMISATION_REVIEW_INCOMPLETE",
+    "L1_DIRECT_PII_NECESSITY_UNRESOLVED_FOR_PROPOSED_EXECUTION_MODE",
+    "HUMAN_LEGAL_REVIEW_SIGNOFF_MISSING"
+  ],
+  "authorization_does_not_grant": {
+    "source_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "real_candidate_materialization": false,
+    "owner_pii_processing": false,
+    "external_pii_query": false,
+    "identity_resolution": false,
+    "address_enrichment": false,
+    "outreach": false,
+    "value_research": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false,
+    "any_of_seven_p1_gates": false
+  },
+  "review_result": "BIFURCATED_READY_FOR_CONTROLLER_OPERATING_MODEL_FACTS_NOT_READY_FOR_REAL_P1",
+  "required_owner_review_phrase": "APPROVE_NY_MVP1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_FINDINGS_V1",
+  "next_action_if_approved": "HUMAN_SELECT_P1_CONTROLLER_OPERATING_MODEL_AND_SUPPLY_ENTITY_FACTS"
+}
