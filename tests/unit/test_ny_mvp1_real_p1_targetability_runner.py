@@ -1,9 +1,9 @@
 import zipfile
 
 from unclaimed_platform.adapters.sources.ny_owner_name_p1_targetability_local import (
-    _SelectedRecordCollector,
     RealP1TargetabilityEvidence,
     TransientSelectedCandidate,
+    _SelectedRecordCollector,
     execute_real_p1_targetability_local,
 )
 from unclaimed_platform.domain.ny_mvp1_p1_authorization import (
