@@ -404,6 +404,18 @@
         },
         "eu_data_subject_monitoring": {
           "const": false
+        },
+        "controller_plane": {
+          "const": "US_LSP_CONTROLLER_OWNS_AND_OPERATES_PLATFORM_FOR_US_MARKET"
+        },
+        "production_pii_plane": {
+          "const": "US_HOSTED_AND_US_OPERATED_BY_DEFAULT"
+        },
+        "eu_live_pii_support_exception": {
+          "const": "SEPARATE_ROLE_TERRITORIAL_SCOPE_AND_PROCESSOR_REVIEW_REQUIRED_BEFORE_ACCESS"
+        },
+        "purpose": {
+          "const": "REDUCE_CROSS_JURISDICTION_COMPLEXITY_WITHOUT_USING_NOMINAL_STRUCTURING_TO_EVADE_APPLICABLE_LAW"
         }
       }
     },
