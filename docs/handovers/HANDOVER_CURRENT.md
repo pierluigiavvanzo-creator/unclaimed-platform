@@ -2,423 +2,218 @@
 
 Last updated: 2026-09-24
 
-## AUTHORITATIVE CURRENT STATE — PRODUCT VALIDATION / TARGETABILITY DISCOVERY MODE
+## CURRENT MODE
+
+PRODUCT VALIDATION / TARGETABILITY DISCOVERY
 
 Repository:
 
 pierluigiavvanzo-creator/unclaimed-platform
 
-Canonical integration branch:
+Canonical branch:
 
 main
 
-Verified main HEAD before this work:
+Canonical main HEAD:
 
-23de3a6ef5f1d6335691e17206285b4ec5f923af
+322c38027a2a214246f1a52ca0854b7b93d171b7
 
-Active feature branch:
+Post-merge main CI:
 
-mvp1-targetable-opportunity-reframe
+35994103772 — SUCCESS
 
-Main has NOT been changed by this work.
+PR #36:
 
-## Product objective
+MERGED
+
+## Canonical product objective
 
 ONE AUTHORIZED REAL SOURCE
 -> ONE TARGETABLE BOUNDED CASE
 -> ONE REVIEWABLE ECONOMIC RESULT
 
-Primary economic rule:
+Primary rule:
 
 BUY ECONOMIC INFORMATION BEFORE BUILDING SCALE
 
-Strategic metric:
-
-ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME
-
-## Updated value proposition
-
-The product is not a paid shortcut to a free OSC claim.
-
-The value proposition to validate is:
-
-Find unresolved insurance-beneficiary opportunities that the rightful person or authorized representative may not be effectively resolving through ordinary processes, determine whether the case is practically resolvable at bounded cost, and provide compliant discovery/location/recovery assistance where that assistance creates real value.
-
-The owner/authorized representative must never be led to believe that payment is required to obtain New York State unclaimed funds.
-
-## Why this reframe was required
-
-Facts already established:
-
-- NY OSC direct claim processing is free.
-- New York recognizes Abandoned Property Location Service Providers.
-- The applicable provider fee is capped by law at 15 percent; this is a ceiling, not an assumed realized fee.
-- The Owner Name File does not disclose recoverable amount.
-- 2026 expedited payment covers qualifying simple cases up to USD 5,000.
-- Estate claims do not qualify for the expedited program.
-- Deceased-owner/estate claims can require entitlement and court/representative documentation.
-
-Therefore candidate volume alone is not the business.
-
-The commercially interesting hypothesis is:
+Target thesis:
 
 MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
-not:
+## Proven source state
 
-DIFFICULT CASE = HIGH VALUE
+Attempt 11 established:
 
-and not:
+- 14,994,489 records;
+- 2,792,990 authority-backed insurance records;
+- 203,921 primary IN03 aggregate candidates;
+- value unknown from source;
+- no real candidate materialization yet.
 
-IN03 = PROFITABLE CASE.
+All historical real-source/privacy approvals are consumed/non-reusable.
 
-## Real-source evidence already established
+## Canonical targetability state
 
-Attempt 11 completed the bounded aggregate product slice.
+PRODUCT_STRATEGY_MVP1 v3.0 and D-012 are canonical.
 
-Authoritative aggregate result:
-
-- total physical records: 14,994,489;
-- structurally conforming: 14,994,477;
-- structurally deferred: 12;
-- authority-backed insurance: 2,792,990;
-- primary IN03 aggregate candidates: 203,921;
-- candidate materialization: NOT_AUTHORIZED_AGGREGATE_ONLY;
-- recoverable value: UNKNOWN_FROM_SOURCE.
-
-No owner/raw values were returned.
-
-All Attempt-11 execution/privacy approvals are consumed, non-reusable and zero-retry.
-
-## Stage A — completed and merged
-
-Action:
-
-IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION
-
-PR #34 — MERGED
-
-Merge commit:
-
-9fc0c782ae575307be38c3f6b55b8f5ce477d372
-
-Post-merge CI:
-
-35920762625 — SUCCESS
-
-Stage A remains valid as technical evidence.
-
-Important reinterpretation:
-
-FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER was a synthetic determinism test and is NOT the proposed future P1 economic-targeting rule.
-
-## Product strategy v3
-
-PRODUCT_STRATEGY_MVP1.md is updated to version 3.0 on the active branch.
-
-Future P1 selection proposal:
+Selection rule planned for real P1:
 
 PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
-Meaning:
+Holder Report Year is persistence-only, not a value/awareness/death/contactability signal.
 
-use the oldest Holder Report Year among otherwise eligible records; source ordinal breaks ties.
+T0-T4 = targetability.
 
-Holder Report Year is only a persistence signal.
+F0-F3 = process friction only.
 
-It does not prove:
+No numeric targetability score.
 
-- beneficiary awareness/unawareness;
-- death;
-- contactability;
-- claim complexity;
-- recoverable value;
-- willingness to pay.
+## Active work
 
-No fixed age threshold is invented.
+Branch:
 
-## Targetability model
+mvp1-real-p1-targetability-execution-scope
 
-### Service need
+Single task:
 
-SERVICE_NEED_STATE:
+DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
 
-- UNKNOWN
-- LOW_EVIDENCE
-- MATERIAL_EVIDENCE
+Status:
 
-### Resolvability
+DEFINED / OFFLINE DESIGN ONLY / NOT AUTHORIZED
 
-RESOLVABILITY_STATE:
+Artifacts:
 
-- UNKNOWN
-- EASY
-- BOUNDED
-- UNBOUNDED
+- sources/proposals/ny_mvp1_real_p1_targetability_execution_scope.v1.json
+- schemas/common/ny_mvp1_real_p1_targetability_execution_scope.schema.json
+- tests/contract/test_ny_mvp1_real_p1_targetability_execution_scope_contract.py
+- docs/audits/NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_REVIEW.md
 
-### Estate / representative
+## Proposed real P1 design
 
-ESTATE_PATH_STATE:
+### Pass L0
 
-- NOT_EVALUATED
-- NO_EVIDENCE
-- EVIDENCE_PRESENT
+Streaming whole-file selection using only:
 
-REPRESENTATIVE_PATH_STATE:
+- structure;
+- exact IN03;
+- owner-count = 1;
+- Property ID presence boolean;
+- Holder Report Year;
+- ordinal.
 
-- NOT_EVALUATED
-- IDENTIFIED
-- BOUNDED_DISCOVERABLE
-- NOT_BOUNDED
+No owner-name/address ranking.
 
-### Awareness
+### L1
 
-Before separate outreach authorization:
+Second pass on selected ordinal only.
 
-AWARENESS_STATE = UNKNOWN_UNTIL_OUTREACH
+Transient:
 
-Do not label a beneficiary unaware before contact evidence exists.
+- Property ID;
+- Property Type Code;
+- Property Owner Count;
+- Owner Name;
+- Holder Name;
+- Holder Report Year.
 
-## Targetability classes T0-T4
+No address.
 
-T0_SELF_SERVICE_LIKELY
+No owner PII persistence/logging/return.
 
-Low service-need evidence + easy resolution. Low priority for paid direct-owner service. Not a low-value label.
+External cash budget:
 
-T1_UNRESOLVED_BUT_LOCATABLE
+USD 0.00.
 
-Material service need + easy/low-cost resolvability. Core direct-service target hypothesis.
+### L2-A
 
-T2_ESTATE_OR_REPRESENTATIVE_PATH
+Defined but separately gated.
 
-Deceased/estate evidence + identified or bounded-discoverable representative path. Complex-service hypothesis, not a high-value label.
+May use selected Owner Name + OSC last-known address only after separate PII approval.
 
-T3_HARD_BUT_BOUNDED
+Goal:
 
-Material service need + harder identity/contactability + explicit bounded next step.
+service need + resolvability.
 
-T4_UNBOUNDED_OR_UNRESOLVED_STOP
+Proposed P1 L2-A cap:
 
-No bounded next step, unavailable legal/privacy scope or disproportionate cost. Stop rather than build more architecture.
+- paid spend USD 0.00;
+- manual research 900 seconds.
 
-If evidence is insufficient:
+No paid data broker/API, FCRA consumer-report product, genealogy, beneficiary matching, outreach or value research.
 
-UNRESOLVED_REQUIRES_L2
+No provider/search engine may receive owner PII until its privacy/terms use is explicitly reviewed and approved.
 
-No T class is fabricated.
+## One-download rule
 
-## F0-F3 status
+L1 and L2-A may share one download only when every L1/L2-A approval is already granted before the download.
 
-F0-F3 remain observed process-friction lanes only.
+Otherwise:
 
-They are NOT:
+L1 -> disposal -> local file logical deletion -> STOP.
 
-- targetability classes;
-- value predictions;
-- ranking scores;
-- automatic commercial decisions.
+No mid-session waiting for new authorization.
 
-No automatic mapping exists between T0-T4 and F0-F3.
+## Legal/privacy preconditions
 
-## Economic metric changes
+Before real execution:
 
-PRE_VALUE_DISCOVERY_COST remains the umbrella metric.
+- identify controller;
+- record controller establishment;
+- determine applicable law;
+- document legal basis;
+- document transparency obligations/plan.
 
-New primary P1 sub-metric:
+If GDPR applies, Article 6 basis must be documented; legitimate interests is not preapproved. If Article 6(1)(f) is selected, project policy requires a documented LIA. Article 14 must be analyzed because data are obtained from a source other than the data subject.
 
-TARGETABILITY_DECISION_COST
+## Fresh gates proposed
 
-Definition:
+All single-use/non-reusable/zero-retry:
 
-evidenced incremental cost to determine material service need and bounded resolvability before outreach/value research.
+1. APPROVE_NY_MVP1_P1_TRANSIENT_LOCAL_FILE_ONCE
+2. APPROVE_NY_MVP1_P1_L1_TRANSIENT_PII_ONCE
+3. AUTHORIZE_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_ONCE
+4. AUTHORIZE_NY_MVP1_P1_L1_EXECUTION_ONCE
+5. APPROVE_NY_MVP1_P1_L2A_TARGETABILITY_PII_SCOPE_ONCE
+6. APPROVE_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_ONCE
+7. AUTHORIZE_NY_MVP1_P1_L2A_EXECUTION_ONCE
 
-P1 optimization now begins with:
+None is currently granted.
 
-COST_TO_DETERMINE_SERVICE_NEED_AND_RESOLVABILITY
+## Current prohibitions
 
-before spending to learn exact value.
+Do not perform:
 
-L1 maximum new external cash spend:
-
-USD 0.00
-
-Paid APIs in L1:
-
-NOT ALLOWED
-
-Paid data purchase in L1:
-
-NOT ALLOWED
-
-L2 incremental budget:
-
-UNSET_REQUIRES_PRODUCT_OWNER
-
-No L2 spend is authorized.
-
-## Synthetic Targetable Opportunity Filter V1
-
-Implementation:
-
-src/unclaimed_platform/domain/ny_mvp1_targetable_opportunity.py
-
-Contract:
-
-schemas/common/ny_mvp1_targetable_opportunity_filter.schema.json
-
-Tests:
-
-- tests/unit/test_ny_mvp1_targetable_opportunity.py
-- tests/contract/test_ny_mvp1_targetable_opportunity_contract.py
-
-Proposal:
-
-sources/proposals/ny_mvp1_targetable_opportunity_filter.v1.json
-
-Audit:
-
-docs/audits/TARGETABLE_OPPORTUNITY_VALUE_PROPOSITION_REFRAME_2026-09-24.md
-
-Review:
-
-docs/audits/NY_MVP1_TARGETABLE_OPPORTUNITY_FILTER_REVIEW.md
-
-Decision:
-
-D-012
-
-## Verification
-
-Verified implementation checkpoint:
-
-89a3fcc0528571e465f73b94552165d3ccea14e6
-
-CI:
-
-35993271424 — SUCCESS
-
-Verified:
-
-- Ruff;
-- mypy;
-- contract tests;
-- smoke tests;
-- full pytest suite;
-- frontend lint;
-- frontend typecheck;
-- frontend build;
-- Streamlit safety smoke;
-- Streamlit startup smoke.
-
-An initial full-pytest run failed only because unit and contract test modules had identical basenames.
-
-Repair:
-
-the contract test was renamed.
-
-No product logic changed.
-
-## Safety boundary
-
-The entire new package is synthetic/offline only.
-
-It does NOT authorize or perform:
-
-- NY OSC access;
+- source access;
 - remote preflight;
 - download;
 - real candidate materialization;
 - owner PII processing;
-- identity resolution;
+- external PII queries;
+- identity/contact enrichment;
 - beneficiary matching;
-- address enrichment;
-- third-party API use;
+- genealogy;
 - outreach;
 - value research;
 - fee agreement;
 - representation;
 - claim activity.
 
-No previous real-source/privacy approval may be reused.
+## SINGLE NEXT ACTION
 
-## Economic Discovery Ladder — current interpretation
+HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-L0 — SOURCE QUALIFICATION / TARGET SIGNAL
+Required Product Owner phrase:
 
-Exact eligibility + persistence signal only.
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-L1 — TRANSIENT ONE-CANDIDATE MATERIALIZATION
+If approved:
 
-Minimum candidate structure + measured L1 cost. No identity/outreach/value work.
+IMPLEMENT_AND_REVIEW_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
 
-L2 — MINIMAL TARGETABILITY DISCOVERY
+The runner implementation remains offline and synthetic/test-only until a later fresh authorization chain.
 
-Question:
-
-CAN THIS OWNER OR AUTHORIZED REPRESENTATIVE BE IDENTIFIED/CONTACTED AT BOUNDED COST, AND IS THERE MATERIAL SERVICE NEED?
-
-Produces T0-T4 or unresolved state and TARGETABILITY_DECISION_COST.
-
-L3 — OUTREACH / SERVICE FIT
-
-Separate authorization. Awareness may become evidence-backed only here.
-
-L4 — VALUE EVIDENCE
-
-Evidence-backed value only; unknown remains explicit if unavailable.
-
-L5 — EXPLICIT CASE ECONOMICS
-
-Only after value, actual/agreed fee and fully loaded cost are evidenced.
-
-## Pilot sequence
-
-P1:
-
-one targetability experiment.
-
-Question:
-
-Can we establish material service need and bounded resolvability cheaply enough to justify the next authorization before recoverable value is known?
-
-P2:
-
-approximately five deliberately varied cases only after P1 review.
-
-Do not simply use the next five rows.
-
-P3:
-
-approximately 20–30 only if P2 supports continuation.
-
-Management gates, not statistical guarantees.
-
-## Current single next action
-
-Execute only:
-
-HUMAN_REVIEW_TARGETABLE_OPPORTUNITY_REFRAME_AND_SYNTHETIC_FILTER_V1
-
-The Product Owner review should decide whether to accept:
-
-1. value proposition v3;
-2. persistence-first P1 selection;
-3. T0-T4 vocabulary;
-4. F0-F3 / T0-T4 separation;
-5. TARGETABILITY_DECISION_COST;
-6. L1 external cash spend ceiling USD 0.00;
-7. L2 budget remaining unset;
-8. integration of the active branch into main.
-
-No real candidate execution is part of this review.
-
-If approved and integrated, next separate action:
-
-DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
-
-That future action must still define fresh single-use privacy/execution gates, exact PII scope, retention/disposal and any L2 incremental budget.
-
-## Canonical read order
+## Context restart order
 
 1. AGENTS.md
 2. PRODUCT_STRATEGY_MVP1.md
@@ -427,34 +222,4 @@ That future action must still define fresh single-use privacy/execution gates, e
 5. DECISIONS.md
 6. docs/handovers/HANDOVER_CURRENT.md
 
-Then verify remote main and active branch HEAD.
-
-## Git status
-
-Canonical main baseline before work:
-
-23de3a6ef5f1d6335691e17206285b4ec5f923af
-
-Active branch:
-
-mvp1-targetable-opportunity-reframe
-
-Verified implementation checkpoint:
-
-89a3fcc0528571e465f73b94552165d3ccea14e6
-
-Verified CI:
-
-35993271424 — SUCCESS
-
-Documentation commits after the verified implementation checkpoint may advance the feature-branch HEAD; verify latest branch HEAD and CI before integration.
-
-COMMIT/PUSH:
-
-Feature-branch commits have been created through the authorized GitHub connector work.
-
-MERGE:
-
-NOT EXECUTED.
-
-Main remains unchanged.
+Then verify remote main and active feature branch before modification.

@@ -18,87 +18,47 @@ Guiding metric:
 
 ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME
 
-## Canonical integration branch
+## Canonical main
+
+Canonical branch:
 
 main
 
-Verified remote main HEAD before this work:
+Current verified main HEAD:
 
-23de3a6ef5f1d6335691e17206285b4ec5f923af
+322c38027a2a214246f1a52ca0854b7b93d171b7
 
-PR #35 is merged.
+Main post-merge CI:
 
-The current work is isolated on:
+35994103772 — SUCCESS
 
-mvp1-targetable-opportunity-reframe
+PR #36:
 
-No merge to main has been executed.
+MVP1: targetable opportunity value proposition and synthetic filter — MERGED
+
+Targetability strategy v3.0 and D-012 are now canonical.
 
 ## Real-source evidence already established
 
-NY OSC Attempt 11 completed one bounded aggregate real-source product slice.
+NY OSC Attempt 11 completed one bounded aggregate product slice.
 
-Authoritative result:
+Authoritative evidence:
 
 sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json
 
 Observed:
 
 - total physical records: 14,994,489;
-- structurally conforming: 14,994,477;
-- structurally deferred: 12;
-- authority-backed insurance: 2,792,990;
+- authority-backed insurance records: 2,792,990;
 - primary IN03 aggregate candidates: 203,921;
-- candidate materialization: NOT_AUTHORIZED_AGGREGATE_ONLY;
+- real candidate materialization: NOT AUTHORIZED;
 - recoverable value: UNKNOWN_FROM_SOURCE.
 
-No owner/raw values were returned.
+All historical execution/privacy grants are consumed/non-reusable/zero-retry.
 
-All Attempt-11 execution/privacy approvals are consumed, non-reusable and zero-retry.
+## Current targetability model
 
-## Stage A — completed and merged
-
-Action:
-
-IMPLEMENT_AND_REVIEW_SYNTHETIC_ONE_CANDIDATE_TRANSIENT_MATERIALIZATION
-
-PR #34 — MERGED
-
-Merge commit:
-
-9fc0c782ae575307be38c3f6b55b8f5ce477d372
-
-Post-merge CI:
-
-35920762625 — SUCCESS
-
-Stage A proved synthetic transient materialization and economic instrumentation.
-
-Stage A used FIRST_ELIGIBLE_RECORD_IN_SOURCE_ORDER only to prove deterministic technical behavior.
-
-It remains historical/technical evidence and is no longer the proposed economic-targeting rule for future real P1.
-
-## Product-value reframe — 2026-09-24
-
-Product Owner direction:
-
-Do not target candidates merely because IN03 exists or because a case appears difficult.
-
-Target the subset where the service can create material value despite the free OSC claim path:
-
-MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
-
-Updated value proposition:
-
-Find unresolved insurance-beneficiary opportunities that the rightful person or authorized representative may not be effectively resolving through ordinary processes, determine whether the case is practically resolvable at bounded cost, and provide compliant discovery/location/recovery assistance where that assistance creates real value.
-
-The product must never imply that a customer must pay to obtain funds from OSC.
-
-## D-012 — targetable opportunity policy
-
-Accepted on the active branch.
-
-Future P1 proposed selection rule:
+Future real P1 candidate selection:
 
 PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER
 
@@ -106,198 +66,197 @@ Holder Report Year is a persistence signal only.
 
 It is not evidence of:
 
-- monetary value;
+- value;
 - awareness;
 - death;
 - contactability;
+- claim complexity;
 - willingness to pay.
 
-No fixed age threshold is invented.
+Targetability:
 
-## Targetability parameters
+MATERIAL SERVICE NEED x BOUNDED RESOLVABILITY x EVIDENCED COST DISCIPLINE
 
-SERVICE_NEED_STATE:
+T0-T4 are targetability classes.
 
-- UNKNOWN
-- LOW_EVIDENCE
-- MATERIAL_EVIDENCE
+F0-F3 remain friction-only observations.
 
-RESOLVABILITY_STATE:
+No numeric targetability score is allowed.
 
-- UNKNOWN
-- EASY
-- BOUNDED
-- UNBOUNDED
+## Fresh real P1 targetability execution scope — DEFINED FOR REVIEW
 
-ESTATE_PATH_STATE:
+Active branch:
 
-- NOT_EVALUATED
-- NO_EVIDENCE
-- EVIDENCE_PRESENT
+mvp1-real-p1-targetability-execution-scope
 
-REPRESENTATIVE_PATH_STATE:
+Proposal:
 
-- NOT_EVALUATED
-- IDENTIFIED
-- BOUNDED_DISCOVERABLE
-- NOT_BOUNDED
+sources/proposals/ny_mvp1_real_p1_targetability_execution_scope.v1.json
 
-AWARENESS_STATE before outreach:
+Schema:
 
-UNKNOWN_UNTIL_OUTREACH
+schemas/common/ny_mvp1_real_p1_targetability_execution_scope.schema.json
 
-Targetability classes:
+Contract test:
 
-- T0_SELF_SERVICE_LIKELY
-- T1_UNRESOLVED_BUT_LOCATABLE
-- T2_ESTATE_OR_REPRESENTATIVE_PATH
-- T3_HARD_BUT_BOUNDED
-- T4_UNBOUNDED_OR_UNRESOLVED_STOP
+tests/contract/test_ny_mvp1_real_p1_targetability_execution_scope_contract.py
 
-Insufficient evidence:
+Audit/review:
 
-UNRESOLVED_REQUIRES_L2
+docs/audits/NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_REVIEW.md
 
-No numeric targetability score is allowed in v1.
+Status:
 
-## Friction lanes
+PROPOSED_OFFLINE_DESIGN_ONLY_NOT_AUTHORIZED
 
-F0-F3 remain backward-compatible process-friction observations only.
+## P1 scope design
 
-They are not:
+### L0 selection pass
 
-- value scores;
-- targetability scores;
-- ranking scores;
-- automatic commercial decisions.
+One authorized file, one streaming selection pass.
 
-No automatic mapping exists between F0-F3 and T0-T4.
+Allowed selection observations:
 
-## Economic parameters
+- structural shape;
+- Property Type Code;
+- Property Owner Count;
+- Property ID presence boolean only;
+- Holder Report Year;
+- source record ordinal.
 
-PRE_VALUE_DISCOVERY_COST remains the umbrella metric.
+Owner name/address must not be decoded or buffered for ranking.
 
-New primary P1 sub-metric:
+Selection:
 
-TARGETABILITY_DECISION_COST
+oldest eligible Holder Report Year, then lowest source ordinal.
 
-Definition:
+### L1 selected-candidate materialization
 
-the evidenced incremental cost required to determine whether the case has material service need and bounded resolvability before outreach/value research.
+Second pass over the same already-authorized local file.
+
+Selected ordinal only.
+
+Transient fields:
+
+- Property ID;
+- Property Type Code;
+- Property Owner Count;
+- Owner Name;
+- Holder Name;
+- Holder Report Year.
+
+Address fields are excluded from L1.
+
+No owner PII may be returned, persisted or logged.
+
+Holder Name is not persisted.
 
 L1 maximum new external cash spend:
 
 USD 0.00
 
-L1 paid API calls:
+Paid API/data:
 
-NOT ALLOWED
+NOT ALLOWED.
 
-L1 paid data purchases:
+### L2-A minimal targetability discovery
 
-NOT ALLOWED
+Defined but NOT authorized.
 
-L2 incremental budget:
+Question:
 
-UNSET_REQUIRES_PRODUCT_OWNER
+CAN SERVICE NEED AND RESOLVABILITY BE ESTABLISHED WITHOUT OUTREACH OR VALUE RESEARCH?
 
-## Synthetic Targetable Opportunity Filter V1 — VERIFIED
+Proposed experimental cap:
 
-Implementation:
+- external cash spend: USD 0.00;
+- manual research: 900 seconds maximum.
 
-src/unclaimed_platform/domain/ny_mvp1_targetable_opportunity.py
+The 900-second cap is a Product Owner experiment bound, not an evidence-backed profitability threshold.
 
-Machine contract:
+No paid data broker/API, consumer-report/FCRA product, genealogy, beneficiary matching, outreach or value research.
 
-schemas/common/ny_mvp1_targetable_opportunity_filter.schema.json
+A search/provider tool may not receive owner PII until that exact provider/tool has passed a privacy/terms review and is separately approved.
 
-Tests:
+## One-download rule
 
-tests/unit/test_ny_mvp1_targetable_opportunity.py
+L1 + L2-A may share one download only if every required L1 and L2-A gate is granted before the download.
 
-tests/contract/test_ny_mvp1_targetable_opportunity_contract.py
+If only L1 is approved:
 
-Proposal:
+L1 -> dispose selected PII -> logically delete local file -> STOP.
 
-sources/proposals/ny_mvp1_targetable_opportunity_filter.v1.json
+Waiting mid-session for scope expansion is prohibited.
 
-Strategy/audits:
+## Legal/privacy prerequisite
 
-- PRODUCT_STRATEGY_MVP1.md v3.0
-- docs/audits/TARGETABLE_OPPORTUNITY_VALUE_PROPOSITION_REFRAME_2026-09-24.md
-- docs/audits/NY_MVP1_TARGETABLE_OPPORTUNITY_FILTER_REVIEW.md
+Before real execution the project must document:
 
-Verified implementation checkpoint:
+- controller identity;
+- controller establishment;
+- applicable-law assessment;
+- required legal basis;
+- required transparency plan.
 
-89a3fcc0528571e465f73b94552165d3ccea14e6
+If GDPR applies through an EU establishment, an Article 6 basis must be documented; legitimate interests is not preapproved. Project policy requires a documented LIA if Article 6(1)(f) is selected and an Article 14 transparency analysis for data not obtained directly from the subject.
 
-CI:
+This artifact is a control design, not a legal opinion.
 
-35993271424 — SUCCESS
+## Economic Case Ledger
 
-Verified:
+No direct owner PII.
 
-- Ruff;
-- mypy;
-- contract tests;
-- smoke tests;
-- full pytest;
-- Streamlit safety/startup;
-- frontend lint;
-- frontend typecheck;
-- frontend build.
+May include:
 
-Initial CI defect:
+- case/source/snapshot/ordinal;
+- selection rule/version;
+- Holder Report Year;
+- persistence signal;
+- service-need/resolvability/estate/representative states;
+- awareness = UNKNOWN_UNTIL_OUTREACH;
+- targetability class or null;
+- TARGETABILITY_DECISION_COST;
+- PRE_VALUE_DISCOVERY_COST;
+- machine/data/human time;
+- external spend;
+- scope/authorization refs;
+- stop reason;
+- disposal result.
 
-pytest import collision caused by identical unit/contract test basenames.
+Value remains:
 
-Repair:
+UNKNOWN_PRE_CLAIM_REVIEW
 
-contract test renamed.
+No automatic commercial decision.
 
-No product logic changed.
+## Fresh gates proposed
 
-## Safety / authorization state
+All are single-use / non-reusable / zero-retry:
 
-The targetability implementation is synthetic-only.
+1. HUMAN_NY_MVP1_P1_TRANSIENT_LOCAL_FILE_APPROVAL
+2. HUMAN_NY_MVP1_P1_L1_TRANSIENT_PII_APPROVAL
+3. HUMAN_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_AUTHORIZATION
+4. HUMAN_NY_MVP1_P1_L1_EXECUTION_AUTHORIZATION
+5. HUMAN_NY_MVP1_P1_L2A_TARGETABILITY_PII_SCOPE_APPROVAL
+6. HUMAN_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_APPROVAL
+7. HUMAN_NY_MVP1_P1_L2A_EXECUTION_AUTHORIZATION
 
-It does NOT authorize or perform:
+No approval is created or granted by the scope definition.
 
-- source access;
-- remote preflight;
-- download;
-- real candidate materialization;
-- real owner PII processing;
-- identity resolution;
-- beneficiary matching;
-- address enrichment;
-- third-party API use;
-- outreach;
-- value research;
-- fee agreement;
-- representation;
-- claim activity.
+## Current safety boundary
 
-No previous real-source/privacy authorization may be reused.
-
-## Current blocker
-
-The technical targetability model is verified synthetically.
-
-The remaining blocker to real P1 is human/legal/privacy authorization for a strictly bounded real experiment.
-
-L2 identity/contactability spend is not authorized and has no budget yet.
+No source access, preflight, download, candidate materialization, PII processing, identity resolution, external PII query, enrichment, outreach, value research, fee agreement, representation or claim activity has been authorized or performed by this scope-definition work.
 
 ## Current next action
 
-Execute only:
+HUMAN_REVIEW_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-HUMAN_REVIEW_TARGETABLE_OPPORTUNITY_REFRAME_AND_SYNTHETIC_FILTER_V1
+Required approval phrase:
 
-If accepted, merge/integrate this branch only with explicit Product Owner authorization.
+APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1
 
-After integration, the next separate design gate will be:
+If approved, next action:
 
-DEFINE_FRESH_REAL_P1_TARGETABILITY_EXECUTION_SCOPE
+IMPLEMENT_AND_REVIEW_REAL_P1_TARGETABILITY_RUNNER_OFFLINE
 
-That later gate must establish the exact PII envelope, retention/disposal, single-use approvals and Product Owner L2 incremental budget before any real candidate is processed.
+That next action remains offline and does not execute a real candidate.

@@ -1,0 +1,362 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "ny.mvp1.real_p1_targetability_execution_scope",
+  "artifact_version": "1.0.0",
+  "prepared_on": "2026-09-24",
+  "status": "PROPOSED_OFFLINE_DESIGN_ONLY_NOT_AUTHORIZED",
+  "work_class": "A_PRODUCT_CRITICAL",
+  "source_id": "ny.osc.unclaimed_funds.owner_name_file",
+  "baseline": {
+    "main_checkpoint": "322c38027a2a214246f1a52ca0854b7b93d171b7",
+    "main_post_merge_ci_run_id": 35994103772,
+    "main_post_merge_ci_conclusion": "SUCCESS",
+    "targetability_strategy_version": "3.0",
+    "selection_rule_version": "2.0.0",
+    "attempt11_aggregate_result_ref": "sources/evidence/ny_osc_owner_name_file_eleventh_attempt_execution_result.v1.json",
+    "primary_in03_candidate_records": 203921,
+    "real_candidate_materialization_state": "NOT_AUTHORIZED"
+  },
+  "objective": "MEASURE_ONE_REAL_CASE_TARGETABILITY_AT_BOUNDED_COST_BEFORE_VALUE_RESEARCH",
+  "pilot_question": "CAN_MATERIAL_SERVICE_NEED_AND_BOUNDED_RESOLVABILITY_BE_ESTABLISHED_CHEAPLY_ENOUGH_TO_JUSTIFY_THE_NEXT_AUTHORIZATION_BEFORE_RECOVERABLE_VALUE_IS_KNOWN",
+  "reuse_plan": [
+    {
+      "path": "src/unclaimed_platform/domain/ny_mvp1_targetable_opportunity.py",
+      "decision": "REUSE",
+      "purpose": "reuse persistence-first selection semantics and T0-T4 targetability vocabulary"
+    },
+    {
+      "path": "src/unclaimed_platform/domain/ny_osc_one_candidate_transient_materialization.py",
+      "decision": "ADAPT",
+      "purpose": "reuse non-PII case-id, ledger, cost and transient-disposal patterns without reusing synthetic-only execution state"
+    },
+    {
+      "path": "src/unclaimed_platform/domain/ny_mvp1_follow_up_cost.py",
+      "decision": "REUSE",
+      "purpose": "measure machine data and human time with evidence"
+    },
+    {
+      "path": "src/unclaimed_platform/domain/ny_mvp1_value_evidence.py",
+      "decision": "REUSE",
+      "purpose": "preserve UNKNOWN_PRE_CLAIM_REVIEW and prohibit invented value"
+    },
+    {
+      "path": "policies/states/NY/ny_osc_owner_name_file.v1.json",
+      "decision": "REUSE",
+      "purpose": "reuse source identity documented 14-field layout and privacy boundaries"
+    },
+    {
+      "path": "schemas/common/ny_osc_seventh_attempt_transient_pii_approval.schema.json",
+      "decision": "INSPIRE",
+      "purpose": "reuse single-use non-reusable approval semantics without reusing any historical grant"
+    }
+  ],
+  "legal_privacy_gate": {
+    "legal_design_state": "REQUIRES_HUMAN_LEGAL_CONFIRMATION_BEFORE_REAL_EXECUTION",
+    "controller_identity_required": true,
+    "controller_establishment_required": true,
+    "applicable_law_assessment_required": true,
+    "gdpr_if_eu_establishment": {
+      "applicability_must_be_determined_before_execution": true,
+      "article_6_legal_basis_must_be_documented": true,
+      "legitimate_interest_not_preapproved": true,
+      "lia_required_if_article_6_1_f_selected": true,
+      "article_14_transparency_plan_required": true,
+      "data_minimisation_required": true,
+      "storage_limitation_required": true
+    },
+    "ny_security_scope": {
+      "reasonable_safeguards_required_where_applicable": true,
+      "controlled_disposal_required": true
+    },
+    "legal_references": [
+      "https://www.osc.ny.gov/unclaimed-funds/resources/location-service-providers",
+      "https://www.nysenate.gov/legislation/laws/ABP/1416",
+      "https://www.nysenate.gov/legislation/laws/GBS/393-E",
+      "https://www.nysenate.gov/legislation/laws/GBS/899-BB",
+      "https://eur-lex.europa.eu/eli/reg/2016/679/"
+    ],
+    "fail_closed_if_unresolved": true
+  },
+  "source_execution_bounds": {
+    "fresh_listing_preflight_required": true,
+    "downloads_max": 1,
+    "retries_max": 0,
+    "dedicated_os_temp_directory_required": true,
+    "cloud_sync_allowed": false,
+    "repository_raw_persistence_allowed": false,
+    "max_download_bytes": 450000000,
+    "max_uncompressed_bytes": 2000000000,
+    "max_archive_members": 1,
+    "expected_documented_field_count": 14,
+    "expected_delimiter": "|",
+    "physical_secure_erasure_guaranteed": false,
+    "logical_deletion_required": true
+  },
+  "l0_selection_pass": {
+    "selection_rule": "PERSISTENCE_FIRST_OLDEST_HOLDER_REPORT_YEAR_THEN_SOURCE_ORDER",
+    "max_selected_candidates": 1,
+    "whole_file_streaming_selection_required": true,
+    "owner_pii_decoding_allowed": false,
+    "owner_pii_buffering_allowed": false,
+    "allowed_selection_observations": [
+      "structural_shape",
+      "Property Type Code",
+      "Property Owner Count",
+      "Property ID presence boolean only",
+      "Holder Report Year",
+      "source_record_ordinal"
+    ],
+    "required_exact_property_type_code": "IN03",
+    "required_property_owner_count": 1,
+    "property_id_value_persisted": false,
+    "holder_report_year_interpretation": "PERSISTENCE_SIGNAL_ONLY",
+    "fixed_age_threshold": null,
+    "tie_breaker": "LOWEST_SOURCE_RECORD_ORDINAL",
+    "value_prediction_allowed": false,
+    "owner_pii_ranking_allowed": false
+  },
+  "l1_selected_candidate_materialization": {
+    "execution_pass": "SECOND_PASS_SAME_AUTHORIZED_LOCAL_FILE_SELECTED_ORDINAL_ONLY",
+    "max_candidates": 1,
+    "max_new_external_cash_spend_cents": 0,
+    "paid_api_calls_allowed": false,
+    "paid_data_purchase_allowed": false,
+    "transient_fields_allowed": [
+      "Property ID",
+      "Property Type Code",
+      "Property Owner Count",
+      "Owner Name",
+      "Holder Name",
+      "Holder Report Year"
+    ],
+    "address_fields_allowed": false,
+    "raw_row_persistence_allowed": false,
+    "owner_name_persistence_allowed": false,
+    "property_id_persistence_allowed": false,
+    "holder_name_persistence_allowed": false,
+    "owner_field_logging_allowed": false,
+    "transient_values_returned_allowed": false,
+    "row_specific_human_inspection_allowed": false,
+    "same_session_disposal_required": true,
+    "persistent_non_owner_fields_allowed": [
+      "case_id",
+      "source_id",
+      "source_snapshot_ref",
+      "source_record_ordinal",
+      "selection_rule_version",
+      "property_type_code",
+      "property_owner_count",
+      "holder_report_year",
+      "candidate_state",
+      "value_evidence_state",
+      "persistence_signal",
+      "stage_timestamps",
+      "measured_machine_cost",
+      "measured_human_time",
+      "authorization_refs",
+      "stop_reason",
+      "disposal_result"
+    ],
+    "default_terminal_state": "STOP_REQUIRES_SEPARATELY_AUTHORIZED_L2A_OR_END_P1_L1"
+  },
+  "l2a_minimal_targetability_discovery": {
+    "status": "DEFINED_NOT_AUTHORIZED",
+    "objective": "ESTABLISH_SERVICE_NEED_AND_RESOLVABILITY_WITHOUT_OUTREACH_OR_VALUE_RESEARCH",
+    "separate_approval_required": true,
+    "same_download_extension_allowed_only_if_all_l2a_grants_exist_before_download": true,
+    "if_l2a_not_preapproved": "DISPOSE_L1_PII_DELETE_LOCAL_FILE_AND_STOP",
+    "proposed_incremental_external_cash_budget_cents": 0,
+    "proposed_manual_research_cap_seconds": 900,
+    "manual_research_cap_interpretation": "PRODUCT_OWNER_EXPERIMENT_CAP_NOT_EVIDENCE_BACKED_PROFITABILITY_THRESHOLD",
+    "paid_data_broker_allowed": false,
+    "paid_api_allowed": false,
+    "consumer_report_or_fcra_product_allowed": false,
+    "account_creation_or_paid_login_allowed": false,
+    "external_provider_state": "PROVIDER_OR_TOOL_PRIVACY_TERMS_REVIEW_REQUIRED_BEFORE_ANY_PII_QUERY",
+    "transient_input_fields_allowed_after_separate_l2a_approval": [
+      "Owner Name",
+      "Owner Address 1",
+      "Owner Address 2",
+      "Owner Address 3",
+      "Owner City",
+      "Owner Address State",
+      "Owner Zip Code",
+      "Owner Country Code",
+      "Holder Name",
+      "Holder Report Year",
+      "Property Type Code"
+    ],
+    "external_query_fields_must_be_minimised_per_query": true,
+    "beneficiary_matching_allowed": false,
+    "genealogy_allowed": false,
+    "outreach_allowed": false,
+    "value_research_allowed": false,
+    "claim_activity_allowed": false,
+    "awareness_state_required": "UNKNOWN_UNTIL_OUTREACH",
+    "allowed_durable_outputs": [
+      "service_need_state",
+      "resolvability_state",
+      "estate_path_state",
+      "representative_path_state",
+      "awareness_state",
+      "targetability_state",
+      "targetability_class",
+      "friction_lane_if_evidenced",
+      "targetability_decision_cost_state",
+      "targetability_decision_cost_cents_if_fully_evidenced",
+      "external_cash_spend_cents",
+      "human_research_seconds",
+      "source_type_categories",
+      "non_pii_source_domains",
+      "stop_reason",
+      "next_information_objective"
+    ],
+    "forbidden_durable_outputs": [
+      "Owner Name",
+      "Property ID",
+      "raw row",
+      "street address",
+      "phone number",
+      "email address",
+      "relative names",
+      "beneficiary names",
+      "PII-derived hashes",
+      "search query strings containing PII",
+      "URLs containing PII",
+      "copied external page content containing PII",
+      "guessed recoverable value",
+      "guessed fee",
+      "guessed probability of recovery"
+    ],
+    "classification_rules": {
+      "numeric_targetability_score_allowed": false,
+      "insufficient_evidence_outcome": "UNRESOLVED_REQUIRES_L2",
+      "t0": "T0_SELF_SERVICE_LIKELY",
+      "t1": "T1_UNRESOLVED_BUT_LOCATABLE",
+      "t2": "T2_ESTATE_OR_REPRESENTATIVE_PATH",
+      "t3": "T3_HARD_BUT_BOUNDED",
+      "t4": "T4_UNBOUNDED_OR_UNRESOLVED_STOP"
+    }
+  },
+  "economic_case_ledger": {
+    "direct_owner_pii_allowed": false,
+    "pseudonymised_linkability_warning": true,
+    "required_fields": [
+      "case_id",
+      "source_id",
+      "source_snapshot_ref",
+      "source_record_ordinal",
+      "selection_rule_version",
+      "holder_report_year",
+      "persistence_signal",
+      "current_discovery_stage",
+      "service_need_state",
+      "resolvability_state",
+      "estate_path_state",
+      "representative_path_state",
+      "awareness_state",
+      "targetability_state",
+      "targetability_class_or_null",
+      "targetability_decision_cost_state",
+      "pre_value_discovery_cost_state",
+      "measured_machine_and_data_cost",
+      "measured_human_seconds",
+      "external_cash_spend_cents",
+      "legal_privacy_scope_ref",
+      "authorization_refs",
+      "stop_reason",
+      "disposal_result"
+    ],
+    "value_evidence_state": "UNKNOWN_PRE_CLAIM_REVIEW",
+    "commercial_decision_automatic": false
+  },
+  "single_use_non_reusable_gates": [
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_TRANSIENT_LOCAL_FILE_APPROVAL",
+      "required_owner_phrase": "APPROVE_NY_MVP1_P1_TRANSIENT_LOCAL_FILE_ONCE"
+    },
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_L1_TRANSIENT_PII_APPROVAL",
+      "required_owner_phrase": "APPROVE_NY_MVP1_P1_L1_TRANSIENT_PII_ONCE"
+    },
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_AUTHORIZATION",
+      "required_owner_phrase": "AUTHORIZE_NY_MVP1_P1_FRESH_LISTING_PREFLIGHT_ONCE"
+    },
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_L1_EXECUTION_AUTHORIZATION",
+      "required_owner_phrase": "AUTHORIZE_NY_MVP1_P1_L1_EXECUTION_ONCE"
+    },
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_L2A_TARGETABILITY_PII_SCOPE_APPROVAL",
+      "required_owner_phrase": "APPROVE_NY_MVP1_P1_L2A_TARGETABILITY_PII_SCOPE_ONCE"
+    },
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_APPROVAL",
+      "required_owner_phrase": "APPROVE_NY_MVP1_P1_L2A_PROVIDER_AND_BUDGET_ONCE"
+    },
+    {
+      "gate_id": "HUMAN_NY_MVP1_P1_L2A_EXECUTION_AUTHORIZATION",
+      "required_owner_phrase": "AUTHORIZE_NY_MVP1_P1_L2A_EXECUTION_ONCE"
+    }
+  ],
+  "stop_conditions": [
+    "CONTROLLER_OR_APPLICABLE_LAW_NOT_DOCUMENTED",
+    "LEGAL_BASIS_OR_REQUIRED_TRANSPARENCY_PLAN_NOT_DOCUMENTED",
+    "SOURCE_LISTING_NOT_FRESH_EXACT_MATCH",
+    "DOWNLOAD_OR_UNCOMPRESSED_BOUND_EXCEEDED",
+    "STRUCTURAL_SHAPE_NOT_DOCUMENTED_14_FIELDS",
+    "NO_ELIGIBLE_SINGLE_OWNER_IN03_WITH_REPORT_YEAR",
+    "MORE_THAN_ONE_CANDIDATE_SELECTED",
+    "OWNER_PII_WOULD_BE_USED_FOR_L0_RANKING",
+    "L1_OWNER_PII_WOULD_BE_PERSISTED_LOGGED_OR_RETURNED",
+    "L1_REQUIRES_ADDRESS_OR_EXTERNAL_LOOKUP",
+    "L1_NEW_EXTERNAL_CASH_SPEND_WOULD_EXCEED_ZERO",
+    "L2A_NOT_SEPARATELY_APPROVED",
+    "L2A_PROVIDER_OR_TOOL_TERMS_PRIVACY_REVIEW_MISSING",
+    "L2A_REQUIRES_PAID_DATA_OR_API",
+    "L2A_REQUIRES_CONSUMER_REPORT_FCRA_PRODUCT",
+    "L2A_MANUAL_RESEARCH_CAP_EXCEEDED",
+    "TARGETABILITY_REQUIRES_UNSUPPORTED_INFERENCE",
+    "OUTREACH_REQUIRED",
+    "VALUE_RESEARCH_REQUIRED",
+    "BENEFICIARY_MATCHING_OR_GENEALOGY_REQUIRED",
+    "CLAIM_OR_REPRESENTATION_ACTIVITY_REQUIRED",
+    "DISPOSAL_FAILED"
+  ],
+  "co_execution_rule": {
+    "l1_only_allowed": true,
+    "l1_plus_l2a_same_download_allowed": true,
+    "condition": "ALL_L1_AND_L2A_GRANTS_EXIST_BEFORE_DOWNLOAD_AND_PROVIDER_SCOPE_IS_APPROVED",
+    "mid_session_wait_for_new_authorization_allowed": false,
+    "automatic_scope_widening_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "authorization_does_not_grant": {
+    "source_access": false,
+    "remote_preflight": false,
+    "download": false,
+    "real_candidate_materialization": false,
+    "owner_pii_processing": false,
+    "identity_resolution": false,
+    "external_pii_query": false,
+    "beneficiary_matching": false,
+    "genealogy": false,
+    "address_enrichment": false,
+    "third_party_api_use": false,
+    "outreach": false,
+    "value_research": false,
+    "fee_agreement": false,
+    "representation": false,
+    "claim_activity": false
+  },
+  "implementation_boundaries": {
+    "proposal_only": true,
+    "runtime_code_modified": false,
+    "approval_artifacts_created": false,
+    "source_access_performed": false,
+    "pii_processing_performed": false
+  },
+  "required_owner_review_phrase": "APPROVE_NY_MVP1_REAL_P1_TARGETABILITY_EXECUTION_SCOPE_V1",
+  "next_action_if_approved": "IMPLEMENT_AND_REVIEW_REAL_P1_TARGETABILITY_RUNNER_OFFLINE"
+}
