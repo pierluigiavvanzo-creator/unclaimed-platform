@@ -220,15 +220,37 @@ google-search-manual-us-v1
 
 All seven P1 gates remain NOT_GRANTED.
 
+## Competitive Moat Gate — COMPLETE / PASS WITH REFRAME
+
+Rapid competitive review found that broad AI/unclaimed-property search, case prioritization, owner research and end-to-end recovery workflows already exist.
+
+Closest workflow competitor:
+
+ClaimTrace — California-focused property import, value/tractability/risk vetting, research, outreach, agreement, claim and payment pipeline.
+
+Retained hypothesis:
+
+NY_IN03_VALUE_BLIND_TARGETABILITY_ENGINE
+
+This is not yet a defensible moat. P1/P2/P3 must create the proprietary economic/targetability evidence.
+
+LLC formation remains just-in-time before real P1.
+
+Preferred bootstrap state:
+
+Wyoming, subject to US tax/legal and NY nexus review.
+
 ## B0 factual controller binding — NEXT
+
+Return immediately to Stage B.
 
 Execute only:
 
-HUMAN_SUPPLY_NY_MVP1_US_CONTROLLER_ENTITY_FACTS
+HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1
 
-No further technical/provider architecture is required before those facts are supplied.
+After a genuine controller exists:
 
-After factual binding, prepare the fresh single-use approval packet bound to the then-current runner checkpoint and successful CI.
+bind entity facts -> prepare fresh single-use approvals -> one real P1 -> human economic review.
 
 Real P1 remains NOT AUTHORIZED.
 
