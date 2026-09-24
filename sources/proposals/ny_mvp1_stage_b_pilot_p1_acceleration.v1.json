@@ -74,10 +74,7 @@
       "status": "MOSTLY_DEFINED_REQUIRES_ENTITY_SPECIFIC_SIGNOFF",
       "osc_list_research_supported": true,
       "osc_location_service_provider_license_or_registration_required": false,
-      "stage_b_precontact_requires_signed_fee_agreement": false,
-      "stage_b_precontact_requires_claim_submission": false,
-      "stage_b_precontact_requires_direct_owner_contact": false,
-      "rationale": "STAGE_B_STOPS_AT_TARGETABILITY_AND_DOES_NOT_SUBMIT_A_CLAIM_OR_SELL_LOCATION_SERVICES_TO_A_CONTACTED_CLIENT",
+      "rationale": "OSC_PROVIDES_THE_OWNER_LIST_FOR_RESEARCH;STAGE_B_STOPS_BEFORE_OUTREACH_AND_CLAIM;CLAIM_PATH_REQUIREMENTS_ARE_PRESERVED_FOR_L3_PLUS",
       "downstream_l3_plus_requirements": [
         "DIRECT_CONTACT_WITH_OWNER_OR_DULY_APPOINTED_REPRESENTATIVE_FOR_LSP_CLAIM_PATH",
         "WRITTEN_AGREEMENT",
@@ -95,7 +92,10 @@
         "https://www.nysenate.gov/legislation/laws/ABP/1416",
         "https://www.nysenate.gov/legislation/laws/GBS/393-E",
         "https://www.nysenate.gov/legislation/bills/2025/A3372"
-      ]
+      ],
+      "claim_path_signed_fee_agreement_is_downstream_of_stage_b": true,
+      "claim_submission_is_downstream_of_stage_b": true,
+      "claim_path_direct_contact_is_downstream_of_stage_b": true
     },
     "l2a_targetability": {
       "status": "BLOCKED_PROVIDER_OR_MANUAL_RESEARCH_BINDING_REQUIRED",
