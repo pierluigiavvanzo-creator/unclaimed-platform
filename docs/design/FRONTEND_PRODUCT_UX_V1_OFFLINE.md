@@ -2,7 +2,7 @@
 
 Date: 2026-09-25
 
-Status: OFFLINE / SYNTHETIC / HUMAN DESIGN REVIEW REQUIRED
+Status: OFFLINE / SYNTHETIC / PRODUCT COMPOSITION APPROVED
 
 ## Objective
 
@@ -159,17 +159,17 @@ Risk:
 
 higher learning curve.
 
-## Recommended composition hypothesis
+## Approved product composition
 
-Do not force one concept to solve every job.
-
-Candidate product composition:
+Product Owner decision D-015:
 
 A = permanent application shell / operations
-B = executive dashboard route
-C = case-detail investigation route
+B = first-class executive dashboard route
+C = case-detail investigation workspace
 
-This is a hypothesis for human review, not an approved frontend architecture.
+This composition is approved.
+
+Implementation remains milestone-gated and must preserve the existing synthetic/no-PII/no-authorization boundary until the relevant production security prerequisites are in place.
 
 ## Non-negotiable UX rules
 
@@ -193,13 +193,16 @@ This is a hypothesis for human review, not an approved frontend architecture.
 - frontend lint, typecheck and build remain green;
 - Python contract/smoke/full suite remains green through canonical CI.
 
-## Human decision after V1
+## Human decision after V1 — COMPLETE
 
-The Product Owner should select:
+The Product Owner approved:
 
-- preferred shell;
-- preferred visual tone;
-- whether executive view is a first-class route;
-- whether case-detail should use the investigation workspace model.
+- Concept A as the primary shell;
+- Concept B as a first-class executive dashboard;
+- Concept C as the case-detail investigation workspace.
 
-Only after that decision should a permanent component library be added.
+Next frontend milestone, when prioritized:
+
+FRONTEND_PRODUCT_UX_V2_CONSOLIDATION
+
+That milestone should first apply REUSE-FIRST to production component primitives before custom component development.
