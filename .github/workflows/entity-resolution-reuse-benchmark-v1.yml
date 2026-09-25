@@ -1,0 +1,45 @@
+name: entity-resolution-reuse-benchmark-v1
+
+on:
+  push:
+    branches:
+      - entity-resolution-reuse-benchmark-v1-offline
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install isolated benchmark dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            "splink==4.0.17" \
+            "dedupe==3.0.3" \
+            "rapidfuzz==3.14.6" \
+            "pandas==3.0.6"
+
+      - name: Run synthetic entity-resolution benchmark
+        run: |
+          python benchmarks/entity_resolution_v1/benchmark.py \
+            --output benchmarks/entity_resolution_v1/results.json
+
+      - name: Upload benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: entity-resolution-reuse-benchmark-v1
+          path: benchmarks/entity_resolution_v1/results.json
+          if-no-files-found: error
+          retention-days: 14
