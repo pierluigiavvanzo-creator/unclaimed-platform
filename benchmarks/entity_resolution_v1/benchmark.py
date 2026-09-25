@@ -17,13 +17,13 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import random
 import re
 import time
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any
 
 REVIEW_MINUTES = 5.0
 LOADED_HUMAN_COST_PER_HOUR_USD = 60.0

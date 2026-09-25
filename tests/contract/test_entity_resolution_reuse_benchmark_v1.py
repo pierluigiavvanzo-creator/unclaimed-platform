@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
 BENCHMARK = ROOT / "benchmarks" / "entity_resolution_v1" / "benchmark.py"
 WORKFLOW = ROOT / ".github" / "workflows" / "entity-resolution-reuse-benchmark-v1.yml"
