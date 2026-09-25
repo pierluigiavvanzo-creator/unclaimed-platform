@@ -103,9 +103,9 @@ Final post-merge main CI for PR #38:
 
 35999333460 — SUCCESS
 
-Latest verified canonical main checkpoint after PR #50:
+Latest verified canonical main checkpoint after PR #51:
 
-2fd110ba49c957c24911e2437a0ee4d33df40f61
+4cdaa723f7e2d64d23098d363f4b5848fdca9712
 
 PR #47:
 
@@ -152,6 +152,18 @@ PR #50 merge commit:
 PR #50 post-merge CI:
 
 36121666917 — SUCCESS
+
+PR #51:
+
+Benchmark: compare reusable entity-resolution engines offline — MERGED
+
+PR #51 merge commit:
+
+4cdaa723f7e2d64d23098d363f4b5848fdca9712
+
+PR #51 post-merge CI:
+
+36130902759 — SUCCESS
 
 All seven P1 gates remain NOT_GRANTED with no owner authorization or execution approval reference.
 
@@ -633,7 +645,7 @@ The assistant must explicitly notify the Product Owner that technical consolidat
 - NY historical runtime variants cause duplicated fixes or ambiguity;
 - production release requires deterministic dependency locking.
 
-## FRONTEND_PRODUCT_UX_V1_OFFLINE — MERGED / HUMAN SELECTION PENDING
+## FRONTEND_PRODUCT_UX_V1_OFFLINE — MERGED / COMPOSITION APPROVED
 
 Branch:
 
@@ -661,9 +673,11 @@ Concepts:
 - B — Executive Intelligence;
 - C — Evidence Investigation Workspace.
 
-Current composition hypothesis for Product Owner review:
+Approved Product Owner composition under D-015:
 
-A as operating shell + B as executive dashboard + C as case-detail workspace.
+A = operating shell / Control Room
+B = first-class Executive Dashboard
+C = case-detail Evidence Investigation Workspace.
 
 No new frontend dependency was introduced.
 

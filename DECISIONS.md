@@ -504,3 +504,59 @@ Consequences:
 - Canada is in product scope, but no Canadian registry is considered supported until source/legal/terms/schema readiness is verified;
 - patent work is deferred unless later evidence shows a narrow, strategically valuable opportunity;
 - performance and economic evidence are the primary product-selection criteria.
+
+---
+
+## D-015 — Product UX composition uses Control Room shell + Executive dashboard + Evidence workspace
+
+Date: 2026-09-25
+
+Status: Accepted by Product Owner
+
+Context:
+FRONTEND_PRODUCT_UX_V1_OFFLINE produced and CI-verified three navigable synthetic concepts:
+
+- Concept A — Intelligence Control Room;
+- Concept B — Executive Intelligence;
+- Concept C — Evidence Investigation Workspace.
+
+The Product Owner reviewed the proposed composition and explicitly approved using all three concepts as complementary product surfaces rather than forcing one interface to serve every user job.
+
+Decision:
+1. adopt Concept A as the permanent application shell / operations workspace;
+2. adopt Concept B as a first-class executive dashboard route for business/economic visibility;
+3. adopt Concept C as the case-detail investigation workspace for evidence, contradictions, provenance, targetability context and human review;
+4. keep the frontend product base on the existing Next.js/React/TypeScript reviewer console;
+5. keep Streamlit as an internal diagnostic / engineering / safe reviewer surface until a later superseding decision;
+6. do not add a permanent component library solely because the UX composition is now selected;
+7. apply REUSE-FIRST before production component adoption, benchmarking mature UI libraries/templates for sidebar, data table, charting, forms and accessible primitives;
+8. preserve all UX safety rules from FRONTEND_PRODUCT_UX_V1_OFFLINE:
+   - synthetic/demo values must remain distinguishable from measured production KPIs;
+   - unsupported registries must never appear supported;
+   - visual actions cannot bypass deterministic backend authorization;
+   - real PII web access requires authentication/RBAC and durable access audit first;
+   - evidence, contradictions, provenance and cost remain inspectable;
+   - human-gated decisions remain visually distinct from automated observations.
+
+Reason:
+The three concepts serve different jobs well:
+- A optimizes daily operations and situational awareness;
+- B optimizes management comprehension of economics, throughput and source readiness;
+- C optimizes evidence-heavy case review and human decision quality.
+
+Combining them preserves role-specific clarity without duplicating three separate products.
+
+Alternatives considered:
+- choose only Concept A;
+- choose only Concept B;
+- choose only Concept C;
+- keep all three as equal standalone applications;
+- rebuild the frontend from scratch.
+
+Consequences:
+- future frontend consolidation should produce one coherent design system and navigation model;
+- A becomes the shell into which B and C are integrated as routes/workspaces;
+- the current UX Lab remains useful as historical/prototyping evidence until superseded;
+- no real PII, production write path, P1 gate or source access is enabled by this decision;
+- frontend consolidation remains parallel/non-critical and must not displace the Stage B controller/LLC blocker.
+

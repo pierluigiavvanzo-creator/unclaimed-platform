@@ -304,7 +304,7 @@ Wyoming, subject to US tax/legal and NY nexus review.
 
 Status:
 
-MERGED / HUMAN DESIGN SELECTION PENDING
+MERGED / PRODUCT COMPOSITION APPROVED
 
 Branch checkpoint:
 
@@ -322,7 +322,17 @@ Three synthetic/no-PII concepts are available:
 
 This lane is reversible and does not authorize P1.
 
-No permanent component-library dependency should be added until the Product Owner chooses the preferred composition.
+Product Owner approved D-015:
+
+- A = Control Room application shell;
+- B = Executive Dashboard route;
+- C = Evidence Investigation case-detail workspace.
+
+No permanent component-library dependency should be added without a REUSE-FIRST benchmark of mature production primitives.
+
+Future frontend milestone when prioritized:
+
+FRONTEND_PRODUCT_UX_V2_CONSOLIDATION
 
 ## Parallel decision-engine lane — AUDIT COMPLETE / INTEGRATION DEFERRED
 

@@ -446,13 +446,15 @@ PR #49 — FRONTEND_PRODUCT_UX_V1_OFFLINE — MERGED.
 
 PR #50 — DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE — MERGED.
 
+PR #51 — ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE — MERGED.
+
 Latest verified post-merge main:
 
-2fd110ba49c957c24911e2437a0ee4d33df40f61
+4cdaa723f7e2d64d23098d363f4b5848fdca9712
 
 CI:
 
-36121666917 — SUCCESS
+36130902759 — SUCCESS
 
 ## 15. PARALLEL TECHNICAL / UX STATUS
 
@@ -488,9 +490,17 @@ Three navigable synthetic concepts:
 
 No real PII, remote source access or authorization action is added.
 
-Current UX composition hypothesis:
+Product Owner UX decision — ACCEPTED / D-015:
 
-A shell + B executive dashboard + C case-detail investigation workspace.
+A = Control Room application shell
+B = Executive Dashboard first-class route
+C = Evidence Investigation case-detail workspace
+
+Future frontend implementation milestone:
+
+FRONTEND_PRODUCT_UX_V2_CONSOLIDATION
+
+Before adding permanent UI dependencies, apply REUSE-FIRST to mature component/design-system candidates.
 
 Technical consolidation alert rule:
 
