@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-Last updated: 2026-09-24
+Last updated: 2026-09-25
 
 ## Product target
 
@@ -299,6 +299,45 @@ LLC formation remains just-in-time before real P1.
 Preferred bootstrap state:
 
 Wyoming, subject to US tax/legal and NY nexus review.
+
+## Parallel frontend lane — FRONTEND_PRODUCT_UX_V1_OFFLINE
+
+Status:
+
+IMPLEMENTED CANDIDATE / HUMAN DESIGN SELECTION PENDING
+
+Branch checkpoint:
+
+f9af170ac14153b9f2bfbca19851591792d219c9
+
+CI:
+
+36110319804 — SUCCESS
+
+Three synthetic/no-PII concepts are available:
+
+- A — Intelligence Control Room;
+- B — Executive Intelligence;
+- C — Evidence Investigation Workspace.
+
+This lane is reversible and does not authorize P1.
+
+No permanent component-library dependency should be added until the Product Owner chooses the preferred composition.
+
+## Technical consolidation gate — DEFER UNTIL TRIGGER
+
+Do not convert the technical audit into pre-P1 refactoring.
+
+Start consolidation when:
+
+- P1 supports P2 continuation; or
+- real PII is about to enter a web UI; or
+- durable multi-user state/audit becomes necessary; or
+- multi-registry generic persistence becomes necessary.
+
+Priority sequence when triggered:
+
+authentication/RBAC -> durable database -> durable audit -> stable service/repository interfaces -> integration/security/adversarial tests -> dependency locking -> historical runtime consolidation.
 
 ## B0 factual controller binding — NEXT
 
