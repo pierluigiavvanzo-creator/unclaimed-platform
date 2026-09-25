@@ -761,6 +761,27 @@ do not optimize human-review cost alone. Dedupe appeared to have zero review cos
 
 No entity-resolution package is adopted as production matcher by this V1.
 
+## US controller formation-provider fallback benchmark — PREPARED
+
+Artifact:
+
+docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+
+Current status:
+
+FALLBACK_READY_AWAITING_NORTHWEST_REPLY
+
+Northwest has been contacted and no written reply is yet present in the Gmail thread as of this checkpoint.
+
+Current provisional bootstrap ranking based on published terms:
+
+1. Wyoming Registered Agent Services LLC — strongest recurring-cost/non-US clarity;
+2. Northwest Registered Agent — strongest support/usability candidate, pending written quote;
+3. DIY + low-cost RA — lowest nominal cost but higher Product Owner time/risk;
+4. Harbor Compliance — stronger fit when multi-state compliance becomes material.
+
+No filing, payment, EIN purchase, identity-document submission or provider authorization is created by this benchmark.
+
 ## Current next action
 
 Return to:

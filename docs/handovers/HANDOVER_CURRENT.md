@@ -553,6 +553,23 @@ Context-health alert rule remains active:
 
 if branch/baseline confusion, repeated forgotten constraints, repeated rejected solutions, context-driven regressions or scope drift appear, stop and produce a fresh handover before continuing.
 
+Formation-provider fallback benchmark:
+
+docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+
+Status:
+
+FALLBACK_READY_AWAITING_NORTHWEST_REPLY
+
+Current provisional provider order:
+
+- Wyoming Registered Agent Services LLC — lowest recurring cost and explicit non-US support;
+- Northwest Registered Agent — strongest support/usability candidate pending written quote;
+- DIY + low-cost RA — economic baseline with higher Product Owner time;
+- Harbor Compliance — defer until multi-state compliance value is material.
+
+No provider/filer payment or identity-document action is authorized.
+
 ## 16. CURRENT SINGLE NEXT ACTION
 
 Return to Stage B.

@@ -400,6 +400,22 @@ Priority sequence when triggered:
 
 authentication/RBAC -> durable database -> durable audit -> stable service/repository interfaces -> integration/security/adversarial tests -> dependency locking -> historical runtime consolidation.
 
+## B0.2 — Formation-provider fallback benchmark — PREPARED
+
+Status:
+
+FALLBACK_READY_AWAITING_NORTHWEST_REPLY
+
+Artifact:
+
+docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+
+Purpose:
+
+avoid idle time while waiting for the Northwest written quote and provide a REUSE-FIRST comparison of formation/registered-agent options.
+
+No provider is selected or authorized.
+
 ## B0 factual controller binding — NEXT
 
 Return immediately to Stage B.
