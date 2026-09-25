@@ -34,3 +34,22 @@ dd { margin: 0; text-align: right; }
 .mono-list dd { max-width: 360px; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: #cce1e8; }
 footer { margin-top: 28px; color: #6f8792; font-size: 12px; }
 @media (max-width: 860px) { .hero { align-items: stretch; flex-direction: column; } .milestones, .two-col { grid-template-columns: 1fr; } .mode-card { min-width: 0; } }
+
+
+.ux-lab-entry {
+  display: inline-flex;
+  margin-top: 18px;
+  border: 1px solid #2e4d5d;
+  border-radius: 10px;
+  padding: 9px 12px;
+  color: #9ce9d9;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.ux-lab-entry:hover {
+  border-color: #4b7f76;
+  background: rgba(126, 215, 196, .07);
+}

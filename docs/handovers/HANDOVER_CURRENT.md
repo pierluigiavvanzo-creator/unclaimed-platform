@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-24
+Last updated: 2026-09-25
 
 ## 1. CURRENT MODE
 
@@ -16,11 +16,11 @@ main
 
 Latest verified canonical main checkpoint before this documentation update:
 
-06de8ec5c6a2734e5f126174b5483606fca6505a
+bd044185814c12d143f4cfcbef389b4a61037aa5
 
 Post-merge CI:
 
-36050081205 — SUCCESS
+36054428228 — SUCCESS
 
 Always verify the live remote `main` HEAD and latest CI before modifying the repository.
 
@@ -440,15 +440,59 @@ PR #45 — Competitive Moat Gate — MERGED.
 
 PR #47 — offline Controller Fact Binder V1 — MERGED.
 
+PR #48 — US controller formation readiness pack — MERGED.
+
 Latest verified post-merge main:
 
-06de8ec5c6a2734e5f126174b5483606fca6505a
+bd044185814c12d143f4cfcbef389b4a61037aa5
 
 CI:
 
-36050081205 — SUCCESS
+36054428228 — SUCCESS
 
-## 15. CURRENT SINGLE NEXT ACTION
+## 15. PARALLEL TECHNICAL / UX STATUS
+
+Technical audit artifact:
+
+docs/audits/TECHNICAL_PLATFORM_AUDIT_2026-09-25.md
+
+Frontend design artifact:
+
+docs/design/FRONTEND_PRODUCT_UX_V1_OFFLINE.md
+
+Frontend branch:
+
+frontend-product-ux-v1-offline
+
+Verified branch checkpoint:
+
+f9af170ac14153b9f2bfbca19851591792d219c9
+
+Branch CI:
+
+36110319804 — SUCCESS
+
+Three navigable synthetic concepts:
+
+- /ux-lab/concept-a — Intelligence Control Room;
+- /ux-lab/concept-b — Executive Intelligence;
+- /ux-lab/concept-c — Evidence Investigation Workspace.
+
+No real PII, remote source access or authorization action is added.
+
+Current UX composition hypothesis:
+
+A shell + B executive dashboard + C case-detail investigation workspace.
+
+Technical consolidation alert rule:
+
+explicitly notify the Product Owner when P1->P2 continuation, real-PII web access, web write actions, durable multi-user state, second-registry shared persistence, runtime-version ambiguity or production dependency locking makes the audit gaps product-critical.
+
+Context-health alert rule remains active:
+
+if branch/baseline confusion, repeated forgotten constraints, repeated rejected solutions, context-driven regressions or scope drift appear, stop and produce a fresh handover before continuing.
+
+## 16. CURRENT SINGLE NEXT ACTION
 
 Return to Stage B.
 
@@ -468,7 +512,7 @@ After entity formation:
 
 Do not begin broad multi-registry implementation before this Stage B evidence.
 
-## 16. CONTEXT RESTART ORDER FOR A NEW CHAT
+## 17. CONTEXT RESTART ORDER FOR A NEW CHAT
 
 Read in this exact order:
 

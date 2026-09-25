@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { getOperationsSnapshot } from "@/lib/operations";
 
 function StatusPill({ value }: { value: string }) {
@@ -15,6 +17,7 @@ export default async function Home() {
           <p className="eyebrow">UNCLAIMED INSURANCE PLATFORM</p>
           <h1>M3 Operations Console</h1>
           <p className="lede">A read-only view of provenance, governance and deployment readiness.</p>
+          <Link href="/ux-lab" className="ux-lab-entry">Explore FRONTEND_PRODUCT_UX_V1_OFFLINE →</Link>
         </div>
         <div className="mode-card">
           <span>Data mode</span>

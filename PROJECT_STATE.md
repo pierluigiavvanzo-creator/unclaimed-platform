@@ -1,6 +1,6 @@
 # PROJECT_STATE.md
 
-Last updated: 2026-09-24
+Last updated: 2026-09-25
 
 ## Authoritative product state
 
@@ -103,9 +103,9 @@ Final post-merge main CI for PR #38:
 
 35999333460 — SUCCESS
 
-Latest verified canonical main checkpoint after PR #47:
+Latest verified canonical main checkpoint after PR #48:
 
-06de8ec5c6a2734e5f126174b5483606fca6505a
+bd044185814c12d143f4cfcbef389b4a61037aa5
 
 PR #47:
 
@@ -117,7 +117,19 @@ PR #47 post-merge CI:
 
 The Controller Fact Binder V1 is now canonical on main.
 
-All seven P1 gates were re-verified after the merge and remain NOT_GRANTED with no owner authorization or execution approval reference.
+PR #48:
+
+MVP1: prepare US controller formation readiness pack — MERGED
+
+PR #48 merge commit:
+
+bd044185814c12d143f4cfcbef389b4a61037aa5
+
+PR #48 post-merge CI:
+
+36054428228 — SUCCESS
+
+All seven P1 gates remain NOT_GRANTED with no owner authorization or execution approval reference.
 
 PRODUCT_STRATEGY_MVP1 v3.2, D-012, D-013 and D-014 are canonical.
 
@@ -574,6 +586,66 @@ Purpose:
 reduce elapsed time from genuine controller formation to factual binding, professional review and preparation of fresh single-use P1 gates.
 
 These artifacts do not authorize source access, PII processing, external PII query, outreach, value research, agreements, representation or claim activity.
+
+## Technical platform audit — COMPLETE / OFFLINE
+
+Artifact:
+
+docs/audits/TECHNICAL_PLATFORM_AUDIT_2026-09-25.md
+
+Finding:
+
+the deterministic governance/contract core is strong for bounded product validation, while production persistence, durable audit, authentication/RBAC, integration/security/adversarial testing, dependency locking and historical-runtime consolidation remain future productization gaps.
+
+Do NOT close every gap before Stage B evidence.
+
+The assistant must explicitly notify the Product Owner that technical consolidation has become product-critical when any of these trigger conditions occurs:
+
+- P1 produces a reviewable result and P2 continuation is requested;
+- any web UI is about to expose real owner PII;
+- any material write/approval action is about to be enabled in a web UI;
+- more than one human operator requires durable case state/audit;
+- a second registry needs shared generic case/evidence/economics persistence;
+- NY historical runtime variants cause duplicated fixes or ambiguity;
+- production release requires deterministic dependency locking.
+
+## FRONTEND_PRODUCT_UX_V1_OFFLINE — IMPLEMENTED CANDIDATE / HUMAN SELECTION PENDING
+
+Branch:
+
+frontend-product-ux-v1-offline
+
+Verified branch checkpoint:
+
+f9af170ac14153b9f2bfbca19851591792d219c9
+
+Branch CI:
+
+36110319804 — SUCCESS
+
+Artifacts:
+
+- apps/reviewer-console/src/app/ux-lab/page.tsx
+- apps/reviewer-console/src/app/ux-lab/concept-a/page.tsx
+- apps/reviewer-console/src/app/ux-lab/concept-b/page.tsx
+- apps/reviewer-console/src/app/ux-lab/concept-c/page.tsx
+- docs/design/FRONTEND_PRODUCT_UX_V1_OFFLINE.md
+
+Concepts:
+
+- A — Intelligence Control Room;
+- B — Executive Intelligence;
+- C — Evidence Investigation Workspace.
+
+Current composition hypothesis for Product Owner review:
+
+A as operating shell + B as executive dashboard + C as case-detail workspace.
+
+No new frontend dependency was introduced.
+
+The UX lab is synthetic/read-only, performs no remote source access, contains no real PII and is not an authorization surface.
+
+This parallel UX work does not displace the Stage B critical path.
 
 ## Current next action
 
