@@ -314,25 +314,36 @@ def _top_by_left(
 
 
 def rapidfuzz_scores(dataset: Dataset) -> dict[str, CandidateScore]:
-    from rapidfuzz.fuzz import WRatio
+    from rapidfuzz.fuzz import WRatio, token_sort_ratio
 
     def similarity(left: Mapping[str, str], right: Mapping[str, str]) -> float:
-        weights = {
-            "first_name": 0.22,
-            "last_name": 0.30,
-            "address": 0.30,
-            "city": 0.08,
-            "state": 0.04,
-            "postal_code": 0.06,
-        }
-        score = 0.0
-        for field, weight in weights.items():
-            left_value = _clean_text(left[field])
-            right_value = _clean_text(right[field])
-            if not left_value or not right_value:
-                continue
-            score += weight * (WRatio(left_value, right_value) / 100.0)
-        return score
+        left_name = _clean_text(
+            f"{left['first_name']} {left['last_name']}"
+        )
+        right_name = _clean_text(
+            f"{right['first_name']} {right['last_name']}"
+        )
+        name_score = token_sort_ratio(left_name, right_name) / 100.0
+        address_score = WRatio(
+            _clean_text(left["address"]),
+            _clean_text(right["address"]),
+        ) / 100.0
+        city_score = WRatio(
+            _clean_text(left["city"]),
+            _clean_text(right["city"]),
+        ) / 100.0
+        state_score = float(left["state"] == right["state"])
+        postal_score = float(
+            bool(left["postal_code"])
+            and left["postal_code"] == right["postal_code"]
+        )
+        return (
+            0.52 * name_score
+            + 0.28 * address_score
+            + 0.08 * city_score
+            + 0.04 * state_score
+            + 0.08 * postal_score
+        )
 
     output: dict[str, CandidateScore] = {}
     for left_id, left_record in dataset.left.items():
@@ -365,13 +376,13 @@ def dedupe_scores(dataset: Dataset) -> dict[str, CandidateScore]:
     match_pairs: list[tuple[dict[str, str], dict[str, str]]] = []
     distinct_pairs: list[tuple[dict[str, str], dict[str, str]]] = []
 
-    for left_id in dataset.train_left_ids[:40]:
+    for left_id in dataset.train_left_ids:
         right_id = dataset.truth[left_id]
         assert right_id is not None
         match_pairs.append((dataset.left[left_id], dataset.right[right_id]))
 
     train_ids = list(dataset.train_left_ids)
-    for offset in range(100):
+    for offset in range(240):
         left_id = train_ids[offset % len(train_ids)]
         true_right = dataset.truth[left_id]
         candidate_index = (offset * 17 + 11) % 60
@@ -381,7 +392,7 @@ def dedupe_scores(dataset: Dataset) -> dict[str, CandidateScore]:
         distinct_pairs.append((dataset.left[left_id], dataset.right[candidate_id]))
 
     linker.mark_pairs({"match": match_pairs, "distinct": distinct_pairs})
-    linker.train(recall=0.95, index_predicates=False)
+    linker.train(recall=0.98, index_predicates=True)
 
     links = linker.join(
         dataset.left,
@@ -436,16 +447,26 @@ def splink_scores(dataset: Dataset) -> dict[str, CandidateScore]:
         db_api=DuckDBAPI(),
         input_table_aliases=["left_registry", "right_registry"],
     )
-    linker.training.estimate_u_using_random_sampling(max_pairs=50_000)
-    linker.training.estimate_parameters_using_expectation_maximisation(
-        block_on("state", "last_name")
+    linker.training.estimate_u_using_random_sampling(
+        max_pairs=50_000,
+        seed=SEED,
     )
-    linker.training.estimate_parameters_using_expectation_maximisation(
-        block_on("state", "first_name")
+    labels = pd.DataFrame(
+        [
+            {
+                "source_dataset_l": "left_registry",
+                "unique_id_l": left_id,
+                "source_dataset_r": "right_registry",
+                "unique_id_r": dataset.truth[left_id],
+            }
+            for left_id in dataset.train_left_ids[:40]
+        ]
     )
-    linker.training.estimate_parameters_using_expectation_maximisation(
-        block_on("postal_code")
+    labels_table = linker.table_management.register_labels_table(
+        labels,
+        overwrite=True,
     )
+    linker.training.estimate_m_from_pairwise_labels(labels_table)
 
     predictions = linker.inference.predict(
         threshold_match_probability=0.0
@@ -667,11 +688,16 @@ def choose_synthetic_leader(results: list[dict[str, Any]]) -> dict[str, Any]:
         for result in results
         if result["test"]["auto_match_precision"] >= TARGET_AUTO_PRECISION
         and result["test"]["unsafe_auto_case_rate"] <= 0.02
+        and result["test"]["safe_auto_decision_rate"] >= 0.25
+        and result["test"]["recoverable_match_recall_after_review"] >= 0.95
     ]
     if not eligible:
         return {
             "status": "NO_SAFE_SYNTHETIC_WINNER",
-            "reason": "No candidate met both synthetic safety constraints.",
+            "reason": (
+                "No candidate met precision, unsafe-rate, minimum automation "
+                "coverage and recoverable-recall constraints."
+            ),
         }
 
     winner = min(
@@ -687,8 +713,9 @@ def choose_synthetic_leader(results: list[dict[str, Any]]) -> dict[str, Any]:
         "status": "SYNTHETIC_ECONOMIC_LEADER",
         "candidate": winner["candidate"],
         "selection_basis": (
-            "Among candidates meeting >=98% auto-match precision and <=2% "
-            "unsafe automatic case rate, minimize illustrative human-review "
+            "Among candidates meeting >=98% auto-match precision, <=2% "
+            "unsafe automatic case rate, >=25% safe auto-decision coverage, "
+            "and >=95% recoverable match recall, minimize human-review "
             "labor cost, then runtime."
         ),
         "not_a_production_selection": True,

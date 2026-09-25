@@ -76,11 +76,16 @@ Economic proxy:
 
 No monetary error penalty is invented.
 
-Economic ranking is allowed only for candidates that meet both synthetic safety
-constraints:
+Economic ranking is allowed only for candidates that meet all synthetic
+safety/usefulness constraints:
 
 - auto-match precision >= 98%;
-- unsafe automatic case rate <= 2%.
+- unsafe automatic case rate <= 2%;
+- safe automatic decision coverage >= 25%;
+- recoverable match recall after human review >= 95%.
+
+This prevents a model from "winning" economically merely by routing almost every
+case to a human reviewer.
 
 The synthetic leader is NOT a production selection.
 
