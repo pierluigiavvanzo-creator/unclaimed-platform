@@ -112,3 +112,147 @@ A reusable library can only move from BENCHMARKED to ADOPTED after:
 - real P1/P2 produces labelled domain evidence;
 - privacy/provenance constraints are preserved;
 - human-review economics are measured on real workflow data.
+
+
+## Executed result
+
+Final benchmark checkpoint:
+
+`66b93e4f63a56677ba252ddacb33b2bda8efbcfd`
+
+GitHub Actions benchmark run:
+
+`36128928676 — SUCCESS`
+
+Persisted synthetic result:
+
+`benchmarks/entity_resolution_v1/results.v1.json`
+
+### Test metrics
+
+| Candidate | Runtime | Auto-match precision | Human review | Unsafe auto cases | Recoverable match recall after review | Illustrative review labor / 1,000 |
+|---|---:|---:|---:|---:|---:|---:|
+| RapidFuzz weighted baseline | 0.104 s | 90.0% | 25.0% | 31.7% | 66.0% | $1,250 |
+| Dedupe RecordLink | 4.950 s | 80.0% | 0.0% | 20.0% | 100.0% | $0 |
+| Splink probabilistic linkage | 0.956 s | 93.75% | 21.7% | 41.7% | 52.0% | $1,083 |
+
+All figures above are synthetic benchmark results, not production accuracy claims.
+
+### Result
+
+`NO_SAFE_SYNTHETIC_WINNER`
+
+None of the candidates met all V1 constraints:
+
+- auto-match precision >= 98%;
+- unsafe automatic case rate <= 2%;
+- safe automatic decision coverage >= 25%;
+- recoverable match recall after review >= 95%.
+
+## Economic interpretation
+
+The benchmark demonstrates why raw human-review cost cannot be optimized in isolation.
+
+Dedupe appears cheapest if only review labor is counted, because its learned threshold routed every test case to an automatic match. But 12 of 60 test cases were wrong automatic matches. That makes the apparent USD 0 review cost economically misleading.
+
+Splink reduced review workload to 21.7%, but its current V1 configuration missed too many true matches below the review boundary. Its low review cost is therefore also not a valid economic win.
+
+RapidFuzz was by far the fastest and simplest candidate, but it also failed the accuracy/safety gate. Its economic value is as a transparent similarity primitive, not as an autonomous identity-resolution authority.
+
+Therefore the correct optimization order remains:
+
+EXPECTED ERROR COST
+-> SAFE MATCH PRECISION / RECALL
+-> HUMAN MINUTES
+-> COMPUTE / RUNTIME COST
+
+The benchmark provides no evidence that auto-linking should be enabled.
+
+## Reuse decisions after executed V1
+
+### RapidFuzz
+
+Decision:
+
+`REUSE_AS_FEATURE_PRIMITIVE`
+
+Reason:
+
+- extremely low integration cost;
+- fastest executed candidate;
+- MIT;
+- transparent string-similarity features;
+- useful inside candidate generation/blocking/explainability;
+- not sufficiently safe as an autonomous matcher.
+
+### Splink
+
+Decision:
+
+`DEFER_AND_REBENCHMARK_WITH_DOMAIN_LABELS`
+
+Reason:
+
+- strongest architecture/maintainability fit among probabilistic linkage engines;
+- mature repository and PostgreSQL path;
+- explicit probabilistic record-linkage model;
+- current synthetic configuration did not meet safety/recall requirements;
+- should be benchmarked again only when real labelled P1/P2 identity examples exist and normalization is representative.
+
+### Dedupe
+
+Decision:
+
+`DEFER_SECONDARY_CHALLENGER`
+
+Reason:
+
+- active-learning/human-labelled workflow is strategically interesting;
+- test recall was high;
+- automatic false-match rate was unacceptable;
+- integration required an explicit BTrees 6.4 compatibility pin;
+- this transitive compatibility burden raises maintenance cost.
+
+### Custom A05/A19 entity-resolution model
+
+Decision:
+
+`REJECT_NOW`
+
+Reason:
+
+No evidence yet justifies custom model development ahead of reusable candidates plus better data normalization and real labels.
+
+## What should happen next
+
+Do not spend more Stage B time tuning synthetic thresholds.
+
+The next identity-resolution benchmark should be triggered only after one of these becomes available:
+
+1. real P1/P2 labelled identity-resolution examples;
+2. a representative synthetic corpus built from observed non-sensitive field-shape/error patterns;
+3. multi-registry source work that requires actual cross-registry matching.
+
+At that point run V2 with:
+
+- libpostal / address normalization;
+- probablepeople or equivalent name normalization;
+- RapidFuzz features;
+- Splink;
+- Dedupe;
+- fixed labelled holdout set;
+- false-positive cost and reviewer minutes measured from real workflow.
+
+## Product decision
+
+For current Unclaimed work:
+
+`DETERMINISTIC GATES + HUMAN REVIEW`
+
+remain authoritative.
+
+RapidFuzz may be reused later as a feature primitive without changing that authority.
+
+No entity-resolution package is adopted as the production matcher by this V1.
+
+RESULT: PASS_WITH_NO_AUTO_LINKER_ADOPTION
