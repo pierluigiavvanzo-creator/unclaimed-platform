@@ -16,6 +16,7 @@ def test_entity_resolution_benchmark_is_synthetic_and_isolated() -> None:
 
     assert "splink==4.0.17" in workflow
     assert "dedupe==3.0.3" in workflow
+    assert "BTrees==6.4" in workflow
     assert "rapidfuzz==3.14.6" in workflow
     assert "pandas==3.0.6" in workflow
 

@@ -415,6 +415,7 @@ def splink_scores(dataset: Dataset) -> dict[str, CandidateScore]:
     settings = SettingsCreator(
         link_type="link_only",
         unique_id_column_name="unique_id",
+        probability_two_random_records_match=160 / (180 * 180),
         blocking_rules_to_generate_predictions=[
             block_on("state"),
             block_on("postal_code"),
@@ -435,13 +436,15 @@ def splink_scores(dataset: Dataset) -> dict[str, CandidateScore]:
         db_api=DuckDBAPI(),
         input_table_aliases=["left_registry", "right_registry"],
     )
-    linker.training.estimate_probability_two_random_records_match(
-        [block_on("first_name", "last_name")],
-        recall=0.65,
-    )
     linker.training.estimate_u_using_random_sampling(max_pairs=50_000)
     linker.training.estimate_parameters_using_expectation_maximisation(
-        block_on("state")
+        block_on("state", "last_name")
+    )
+    linker.training.estimate_parameters_using_expectation_maximisation(
+        block_on("state", "first_name")
+    )
+    linker.training.estimate_parameters_using_expectation_maximisation(
+        block_on("postal_code")
     )
 
     predictions = linker.inference.predict(
@@ -746,6 +749,7 @@ def main() -> int:
         "candidate_versions": {
             "splink": "4.0.17",
             "dedupe": "3.0.3",
+            "btrees": "6.4",
             "rapidfuzz": "3.14.6",
             "pandas": "3.0.6",
         },

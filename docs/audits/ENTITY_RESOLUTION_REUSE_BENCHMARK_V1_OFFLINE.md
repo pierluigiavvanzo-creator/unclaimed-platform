@@ -11,8 +11,15 @@ Compare reusable entity-resolution candidates before custom A05/A19 development.
 Candidates:
 
 - Splink 4.0.17;
-- Dedupe 3.0.3;
+- Dedupe 3.0.3 with BTrees 6.4 compatibility pin;
 - RapidFuzz 3.14.6 weighted baseline.
+
+Compatibility note:
+
+The first isolated run exposed a Dedupe transitive dependency break when a newer
+BTrees removed the byValue method from the relevant float-value bucket family.
+BTrees 6.4 is therefore pinned for the reproducible benchmark. This integration
+risk is part of the reuse decision rather than being hidden.
 
 The benchmark uses only deterministic synthetic records.
 
