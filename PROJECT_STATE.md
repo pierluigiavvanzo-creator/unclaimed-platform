@@ -103,9 +103,9 @@ Final post-merge main CI for PR #38:
 
 35999333460 — SUCCESS
 
-Latest verified canonical main checkpoint after PR #49:
+Latest verified canonical main checkpoint after PR #50:
 
-5846f936abd495d4ab263e444a9f1e0ef3997399
+2fd110ba49c957c24911e2437a0ee4d33df40f61
 
 PR #47:
 
@@ -140,6 +140,18 @@ PR #49 merge commit:
 PR #49 post-merge CI:
 
 36118045031 — SUCCESS
+
+PR #50:
+
+Audit: benchmark typed decision engines offline — MERGED
+
+PR #50 merge commit:
+
+2fd110ba49c957c24911e2437a0ee4d33df40f61
+
+PR #50 post-merge CI:
+
+36121666917 — SUCCESS
 
 All seven P1 gates remain NOT_GRANTED with no owner authorization or execution approval reference.
 
@@ -684,6 +696,56 @@ Economic finding:
 model inference cost is expected to be dominated by human-review cost and expected error cost. Optimize first for false-positive/false-negative cost, human minutes saved, safe automation coverage and calibration.
 
 No paid API calls, real PII processing or runtime integration were performed by this audit.
+
+## ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE — EXECUTED / NO AUTO-LINKER ADOPTION
+
+Branch:
+
+entity-resolution-reuse-benchmark-v1-offline
+
+Final executed benchmark checkpoint:
+
+66b93e4f63a56677ba252ddacb33b2bda8efbcfd
+
+Benchmark run:
+
+36128928676 — SUCCESS
+
+Artifacts:
+
+- benchmarks/entity_resolution_v1/benchmark.py
+- benchmarks/entity_resolution_v1/results.v1.json
+- docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+
+Candidates:
+
+- RapidFuzz 3.14.6;
+- Dedupe 3.0.3 with BTrees 6.4 compatibility pin;
+- Splink 4.0.17.
+
+Result:
+
+NO_SAFE_SYNTHETIC_WINNER
+
+None met all synthetic safety/usefulness requirements:
+
+- auto-match precision >= 98%;
+- unsafe automatic case rate <= 2%;
+- safe automatic decision coverage >= 25%;
+- recoverable match recall after review >= 95%.
+
+Reuse decisions:
+
+- RapidFuzz: REUSE_AS_FEATURE_PRIMITIVE;
+- Splink: DEFER_AND_REBENCHMARK_WITH_DOMAIN_LABELS;
+- Dedupe: DEFER_SECONDARY_CHALLENGER;
+- custom A05/A19 model: REJECT_NOW.
+
+Economic conclusion:
+
+do not optimize human-review cost alone. Dedupe appeared to have zero review cost but produced 12 wrong automatic matches in 60 test cases. Expected error cost must remain ahead of human minutes and compute cost.
+
+No entity-resolution package is adopted as production matcher by this V1.
 
 ## Current next action
 

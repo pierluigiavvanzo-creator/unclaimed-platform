@@ -444,13 +444,15 @@ PR #48 — US controller formation readiness pack — MERGED.
 
 PR #49 — FRONTEND_PRODUCT_UX_V1_OFFLINE — MERGED.
 
+PR #50 — DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE — MERGED.
+
 Latest verified post-merge main:
 
-5846f936abd495d4ab263e444a9f1e0ef3997399
+2fd110ba49c957c24911e2437a0ee4d33df40f61
 
 CI:
 
-36118045031 — SUCCESS
+36121666917 — SUCCESS
 
 ## 15. PARALLEL TECHNICAL / UX STATUS
 
@@ -511,6 +513,31 @@ Current engine guidance:
 - Open-Jev is research-only;
 - do not build a custom model now;
 - optimize human-review/error economics before raw inference cost.
+
+Entity-resolution benchmark artifact:
+
+docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+
+Entity-resolution benchmark checkpoint:
+
+66b93e4f63a56677ba252ddacb33b2bda8efbcfd
+
+Benchmark run:
+
+36128928676 — SUCCESS
+
+Result:
+
+NO_SAFE_SYNTHETIC_WINNER
+
+Guidance:
+
+- RapidFuzz may be reused later as a transparent feature primitive;
+- Splink remains the primary probabilistic re-benchmark candidate after real labels exist;
+- Dedupe remains a secondary challenger and currently requires BTrees 6.4 pinning;
+- no automatic entity linker is authorized/adopted;
+- do not spend more Stage B time tuning synthetic thresholds;
+- V2 waits for labelled P1/P2 evidence or representative observed error patterns.
 
 Context-health alert rule remains active:
 

@@ -1,0 +1,123 @@
+{
+  "benchmark_id": "ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE",
+  "benchmark_commit_sha": "66b93e4f63a56677ba252ddacb33b2bda8efbcfd",
+  "github_actions_run_id": 36128928676,
+  "github_actions_artifact_id": 10860787032,
+  "synthetic_only": true,
+  "contains_real_pii": false,
+  "remote_source_access": false,
+  "seed": 20260925,
+  "dataset": {
+    "left_records": 180,
+    "right_records": 180,
+    "matched_entities": 160,
+    "unmatched_left": 20,
+    "unmatched_right": 20,
+    "train_left_cases": 60,
+    "validation_left_cases": 60,
+    "test_left_cases": 60
+  },
+  "candidate_versions": {
+    "splink": "4.0.17",
+    "dedupe": "3.0.3",
+    "btrees": "6.4",
+    "rapidfuzz": "3.14.6",
+    "pandas": "3.0.6"
+  },
+  "results": [
+    {
+      "candidate": "rapidfuzz_weighted_baseline",
+      "runtime_seconds": 0.10430550799998173,
+      "validation": {
+        "auto_threshold": 0.956923,
+        "review_threshold": 0.925556,
+        "best_f1": 0.7469879518072288,
+        "best_f1_threshold": 0.925556,
+        "target_auto_precision": 0.98
+      },
+      "test": {
+        "test_cases": 60,
+        "true_matches": 50,
+        "auto_match_cases": 20,
+        "auto_match_correct": 18,
+        "wrong_auto_match_cases": 2,
+        "auto_match_precision": 0.9,
+        "human_review_cases": 15,
+        "human_review_rate": 0.25,
+        "auto_no_match_cases": 25,
+        "auto_no_match_correct": 8,
+        "missed_true_match_cases": 17,
+        "recoverable_match_recall_after_review": 0.66,
+        "safe_auto_decision_rate": 0.43333333333333335,
+        "unsafe_auto_case_rate": 0.31666666666666665,
+        "illustrative_review_labor_cost_per_1000_cases_usd": 1250.0
+      }
+    },
+    {
+      "candidate": "dedupe_recordlink",
+      "runtime_seconds": 4.949536696999985,
+      "validation": {
+        "auto_threshold": 0.0,
+        "review_threshold": 0.0,
+        "best_f1": 0.9690721649484536,
+        "best_f1_threshold": 0.0,
+        "target_auto_precision": 0.98
+      },
+      "test": {
+        "test_cases": 60,
+        "true_matches": 50,
+        "auto_match_cases": 60,
+        "auto_match_correct": 48,
+        "wrong_auto_match_cases": 12,
+        "auto_match_precision": 0.8,
+        "human_review_cases": 0,
+        "human_review_rate": 0.0,
+        "auto_no_match_cases": 0,
+        "auto_no_match_correct": 0,
+        "missed_true_match_cases": 0,
+        "recoverable_match_recall_after_review": 1.0,
+        "safe_auto_decision_rate": 0.8,
+        "unsafe_auto_case_rate": 0.2,
+        "illustrative_review_labor_cost_per_1000_cases_usd": 0.0
+      }
+    },
+    {
+      "candidate": "splink_probabilistic_linkage",
+      "runtime_seconds": 0.9560844949999989,
+      "validation": {
+        "auto_threshold": 0.999997,
+        "review_threshold": 0.999986,
+        "best_f1": 0.5822784810126583,
+        "best_f1_threshold": 0.999986,
+        "target_auto_precision": 0.98
+      },
+      "test": {
+        "test_cases": 60,
+        "true_matches": 50,
+        "auto_match_cases": 16,
+        "auto_match_correct": 15,
+        "wrong_auto_match_cases": 1,
+        "auto_match_precision": 0.9375,
+        "human_review_cases": 13,
+        "human_review_rate": 0.21666666666666667,
+        "auto_no_match_cases": 31,
+        "auto_no_match_correct": 7,
+        "missed_true_match_cases": 24,
+        "recoverable_match_recall_after_review": 0.52,
+        "safe_auto_decision_rate": 0.36666666666666664,
+        "unsafe_auto_case_rate": 0.4166666666666667,
+        "illustrative_review_labor_cost_per_1000_cases_usd": 1083.3333333333335
+      }
+    }
+  ],
+  "synthetic_leader": {
+    "status": "NO_SAFE_SYNTHETIC_WINNER",
+    "reason": "No candidate met precision, unsafe-rate, minimum automation coverage and recoverable-recall constraints."
+  },
+  "warnings": [
+    "Synthetic results are not production accuracy evidence.",
+    "Thresholds are selected only on the synthetic validation split.",
+    "Error cost is intentionally not monetized without project evidence.",
+    "No candidate may grant PII/source/outreach/claim authorization."
+  ]
+}

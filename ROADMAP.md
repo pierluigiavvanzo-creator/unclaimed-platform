@@ -344,6 +344,37 @@ expected error cost -> human minutes saved -> safe automation coverage -> calibr
 
 Do not add a model adapter before P1/P2 produces enough labelled domain evidence and the Product Owner decides whether the relevant data class may be processed by an external provider.
 
+## Parallel entity-resolution lane — V1 EXECUTED / NO AUTO-LINKER ADOPTION
+
+Artifact:
+
+docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+
+Executed synthetic comparison:
+
+- RapidFuzz weighted baseline;
+- Dedupe RecordLink;
+- Splink probabilistic linkage.
+
+Result:
+
+NO_SAFE_SYNTHETIC_WINNER
+
+Current reuse decisions:
+
+- RapidFuzz: REUSE_AS_FEATURE_PRIMITIVE;
+- Splink: DEFER_AND_REBENCHMARK_WITH_DOMAIN_LABELS;
+- Dedupe: DEFER_SECONDARY_CHALLENGER;
+- custom entity-resolution model: REJECT_NOW.
+
+Do not continue synthetic threshold tuning before Stage B evidence.
+
+Trigger V2 only when labelled P1/P2 identity cases or representative observed field-shape/error patterns exist.
+
+V2 should benchmark normalization explicitly:
+
+libpostal / name normalization -> RapidFuzz features -> Splink/Dedupe -> human review.
+
 ## Technical consolidation gate — DEFER UNTIL TRIGGER
 
 Do not convert the technical audit into pre-P1 refactoring.
