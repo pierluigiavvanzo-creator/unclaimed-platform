@@ -442,13 +442,15 @@ PR #47 — offline Controller Fact Binder V1 — MERGED.
 
 PR #48 — US controller formation readiness pack — MERGED.
 
+PR #49 — FRONTEND_PRODUCT_UX_V1_OFFLINE — MERGED.
+
 Latest verified post-merge main:
 
-bd044185814c12d143f4cfcbef389b4a61037aa5
+5846f936abd495d4ab263e444a9f1e0ef3997399
 
 CI:
 
-36054428228 — SUCCESS
+36118045031 — SUCCESS
 
 ## 15. PARALLEL TECHNICAL / UX STATUS
 
@@ -468,9 +470,13 @@ Verified branch checkpoint:
 
 f9af170ac14153b9f2bfbca19851591792d219c9
 
-Branch CI:
+Merged main checkpoint:
 
-36110319804 — SUCCESS
+5846f936abd495d4ab263e444a9f1e0ef3997399
+
+Post-merge CI:
+
+36118045031 — SUCCESS
 
 Three navigable synthetic concepts:
 
@@ -487,6 +493,24 @@ A shell + B executive dashboard + C case-detail investigation workspace.
 Technical consolidation alert rule:
 
 explicitly notify the Product Owner when P1->P2 continuation, real-PII web access, web write actions, durable multi-user state, second-registry shared persistence, runtime-version ambiguity or production dependency locking makes the audit gaps product-critical.
+
+Decision-engine audit artifact:
+
+docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+
+Decision-engine audit result:
+
+PASS_WITH_DEFERRED_INTEGRATION
+
+Current engine guidance:
+
+- keep deterministic gates authoritative;
+- no decision-engine integration into real P1;
+- Jev is the low-operations economic baseline for a later P2/P3 benchmark if external-provider/privacy review is approved;
+- Laya is the local/open-weight challenger and should be domain-calibrated before production reliance;
+- Open-Jev is research-only;
+- do not build a custom model now;
+- optimize human-review/error economics before raw inference cost.
 
 Context-health alert rule remains active:
 

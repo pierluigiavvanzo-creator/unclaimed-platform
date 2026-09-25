@@ -103,9 +103,9 @@ Final post-merge main CI for PR #38:
 
 35999333460 — SUCCESS
 
-Latest verified canonical main checkpoint after PR #48:
+Latest verified canonical main checkpoint after PR #49:
 
-bd044185814c12d143f4cfcbef389b4a61037aa5
+5846f936abd495d4ab263e444a9f1e0ef3997399
 
 PR #47:
 
@@ -128,6 +128,18 @@ bd044185814c12d143f4cfcbef389b4a61037aa5
 PR #48 post-merge CI:
 
 36054428228 — SUCCESS
+
+PR #49:
+
+Frontend: add offline product UX lab v1 — MERGED
+
+PR #49 merge commit:
+
+5846f936abd495d4ab263e444a9f1e0ef3997399
+
+PR #49 post-merge CI:
+
+36118045031 — SUCCESS
 
 All seven P1 gates remain NOT_GRANTED with no owner authorization or execution approval reference.
 
@@ -609,7 +621,7 @@ The assistant must explicitly notify the Product Owner that technical consolidat
 - NY historical runtime variants cause duplicated fixes or ambiguity;
 - production release requires deterministic dependency locking.
 
-## FRONTEND_PRODUCT_UX_V1_OFFLINE — IMPLEMENTED CANDIDATE / HUMAN SELECTION PENDING
+## FRONTEND_PRODUCT_UX_V1_OFFLINE — MERGED / HUMAN SELECTION PENDING
 
 Branch:
 
@@ -646,6 +658,32 @@ No new frontend dependency was introduced.
 The UX lab is synthetic/read-only, performs no remote source access, contains no real PII and is not an authorization surface.
 
 This parallel UX work does not displace the Stage B critical path.
+
+## DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE — COMPLETE / INTEGRATION DEFERRED
+
+Artifact:
+
+docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+
+Result:
+
+PASS_WITH_DEFERRED_INTEGRATION
+
+Current conclusions:
+
+- deterministic policy/privacy/budget/human gates remain authoritative;
+- do not integrate any decision engine into real P1;
+- Jev is the strongest low-operations economic candidate for early P2/P3 if external-provider/privacy review passes;
+- Laya is the strongest local/open-weight challenger but requires Unclaimed-domain calibration before production reliance;
+- Open-Jev remains a research control;
+- a Laya -> Jev cascade is deferred until traffic/evidence justifies added complexity;
+- custom model development is rejected now under REUSE-FIRST.
+
+Economic finding:
+
+model inference cost is expected to be dominated by human-review cost and expected error cost. Optimize first for false-positive/false-negative cost, human minutes saved, safe automation coverage and calibration.
+
+No paid API calls, real PII processing or runtime integration were performed by this audit.
 
 ## Current next action
 

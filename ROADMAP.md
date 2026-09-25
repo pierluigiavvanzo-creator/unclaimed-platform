@@ -304,7 +304,7 @@ Wyoming, subject to US tax/legal and NY nexus review.
 
 Status:
 
-IMPLEMENTED CANDIDATE / HUMAN DESIGN SELECTION PENDING
+MERGED / HUMAN DESIGN SELECTION PENDING
 
 Branch checkpoint:
 
@@ -323,6 +323,26 @@ Three synthetic/no-PII concepts are available:
 This lane is reversible and does not authorize P1.
 
 No permanent component-library dependency should be added until the Product Owner chooses the preferred composition.
+
+## Parallel decision-engine lane — AUDIT COMPLETE / INTEGRATION DEFERRED
+
+Artifact:
+
+docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+
+Reuse-first result:
+
+- deterministic core: KEEP / AUTHORITATIVE;
+- Jev: DEFER_FOR_P1 / BENCHMARK_FIRST_AFTER_P1;
+- Laya: DEFER / CONDITIONAL_WRAP;
+- Open-Jev: INSPIRE / BENCHMARK_ONLY;
+- custom decision model: REJECT_NOW.
+
+Economic priority order:
+
+expected error cost -> human minutes saved -> safe automation coverage -> calibration -> privacy/provider overhead -> model inference cost -> latency.
+
+Do not add a model adapter before P1/P2 produces enough labelled domain evidence and the Product Owner decides whether the relevant data class may be processed by an external provider.
 
 ## Technical consolidation gate — DEFER UNTIL TRIGGER
 
