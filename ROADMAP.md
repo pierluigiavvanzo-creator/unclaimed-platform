@@ -524,3 +524,25 @@ This is preparation only. It must not contact prospects, owners, beneficiaries, 
 
 The existing controller-formation / Stage B P1 critical path remains unchanged and should continue in parallel only to the extent necessary to produce the first real decision-useful P1 artifact.
 
+---
+
+## C0B offline buyer-discovery preparation — 2026-10-01
+
+Status:
+
+`COMPLETE_OFFLINE`
+
+Artifact:
+
+`docs/commercial/UNCLAIMED_C1_BUYER_VALIDATION_PACKET_OFFLINE.md`
+
+The next commercial action is no longer packet creation. It is:
+
+`UNCLAIMED_C1_QUALIFIED_BUYER_PROBLEM_VALIDATION`
+
+Execution remains human-gated and should preferably use the sanitized P1 result as the concrete discussion artifact.
+
+No external outreach is authorized by this roadmap checkpoint.
+
+The active product enabler remains controller formation and the one-real-P1 sequence.
+
