@@ -261,3 +261,128 @@ Do not:
 without explicit Product Owner approval tied to the selected provider and actual checkout/quote.
 
 RESULT: FALLBACK_READY_AWAITING_NORTHWEST_REPLY
+
+---
+
+## 10. DIRECT WRITTEN PROVIDER EVIDENCE UPDATE — 2026-10-01
+
+**This section supersedes earlier provisional provider-status/ranking statements above where they conflict.**
+
+No provider is selected or authorized by this update. Figures below are direct provider-written claims from the current quote conversations and remain subject to final checkout/terms verification.
+
+### Northwest Registered Agent — written response received
+
+Andrew Timmons / Northwest support replied on 2026-09-29.
+
+Direct written claims:
+- formation service: USD 39;
+- Wyoming state fee quoted by Northwest: USD 103;
+- first year registered-agent service included;
+- registered-agent renewal: USD 125/year;
+- use of Northwest's Wyoming address for the company included with registered-agent service;
+- EIN service for a responsible party without SSN: USD 200;
+- EIN method: standard mail filing;
+- estimated EIN filing time: 4-8 weeks;
+- CPA/attorney referral links supplied.
+
+Known first-year subtotal including the quoted EIN service:
+
+`39 + 103 + 200 = USD 342`
+
+Still unresolved:
+- explicit non-US/no-SSN/no-ITIN applicability of the formation quote;
+- exact official/ordinary mail scanning and forwarding limits;
+- exact complete recurring annual total;
+- annual-report filing-service fee, if any;
+- named Corporate Guide/dedicated-contact confirmation;
+- banking assistance, remote-bank options and associated fees;
+- mandatory/optional add-ons and automatic renewals.
+
+A clarification email and a gentle reminder have been sent. No clarification reply is present at the 2026-10-01 checkpoint.
+
+### Wyoming Registered Agent Services LLC — written response received
+
+Taylor May / Wyoming Registered Agent Services replied on 2026-09-30.
+
+Direct written claims:
+- formation service: USD 25;
+- Wyoming state filing fee quoted: USD 103;
+- formation subtotal: USD 128;
+- first-year registered-agent service is **not** included in that USD 128 formation subtotal;
+- registered-agent service: USD 25 for 12 months and renews annually;
+- associated business-address service includes three documents opened/scanned at no charge;
+- open-and-scan plan: USD 49/year for up to 10 documents;
+- open-and-scan plan: USD 99/year for up to 25 documents;
+- EIN product for responsible party without SSN: USD 200;
+- provider described EIN as standard-mail filing with an estimated 30-day filing time plus seven-day document time.
+
+Known first-year subtotal using formation + one year RA + listed EIN product:
+
+`128 + 25 + 200 = USD 353`
+
+Provider explicitly did **not** confirm:
+- that the registered-agent address may be used as principal business address on all formation/banking documents;
+- that the listed EIN product can be completed on the Product Owner's behalf in the specific circumstances;
+- a complete first-year total including every potentially applicable service;
+- CPA/attorney referral availability.
+
+Any optional trial, bundled business-identity service, auto-renewal or checkout add-on must still be reviewed individually before payment.
+
+### doola — written responses received
+
+Ariel Gala / doola supplied written clarification during the same provider review.
+
+Direct written claims:
+- Starter: USD 297/year;
+- Wyoming filing fee quoted by doola: USD 102;
+- EIN application included at USD 0 additional service fee;
+- first-year approximate total: USD 399;
+- Starter available to a non-US resident without SSN/ITIN;
+- registered-agent service included in Starter;
+- Wyoming annual report minimum stated by doola: USD 61/year;
+- recurring total from year two stated by doola: USD 358/year = USD 297 Starter + USD 61 Wyoming annual report;
+- banking guidance included in Starter at no additional cost;
+- primary banking partner named: Mercury;
+- alternatives named: Slash, Airwallex, Payoneer and Wise;
+- doola stated the application can be completed remotely and bank approval remains subject to bank KYC/KYB;
+- virtual US business address/mail handling described as included in the plan;
+- optional annual state filing add-on previously quoted at USD 199/year + state fee;
+- tax filing is not included in Starter.
+
+Bank-specific eligibility, address rules and fees must be verified directly with the selected bank immediately before relying on them.
+
+### Updated commercial comparison
+
+| Criterion | Northwest | Wyoming Registered Agent Services | doola |
+|---|---:|---:|---:|
+| Known first-year subtotal with EIN | USD 342 | USD 353 | approx. USD 399 |
+| First-year RA | included | USD 25 separate | included |
+| RA / core recurring service | USD 125/year RA | USD 25/year RA | USD 297/year Starter |
+| Address/mail clarity | partial; clarification pending | limited scans / paid tiers | more integrated claim |
+| EIN without SSN | USD 200 | USD 200 listed; applicability to confirm | included |
+| Banking guidance | clarification pending | not established | included guidance |
+| Human support | strong but details pending | specialist provider | integrated-service model |
+| Current biggest uncertainty | banking/mail/full recurring total | address/banking/specific EIN execution | higher recurring cost |
+
+### Current decision state
+
+`PROVIDER_DECISION = PENDING_NORTHWEST_CLARIFICATION`
+
+Current interpretation:
+- Northwest has the strongest known first-year price among the three quoted full-service paths and potentially a strong support/value balance, but important operational details remain unanswered.
+- Wyoming Registered Agent Services has the lowest known recurring registered-agent price but more fragmented address/mail/banking support.
+- doola is the most integrated written proposition, especially around banking guidance, but has materially higher recurring cost.
+
+No final provider selection should be made solely from nominal price.
+
+Before any checkout/payment:
+1. inspect every optional checkbox/add-on/trial;
+2. identify every automatic renewal;
+3. verify the exact checkout total;
+4. verify address/mail scope;
+5. verify EIN applicability;
+6. verify refund/cancellation terms;
+7. do not purchase an optional virtual-office/mail/identity product unless it solves a demonstrated requirement.
+
+`RESULT = DIRECT_QUOTES_UPDATED_AWAITING_NORTHWEST_CLARIFICATION`
+
