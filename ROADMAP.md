@@ -471,3 +471,56 @@ Not frozen:
 - source-adapter contracts;
 - registry-independent downstream interfaces;
 - performance instrumentation needed to compare future source adapters.
+
+---
+
+## Commercial evidence realignment — 2026-10-01
+
+**Commercial evidence level:** `C0 — Hypothesis`.
+
+The Stage B / P1 targetability experiment remains Product Critical, but it is now explicitly classified as an **enabling product/economic proof**, not as proof of sellability.
+
+### Commercial critical path
+
+`C0A — ENABLER`
+- bind the real US-controller facts and complete the already-defined lawful P1 sequence;
+- obtain one real bounded targetability decision or bounded stop;
+- measure `TARGETABILITY_DECISION_COST`;
+- produce a reviewable, sanitized/non-PII commercial evidence artifact where possible.
+
+`C0B — BUYER DISCOVERY PREPARATION`
+- define a small set of plausible paying-buyer hypotheses without declaring any one of them canonical;
+- prepare an offline buyer-discovery packet focused on the P1 output, current alternative, operator pain, unit of value and likely transaction model;
+- no external contact is authorized by this roadmap update.
+
+`C1 — PROBLEM EVIDENCE`
+- obtain direct evidence from a real candidate buyer/operator that the targetability/evidence/recovery workflow addresses a costly, frequent or risky job;
+- identify the actual decision maker, current alternative and value unit.
+
+`C2 — SOLUTION EVIDENCE`
+- a qualified buyer asks to evaluate the output on a real or representative workflow/case, or otherwise gives a concrete pilot-intent signal;
+- record required trust, compliance, integration and service conditions.
+
+`C3 — TRANSACTION EVIDENCE`
+- paid pilot, signed LOI with economic commitment, purchase, fee-bearing agreement or equivalent strong willingness-to-pay signal.
+
+### Promotion rule
+
+Do **not** advance automatically from P1 to P2/P3, broader source coverage, large PII infrastructure or commercial automation merely because P1 technically passes.
+
+After P1, the default gate is:
+
+`P1 REVIEW -> BUYER/ICP VALIDATION -> C1/C2 EVIDENCE -> ONLY THEN SCALE THE NEXT PRODUCT SLICE`
+
+P2/P3 may proceed earlier only when they are the smallest necessary experiment to answer a specific buyer/economic uncertainty and the relevant legal/privacy approvals exist.
+
+### Single next commercial action
+
+`UNCLAIMED_PREPARE_C1_BUYER_VALIDATION_PACKET_OFFLINE`
+
+This is preparation only. It must not contact prospects, owners, beneficiaries, heirs, legal-service providers or recovery operators without the required explicit Product Owner approval.
+
+### Single next product enabler
+
+The existing controller-formation / Stage B P1 critical path remains unchanged and should continue in parallel only to the extent necessary to produce the first real decision-useful P1 artifact.
+
