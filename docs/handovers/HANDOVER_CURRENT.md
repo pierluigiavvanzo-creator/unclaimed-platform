@@ -633,3 +633,36 @@ The next session must distinguish:
 - **single next product enabler:** lawful controller/P1 path;
 - **single next commercial evidence:** first real buyer/problem/pilot signal.
 
+---
+
+## C1 preparation / provider checkpoint — 2026-10-01
+
+Commercial-roadmap PR #55 is merged at:
+
+`154f581307c601146c4306520df83c0f3252cbe9`
+
+Offline buyer-validation packet prepared:
+
+`docs/commercial/UNCLAIMED_C1_BUYER_VALIDATION_PACKET_OFFLINE.md`
+
+It contains the sanitized P1 artifact design, buyer hypotheses, discovery framework, C1/C2/C3 evidence rules, pilot hypothesis and stop/pivot rules.
+
+No external outreach is authorized.
+
+Controller-provider direct written evidence is now materially newer than the 2026-09-25 provisional benchmark:
+- Northwest written initial quote received; clarification still pending;
+- Wyoming Registered Agent Services written quote received;
+- doola written quote and banking clarification received.
+
+Current provider decision:
+
+`PENDING_NORTHWEST_CLARIFICATION`
+
+Current single product-enabler action remains:
+
+`HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1`
+
+Current single commercial-evidence action after P1/approval:
+
+`UNCLAIMED_C1_QUALIFIED_BUYER_PROBLEM_VALIDATION`
+
