@@ -612,3 +612,24 @@ Then:
 GitHub remains the source of truth.
 
 Do not reconstruct project state from chat memory when repository evidence is available.
+
+---
+
+## Commercial roadmap override — 2026-10-01
+
+Shared governance now requires progression by commercial evidence, not technical milestone count.
+
+**Current commercial evidence:** `C0 — Hypothesis`.
+
+Stage B / P1 remains the immediate product/economic enabler, but a passing P1 must not trigger automatic P2/P3 expansion.
+
+New post-P1 decision sequence:
+
+`P1 REAL RESULT -> HUMAN ECONOMIC REVIEW -> BUYER/ICP VALIDATION -> C1/C2 COMMERCIAL EVIDENCE -> NEXT PRODUCT SLICE`
+
+Parallel offline preparation may create `UNCLAIMED_PREPARE_C1_BUYER_VALIDATION_PACKET_OFFLINE`, but no external contact, owner/beneficiary outreach, value research, fee agreement, representation or claim activity is authorized by this documentation update.
+
+The next session must distinguish:
+- **single next product enabler:** lawful controller/P1 path;
+- **single next commercial evidence:** first real buyer/problem/pilot signal.
+
