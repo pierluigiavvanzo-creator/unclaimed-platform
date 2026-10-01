@@ -839,3 +839,34 @@ Until buyer evidence improves:
 
 Current Product Critical technical enabler remains the lawful Stage B P1 path. Current Product Critical **commercial** objective is the first C1/C2 buyer signal.
 
+---
+
+## C1 commercial-preparation checkpoint — 2026-10-01
+
+PR #55 commercial-roadmap realignment is merged on main at:
+
+`154f581307c601146c4306520df83c0f3252cbe9`
+
+Offline commercial preparation now includes:
+
+`docs/commercial/UNCLAIMED_C1_BUYER_VALIDATION_PACKET_OFFLINE.md`
+
+Status:
+
+`C1_BUYER_VALIDATION_PACKET = PREPARED_OFFLINE`
+
+The artifact creates no outreach, PII, fee, representation or commercial authorization.
+
+Provider benchmark has also been updated with direct written replies from Northwest, Wyoming Registered Agent Services and doola.
+
+Controller provider decision remains:
+
+`PENDING_NORTHWEST_CLARIFICATION`
+
+Current Product Critical enabler remains:
+
+`HUMAN_DECIDE_AND_FORM_US_CONTROLLER_ENTITY_FOR_REAL_P1`
+
+After formation:
+`BIND FACTS -> PROFESSIONAL CHECK -> FRESH P1 GATES -> ONE REAL P1 -> HUMAN ECONOMIC REVIEW -> C1 BUYER VALIDATION`
+

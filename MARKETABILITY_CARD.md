@@ -87,3 +87,26 @@ The packet should make clear:
 
 No external outreach is authorized by this update.
 
+---
+
+## C1 buyer-validation preparation — 2026-10-01
+
+`UNCLAIMED_PREPARE_C1_BUYER_VALIDATION_PACKET_OFFLINE = COMPLETE_ON_BRANCH`
+
+Prepared artifact:
+
+`docs/commercial/UNCLAIMED_C1_BUYER_VALIDATION_PACKET_OFFLINE.md`
+
+The packet defines:
+- sanitized P1 decision artifact;
+- non-canonical buyer hypotheses;
+- discovery questions;
+- C1/C2/C3 evidence rules;
+- pilot and acquisition hypotheses;
+- evidence-capture template;
+- stop/pivot rules.
+
+This completes offline commercial preparation only.
+
+Next commercial evidence remains a real C1 buyer/problem signal after the appropriate external-contact approval. No outreach is authorized by the packet.
+
