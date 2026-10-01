@@ -805,3 +805,37 @@ If P1/P2 support continuation:
 freeze a generic Source Adapter Contract -> prioritize additional US registries -> prioritize Canadian registries -> reuse the same downstream confidence/targetability/people-finder/economics/CRM/contracts/fee engine.
 
 Until a genuine controller exists, keep all seven P1 gates NOT_GRANTED and continue only offline/synthetic/non-PII work.
+
+---
+
+## Commercial evidence state — 2026-10-01
+
+**Evidence level:** `C0 — Hypothesis`.
+
+The repository now distinguishes three different claims:
+
+1. **technical/product proof** — the deterministic pipeline can produce a bounded result;
+2. **economic-learning proof** — P1 can measure targetability decision cost and produce a reviewable decision;
+3. **sellability proof** — a defined paying buyer values the result enough to progress toward a pilot or transaction.
+
+Only (1) and portions of (2) are currently prepared. **No canonical willingness-to-pay evidence exists yet.**
+
+The current US-controller / P1 work remains necessary, but completion of P1 must not be reported as market validation.
+
+### Next commercial uncertainty
+
+`WHO_PAYS_FOR_WHICH_DECISION_USEFUL_OUTPUT_AND_WHY`
+
+The cheapest safe learning step is to prepare a bounded buyer-validation packet around the P1 output and then, under separate approval, validate buyer pain, current alternative, decision maker and pilot intent.
+
+### Scale freeze
+
+Until buyer evidence improves:
+- do not broaden registry coverage for commercial reasons alone;
+- do not build mass outreach;
+- do not add commercial automation because it is technically possible;
+- do not treat dataset size or potential asset value as willingness-to-pay evidence;
+- do not proceed from P1 to P2/P3 by inertia.
+
+Current Product Critical technical enabler remains the lawful Stage B P1 path. Current Product Critical **commercial** objective is the first C1/C2 buyer signal.
+
