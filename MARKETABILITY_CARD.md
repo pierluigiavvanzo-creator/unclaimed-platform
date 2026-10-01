@@ -61,3 +61,29 @@ After the currently authorized product-validation sequence permits it, the highe
 
 ## Commercial discipline
 Do not broaden USA/Canada source integration merely because adapters can be built. Scale source coverage only when the current bounded engine produces decision-useful evidence and a credible buyer/value hypothesis.
+
+---
+
+## 2026-10-01 commercial realignment
+
+The next commercial evidence is now explicitly separated from the Stage B technical experiment.
+
+- **P1 success is not sellability evidence.**
+- The paying ICP remains unvalidated.
+- A reviewable P1 result is valuable because it can become the artifact used in buyer discovery, not because it proves demand by itself.
+- The next evidence ladder is `C0 -> C1 problem evidence -> C2 solution/pilot intent -> C3 transaction evidence`.
+
+### Immediate offline action
+
+`UNCLAIMED_PREPARE_C1_BUYER_VALIDATION_PACKET_OFFLINE`
+
+The packet should make clear:
+- what decision the platform produces;
+- what manual/current alternative it replaces;
+- which operator minutes/cost/risk it may reduce;
+- which evidence/provenance makes the result trustworthy;
+- what a bounded pilot would require;
+- which buyer hypothesis is being tested.
+
+No external outreach is authorized by this update.
+
