@@ -870,3 +870,53 @@ Current Product Critical enabler remains:
 After formation:
 `BIND FACTS -> PROFESSIONAL CHECK -> FRESH P1 GATES -> ONE REAL P1 -> HUMAN ECONOMIC REVIEW -> C1 BUYER VALIDATION`
 
+---
+
+## Controller / banking / P1 readiness checkpoint — 2026-10-05
+
+Verified canonical main before this preparation:
+
+`a8a2f427f4d137b6a8ccb790e1a1de1dfc70ba1c`
+
+Latest verified PR-head CI on current main lineage:
+
+PR #57 head `9b15fe79e50f7fe074921b16b628660569fccfff` — CI `37014525503` — SUCCESS.
+
+New offline readiness artifacts prepared:
+
+- `docs/checklists/US_CONTROLLER_BANKING_READINESS_PACK.md`
+- `docs/templates/US_CONTROLLER_FORMATION_FACT_PACKET_PREP.md`
+- `docs/checklists/US_CONTROLLER_TAX_LEGAL_PREFLIGHT_2026-10-05.md`
+- `docs/audits/UNCLAIMED_P1_FINAL_READINESS_AUDIT_2026-10-05.md`
+
+P1 readiness result:
+
+`PASS_TECHNICALLY_READY_OPERATIONALLY_BLOCKED`
+
+No new platform feature is currently required before controller formation.
+
+Current blocking sequence:
+
+`FORM US CONTROLLER -> BIND FACTS -> PROFESSIONAL REVIEW -> FRESH 7-GATE PACKET -> ONE REAL P1`
+
+Banking preparation:
+
+`PRIMARY_CANDIDATE = MERCURY`
+
+Current public Mercury guidance supports U.S.-registered companies with international founders and permits a verifiable international physical operating address, but does not accept a Registered Agent address as the physical operating address. U.S. operations must be existing or planned and may require documentary evidence.
+
+No banking application has been started.
+
+Provider decision:
+
+`PENDING_PRODUCT_OWNER_FINAL_CHOICE`
+
+Current provider frame:
+- Northwest = cost-efficiency leader;
+- doola = integrated-support leader;
+- Wyoming Registered Agent Services = lower RA cost but no banking support and inconsistent EIN/ITIN guidance.
+
+All seven real-P1 gates remain `NOT_GRANTED`.
+
+No source access, PII processing, bank application, provider purchase, filing or payment is authorized by this checkpoint.
+
