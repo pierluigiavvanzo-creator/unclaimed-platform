@@ -386,3 +386,77 @@ Before any checkout/payment:
 
 `RESULT = DIRECT_QUOTES_UPDATED_AWAITING_NORTHWEST_CLARIFICATION`
 
+---
+
+## 11. FINAL FOLLOW-UP RESPONSES — 2026-10-02/03
+
+**This section supersedes earlier "awaiting clarification" status statements where they conflict.**
+
+### Northwest — clarification complete
+
+Northwest confirmed in writing:
+
+- the USD 39 formation service + quoted USD 103 Wyoming state filing fee is available to a non-US resident owner without SSN or ITIN;
+- EIN service without SSN/ITIN is USD 200;
+- EIN filing is submitted by fax; provider estimate is approximately 4-6 weeks;
+- Registered Agent service permits use of the Wyoming address where accepted;
+- Secretary of State notices and Service of Process are uploaded;
+- up to 5 regular-mail documents/year are included;
+- additional regular-mail documents are scanned/uploaded with a USD 3 unlock fee each;
+- separate mail-forwarding service is optional;
+- Registered Agent renewal is USD 125/year;
+- Wyoming annual report is approximately USD 60 minimum under the current state schedule;
+- Northwest annual-report filing service is optional and quoted at USD 160 total, including its USD 100 service fee plus the approximately USD 60 state fee;
+- no permanent dedicated representative is assigned, but Corporate Guides are available.
+
+Banking:
+
+- Northwest does not open or manage bank accounts;
+- it does not directly work with a specific bank;
+- it provides common formation/banking documents;
+- it supplied resource links including Brex, Novo and Wise, but did not guarantee eligibility or remote approval.
+
+### Wyoming Registered Agent Services — final banking response
+
+Wyoming Registered Agent Services stated:
+
+- no bank-account opening assistance;
+- no banking referral or active application help;
+- no bank/fintech recommendation at this time;
+- remote-opening eligibility is unknown to the provider;
+- acceptance of its address depends on the bank's underwriting.
+
+One response also stated that an ITIN is needed to get an EIN. That statement conflicts with current IRS guidance for a foreign responsible party who does not have and is ineligible to obtain an SSN/ITIN. The provider's own earlier catalog response also listed a USD 200 EIN product for a responsible party without SSN.
+
+Therefore:
+
+`WYOMING_AGENTS_EIN_WITHOUT_ITIN_CLARITY = INCONSISTENT`
+
+Do not rely on that provider statement as tax authority.
+
+### Official IRS cross-check
+
+Current IRS Form SS-4 instructions and IRS Internal Revenue Manual state that, under the applicable foreign-responsible-party fact pattern, a person without and ineligible for SSN/ITIN may enter `foreign` or `N/A` on line 7b and is not required to obtain an ITIN merely to receive an EIN.
+
+References reviewed 2026-10-05:
+
+- https://www.irs.gov/instructions/iss4
+- https://www.irs.gov/irm/part21/irm_21-007-013r
+
+### Updated provider decision frame
+
+Current practical finalists:
+
+1. **Northwest Registered Agent** — lower known first-year and recurring cost; strong formation/document clarity; banking must be handled directly with the selected institution.
+2. **doola** — materially higher recurring cost; more integrated non-resident onboarding/banking guidance.
+
+Wyoming Registered Agent Services remains a low-cost Registered Agent/formation alternative, but its banking support is absent and its EIN guidance is internally inconsistent.
+
+`PROVIDER_SELECTION = PENDING_PRODUCT_OWNER_FINAL_CHOICE`
+
+`NORTHWEST = CURRENT_COST_EFFICIENCY_LEADER`
+
+`DOOLA = CURRENT_INTEGRATED_SUPPORT_LEADER`
+
+No filing/payment is authorized by this benchmark update.
+

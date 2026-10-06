@@ -546,3 +546,61 @@ No external outreach is authorized by this roadmap checkpoint.
 
 The active product enabler remains controller formation and the one-real-P1 sequence.
 
+---
+
+## B0.3 — Controller operational readiness — PREPARED OFFLINE — 2026-10-05
+
+Completed preparation:
+
+- banking-readiness pack;
+- pre-formation fact packet;
+- current tax/legal preflight;
+- P1 final-readiness audit.
+
+Result:
+
+`P1_TECHNICAL_READINESS = PASS`
+
+`P1_OPERATIONAL_AUTHORIZATION = BLOCKED`
+
+Do not build more platform capability before formation unless a newly discovered blocker proves it necessary.
+
+### Immediate critical path
+
+1. Product Owner selects formation provider;
+2. inspect final checkout/terms;
+3. explicit filing/payment authorization;
+4. form Wyoming LLC;
+5. obtain EIN;
+6. bind controller facts;
+7. obtain bounded CPA/attorney review;
+8. recheck Mercury/current banking eligibility and apply only after explicit approval;
+9. prepare fresh P1 gate packet;
+10. execute one real P1 only after all seven fresh approvals.
+
+### Banking
+
+Primary current candidate:
+
+`MERCURY`
+
+Fallback evaluation is deferred until either:
+- Mercury cannot support the real fact pattern; or
+- the actual application produces a material blocker.
+
+Do not purchase paid banking assistance merely because a formation provider offers it.
+
+### Development freeze
+
+Still frozen before evidence:
+
+- new registries;
+- P2/P3 automation;
+- generic L2-A API adapters;
+- paid identity/people-finder stack;
+- frontend V2;
+- production persistence/auth expansion;
+- generic CRM expansion.
+
+The next value is operational evidence, not code volume.
+

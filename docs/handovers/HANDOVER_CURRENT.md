@@ -666,3 +666,70 @@ Current single commercial-evidence action after P1/approval:
 
 `UNCLAIMED_C1_QUALIFIED_BUYER_PROBLEM_VALIDATION`
 
+---
+
+## Controller / banking / P1 readiness update — 2026-10-05
+
+Live main verified before work:
+
+`a8a2f427f4d137b6a8ccb790e1a1de1dfc70ba1c`
+
+Latest successful CI on current main lineage:
+
+PR #57 head `9b15fe79e50f7fe074921b16b628660569fccfff`, CI `37014525503` — SUCCESS.
+
+Prepared offline:
+
+- `docs/checklists/US_CONTROLLER_BANKING_READINESS_PACK.md`
+- `docs/templates/US_CONTROLLER_FORMATION_FACT_PACKET_PREP.md`
+- `docs/checklists/US_CONTROLLER_TAX_LEGAL_PREFLIGHT_2026-10-05.md`
+- `docs/audits/UNCLAIMED_P1_FINAL_READINESS_AUDIT_2026-10-05.md`
+
+P1 audit result:
+
+`PASS_TECHNICALLY_READY_OPERATIONALLY_BLOCKED`
+
+Meaning:
+
+- controller binder exists;
+- seven-gate authorization contracts exist;
+- two-pass local runner exists;
+- synthetic P1 safety/selection/provider-boundary tests exist;
+- no additional product feature is required before formation;
+- real execution remains impossible without factual controller binding, professional review and fresh single-use approvals.
+
+Provider clarification is no longer pending:
+- Northwest confirmed non-US/no-SSN/ITIN formation eligibility and EIN service, clarified mail/annual costs and confirmed no direct banking assistance;
+- Wyoming Registered Agent Services confirmed no banking assistance and supplied internally inconsistent ITIN/EIN guidance;
+- doola remains the higher-cost integrated-support alternative.
+
+Current formation-provider state:
+
+`PENDING_PRODUCT_OWNER_FINAL_CHOICE`
+
+Current practical comparison:
+
+`NORTHWEST = COST_EFFICIENCY_LEADER`
+
+`DOOLA = INTEGRATED_SUPPORT_LEADER`
+
+Banking:
+
+`MERCURY = PRIMARY_CURRENT_CANDIDATE`
+
+Mercury public eligibility currently allows international founders of U.S.-registered companies and a verifiable international physical operating address, but not a Registered Agent address as the physical operating address. Existing/planned U.S. operations are required and documentary evidence may be requested.
+
+No application has been made.
+
+### Current single product action
+
+`HUMAN_SELECT_AND_AUTHORIZE_US_CONTROLLER_FORMATION_PROVIDER`
+
+After formation:
+
+`BIND CONTROLLER FACTS -> PROFESSIONAL REVIEW -> RECHECK BANKING -> FRESH P1 GATES -> ONE REAL P1 -> HUMAN ECONOMIC REVIEW -> C1 BUYER VALIDATION`
+
+All seven P1 gates remain `NOT_GRANTED`.
+
+No filing, payment, source access, PII processing, banking application or external buyer outreach is authorized by this update.
+
