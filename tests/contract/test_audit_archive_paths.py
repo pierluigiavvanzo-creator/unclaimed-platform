@@ -23,6 +23,8 @@ def test_historical_audits_live_only_in_docs_archive() -> None:
 
 def test_active_surfaces_do_not_reference_removed_docs_audits_path() -> None:
     roots = (
+        ROOT / "AGENTS.md",
+        ROOT / "README.md",
         ROOT / "src",
         ROOT / "scripts",
         ROOT / "tests",
