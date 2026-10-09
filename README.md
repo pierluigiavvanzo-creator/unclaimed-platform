@@ -43,7 +43,7 @@ Historical point-in-time audits/reviews now live under:
 
 `docs/archive/`
 
-`docs/audits/` is retired.
+The legacy audit directory is retired and must not be reintroduced.
 
 Current NY OSC execution surface:
 
