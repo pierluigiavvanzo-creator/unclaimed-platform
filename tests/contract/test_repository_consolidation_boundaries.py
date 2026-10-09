@@ -31,7 +31,12 @@ def test_legacy_ny_osc_attempt_runtimes_are_not_active() -> None:
 
 def test_current_p1_runtime_is_present() -> None:
     required = [
-        ROOT / "src" / "unclaimed_platform" / "adapters" / "sources" / "ny_owner_name_p1_targetability_local.py",
+        ROOT
+        / "src"
+        / "unclaimed_platform"
+        / "adapters"
+        / "sources"
+        / "ny_owner_name_p1_targetability_local.py",
         ROOT / "src" / "unclaimed_platform" / "domain" / "ny_mvp1_p1_authorization.py",
         ROOT / "scripts" / "ny_mvp1_p1_targetability_execute.py",
         ROOT / "scripts" / "ny_mvp1_p1_targetability_local.ps1",
