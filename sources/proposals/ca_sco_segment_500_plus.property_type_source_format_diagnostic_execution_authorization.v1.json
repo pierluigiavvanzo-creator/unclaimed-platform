@@ -8,7 +8,7 @@
   "review_base_sha": "2975eef60d9ece94a68ef2cd6f2a0707ccfa4083",
   "proposal_package_sha": "d8dc240bd74e271f88b2ef4583f6b79e533918b2",
   "reviewed_proposal_head_sha": "5e0aa6fa8bc9516c2cd8447e26e3b76b7485c4e9",
-  "proposal_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW.md",
+  "proposal_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_REVIEW.md",
   "proposal_review_decision": "PASS_WITH_MANDATORY_EXECUTION_ARTIFACT_TIGHTENINGS",
   "required_approvals": {
     "execution": {

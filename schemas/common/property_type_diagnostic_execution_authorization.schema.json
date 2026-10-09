@@ -40,7 +40,7 @@
     "review_base_sha": {"const": "06896084475f0f899fc3e002344e22fc49ffa54d"},
     "proposal_package_sha": {"const": "020044d3013449fabe566c5164b8f99f9d8cc9ab"},
     "reviewed_proposal_head_sha": {"const": "847cdf5daaa1834c3ce11fc3d6f29e2bbc36b4b4"},
-    "proposal_review_audit": {"const": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW.md"},
+    "proposal_review_audit": {"const": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_REMEDIATION_EVIDENCE_PROPOSAL_REVIEW.md"},
     "required_approvals": {
       "type": "object",
       "additionalProperties": false,

@@ -39,7 +39,7 @@
       "authority": "New York State Office of the State Comptroller, Office of Unclaimed Funds",
       "acquisition_method": "OFFICIAL_BULK_DOWNLOAD",
       "retrieved_at": null,
-      "terms_review_ref": "docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md",
+      "terms_review_ref": "docs/archive/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md",
       "source_revision": null,
       "access_notes": "Boundary only; no Owner Name File request, download, or real PII processing performed."
     }

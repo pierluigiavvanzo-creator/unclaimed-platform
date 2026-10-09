@@ -560,3 +560,38 @@ Consequences:
 - no real PII, production write path, P1 gate or source access is enabled by this decision;
 - frontend consolidation remains parallel/non-critical and must not displace the Stage B controller/LLC blocker.
 
+---
+
+## D-016 — Archive point-in-time audits and expose one canonical NY OSC runner/gate surface
+
+Date: 2026-10-09
+
+Status: Accepted by Product Owner
+
+Context:
+The repository accumulated 157 point-in-time audit/review documents under `docs/audits/`, multiple bounded historical NY OSC transient-runner versions, and numbered Gate 2-11 PowerShell entrypoints. The historical execution artifacts are valuable provenance, but their presence on active documentation/runtime surfaces creates unnecessary ambiguity. Several historical approvals are consumed, single-use and non-reusable; their bound runner/checkpoint packages must not be silently rewritten as if they were current execution authority.
+
+Decision:
+1. move point-in-time audit markdown files from `docs/audits/` to `docs/archive/`;
+2. update active code, tests and current machine proposals that reference those historical paths;
+3. keep historical evidence immutable where changing its recorded provenance would falsify the historical snapshot;
+4. add an automated contract test rejecting new `docs/audits/` references on active code/test/proposal surfaces;
+5. define `ny_owner_name_runner_registry.py` as the canonical lineage registry for NY OSC historical attempts 1-11;
+6. classify all historical attempt runners as `HISTORICAL_CONSUMED_NON_REUSABLE`;
+7. preserve historical versioned runtime modules and Gate 2-11 scripts in place when their paths/checkpoints are part of historical authorization evidence;
+8. prohibit creating a new numbered/version-suffixed historical runner as the default way to evolve the product;
+9. define `scripts/ny_osc_gate.ps1` as the single canonical active PowerShell gate entrypoint for the current Stage B P1;
+10. retain `scripts/ny_mvp1_p1_targetability_local.ps1` only as a compatibility wrapper forwarding to the canonical gate;
+11. keep `scripts/ny_mvp1_p1_targetability_execute.py` and `ny_owner_name_p1_targetability_local.py` as the current P1 Python execution path;
+12. this consolidation grants no P1 gate, reuses no historical approval and changes no PII/source authorization boundary.
+
+Reason:
+The cleanup reduces active-surface ambiguity without destroying historical provenance. A facade/registry is safer than rewriting old bounded runners because historical approval/checkpoint integrity is itself evidence. One current entrypoint makes future execution and review clearer.
+
+Consequences:
+- historical audits remain accessible under `docs/archive/`;
+- current operating truth remains in canonical state/decision/handover files;
+- historical numbered gate scripts must not be used as current authorization;
+- future NY OSC execution work extends the current P1 contract/runner rather than adding Gate 12 / v1_9 by default;
+- any material new execution boundary still requires the existing Product Owner/legal/privacy gates.
+

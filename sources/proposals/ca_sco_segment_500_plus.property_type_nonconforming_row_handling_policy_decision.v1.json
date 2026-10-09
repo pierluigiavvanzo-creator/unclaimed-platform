@@ -11,7 +11,7 @@
     "branch": "m3-ca-sco-property-type-nonconforming-row-handling-proposal-review",
     "head_sha": "6ef0cbaed7536c61d00888644bc463d9894418f6",
     "head_ci_run": "35094679116",
-    "handling_proposal_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW.md",
+    "handling_proposal_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_PROPOSAL_REVIEW.md",
     "handling_proposal_review_decision": "PASS_WITH_MANDATORY_POLICY_DECISION_TIGHTENINGS",
     "source_format_diagnostic_class": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH"
   },

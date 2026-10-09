@@ -1,4 +1,4 @@
-> **Shared governance v2 — 2026-10-01**
+> **Shared governance v2.2 — 2026-10-08**
 >
 > Read `AGENTS_MASTER.md` before this file. The master governs shared product, economic, marketability and engineering execution. This `AGENTS.md` remains authoritative for Unclaimed-specific architecture, legal/privacy policy, deterministic contracts and human gates. Project-specific rules may tighten the master and must not silently weaken it. Where a Unclaimed legal/privacy/PII gate is stricter, the stricter project rule wins.
 
@@ -151,7 +151,7 @@ LLM/provider esterni devono stare dietro adapter. Nessun dominio deve dipendere 
 │       │   ├── hypotheses/
 │       │   ├── people/
 │       │   └── economics/
-│       ├── agents/
+│       ├── agents/             # pianificati: le sottocartelle aNN_* si creano solo quando l'agente viene implementato
 │       │   ├── a01_acquisition/
 │       │   ├── a02_normalization/
 │       │   ├── a03_insurance/
@@ -192,7 +192,7 @@ LLM/provider esterni devono stare dietro adapter. Nessun dominio deve dipendere 
 │   ├── unit/
 │   ├── contract/
 │   ├── integration/
-│   ├── golden/
+│   ├── golden/             # pianificati (integration/golden/adversarial/security): creare con il primo test
 │   ├── adversarial/
 │   ├── security/
 │   └── smoke/

@@ -338,7 +338,7 @@ FRONTEND_PRODUCT_UX_V2_CONSOLIDATION
 
 Artifact:
 
-docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+docs/archive/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
 
 Reuse-first result:
 
@@ -358,7 +358,7 @@ Do not add a model adapter before P1/P2 produces enough labelled domain evidence
 
 Artifact:
 
-docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+docs/archive/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
 
 Executed synthetic comparison:
 
@@ -408,7 +408,7 @@ FALLBACK_READY_AWAITING_NORTHWEST_REPLY
 
 Artifact:
 
-docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+docs/archive/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
 
 Purpose:
 
@@ -603,4 +603,24 @@ Still frozen before evidence:
 - generic CRM expansion.
 
 The next value is operational evidence, not code volume.
+
+---
+
+## Repository maintenance consolidation — 2026-10-09
+
+Status: IMPLEMENTED ON REVIEW BRANCH
+
+- historical audit snapshots moved to `docs/archive/`;
+- active audit-path dependencies migrated;
+- one canonical current NY OSC gate entrypoint introduced;
+- historical runner lineage centralized and marked consumed/non-reusable;
+- compatibility P1 wrapper routed through the canonical entrypoint;
+- `AGENTS_MASTER.md` aligned to v2.2;
+- regression guards added.
+
+This work is maintenance, not a new product milestone.
+
+It does not authorize real P1 and does not displace the active product action:
+
+`HUMAN_SELECT_AND_AUTHORIZE_US_CONTROLLER_FORMATION_PROVIDER`
 

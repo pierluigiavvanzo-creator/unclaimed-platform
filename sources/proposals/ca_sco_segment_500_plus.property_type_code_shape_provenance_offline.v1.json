@@ -21,12 +21,12 @@
   },
   "evidence_inputs": {
     "second_execution_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_1.second.json",
-    "second_execution_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION.md",
+    "second_execution_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_SECOND_SEMANTIC_EXECUTION.md",
     "second_authorization_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_second_semantic_execution_approval.v1.json",
-    "offline_diagnosis_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md",
+    "offline_diagnosis_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_OFFLINE_DIAGNOSIS.md",
     "offline_diagnosis_test": "tests/unit/test_ca_sco_property_type_offline_diagnosis.py",
     "semantic_verification_proposal": "sources/proposals/ca_sco_segment_500_plus.property_type_semantic_verification.v1.json",
-    "source_readiness_audit": "docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md",
+    "source_readiness_audit": "docs/archive/M3_CALIFORNIA_SOURCE_READINESS.md",
     "data_scope_evidence": "sources/evidence/ca_sco_segment_500_plus.data_scope.execution.v1.json"
   },
   "historical_execution_state": {

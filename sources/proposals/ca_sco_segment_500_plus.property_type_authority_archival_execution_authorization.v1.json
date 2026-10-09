@@ -7,7 +7,7 @@
   "gate": "HUMAN_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_AUTHORIZATION_REVIEW",
   "review_base_sha": "27e82e1358dd2589e3356b2cd4528915c13b26d9",
   "proposal_package_sha": "963c205b662cf56260ca7af14d71c65a6916c30f",
-  "proposal_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_PROVENANCE_ACQUISITION_PROPOSAL_REVIEW.md",
+  "proposal_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_PROVENANCE_ACQUISITION_PROPOSAL_REVIEW.md",
   "required_approval_ref": "APPROVE_PROPERTY_TYPE_AUTHORITY_ARCHIVAL_EXECUTION_ONE_SHOT",
   "single_use": true,
   "reusable": false,

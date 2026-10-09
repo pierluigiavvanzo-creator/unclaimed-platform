@@ -14,9 +14,9 @@
     "source_format_execution_run_id": "35090057224",
     "source_format_execution_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_source_format_diagnostic.execution.v1.json",
     "source_format_diagnostic_class": "INDEPENDENT_PARSER_AGREES_FIELD_STRUCTURAL_MISMATCH",
-    "source_format_evidence_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW.md",
+    "source_format_evidence_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_SOURCE_FORMAT_DIAGNOSTIC_EVIDENCE_REVIEW.md",
     "source_format_evidence_review_decision": "PASS_NONCONFORMING_PROPERTY_TYPE_HANDLING_PROPOSAL_JUSTIFIED_NO_RUNTIME_CHANGE_AUTHORIZED",
-    "authority_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md",
+    "authority_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md",
     "authority_review_decision": "ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS"
   },
   "established_facts": [

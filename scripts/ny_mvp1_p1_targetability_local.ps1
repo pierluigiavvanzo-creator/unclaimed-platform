@@ -11,14 +11,18 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-python scripts/ny_mvp1_p1_targetability_execute.py `
-    --archive $Archive `
-    --local-file-gate $LocalFileGate `
-    --l1-pii-gate $L1PiiGate `
-    --preflight-gate $PreflightGate `
-    --l1-execution-gate $L1ExecutionGate `
-    --preflight-receipt $PreflightReceipt `
-    --runner-checkpoint $RunnerCheckpoint `
-    --authorized-download-started-at-utc $AuthorizedDownloadStartedAtUtc
+# Compatibility wrapper. The canonical active gate entrypoint is scripts/ny_osc_gate.ps1.
+$CanonicalGate = Join-Path $PSScriptRoot "ny_osc_gate.ps1"
+$GateArgs = @{
+    Archive = $Archive
+    LocalFileGate = $LocalFileGate
+    L1PiiGate = $L1PiiGate
+    PreflightGate = $PreflightGate
+    L1ExecutionGate = $L1ExecutionGate
+    PreflightReceipt = $PreflightReceipt
+    RunnerCheckpoint = $RunnerCheckpoint
+    AuthorizedDownloadStartedAtUtc = $AuthorizedDownloadStartedAtUtc
+}
 
+& $CanonicalGate @GateArgs
 exit $LASTEXITCODE
