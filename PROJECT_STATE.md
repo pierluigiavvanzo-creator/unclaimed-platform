@@ -920,3 +920,59 @@ All seven real-P1 gates remain `NOT_GRANTED`.
 
 No source access, PII processing, bank application, provider purchase, filing or payment is authorized by this checkpoint.
 
+---
+
+## Repository consolidation checkpoint — 2026-10-09
+
+Product Owner directed three maintenance actions:
+
+1. archive historical audits;
+2. unify NY OSC runner/gate operational surfaces;
+3. align shared governance to AGENTS_MASTER v2.2.
+
+Implemented on isolated branch:
+
+`repo-consolidation-audits-runners-governance-v22`
+
+### Audit archive
+
+157 point-in-time audit markdown files moved:
+
+`docs/audits/*.md -> docs/archive/*.md`
+
+Active code/test/proposal references were migrated to `docs/archive/`.
+
+A contract guard rejects reintroduction of the retired `docs/audits/` path on active execution/test/proposal surfaces.
+
+Historical evidence records are not rewritten merely to modernize recorded provenance.
+
+### Runner / gate consolidation
+
+Current active Stage B execution surface:
+
+`scripts/ny_osc_gate.ps1`
+`-> scripts/ny_mvp1_p1_targetability_execute.py`
+`-> ny_owner_name_p1_targetability_local.py`
+
+`scripts/ny_mvp1_p1_targetability_local.ps1` is compatibility-only and forwards to the canonical gate.
+
+Historical attempts 1-11 are registered centrally by:
+
+`src/unclaimed_platform/adapters/sources/ny_owner_name_runner_registry.py`
+
+All are explicitly:
+
+`HISTORICAL_CONSUMED_NON_REUSABLE`
+
+Their historical modules/scripts are preserved where rewriting would invalidate checkpoint/provenance meaning.
+
+No P1 authorization state changed. All seven P1 gates remain `NOT_GRANTED`.
+
+### Governance
+
+`AGENTS_MASTER.md` is aligned byte-for-byte to shared v2.2 source used by ForgeLab/GrantOps as of 2026-10-08.
+
+This maintenance does not alter the product critical path:
+
+`FORM US CONTROLLER -> BIND FACTS -> PROFESSIONAL REVIEW -> FRESH 7-GATE PACKET -> ONE REAL P1`
+
