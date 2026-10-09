@@ -351,7 +351,7 @@ Artifacts:
 - sources/proposals/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.v1.json
 - schemas/common/ny_mvp1_real_p1_controller_legal_basis_transparency_readiness.schema.json
 - tests/contract/test_ny_mvp1_real_p1_legal_readiness_contract.py
-- docs/audits/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
+- docs/archive/NY_MVP1_REAL_P1_CONTROLLER_LEGAL_BASIS_TRANSPARENCY_READINESS_REVIEW.md
 
 Result:
 
@@ -425,7 +425,7 @@ Acceleration artifacts:
 - sources/proposals/ny_mvp1_stage_b_pilot_p1_acceleration.v1.json
 - schemas/common/ny_mvp1_stage_b_pilot_p1_acceleration.schema.json
 - tests/contract/test_ny_mvp1_stage_b_acceleration_contract.py
-- docs/audits/NY_MVP1_STAGE_B_PILOT_P1_ACCELERATION_REVIEW.md
+- docs/archive/NY_MVP1_STAGE_B_PILOT_P1_ACCELERATION_REVIEW.md
 
 Offline runner improvement:
 
@@ -481,7 +481,7 @@ Artifacts:
 - sources/proposals/ny_mvp1_stage_b_l2a_manual_provider_review.v1.json
 - schemas/common/ny_mvp1_stage_b_l2a_manual_provider_review.schema.json
 - tests/contract/test_ny_mvp1_stage_b_us_controller_l2a_manual_review.py
-- docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md
+- docs/archive/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md
 
 Controller result:
 
@@ -551,7 +551,7 @@ All seven P1 gates remain NOT_GRANTED.
 
 Artifact:
 
-docs/audits/MVP1_COMPETITIVE_MOAT_GATE_2026-09-24.md
+docs/archive/MVP1_COMPETITIVE_MOAT_GATE_2026-09-24.md
 
 Result:
 
@@ -627,7 +627,7 @@ These artifacts do not authorize source access, PII processing, external PII que
 
 Artifact:
 
-docs/audits/TECHNICAL_PLATFORM_AUDIT_2026-09-25.md
+docs/archive/TECHNICAL_PLATFORM_AUDIT_2026-09-25.md
 
 Finding:
 
@@ -689,7 +689,7 @@ This parallel UX work does not displace the Stage B critical path.
 
 Artifact:
 
-docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+docs/archive/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
 
 Result:
 
@@ -729,7 +729,7 @@ Artifacts:
 
 - benchmarks/entity_resolution_v1/benchmark.py
 - benchmarks/entity_resolution_v1/results.v1.json
-- docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+- docs/archive/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
 
 Candidates:
 
@@ -765,7 +765,7 @@ No entity-resolution package is adopted as production matcher by this V1.
 
 Artifact:
 
-docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+docs/archive/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
 
 Current status:
 
@@ -887,7 +887,7 @@ New offline readiness artifacts prepared:
 - `docs/checklists/US_CONTROLLER_BANKING_READINESS_PACK.md`
 - `docs/templates/US_CONTROLLER_FORMATION_FACT_PACKET_PREP.md`
 - `docs/checklists/US_CONTROLLER_TAX_LEGAL_PREFLIGHT_2026-10-05.md`
-- `docs/audits/UNCLAIMED_P1_FINAL_READINESS_AUDIT_2026-10-05.md`
+- `docs/archive/UNCLAIMED_P1_FINAL_READINESS_AUDIT_2026-10-05.md`
 
 P1 readiness result:
 
