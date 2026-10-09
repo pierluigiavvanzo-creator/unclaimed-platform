@@ -1,4 +1,4 @@
-> **Shared governance v2 — 2026-10-01**
+> **Shared governance v2.2 — 2026-10-08**
 >
 > Read `AGENTS_MASTER.md` before this file. The master governs shared product, economic, marketability and engineering execution. This `AGENTS.md` remains authoritative for Unclaimed-specific architecture, legal/privacy policy, deterministic contracts and human gates. Project-specific rules may tighten the master and must not silently weaken it. Where a Unclaimed legal/privacy/PII gate is stricter, the stricter project rule wins.
 
