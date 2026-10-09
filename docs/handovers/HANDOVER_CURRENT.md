@@ -733,3 +733,40 @@ All seven P1 gates remain `NOT_GRANTED`.
 
 No filing, payment, source access, PII processing, banking application or external buyer outreach is authorized by this update.
 
+---
+
+## Repository consolidation checkpoint — 2026-10-09
+
+Product Owner explicitly requested:
+
+1. move historical audits to `docs/archive/`;
+2. unify runner versions and gate scripts;
+3. align `AGENTS_MASTER.md` to v2.2.
+
+Implementation is prepared in PR #59.
+
+Canonical consolidation decision:
+
+`D-016`
+
+Target active runtime after merge:
+
+- `src/unclaimed_platform/adapters/sources/ny_owner_name_p1_targetability_local.py`;
+- `src/unclaimed_platform/domain/ny_mvp1_p1_authorization.py`;
+- `scripts/ny_mvp1_p1_targetability_execute.py`;
+- `scripts/ny_mvp1_p1_targetability_local.ps1`;
+- seven fresh single-use P1 gate templates/contracts.
+
+Historical Gate 2-11 scripts, transient runner versions and their dedicated tests are retained under `archive/legacy_runtime/ny_osc/` for provenance only.
+
+Historical audits are retained under `docs/archive/audits/`.
+
+Shared governance source:
+
+`pierluigiavvanzo-creator/governance-AGENTS_MASTER.md` — v2.2 — 2026-10-08.
+
+No historical approval becomes reusable.
+
+All seven real-P1 gates remain `NOT_GRANTED`.
+
+No source access, real PII processing or external execution is authorized by the consolidation.
