@@ -19,6 +19,7 @@ class HistoricalRunnerBinding:
     attempt_number: int
     gate_script: str
     runtime_module: str
+    python_entrypoint: str | None = None
     status: HistoricalStatus = "HISTORICAL_CONSUMED_NON_REUSABLE"
 
 
@@ -71,16 +72,19 @@ HISTORICAL_RUNNERS: tuple[HistoricalRunnerBinding, ...] = (
         9,
         "scripts/ny_osc_gate9_transient_local.ps1",
         f"{_BASE_RUNTIME}_v1_6",
+        "scripts/ny_osc_gate9_execute.py",
     ),
     HistoricalRunnerBinding(
         10,
         "scripts/ny_osc_gate10_transient_local.ps1",
         f"{_BASE_RUNTIME}_v1_7",
+        "scripts/ny_osc_gate10_execute.py",
     ),
     HistoricalRunnerBinding(
         11,
         "scripts/ny_osc_gate11_transient_local.ps1",
         f"{_BASE_RUNTIME}_v1_8",
+        "scripts/ny_osc_gate11_execute.py",
     ),
 )
 
