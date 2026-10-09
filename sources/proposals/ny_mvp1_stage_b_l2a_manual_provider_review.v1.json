@@ -115,7 +115,7 @@
   ],
   "provider_binding_template": {
     "provider_id": "google-search-manual-us-v1",
-    "provider_terms_review_ref": "docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md",
+    "provider_terms_review_ref": "docs/archive/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md",
     "approved_external_cash_budget_cents": 0,
     "approved_manual_research_cap_seconds": 900,
     "paid_api_allowed": false,
