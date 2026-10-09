@@ -46,7 +46,7 @@ def test_synthetic_raw_storage_smoke(tmp_path: Path) -> None:
             source_uri="mock://synthetic.raw.smoke",
             authority="Synthetic smoke fixture only",
             acquisition_method="MOCK",
-            terms_review_ref="docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
+            terms_review_ref="docs/archive/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
             retrieved_at="2026-09-13T16:00:00Z",
             source_revision="synthetic-smoke-v1",
         ),
