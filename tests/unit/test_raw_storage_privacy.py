@@ -65,7 +65,7 @@ def governance(
         source_uri="mock://synthetic.raw.source",
         authority="Synthetic test fixture only",
         acquisition_method="MOCK",
-        terms_review_ref="docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
+        terms_review_ref="docs/archive/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
         retrieved_at="2026-09-13T16:00:00Z",
         source_revision="synthetic-v1",
     )
