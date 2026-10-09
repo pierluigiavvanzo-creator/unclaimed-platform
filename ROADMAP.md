@@ -338,7 +338,7 @@ FRONTEND_PRODUCT_UX_V2_CONSOLIDATION
 
 Artifact:
 
-docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+docs/archive/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
 
 Reuse-first result:
 
@@ -358,7 +358,7 @@ Do not add a model adapter before P1/P2 produces enough labelled domain evidence
 
 Artifact:
 
-docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+docs/archive/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
 
 Executed synthetic comparison:
 
@@ -408,7 +408,7 @@ FALLBACK_READY_AWAITING_NORTHWEST_REPLY
 
 Artifact:
 
-docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+docs/archive/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
 
 Purpose:
 
