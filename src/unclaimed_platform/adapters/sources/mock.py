@@ -12,7 +12,7 @@ from .contracts import (
     RawArtifact,
 )
 
-M3_TERMS_REVIEW_REF = "docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md"
+M3_TERMS_REVIEW_REF = "docs/archive/M3_CALIFORNIA_SOURCE_READINESS.md"
 
 
 class DeferredMockSourceAdapter:
