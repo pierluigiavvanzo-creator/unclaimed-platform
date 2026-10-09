@@ -41,6 +41,7 @@ pythonpath = ["src"]
 [tool.ruff]
 target-version = "py311"
 line-length = 100
+exclude = ["archive"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

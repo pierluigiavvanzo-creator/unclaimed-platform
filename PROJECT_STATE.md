@@ -920,3 +920,32 @@ All seven real-P1 gates remain `NOT_GRANTED`.
 
 No source access, PII processing, bank application, provider purchase, filing or payment is authorized by this checkpoint.
 
+---
+
+## Repository consolidation — 2026-10-09
+
+Product Owner authorized repository consolidation.
+
+Decision:
+
+`D-016`
+
+Changes prepared on PR #59:
+
+- superseded audit evidence moved from `docs/audits/` to `docs/archive/audits/`;
+- active `docs/audits/` reduced to decision-relevant current audit artifacts;
+- historical NY OSC transient runner versions removed from the active import/runtime surface and preserved under `archive/legacy_runtime/ny_osc/runners/`;
+- historical Gate 2-11 scripts preserved under `archive/legacy_runtime/ny_osc/gates/`;
+- runner/gate-specific historical tests preserved under `archive/legacy_runtime/ny_osc/tests/`;
+- active NY Stage B P1 runtime remains the D-013 two-pass runner plus seven fresh single-use gates;
+- `AGENTS_MASTER.md` aligned to shared canonical v2.2 dated 2026-10-08.
+
+No real P1 gate was granted or consumed by this repository cleanup.
+
+Current active runtime remains:
+
+`ny_owner_name_p1_targetability_local.py -> ny_mvp1_p1_authorization.py -> ny_mvp1_p1_targetability_execute.py / ny_mvp1_p1_targetability_local.ps1`
+
+All seven real-P1 gates remain:
+
+`NOT_GRANTED`

@@ -13,7 +13,7 @@ EVIDENCE_PATH = (
 )
 AUDIT_PATH = (
     ROOT
-    / "docs/audits/"
+    / "docs/archive/audits/"
     "M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_"
     "V1_2_REAL_SOURCE_EXECUTION.md"
 )

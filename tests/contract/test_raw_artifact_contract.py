@@ -36,7 +36,7 @@ def valid_record() -> dict[str, object]:
         "retrieved_at": "2026-09-13T16:00:00Z",
         "source_revision": "synthetic-v1",
         "approval_reference": None,
-        "terms_review_ref": "docs/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
+        "terms_review_ref": "docs/archive/audits/M3_RAW_STORAGE_PRIVACY_REUSE_FIRST.md",
         "retention_policy_ref": "retention://synthetic-test/v1",
         "processing_purpose": "SYNTHETIC_RAW_STORAGE_TEST",
         "governance_policy_id": "raw.synthetic.test",
