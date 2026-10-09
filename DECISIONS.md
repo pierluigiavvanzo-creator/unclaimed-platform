@@ -560,3 +560,39 @@ Consequences:
 - no real PII, production write path, P1 gate or source access is enabled by this decision;
 - frontend consolidation remains parallel/non-critical and must not displace the Stage B controller/LLC blocker.
 
+---
+
+## D-016 — Active P1 runtime is canonical; historical NY OSC runners/gates and superseded audits are archived
+
+Date: 2026-10-09
+
+Status: Accepted by Product Owner
+
+Context:
+The repository accumulated a long, evidence-preserving sequence of NY OSC bounded attempts, Gate 2-11 scripts, transient-local runner versions and audit artifacts. Those files were valuable while the execution design was being discovered, but keeping every historical runtime and every superseded audit in active locations created ambiguity, duplicate maintenance paths and unnecessary cognitive load. The current Stage B architecture is already governed by D-013 and uses a separate two-pass P1 runner with seven fresh single-use gates.
+
+Decision:
+1. keep only current decision-relevant audit artifacts under `docs/audits/`;
+2. move superseded/historical audit evidence to `docs/archive/audits/` without deleting provenance;
+3. remove NY OSC Gate 2-11 scripts and transient runner versions from the active runtime surface and preserve them under `archive/legacy_runtime/ny_osc/`;
+4. treat the following as the only active NY Stage B P1 runtime:
+   - `src/unclaimed_platform/adapters/sources/ny_owner_name_p1_targetability_local.py`;
+   - `src/unclaimed_platform/domain/ny_mvp1_p1_authorization.py`;
+   - `scripts/ny_mvp1_p1_targetability_execute.py`;
+   - `scripts/ny_mvp1_p1_targetability_local.ps1`;
+   - the seven fresh single-use P1 gate templates/contracts;
+5. historical Gate 2-11 approvals remain consumed/non-reusable and cannot be reactivated by moving files back;
+6. tests whose only purpose is to validate archived historical runner/gate implementations move with the legacy runtime and no longer form part of the active CI surface;
+7. current canonical docs/code/tests must reference archived audit evidence through `docs/archive/audits/` when that historical evidence is still needed;
+8. align Unclaimed shared governance to canonical `AGENTS_MASTER.md` v2.2 from the shared governance repository.
+
+Reason:
+This reduces runtime ambiguity and maintenance burden while preserving forensic/history evidence. It makes one current execution path obvious and prevents superseded attempt-specific code from being mistaken for reusable authorization or current product architecture.
+
+Consequences:
+- provenance is preserved, not deleted;
+- active CI focuses on current runtime/product contracts rather than consumed attempt implementations;
+- historical evidence remains inspectable under archive paths;
+- any reactivation of a legacy runner/gate requires a new explicit Product Owner decision and fresh legal/privacy/execution review;
+- D-013 remains the active P1 execution architecture;
+- all seven real P1 gates remain NOT_GRANTED.
