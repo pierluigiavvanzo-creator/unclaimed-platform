@@ -17,7 +17,7 @@ NY_OSC_AUTHORITY = (
     "New York State Office of the State Comptroller, Office of Unclaimed Funds"
 )
 NY_SOURCE_CONTRACT_REF = "policies/states/NY/ny_osc_owner_name_file.v1.json"
-NY_BENCHMARK_REF = "docs/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md"
+NY_BENCHMARK_REF = "docs/archive/audits/MVP1_ALTERNATIVE_LAWFUL_REAL_SOURCE_PATHS_BENCHMARK.md"
 
 
 class NewYorkOSCOwnerNameFileAdapter:
