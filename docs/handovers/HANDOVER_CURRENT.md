@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-09-25
+Last updated: 2026-10-09
 
 ## 1. CURRENT MODE
 
@@ -14,13 +14,17 @@ Canonical branch:
 
 main
 
-Latest verified canonical main checkpoint before this documentation update:
+Latest verified canonical main checkpoint before this remediation:
 
-bd044185814c12d143f4cfcbef389b4a61037aa5
+ab18acf9cdb583742d921564b7b3f0cb43e323f8
 
-Post-merge CI:
+Verified main CI:
 
-36054428228 — SUCCESS
+37979617382 — SUCCESS
+
+Verified governance-copy:
+
+37979617418 — SUCCESS
 
 Always verify the live remote `main` HEAD and latest CI before modifying the repository.
 
@@ -732,4 +736,115 @@ After formation:
 All seven P1 gates remain `NOT_GRANTED`.
 
 No filing, payment, source access, PII processing, banking application or external buyer outreach is authorized by this update.
+
+---
+
+## 18. INDEPENDENT REVIEW OF CLAUDE CONSOLIDATION + REMEDIATION — 2026-10-09
+
+### Review baseline
+
+Canonical `main` reviewed:
+
+`ab18acf9cdb583742d921564b7b3f0cb43e323f8`
+
+Verified Actions:
+
+- `ci` — `37979617382` — SUCCESS;
+- `governance-copy` — `37979617418` — SUCCESS.
+
+### Review conclusion
+
+`CLAUDE_CONSOLIDATION = SUBSTANTIALLY_CORRECT_WITH_REMEDIATION_REQUIRED`
+
+The three requested objectives were materially implemented:
+
+1. historical audit markdown files were moved from `docs/audits/` to `docs/archive/`;
+2. a canonical current NY OSC gate/runner surface was introduced while preserving consumed historical runner provenance;
+3. `AGENTS_MASTER.md` was aligned to shared governance v2.2.
+
+Direct verification established:
+
+- `docs/audits/` has no remaining entries;
+- 158 markdown files exist under `docs/archive/`, including the archive README;
+- the moved point-in-time audits remain available for provenance;
+- the historical runner registry maps attempts 1-11 to the preserved Gate 2-11 scripts;
+- attempts 9-11 use their separate Python execute entrypoints before the historical runtime modules;
+- the current active PowerShell surface is `scripts/ny_osc_gate.ps1`;
+- `scripts/ny_mvp1_p1_targetability_local.ps1` is compatibility-only;
+- the body of project `AGENTS_MASTER.md` is byte-for-byte equal to the canonical governance source;
+- canonical governance source commit verified: `6c798b4318ee73052981f1ef08115f95f470be68`.
+
+### Defects found
+
+Independent review found four material cleanup gaps:
+
+1. `AGENTS.md` still referred to retired `docs/audits/` paths;
+2. `README.md` still described the obsolete historical Gate 7 state and therefore contradicted the current seven `NOT_GRANTED` P1 gates;
+3. the historical runner registry did not encode/verify the Gate 9-11 Python-entrypoint indirection;
+4. `.github/workflows/governance-copy.yml` checked only the generated file's self-hash, not equality with the actual canonical governance repository.
+
+### Remediation prepared
+
+Branch:
+
+`remediation-repo-consolidation-2026-10-09`
+
+Pull request:
+
+`#60 — Remediation: harden audit archive, runner lineage and governance sync`
+
+Remediation includes:
+
+- `AGENTS.md` v1.1 with correct `docs/archive/` references;
+- explicit Unclaimed execution constraint: normal ChatGPT chat; no Work/Codex absent a new Product Owner authorization;
+- current Stage B README replacing obsolete Gate 7 status;
+- stronger archive path regression guard including root canonical docs;
+- current README-state regression test;
+- runner registry with explicit Python entrypoints for attempts 9-11;
+- machine test proving registry bindings correspond to the preserved scripts/entrypoints;
+- governance CI that compares the generated `AGENTS_MASTER.md` body against the live canonical governance repository;
+- `docs/runbooks/NY_OSC_RUNNER_SURFACE.md`;
+- PROJECT_STATE review/remediation checkpoint.
+
+No historical runner, consumed approval or hash-bound sixth-attempt authorization was rewritten merely to simplify the tree.
+
+### Current authorization state
+
+All seven real P1 gates remain:
+
+`NOT_GRANTED`
+
+No remote preflight, download, real PII processing, external PII query, outreach, value research, representation or claim action is authorized.
+
+### Controller / provider state
+
+Current Product Owner preferred bootstrap strategy:
+
+`DOOLA_YEAR_1_BOOTSTRAP_THEN_MIGRATE_TO_LOWER_COST_PROVIDER`
+
+The preference is based on the current formation/EIN/banking-support package and written exit/Registered-Agent answers.
+
+Still not authorized:
+
+`DOOLA_PAYMENT = NOT_AUTHORIZED`
+
+`LLC_FILING = NOT_AUTHORIZED`
+
+Before payment/file submission, inspect the exact current checkout, optional add-ons, renewal, state fee and cancellation terms.
+
+### Authoritative next actions
+
+**Repository action:**
+
+`HUMAN_REVIEW_AND_MERGE_PR_60_IF_CI_SUCCESS`
+
+**Product action after repository remediation:**
+
+`HUMAN_REVIEW_DOOLA_FINAL_CHECKOUT_AND_DECIDE_FORMATION`
+
+If formation is explicitly authorized and completed:
+
+`BIND CONTROLLER FACTS -> PROFESSIONAL REVIEW -> RECHECK BANKING -> FRESH 7-GATE PACKET -> ONE REAL P1 -> HUMAN ECONOMIC REVIEW -> C1 BUYER VALIDATION`
+
+Do not resume broad source expansion or new platform building before the Stage B evidence justifies it.
 
