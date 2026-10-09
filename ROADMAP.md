@@ -604,3 +604,23 @@ Still frozen before evidence:
 
 The next value is operational evidence, not code volume.
 
+---
+
+## Technical consolidation — historical runtime ambiguity resolved — 2026-10-09
+
+Product Owner triggered and authorized the historical-runtime consolidation condition.
+
+Prepared under D-016 / PR #59:
+
+- one active NY Stage B P1 runner path;
+- Gate 2-11 and transient-local runner versions moved to legacy archive;
+- superseded audit chain moved to documentation archive;
+- AGENTS_MASTER synchronized to shared v2.2.
+
+This cleanup does not advance or authorize real P1.
+
+After consolidation, do not recreate attempt-numbered active runners or gate scripts. Extend the canonical P1 runtime only when a current product/legal requirement demands it.
+
+The product-critical sequence remains:
+
+`US CONTROLLER -> BIND FACTS -> PROFESSIONAL REVIEW -> FRESH SEVEN-GATE PACKET -> ONE REAL P1 -> ECONOMIC REVIEW`
