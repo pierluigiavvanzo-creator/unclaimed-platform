@@ -460,7 +460,7 @@ CI:
 
 Technical audit artifact:
 
-docs/audits/TECHNICAL_PLATFORM_AUDIT_2026-09-25.md
+docs/archive/TECHNICAL_PLATFORM_AUDIT_2026-09-25.md
 
 Frontend design artifact:
 
@@ -508,7 +508,7 @@ explicitly notify the Product Owner when P1->P2 continuation, real-PII web acces
 
 Decision-engine audit artifact:
 
-docs/audits/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
+docs/archive/DECISION_ENGINE_BENCHMARK_AUDIT_V1_OFFLINE.md
 
 Decision-engine audit result:
 
@@ -526,7 +526,7 @@ Current engine guidance:
 
 Entity-resolution benchmark artifact:
 
-docs/audits/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
+docs/archive/ENTITY_RESOLUTION_REUSE_BENCHMARK_V1_OFFLINE.md
 
 Entity-resolution benchmark checkpoint:
 
@@ -555,7 +555,7 @@ if branch/baseline confusion, repeated forgotten constraints, repeated rejected 
 
 Formation-provider fallback benchmark:
 
-docs/audits/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
+docs/archive/US_CONTROLLER_PROVIDER_FALLBACK_BENCHMARK_2026-09-25.md
 
 Status:
 
@@ -683,7 +683,7 @@ Prepared offline:
 - `docs/checklists/US_CONTROLLER_BANKING_READINESS_PACK.md`
 - `docs/templates/US_CONTROLLER_FORMATION_FACT_PACKET_PREP.md`
 - `docs/checklists/US_CONTROLLER_TAX_LEGAL_PREFLIGHT_2026-10-05.md`
-- `docs/audits/UNCLAIMED_P1_FINAL_READINESS_AUDIT_2026-10-05.md`
+- `docs/archive/UNCLAIMED_P1_FINAL_READINESS_AUDIT_2026-10-05.md`
 
 P1 audit result:
 
