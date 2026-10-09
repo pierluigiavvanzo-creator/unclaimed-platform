@@ -151,7 +151,7 @@ LLM/provider esterni devono stare dietro adapter. Nessun dominio deve dipendere 
 │       │   ├── hypotheses/
 │       │   ├── people/
 │       │   └── economics/
-│       ├── agents/
+│       ├── agents/             # pianificati: le sottocartelle aNN_* si creano solo quando l'agente viene implementato
 │       │   ├── a01_acquisition/
 │       │   ├── a02_normalization/
 │       │   ├── a03_insurance/
@@ -192,7 +192,7 @@ LLM/provider esterni devono stare dietro adapter. Nessun dominio deve dipendere 
 │   ├── unit/
 │   ├── contract/
 │   ├── integration/
-│   ├── golden/
+│   ├── golden/             # pianificati (integration/golden/adversarial/security): creare con il primo test
 │   ├── adversarial/
 │   ├── security/
 │   └── smoke/
