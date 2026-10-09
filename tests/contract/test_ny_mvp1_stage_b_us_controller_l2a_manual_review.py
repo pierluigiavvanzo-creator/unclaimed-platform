@@ -75,7 +75,7 @@ def test_provider_binding_template_matches_existing_zero_spend_contract() -> Non
     assert binding == {
         "provider_id": "google-search-manual-us-v1",
         "provider_terms_review_ref": (
-            "docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md"
+            "docs/archive/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md"
         ),
         "approved_external_cash_budget_cents": 0,
         "approved_manual_research_cap_seconds": 900,
