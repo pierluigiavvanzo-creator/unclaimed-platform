@@ -6,11 +6,13 @@
 
 # AGENTS.md — Unclaimed Life Insurance Intelligence Platform
 
-**Versione:** 1.0  
-**Data:** 2026-09-11  
+**Versione:** 1.1  
+**Data:** 2026-10-09  
 **Stato:** Development Operating Contract  
 **Owner umano:** Product Owner  
 **Baseline funzionale:** MANIFEST_V2 + AUDIT_V2 + MANIFEST_V2_ADDENDUM, con risoluzione collisione ID agenti.
+
+**Execution surface:** per esplicita decisione del Product Owner, questo progetto si sviluppa in normale ChatGPT chat. Non usare Work o Codex salvo nuova autorizzazione esplicita del Product Owner. Le sezioni vendor-specific presenti nel master v2.2 non costituiscono autorizzazione a usare tali superfici.
 
 ---
 
@@ -135,7 +137,7 @@ LLM/provider esterni devono stare dietro adapter. Nessun dominio deve dipendere 
 │   ├── manifest/
 │   ├── handovers/
 │   ├── decisions/          # ADR
-│   └── audits/
+│   └── archive/           # audit/review point-in-time storici; non operating truth corrente
 ├── src/
 │   └── unclaimed_platform/
 │       ├── api/
@@ -243,7 +245,7 @@ Cercare almeno:
 - librerie PyPI mature;
 - reference implementation ufficiali;
 - componenti già presenti nel repository;
-- precedenti benchmark registrati in `docs/audits/` o `docs/decisions/`.
+- precedenti benchmark registrati in `docs/archive/` o `docs/decisions/`.
 
 ## 6.2 Criteri di valutazione
 
