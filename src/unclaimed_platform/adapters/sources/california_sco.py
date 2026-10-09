@@ -11,7 +11,7 @@ from .contracts import (
 
 CA_SCO_BULK_SOURCE_ID = "ca.sco.unclaimed_property.bulk"
 CA_SCO_DOWNLOAD_PAGE = "https://www.sco.ca.gov/upd_download_property_records.html"
-M3_TERMS_REVIEW_REF = "docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md"
+M3_TERMS_REVIEW_REF = "docs/archive/audits/M3_CALIFORNIA_SOURCE_READINESS.md"
 
 
 class CaliforniaSCOBulkAdapter:
