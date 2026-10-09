@@ -136,7 +136,7 @@
     "legal_privacy_boundary": {
       "const": {
         "purpose": "ARCHIVE_OFFICIAL_PUBLIC_AUTHORITY_DOCUMENT_FOR_PROVENANCE_REVIEW_ONLY",
-        "existing_readiness_audit": "docs/audits/M3_CALIFORNIA_SOURCE_READINESS.md",
+        "existing_readiness_audit": "docs/archive/M3_CALIFORNIA_SOURCE_READINESS.md",
         "personal_record_acquisition_allowed": false,
         "unclaimed_property_row_access_allowed": false,
         "property_id_access_allowed": false,

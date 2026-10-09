@@ -68,7 +68,7 @@
     },
     "evidence_basis": {
       "const": {
-        "documented_layout_audit_path": "docs/audits/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md",
+        "documented_layout_audit_path": "docs/archive/NY_OSC_OWNER_NAME_FILE_FIRST_SCHEMA_DISCOVERY_HARNESS_OFFLINE.md",
         "documented_delimiter": "|",
         "documented_field_count": 14,
         "fifth_execution_result_path": "sources/evidence/ny_osc_owner_name_file_fifth_attempt_execution_result.v1.json",

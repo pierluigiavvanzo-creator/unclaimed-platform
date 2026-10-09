@@ -15,9 +15,9 @@
     "diagnostic_execution_evidence": "sources/evidence/ca_sco_segment_500_plus.property_type_diagnostic.execution.v1.json",
     "diagnostic_result_status": "DIAGNOSTIC_CLASSIFIED",
     "diagnostic_class": "ASCII_STRUCTURAL_MISMATCH",
-    "diagnostic_evidence_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW.md",
+    "diagnostic_evidence_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_DIAGNOSTIC_EVIDENCE_REVIEW.md",
     "diagnostic_evidence_review_decision": "PASS_SOURCE_FORMAT_DIAGNOSTIC_PROPOSAL_JUSTIFIED_NO_REMEDIATION_AUTHORIZED",
-    "authority_review_audit": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md",
+    "authority_review_audit": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_AUTHORITY_ARCHIVE_PROVENANCE_REVIEW.md",
     "authority_review_decision": "ARCHIVED_AUTHORITY_RESOLVES_TARGET_PROVENANCE_SOURCE_SEMANTIC_MISMATCH_REMAINS"
   },
   "established_facts": [

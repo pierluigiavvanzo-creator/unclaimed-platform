@@ -260,7 +260,7 @@
           "const": "google-search-manual-us-v1"
         },
         "provider_terms_review_ref": {
-          "const": "docs/audits/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md"
+          "const": "docs/archive/NY_MVP1_STAGE_B_US_CONTROLLER_L2A_MANUAL_PROVIDER_REVIEW.md"
         },
         "approved_external_cash_budget_cents": {
           "const": 0

@@ -6,6 +6,12 @@ ROOT = Path(__file__).resolve().parents[2]
 STALE_POSIX = "docs" + "/audits/"
 STALE_WINDOWS = "docs" + "\\audits\\"
 
+# Hash-bound to the consumed sixth-attempt checkpoint (see test_ny_osc_gate6_runner_static
+# PROTECTED_PATHS): their historical docs/audits references must stay byte-identical.
+IMMUTABLE_HISTORICAL = {
+    Path("sources/proposals/ny_osc_owner_name_file_sixth_bounded_attempt_authorization.v1.json"),
+}
+
 
 def test_historical_audits_live_only_in_docs_archive() -> None:
     old_dir = ROOT / "docs" / "audits"
@@ -36,6 +42,8 @@ def test_active_surfaces_do_not_reference_removed_docs_audits_path() -> None:
             try:
                 content = path.read_text(encoding="utf-8")
             except UnicodeDecodeError:
+                continue
+            if path.relative_to(ROOT) in IMMUTABLE_HISTORICAL:
                 continue
             if STALE_POSIX in content or STALE_WINDOWS in content:
                 stale.append(str(path.relative_to(ROOT)))

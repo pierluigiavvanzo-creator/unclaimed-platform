@@ -16,8 +16,8 @@
   },
   "evidence_basis": {
     "execution_evidence_ref": "sources/evidence/ca_sco_segment_500_plus.property_type_semantic.execution.v1_2.real_source_once.json",
-    "execution_audit_ref": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md",
-    "evidence_review_ref": "docs/audits/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md",
+    "execution_audit_ref": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION.md",
+    "evidence_review_ref": "docs/archive/M3_CA_SCO_PROPERTY_TYPE_NONCONFORMING_ROW_HANDLING_POLICY_V1_2_REAL_SOURCE_EXECUTION_EVIDENCE_REVIEW.md",
     "execution_result": {
       "semantic_result_status": "STOPPED_FAIL_CLOSED",
       "stop_reason": "TRANSPORT_METADATA_DRIFT",
