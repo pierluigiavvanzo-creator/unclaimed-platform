@@ -13,15 +13,16 @@ $ErrorActionPreference = "Stop"
 
 # Compatibility wrapper. The canonical active gate entrypoint is scripts/ny_osc_gate.ps1.
 $CanonicalGate = Join-Path $PSScriptRoot "ny_osc_gate.ps1"
+$GateArgs = @{
+    Archive = $Archive
+    LocalFileGate = $LocalFileGate
+    L1PiiGate = $L1PiiGate
+    PreflightGate = $PreflightGate
+    L1ExecutionGate = $L1ExecutionGate
+    PreflightReceipt = $PreflightReceipt
+    RunnerCheckpoint = $RunnerCheckpoint
+    AuthorizedDownloadStartedAtUtc = $AuthorizedDownloadStartedAtUtc
+}
 
-& $CanonicalGate \
-    -Archive $Archive \
-    -LocalFileGate $LocalFileGate \
-    -L1PiiGate $L1PiiGate \
-    -PreflightGate $PreflightGate \
-    -L1ExecutionGate $L1ExecutionGate \
-    -PreflightReceipt $PreflightReceipt \
-    -RunnerCheckpoint $RunnerCheckpoint \
-    -AuthorizedDownloadStartedAtUtc $AuthorizedDownloadStartedAtUtc
-
+& $CanonicalGate @GateArgs
 exit $LASTEXITCODE
