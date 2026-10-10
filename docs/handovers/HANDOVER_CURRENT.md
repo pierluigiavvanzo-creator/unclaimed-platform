@@ -1,6 +1,6 @@
 # HANDOVER_CURRENT.md
 
-Last updated: 2026-10-09
+Last updated: 2026-10-10
 
 ## 1. CURRENT MODE
 
@@ -783,7 +783,20 @@ Independent review found four material cleanup gaps:
 3. the historical runner registry did not encode/verify the Gate 9-11 Python-entrypoint indirection;
 4. `.github/workflows/governance-copy.yml` checked only the generated file's self-hash, not equality with the actual canonical governance repository.
 
-### Remediation prepared
+### Remediation validated
+
+PR #60 remediation HEAD:
+
+`aef1b2aa9383227cf44190b72e3e67f4e394be5f`
+
+Verified PR-head Actions:
+
+- `ci` — `37982740923` — SUCCESS;
+- `governance-copy` — `37982741026` — SUCCESS.
+
+Result:
+
+`REMEDIATION_VERIFIED_READY_FOR_HUMAN_MERGE_DECISION`
 
 Branch:
 
@@ -836,7 +849,7 @@ Before payment/file submission, inspect the exact current checkout, optional add
 
 **Repository action:**
 
-`HUMAN_REVIEW_AND_MERGE_PR_60_IF_CI_SUCCESS`
+`HUMAN_REVIEW_AND_MERGE_PR_60`
 
 **Product action after repository remediation:**
 
