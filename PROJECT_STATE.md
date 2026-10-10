@@ -976,3 +976,75 @@ This maintenance does not alter the product critical path:
 
 `FORM US CONTROLLER -> BIND FACTS -> PROFESSIONAL REVIEW -> FRESH 7-GATE PACKET -> ONE REAL P1`
 
+---
+
+## Independent consolidation review + remediation — 2026-10-09
+
+Review baseline:
+
+`main = ab18acf9cdb583742d921564b7b3f0cb43e323f8`
+
+Verified GitHub Actions:
+
+- `ci` run `37979617382` — SUCCESS;
+- `governance-copy` run `37979617418` — SUCCESS.
+
+### What Claude's consolidation got right
+
+- `docs/audits/` has been retired;
+- 157 historical point-in-time audit/review markdown files were moved to `docs/archive/`; with `docs/archive/README.md`, the archive contains 158 markdown files;
+- active test/code/proposal/policy/schema references required by the repository were migrated to the archive path;
+- one hash-bound historical sixth-attempt authorization artifact remains an intentional immutable exception to path rewriting;
+- the current P1 PowerShell surface is `scripts/ny_osc_gate.ps1`;
+- `scripts/ny_mvp1_p1_targetability_local.ps1` is compatibility-only;
+- historical Gate 2-11 scripts remain preserved for provenance and are classified consumed/non-reusable;
+- `AGENTS_MASTER.md` body is byte-for-byte identical to the canonical governance v2.2 source at governance commit `6c798b4318ee73052981f1ef08115f95f470be68`.
+
+### Defects found by independent review
+
+1. `AGENTS.md` still described `docs/audits/` as an active repository path and benchmark source.
+2. `README.md` still reported the obsolete seventh-gate state, including consumed historical approval language inconsistent with the current seven P1 gates being `NOT_GRANTED`.
+3. the historical runner registry did not encode the intermediate Python entrypoints used by attempts 9-11, so lineage correctness was asserted but not fully machine-checked.
+4. `governance-copy.yml` verified only the generated file's self-declared body hash; it did not verify equality with the actual canonical governance repository.
+
+### Remediation
+
+Prepared on:
+
+`remediation-repo-consolidation-2026-10-09`
+
+Changes:
+
+- corrected `AGENTS.md` archive paths and made the project-level ChatGPT-chat / no-Work / no-Codex rule explicit;
+- replaced stale README operating status with current Stage B facts;
+- expanded the runner registry with Python entrypoint provenance for attempts 9-11;
+- added registry/file consistency tests;
+- expanded archive-path guards to canonical root docs;
+- added a README current-state contract test;
+- hardened governance CI to compare `AGENTS_MASTER.md` against the live canonical governance repository;
+- added `docs/runbooks/NY_OSC_RUNNER_SURFACE.md`.
+
+No historical approval was reactivated or reused.
+
+All seven P1 gates remain:
+
+`NOT_GRANTED`
+
+### Formation-provider operating preference
+
+Current Product Owner preference:
+
+`PREFERRED_BOOTSTRAP_PATH = DOOLA_YEAR_1_THEN_MIGRATE_TO_LOWER_COST_PROVIDER`
+
+Reason:
+
+use higher-touch formation/EIN/banking guidance during bootstrap, then reduce recurring administrative cost after the first year.
+
+This is a provider preference only.
+
+`FORMATION_PAYMENT = NOT_AUTHORIZED`
+
+`FILING = NOT_AUTHORIZED`
+
+Next formation action remains a final checkout/terms review before any payment or filing.
+

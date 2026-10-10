@@ -1,72 +1,86 @@
 # Unclaimed Insurance Platform
 
-Traceable, human-gated platform for turning lawful unclaimed-life-insurance data into reviewable economic cases.
+Traceable, human-gated platform for turning lawful unclaimed-asset data into reviewable targetability and economic decisions.
 
 ## Current product objective
 
-The project is in **MVP-1 — First Economically Actionable Case**.
+The project is in **PRODUCT VALIDATION / STAGE B PILOT P1**.
 
-The governing product path is:
+Long-term target:
 
-`ONE AUTHORIZED REAL SOURCE -> ONE BOUNDED VERTICAL SLICE -> ONE REVIEWABLE ECONOMIC RESULT`
+`UNITED STATES + CANADA MULTI-REGISTRY UNCLAIMED-ASSET INTELLIGENCE AND RECOVERY OPERATING PLATFORM`
 
-Expanded vertical slice:
+Current Stage B experiment:
 
-`AUTHORIZED REAL SOURCE`
-`-> bounded acquisition`
-`-> normalization`
-`-> insurance classification`
-`-> candidate case`
-`-> provenance / evidence`
-`-> case economics`
-`-> reviewer`
-`-> human GO / REVISE / STOP`
+`ONE AUTHORIZED REAL SOURCE -> ONE TARGETABLE BOUNDED CASE -> ONE REVIEWABLE ECONOMIC RESULT`
 
-Tests, governance artifacts, source diagnostics and architecture are supporting controls, not product outcomes.
+New York OSC is the first validated source adapter / experiment anchor. It is not the permanent product boundary.
 
-## Current status — 2026-09-22
+## Current status — 2026-10-09
 
-The deterministic core, versioned contracts, source adapters, NY OSC real-capable runtime, Gate 7, reviewer API/Streamlit and synthetic MVP-1 slice are implemented and tested.
+The deterministic contracts, controller fact binder, two-pass bounded P1 runner, single-use authorization contracts, reviewer surfaces and synthetic tests are implemented.
 
-The current NY path has reached:
+Current factual state:
 
-- synthetic RAW-literal runtime integration: **IMPLEMENTED + REVIEWED PASS**;
-- seventh real-runtime package: **IMPLEMENTED + REVIEWED PASS**;
-- seventh transient-local retention approval: **GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE**;
-- seventh transient-PII approval: **GRANTED_NOT_CONSUMED / SINGLE_USE / NON_REUSABLE**;
-- fresh listing preflight: **NOT YET AUTHORIZED / NOT PERFORMED**;
-- final execution authorization: **NOT YET GRANTED**;
-- real bounded execution: **NOT YET PERFORMED**;
-- real candidate/economics/reviewer result: **NOT YET PRODUCED**.
+- U.S. controller entity: **NOT_YET_FORMED**;
+- all seven real-P1 gates: **NOT_GRANTED**;
+- real NY OSC preflight: **NOT AUTHORIZED / NOT PERFORMED**;
+- real source download: **NOT AUTHORIZED**;
+- real candidate materialization: **NOT AUTHORIZED**;
+- real owner PII processing: **NOT AUTHORIZED**;
+- real P1 result: **NOT YET PRODUCED**;
+- commercial evidence: **C0 — HYPOTHESIS**.
 
-No approval is inferred from another gate.
+No historical approval is reusable.
+
+The current product-critical path is:
+
+`FORM US CONTROLLER -> BIND FACTS -> PROFESSIONAL REVIEW -> FRESH 7-GATE PACKET -> ONE REAL P1 -> HUMAN ECONOMIC REVIEW -> C1 BUYER VALIDATION`
+
+## Repository consolidation — 2026-10-09
+
+Historical point-in-time audits/reviews now live under:
+
+`docs/archive/`
+
+The legacy audit directory is retired and must not be reintroduced.
+
+Current NY OSC execution surface:
+
+`scripts/ny_osc_gate.ps1`
+`-> scripts/ny_mvp1_p1_targetability_execute.py`
+`-> src/unclaimed_platform/adapters/sources/ny_owner_name_p1_targetability_local.py`
+
+Historical Gate 2–11 scripts and versioned transient runners are retained only because they are part of consumed historical provenance. They are **not current execution entrypoints and their approvals are not reusable**.
+
+Canonical runner lineage metadata:
+
+`src/unclaimed_platform/adapters/sources/ny_owner_name_runner_registry.py`
+
+Shared governance:
+
+`AGENTS_MASTER.md v2.2`
+
+The project-specific `AGENTS.md` remains stricter where required, including the explicit instruction to use normal ChatGPT chat and not Work/Codex unless the Product Owner later changes that rule.
 
 ## Product-focus rule
 
-Until MVP-1 is validated, new governance, source diagnostics, framework expansion, multi-state work, agent expansion, graph infrastructure and UI polish are **frozen by default**.
+Until P1 is completed and reviewed, new broad source integration, agent expansion, production persistence, generic CRM, paid identity-data stacks and non-critical UI expansion are frozen by default.
 
-They may resume only when they directly unblock one of these outcomes:
+Work should directly reduce the time or risk to:
 
-1. authorize one real source lawfully and safely;
-2. execute one bounded real acquisition;
-3. carry the real output through classification/candidate/economics/reviewer;
-4. produce a reviewable economic result or a documented zero-candidate full-pipeline result.
+1. establish the real U.S. controller;
+2. complete required professional legal/tax review;
+3. prepare fresh single-use P1 approvals;
+4. execute one bounded real P1;
+5. measure `TARGETABILITY_DECISION_COST`;
+6. convert the sanitized result into buyer-validation evidence.
 
 The optimization metric is:
 
-`ECONOMIC VALUE x USABLE PRODUCT VALUE / USER TIME`
+`ECONOMIC VALUE × USABLE PRODUCT VALUE / PRODUCT OWNER TIME`
 
-## Next critical gate
-
-`HUMAN_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT_AUTHORIZATION`
-
-Required Product Owner phrase:
-
-`AUTHORIZE_NY_OSC_SEVENTH_FRESH_LISTING_PREFLIGHT`
-
-That gate authorizes **preflight only**. It does not authorize download, owner-file open or final execution.
-
-## Architecture boundaries that remain binding
+## Safety boundaries
 
 - deterministic policy/state/budget/audit controls;
 - versioned machine contracts;
@@ -74,19 +88,24 @@ That gate authorizes **preflight only**. It does not authorize download, owner-f
 - explicit privacy/source authorization gates;
 - single-use approvals where specified;
 - no silent parser/normalization widening;
-- no owner PII in logs or repository artifacts;
+- no owner PII in logs or public repository artifacts;
+- no paid API/token spend without explicit approval;
 - no outreach, representation or claim activity without later explicit legal/product gates.
 
 ## Canonical project sources
 
 Read in this order:
 
-1. `AGENTS.md`
-2. `PRODUCT_STRATEGY_MVP1.md`
-3. `PROJECT_STATE.md`
-4. `ROADMAP.md`
-5. `DECISIONS.md`
-6. `docs/handovers/HANDOVER_CURRENT.md`
+1. `AGENTS_MASTER.md`
+2. `AGENTS.md`
+3. `PRODUCT_STRATEGY_MVP1.md`
+4. `docs/NORTH_AMERICA_MULTI_REGISTRY_PRODUCT_TARGET_V1.md`
+5. `PROJECT_STATE.md`
+6. `ROADMAP.md`
+7. `DECISIONS.md`
+8. `docs/handovers/HANDOVER_CURRENT.md`
+
+Historical audit/review artifacts under `docs/archive/` are supporting provenance, not current operating truth.
 
 ## Local setup
 
@@ -99,4 +118,4 @@ Set-ExecutionPolicy -Scope Process Bypass
 .\scripts\smoke.ps1
 ```
 
-`main` is the canonical integration branch after the owner-authorized history-preserving reconciliation performed for the product-validation reset.
+`main` is the canonical integration branch. Before any modification or real execution, verify live remote `main`, CI and the current gate state.
